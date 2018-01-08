@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/baseBackgroundColor"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/color_blue_0888ff"
+        android:orientation="horizontal">
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/my_info"
+        style="@style/myFargmentLinearStyle">
+        <TextView
+
+            android:text="@string/my_info"
+            style="@style/myFargmentTextStyle"/>
+
+    </LinearLayout>
+    <view style="@style/lineStyle" />
+    <LinearLayout
+        android:id="@+id/soft_version"
+        style="@style/myFargmentLinearStyle"
+        android:layout_marginBottom="10dp">
+        <TextView
+
+            android:text="@string/soft_version"
+            style="@style/myFargmentTextStyle"/>
+
+        <TextView
+            style="@style/myFargmentImageArrow"
+            android:text="1.0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/user_setting"
+        style="@style/myFargmentLinearStyle">
+        <TextView
+
+            android:text="@string/user_setting"
+            style="@style/myFargmentTextStyle"/>
+
+    </LinearLayout>
+    <view style="@style/lineStyle" />
+    <LinearLayout
+        android:id="@+id/about_us"
+        style="@style/myFargmentLinearStyle">
+        <TextView
+            android:text="@string/about_us"
+            style="@style/myFargmentTextStyle"/>
+
+    </LinearLayout>
+    <view style="@style/lineStyle" />
+    <LinearLayout
+        android:id="@+id/company_info"
+        style="@style/myFargmentLinearStyle">
+        <TextView
+            android:text="@string/company_info"
+            style="@style/myFargmentTextStyle"/>
+
+    </LinearLayout>
+    <view style="@style/lineStyle" />
+    <LinearLayout
+        android:id="@+id/clean_cache"
+        style="@style/myFargmentLinearStyle"
+        android:layout_marginBottom="30dp">
+        <TextView
+
+            android:text="@string/clean_cache"
+            style="@style/myFargmentTextStyle"/>
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/logout"
+        android:layout_height="46dp"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/logout"
+        android:textColor="@color/logoutColor"
+        android:textSize="15sp" />
+
+
+</LinearLayout>

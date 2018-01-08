@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="barSelectedColor">#000</color>
+    <color name="barUnselectedColor">#ccc</color>
+    <color name="barBackgroundColor">#FFC4C4C4</color>
+    <color name="white">#fff</color>
+    <color name="grey">#333333</color>
+    <color name="red">#FF0302</color>
+    <color name="orange">#FE5526</color>
+    <color name="baseBackgroundColor">#f4f4f4</color>
+    <color name="logoutColor">#349efb</color>
+    <color name="color_f9f9f9">#f9f9f9</color>
+    <color name="color_cdcdcd">#CDCDCD</color>
+    <color name="color_c8c8c8">#C8C8C8</color>
+    <color name="color_b3b3b3">#b3b3b3</color>
+    <color name="color_d6d6d6">#D6D6D6</color>
+    <color name="color_d9d9d9">#D9D9D9</color>
+    <color name="color_e1e1e1">#E1E1E1</color>
+    <color name="color_f7f7f7">#F7F7F7</color>
+    <color name="color_f3f3f3">#F3F3F3</color>
+    <color name="color_f1f1f1">#F1F1F1</color>
+    <color name="color_eaeaea">#eaeaea</color>
+
+    <color name="color_eee">#EEE</color>
+    <color name="color_ccc">#CCC</color>
+    <color name="color_bbb">#BBB</color>
+    <color name="color_999">#999</color>
+    <color name="color_555">#555</color>
+    <color name="color_666">#666</color>
+    <color name="color_333">#333</color>
+
+    <color name="color_grey_white_has_alpha">#66FAFAFA</color>
+
+
+    <color name="color_green_main">#44B549</color>
+    <color name="color_green_main_active">#389E3C</color>
+    <color name="color_green_main_disabled">#C8C8C8</color>
+    <color name="color_green_status">#00980D</color>
+    <color name="color_blue_my">#0190DC</color>
+
+    <color name="color_login_button">#61a4f6</color>
+    <color name="color_activity_blue_bg">#f7389fff</color>
+    <color name="color_blue_0888ff">#0888ff</color>
+
+    <color name="im_list_select_hover">#dbdbdb</color>
+    <color name="color_setting_bg">#ECF1F5</color>
+
+    <color name="black_overlay">#66000000</color>
+</resources>
