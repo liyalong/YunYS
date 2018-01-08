@@ -45,8 +45,6 @@ public class RegisterActivity extends XActivity<RegisterPresent>{
     RadioButton xy;
     @BindView(R.id.toLogin)
     TextView toLogin;
-    @BindView(R.id.avi)
-    AVLoadingIndicatorView avi;
 
     @Override
     public void initData(Bundle savedInstanceState) {
@@ -83,7 +81,6 @@ public class RegisterActivity extends XActivity<RegisterPresent>{
     }
 
     private void register_company() {
-        avi.show();
         String company_name = companyName.getText().toString().trim();
         String user_name = userName.getText().toString().trim();
         String phone = phoneNum.getText().toString().trim();
@@ -117,7 +114,7 @@ public class RegisterActivity extends XActivity<RegisterPresent>{
             showToastMsg("验证码不能为空！");
             return;
         }
-        getP().registerCompany(company_name,user_name,phone,passwordValue,code);
+        //getP().registerCompany(company_name,user_name,phone,passwordValue,code);
 
     }
 
@@ -166,7 +163,6 @@ public class RegisterActivity extends XActivity<RegisterPresent>{
     }
 
     public void showToastMsg(String s) {
-        avi.hide();
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 

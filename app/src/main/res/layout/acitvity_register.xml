@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/login_bg"
+    android:background="@mipmap/login_bg"
     android:orientation="vertical">
     <ImageView
         android:layout_width="110dp"
@@ -11,12 +10,12 @@
         android:layout_gravity="center"
         android:layout_marginBottom="22dp"
         android:layout_marginTop="40dp"
-        android:src="@drawable/login_logo" />
+        android:src="@mipmap/login_logo" />
     <LinearLayout
         style="@style/login_linearLayout_style">
         <ImageView
             style="@style/login_icon_style"
-            android:background="@drawable/icon_company_name"/>
+            android:background="@mipmap/icon_company_name"/>
         <EditText
             android:id="@+id/company_name"
             style="@style/LoginInput"
@@ -27,7 +26,7 @@
         style="@style/login_linearLayout_style">
         <ImageView
             style="@style/login_icon_style"
-            android:background="@drawable/icon_user_name"/>
+            android:background="@mipmap/icon_user_name"/>
         <EditText
             android:id="@+id/user_name"
             style="@style/LoginInput"
@@ -38,7 +37,7 @@
         style="@style/login_linearLayout_style">
         <ImageView
             style="@style/login_icon_style"
-            android:background="@drawable/login_icon_phone"/>
+            android:background="@mipmap/login_icon_phone"/>
         <EditText
             android:id="@+id/phone_num"
             style="@style/LoginInput"
@@ -49,7 +48,7 @@
         style="@style/login_linearLayout_style">
         <ImageView
             style="@style/login_icon_style"
-            android:background="@drawable/login_icon_password"/>
+            android:background="@mipmap/login_icon_password"/>
         <EditText
             android:id="@+id/password"
             style="@style/LoginInput"
@@ -62,7 +61,7 @@
         android:orientation="horizontal">
         <ImageView
             style="@style/login_icon_style"
-            android:background="@drawable/icon_message"/>
+            android:background="@mipmap/icon_message"/>
         <EditText
             android:id="@+id/yzm"
             style="@style/LoginInput"
@@ -108,9 +107,4 @@
             android:text="@string/tologin"
             />
     </LinearLayout>
-    <include layout="@layout/loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible"
-        ></include>
 </LinearLayout>

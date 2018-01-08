@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
+    android:background="@mipmap/login_bg"
     android:orientation="vertical">
     <ImageView
         android:layout_width="110dp"
@@ -9,12 +9,12 @@
         android:layout_gravity="center"
         android:layout_marginBottom="52dp"
         android:layout_marginTop="88dp"
-        android:src="@drawable/login_logo" />
+        android:src="@mipmap/login_logo" />
     <LinearLayout
        style="@style/login_linearLayout_style">
         <ImageView
             style="@style/login_icon_style"
-            android:background="@drawable/login_icon_phone"/>
+            android:background="@mipmap/login_icon_phone"/>
         <EditText
             android:id="@+id/et_account"
             style="@style/LoginInput"
@@ -25,7 +25,7 @@
         style="@style/login_linearLayout_style">
         <ImageView
             style="@style/login_icon_style"
-            android:background="@drawable/login_icon_password"/>
+            android:background="@mipmap/login_icon_password"/>
         <EditText
             android:id="@+id/et_password"
             style="@style/LoginInput"
