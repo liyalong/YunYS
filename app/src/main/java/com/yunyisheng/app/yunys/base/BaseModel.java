@@ -1,4 +1,4 @@
-package com.yunyisheng.app.yunys.model;
+package com.yunyisheng.app.yunys.base;
 
 import android.support.annotation.IntDef;
 

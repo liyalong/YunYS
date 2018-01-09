@@ -1,11 +1,10 @@
-package com.yunyisheng.app.yunys.present;
+package com.yunyisheng.app.yunys.login.present;
 
 import android.util.Log;
 
-import com.yunyisheng.app.yunys.activity.LoginActivity;
-import com.yunyisheng.app.yunys.model.LoginModel;
+import com.yunyisheng.app.yunys.login.activity.LoginActivity;
+import com.yunyisheng.app.yunys.login.model.LoginModel;
 import com.yunyisheng.app.yunys.net.Api;
-import com.yunyisheng.app.yunys.net.UserService;
 
 import cn.droidlover.xdroidmvp.log.XLog;
 import cn.droidlover.xdroidmvp.mvp.XPresent;

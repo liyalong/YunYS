@@ -1,4 +1,4 @@
-package com.yunyisheng.app.yunys.activity;
+package com.yunyisheng.app.yunys.login.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

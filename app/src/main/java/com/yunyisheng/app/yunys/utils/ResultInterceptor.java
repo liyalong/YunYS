@@ -1,7 +1,7 @@
 package com.yunyisheng.app.yunys.utils;
 
 import com.google.gson.Gson;
-import com.yunyisheng.app.yunys.model.BaseModel;
+import com.yunyisheng.app.yunys.base.BaseModel;
 
 import java.io.IOException;
 

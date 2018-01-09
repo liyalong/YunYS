@@ -1,4 +1,4 @@
-package com.yunyisheng.app.yunys.activity;
+package com.yunyisheng.app.yunys.login.activity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,8 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yunyisheng.app.yunys.R;
-import com.yunyisheng.app.yunys.model.LoginModel;
-import com.yunyisheng.app.yunys.present.LoginPresent;
+import com.yunyisheng.app.yunys.main.activity.MainActivity;
+import com.yunyisheng.app.yunys.login.model.LoginModel;
+import com.yunyisheng.app.yunys.login.present.LoginPresent;
 import com.yunyisheng.app.yunys.utils.AndroidIDUtil;
 
 import butterknife.BindView;

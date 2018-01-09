@@ -1,4 +1,6 @@
-package com.yunyisheng.app.yunys.model;
+package com.yunyisheng.app.yunys.login.model;
+
+import com.yunyisheng.app.yunys.base.BaseModel;
 
 import java.util.Date;
 

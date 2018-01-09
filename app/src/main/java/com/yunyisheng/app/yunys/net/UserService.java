@@ -1,7 +1,7 @@
 package com.yunyisheng.app.yunys.net;
 
-import com.yunyisheng.app.yunys.model.BaseStatusModel;
-import com.yunyisheng.app.yunys.model.LoginModel;
+import com.yunyisheng.app.yunys.base.BaseStatusModel;
+import com.yunyisheng.app.yunys.login.model.LoginModel;
 
 import io.reactivex.Flowable;
 import retrofit2.http.Field;

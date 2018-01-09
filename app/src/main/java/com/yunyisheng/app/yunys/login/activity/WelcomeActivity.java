@@ -1,11 +1,11 @@
-package com.yunyisheng.app.yunys.activity;
+package com.yunyisheng.app.yunys.login.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
 import com.yunyisheng.app.yunys.R;
+import com.yunyisheng.app.yunys.main.activity.MainActivity;
 import com.yunyisheng.app.yunys.utils.Constans;
 
 import cn.droidlover.xdroidbase.cache.SharedPref;

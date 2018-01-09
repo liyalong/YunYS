@@ -1,7 +1,6 @@
 package com.yunyisheng.app.yunys.fragment;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewPager;
@@ -18,8 +17,8 @@ import com.ldf.calendar.interf.OnSelectDateListener;
 import com.ldf.calendar.model.CalendarDate;
 import com.ldf.calendar.view.MonthPager;
 import com.yunyisheng.app.yunys.R;
-import com.yunyisheng.app.yunys.activity.CustomDayView;
-import com.yunyisheng.app.yunys.activity.ThemeDayView;
+import com.yunyisheng.app.yunys.login.view.CustomDayView;
+import com.yunyisheng.app.yunys.login.view.ThemeDayView;
 import com.yunyisheng.app.yunys.adapter.TaskAdapter;
 
 import java.util.ArrayList;

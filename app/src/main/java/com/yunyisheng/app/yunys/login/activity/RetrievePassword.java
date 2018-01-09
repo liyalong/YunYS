@@ -1,4 +1,4 @@
-package com.yunyisheng.app.yunys.activity;
+package com.yunyisheng.app.yunys.login.activity;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -9,8 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yunyisheng.app.yunys.R;
-import com.yunyisheng.app.yunys.model.BaseStatusModel;
-import com.yunyisheng.app.yunys.present.RetrievePasswordPresent;
+import com.yunyisheng.app.yunys.base.BaseStatusModel;
+import com.yunyisheng.app.yunys.login.present.RetrievePasswordPresent;
 import com.yunyisheng.app.yunys.utils.RegularUtil;
 
 import butterknife.BindView;

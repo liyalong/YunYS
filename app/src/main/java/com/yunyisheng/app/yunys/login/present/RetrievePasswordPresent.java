@@ -1,8 +1,8 @@
-package com.yunyisheng.app.yunys.present;
+package com.yunyisheng.app.yunys.login.present;
 
 
-import com.yunyisheng.app.yunys.activity.RetrievePassword;
-import com.yunyisheng.app.yunys.model.BaseStatusModel;
+import com.yunyisheng.app.yunys.login.activity.RetrievePassword;
+import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.net.Api;
 
 import cn.droidlover.xdroidmvp.mvp.XPresent;

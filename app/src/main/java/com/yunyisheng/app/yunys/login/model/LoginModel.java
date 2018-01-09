@@ -1,4 +1,6 @@
-package com.yunyisheng.app.yunys.model;
+package com.yunyisheng.app.yunys.login.model;
+
+import com.yunyisheng.app.yunys.base.BaseModel;
 
 /**
  * Created by liyalong on 2017/12/20.

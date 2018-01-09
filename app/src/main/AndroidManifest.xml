@@ -16,7 +16,7 @@
         android:supportsRtl="true"
 
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".activity.WelcomeActivity"
+        <activity android:name=".login.activity.WelcomeActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
@@ -26,10 +26,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LoginActivity"/>
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.RetrievePassword"/>
-        <activity android:name=".activity.RegisterActivity"/>
+        <activity
+            android:name=".login.activity.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".main.activity.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".login.activity.RetrievePassword"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".login.activity.RegisterActivity"
+            android:screenOrientation="portrait"/>
 
     </application>
 

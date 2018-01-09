@@ -1,6 +1,5 @@
-package com.yunyisheng.app.yunys.activity;
+package com.yunyisheng.app.yunys.main.activity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -12,7 +11,7 @@ import com.yunyisheng.app.yunys.fragment.IndexFragment;
 import com.yunyisheng.app.yunys.fragment.MyFragment;
 import com.yunyisheng.app.yunys.fragment.ProjectFragment;
 import com.yunyisheng.app.yunys.fragment.TaskFragment;
-import com.yunyisheng.app.yunys.utils.Constans;
+import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 
 import cn.droidlover.xdroidbase.cache.SharedPref;
 import cn.droidlover.xdroidmvp.mvp.XActivity;
