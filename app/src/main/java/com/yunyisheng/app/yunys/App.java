@@ -9,7 +9,6 @@ import cn.droidlover.xdroidmvp.net.NetError;
 import cn.droidlover.xdroidmvp.net.NetProvider;
 import cn.droidlover.xdroidmvp.net.RequestHandler;
 import cn.droidlover.xdroidmvp.net.XApi;
-import cn.droidlover.xdroidmvp.router.Router;
 import okhttp3.CookieJar;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -20,6 +19,7 @@ import okhttp3.OkHttpClient;
 
 public class App extends Application {
     public static Context context;
+    public static App app;
 
     @Override
     public void onCreate() {
@@ -72,5 +72,8 @@ public class App extends Application {
 
     public static Context getContext() {
         return context;
+    }
+    public static App getInstance() {
+        return app;
     }
 }

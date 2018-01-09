@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.login.present.RetrievePasswordPresent;
+import com.yunyisheng.app.yunys.main.activity.OtherActivity;
 import com.yunyisheng.app.yunys.utils.RegularUtil;
 
 import butterknife.BindView;
@@ -77,7 +78,7 @@ public class RetrievePassword extends XActivity<RetrievePasswordPresent> {
 
     private void toLogin() {
         Router.newIntent(context)
-                .to(LoginActivity.class)
+                .to(OtherActivity.class)
                 .launch();
         this.finish();
     }

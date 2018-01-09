@@ -20,7 +20,7 @@ public interface UserService {
      * @return
      */
     @FormUrlEncoded
-    @POST("fairyland-system/system/android/user/login")
+    @POST("system/android/user/login")
     Flowable<LoginModel> login(@Field("userName") String userPhone,
                                @Field("password") String userPassword,
                                @Field("androidID") String uuid);
@@ -33,7 +33,7 @@ public interface UserService {
      * @return
      */
     @FormUrlEncoded
-    @POST("fairyland-system/system/android/user/changePassword")
+    @POST("system/android/user/changePassword")
     Flowable<BaseStatusModel> changePassword(@Field("phone") String phone,
                                                    @Field("code") String code,
                                                    @Field("newPassword") String password);

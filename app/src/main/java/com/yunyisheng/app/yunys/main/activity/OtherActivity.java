@@ -1,6 +1,5 @@
-package com.yunyisheng.app.yunys.login.activity;
+package com.yunyisheng.app.yunys.main.activity;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -9,24 +8,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.MainActivity;
+import com.yunyisheng.app.yunys.R;
+import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.login.activity.RegisterActivity;
+import com.yunyisheng.app.yunys.login.activity.RetrievePassword;
 import com.yunyisheng.app.yunys.login.model.LoginModel;
 import com.yunyisheng.app.yunys.login.present.LoginPresent;
 import com.yunyisheng.app.yunys.utils.AndroidIDUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.droidlover.xdroidbase.cache.SharedPref;
-import cn.droidlover.xdroidmvp.mvp.XActivity;
 import cn.droidlover.xdroidmvp.router.Router;
 
-/**
- * Created by liyalong on 2017/12/16.
- */
+public class OtherActivity extends BaseActivity<LoginPresent> {
 
-public class LoginActivity extends XActivity<LoginPresent> {
     @BindView(R.id.et_account)
     EditText etAccount;
     @BindView(R.id.et_password)
@@ -38,25 +35,36 @@ public class LoginActivity extends XActivity<LoginPresent> {
     @BindView(R.id.forgetPassword)
     TextView forgetPassword;
 
-
     @Override
-    public void initData(Bundle savedInstanceState) {
+    public void initView() {
         ButterKnife.bind(this);
     }
 
     @Override
-    public int getLayoutId() {
+    public void initAfter() {
+
+    }
+
+    @Override
+    public int bindLayout() {
         return R.layout.activity_login;
     }
 
     @Override
-    public LoginPresent newP() {
+    public LoginPresent bindPresent() {
         return new LoginPresent();
     }
 
-    @OnClick({R.id.btn_login, R.id.register, R.id.forgetPassword})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
+    @Override
+    public void setListener() {
+        btnLogin.setOnClickListener(this);
+        register.setOnClickListener(this);
+        forgetPassword.setOnClickListener(this);
+    }
+
+    @Override
+    public void widgetClick(View v) {
+        switch (v.getId()) {
             case R.id.btn_login:
                 login();
                 break;
@@ -125,8 +133,4 @@ public class LoginActivity extends XActivity<LoginPresent> {
     public void saveUserToken(String token) {
         SharedPref.getInstance(context).putString("TOKEN", token);
     }
-
-
-
-
 }

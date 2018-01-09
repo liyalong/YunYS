@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.login.present.RegisterPresent;
+import com.yunyisheng.app.yunys.main.activity.OtherActivity;
 import com.yunyisheng.app.yunys.utils.RegularUtil;
 
 import butterknife.BindView;
@@ -118,7 +119,7 @@ public class RegisterActivity extends XActivity<RegisterPresent>{
 
     private void toLoginView() {
         Router.newIntent(context)
-                .to(LoginActivity.class)
+                .to(OtherActivity.class)
                 .launch();
         this.finish();
     }

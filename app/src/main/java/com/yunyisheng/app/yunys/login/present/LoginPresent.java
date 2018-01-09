@@ -2,8 +2,8 @@ package com.yunyisheng.app.yunys.login.present;
 
 import android.util.Log;
 
-import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.login.model.LoginModel;
+import com.yunyisheng.app.yunys.main.activity.OtherActivity;
 import com.yunyisheng.app.yunys.net.Api;
 
 import cn.droidlover.xdroidmvp.log.XLog;
@@ -16,7 +16,7 @@ import cn.droidlover.xdroidmvp.net.XApi;
  * Created by liyalong on 2017/12/16.
  */
 
-public class LoginPresent extends XPresent<LoginActivity> {
+public class LoginPresent extends XPresent<OtherActivity> {
     public void  Login(String userPhone ,String password,String uuid){
         XLog.d(userPhone+"----"+password);
         Api.userService().login(userPhone,password,uuid)

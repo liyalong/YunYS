@@ -7,7 +7,7 @@ import cn.droidlover.xdroidmvp.net.XApi;
  */
 
 public class Api {
-    public static final String BASE_PATH = "http://172.16.26.212:8080/";
+    public static final String BASE_PATH = "http://172.16.26.212:8080/fairyland-system/";
     private static UserService userService;
     private static ShortMessageService shortMessageService;
     private static CompanyService companyService;

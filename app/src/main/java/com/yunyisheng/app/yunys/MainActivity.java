@@ -1,16 +1,10 @@
-package com.yunyisheng.app.yunys.main.activity;
+package com.yunyisheng.app.yunys;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
-import com.yunyisheng.app.yunys.R;
-import com.yunyisheng.app.yunys.fragment.IndexFragment;
-import com.yunyisheng.app.yunys.fragment.MyFragment;
-import com.yunyisheng.app.yunys.fragment.ProjectFragment;
-import com.yunyisheng.app.yunys.fragment.TaskFragment;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 
 import cn.droidlover.xdroidbase.cache.SharedPref;
@@ -19,10 +13,6 @@ import cn.droidlover.xdroidmvp.router.Router;
 
 public class MainActivity extends XActivity implements BottomNavigationBar.OnTabSelectedListener{
     BottomNavigationBar bottomNavigationBar;
-    IndexFragment indexFragment;
-    ProjectFragment projectFragment;
-    TaskFragment taskFragment;
-    MyFragment myFragment;
 
     @Override
     public void initData(Bundle savedInstanceState) {
@@ -45,10 +35,7 @@ public class MainActivity extends XActivity implements BottomNavigationBar.OnTab
     }
 
     private void initTab() {
-        indexFragment = new IndexFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_main,indexFragment);
-        transaction.commit();
+
     }
     //初始化底部导航栏
     private void initBottomBar() {
@@ -72,44 +59,26 @@ public class MainActivity extends XActivity implements BottomNavigationBar.OnTab
     public Object newP() {
         return null;
     }
-    //底部导航栏切换fragment
+    //底部导航栏切换对应的界面
     @Override
     public void onTabSelected(int position) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         switch (position){
             case  0:
-                if(indexFragment == null){
-                    indexFragment = new IndexFragment();
-                }
-                transaction.replace(R.id.content_main,indexFragment);
+
                 break;
             case 1:
-                if(projectFragment == null){
-                    projectFragment = new ProjectFragment();
-                }
-                transaction.replace(R.id.content_main,projectFragment);
+
                 break;
             case 2:
-                if(indexFragment == null){
-                    indexFragment = new IndexFragment();
-                }
-                transaction.replace(R.id.content_main,indexFragment);
+
                 break;
             case 3:
-                if(taskFragment == null){
-                    taskFragment = new TaskFragment();
-                }
-                transaction.replace(R.id.content_main,taskFragment);
+
                 break;
             case 4:
-                if(myFragment == null){
-                    myFragment = new MyFragment();
-                }
-                transaction.replace(R.id.content_main,myFragment);
+
                 break;
         }
-        transaction.commit();
-
     }
 
     @Override

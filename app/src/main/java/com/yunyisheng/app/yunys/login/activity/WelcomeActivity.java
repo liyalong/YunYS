@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.yunyisheng.app.yunys.R;
-import com.yunyisheng.app.yunys.main.activity.MainActivity;
+import com.yunyisheng.app.yunys.MainActivity;
 import com.yunyisheng.app.yunys.utils.Constans;
 
 import cn.droidlover.xdroidbase.cache.SharedPref;
