@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="E:\YunYS\pulltorefreshlibrary\src\main\assets"/><source path="E:\YunYS\pulltorefreshlibrary\build\generated\assets\shaders\release"/></dataSet><dataSet config="release"><source path="E:\YunYS\pulltorefreshlibrary\src\release\assets"/></dataSet></merger>
