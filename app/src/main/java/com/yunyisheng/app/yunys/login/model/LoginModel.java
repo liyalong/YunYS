@@ -1,7 +1,5 @@
 package com.yunyisheng.app.yunys.login.model;
 
-import android.content.Intent;
-
 import com.yunyisheng.app.yunys.base.BaseModel;
 
 /**
@@ -10,16 +8,6 @@ import com.yunyisheng.app.yunys.base.BaseModel;
 
 public class LoginModel extends BaseModel {
     private String token;
-    private Integer userId;
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Integer getUserId() {
-
-        return userId;
-    }
 
     public void setToken(String token) {
         this.token = token;

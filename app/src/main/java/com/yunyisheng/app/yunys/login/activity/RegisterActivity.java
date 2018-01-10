@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.login.activity;
 
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
@@ -9,22 +10,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yunyisheng.app.yunys.R;
-import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.login.present.RegisterPresent;
+import com.yunyisheng.app.yunys.main.activity.OtherActivity;
 import com.yunyisheng.app.yunys.utils.RegularUtil;
-import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.droidlover.xdroidmvp.mvp.XActivity;
 import cn.droidlover.xdroidmvp.router.Router;
 
 /**
  * Created by liyalong on 2018/1/5.
  */
 
-public class RegisterActivity extends BaseActivity<RegisterPresent> {
+public class RegisterActivity extends XActivity<RegisterPresent>{
     @BindView(R.id.company_name)
     EditText companyName;
     @BindView(R.id.user_name)
@@ -45,35 +46,25 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
     TextView toLogin;
 
     @Override
-    public void initView() {
+    public void initData(Bundle savedInstanceState) {
         ButterKnife.bind(this);
     }
 
     @Override
-    public void initAfter() {
-
-    }
-
-    @Override
-    public int bindLayout() {
+    public int getLayoutId() {
         return R.layout.acitvity_register;
     }
 
     @Override
-    public RegisterPresent bindPresent() {
+    public RegisterPresent newP() {
         return new RegisterPresent();
     }
 
-    @Override
-    public void setListener() {
-        get_yzm.setOnClickListener(this);
-        toLogin.setOnClickListener(this);
-        btnRegister.setOnClickListener(this);
-    }
 
-    @Override
-    public void widgetClick(View v) {
-        switch (v.getId()) {
+
+    @OnClick({R.id.yzm, R.id.toLogin,R.id.get_yzm,R.id.btn_register})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
             case R.id.yzm:
                 break;
             case R.id.toLogin:
@@ -95,40 +86,40 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
         String passwordValue = password.getText().toString().trim();
         String code = yzm.getText().toString().trim();
         if (company_name.isEmpty()){
-            ToastUtils.showToast("公司名称不能为空！");
+            showToastMsg("公司名称不能为空！");
             return;
         }
         if (user_name.isEmpty()){
-            ToastUtils.showToast("姓名不能为空！");
+            showToastMsg("姓名不能为空！");
             return;
         }
         if(phone.isEmpty()){
-            ToastUtils.showToast("手机号不能为空!");
+            showToastMsg("手机号不能为空!");
             return;
         }
         if(!RegularUtil.isPhone(phone)){
-            ToastUtils.showToast("手机号格式错误！");
+            showToastMsg("手机号格式错误！");
             return;
         }
         if(passwordValue.isEmpty()){
-            ToastUtils.showToast("密码不能为空！");
+            showToastMsg("密码不能为空！");
             return;
         }
         if(!RegularUtil.isPsw(passwordValue)){
-            ToastUtils.showToast("密码必须大于6位！");
+            showToastMsg("密码必须大于6位！");
             return;
         }
         if(code.isEmpty()){
-            ToastUtils.showToast("验证码不能为空！");
+            showToastMsg("验证码不能为空！");
             return;
         }
-        getP().registerCompany(company_name,user_name,phone,passwordValue,code);
+        //getP().registerCompany(company_name,user_name,phone,passwordValue,code);
 
     }
 
     private void toLoginView() {
         Router.newIntent(context)
-                .to(LoginActivity.class)
+                .to(OtherActivity.class)
                 .launch();
         this.finish();
     }
@@ -136,11 +127,11 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
         String phone = phoneNum.getText().toString().trim();
 //        Toast.makeText(this,phone,Toast.LENGTH_SHORT);
         if(phone.isEmpty()){
-            ToastUtils.showToast("手机号不能为空！");
+            showToastMsg("手机号不能为空！");
             return;
         }
         if(!RegularUtil.isPhone(phone)){
-            ToastUtils.showToast("手机号者格式错误！");
+            showToastMsg("手机号者格式错误！");
             return;
         }
         get_yzm.setEnabled(false);
@@ -162,22 +153,24 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
 
     public void checkMsgResault(BaseStatusModel baseStatusModel) {
         if(baseStatusModel.getStatus() != 200){
-            ToastUtils.showToast(baseStatusModel.getMessage());
+            showToastMsg(baseStatusModel.getMessage());
             return;
         }else{
-            ToastUtils.showToast("短信验证码已发送！");
+            showToastMsg("短信验证码已发送！");
             return;
         }
     }
 
-    
+    public void showToastMsg(String s) {
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+    }
 
     public void checkRegiterInfo(BaseStatusModel baseStatusModel) {
         if(baseStatusModel.getStatus() != 200){
-            ToastUtils.showToast(baseStatusModel.getMessage());
+            showToastMsg(baseStatusModel.getMessage());
             return;
         }else{
-            ToastUtils.showToast("注册成功！");
+            showToastMsg("注册成功！");
             toLoginView();
         }
     }

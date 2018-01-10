@@ -38,8 +38,8 @@ public class GlideDownLoadImage {
     public void loadImage(Context mContext, int resId, ImageView view) {
         Glide.with(mContext)
                 .load(resId)
-                .placeholder(R.mipmap.icon_message)
-                .error(R.mipmap.icon_message)
+                .placeholder(R.mipmap.moren_new)
+                .error(R.mipmap.moren_new)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(view);
     }
@@ -53,8 +53,8 @@ public class GlideDownLoadImage {
     public void loadImage(Fragment fragment, int resId, ImageView view) {
         Glide.with(fragment)
                 .load(resId)
-                .placeholder(R.mipmap.icon_message)
-                .error(R.mipmap.icon_message)
+                .placeholder(R.mipmap.moren_new)
+                .error(R.mipmap.moren_new)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(view);
     }
@@ -69,8 +69,8 @@ public class GlideDownLoadImage {
     public void loadImage(Activity activity, int resId, ImageView view) {
         Glide.with(activity)
                 .load(resId)
-                .placeholder(R.mipmap.icon_message)
-                .error(R.mipmap.icon_message)
+                .placeholder(R.mipmap.moren_new)
+                .error(R.mipmap.moren_new)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(view);
     }
@@ -84,8 +84,8 @@ public class GlideDownLoadImage {
     public void loadImage(int resId, ImageView view) {
         Glide.with(App.getContext())
                 .load(resId)
-                .placeholder(R.mipmap.icon_message)
-                .error(R.mipmap.icon_message)
+                .placeholder(R.mipmap.moren_new)
+                .error(R.mipmap.moren_new)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(view);
     }
@@ -99,8 +99,8 @@ public class GlideDownLoadImage {
     public void loadImage(Context mContext, String url, ImageView view) {
         Glide.with(mContext)
                 .load(url)
-                .placeholder(R.mipmap.icon_message)
-                .error(R.mipmap.icon_message)
+                .placeholder(R.mipmap.moren_new)
+                .error(R.mipmap.moren_new)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(view);
     }
@@ -116,8 +116,8 @@ public class GlideDownLoadImage {
     public void loadImage(Activity activity, String url, ImageView view) {
         Glide.with(activity)
                 .load(url)
-                .placeholder(R.mipmap.icon_message)
-                .error(R.mipmap.icon_message)
+                .placeholder(R.mipmap.moren_new)
+                .error(R.mipmap.moren_new)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(view);
     }
@@ -133,8 +133,8 @@ public class GlideDownLoadImage {
     public void loadImage(Fragment fragment, String url, ImageView view) {
         Glide.with(fragment)
                 .load(url)
-                .placeholder(R.mipmap.icon_message)
-                .error(R.mipmap.icon_message)
+                .placeholder(R.mipmap.moren_new)
+                .error(R.mipmap.moren_new)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(view);
     }
