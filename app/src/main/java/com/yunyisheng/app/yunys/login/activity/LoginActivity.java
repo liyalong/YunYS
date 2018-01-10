@@ -1,6 +1,5 @@
 package com.yunyisheng.app.yunys.login.activity;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -9,24 +8,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.MainActivity;
+import com.yunyisheng.app.yunys.R;
+import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.login.activity.RegisterActivity;
+import com.yunyisheng.app.yunys.login.activity.RetrievePassword;
 import com.yunyisheng.app.yunys.login.model.LoginModel;
 import com.yunyisheng.app.yunys.login.present.LoginPresent;
 import com.yunyisheng.app.yunys.utils.AndroidIDUtil;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.droidlover.xdroidbase.cache.SharedPref;
-import cn.droidlover.xdroidmvp.mvp.XActivity;
 import cn.droidlover.xdroidmvp.router.Router;
 
-/**
- * Created by liyalong on 2017/12/16.
- */
+public class LoginActivity extends BaseActivity<LoginPresent> {
 
-public class LoginActivity extends XActivity<LoginPresent> {
     @BindView(R.id.et_account)
     EditText etAccount;
     @BindView(R.id.et_password)
@@ -38,25 +36,36 @@ public class LoginActivity extends XActivity<LoginPresent> {
     @BindView(R.id.forgetPassword)
     TextView forgetPassword;
 
-
     @Override
-    public void initData(Bundle savedInstanceState) {
+    public void initView() {
         ButterKnife.bind(this);
     }
 
     @Override
-    public int getLayoutId() {
+    public void initAfter() {
+
+    }
+
+    @Override
+    public int bindLayout() {
         return R.layout.activity_login;
     }
 
     @Override
-    public LoginPresent newP() {
+    public LoginPresent bindPresent() {
         return new LoginPresent();
     }
 
-    @OnClick({R.id.btn_login, R.id.register, R.id.forgetPassword})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
+    @Override
+    public void setListener() {
+        btnLogin.setOnClickListener(this);
+        register.setOnClickListener(this);
+        forgetPassword.setOnClickListener(this);
+    }
+
+    @Override
+    public void widgetClick(View v) {
+        switch (v.getId()) {
             case R.id.btn_login:
                 login();
                 break;
@@ -90,7 +99,7 @@ public class LoginActivity extends XActivity<LoginPresent> {
         Log.i("LOGIN", userPhone + "----" + userPassword + "----" + uuid);
         if (TextUtils.isEmpty(userPhone) || TextUtils.isEmpty(userPassword)) {
             Log.i("LOGIN", "phone or password is empty!");
-            this.showToastMsg("手机号或者密码不能为空！");
+            ToastUtils.showToast("手机号或者密码不能为空！");
             return;
         }
         getP().Login(userPhone, userPassword, uuid);
@@ -103,16 +112,12 @@ public class LoginActivity extends XActivity<LoginPresent> {
      */
     public void checkLogin(LoginModel loginModel) {
         if (loginModel.getStatus() != 200) {
-            showToastMsg(loginModel.getMessage());
+            ToastUtils.showToast(loginModel.getMessage());
             return;
         } else {
-            saveUserToken(loginModel.getToken());
+            saveUserToken(loginModel);
             toMain();
         }
-    }
-
-    public void showToastMsg(String s) {
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
     public void toMain() {
@@ -122,11 +127,8 @@ public class LoginActivity extends XActivity<LoginPresent> {
         this.finish();
     }
 
-    public void saveUserToken(String token) {
-        SharedPref.getInstance(context).putString("TOKEN", token);
+    public void saveUserToken(LoginModel loginModel) {
+        SharedPref.getInstance(context).putString("TOKEN", loginModel.getToken());
+        SharedPref.getInstance(context).putInt("USERID", loginModel.getUserId());
     }
-
-
-
-
 }

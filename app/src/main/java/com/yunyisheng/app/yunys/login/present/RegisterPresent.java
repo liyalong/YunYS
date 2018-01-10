@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys.login.present;
 import com.yunyisheng.app.yunys.login.activity.RegisterActivity;
 import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.net.Api;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 import cn.droidlover.xdroidmvp.net.ApiSubscriber;
@@ -27,7 +28,7 @@ public class RegisterPresent extends XPresent<RegisterActivity> {
 
                     @Override
                     protected void onFail(NetError error) {
-                        getV().showToastMsg("请求数据失败！");
+                        ToastUtils.showToast("请求数据失败!");
                     }
 
                 });
@@ -40,7 +41,7 @@ public class RegisterPresent extends XPresent<RegisterActivity> {
                 .subscribe(new ApiSubscriber<BaseStatusModel>() {
                     @Override
                     protected void onFail(NetError error) {
-                        getV().showToastMsg("请求数据失败！");
+                        ToastUtils.showToast("请求数据失败!");
                     }
 
                     @Override

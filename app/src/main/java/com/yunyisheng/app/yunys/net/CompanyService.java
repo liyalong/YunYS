@@ -13,7 +13,7 @@ import retrofit2.http.POST;
 
 public interface CompanyService {
     @FormUrlEncoded
-    @POST("system/android/company/add")
+    @POST("fairyland-system/system/android/company/add")
     Flowable<BaseStatusModel> registerCompany(@Field("commpany_name") String company_name,
                                               @Field("name") String name,
                                               @Field("phone") String phone,

@@ -39,8 +39,8 @@
         <item name="android:layout_marginBottom">12dp</item>
     </style>
     <style name="login_icon_style">
-        <item name="android:layout_width">35dp</item>
-        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_width">@dimen/distance_35</item>
+        <item name="android:layout_height">@dimen/distance_35</item>
         <item name="android:layout_gravity">center</item>
     </style>
     <style name="LoginInput">
@@ -51,11 +51,12 @@
         <item name="android:textColorHint">@color/white</item>
         <item name="android:textColor">@color/color_333</item>
         <item name="android:textSize">@dimen/text_main</item>
+        <item name="android:layout_marginLeft">-15dp</item>
     </style>
     <style name="LoginInput.Button">
-        <item name="android:layout_marginLeft">35dp</item>
-        <item name="android:layout_marginRight">35dp</item>
-        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginLeft">@dimen/distance_35</item>
+        <item name="android:layout_marginRight">@dimen/distance_35</item>
+        <item name="android:padding">@dimen/distance_10</item>
         <item name="android:textColor">@color/color_login_button</item>
         <item name="android:textSize">@dimen/text_large</item>
         <item name="android:gravity">center</item>
@@ -66,7 +67,7 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">@dimen/sp_13</item>
         <item name="android:textColor">#ff25adff</item>
     </style>
     <!-- 我的页面布局 -->
@@ -86,14 +87,20 @@
         <item name="android:textColor">@color/color_555</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:layout_marginLeft">30dp</item>
+        <item name="android:layout_marginLeft">@dimen/distance_30</item>
     </style>
     <style name="myFargmentImageArrow">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textColor">@color/color_555</item>
         <item name="android:gravity">right</item>
-        <item name="android:layout_marginRight">30dp</item>
+        <item name="android:layout_marginRight">@dimen/distance_30</item>
     </style>
     <!-- 我的页面布局 -->
+    <!-- 项目页面布局 -->
+    <style name="projectListStyle">
+        <item name="android:background">@color/baseBackgroundColor</item>
+    </style>
+
+    <!-- 项目页面布局 -->
 </resources>

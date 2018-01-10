@@ -1,4 +1,4 @@
-package com.yunyisheng.app.yunys.net;
+package com.yunyisheng.app.yunys.login.service;
 
 import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.login.model.LoginModel;
@@ -20,7 +20,7 @@ public interface UserService {
      * @return
      */
     @FormUrlEncoded
-    @POST("system/android/user/login")
+    @POST("fairyland-system/system/android/user/login")
     Flowable<LoginModel> login(@Field("userName") String userPhone,
                                @Field("password") String userPassword,
                                @Field("androidID") String uuid);
@@ -33,7 +33,7 @@ public interface UserService {
      * @return
      */
     @FormUrlEncoded
-    @POST("system/android/user/changePassword")
+    @POST("fairyland-system/system/android/user/changePassword")
     Flowable<BaseStatusModel> changePassword(@Field("phone") String phone,
                                                    @Field("code") String code,
                                                    @Field("newPassword") String password);
