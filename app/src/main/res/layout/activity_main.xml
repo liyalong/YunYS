@@ -6,12 +6,15 @@
     android:layout_height="match_parent"
     android:background="@color/baseBackgroundColor"
     tools:context=".MainActivity">
-    <include layout="@layout/content_main" />
+    <include
+        android:id="@+id/inc"
+        layout="@layout/content_main"
+        />
 
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
-
         android:id="@+id/bottom_navigation_bar"
         android:layout_height="match_parent"
+        android:layout_below="@+id/inc"
         android:layout_width="match_parent"
         android:layout_gravity="bottom|end"/>
 

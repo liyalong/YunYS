@@ -1,17 +1,11 @@
 package com.yunyisheng.app.yunys.userset.fragement;
 
 import android.view.View;
-import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
-import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-import cn.droidlover.xdroidbase.cache.SharedPref;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
-import cn.droidlover.xdroidmvp.router.Router;
 
 /**
  * 作者：fuduo on 2018/1/10 09:22
@@ -21,8 +15,8 @@ import cn.droidlover.xdroidmvp.router.Router;
 
 public class MineFragement extends BaseFragement {
 
-    @BindView(R.id.logout)
-    TextView logout;
+//    @BindView(R.id.logout)
+//    TextView logout;
 
     @Override
     public void initView() {
@@ -36,7 +30,7 @@ public class MineFragement extends BaseFragement {
 
     @Override
     public int bindLayout() {
-        return 0;
+        return R.layout.fargment_my;
     }
 
     @Override
@@ -55,13 +49,13 @@ public class MineFragement extends BaseFragement {
     }
 
 
-    @OnClick(R.id.logout)
-    public void onViewClicked(){
-        SharedPref.getInstance(context).remove("TOKEN");
-        Router.newIntent(context)
-                .to(LoginActivity.class)
-                .launch();
-        context.finish();
-
-    }
+//    @OnClick(R.id.logout)
+//    public void onViewClicked(){
+//        SharedPref.getInstance(context).remove("TOKEN");
+//        Router.newIntent(context)
+//                .to(LoginActivity.class)
+//                .launch();
+//        context.finish();
+//
+//    }
 }

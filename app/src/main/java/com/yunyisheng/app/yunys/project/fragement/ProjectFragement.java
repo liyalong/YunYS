@@ -2,6 +2,7 @@ package com.yunyisheng.app.yunys.project.fragement;
 
 import android.view.View;
 
+import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 
 import cn.droidlover.xdroidmvp.mvp.XPresent;
@@ -25,7 +26,7 @@ public class ProjectFragement extends BaseFragement {
 
     @Override
     public int bindLayout() {
-        return 0;
+        return R.layout.fargment_project;
     }
 
     @Override
