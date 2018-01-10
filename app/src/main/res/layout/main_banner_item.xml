@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="@dimen/distance_267"
+    android:background="@color/transparent">
+    <TextView
+        android:id="@+id/te_allnumbertitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/distance_16"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/distance_79"
+        android:text="PLC总变量数"/>
+    <TextView
+        android:id="@+id/te_allnumber"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/distance_37"
+        android:textColor="@color/white"
+        android:layout_below="@+id/te_allnumbertitle"
+        android:textSize="@dimen/distance_35"
+        android:layout_centerHorizontal="true"
+        android:text="43264"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/distance_10"
+        android:layout_marginTop="@dimen/distance_165"
+        android:gravity="center_horizontal">
+    <TextView
+        android:id="@+id/te_todaywaringtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/distance_14"
+        android:textColor="@color/white"
+        android:text="昨日告警次数"/>
+
+    <TextView
+        android:id="@+id/te_todaywaringnumber"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/distance_37"
+        android:textColor="@color/white"
+        android:layout_below="@+id/te_todaywaringtitle"
+        android:textSize="@dimen/distance_24"
+        android:text="43264"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="@dimen/distance_10"
+        android:layout_marginTop="@dimen/distance_165"
+        android:layout_alignParentRight="true"
+        android:gravity="center_horizontal">
+        <TextView
+            android:id="@+id/te_waringalltitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/distance_14"
+            android:textColor="@color/white"
+            android:text="报警总数"/>
+
+        <TextView
+            android:id="@+id/te_waringallnumber"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/distance_37"
+            android:textColor="@color/white"
+            android:layout_below="@+id/te_waringalltitle"
+            android:textSize="@dimen/distance_24"
+            android:text="43264"/>
+    </LinearLayout>
+</RelativeLayout>
