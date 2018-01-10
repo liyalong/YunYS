@@ -25,9 +25,16 @@
     <string name="newpassword">新密码</string>
     <!--首页-->
     <string name="tongxunlu">通讯录</string>
-    <string name="notice">新密码</string>
+    <string name="notice">公告</string>
     <string name="beiwanglu">备忘录</string>
+    <string name="todayschedule">今日日程</string>
     <string name="newpassworded">重复新密码</string>
+    <string name="seeall">查看全部</string>
+    <string name="str">仅展示本人数据</string>
+    <string name="liucheng">流程</string>
+    <string name="clickdelete">已添加(点击删除)</string>
+    <string name="canadd">可添加</string>
+
     <!-- 我的-->
     <string name="my_info">我的资料</string>
     <string name="soft_version">当前版本</string>

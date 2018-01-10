@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/color_fff"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/color_fff">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,23 +14,20 @@
             android:layout_height="@dimen/distance_267"
             android:background="@mipmap/headimg">
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/lunbo_viewPager"
+            <com.yunyisheng.app.yunys.utils.RecyclerBanner
+                android:id="@+id/rcy_banner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="true"
-                android:focusableInTouchMode="true" />
-
-            <LinearLayout
-                android:id="@+id/lunbo_indicator_ll"
+                android:layout_height="match_parent"
+                 />
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/distance_30"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/distance_7_5"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginRight="@dimen/distance_10"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="8dip"></LinearLayout>
+                android:textColor="@color/white"
+                android:layout_marginBottom="@dimen/distance_25"
+                android:text="@string/str"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -40,37 +37,40 @@
                     android:id="@+id/img_baobiao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/baobiao"
-                    android:layout_marginTop="@dimen/distance_8"/>
+                    android:layout_marginTop="@dimen/distance_8"
+                    android:background="@mipmap/baobiao" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/bottom_bar_index"
                     android:layout_centerHorizontal="true"
-                    android:textSize="@dimen/distance_16"
-                    android:layout_marginTop="@dimen/distance_17"
-                    android:textColor="@color/white"/>
+                    android:layout_marginTop="@dimen/distance_8"
+                    android:text="@string/bottom_bar_index"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/distance_16" />
+
                 <ImageView
                     android:id="@+id/img_message"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/message"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="@dimen/distance_8"/>
+                    android:layout_marginTop="@dimen/distance_8"
+                    android:background="@mipmap/message" />
             </RelativeLayout>
         </RelativeLayout>
+
         <LinearLayout
             android:id="@+id/line_center"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/distance_74"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/distance_238"
             android:background="@mipmap/centerbac"
-            android:layout_centerHorizontal="true"
             android:gravity="center_vertical"
-            android:paddingLeft="@dimen/distance_16"
-            android:paddingRight="@dimen/distance_16"
             android:orientation="horizontal"
-            >
+            android:paddingLeft="@dimen/distance_16"
+            android:paddingRight="@dimen/distance_16">
+
             <LinearLayout
                 android:id="@+id/line_notice"
                 android:layout_width="0dp"
@@ -78,17 +78,20 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/notice"/>
+                    android:background="@mipmap/notice" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/notice"
                     android:textColor="@color/color_333"
-                    android:textSize="@dimen/distance_14"
-                    android:text="@string/notice"/>
+                    android:textSize="@dimen/distance_14" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/line_tongxunlu"
                 android:layout_width="0dp"
@@ -96,17 +99,20 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/tongxunlu"/>
+                    android:background="@mipmap/tongxunlu" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/tongxunlu"
                     android:textColor="@color/color_333"
-                    android:textSize="@dimen/distance_14"
-                    android:text="@string/tongxunlu"/>
+                    android:textSize="@dimen/distance_14" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/line_beiwanglu"
                 android:layout_width="0dp"
@@ -114,30 +120,87 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/beiwanglu"/>
+                    android:background="@mipmap/beiwanglu" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/beiwanglu"
                     android:textColor="@color/color_333"
-                    android:textSize="@dimen/distance_14"
-                    android:text="@string/beiwanglu"/>
+                    android:textSize="@dimen/distance_14" />
             </LinearLayout>
         </LinearLayout>
-        <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+
+        <RelativeLayout
+            android:id="@+id/rl_todaycolumn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_40"
+            android:layout_below="@+id/line_center"
+            android:background="@color/white"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/distance_14"
+                android:layout_marginLeft="@dimen/distance_10"
+                android:layout_marginRight="@dimen/distance_5"
+                android:layout_marginTop="@dimen/distance_4"
+                android:background="@mipmap/titlehead" />
+
+            <TextView
+                android:id="@+id/te_columntitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/img"
+                android:text="@string/todayschedule"
+                android:textColor="@color/color_333"
+                android:textSize="@dimen/distance_16" />
+
+            <TextView
+                android:id="@+id/te_columnsize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/distance_5"
+                android:layout_toRightOf="@+id/te_columntitle"
+                android:text="(32)"
+                android:textColor="@color/color_666"
+                android:textSize="@dimen/distance_16" />
+
+            <TextView
+                android:id="@+id/te_seeall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/distance_10"
+                android:text="@string/seeall"
+                android:textColor="@color/color_999"
+                android:textSize="@dimen/distance_16" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/rl_todaycolumn"
+            android:background="@color/color_e7" />
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
             android:id="@+id/pull_to_refresh_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/line_center"
+            android:layout_below="@+id/view"
             android:background="@color/white"
             android:clickable="false"
+            android:divider="@color/color_e7"
+            android:dividerPadding="0.5dp"
             android:scrollbars="none">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/distance_40"></RelativeLayout>
-        </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+
+        </com.handmark.pulltorefresh.library.PullToRefreshListView>
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
