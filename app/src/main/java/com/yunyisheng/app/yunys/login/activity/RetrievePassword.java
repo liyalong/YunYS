@@ -92,7 +92,7 @@ public class RetrievePassword extends BaseActivity<RetrievePasswordPresent> {
 
     private void toLogin() {
         Router.newIntent(context)
-                .to(OtherActivity.class)
+                .to(LoginActivity.class)
                 .launch();
         this.finish();
     }
