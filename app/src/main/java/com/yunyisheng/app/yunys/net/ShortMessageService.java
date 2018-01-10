@@ -13,7 +13,7 @@ import retrofit2.http.POST;
 
 public interface ShortMessageService {
     @FormUrlEncoded
-    @POST("fairyland-system/system/android/user/login")
+    @POST("system/android/user/login")
     Flowable<BaseStatusModel> getShortMessage(@Field("phone") String userPhone);
 
 }
