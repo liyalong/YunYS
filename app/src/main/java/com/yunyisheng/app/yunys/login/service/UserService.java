@@ -33,9 +33,9 @@ public interface UserService {
      * @return
      */
     @FormUrlEncoded
-    @POST("fairyland-system/system/android/user/changePassword")
-    Flowable<BaseStatusModel> changePassword(@Field("phone") String phone,
-                                                   @Field("code") String code,
+    @POST("fairyland-system/system/update/enterprirUser/feorget/password")
+    Flowable<BaseStatusModel> changePassword(@Field("userName") String phone,
+                                                   @Field("authCode") String code,
                                                    @Field("newPassword") String password);
 
 

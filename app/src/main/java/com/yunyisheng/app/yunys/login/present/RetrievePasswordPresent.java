@@ -6,6 +6,7 @@ import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
+import cn.droidlover.xdroidmvp.log.XLog;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 import cn.droidlover.xdroidmvp.net.ApiSubscriber;
 import cn.droidlover.xdroidmvp.net.NetError;
@@ -29,6 +30,7 @@ public class RetrievePasswordPresent extends XPresent<RetrievePassword> {
 
                     @Override
                     protected void onFail(NetError error) {
+                        XLog.d("error",error);
                         ToastUtils.showToast("请求数据失败！");
                     }
 

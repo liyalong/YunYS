@@ -9,6 +9,7 @@ import cn.droidlover.xdroidmvp.net.XApi;
  */
 
 public class Api {
+    //192.168.2.208   172.16.160.67
     public static final String BASE_PATH = "http://172.16.160.67:8080/";
     private static UserService userService;
     private static ShortMessageService shortMessageService;
