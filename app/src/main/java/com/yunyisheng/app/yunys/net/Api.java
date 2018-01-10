@@ -1,5 +1,7 @@
 package com.yunyisheng.app.yunys.net;
 
+import com.yunyisheng.app.yunys.login.service.UserService;
+
 import cn.droidlover.xdroidmvp.net.XApi;
 
 /**
@@ -7,7 +9,7 @@ import cn.droidlover.xdroidmvp.net.XApi;
  */
 
 public class Api {
-    public static final String BASE_PATH = "http://172.16.26.212:8080/fairyland-system/";
+    public static final String BASE_PATH = "http://172.16.160.67:8080/";
     private static UserService userService;
     private static ShortMessageService shortMessageService;
     private static CompanyService companyService;

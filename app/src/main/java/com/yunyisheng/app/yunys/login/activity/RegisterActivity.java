@@ -10,10 +10,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yunyisheng.app.yunys.R;
+import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.login.present.RegisterPresent;
 import com.yunyisheng.app.yunys.main.activity.OtherActivity;
 import com.yunyisheng.app.yunys.utils.RegularUtil;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +27,7 @@ import cn.droidlover.xdroidmvp.router.Router;
  * Created by liyalong on 2018/1/5.
  */
 
-public class RegisterActivity extends XActivity<RegisterPresent>{
+public class RegisterActivity extends BaseActivity<RegisterPresent> {
     @BindView(R.id.company_name)
     EditText companyName;
     @BindView(R.id.user_name)
@@ -45,28 +47,38 @@ public class RegisterActivity extends XActivity<RegisterPresent>{
     @BindView(R.id.toLogin)
     TextView toLogin;
 
+
     @Override
-    public void initData(Bundle savedInstanceState) {
+    public void initView() {
         ButterKnife.bind(this);
     }
 
     @Override
-    public int getLayoutId() {
+    public void initAfter() {
+
+    }
+
+    @Override
+    public int bindLayout() {
         return R.layout.acitvity_register;
     }
 
     @Override
-    public RegisterPresent newP() {
+    public RegisterPresent bindPresent() {
         return new RegisterPresent();
     }
 
+    @Override
+    public void setListener() {
+        get_yzm.setOnClickListener(this);
+        toLogin.setOnClickListener(this);
+        btnRegister.setOnClickListener(this);
+    }
 
+    @Override
+    public void widgetClick(View v) {
+        switch (v.getId()) {
 
-    @OnClick({R.id.yzm, R.id.toLogin,R.id.get_yzm,R.id.btn_register})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.yzm:
-                break;
             case R.id.toLogin:
                 toLoginView();
                 break;
@@ -86,34 +98,34 @@ public class RegisterActivity extends XActivity<RegisterPresent>{
         String passwordValue = password.getText().toString().trim();
         String code = yzm.getText().toString().trim();
         if (company_name.isEmpty()){
-            showToastMsg("公司名称不能为空！");
+            ToastUtils.showToast("公司名称不能为空！");
             return;
         }
         if (user_name.isEmpty()){
-            showToastMsg("姓名不能为空！");
+            ToastUtils.showToast("姓名不能为空！");
             return;
         }
         if(phone.isEmpty()){
-            showToastMsg("手机号不能为空!");
+            ToastUtils.showToast("手机号不能为空!");
             return;
         }
         if(!RegularUtil.isPhone(phone)){
-            showToastMsg("手机号格式错误！");
+            ToastUtils.showToast("手机号格式错误！");
             return;
         }
         if(passwordValue.isEmpty()){
-            showToastMsg("密码不能为空！");
+            ToastUtils.showToast("密码不能为空！");
             return;
         }
         if(!RegularUtil.isPsw(passwordValue)){
-            showToastMsg("密码必须大于6位！");
+            ToastUtils.showToast("密码必须大于6位！");
             return;
         }
         if(code.isEmpty()){
-            showToastMsg("验证码不能为空！");
+            ToastUtils.showToast("验证码不能为空！");
             return;
         }
-        //getP().registerCompany(company_name,user_name,phone,passwordValue,code);
+        getP().registerCompany(company_name,user_name,phone,passwordValue,code);
 
     }
 
@@ -127,11 +139,11 @@ public class RegisterActivity extends XActivity<RegisterPresent>{
         String phone = phoneNum.getText().toString().trim();
 //        Toast.makeText(this,phone,Toast.LENGTH_SHORT);
         if(phone.isEmpty()){
-            showToastMsg("手机号不能为空！");
+            ToastUtils.showToast("手机号不能为空！");
             return;
         }
         if(!RegularUtil.isPhone(phone)){
-            showToastMsg("手机号者格式错误！");
+            ToastUtils.showToast("手机号者格式错误！");
             return;
         }
         get_yzm.setEnabled(false);
@@ -153,24 +165,22 @@ public class RegisterActivity extends XActivity<RegisterPresent>{
 
     public void checkMsgResault(BaseStatusModel baseStatusModel) {
         if(baseStatusModel.getStatus() != 200){
-            showToastMsg(baseStatusModel.getMessage());
+            ToastUtils.showToast(baseStatusModel.getMessage());
             return;
         }else{
-            showToastMsg("短信验证码已发送！");
+            ToastUtils.showToast("短信验证码已发送！");
             return;
         }
     }
 
-    public void showToastMsg(String s) {
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
-    }
+    
 
     public void checkRegiterInfo(BaseStatusModel baseStatusModel) {
         if(baseStatusModel.getStatus() != 200){
-            showToastMsg(baseStatusModel.getMessage());
+            ToastUtils.showToast(baseStatusModel.getMessage());
             return;
         }else{
-            showToastMsg("注册成功！");
+            ToastUtils.showToast("注册成功！");
             toLoginView();
         }
     }

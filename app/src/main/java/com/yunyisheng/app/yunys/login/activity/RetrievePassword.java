@@ -9,10 +9,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yunyisheng.app.yunys.R;
+import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.login.present.RetrievePasswordPresent;
 import com.yunyisheng.app.yunys.main.activity.OtherActivity;
 import com.yunyisheng.app.yunys.utils.RegularUtil;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +26,7 @@ import cn.droidlover.xdroidmvp.router.Router;
  * Created by liyalong on 2018/1/5.
  * 忘记密码activity
  */
-public class RetrievePassword extends XActivity<RetrievePasswordPresent> {
+public class RetrievePassword extends BaseActivity<RetrievePasswordPresent> {
     @BindView(R.id.et_account)
     EditText etAccount;
     @BindView(R.id.yzm)
@@ -43,24 +45,36 @@ public class RetrievePassword extends XActivity<RetrievePasswordPresent> {
     TextView login;
 
     @Override
-    public void initData(Bundle savedInstanceState) {
+    public void initView() {
         ButterKnife.bind(this);
     }
 
     @Override
-    public int getLayoutId() {
+    public void initAfter() {
+
+    }
+
+    @Override
+    public int bindLayout() {
         return R.layout.activity_retrieve_password;
     }
 
     @Override
-    public RetrievePasswordPresent newP() {
+    public RetrievePasswordPresent bindPresent() {
         return new RetrievePasswordPresent();
     }
 
+    @Override
+    public void setListener() {
+        get_yzm.setOnClickListener(this);
+        btnUpdate.setOnClickListener(this);
+        register.setOnClickListener(this);
+        login.setOnClickListener(this);
+    }
 
-    @OnClick({R.id.get_yzm, R.id.btn_update, R.id.register, R.id.login})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
+    @Override
+    public void widgetClick(View v) {
+        switch (v.getId()) {
             case R.id.get_yzm:
                 getYzm();
                 break;
@@ -97,24 +111,24 @@ public class RetrievePassword extends XActivity<RetrievePasswordPresent> {
         String passwordValue = password.getText().toString().trim();
         String passwordedValue = passworded.getText().toString().trim();
         if(phone.isEmpty()){
-            showToastMsg("手机号不能为空！");
+            ToastUtils.showToast("手机号不能为空！");
             return;
         }
         if(!RegularUtil.isPhone(phone)){
-            showToastMsg("手机号格式错误!");
+            ToastUtils.showToast("手机号格式错误!");
             return;
         }
         if(code.isEmpty()){
-            showToastMsg("短信验证码不能为空！");
+            ToastUtils.showToast("短信验证码不能为空！");
             return;
         }
         if(passwordedValue.isEmpty() || passwordValue.isEmpty()){
-            showToastMsg("新密码不能为空！");
+            ToastUtils.showToast("新密码不能为空！");
             return;
         }
 
         if(passwordedValue != passwordValue){
-            showToastMsg("两次密码输入不一致！请重新输入！");
+            ToastUtils.showToast("两次密码输入不一致！请重新输入！");
             return;
         }
         getP().changePassword(phone,code,passwordValue);
@@ -126,11 +140,11 @@ public class RetrievePassword extends XActivity<RetrievePasswordPresent> {
         String phone = etAccount.getText().toString().trim();
 //        Toast.makeText(this,phone,Toast.LENGTH_SHORT);
         if(phone.isEmpty()){
-            showToastMsg("手机号不能为空！");
+            ToastUtils.showToast("手机号不能为空！");
             return;
         }
         if(!RegularUtil.isPhone(phone)){
-            showToastMsg("手机号者格式错误！");
+            ToastUtils.showToast("手机号者格式错误！");
             return;
         }
         get_yzm.setEnabled(false);
@@ -150,16 +164,14 @@ public class RetrievePassword extends XActivity<RetrievePasswordPresent> {
         getP().getShortMessage(phone);
     }
 
-    public void showToastMsg(String s) {
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
-    }
+    
 
     public void checkMsgResault(BaseStatusModel baseStatusModel) {
         if (baseStatusModel.getStatus() != 200){
-            showToastMsg(baseStatusModel.getMessage());
+            ToastUtils.showToast(baseStatusModel.getMessage());
             return;
         }else{
-            showToastMsg("短信验证码已发送成功！");
+            ToastUtils.showToast("短信验证码已发送成功！");
             return;
         }
 
@@ -167,10 +179,10 @@ public class RetrievePassword extends XActivity<RetrievePasswordPresent> {
 
     public void checkResault(BaseStatusModel baseStatusModel, String phone, String password) {
         if(baseStatusModel.getStatus() != 200){
-            showToastMsg(baseStatusModel.getMessage());
+            ToastUtils.showToast(baseStatusModel.getMessage());
             return;
         }else{
-            showToastMsg("密码修改成功！");
+            ToastUtils.showToast("密码修改成功！");
             toLogin();
             return;
         }

@@ -6,6 +6,7 @@ import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.login.model.LoginModel;
 import com.yunyisheng.app.yunys.main.activity.OtherActivity;
 import com.yunyisheng.app.yunys.net.Api;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import cn.droidlover.xdroidmvp.log.XLog;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
@@ -28,7 +29,7 @@ public class LoginPresent extends XPresent<LoginActivity> {
                     @Override
                     protected void onFail(NetError error) {
                         Log.i("ERROR", error.toString());
-                        getV().showToastMsg("请求数据失败！");
+                        ToastUtils.showToast("请求数据失败！");
                     }
 
                     @Override
