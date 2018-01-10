@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.yunyisheng.app.yunys.utils.TokenHeaderInterceptor;
+import com.yunyisheng.app.yunys.utils.UnCeHandler;
 
 import cn.droidlover.xdroidmvp.net.NetError;
 import cn.droidlover.xdroidmvp.net.NetProvider;
@@ -24,7 +25,9 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        app = this;
         context = this;
+        init();
         XApi.registerProvider(new NetProvider() {
 
             @Override
@@ -68,6 +71,10 @@ public class App extends Application {
                 return false;
             }
         });
+    }
+
+    private void init() {
+        UnCeHandler.getInstance().init(this);
     }
 
     public static Context getContext() {
