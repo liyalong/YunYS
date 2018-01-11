@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_f4f4f4"
-    tools:context="com.yunyisheng.app.yunys.main.activity.ReportformActivity">
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@color/white"
@@ -18,20 +14,13 @@
             android:background="@mipmap/blackback"
             />
         <TextView
+            android:id="@+id/te_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/color_333"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:textSize="@dimen/distance_16"
-            android:text="@string/baobiao"/>
-        <ImageView
-            android:id="@+id/img_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:background="@mipmap/addimg"
             />
     </RelativeLayout>
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

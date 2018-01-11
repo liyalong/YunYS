@@ -1,39 +1,45 @@
 package com.yunyisheng.app.yunys;
 
-import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.View;
+import android.widget.RadioButton;
 
-import com.ashokvarma.bottomnavigation.BottomNavigationBar;
-import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.main.fragement.HomeFragement;
 import com.yunyisheng.app.yunys.project.fragement.ProjectFragement;
 import com.yunyisheng.app.yunys.userset.fragement.MineFragement;
+import com.yunyisheng.app.yunys.utils.XRadioGroup;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.droidlover.xdroidbase.cache.SharedPref;
-import cn.droidlover.xdroidmvp.mvp.XActivity;
+import cn.droidlover.xdroidmvp.mvp.XPresent;
 import cn.droidlover.xdroidmvp.router.Router;
 
-public class MainActivity extends XActivity implements BottomNavigationBar.OnTabSelectedListener{
-    BottomNavigationBar bottomNavigationBar;
+public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedChangeListener {
     HomeFragement homeFragement;
     ProjectFragement projectFragment;
     MineFragement myFragment;
+    @BindView(R.id.rb_shouye)
+    RadioButton rbShouye;
+    @BindView(R.id.rb_xiangmu)
+    RadioButton rbXiangmu;
+    @BindView(R.id.rb_center)
+    RadioButton rbCenter;
+    @BindView(R.id.rb_task)
+    RadioButton rbTask;
+    @BindView(R.id.rb_mine)
+    RadioButton rbMine;
+    @BindView(R.id.radioGroup1)
+    XRadioGroup radioGroup1;
 
-    @Override
-    public void initData(Bundle savedInstanceState) {
-        checkToken();
-        bottomNavigationBar =(BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
-        initBottomBar();
-        initTab();
-        bottomNavigationBar.setTabSelectedListener(this);
-    }
 
     private void checkToken() {
         String token = SharedPref.getInstance(context).getString("TOKEN", "");
-        if(token.length() == 0){
-            Log.i("TOKEN","token is empty");
+        if (token.length() == 0) {
+            Log.i("TOKEN", "token is empty");
             Router.newIntent(context)
                     .to(LoginActivity.class)
                     .launch();
@@ -44,72 +50,71 @@ public class MainActivity extends XActivity implements BottomNavigationBar.OnTab
     private void initTab() {
         homeFragement = new HomeFragement();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_main,homeFragement);
+        transaction.replace(R.id.content_main, homeFragement);
         transaction.commit();
     }
-    //初始化底部导航栏
-    private void initBottomBar() {
-        bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
-        bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
-        bottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.activity_bar_index,R.string.bottom_bar_index))
-                .addItem(new BottomNavigationItem(R.drawable.activity_bar_project,R.string.bottom_bar_project))
-                .addItem(new BottomNavigationItem(R.drawable.activity_bar_center,null))
-                .addItem(new BottomNavigationItem(R.drawable.activity_bar_task,R.string.bottom_bar_task))
-                .addItem(new BottomNavigationItem(R.drawable.activity_bar_my,R.string.bottom_bar_my))
-                .setFirstSelectedPosition(0)
-                .initialise();
+
+
+    @Override
+    public void initView() {
+        ButterKnife.bind(this);
+        checkToken();
+        initTab();
     }
 
     @Override
-    public int getLayoutId() {
+    public void initAfter() {
+
+    }
+
+    @Override
+    public int bindLayout() {
         return R.layout.activity_main;
     }
 
     @Override
-    public Object newP() {
+    public XPresent bindPresent() {
         return null;
     }
-    //底部导航栏切换fragment
+
     @Override
-    public void onTabSelected(int position) {
+    public void setListener() {
+       radioGroup1.setOnCheckedChangeListener(this);
+    }
+
+    @Override
+    public void widgetClick(View v) {
+
+    }
+
+    @Override
+    public void onCheckedChanged(XRadioGroup group, int checkedId) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        switch (position){
-            case  0:
-                if(homeFragement == null){
+        switch (checkedId) {
+            case R.id.rb_shouye:
+                if (homeFragement == null) {
                     homeFragement = new HomeFragement();
                 }
-                transaction.replace(R.id.content_main,homeFragement);
+                transaction.replace(R.id.content_main, homeFragement);
                 break;
-            case 1:
-                if(projectFragment == null){
+            case R.id.rb_xiangmu:
+                if (projectFragment == null) {
                     projectFragment = new ProjectFragement();
                 }
-                transaction.replace(R.id.content_main,projectFragment);
+                transaction.replace(R.id.content_main, projectFragment);
                 break;
-            case 2:
-
+            case R.id.rb_center:
                 break;
-            case 3:
-
+            case R.id.rb_task:
                 break;
-            case 4:
-                if(myFragment == null){
+            case R.id.rb_mine:
+                if (myFragment == null) {
                     myFragment = new MineFragement();
                 }
-                transaction.replace(R.id.content_main,myFragment);
+                transaction.replace(R.id.content_main, myFragment);
                 break;
         }
         transaction.commit();
-
     }
 
-    @Override
-    public void onTabUnselected(int position) {
-
-    }
-
-    @Override
-    public void onTabReselected(int position) {
-
-    }
 }

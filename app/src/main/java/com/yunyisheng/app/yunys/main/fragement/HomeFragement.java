@@ -1,18 +1,21 @@
 package com.yunyisheng.app.yunys.main.fragement;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.main.activity.ReportformActivity;
 import com.yunyisheng.app.yunys.utils.RecyclerBanner;
 
 import java.util.ArrayList;
@@ -47,6 +50,12 @@ public class HomeFragement extends BaseFragement {
     @BindView(R.id.pull_to_refresh_scrollview)
     PullToRefreshListView pullToRefreshScrollview;
     Unbinder unbinder;
+    @BindView(R.id.line_notice)
+    LinearLayout lineNotice;
+    @BindView(R.id.line_tongxunlu)
+    LinearLayout lineTongxunlu;
+    @BindView(R.id.line_beiwanglu)
+    LinearLayout lineBeiwanglu;
     private List<RecyclerBanner.BannerEntity> urls = new ArrayList<>();
     int i;
 
@@ -87,12 +96,31 @@ public class HomeFragement extends BaseFragement {
 
     @Override
     public void setListener() {
-
+        imgBaobiao.setOnClickListener(this);
+        imgMessage.setOnClickListener(this);
+        teSeeall.setOnClickListener(this);
+        lineNotice.setOnClickListener(this);
+        lineTongxunlu.setOnClickListener(this);
+        lineBeiwanglu.setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
-
+        switch (v.getId()){
+            case R.id.img_baobiao:
+                startActivity(new Intent(mContext, ReportformActivity.class));
+                break;
+            case R.id.img_message:
+                break;
+            case R.id.te_seeall:
+                break;
+            case R.id.line_notice:
+                break;
+            case R.id.line_tongxunlu:
+                break;
+            case R.id.line_beiwanglu:
+                break;
+        }
     }
 
     @Override
