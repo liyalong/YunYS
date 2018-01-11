@@ -43,7 +43,8 @@
         <activity
             android:name=".login.activity.RegisterActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".main.activity.ReportformActivity"></activity>
+        <activity android:name=".main.activity.ReportformActivity" />
+        <activity android:name=".main.activity.MessageActivity"></activity>
     </application>
 
 </manifest>

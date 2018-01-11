@@ -1,22 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/baseBackgroundColor"
     tools:context=".MainActivity">
-    <include
-        android:id="@+id/inc"
-        layout="@layout/content_main"
-        />
 
-    <com.ashokvarma.bottomnavigation.BottomNavigationBar
-        android:id="@+id/bottom_navigation_bar"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/inc"
+    <FrameLayout
+        android:id="@+id/content_main"
         android:layout_width="match_parent"
-        android:layout_gravity="bottom|end"/>
+        android:layout_height="match_parent"></FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_50"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/bottombac"
+        android:orientation="vertical">
+
+
+        <com.yunyisheng.app.yunys.utils.XRadioGroup
+            android:id="@+id/radioGroup1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_50"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_shouye"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/btn_home_select"
+                    android:button="@null"
+                    android:checked="true"
+                    android:textSize="12dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal">
+
+
+                <RadioButton
+                    android:id="@+id/rb_xiangmu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/btn_project_select"
+                    android:button="@null"
+                    android:checked="false"
+                    android:textSize="12dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_center_select"
+                    android:button="@null"
+                    android:checked="false"
+                    android:textSize="12dp" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_task"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/btn_task_select"
+                    android:button="@null"
+                    android:textSize="12dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_mine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/btn_mine_select"
+                    android:button="@null"
+                    android:textSize="12dp" />
+            </RelativeLayout>
+        </com.yunyisheng.app.yunys.utils.XRadioGroup>
+    </RelativeLayout>
 
 
 </RelativeLayout>
