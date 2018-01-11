@@ -1,8 +1,8 @@
 package com.yunyisheng.app.yunys.main.activity;
 
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,22 +13,23 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
-/**
- * @author fuduo
- * @time 2018/1/11  14:24
- * @describe 消息activity
- */
-public class MessageActivity extends BaseActivity {
+public class SendNoticeActivity extends BaseActivity {
 
 
     @BindView(R.id.img_back)
     ImageView imgBack;
-    @BindView(R.id.te_msgsize)
-    TextView teMsgsize;
-    @BindView(R.id.rl_allmsg)
-    RelativeLayout rlAllmsg;
-    @BindView(R.id.lv_message)
-    ListView lvMessage;
+    @BindView(R.id.te_next)
+    TextView teNext;
+    @BindView(R.id.ed_noticetitle)
+    EditText edNoticetitle;
+    @BindView(R.id.rl_fujian)
+    RelativeLayout rlFujian;
+    @BindView(R.id.te_frangesize)
+    TextView teFrangesize;
+    @BindView(R.id.rl_senfrange)
+    RelativeLayout rlSenfrange;
+    @BindView(R.id.te_notice_deatil)
+    EditText teNoticeDeatil;
 
     @Override
     public void initView() {
@@ -42,7 +43,7 @@ public class MessageActivity extends BaseActivity {
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_message;
+        return R.layout.activity_send_notice;
     }
 
     @Override
@@ -53,7 +54,9 @@ public class MessageActivity extends BaseActivity {
     @Override
     public void setListener() {
         imgBack.setOnClickListener(this);
-        rlAllmsg.setOnClickListener(this);
+        teNext.setOnClickListener(this);
+        rlFujian.setOnClickListener(this);
+        rlSenfrange.setOnClickListener(this);
     }
 
     @Override
@@ -62,7 +65,11 @@ public class MessageActivity extends BaseActivity {
             case R.id.img_back:
                 finish();
                 break;
-            case R.id.rl_allmsg:
+            case R.id.te_next:
+                break;
+            case R.id.rl_fujian:
+                break;
+            case R.id.rl_senfrange:
                 break;
         }
     }

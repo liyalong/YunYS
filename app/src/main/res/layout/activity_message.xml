@@ -4,6 +4,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_f4f4f4"
     tools:context="com.yunyisheng.app.yunys.main.activity.MessageActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <include
+            layout="@layout/include_titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <RelativeLayout
+            android:id="@+id/rl_allmsg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_40"
+            android:background="@color/white"
+            android:layout_marginTop="@dimen/distance_10"
+            >
 
+            <TextView
+                android:id="@+id/te1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/allmsg"
+                android:layout_marginLeft="@dimen/distance_10"
+                android:layout_centerVertical="true"
+                android:textColor="@color/color_999"
+                android:textSize="@dimen/distance_14" />
+
+            <TextView
+                android:id="@+id/te_msgsize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/distance_5"
+                android:layout_toRightOf="@+id/te1"
+                android:text="(32)"
+                android:textColor="@color/color_999"
+                android:textSize="@dimen/distance_14" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/blackback_r"
+                />
+        </RelativeLayout>
+        <ListView
+            android:id="@+id/lv_message"
+            android:layout_marginTop="@dimen/distance_10"
+            android:layout_width="match_parent"
+            android:divider="@color/color_e7"
+            android:dividerHeight="@dimen/distance_1"
+            android:layout_height="wrap_content"></ListView>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

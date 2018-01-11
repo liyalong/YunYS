@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_100"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/distance_12"
+        android:paddingLeft="@dimen/distance_12"
+        android:paddingRight="@dimen/distance_9"
+        android:paddingTop="@dimen/distance_12">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/te_msgtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="佛挡杀佛"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_13" />
+                <ImageView
+                    android:id="@+id/img_oval"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/oval"
+                    android:visibility="gone"
+                    android:layout_marginLeft="@dimen/distance_2"
+                    android:layout_toRightOf="@+id/te_msgtitle"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/te_msgtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/distance_50"
+                    android:text="佛挡杀佛"
+                    android:textColor="@color/color_999"
+                    android:textSize="@dimen/distance_12" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.5">
+
+                <TextView
+                    android:id="@+id/te_msgdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="2"
+                    android:text="佛挡杀佛发挥的空间和反抗精神恢复快接电话十分恐惧恢复快的话罚款扣分回到家发挥空间的划分的翻开手机放很多废话开发和空间都是分开的恢复快接电话分开"
+                    android:textColor="@color/color_666"
+                    android:textSize="@dimen/distance_12" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_msgtype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/noticeimg" />
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

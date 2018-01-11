@@ -62,6 +62,15 @@
                     android:checked="false"
                     android:textSize="12dp" />
 
+                <ImageView
+                    android:id="@+id/img_oval"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/distance_7"
+                    android:layout_toRightOf="@+id/rb_xiangmu"
+                    android:background="@mipmap/oval"
+                    android:visibility="visible" />
+
             </RelativeLayout>
 
             <RelativeLayout

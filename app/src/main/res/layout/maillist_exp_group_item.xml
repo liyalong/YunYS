@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="@dimen/distance_41">
+        <ImageView
+            android:id="@+id/img_zhedie"
+            android:layout_width="@dimen/distance_15"
+            android:layout_height="@dimen/distance_15"
+            android:background="@mipmap/rightsanjiao"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/distance_12"
+            />
+        <TextView
+            android:id="@+id/te_groupname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="动版"
+            android:textColor="@color/color_333"
+            android:textSize="@dimen/distance_14"
+            android:layout_toRightOf="@+id/img_zhedie"
+            android:layout_marginLeft="@dimen/distance_3"
+            android:layout_centerVertical="true"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="@dimen/distance_1"
+            android:background="@color/color_e7"
+            android:layout_marginRight="@dimen/distance_25"
+            />
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>
