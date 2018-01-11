@@ -1,9 +1,10 @@
 package com.yunyisheng.app.yunys.main.activity;
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
@@ -15,20 +16,20 @@ import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
  * @author fuduo
- * @time 2018/1/11  14:24
- * @describe 消息activity
+ * @time 2018/1/11  15:33
+ * @describe 公告activity
  */
-public class MessageActivity extends BaseActivity {
+public class NoticeActivity extends BaseActivity {
 
 
     @BindView(R.id.img_back)
     ImageView imgBack;
-    @BindView(R.id.te_msgsize)
-    TextView teMsgsize;
-    @BindView(R.id.rl_allmsg)
-    RelativeLayout rlAllmsg;
-    @BindView(R.id.lv_message)
-    ListView lvMessage;
+    @BindView(R.id.te_sendnotice)
+    TextView teSendnotice;
+    @BindView(R.id.ed_search)
+    EditText edSearch;
+    @BindView(R.id.lv_notice)
+    ListView vNotice;
 
     @Override
     public void initView() {
@@ -42,7 +43,7 @@ public class MessageActivity extends BaseActivity {
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_message;
+        return R.layout.activity_notice;
     }
 
     @Override
@@ -53,7 +54,7 @@ public class MessageActivity extends BaseActivity {
     @Override
     public void setListener() {
         imgBack.setOnClickListener(this);
-        rlAllmsg.setOnClickListener(this);
+        teSendnotice.setOnClickListener(this);
     }
 
     @Override
@@ -62,7 +63,8 @@ public class MessageActivity extends BaseActivity {
             case R.id.img_back:
                 finish();
                 break;
-            case R.id.rl_allmsg:
+            case R.id.te_sendnotice:
+                startActivity(new Intent(this,SendNoticeActivity.class));
                 break;
         }
     }

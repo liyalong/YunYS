@@ -13,9 +13,14 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:persistent="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="3.2" />
+
         <activity
             android:name=".login.activity.WelcomeActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
@@ -42,8 +47,21 @@
         <activity
             android:name=".login.activity.RegisterActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".main.activity.ReportformActivity" />
-        <activity android:name=".main.activity.MessageActivity"></activity>
+        <activity
+            android:name=".main.activity.ReportformActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.activity.MessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.activity.NoticeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.activity.SendNoticeActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".main.activity.NoticeDeatilActivity" />
+        <activity android:name=".main.activity.MailListActivity"></activity>
     </application>
 
 </manifest>

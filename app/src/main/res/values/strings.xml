@@ -35,6 +35,22 @@
     <string name="clickdelete">已添加(点击删除)</string>
     <string name="canadd">可添加</string>
     <string name="baobiao">报表</string>
+    <!--消息-->
+    <string name="allmsg">全部消息</string>
+    <!--公告-->
+    <string name="sendnotice">发公告</string>
+    <string name="search">搜索</string>
+    <string name="next">下一步</string>
+    <string name="noticetitle">*公告标题</string>
+    <string name="fujian">*附件</string>
+    <string name="senfrange">*发布范围</string>
+    <string name="noticedeatil">*公告内容</string>
+    <string name="noticedeatils">公告详情</string>
+    <!--通讯录-->
+    <string name="zuzhi">组织架构</string>
+    <string name="projectjiagou">项目架构</string>
+    <string name="anpaiwork">安排工作</string>
+    <string name="invite">邀请同事</string>
 
     <!-- 我的-->
     <string name="my_info">我的资料</string>
