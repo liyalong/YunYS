@@ -3,34 +3,35 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal">
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tabs"
+    android:orientation="vertical"
+    android:background="@color/baseBackgroundColor">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:background="@color/white"
-        app:tabGravity="center"
-        app:tabTextColor="@color/color_666"
-        app:tabSelectedTextColor="@color/color_333"
-        app:tabTextAppearance="@android:style/TextAppearance.Holo.Large"
-        app:tabIndicatorColor="@color/color_tab_selected">
-        <android.support.design.widget.TabItem
-            android:id="@+id/get_my_projects"
-            android:text="@string/myProject"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent" />
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/get_company_projects"
-            android:layout_height="match_parent"
+        android:paddingBottom="@dimen/distance_9"
+        android:layout_marginBottom="@dimen/distance_10">
+        <android.support.design.widget.TabLayout
+            android:id="@+id/project_tablayout"
             android:layout_width="match_parent"
-            android:text="@string/companyProject" />
-    </android.support.design.widget.TabLayout>
+            android:layout_height="@dimen/distance_40"
+            android:layout_centerHorizontal="true"
+            app:tabGravity="center"
+            app:tabMode="fixed"
+            app:tabTextColor="@color/color_666"
+            app:tabTextAppearance="@style/TabLayoutTextStyle"
+            app:tabSelectedTextColor="@color/color_333"
+            app:tabIndicatorColor="@color/color_tab_selected">
+
+        </android.support.design.widget.TabLayout>
+    </LinearLayout>
     <android.support.v4.view.ViewPager
         android:id="@+id/project_list_viewpage"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </android.support.v4.view.ViewPager>
+
 
 </LinearLayout>

@@ -11,7 +11,11 @@ import cn.droidlover.xdroidmvp.mvp.XPresent;
  * Created by liyalong on 2018/1/10.
  */
 
-public class CompanyProjectFargment extends BaseFragement {
+public class CompanyProjectFragment extends BaseFragement {
+    public static CompanyProjectFragment newInstance(){
+        CompanyProjectFragment fragment = new CompanyProjectFragment();
+        return  fragment;
+    }
     @Override
     public void initView() {
 

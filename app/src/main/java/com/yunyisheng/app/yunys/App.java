@@ -74,7 +74,7 @@ public class App extends Application {
     }
 
     private void init() {
-        UnCeHandler.getInstance().init(this);
+//        UnCeHandler.getInstance().init(this);
     }
 
     public static Context getContext() {
