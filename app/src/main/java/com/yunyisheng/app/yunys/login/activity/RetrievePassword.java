@@ -150,7 +150,7 @@ public class RetrievePassword extends BaseActivity<RetrievePasswordPresent> {
             return;
         }
         get_yzm.setEnabled(false);
-        CountDownTimer timer = new CountDownTimer(10000,1000) {
+        CountDownTimer timer = new CountDownTimer(60000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 get_yzm.setText(millisUntilFinished / 1000+"");

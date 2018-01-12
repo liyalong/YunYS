@@ -32,4 +32,9 @@
         <item>Single Select</item>
         <item>Multiple Select</item>
     </string-array>
+    <string-array name="tasks_type_spinner">
+        <item>待认领</item>
+        <item>已认领 </item>
+        <item>已发布</item>
+    </string-array>
 </resources>

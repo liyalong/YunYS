@@ -3,31 +3,38 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal">
+    android:background="@color/baseBackgroundColor"
+    android:orientation="vertical">
+    <include layout="@layout/project_info_banner" />
+
     <android.support.design.widget.TabLayout
-        android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/distance_41"
         android:background="@color/white"
+        android:layout_marginTop="@dimen/distance_10"
         app:tabGravity="center"
         app:tabTextColor="@color/color_666"
         app:tabSelectedTextColor="@color/color_333"
-        app:tabTextAppearance="@android:style/TextAppearance.Holo.Large"
         app:tabIndicatorColor="@color/color_tab_selected">
         <android.support.design.widget.TabItem
-            android:id="@+id/get_my_projects"
-            android:text="@string/myProject"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_width="match_parent" />
-
+            android:text="@string/device" />
         <android.support.design.widget.TabItem
-            android:id="@+id/get_company_projects"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:text="@string/companyProject" />
+            android:text="@string/model" />
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/alarmRecord" />
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/tasks" />
     </android.support.design.widget.TabLayout>
     <android.support.v4.view.ViewPager
-        android:id="@+id/project_list_viewpage"
+        android:id="@+id/project_info_viewpage"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
