@@ -102,6 +102,10 @@
         <item name="android:background">@color/baseBackgroundColor</item>
     </style>
 
+    <style name="TabLayoutTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">@dimen/tablayout</item>
+    </style>
+
     <!-- 对话框样式 -->
     <style name="dialog_bottom_full" parent="android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>

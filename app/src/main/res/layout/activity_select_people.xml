@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f4f4f4"
+    tools:context="com.yunyisheng.app.yunys.main.activity.SelectPeopleActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_49"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/blackback" />
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tablayout_jiagou"
+                android:layout_width="@dimen/distance_150"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/distance_10"
+                android:layout_marginBottom="@dimen/distance_10"
+                android:layout_centerHorizontal="true"
+                app:tabIndicatorColor="@color/color_44A7FD"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/color_333"
+                app:tabTextAppearance="@style/TabLayoutTextStyle"
+                app:tabTextColor="@color/color_333" />
+        </RelativeLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_jiagou"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
