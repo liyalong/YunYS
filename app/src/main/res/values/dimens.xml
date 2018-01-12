@@ -3,6 +3,7 @@
 
     <!-- common -->
     <dimen name="split_one_pixels">1px</dimen>
+    <dimen name="tablayout">16sp</dimen>
 
     <!-- font-size -->
     <dimen name="text_extra_large">20sp</dimen>

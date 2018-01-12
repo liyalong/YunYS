@@ -51,6 +51,7 @@
     <string name="projectjiagou">项目架构</string>
     <string name="anpaiwork">安排工作</string>
     <string name="invite">邀请同事</string>
+    <string name="allworker">全体员工</string>
 
     <!-- 我的-->
     <string name="my_info">我的资料</string>

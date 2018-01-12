@@ -61,7 +61,8 @@
             android:name=".main.activity.SendNoticeActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".main.activity.NoticeDeatilActivity" />
-        <activity android:name=".main.activity.MailListActivity"></activity>
+        <activity android:name=".main.activity.MailListActivity" />
+        <activity android:name=".main.activity.SelectPeopleActivity"></activity>
     </application>
 
 </manifest>

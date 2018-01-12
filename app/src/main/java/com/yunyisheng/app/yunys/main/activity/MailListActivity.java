@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.main.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -75,6 +76,7 @@ public class MailListActivity extends BaseActivity {
             case R.id.rl_projectframe:
                 break;
             case R.id.rl_arrangework:
+                startActivity(new Intent(MailListActivity.this,SelectPeopleActivity.class));
                 break;
             case R.id.rl_invite:
                 break;

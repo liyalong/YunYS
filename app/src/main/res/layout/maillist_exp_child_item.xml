@@ -23,7 +23,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/distance_3"
             android:layout_toRightOf="@+id/img"
-            android:background="@mipmap/moren_new" />
+            android:background="@mipmap/moren_head" />
 
         <RelativeLayout
             android:id="@+id/rel"
