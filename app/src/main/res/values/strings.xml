@@ -82,4 +82,83 @@
     <string name="usezone">已用空间</string>
     <string name="clearcatch">清理缓存</string>
     <!-- 我的-->
+    <!-- 项目 -->
+    <string name="myProject">我的项目</string>
+    <string name="companyProject">公司项目</string>
+    <string name="projectCreateTime">创建时间：</string>
+    <string name="projectCreateUser">负责人</string>
+    <string name="project">项目</string>
+    <string name="device">设备</string>
+    <string name="model">工艺模块</string>
+    <string name="alarmRecord">报警记录</string>
+    <string name="tasks">任务池</string>
+    <string name="devicelist">设备列表</string>
+    <string name="device_success">正常</string>
+    <string name="device_status_error">异常</string>
+    <string name="addTime">添加时间：</string>
+    <string name="button_cz">操作</string>
+    <string name="alarm_rules">报警规则</string>
+    <string name="knowledge">相关知识</string>
+    <string name="device_parts">设备备件</string>
+    <string name="periodic_tasks">周期任务</string>
+    <string name="deviceinfo_bjxx">报警信息</string>
+    <string name="deviceinfo_sszb">实时指标</string>
+    <string name="deviceinfo_jbxx">基本信息</string>
+    <string name="deviceinfo_status">设备状态</string>
+    <string name="deviceinfo_isPLC">是否绑定plc</string>
+    <string name="baojing_status">报错</string>
+    <string name="device_info">设备运行详情</string>
+    <string name="fuwei">复位</string>
+    <string name="beijian_code">编号：</string>
+    <string name="beijian_ghzq">更换周期：</string>
+    <string name="beijian_list">备件列表</string>
+    <string name="knowledge_list">知识库列表</string>
+    <string name="device_tasks_list">周期任务列表</string>
+    <string name="device_tasks_status">状态：</string>
+    <string name="device_tasks_desc">备注：</string>
+    <string name="add_user">添加人：</string>
+    <string name="alarmrules_list">报警规则列表</string>
+    <string name="alarmrules_value">阈值：</string>
+    <string name="alarmrules_set">报警规则：</string>
+    <string name="alarmrules_desc">报警描述：</string>
+    <string name="alarmrules_status_enable">正常</string>
+    <string name="alarmrules_status_disabled">禁用</string>
+    <string name="alarm_history">报警记录</string>
+    <string name="alarm_history_time">报警时间：</string>
+    <string name="alarm_history_type">报警类型：</string>
+    <string name="device_nums">设备数量：</string>
+    <string name="model_status">状态：</string>
+    <string name="enable">正常</string>
+    <string name="disable">禁用</string>
+    <string name="alarmrules_status">状态：</string>
+    <string name="alarmrules_level_1">低低</string>
+    <string name="alarmrules_level_2">低</string>
+    <string name="alarmrules_level_3">中</string>
+    <string name="alarmrules_level_4">高</string>
+    <string name="alarmrules_level_5">高高</string>
+
+
+    <string name="project_tasks_list">任务池列表</string>
+    <string name="edit_task">编辑任务</string>
+    <string name="remove_task">撤销任务</string>
+    <string name="assign_task">分配任务</string>
+    <string name="claim_task">认领任务</string>
+    <string name="do_task">立即执行</string>
+    <string name="back_task">回退</string>
+    <string name="task_info">任务详情</string>
+    <string name="task_create_user">创建人：</string>
+    <string name="task_create_time">创建时间：</string>
+    <string name="task_start_end_time">*起止时间</string>
+    <string name="task_do_user">认领人：</string>
+    <string name="task_status_1">待认领</string>
+    <string name="task_status_2">已认领</string>
+    <string name="task_status_3">已完成</string>
+    <string name="task_status_4">未完成</string>
+    <string name="task_status_5">已超时</string>
+
+
+    <string name="device_model_info">工艺模块运行详情</string>
+    <string name="device_model_about">相关设备</string>
+    <string name="device_use_status">使用状态</string>
+
 </resources>

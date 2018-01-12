@@ -12,8 +12,14 @@ import retrofit2.http.POST;
  */
 
 public interface ShortMessageService {
+    /**
+     * 获取短信验证码
+     * @param userPhone
+     * @return
+     */
+    //fairyland-system/system/select/enterprirUser/authCode
     @FormUrlEncoded
-    @POST("system/android/user/login")
-    Flowable<BaseStatusModel> getShortMessage(@Field("phone") String userPhone);
+    @POST("fairyland-system/system/select/enterprirUser/authCode")
+    Flowable<BaseStatusModel> getShortMessage(@Field("userName") String userPhone);
 
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <include layout="@layout/include_title_bar2"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_1"
+        android:background="@color/color_e7e7e7"/>
+    <ListView
+        android:id="@+id/device_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
+
+</LinearLayout>

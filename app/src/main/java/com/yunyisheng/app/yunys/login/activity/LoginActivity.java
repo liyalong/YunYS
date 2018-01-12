@@ -125,8 +125,6 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
         }
     }
 
-    
-
     public void toMain() {
         Router.newIntent(context)
                 .to(MainActivity.class)

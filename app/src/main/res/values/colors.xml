@@ -27,6 +27,7 @@
     <color name="color_eaeaea">#eaeaea</color>
     <color name="color_46a">#46A7FD</color>
     <color name="color_b5">#B5B5B5</color>
+    <color name="color_e7e7e7">#E7E7E7</color>
 
     <color name="color_eee">#EEE</color>
     <color name="color_ccc">#CCC</color>
@@ -39,6 +40,7 @@
     <color name="color_e7">#e7e7e7</color>
     <color name="color_2F">#2F2F2F</color>
     <color name="color_grey_white_has_alpha">#66FAFAFA</color>
+    <color name="color_zhibiao_bg">#EB6039</color>
 
 
     <color name="color_green_main">#44B549</color>
@@ -50,10 +52,19 @@
     <color name="color_login_button">#61a4f6</color>
     <color name="color_activity_blue_bg">#f7389fff</color>
     <color name="color_blue_0888ff">#0888ff</color>
+    <color name="color_tab_selected">#44A7FD</color>
+    <color name="device_status_success">#14D054</color>
+    <color name="device_status_error">#F82F49</color>
 
     <color name="im_list_select_hover">#dbdbdb</color>
     <color name="color_setting_bg">#ECF1F5</color>
 
     <color name="black_overlay">#66000000</color>
     <color name="transparent">#00000000</color>
+
+    <color name="alarmrules_level_1">#14D054</color>
+    <color name="alarmrules_level_2">#14D054</color>
+    <color name="alarmrules_level_3">#F82F49</color>
+    <color name="alarmrules_level_4">#F82F49</color>
+    <color name="alarmrules_level_5">#F82F49</color>
 </resources>

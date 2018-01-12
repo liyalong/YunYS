@@ -1,10 +1,20 @@
 package com.yunyisheng.app.yunys.project.fragement;
 
+import android.os.Bundle;
+import android.support.design.widget.TabItem;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
@@ -14,9 +24,20 @@ import cn.droidlover.xdroidmvp.mvp.XPresent;
  */
 
 public class ProjectFragement extends BaseFragement {
+    @BindView(R.id.get_my_projects)
+    TabItem getMyProjects;
+    @BindView(R.id.get_company_projects)
+    TabItem getCompanyProjects;
+    @BindView(R.id.tabs)
+    TabLayout tabs;
+    @BindView(R.id.project_list_viewpage)
+    ViewPager projectListViewpage;
+
+    MyProjectFargment myProjectFargment;
+    CompanyProjectFargment companyProjectFargment;
     @Override
     public void initView() {
-
+        ButterKnife.bind(this, context);
     }
 
     @Override
@@ -42,5 +63,7 @@ public class ProjectFragement extends BaseFragement {
     @Override
     public void widgetClick(View v) {
 
+
     }
+
 }

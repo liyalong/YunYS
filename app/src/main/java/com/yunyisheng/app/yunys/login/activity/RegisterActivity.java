@@ -131,7 +131,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
 
     private void toLoginView() {
         Router.newIntent(context)
-                .to(OtherActivity.class)
+                .to(LoginActivity.class)
                 .launch();
         this.finish();
     }

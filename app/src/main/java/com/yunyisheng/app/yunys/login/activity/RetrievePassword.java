@@ -2,6 +2,7 @@ package com.yunyisheng.app.yunys.login.activity;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import com.yunyisheng.app.yunys.utils.ToastUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.droidlover.xdroidmvp.log.XLog;
 import cn.droidlover.xdroidmvp.mvp.XActivity;
 import cn.droidlover.xdroidmvp.router.Router;
 
@@ -92,7 +94,7 @@ public class RetrievePassword extends BaseActivity<RetrievePasswordPresent> {
 
     private void toLogin() {
         Router.newIntent(context)
-                .to(OtherActivity.class)
+                .to(LoginActivity.class)
                 .launch();
         this.finish();
     }
@@ -127,7 +129,7 @@ public class RetrievePassword extends BaseActivity<RetrievePasswordPresent> {
             return;
         }
 
-        if(passwordedValue != passwordValue){
+        if(!passwordedValue.equals(passwordValue)){
             ToastUtils.showToast("两次密码输入不一致！请重新输入！");
             return;
         }
@@ -138,13 +140,13 @@ public class RetrievePassword extends BaseActivity<RetrievePasswordPresent> {
 
     public void getYzm() {
         String phone = etAccount.getText().toString().trim();
-//        Toast.makeText(this,phone,Toast.LENGTH_SHORT);
+        Log.i("yzm_phone",phone);
         if(phone.isEmpty()){
             ToastUtils.showToast("手机号不能为空！");
             return;
         }
         if(!RegularUtil.isPhone(phone)){
-            ToastUtils.showToast("手机号者格式错误！");
+            ToastUtils.showToast("手机号格式错误！");
             return;
         }
         get_yzm.setEnabled(false);
