@@ -222,6 +222,7 @@
                     android:layout_marginLeft="@dimen/distance_10"
                     android:text="@string/clean_cache"
                     android:textColor="@color/color_333"
+
                     android:textSize="@dimen/distance_14" />
 
                 <ImageView
