@@ -16,6 +16,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.main.activity.MailListActivity;
+import com.yunyisheng.app.yunys.main.activity.MemorandumActivity;
 import com.yunyisheng.app.yunys.main.activity.MessageActivity;
 import com.yunyisheng.app.yunys.main.activity.NoticeActivity;
 import com.yunyisheng.app.yunys.main.activity.ReportformActivity;
@@ -125,6 +126,7 @@ public class HomeFragement extends BaseFragement {
                 startActivity(new Intent(mContext, MailListActivity.class));
                 break;
             case R.id.line_beiwanglu:
+                startActivity(new Intent(mContext, MemorandumActivity.class));
                 break;
         }
     }

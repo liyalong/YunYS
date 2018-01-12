@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f4f4f4">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_1"
+            android:background="@color/color_e7" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_48"
+            android:background="@color/white"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/distance_13"
+                android:text="@string/sex"
+                android:textColor="@color/color_2F"
+                android:textSize="@dimen/distance_14" />
+
+            <TextView
+                android:id="@+id/te_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/distance_13"
+                android:text="男"
+                android:textColor="@color/color_999"
+                android:textSize="@dimen/distance_14" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_1"
+            android:background="@color/color_e7" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_48"
+            android:background="@color/white"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/distance_13"
+                android:text="@string/phonenum"
+                android:textColor="@color/color_2F"
+                android:textSize="@dimen/distance_14" />
+
+            <TextView
+                android:id="@+id/te_phonenum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/distance_13"
+                android:text="男"
+                android:textColor="@color/color_999"
+                android:textSize="@dimen/distance_14" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_1"
+            android:background="@color/color_e7" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_48"
+            android:background="@color/white"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/distance_13"
+                android:text="@string/zuzhibumen"
+                android:textColor="@color/color_2F"
+                android:textSize="@dimen/distance_14" />
+
+            <TextView
+                android:id="@+id/te_zuzhibumen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/distance_13"
+                android:text="男"
+                android:textColor="@color/color_999"
+                android:textSize="@dimen/distance_14" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_1"
+            android:background="@color/color_e7" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_48"
+            android:background="@color/white"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/distance_13"
+                android:text="@string/eamil"
+                android:textColor="@color/color_2F"
+                android:textSize="@dimen/distance_14" />
+
+            <TextView
+                android:id="@+id/te_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/distance_13"
+                android:text="男"
+                android:textColor="@color/color_999"
+                android:textSize="@dimen/distance_14" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_anpai_work"
+            android:layout_width="@dimen/distance_213"
+            android:layout_height="@dimen/distance_41"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/distance_118"
+            android:background="@drawable/btn_anpai_work"
+            android:text="@string/anpaiwork" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

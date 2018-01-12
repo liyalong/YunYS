@@ -1,10 +1,15 @@
 package com.yunyisheng.app.yunys.userset.fragement;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
@@ -15,8 +20,7 @@ import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 public class MineFragement extends BaseFragement {
 
-//    @BindView(R.id.logout)
-//    TextView logout;
+    Unbinder unbinder;
 
     @Override
     public void initView() {
@@ -46,6 +50,19 @@ public class MineFragement extends BaseFragement {
     @Override
     public void widgetClick(View v) {
 
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
 

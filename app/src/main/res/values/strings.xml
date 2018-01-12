@@ -52,14 +52,34 @@
     <string name="anpaiwork">安排工作</string>
     <string name="invite">邀请同事</string>
     <string name="allworker">全体员工</string>
+    <string name="workerdata">员工资料</string>
+    <string name="sex">性别</string>
+    <string name="phonenum">手机号</string>
+    <string name="edit">编辑</string>
+    <string name="zuzhibumen">组织部门</string>
+    <string name="eamil">邮箱</string>
+    <string name="schudle">日程</string>
+    <string name="participateinproject">参与项目</string>
+    <string name="delete">删除</string>
+    <string name="add">添加</string>
+    <string name="addok">完成</string>
 
     <!-- 我的-->
+    <string name="my_information">个人中心</string>
     <string name="my_info">我的资料</string>
     <string name="soft_version">当前版本</string>
     <string name="user_setting">账号设置</string>
+    <string name="mimamanager">密码管理</string>
     <string name="about_us">关于我们</string>
     <string name="company_info">企业信息</string>
     <string name="clean_cache">清理缓存</string>
     <string name="logout">退出登录</string>
+    <string name="queren">确认</string>
+    <string name="dianhua">电话</string>
+    <string name="bumen">部门</string>
+    <string name="zhiwei">职位</string>
+    <string name="jiaose">角色</string>
+    <string name="usezone">已用空间</string>
+    <string name="clearcatch">清理缓存</string>
     <!-- 我的-->
 </resources>

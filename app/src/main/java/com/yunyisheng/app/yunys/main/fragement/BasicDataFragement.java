@@ -4,9 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
@@ -17,40 +16,38 @@ import butterknife.Unbinder;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
- * 作者：fuduo on 2018/1/12 10:15
+ * 作者：fuduo on 2018/1/12 11:47
  * 邮箱：duoendeavor@163.com
  * 用途：
  */
 
-public class OrganizationFragement extends BaseFragement {
+public class BasicDataFragement extends BaseFragement {
 
-    @BindView(R.id.ed_search)
-    EditText edSearch;
-    @BindView(R.id.ck_allworker)
-    ImageView ckAllworker;
-    @BindView(R.id.line_all)
-    LinearLayout lineAll;
+    @BindView(R.id.te_sex)
+    TextView teSex;
+    @BindView(R.id.te_phonenum)
+    TextView tePhonenum;
+    @BindView(R.id.te_zuzhibumen)
+    TextView teZuzhibumen;
+    @BindView(R.id.te_email)
+    TextView teEmail;
+    @BindView(R.id.btn_anpai_work)
+    Button btnAnpaiWork;
     Unbinder unbinder;
-    private int tabindex;
 
-    public static OrganizationFragement newInstance(int index) {
-        OrganizationFragement fragement = new OrganizationFragement();
-        Bundle bundle = new Bundle();
-        bundle.putInt("tabIndex", index);
-        fragement.setArguments(bundle);
+    public static BasicDataFragement newInstance() {
+        BasicDataFragement fragement = new BasicDataFragement();
         return fragement;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle bundle = getArguments();
-        tabindex = bundle.getInt("tabIndex");
-    }
-
-    @Override
     public void initView() {
+        btnAnpaiWork.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
     }
 
     @Override
@@ -60,7 +57,7 @@ public class OrganizationFragement extends BaseFragement {
 
     @Override
     public int bindLayout() {
-        return R.layout.fragement_organization;
+        return R.layout.fragement_basicdata;
     }
 
     @Override

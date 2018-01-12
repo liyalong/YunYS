@@ -5,87 +5,244 @@
     android:background="@color/baseBackgroundColor"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/color_blue_0888ff"
+        android:layout_height="@dimen/distance_220"
+        android:layout_marginBottom="@dimen/distance_10"
+        android:background="@mipmap/worker_bac"
         android:orientation="horizontal">
 
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/my_info"
-        style="@style/myFargmentLinearStyle">
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/distance_16"
+            android:text="@string/my_information"
+            android:textColor="@color/white"
+            android:textSize="@dimen/distance_16" />
 
-            android:text="@string/my_info"
-            style="@style/myFargmentTextStyle"/>
-
-    </LinearLayout>
-    <view style="@style/lineStyle" />
-    <LinearLayout
-        android:id="@+id/soft_version"
-        style="@style/myFargmentLinearStyle"
-        android:layout_marginBottom="10dp">
-        <TextView
-
-            android:text="@string/soft_version"
-            style="@style/myFargmentTextStyle"/>
+        <ImageView
+            android:id="@+id/img_worker_head"
+            android:layout_width="@dimen/distance_60"
+            android:layout_height="@dimen/distance_60"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/distance_64"
+            android:background="@mipmap/wokerhead" />
 
         <TextView
-            style="@style/myFargmentImageArrow"
-            android:text="1.0" />
-    </LinearLayout>
+            android:id="@+id/te_name_zhize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_worker_head"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/distance_3"
+            android:text="发挥的空间是"
+            android:textColor="@color/white"
+            android:textSize="@dimen/distance_14" />
 
-    <LinearLayout
-        android:id="@+id/user_setting"
-        style="@style/myFargmentLinearStyle">
         <TextView
+            android:id="@+id/te_phonenum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/te_name_zhize"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/distance_3"
+            android:text="1382338923"
+            android:textColor="@color/white"
+            android:textSize="@dimen/distance_14" />
+    </RelativeLayout>
 
-            android:text="@string/user_setting"
-            style="@style/myFargmentTextStyle"/>
-
-    </LinearLayout>
-    <view style="@style/lineStyle" />
-    <LinearLayout
-        android:id="@+id/about_us"
-        style="@style/myFargmentLinearStyle">
-        <TextView
-            android:text="@string/about_us"
-            style="@style/myFargmentTextStyle"/>
-
-    </LinearLayout>
-    <view style="@style/lineStyle" />
-    <LinearLayout
-        android:id="@+id/company_info"
-        style="@style/myFargmentLinearStyle">
-        <TextView
-            android:text="@string/company_info"
-            style="@style/myFargmentTextStyle"/>
-
-    </LinearLayout>
-    <view style="@style/lineStyle" />
-    <LinearLayout
-        android:id="@+id/clean_cache"
-        style="@style/myFargmentLinearStyle"
-        android:layout_marginBottom="30dp">
-        <TextView
-
-            android:text="@string/clean_cache"
-            style="@style/myFargmentTextStyle"/>
-
-    </LinearLayout>
-    <TextView
-        android:id="@+id/logout"
-        android:layout_height="46dp"
+    <ScrollView
         android:layout_width="match_parent"
-        android:background="@color/white"
-        android:gravity="center"
-        android:text="@string/logout"
-        android:textColor="@color/logoutColor"
-        android:textSize="15sp" />
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/my_info"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_48"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/distance_10"
+                    android:text="@string/my_info"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_14" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/blackback_r" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/soft_version"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_48"
+                android:layout_marginTop="@dimen/distance_1"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/distance_10"
+                    android:text="@string/soft_version"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/distance_10"
+                    android:text="1.0"
+                    android:textColor="@color/color_999"
+                    android:textSize="@dimen/distance_14" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/user_setting"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_48"
+                android:layout_marginTop="@dimen/distance_10"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/distance_10"
+                    android:text="@string/user_setting"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_14" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/blackback_r" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/mimamanager"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_48"
+                android:layout_marginTop="@dimen/distance_1"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/distance_10"
+                    android:text="@string/mimamanager"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_14" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/blackback_r" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/about_us"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_48"
+                android:layout_marginTop="@dimen/distance_10"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/distance_10"
+                    android:text="@string/about_us"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_14" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/blackback_r" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/company_info"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_48"
+                android:layout_marginTop="@dimen/distance_1"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/distance_10"
+                    android:text="@string/company_info"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_14" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/blackback_r" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/clean_cache"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_48"
+                android:layout_marginTop="@dimen/distance_1"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/distance_10"
+                    android:text="@string/clean_cache"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_14" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/blackback_r" />
+            </RelativeLayout>
 
 
+            <TextView
+                android:id="@+id/logout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_46"
+                android:layout_marginTop="@dimen/distance_10"
+                android:background="@color/white"
+                android:text="@string/logout"
+                android:gravity="center"
+                android:textColor="@color/logoutColor"
+                android:textSize="@dimen/distance_14" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
