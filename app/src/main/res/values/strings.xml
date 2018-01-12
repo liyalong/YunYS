@@ -87,6 +87,7 @@
     <string name="deviceinfo_status">设备状态</string>
     <string name="deviceinfo_isPLC">是否绑定plc</string>
     <string name="baojing_status">报错</string>
+    <string name="device_info">设备运行详情</string>
     <string name="fuwei">复位</string>
     <string name="beijian_code">编号：</string>
     <string name="beijian_ghzq">更换周期：</string>
@@ -118,5 +119,26 @@
 
 
     <string name="project_tasks_list">任务池列表</string>
+    <string name="edit_task">编辑任务</string>
+    <string name="remove_task">撤销任务</string>
+    <string name="assign_task">分配任务</string>
+    <string name="claim_task">认领任务</string>
+    <string name="do_task">立即执行</string>
+    <string name="back_task">回退</string>
+    <string name="task_info">任务详情</string>
+    <string name="task_create_user">创建人：</string>
+    <string name="task_create_time">创建时间：</string>
+    <string name="task_start_end_time">*起止时间</string>
+    <string name="task_do_user">认领人：</string>
+    <string name="task_status_1">待认领</string>
+    <string name="task_status_2">已认领</string>
+    <string name="task_status_3">已完成</string>
+    <string name="task_status_4">未完成</string>
+    <string name="task_status_5">已超时</string>
+
+
+    <string name="device_model_info">工艺模块运行详情</string>
+    <string name="device_model_about">相关设备</string>
+    <string name="device_use_status">使用状态</string>
 
 </resources>

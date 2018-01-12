@@ -11,11 +11,7 @@
         android:layout_height="wrap_content"
         android:entries="@array/tasks_type_spinner"
         android:layout_marginTop="@dimen/distance_10"
-        android:layout_marginBottom="@dimen/distance_10"
-
-
-        >
-
+        android:layout_marginBottom="@dimen/distance_10">
     </Spinner>
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="@dimen/distance_42"
@@ -43,7 +39,7 @@
         android:layout_height="@dimen/distance_1"
         android:background="@color/color_e7e7e7"/>
     <ListView
-        android:id="@+id/knowledge_list"
+        android:id="@+id/tasks_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
