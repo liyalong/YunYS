@@ -1,5 +1,9 @@
 package com.yunyisheng.app.yunys;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +14,8 @@ import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.main.fragement.HomeFragement;
 import com.yunyisheng.app.yunys.project.fragement.ProjectFragement;
 import com.yunyisheng.app.yunys.userset.fragement.MineFragement;
+import com.yunyisheng.app.yunys.utils.DialogManager;
+import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.XRadioGroup;
 
 import butterknife.BindView;
@@ -115,6 +121,75 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 break;
         }
         transaction.commit();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent intent) {
+        try {
+            if (requestCode == 1 && resultCode == RESULT_OK) {
+                startPhotoZoom(Uri.fromFile(DialogManager.tempFile), 150);
+            } else if (requestCode == 2) {// 相册
+                if (intent != null) {
+                    Log.i("xiaoqiang", "smdongxi==" + intent.getData());
+                    startPhotoZoom(intent.getData(), 150);
+                }// 去裁剪
+            } else if (requestCode == 3) {
+                if (intent != null) {
+                    setPicToView(intent);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        super.onActivityResult(requestCode, resultCode, intent);
+    }
+
+    /**
+     * 裁剪图片方法实现
+     *
+     * @param uri
+     */
+    private void startPhotoZoom(Uri uri, int size) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        Log.i("xiaoqiang", "裁剪");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", size);
+        intent.putExtra("outputY", size);
+        intent.putExtra("return-data", true);
+
+        startActivityForResult(intent, 3);
+    }
+
+    /**
+     * 保存裁剪之后的图片数据
+     */
+    private void setPicToView(Intent picdata) {
+        Bundle extras = picdata.getExtras();
+        LogUtils.i("xiaoqiang", "extras=" + extras);
+        if (extras != null) {
+            Bitmap photo = extras.getParcelable("data");
+            Log.i("xiaoqiang", "保存==" + photo);
+            if (photo != null) {
+
+//                try {
+//                    FileCache.saveMyBitmap(123 + ".png", photo);
+//                } catch (Exception e) {
+//
+//                    e.printStackTrace();
+//                }
+                try {
+//                    setHeadImage(photo, CommonUtils.encodeBase64File(Environment
+//                            .getExternalStorageDirectory() + "/yunxue/123.png"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 }

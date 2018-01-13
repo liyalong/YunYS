@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yunyisheng.app.yunys.userset.activity.MimaManagerActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/include_titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_50"
+            android:layout_marginTop="@dimen/distance_10"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/distance_10"
+                android:background="@mipmap/password" />
+
+            <EditText
+                android:id="@+id/ed_yuanmima"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/img"
+                android:background="@null"
+                android:hint="@string/putyuanmima"
+                android:inputType="textPassword"
+                android:textColor="@color/color_333"
+                android:textColorHint="@color/color_999"
+                android:textSize="@dimen/distance_14" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_1"
+            android:background="@color/color_e7" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_50"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/img2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/distance_10"
+                android:background="@mipmap/password" />
+
+            <EditText
+                android:id="@+id/ed_newmima"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/img2"
+                android:background="@null"
+                android:hint="@string/putnewmima"
+                android:inputType="textPassword"
+                android:textColor="@color/color_333"
+                android:textColorHint="@color/color_999"
+                android:textSize="@dimen/distance_14" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_50"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/img3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/distance_10"
+                android:background="@mipmap/password" />
+
+            <EditText
+                android:id="@+id/ed_newmimaagain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/img3"
+                android:background="@null"
+                android:hint="@string/putnewmimaagain"
+                android:inputType="textPassword"
+                android:textColor="@color/color_333"
+                android:textColorHint="@color/color_999"
+                android:textSize="@dimen/distance_14" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_queren"
+            android:layout_width="@dimen/distance_341"
+            android:layout_height="@dimen/distance_40"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/distance_20"
+            android:background="@drawable/btn_anpai_work"
+            android:text="@string/querenpassword"
+            android:textColor="@color/white"
+            android:textSize="@dimen/distance_14" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

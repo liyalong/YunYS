@@ -28,7 +28,14 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/distance_64"
             android:background="@mipmap/wokerhead" />
-
+        <ImageView
+            android:id="@+id/img_carm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/camara"
+            android:layout_marginTop="@dimen/distance_64"
+            android:layout_marginLeft="@dimen/distance_191"
+            />
         <TextView
             android:id="@+id/te_name_zhize"
             android:layout_width="wrap_content"
@@ -102,12 +109,12 @@
                     android:textSize="@dimen/distance_14" />
 
                 <TextView
+                    android:id="@+id/te_versioncode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/distance_10"
-                    android:text="1.0"
                     android:textColor="@color/color_999"
                     android:textSize="@dimen/distance_14" />
             </RelativeLayout>

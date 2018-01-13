@@ -13,5 +13,5 @@
         android:contentDescription="@null"
         android:cropToPadding="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/bg_welcome" />
+        android:src="@mipmap/bg_welcome" />
 </LinearLayout>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yunyisheng.app.yunys.userset.activity.ClearCatchActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/zonghe_head_bac">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_49">
+
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/whiteback" />
+
+            <TextView
+                android:id="@+id/te_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/cunzhuzone"
+                android:textColor="@color/white"
+                android:textSize="@dimen/distance_16" />
+        </RelativeLayout>
+    </RelativeLayout>
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_333"
+            android:text="@string/usezone"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/distance_200"
+            android:textSize="@dimen/distance_14"/>
+        <TextView
+            android:id="@+id/te_catchsize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_333"
+            android:textSize="@dimen/distance_30"
+            android:layout_below="@+id/text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/distance_37"
+            />
+        <TextView
+            android:id="@+id/te_usecatchsize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_666"
+            android:textSize="@dimen/distance_13"
+            android:layout_below="@+id/te_catchsize"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/distance_10"
+            />
+        <Button
+            android:id="@+id/but_clearcatch"
+            android:layout_width="@dimen/distance_188"
+            android:layout_height="@dimen/distance_30"
+            android:background="@drawable/btn_anpai_work"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/te_usecatchsize"
+            android:layout_marginTop="@dimen/distance_25"
+            android:text="@string/clearcatch"
+            android:textColor="@color/white"
+            android:textSize="@dimen/distance_13"
+            />
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

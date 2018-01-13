@@ -1,42 +1,38 @@
-package com.yunyisheng.app.yunys.main.activity;
+package com.yunyisheng.app.yunys.userset.activity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.utils.getapp.AppApplicationMgr;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
-/**
- * @author fuduo
- * @time 2018/1/11  14:24
- * @describe 消息activity
- */
-public class MessageActivity extends BaseActivity {
+public class AboutOurActivity extends BaseActivity {
 
 
     @BindView(R.id.img_back)
     ImageView imgBack;
-    @BindView(R.id.te_msgsize)
-    TextView teMsgsize;
-    @BindView(R.id.rl_allmsg)
-    RelativeLayout rlAllmsg;
-    @BindView(R.id.lv_message)
-    ListView lvMessage;
-    @BindView(R.id.te_title)
-    TextView teTitle;
+    @BindView(R.id.te_aboutour)
+    TextView teAboutour;
+    @BindView(R.id.te_name_code)
+    TextView teNameCode;
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        teTitle.setText("消息");
+        teNameCode.setText(AppApplicationMgr.getAppName(AboutOurActivity.this) + AppApplicationMgr.getVersionCode(AboutOurActivity.this));
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -46,7 +42,7 @@ public class MessageActivity extends BaseActivity {
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_message;
+        return R.layout.activity_about_our;
     }
 
     @Override
@@ -56,19 +52,12 @@ public class MessageActivity extends BaseActivity {
 
     @Override
     public void setListener() {
-        imgBack.setOnClickListener(this);
-        rlAllmsg.setOnClickListener(this);
+
     }
 
     @Override
     public void widgetClick(View v) {
-        switch (v.getId()) {
-            case R.id.img_back:
-                finish();
-                break;
-            case R.id.rl_allmsg:
-                break;
-        }
+
     }
 
     @Override

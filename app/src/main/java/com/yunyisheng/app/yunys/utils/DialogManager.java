@@ -3,8 +3,14 @@ package com.yunyisheng.app.yunys.utils;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.Gravity;
+import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
+import android.widget.RelativeLayout;
 
 import com.yunyisheng.app.yunys.R;
 
@@ -42,52 +48,51 @@ public class DialogManager {
         mShareDialog.setCancelable(true);
         Window window = mShareDialog.getWindow();
         window.setGravity(Gravity.BOTTOM);
-//        View view1 = View.inflate(activity, R.layout.dialog_pick_image, null);
-//        RelativeLayout btn_pick_photo = (RelativeLayout) view1
-//                .findViewById(R.id.btn_pick_photo);
-//        RelativeLayout btn_cancel = (RelativeLayout) view1
-//                .findViewById(R.id.btn_cancel);
-//
-//        RelativeLayout btn_take_photo = (RelativeLayout) view1
-//                .findViewById(R.id.btn_take_photo);
-//
-//        btn_pick_photo.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View arg0) {
-//                Intent intent = new Intent(Intent.ACTION_PICK, null);
-//
-//                intent.setDataAndType(
-//                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-//                        "image/*");
-//                activity.startActivityForResult(intent, 2);
-//                mShareDialog.dismiss();
-//
-//            }
-//        });
-//        btn_take_photo.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View arg0) {
-//                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                // 指定调用相机拍照后照片的储存路径
-//                intent.putExtra(MediaStore.EXTRA_OUTPUT,
-//                        Uri.fromFile(tempFile));
-//
-//                activity.startActivityForResult(intent, 1);
-//                mShareDialog.dismiss();
-//            }
-//        });
-//
-//        btn_cancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mShareDialog.dismiss();
-//            }
-//        });
-//
-//        window.setContentView(view1);
-//        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);//设置横向全屏
+        View view1 = View.inflate(activity, R.layout.dialog_pick_image, null);
+        RelativeLayout btn_pick_photo = (RelativeLayout) view1
+                .findViewById(R.id.rl_xaingce);
+        RelativeLayout btn_cancel = (RelativeLayout) view1
+                .findViewById(R.id.rl_cancel);
+
+        RelativeLayout btn_take_photo = (RelativeLayout) view1
+                .findViewById(R.id.rl_carama);
+
+        btn_pick_photo.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent(Intent.ACTION_PICK, null);
+
+                intent.setDataAndType(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        "image/*");
+                activity.startActivityForResult(intent, 2);
+                mShareDialog.dismiss();
+
+            }
+        });
+        btn_take_photo.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                // 指定调用相机拍照后照片的储存路径
+                intent.putExtra(MediaStore.EXTRA_OUTPUT,
+                        Uri.fromFile(tempFile));
+                activity.startActivityForResult(intent, 1);
+                mShareDialog.dismiss();
+            }
+        });
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mShareDialog.dismiss();
+            }
+        });
+
+        window.setContentView(view1);
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);//设置横向全屏
         mShareDialog.show();
     }
 

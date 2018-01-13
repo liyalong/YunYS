@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_176"
+        android:background="@color/transparent"
+        android:layout_marginLeft="@dimen/distance_12"
+        android:layout_marginRight="@dimen/distance_12"
+        android:layout_marginBottom="@dimen/distance_12"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_96"
+            android:background="@drawable/btn_mine_selectimg"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_xaingce"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_48">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/xiangce"
+                    android:textColor="@color/logoutColor"
+                    android:textSize="@dimen/distance_14" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_1"
+                android:background="@color/color_e7" />
+
+            <RelativeLayout
+                android:id="@+id/rl_carama"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_48">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/paizhao"
+                    android:textColor="@color/logoutColor"
+                    android:textSize="@dimen/distance_14" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_48"
+            android:layout_marginTop="@dimen/distance_10"
+            android:background="@drawable/btn_mine_selectimg">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/quxiao"
+                android:textColor="@color/logoutColor"
+                android:textSize="@dimen/distance_14" />
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

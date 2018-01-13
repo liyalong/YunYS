@@ -63,29 +63,30 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.NoticeDeatilActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.MailListActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".main.activity.SelectPeopleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.activity.SelectPeopleActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.WorkerDataActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.MemorandumActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.AddMemorandumActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".userset.activity.MyInformationActivity" />
+        <activity android:name=".userset.activity.AccountSetActivity" />
+        <activity android:name=".userset.activity.MimaManagerActivity" />
+        <activity android:name=".userset.activity.ClearCatchActivity" />
+        <activity android:name=".userset.activity.AboutOurActivity" />
+        <activity android:name=".userset.activity.EnterpriseinformationActivity"></activity>
     </application>
 
 </manifest>
