@@ -116,7 +116,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 transaction.replace(R.id.content_main, projectFragment);
                 break;
             case R.id.rb_center:
-                createPickImageDialog(MainActivity.this);
+                createSelectTaskDialog(MainActivity.this);
                 break;
             case R.id.rb_task:
 
@@ -137,7 +137,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
      * @param activity
      * @return
      */
-    public static void createPickImageDialog(final Activity activity) {
+    public static void createSelectTaskDialog(final Activity activity) {
         final Dialog mSelectTask = new Dialog(activity, R.style.dialog_bottom_full);
         mSelectTask.setCanceledOnTouchOutside(true);
         mSelectTask.setCancelable(true);
