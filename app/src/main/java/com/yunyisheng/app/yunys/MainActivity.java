@@ -1,13 +1,19 @@
 package com.yunyisheng.app.yunys;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
@@ -85,7 +91,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 
     @Override
     public void setListener() {
-       radioGroup1.setOnCheckedChangeListener(this);
+        radioGroup1.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -110,8 +116,10 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 transaction.replace(R.id.content_main, projectFragment);
                 break;
             case R.id.rb_center:
+                createPickImageDialog(MainActivity.this);
                 break;
             case R.id.rb_task:
+
                 break;
             case R.id.rb_mine:
                 if (myFragment == null) {
@@ -121,6 +129,63 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 break;
         }
         transaction.commit();
+    }
+
+    /**
+     * 选择图片对话框
+     *
+     * @param activity
+     * @return
+     */
+    public static void createPickImageDialog(final Activity activity) {
+        final Dialog mSelectTask = new Dialog(activity, R.style.dialog_bottom_full);
+        mSelectTask.setCanceledOnTouchOutside(true);
+        mSelectTask.setCancelable(true);
+        Window window = mSelectTask.getWindow();
+        window.setGravity(Gravity.BOTTOM);
+        View view1 = View.inflate(activity, R.layout.dialog_select_task, null);
+        RelativeLayout rl_shebei_task = (RelativeLayout) view1
+                .findViewById(R.id.rl_shebei_task);
+        RelativeLayout rl_wrongshebei_task = (RelativeLayout) view1
+                .findViewById(R.id.rl_wrongshebei_task);
+
+        RelativeLayout rl_liucheng_task = (RelativeLayout) view1
+                .findViewById(R.id.rl_liucheng_task);
+        RelativeLayout rl_close = (RelativeLayout) view1
+                .findViewById(R.id.rl_close);
+
+        rl_shebei_task.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+
+            }
+        });
+        rl_wrongshebei_task.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+            }
+        });
+        rl_liucheng_task.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        rl_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSelectTask.dismiss();
+            }
+        });
+
+        window.setContentView(view1);
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);//设置横向全屏
+        mSelectTask.show();
     }
 
     @Override
@@ -161,7 +226,6 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         intent.putExtra("outputX", size);
         intent.putExtra("outputY", size);
         intent.putExtra("return-data", true);
-
         startActivityForResult(intent, 3);
     }
 

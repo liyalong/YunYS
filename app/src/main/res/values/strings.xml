@@ -96,7 +96,16 @@
         所以我们能更好的将客户的意图表现出来。我们拥有自己的专业三维动画、建筑动画、虚拟现实和影视拍摄制作团队。
         我们不断创新与提高三维动画、建筑动画、虚拟现实的制作水准，
         运用尖端的三维动画技术、虚拟现实技术，不断满足客户对数字体验服务的需求.</string>
-    <!-- 我的-->
+    <!-- 日程-->
+    <string name="minedate">我的日程</string>
+    <string name="projectdate">项目日程</string>
+    <string name="shebeitask">设备任务</string>
+    <string name="wrongshebeitask">非设备任务</string>
+    <string name="liuchengtask">流程任务</string>
+    <string name="isshowchexiao">是否显示已撤销日程</string>
+    <string name="isshowwancheng">是否显示已完成的日程</string>
+    <string name="isshowrili">是否同步日程至本机日历 </string>
+    <string name="zhixing">*执行人</string>
     <!-- 项目 -->
     <string name="myProject">我的项目</string>
     <string name="companyProject">公司项目</string>
