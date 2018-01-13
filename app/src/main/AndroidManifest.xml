@@ -81,13 +81,28 @@
             android:name=".main.activity.AddMemorandumActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
-        <activity android:name=".userset.activity.MyInformationActivity" />
-        <activity android:name=".userset.activity.AccountSetActivity" />
-        <activity android:name=".userset.activity.MimaManagerActivity" />
-        <activity android:name=".userset.activity.ClearCatchActivity" />
-        <activity android:name=".userset.activity.AboutOurActivity" />
-        <activity android:name=".userset.activity.EnterpriseinformationActivity" />
-        <activity android:name=".schedule.activity.ScheduleDeatilActivity"></activity>
+        <activity
+            android:name=".userset.activity.MyInformationActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".userset.activity.AccountSetActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".userset.activity.MimaManagerActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".userset.activity.ClearCatchActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".userset.activity.AboutOurActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".userset.activity.EnterpriseinformationActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".schedule.activity.ScheduleDeatilActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
