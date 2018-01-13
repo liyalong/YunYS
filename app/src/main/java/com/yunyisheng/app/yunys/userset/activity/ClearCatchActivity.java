@@ -85,6 +85,9 @@ public class ClearCatchActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.but_clearcatch:
+                CommonUtils.clearAllCache(ClearCatchActivity.this);
+                teCatchsize.setText("0KB");
+                teUsecatchsize.setText("占据手机0.00%存储空间");
                 break;
         }
     }
