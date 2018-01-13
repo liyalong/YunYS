@@ -58,7 +58,7 @@ public class ProjectFragement extends BaseFragement {
         ProjectListAdapter adapter = new ProjectListAdapter(getChildFragmentManager(),fragmentList,mTitle);
         projectListViewpage.setAdapter(adapter);
         projectTablayout.setupWithViewPager(projectListViewpage);
-        setIndicator(getActivity(), projectTablayout, 70, 70);
+        setIndicator(getActivity(), projectTablayout, 25, 25);
     }
 
     @Override
