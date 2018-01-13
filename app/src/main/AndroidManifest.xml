@@ -86,7 +86,8 @@
         <activity android:name=".userset.activity.MimaManagerActivity" />
         <activity android:name=".userset.activity.ClearCatchActivity" />
         <activity android:name=".userset.activity.AboutOurActivity" />
-        <activity android:name=".userset.activity.EnterpriseinformationActivity"></activity>
+        <activity android:name=".userset.activity.EnterpriseinformationActivity" />
+        <activity android:name=".schedule.activity.ScheduleDeatilActivity"></activity>
     </application>
 
 </manifest>

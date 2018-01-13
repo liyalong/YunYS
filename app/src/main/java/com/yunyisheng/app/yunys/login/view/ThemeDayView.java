@@ -22,7 +22,7 @@ public class ThemeDayView extends DayView {
     private View todayBackground;
     private final CalendarDate today = new CalendarDate();
 
-    /**
+    /*
      * Constructor. Sets up the MarkerView with a custom layout resource.
      *
      * @param context
@@ -44,6 +44,8 @@ public class ThemeDayView extends DayView {
         if (date != null) {
             if (date.equals(today)) {
                 dateTv.setText("今");
+                dateTv.setTextSize(16);
+                dateTv.setTextColor(getResources().getColor(R.color.white));
                 todayBackground.setVisibility(VISIBLE);
             } else {
                 dateTv.setText(date.day + "");

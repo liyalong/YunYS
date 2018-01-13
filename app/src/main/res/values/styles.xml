@@ -68,7 +68,15 @@
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/sp_13</item>
-        <item name="android:textColor">#ff25adff</item>
+        <item name="android:textColor">@color/color_333</item>
+    </style>
+    <style name="weekday">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/sp_13</item>
+        <item name="android:textColor">@color/color_999</item>
     </style>
     <!-- 我的页面布局 -->
     <style name="lineStyle">

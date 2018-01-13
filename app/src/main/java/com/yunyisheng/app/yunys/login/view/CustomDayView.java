@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ldf.calendar.Utils;
@@ -21,7 +20,7 @@ import com.yunyisheng.app.yunys.R;
 public class CustomDayView extends DayView {
 
     private TextView dateTv;
-    private ImageView marker;
+    private TextView marker;
     private View selectedBackground;
     private View todayBackground;
     //fdfd
@@ -37,7 +36,7 @@ public class CustomDayView extends DayView {
     public CustomDayView(Context context, int layoutResource) {
         super(context, layoutResource);
         dateTv = (TextView) findViewById(R.id.date);
-        marker = (ImageView) findViewById(R.id.maker);
+        marker = (TextView) findViewById(R.id.maker);
         selectedBackground = findViewById(R.id.selected_background);
         todayBackground = findViewById(R.id.today_background);
     }
@@ -56,11 +55,12 @@ public class CustomDayView extends DayView {
                 marker.setVisibility(GONE);
             } else {
                 marker.setVisibility(VISIBLE);
-                if (Utils.loadMarkData().get(date.toString()).equals("0")) {
-                    marker.setEnabled(true);
-                } else {
-                    marker.setEnabled(false);
-                }
+                marker.setText(Utils.loadMarkData().get(date.toString())+"项");
+//                if (Utils.loadMarkData().get(date.toString()).equals("0")) {
+//                    marker.setEnabled(true);
+//                } else {
+//                    marker.setEnabled(false);
+//                }
             }
         } else {
             marker.setVisibility(GONE);
@@ -84,6 +84,8 @@ public class CustomDayView extends DayView {
         if (date != null) {
             if (date.equals(today)) {
                 dateTv.setText("今");
+                dateTv.setTextSize(16);
+                dateTv.setTextColor(getResources().getColor(R.color.white));
                 todayBackground.setVisibility(VISIBLE);
             } else {
                 dateTv.setText(date.day + "");

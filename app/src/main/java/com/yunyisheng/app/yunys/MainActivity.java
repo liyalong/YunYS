@@ -19,6 +19,7 @@ import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.main.fragement.HomeFragement;
 import com.yunyisheng.app.yunys.project.fragement.ProjectFragement;
+import com.yunyisheng.app.yunys.schedule.fragement.ScheduleTaskFragement;
 import com.yunyisheng.app.yunys.userset.fragement.MineFragement;
 import com.yunyisheng.app.yunys.utils.DialogManager;
 import com.yunyisheng.app.yunys.utils.LogUtils;
@@ -34,6 +35,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     HomeFragement homeFragement;
     ProjectFragement projectFragment;
     MineFragement myFragment;
+    ScheduleTaskFragement scheduleTaskFragement;
     @BindView(R.id.rb_shouye)
     RadioButton rbShouye;
     @BindView(R.id.rb_xiangmu)
@@ -46,7 +48,6 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     RadioButton rbMine;
     @BindView(R.id.radioGroup1)
     XRadioGroup radioGroup1;
-
 
     private void checkToken() {
         String token = SharedPref.getInstance(context).getString("TOKEN", "");
@@ -119,7 +120,10 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 createSelectTaskDialog(MainActivity.this);
                 break;
             case R.id.rb_task:
-
+                if (scheduleTaskFragement==null){
+                    scheduleTaskFragement=new ScheduleTaskFragement();
+                }
+                transaction.replace(R.id.content_main, scheduleTaskFragement);
                 break;
             case R.id.rb_mine:
                 if (myFragment == null) {
@@ -131,13 +135,28 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         transaction.commit();
     }
 
+//    /**
+//     * onWindowFocusChanged回调时，将当前月的种子日期修改为今天
+//     *
+//     * @return void
+//     */
+//    @Override
+//    public void onWindowFocusChanged(boolean hasFocus) {
+//        super.onWindowFocusChanged(hasFocus);
+//        if (hasFocus) {
+//            if (scheduleTaskFragement!=null){
+//                scheduleTaskFragement.refreshMonthPager();
+//            }
+//        }
+//    }
+
     /**
-     * 选择图片对话框
+     * 选择任务对话框
      *
      * @param activity
      * @return
      */
-    public static void createSelectTaskDialog(final Activity activity) {
+    public void createSelectTaskDialog(final Activity activity) {
         final Dialog mSelectTask = new Dialog(activity, R.style.dialog_bottom_full);
         mSelectTask.setCanceledOnTouchOutside(true);
         mSelectTask.setCancelable(true);

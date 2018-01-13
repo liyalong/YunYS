@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_50"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_below="@+id/rl_todaycolumn"
+            android:background="@color/color_f4f4f4" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_40"
+            android:layout_below="@+id/line_center"
+            android:background="@color/white"
+            >
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/distance_14"
+                android:layout_marginLeft="@dimen/distance_10"
+                android:layout_marginRight="@dimen/distance_5"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/distance_4"
+                android:background="@mipmap/titlehead" />
+
+            <TextView
+                android:id="@+id/te_columntitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/img"
+                android:text="我的日程"
+                android:layout_centerVertical="true"
+                android:textColor="@color/color_333"
+                android:textSize="@dimen/distance_16" />
+
+            <TextView
+                android:id="@+id/te_columnsize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/distance_5"
+                android:layout_toRightOf="@+id/te_columntitle"
+                android:text="(32)"
+                android:layout_centerVertical="true"
+                android:textColor="@color/color_666"
+                android:textSize="@dimen/distance_16" />
+            <ImageView
+                android:id="@+id/img_turn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/stopimg_right"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

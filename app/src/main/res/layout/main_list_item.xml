@@ -48,6 +48,7 @@
         android:layout_weight="1">
 
         <TextView
+            android:id="@+id/te_schedule_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -63,6 +64,7 @@
         android:layout_weight="1">
 
         <TextView
+            android:id="@+id/te_zhixing_peo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

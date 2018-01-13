@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f4f4f4">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_49"
+            android:background="@color/white">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tablayout_task"
+                android:layout_width="@dimen/distance_150"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/distance_10"
+                android:layout_marginTop="@dimen/distance_10"
+                app:tabIndicatorColor="@color/color_44A7FD"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/color_333"
+                app:tabTextAppearance="@style/TabLayoutTextStyle"
+                app:tabTextColor="@color/color_333" />
+
+            <ImageView
+                android:id="@+id/img_set"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/distance_5"
+                android:background="@mipmap/setimg" />
+        </RelativeLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_task"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/distance_10">
+
+        </android.support.v4.view.ViewPager>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

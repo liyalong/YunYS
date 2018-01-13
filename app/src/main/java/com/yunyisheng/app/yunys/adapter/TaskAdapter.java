@@ -1,14 +1,17 @@
 package com.yunyisheng.app.yunys.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
+import com.yunyisheng.app.yunys.schedule.activity.ScheduleDeatilActivity;
 
 /**
  * Created by liyalong on 2017/12/26.
@@ -28,12 +31,17 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     @Override
     public TaskAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(layoutInflater.inflate(R.layout.item, parent, false));
+        return new ViewHolder(layoutInflater.inflate(R.layout.task_list_item, parent, false));
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.textView.setText(titles[position]);
+        holder.cv_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, ScheduleDeatilActivity.class));
+            }
+        });
     }
 
     @Override
@@ -42,17 +50,19 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
+        TextView te_schedule_title, te_schedule_time, te_schedule_detail, te_zhixing_peo,te_liucheng_type;
+        RelativeLayout cv_item;
+        ImageView img_isok;
 
         ViewHolder(View view) {
             super(view);
-            textView = (TextView) view.findViewById(R.id.text_view);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d("ViewHolder", "onClick--> position = " + getPosition());
-                }
-            });
+            te_liucheng_type = (TextView) view.findViewById(R.id.te_liucheng_type);
+            img_isok = (ImageView) view.findViewById(R.id.img_isok);
+            cv_item = (RelativeLayout) view.findViewById(R.id.cv_item);
+            te_schedule_title = (TextView) view.findViewById(R.id.te_schedule_title);
+            te_schedule_time = (TextView) view.findViewById(R.id.te_schedule_time);
+            te_schedule_detail = (TextView) view.findViewById(R.id.te_schedule_detail);
+            te_zhixing_peo = (TextView) view.findViewById(R.id.te_zhixing_peo);
         }
     }
 }
