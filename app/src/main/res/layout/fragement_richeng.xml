@@ -64,7 +64,7 @@
             <com.ldf.calendar.view.MonthPager
                 android:id="@+id/calendar_view"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/distance_270"
+                android:layout_height="270dp"
                 android:background="#fff"></com.ldf.calendar.view.MonthPager>
 
             <android.support.v7.widget.RecyclerView
@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
-                android:layout_marginBottom="@dimen/distance_45"
+                android:layout_marginBottom="45dp"
                 android:background="@color/white"
                 android:clipChildren="false"
                 android:clipToPadding="false"

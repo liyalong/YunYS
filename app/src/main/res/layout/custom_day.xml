@@ -1,37 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="@dimen/distance_52"
-    android:layout_height="@dimen/distance_52"
-    android:id="@+id/custom_day">
+    android:id="@+id/custom_day"
+    android:layout_width="51.4dp"
+    android:layout_height="45dp"
+    android:orientation="vertical">
+
     <View
         android:id="@+id/today_background"
-        android:layout_width="@dimen/distance_32"
-        android:layout_height="@dimen/distance_32"
-        android:background="@mipmap/selectimg"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
         android:layout_centerInParent="true"
-        android:visibility="gone"/>
+        android:background="@drawable/selected_background"
+        android:visibility="gone" />
+
     <View
         android:id="@+id/selected_background"
-        android:layout_width="@dimen/distance_32"
-        android:layout_height="@dimen/distance_32"
-        android:background="@mipmap/selectimg"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
         android:layout_centerInParent="true"
-        android:visibility="gone"/>
+        android:background="@drawable/selected_background"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="19"/>
+        android:text="19" />
+
     <TextView
         android:id="@+id/maker"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/distance_8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/distance_2"
+        android:text="frfdfffdf"
         android:textColor="@color/color_999"
         android:textSize="@dimen/distance_8"
-        android:visibility="visible"/>
+        android:visibility="visible" />
 </RelativeLayout>

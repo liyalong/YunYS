@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -31,6 +32,7 @@ import cn.droidlover.xdroidbase.cache.SharedPref;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 import cn.droidlover.xdroidmvp.router.Router;
 
+@SuppressLint("SetTextI18n")
 public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedChangeListener {
     HomeFragement homeFragement;
     ProjectFragement projectFragment;
@@ -48,6 +50,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     RadioButton rbMine;
     @BindView(R.id.radioGroup1)
     XRadioGroup radioGroup1;
+    private boolean initiated = false;
 
     private void checkToken() {
         String token = SharedPref.getInstance(context).getString("TOKEN", "");
@@ -135,20 +138,23 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         transaction.commit();
     }
 
-//    /**
-//     * onWindowFocusChanged回调时，将当前月的种子日期修改为今天
-//     *
-//     * @return void
-//     */
-//    @Override
-//    public void onWindowFocusChanged(boolean hasFocus) {
-//        super.onWindowFocusChanged(hasFocus);
-//        if (hasFocus) {
-//            if (scheduleTaskFragement!=null){
-//                scheduleTaskFragement.refreshMonthPager();
-//            }
-//        }
-//    }
+    /**
+     * onWindowFocusChanged回调时，将当前月的种子日期修改为今天
+     *
+     * @return void
+     */
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus && !initiated) {
+            Intent intent = new Intent();
+            intent.setAction("WindowFoucuschanged");
+            intent.putExtra("code", 200);
+            mContext.sendBroadcast(intent);
+            initiated=true;
+        }
+
+    }
 
     /**
      * 选择任务对话框

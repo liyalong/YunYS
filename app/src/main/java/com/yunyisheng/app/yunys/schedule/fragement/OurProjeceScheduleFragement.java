@@ -1,8 +1,11 @@
 package com.yunyisheng.app.yunys.schedule.fragement;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -45,7 +48,6 @@ import cn.droidlover.xdroidmvp.mvp.XPresent;
  * 邮箱：duoendeavor@163.com
  * 用途：
  */
-@SuppressLint("SetTextI18n")
 public class OurProjeceScheduleFragement extends BaseFragement {
 
     Unbinder unbinder;
@@ -66,6 +68,7 @@ public class OurProjeceScheduleFragement extends BaseFragement {
     private int mCurrentPage = MonthPager.CURRENT_DAY_INDEX;
     private CalendarDate currentDate;
     private int tabindex;
+    private WindowsReceiver mWindowsReceiver=new WindowsReceiver();
 
     public static OurProjeceScheduleFragement getInstance(int i) {
         OurProjeceScheduleFragement ourProjeceScheduleFragement = new OurProjeceScheduleFragement();
@@ -93,16 +96,33 @@ public class OurProjeceScheduleFragement extends BaseFragement {
         initCalendarView();
         initToolbarClickListener();
         Log.e("ldf", "OnCreated");
+        IntentFilter intent2 = new IntentFilter("WindowFoucuschanged");
+        mContext.registerReceiver(mWindowsReceiver, intent2);
     }
 
     @Override
     public void initAfter() {
+        refreshMonthPager();
         imgAddtask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createSelectTaskDialog(getActivity());
             }
         });
+    }
+
+    private class WindowsReceiver extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null && intent.getAction().equals("WindowFoucuschanged")) {
+                int code = intent.getIntExtra("code", 0);
+                if (code==200){
+                    refreshMonthPager();
+                    Log.d("odododood","33333333");
+                }
+            }
+        }
     }
 
     @Override
@@ -357,6 +377,7 @@ public class OurProjeceScheduleFragement extends BaseFragement {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        getActivity().unregisterReceiver(mWindowsReceiver);
     }
 
 }
