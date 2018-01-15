@@ -13,6 +13,7 @@ import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.main.adapter.SpinnerAdapter;
 import com.yunyisheng.app.yunys.main.model.SpinnerBean;
+import com.yunyisheng.app.yunys.utils.ScreenUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class MessageActivity extends BaseActivity {
         list.add(new SpinnerBean("全部任务",48));
         list.add(new SpinnerBean("其他任务",50));
         list.add(new SpinnerBean("热门任务",60));
+        spType.setDropDownWidth(ScreenUtils.getScreenHeight(MessageActivity.this));
         SpinnerAdapter adapter=new SpinnerAdapter(MessageActivity.this,list);
         //绑定 Adapter到控件
         spType .setAdapter(adapter);

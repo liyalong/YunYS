@@ -27,7 +27,7 @@
                 android:id="@+id/sp_type"
                 android:layout_width="match_parent"
                 android:spinnerMode="dropdown"
-                android:dropDownVerticalOffset="@dimen/distance_41"
+                android:dropDownVerticalOffset="@dimen/distance_50"
                 android:layout_height="match_parent">
 
             </Spinner>
