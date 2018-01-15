@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.yunyisheng.app.yunys.MainActivity;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.main.activity.MailListActivity;
@@ -118,6 +119,7 @@ public class HomeFragement extends BaseFragement {
                 startActivity(new Intent(mContext, MessageActivity.class));
                 break;
             case R.id.te_seeall:
+                ((MainActivity)getActivity()).changerTask();
                 break;
             case R.id.line_notice:
                 startActivity(new Intent(mContext, NoticeActivity.class));

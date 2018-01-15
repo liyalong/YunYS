@@ -83,6 +83,16 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 
     }
 
+    public void changerTask(){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (scheduleTaskFragement==null){
+            scheduleTaskFragement=new ScheduleTaskFragement();
+        }
+        transaction.replace(R.id.content_main, scheduleTaskFragement);
+        transaction.commit();
+        rbTask.setChecked(true);
+    }
+
     @Override
     public int bindLayout() {
         return R.layout.activity_main;
