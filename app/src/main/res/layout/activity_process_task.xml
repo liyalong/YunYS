@@ -14,6 +14,7 @@
             android:paddingHorizontal="@dimen/distance_10"
             android:layout_marginBottom="@dimen/distance_10">
             <ImageView
+                android:id="@+id/img_back"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -27,6 +28,7 @@
                 android:textSize="@dimen/distance_16"
                 android:gravity="center"/>
             <TextView
+                android:id="@+id/submit"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/submit"
@@ -40,6 +42,7 @@
             android:background="@color/white"
             android:paddingHorizontal="@dimen/distance_13">
             <TextView
+                android:id="@+id/select_process_task_form_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -63,6 +66,7 @@
                 android:layout_height="@dimen/distance_48"
                 android:background="@drawable/linearlayout_bottom_line">
                 <TextView
+                    android:id="@+id/select_process_task_to_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -79,6 +83,7 @@
                 android:layout_height="@dimen/distance_48"
                 android:background="@color/white">
                 <EditText
+                    android:id="@+id/process_task_end_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

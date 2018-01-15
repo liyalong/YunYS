@@ -7,8 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -16,6 +15,7 @@
             android:layout_marginTop="@dimen/distance_10"
             android:paddingHorizontal="@dimen/distance_10">
             <EditText
+                android:id="@+id/task_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="50"
@@ -60,6 +60,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <EditText
+                        android:id="@+id/task_start_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -85,6 +86,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <EditText
+                        android:id="@+id/task_end_time"
                         android:layout_width="wrap_content"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
@@ -117,6 +119,7 @@
                 android:background="@drawable/linearlayout_bottom_line"
                 >
                 <TextView
+                    android:id="@+id/select_cron"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -133,6 +136,7 @@
                 android:layout_height="wrap_content"
                 android:paddingVertical="@dimen/distance_5">
                 <EditText
+                    android:id="@+id/task_used_time"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -160,6 +164,7 @@
                 android:paddingVertical="@dimen/distance_18"/>
 
             <Switch
+                android:id="@+id/tasks_type"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:checked="true"
@@ -175,6 +180,7 @@
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/distance_10">
             <EditText
+                android:id="@+id/task_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -193,6 +199,7 @@
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/distance_10">
             <TextView
+                android:id="@+id/task_templates"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@color/baseBackgroundColor"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_49"
+        android:background="@color/white"
+        android:paddingHorizontal="@dimen/distance_10"
+        android:layout_marginBottom="@dimen/distance_10">
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_back"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/select_project_list"
+            android:textColor="@color/color_333"
+            android:gravity="center"
+            android:textSize="@dimen/distance_14"
+            />
+        <TextView
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/submit"
+            android:textColor="@color/color_333"
+            android:gravity="center"
+            android:textSize="@dimen/distance_14"/>
+    </LinearLayout>
+    <ListView
+        android:id="@+id/select_project_list"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:choiceMode="singleChoice">
+
+    </ListView>
+</LinearLayout>

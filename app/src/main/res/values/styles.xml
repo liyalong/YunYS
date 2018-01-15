@@ -38,11 +38,13 @@
         <item name="android:layout_marginRight">35dp</item>
         <item name="android:layout_marginBottom">12dp</item>
     </style>
+
     <style name="login_icon_style">
         <item name="android:layout_width">@dimen/distance_35</item>
         <item name="android:layout_height">@dimen/distance_35</item>
         <item name="android:layout_gravity">center</item>
     </style>
+
     <style name="LoginInput">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -53,6 +55,7 @@
         <item name="android:textSize">@dimen/text_main</item>
         <item name="android:layout_marginLeft">-15dp</item>
     </style>
+
     <style name="LoginInput.Button">
         <item name="android:layout_marginLeft">@dimen/distance_35</item>
         <item name="android:layout_marginRight">@dimen/distance_35</item>
@@ -62,6 +65,7 @@
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/login_linearlayout_button_radios</item>
     </style>
+
     <style name="weekIndicatorStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
@@ -70,6 +74,7 @@
         <item name="android:textSize">@dimen/sp_13</item>
         <item name="android:textColor">@color/color_333</item>
     </style>
+
     <style name="weekday">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
@@ -84,12 +89,14 @@
         <item name="android:layout_height">0.5dp</item>
         <item name="android:color">@color/color_e7</item>
     </style>
+
     <style name="myFargmentLinearStyle">
         <item name="android:layout_height">46dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">#fff</item>
         <item name="android:textColor">@color/color_333</item>
     </style>
+
     <style name="myFargmentTextStyle">
         <item name="android:layout_height">match_parent</item>
         <item name="android:textColor">@color/color_555</item>
@@ -97,11 +104,13 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_marginLeft">@dimen/distance_13</item>
     </style>
+
     <style name="myFargmentimgStyle">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:gravity">center_vertical</item>
     </style>
+
     <style name="myFargmentImageArrow">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
@@ -127,4 +136,8 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:scrollHorizontally">true</item>
     </style>
+
+    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

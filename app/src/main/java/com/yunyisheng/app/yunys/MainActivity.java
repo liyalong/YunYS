@@ -21,6 +21,9 @@ import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.main.fragement.HomeFragement;
 import com.yunyisheng.app.yunys.project.fragement.ProjectFragement;
 import com.yunyisheng.app.yunys.schedule.fragement.ScheduleTaskFragement;
+import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
+import com.yunyisheng.app.yunys.tasks.activity.CreateNoneDeviceTaskAcitvity;
+import com.yunyisheng.app.yunys.tasks.activity.CreateProcessTaskAcitvity;
 import com.yunyisheng.app.yunys.userset.fragement.MineFragement;
 import com.yunyisheng.app.yunys.utils.DialogManager;
 import com.yunyisheng.app.yunys.utils.LogUtils;
@@ -193,7 +196,10 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 
             @Override
             public void onClick(View arg0) {
-
+                Router.newIntent(context)
+                        .to(CreateDeviceTaskAcitvity.class)
+                        .launch();
+                mSelectTask.closeOptionsMenu();
 
             }
         });
@@ -201,13 +207,19 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 
             @Override
             public void onClick(View arg0) {
-
+                Router.newIntent(context)
+                        .to(CreateNoneDeviceTaskAcitvity.class)
+                        .launch();
+                mSelectTask.closeOptionsMenu();
             }
         });
         rl_liucheng_task.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Router.newIntent(context)
+                        .to(CreateProcessTaskAcitvity.class)
+                        .launch();
+                mSelectTask.closeOptionsMenu();
             }
         });
 

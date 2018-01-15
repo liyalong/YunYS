@@ -83,24 +83,36 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".userset.activity.MyInformationActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".userset.activity.AccountSetActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".userset.activity.MimaManagerActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".userset.activity.ClearCatchActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".userset.activity.AboutOurActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".userset.activity.EnterpriseinformationActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".schedule.activity.ScheduleDeatilActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tasks.activity.CreateProcessTaskAcitvity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tasks.activity.CreateDeviceTaskAcitvity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tasks.activity.CreateNoneDeviceTaskAcitvity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".tasks.activity.SelectProjectActivity"></activity>
             android:screenOrientation="portrait" />
         <activity
             android:name=".schedule.activity.ScheduleSetActivity"
