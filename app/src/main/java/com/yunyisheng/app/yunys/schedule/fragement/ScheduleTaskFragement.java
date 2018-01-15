@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.schedule.fragement;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.main.adapter.ViewPagerAdapter;
+import com.yunyisheng.app.yunys.schedule.activity.ScheduleSetActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +84,7 @@ public class ScheduleTaskFragement extends BaseFragement {
     public void widgetClick(View v) {
         switch (v.getId()){
             case R.id.img_set:
+                startActivity(new Intent(mContext, ScheduleSetActivity.class));
                 break;
         }
     }
