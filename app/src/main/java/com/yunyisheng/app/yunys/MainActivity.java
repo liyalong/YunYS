@@ -26,6 +26,7 @@ import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.CreateNoneDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.CreateProcessTaskAcitvity;
 import com.yunyisheng.app.yunys.userset.fragement.MineFragement;
+import com.yunyisheng.app.yunys.utils.ActivityManager;
 import com.yunyisheng.app.yunys.utils.DialogManager;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
@@ -319,7 +320,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 //				nm.cancelAll();//清空通知栏
 //				Session.onKillProcess();
 //				ExampleApplication.exit();
-                finish();
+                ActivityManager.getScreenManager().popAllActivity();
 //				System.exit(0);
 
             }
