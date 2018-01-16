@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.yunyisheng.app.yunys.R;
@@ -27,7 +27,7 @@ public class OrganizationFragement extends BaseFragement {
     @BindView(R.id.ed_search)
     EditText edSearch;
     @BindView(R.id.ck_allworker)
-    ImageView ckAllworker;
+    CheckBox ckAllworker;
     @BindView(R.id.line_all)
     LinearLayout lineAll;
     Unbinder unbinder;
