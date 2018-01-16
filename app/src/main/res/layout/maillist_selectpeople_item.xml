@@ -3,15 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/te_select_name"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/distance_27"
-        android:background="@drawable/btn_maillist_selectpeo"
-        android:gravity="center"
-        android:paddingLeft="@dimen/distance_3"
-        android:paddingRight="@dimen/distance_3"
-        android:text="反对的说法"
-        android:textColor="@color/color_666"
-        android:textSize="@dimen/distance_12" />
+    <RelativeLayout
+        android:layout_width="@dimen/distance_78"
+        android:layout_height="@dimen/distance_36"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/te_select_name"
+            android:layout_width="@dimen/distance_65"
+            android:layout_height="@dimen/distance_27"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="@dimen/distance_3"
+            android:background="@drawable/btn_maillist_selectpeo"
+            android:gravity="center"
+            android:text="反对的"
+            android:textColor="@color/color_666"
+            android:textSize="@dimen/distance_12" />
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

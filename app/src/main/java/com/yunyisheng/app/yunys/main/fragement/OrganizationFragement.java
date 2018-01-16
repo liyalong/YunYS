@@ -7,10 +7,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,7 +43,14 @@ public class OrganizationFragement extends BaseFragement {
     LinearLayout lineSelecall;
     @BindView(R.id.btn_queren)
     Button btnQueren;
+    @BindView(R.id.img_clear)
+    ImageView imgClear;
+    @BindView(R.id.scro_all)
+    HorizontalScrollView scroAll;
+    @BindView(R.id.rl_bottom)
+    RelativeLayout rlBottom;
     private int tabindex;
+    private List<String> selectlist = new ArrayList<>();
 
     public static OrganizationFragement newInstance(int index) {
         OrganizationFragement fragement = new OrganizationFragement();
@@ -55,10 +69,23 @@ public class OrganizationFragement extends BaseFragement {
 
     @Override
     public void initView() {
+        selectlist.add("冯绍峰的事");
+        selectlist.add("冯绍峰的");
+        selectlist.add("冯绍峰");
+        selectlist.add("冯绍");
         btnQueren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                for (int i = 0; i < selectlist.size(); i++) {
+                    addChildViewLineLayout(selectlist.get(i));
+                }
 
+            }
+        });
+        imgClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edSearch.setText("");
             }
         });
     }
@@ -99,5 +126,13 @@ public class OrganizationFragement extends BaseFragement {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    private void addChildViewLineLayout(String str) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.maillist_selectpeople_item, null);
+        TextView te_select_name = (TextView) view.findViewById(R.id.te_select_name);
+        te_select_name.setText(str);
+//        view.setTag(infoBean.getDescription());
+        lineSelecall.addView(view);
     }
 }
