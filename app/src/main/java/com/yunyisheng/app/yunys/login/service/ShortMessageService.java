@@ -1,4 +1,4 @@
-package com.yunyisheng.app.yunys.net;
+package com.yunyisheng.app.yunys.login.service;
 
 import com.yunyisheng.app.yunys.base.BaseStatusModel;
 

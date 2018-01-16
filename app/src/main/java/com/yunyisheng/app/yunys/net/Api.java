@@ -1,5 +1,7 @@
 package com.yunyisheng.app.yunys.net;
 
+import com.yunyisheng.app.yunys.login.service.CompanyService;
+import com.yunyisheng.app.yunys.login.service.ShortMessageService;
 import com.yunyisheng.app.yunys.login.service.UserService;
 
 import cn.droidlover.xdroidmvp.net.XApi;
