@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -27,6 +28,7 @@ import com.yunyisheng.app.yunys.tasks.activity.CreateProcessTaskAcitvity;
 import com.yunyisheng.app.yunys.userset.fragement.MineFragement;
 import com.yunyisheng.app.yunys.utils.DialogManager;
 import com.yunyisheng.app.yunys.utils.LogUtils;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.XRadioGroup;
 
 import butterknife.BindView;
@@ -54,6 +56,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     @BindView(R.id.radioGroup1)
     XRadioGroup radioGroup1;
     private boolean initiated = false;
+    private long exitTime = 0;
 
     private void checkToken() {
         String token = SharedPref.getInstance(context).getString("TOKEN", "");
@@ -303,4 +306,25 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
+
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                ToastUtils.showToast("再按一次退出程序");
+                exitTime = System.currentTimeMillis();
+            } else {
+//				NotificationManager nm =(NotificationManager)BottomMenuActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
+//				nm.cancelAll();//清空通知栏
+//				Session.onKillProcess();
+//				ExampleApplication.exit();
+                finish();
+//				System.exit(0);
+
+            }
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
+    }
 }
