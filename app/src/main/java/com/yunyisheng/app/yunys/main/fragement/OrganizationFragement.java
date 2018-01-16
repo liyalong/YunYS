@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -31,6 +32,10 @@ public class OrganizationFragement extends BaseFragement {
     @BindView(R.id.line_all)
     LinearLayout lineAll;
     Unbinder unbinder;
+    @BindView(R.id.line_selecall)
+    LinearLayout lineSelecall;
+    @BindView(R.id.btn_queren)
+    Button btnQueren;
     private int tabindex;
 
     public static OrganizationFragement newInstance(int index) {
@@ -50,7 +55,12 @@ public class OrganizationFragement extends BaseFragement {
 
     @Override
     public void initView() {
+        btnQueren.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
     }
 
     @Override
