@@ -12,6 +12,11 @@ import retrofit2.http.POST;
  */
 
 public interface CompanyService {
+    /**
+     * @author fuduo
+     * @time 2018/1/16  10:59
+     * @describe 注册
+     */
     @FormUrlEncoded
     @POST("system/android/company/add")
     Flowable<BaseStatusModel> registerCompany(@Field("commpany_name") String company_name,

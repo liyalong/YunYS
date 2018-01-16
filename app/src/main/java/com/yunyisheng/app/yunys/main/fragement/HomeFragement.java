@@ -42,6 +42,8 @@ public class HomeFragement extends BaseFragement {
     RecyclerBanner rcyBanner;
     @BindView(R.id.img_baobiao)
     ImageView imgBaobiao;
+    @BindView(R.id.img_quesheng)
+    ImageView img_quesheng;
     @BindView(R.id.img_message)
     ImageView imgMessage;
     @BindView(R.id.te_columntitle)
