@@ -15,6 +15,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
+/**
+ * @author fuduo
+ * @time 2018/1/16  21:24
+ * @describe 添加通讯录
+ */
 public class AddMemorandumActivity extends BaseActivity {
 
 

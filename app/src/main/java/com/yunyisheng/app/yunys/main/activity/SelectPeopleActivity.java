@@ -20,6 +20,11 @@ import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 import static com.yunyisheng.app.yunys.utils.ScreenUtils.setIndicator;
 
+/**
+ * @author fuduo
+ * @time 2018/1/16  21:25
+ * @describe 架构选人
+ */
 public class SelectPeopleActivity extends BaseActivity {
 
 

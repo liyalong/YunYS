@@ -13,6 +13,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
+/**
+ * @author fuduo
+ * @time 2018/1/16  21:26
+ * @describe 发布公告
+ */
 public class SendNoticeActivity extends BaseActivity {
 
 

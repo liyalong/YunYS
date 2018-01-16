@@ -14,6 +14,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
+/**
+ * @author fuduo
+ * @time 2018/1/16  21:23
+ * @describe 备忘录
+ */
 public class MemorandumActivity extends BaseActivity {
 
 

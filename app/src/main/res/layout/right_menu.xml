@@ -36,20 +36,18 @@
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_below="@+id/rl_todaycolumn"
             android:background="@color/color_e7" />
 
         <com.yunyisheng.app.yunys.utils.MyGridView
             android:id="@+id/gv_added"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:numColumns="2"></com.yunyisheng.app.yunys.utils.MyGridView>
 
         <View
             android:id="@+id/view2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/distance_10"
-            android:layout_below="@+id/rl_todaycolumn"
             android:background="@color/baseBackgroundColor" />
 
         <RelativeLayout
@@ -79,7 +77,6 @@
             android:id="@+id/view3"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_below="@+id/rl_todaycolumn"
             android:background="@color/color_e7" />
 
         <com.yunyisheng.app.yunys.utils.MyGridView
@@ -87,5 +84,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:numColumns="2"></com.yunyisheng.app.yunys.utils.MyGridView>
+
     </LinearLayout>
 </ScrollView>

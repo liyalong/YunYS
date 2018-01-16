@@ -24,6 +24,11 @@ import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 import static com.yunyisheng.app.yunys.utils.ScreenUtils.setIndicator;
 
+/**
+ * @author fuduo
+ * @time 2018/1/16  21:26
+ * @describe 员工详情
+ */
 public class WorkerDataActivity extends BaseActivity {
 
     @BindView(R.id.img_back)
