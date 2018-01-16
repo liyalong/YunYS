@@ -307,7 +307,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
                 && event.getAction() == KeyEvent.ACTION_DOWN) {
 
@@ -327,4 +327,5 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         }
         return super.dispatchKeyEvent(event);
     }
+
 }
