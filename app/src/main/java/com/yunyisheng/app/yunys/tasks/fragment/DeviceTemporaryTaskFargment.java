@@ -1,11 +1,7 @@
 package com.yunyisheng.app.yunys.tasks.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -15,7 +11,6 @@ import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**

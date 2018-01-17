@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/baseBackgroundColor">
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,6 +14,7 @@
             android:background="@color/white"
             android:paddingHorizontal="@dimen/distance_10">
             <ImageView
+                android:id="@+id/img_back"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@mipmap/icon_back"/>
@@ -25,6 +27,7 @@
                 android:gravity="center"
                 android:textSize="@dimen/distance_16"/>
             <TextView
+                android:id="@+id/submit"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/submit"
@@ -40,7 +43,9 @@
             <android.support.design.widget.TabLayout
                 android:id="@+id/cron_tablayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:tabTextColor="@color/color_666"
+                app:tabSelectedTextColor="@color/color_333">
 
             </android.support.design.widget.TabLayout>
         </LinearLayout>
