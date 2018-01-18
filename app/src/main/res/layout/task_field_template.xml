@@ -1,58 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/baseBackgroundColor"
         android:orientation="vertical">
+
         <RelativeLayout
             android:id="@+id/top"
             android:layout_width="match_parent"
             android:layout_height="@dimen/distance_49"
+            android:layout_marginBottom="@dimen/distance_10"
             android:background="@color/white"
-            android:paddingHorizontal="@dimen/distance_10"
-            android:layout_marginBottom="@dimen/distance_10">
+            android:paddingHorizontal="@dimen/distance_10">
+
             <ImageView
                 android:id="@+id/img_back"
-                android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@mipmap/icon_back"
-                android:layout_gravity="center"/>
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="center"
+                android:src="@mipmap/icon_back" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="@string/task_back_detail"
                 android:textColor="@color/color_333"
-                android:gravity="center"
-                android:textSize="@dimen/distance_16"
-                />
+                android:textSize="@dimen/distance_16" />
+
             <TextView
                 android:id="@+id/submit"
-                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
                 android:text="@string/submit"
                 android:textColor="@color/color_666"
-                android:gravity="center"
-                android:textSize="@dimen/distance_16"/>
+                android:textSize="@dimen/distance_16" />
         </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/list_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/top"
-            android:paddingBottom="@dimen/distance_40">
-            <ListView
-                android:id="@+id/template_listView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-            </ListView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/top">
+
+            <ScrollView
+                android:id="@+id/scro_all"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.yunyisheng.app.yunys.utils.MyListView
+                        android:id="@+id/lv_all"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scrollbars="none"></com.yunyisheng.app.yunys.utils.MyListView>
+                </RelativeLayout>
+            </ScrollView>
         </RelativeLayout>
 
         <RelativeLayout
@@ -61,14 +77,15 @@
             android:layout_height="@dimen/distance_40"
             android:layout_alignParentBottom="true"
             android:background="@color/white">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:drawableLeft="@mipmap/icon_add"
-                android:text="@string/add_task_template_field"
                 android:layout_centerHorizontal="true"
-                android:textColor="@color/color_tab_selected"
-                android:gravity="center"/>
+                android:drawableLeft="@mipmap/icon_add"
+                android:gravity="center"
+                android:text="@string/add_task_template_field"
+                android:textColor="@color/color_tab_selected" />
         </RelativeLayout>
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

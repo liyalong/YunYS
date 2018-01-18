@@ -1,6 +1,5 @@
 package com.yunyisheng.app.yunys.tasks.fragment;
 
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -11,8 +10,6 @@ import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.customDatePicker.CustomDatePicker;
-
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,7 +46,7 @@ public class DeviceTemporaryTaskFargment extends BaseFragement {
     //初始化日期时间选择插件
     private void initDatePicker() {
         String startDate = "2010-01-01 00:00";
-        String patten = "YY-MM-dd HH:mm";
+        String patten = "yyyy-MM-dd HH:mm";
 
         String startTime = DateTimeDialogUtils.getNewData(patten,0);
         String endTime = DateTimeDialogUtils.getNewData(patten,1);
