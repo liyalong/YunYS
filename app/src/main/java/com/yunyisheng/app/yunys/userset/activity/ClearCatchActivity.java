@@ -13,8 +13,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
+/**
+ * @author fuduo
+ * @time 2018/1/18  18:09
+ * @describe 清除缓存activity
+ */
 public class ClearCatchActivity extends BaseActivity {
-
 
     @BindView(R.id.img_back)
     ImageView imgBack;

@@ -14,6 +14,12 @@ import butterknife.ButterKnife;
 import cn.droidlover.xdroidbase.cache.SharedPref;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
+
+/**
+ * @author fuduo
+ * @time 2018/1/18  18:22
+ * @describe 日程设置
+ */
 public class ScheduleSetActivity extends BaseActivity {
 
     @BindView(R.id.img_back)

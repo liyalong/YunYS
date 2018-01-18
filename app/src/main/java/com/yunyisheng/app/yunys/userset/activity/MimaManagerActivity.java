@@ -13,6 +13,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
+/**
+ * @author fuduo
+ * @time 2018/1/18  18:01
+ * @describe 密码管理activity
+ */
 public class MimaManagerActivity extends BaseActivity {
 
     @BindView(R.id.img_back)

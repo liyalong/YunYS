@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 作者：fuduo on 2018/1/15 12:19
  * 邮箱：duoendeavor@163.com
- * 用途：
+ * 用途：筛选消息类型spinner适配器
  */
 
 public class SpinnerAdapter extends BaseAdapter {

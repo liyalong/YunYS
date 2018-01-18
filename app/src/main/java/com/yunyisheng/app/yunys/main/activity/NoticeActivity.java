@@ -1,18 +1,26 @@
 package com.yunyisheng.app.yunys.main.activity;
 
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.main.adapter.ViewPagerAdapter;
+import com.yunyisheng.app.yunys.main.fragement.NoticeFragement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
+
+import static com.yunyisheng.app.yunys.utils.ScreenUtils.setIndicator;
 
 /**
  * @author fuduo
@@ -21,19 +29,30 @@ import cn.droidlover.xdroidmvp.mvp.XPresent;
  */
 public class NoticeActivity extends BaseActivity {
 
-
     @BindView(R.id.img_back)
     ImageView imgBack;
     @BindView(R.id.te_sendnotice)
     TextView teSendnotice;
-    @BindView(R.id.ed_search)
-    EditText edSearch;
-    @BindView(R.id.lv_notice)
-    ListView vNotice;
+    @BindView(R.id.vp_notice)
+    ViewPager vpNotice;
+    @BindView(R.id.tablayout_notice)
+    TabLayout tablayoutNotice;
+    private List<String> stringList = new ArrayList<>();
+    private List<Fragment> fragmentList = new ArrayList<>();
+
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        stringList.add("我发布的");
+        stringList.add("发布的给我的");
+        for (int i = 0; i < stringList.size(); i++) {
+            fragmentList.add(NoticeFragement.getInstance(i));
+        }
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList, stringList);
+        vpNotice.setAdapter(adapter);
+        tablayoutNotice.setupWithViewPager(vpNotice);
+        setIndicator(this, tablayoutNotice, 10, 10);
     }
 
     @Override
@@ -55,18 +74,18 @@ public class NoticeActivity extends BaseActivity {
     public void setListener() {
         imgBack.setOnClickListener(this);
         teSendnotice.setOnClickListener(this);
+
     }
 
     @Override
     public void widgetClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.img_back:
                 finish();
                 break;
             case R.id.te_sendnotice:
-                startActivity(new Intent(this,SendNoticeActivity.class));
+                startActivity(new Intent(this, SendNoticeActivity.class));
                 break;
         }
     }
-
 }

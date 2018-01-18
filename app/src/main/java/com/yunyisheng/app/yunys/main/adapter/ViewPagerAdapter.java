@@ -10,7 +10,7 @@ import java.util.List;
  * 作者:fuDuo
  * 时间：2017/8/23 14:16
  * 邮箱:18610922052@163.com
- * 类的意图:我的订单 viewpager适配器
+ * 类的意图:viewpager适配器
  */
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {

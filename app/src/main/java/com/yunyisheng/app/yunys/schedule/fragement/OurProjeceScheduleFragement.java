@@ -33,7 +33,7 @@ import com.ldf.calendar.view.MonthPager;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.adapter.TaskAdapter;
 import com.yunyisheng.app.yunys.base.BaseFragement;
-import com.yunyisheng.app.yunys.login.view.CustomDayView;
+import com.yunyisheng.app.yunys.schedule.view.CustomDayView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +46,7 @@ import cn.droidlover.xdroidmvp.mvp.XPresent;
 /**
  * 作者：fuduo on 2018/1/13 15:56
  * 邮箱：duoendeavor@163.com
- * 用途：
+ * 用途：我的日程和项目日程fragement
  */
 public class OurProjeceScheduleFragement extends BaseFragement {
 

@@ -27,7 +27,7 @@ import cn.droidlover.xdroidmvp.mvp.XPresent;
 /**
  * 作者：fuduo on 2018/1/12 10:15
  * 邮箱：duoendeavor@163.com
- * 用途：
+ * 用途：选人fragement
  */
 
 public class OrganizationFragement extends BaseFragement {

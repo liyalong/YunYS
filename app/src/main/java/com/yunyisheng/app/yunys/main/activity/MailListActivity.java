@@ -39,6 +39,8 @@ public class MailListActivity extends BaseActivity {
     RelativeLayout rlInvite;
     @BindView(R.id.elv_organizationframe)
     ExpandableListView elvOrganizationframe;
+    @BindView(R.id.img_clear)
+    ImageView imgClear;
 
     @Override
     public void initView() {
@@ -68,11 +70,12 @@ public class MailListActivity extends BaseActivity {
         rlProjectframe.setOnClickListener(this);
         rlArrangework.setOnClickListener(this);
         rlInvite.setOnClickListener(this);
+        imgClear.setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.img_back:
                 finish();
                 break;
@@ -81,9 +84,12 @@ public class MailListActivity extends BaseActivity {
             case R.id.rl_projectframe:
                 break;
             case R.id.rl_arrangework:
-                startActivity(new Intent(MailListActivity.this,SelectPeopleActivity.class));
+                startActivity(new Intent(MailListActivity.this, SelectPeopleActivity.class));
                 break;
             case R.id.rl_invite:
+                break;
+            case R.id.img_clear:
+                edSearch.setText("");
                 break;
         }
     }

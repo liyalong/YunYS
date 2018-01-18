@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
@@ -13,6 +14,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
+/**
+ * @author fuduo
+ * @time 2018/1/18  18:09
+ * @describe 个人账号设置
+ */
 public class AccountSetActivity extends BaseActivity {
 
     @BindView(R.id.img_back)
@@ -27,6 +33,10 @@ public class AccountSetActivity extends BaseActivity {
     Button getYzm;
     @BindView(R.id.btn_queren)
     Button btnQueren;
+    @BindView(R.id.rl_putphone)
+    RelativeLayout rlPutphone;
+    @BindView(R.id.rl_putyzm)
+    RelativeLayout rlPutyzm;
 
     @Override
     public void initView() {
@@ -63,10 +73,18 @@ public class AccountSetActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.get_yzm:
+                rlPutyzm.setVisibility(View.GONE);
+                rlPutphone.setVisibility(View.VISIBLE);
                 break;
             case R.id.btn_queren:
+                btnQueren.setText("确认");
+                String str = btnQueren.getText().toString();
+                if (str.equals("确认")) {
+
+                } else {
+
+                }
                 break;
         }
     }
-
 }

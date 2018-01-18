@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_f4f4f4"
     tools:context="com.yunyisheng.app.yunys.main.activity.NoticeActivity">
 
     <LinearLayout
@@ -24,15 +23,18 @@
                 android:layout_centerVertical="true"
                 android:background="@mipmap/blackback" />
 
-            <TextView
-                android:id="@+id/te_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tablayout_notice"
+                android:layout_width="@dimen/distance_150"
+                android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="@string/notice"
-                android:textColor="@color/color_333"
-                android:textSize="@dimen/distance_16" />
+                android:layout_marginBottom="@dimen/distance_10"
+                android:layout_marginTop="@dimen/distance_10"
+                app:tabIndicatorColor="@color/color_44A7FD"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/color_333"
+                app:tabTextAppearance="@style/TabLayoutTextStyle"
+                app:tabTextColor="@color/color_333" />
 
             <TextView
                 android:id="@+id/te_sendnotice"
@@ -46,38 +48,9 @@
                 android:textSize="@dimen/distance_14" />
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="@dimen/distance_340"
-            android:layout_height="@dimen/distance_33"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/distance_10"
-            android:layout_marginTop="@dimen/distance_10"
-            android:background="@drawable/msf_search"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/distance_10">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:background="@mipmap/search" />
-
-            <EditText
-                android:id="@+id/ed_search"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/distance_7"
-                android:hint="@string/search"
-                android:background="@null"
-                android:textColorHint="@color/color_666"
-                android:textSize="@dimen/distance_10" />
-        </LinearLayout>
-
-        <ListView
-            android:id="@+id/lv_notice"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_notice"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="@color/color_e7"
-            android:dividerHeight="@dimen/distance_1"></ListView>
+            android:layout_height="match_parent"></android.support.v4.view.ViewPager>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

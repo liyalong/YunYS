@@ -3,7 +3,7 @@ package com.yunyisheng.app.yunys.main.model;
 /**
  * 作者：fuduo on 2018/1/15 12:21
  * 邮箱：duoendeavor@163.com
- * 用途：
+ * 用途：筛选spinner bean
  */
 
 public class SpinnerBean {

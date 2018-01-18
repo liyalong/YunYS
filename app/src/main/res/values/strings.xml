@@ -85,6 +85,8 @@
     <string name="jiaose">角色</string>
     <string name="usezone">已用空间</string>
     <string name="clearcatch">清理缓存</string>
+    <string name="putname">请输入姓名</string>
+    <string name="puteamil">请输入邮箱</string>
     <string name="putphonenum">请输入手机号</string>
     <string name="getyanzheng">获取验证码</string>
     <string name="putyuanmima">请输入原密码</string>

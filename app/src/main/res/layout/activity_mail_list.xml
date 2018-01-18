@@ -35,13 +35,22 @@
 
             <EditText
                 android:id="@+id/ed_search"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/distance_276"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/distance_7"
+                android:layout_marginRight="@dimen/distance_10"
                 android:background="@null"
                 android:hint="搜索员工"
+                android:textColor="@color/color_333"
                 android:textColorHint="@color/color_666"
                 android:textSize="@dimen/distance_10" />
+
+            <ImageView
+                android:id="@+id/img_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@mipmap/ed_close" />
         </LinearLayout>
 
         <LinearLayout

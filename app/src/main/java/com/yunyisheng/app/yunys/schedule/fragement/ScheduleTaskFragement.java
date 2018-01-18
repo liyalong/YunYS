@@ -28,7 +28,7 @@ import static com.yunyisheng.app.yunys.utils.ScreenUtils.setIndicator;
 /**
  * 作者：fuduo on 2018/1/13 11:32
  * 邮箱：duoendeavor@163.com
- * 用途：
+ * 用途：日程fragement
  */
 public class ScheduleTaskFragement extends BaseFragement {
 
