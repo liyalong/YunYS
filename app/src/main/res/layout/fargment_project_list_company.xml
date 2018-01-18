@@ -26,7 +26,7 @@
             android:textSize="@dimen/distance_14"
             android:gravity="center" />
         <TextView
-            android:id="@+id/my_project_nums"
+            android:id="@+id/company_project_nums"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="(3条)"
@@ -38,5 +38,10 @@
         android:layout_height="@dimen/distance_0_5"
         android:background="@color/color_e7e7e7"
         />
-    <include layout="@layout/project_list_item"/>
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/company_project_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
 </LinearLayout>

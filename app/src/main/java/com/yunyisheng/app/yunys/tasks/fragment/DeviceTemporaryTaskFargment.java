@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.tasks.fragment;
 
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -7,7 +8,11 @@ import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+import com.yunyisheng.app.yunys.utils.customDatePicker.CustomDatePicker;
+
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,21 +30,43 @@ public class DeviceTemporaryTaskFargment extends BaseFragement {
     @BindView(R.id.task_name)
     EditText taskName;
     @BindView(R.id.task_start_time)
-    EditText taskStartTime;
+    TextView taskStartTime;
     @BindView(R.id.task_end_time)
-    EditText taskEndTime;
+    TextView taskEndTime;
     @BindView(R.id.tasks_type)
     Switch tasksType;
     @BindView(R.id.task_templates)
     TextView taskTemplates;
 
-    public static DeviceTemporaryTaskFargment newInstance() {
-        return new DeviceTemporaryTaskFargment();
-    }
+    CustomDatePicker startTimeCustomDatePicker,endTimeCustomDatePicker;
+
 
     @Override
     public void initView() {
         ButterKnife.bind(this, context);
+        initDatePicker();
+    }
+    //初始化日期时间选择插件
+    private void initDatePicker() {
+        String startDate = "2010-01-01 00:00";
+        String patten = "YY-MM-dd HH:mm";
+
+        String startTime = DateTimeDialogUtils.getNewData(patten,0);
+        String endTime = DateTimeDialogUtils.getNewData(patten,1);
+
+        startTimeCustomDatePicker = new CustomDatePicker(context, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                taskStartTime.setText(time);
+            }
+        },startDate,startTime);
+        endTimeCustomDatePicker = new CustomDatePicker(context, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                taskEndTime.setText(time);
+            }
+        },startDate,endTime);
+
     }
 
     @Override
@@ -88,4 +115,8 @@ public class DeviceTemporaryTaskFargment extends BaseFragement {
 
     }
 
+
+    public static DeviceTemporaryTaskFargment newInstance() {
+        return new DeviceTemporaryTaskFargment();
+    }
 }

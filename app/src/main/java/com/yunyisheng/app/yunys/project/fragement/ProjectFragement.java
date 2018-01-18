@@ -1,28 +1,19 @@
 package com.yunyisheng.app.yunys.project.fragement;
 
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.yunyisheng.app.yunys.MainActivity;
 import com.yunyisheng.app.yunys.R;
-import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.main.adapter.ViewPagerAdapter;
-import com.yunyisheng.app.yunys.main.fragement.OrganizationFragement;
-import com.yunyisheng.app.yunys.project.adapter.ProjectListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 import static com.yunyisheng.app.yunys.utils.ScreenUtils.setIndicator;
@@ -55,7 +46,7 @@ public class ProjectFragement extends BaseFragement {
         }
         fragmentList.add(MyProjectFargment.newInstance());
         fragmentList.add(CompanyProjectFragment.newInstance());
-        ProjectListAdapter adapter = new ProjectListAdapter(getChildFragmentManager(),fragmentList,mTitle);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(),fragmentList,mTitle);
         projectListViewpage.setAdapter(adapter);
         projectTablayout.setupWithViewPager(projectListViewpage);
         setIndicator(getActivity(), projectTablayout, 25, 25);

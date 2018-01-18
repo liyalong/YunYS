@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys.net;
 import com.yunyisheng.app.yunys.login.service.CompanyService;
 import com.yunyisheng.app.yunys.login.service.ShortMessageService;
 import com.yunyisheng.app.yunys.login.service.UserService;
+import com.yunyisheng.app.yunys.project.service.ProjectService;
 
 import cn.droidlover.xdroidmvp.net.XApi;
 
@@ -16,6 +17,7 @@ public class Api {
     private static UserService userService;
     private static ShortMessageService shortMessageService;
     private static CompanyService companyService;
+    private static ProjectService projectService;
 
     public static UserService userService(){
         if(userService == null){
@@ -46,6 +48,17 @@ public class Api {
             }
         }
         return companyService;
+    }
+
+    public static ProjectService projectService(){
+        if(projectService == null){
+            synchronized (Api.class){
+                if(projectService == null){
+                    projectService = XApi.getInstance().getRetrofit(BASE_PATH,true).create(ProjectService.class);
+                }
+            }
+        }
+        return  projectService;
     }
 
 }

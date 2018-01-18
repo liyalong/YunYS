@@ -23,7 +23,8 @@ public interface UserService {
     @POST("fairyland-system/system/android/user/login")
     Flowable<LoginModel> login(@Field("userName") String userPhone,
                                @Field("password") String userPassword,
-                               @Field("androidID") String uuid);
+                               @Field("androidID") String uuid,
+                               @Field("yzm") String yzm);
 
     /**
      * 找回密码

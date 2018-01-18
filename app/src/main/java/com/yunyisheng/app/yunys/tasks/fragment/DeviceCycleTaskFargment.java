@@ -159,7 +159,6 @@ public class DeviceCycleTaskFargment extends BaseFragement {
                     cycleTaskStartTime.setText(time);
             }
         }, startDate, startTime);
-        startCustomDatePicker.showSpecificTime(true);
         endCustomDatePicker = new CustomDatePicker(context, new CustomDatePicker.ResultHandler() {
             @Override
             public void handle(String time) {

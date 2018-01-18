@@ -14,6 +14,7 @@ public class BaseModel implements IModel {
     protected Integer status;
     protected String message;
 
+
     public void setStatus(Integer status) {
         this.status = status;
     }
