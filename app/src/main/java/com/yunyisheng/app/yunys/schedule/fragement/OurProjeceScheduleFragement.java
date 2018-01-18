@@ -31,7 +31,7 @@ import com.ldf.calendar.model.CalendarDate;
 import com.ldf.calendar.view.Calendar;
 import com.ldf.calendar.view.MonthPager;
 import com.yunyisheng.app.yunys.R;
-import com.yunyisheng.app.yunys.adapter.TaskAdapter;
+import com.yunyisheng.app.yunys.schedule.adapter.TaskAdapter;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.schedule.view.CustomDayView;
 

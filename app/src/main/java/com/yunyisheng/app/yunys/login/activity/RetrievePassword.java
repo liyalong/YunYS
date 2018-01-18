@@ -163,8 +163,8 @@ public class RetrievePassword extends BaseActivity<RetrievePasswordPresent> {
     
 
     public void checkMsgResault(BaseStatusModel baseStatusModel) {
-        if (baseStatusModel.getStatus() != 200){
-            ToastUtils.showToast(baseStatusModel.getMessage());
+        if (baseStatusModel.getRespCode() != 200){
+            ToastUtils.showToast(baseStatusModel.getRespMsg());
             return;
         }else{
             ToastUtils.showToast("短信验证码已发送成功！");
@@ -174,8 +174,8 @@ public class RetrievePassword extends BaseActivity<RetrievePasswordPresent> {
     }
 
     public void checkResault(BaseStatusModel baseStatusModel, String phone, String password) {
-        if(baseStatusModel.getStatus() != 200){
-            ToastUtils.showToast(baseStatusModel.getMessage());
+        if(baseStatusModel.getRespCode() != 200){
+            ToastUtils.showToast(baseStatusModel.getRespMsg());
             return;
         }else{
             ToastUtils.showToast("密码修改成功！");

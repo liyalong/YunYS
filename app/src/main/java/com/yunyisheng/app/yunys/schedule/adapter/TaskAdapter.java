@@ -1,4 +1,4 @@
-package com.yunyisheng.app.yunys.adapter;
+package com.yunyisheng.app.yunys.schedule.adapter;
 
 import android.content.Context;
 import android.content.Intent;

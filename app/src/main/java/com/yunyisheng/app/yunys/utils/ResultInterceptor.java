@@ -35,7 +35,7 @@ public class ResultInterceptor implements Interceptor {
                     BaseModel baseModel = new BaseModel();
                     Gson gson = new Gson();
                     baseModel = gson.fromJson(json,BaseModel.class);
-                    Integer status = baseModel.getStatus();
+                    Integer status = baseModel.getRespCode();
                     if(status != null && status.equals(501)){
                        //TODO 跳转登录页
 

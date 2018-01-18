@@ -1,6 +1,5 @@
 package com.yunyisheng.app.yunys.login.activity;
 
-import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.Log;
@@ -9,10 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.MainActivity;
+import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.login.model.LoginModel;
@@ -23,9 +21,7 @@ import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.droidlover.xdroidbase.cache.SharedPref;
-import cn.droidlover.xdroidmvp.mvp.XActivity;
 import cn.droidlover.xdroidmvp.router.Router;
 
 /**
@@ -137,12 +133,12 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
      * @param loginModel
      */
     public void checkLogin(LoginModel loginModel) {
-        if (loginModel.getStatus() != 1) {
-            ToastUtils.showToast(loginModel.getMessage());
+        if (loginModel.getRespCode() != 1) {
+            ToastUtils.showToast(loginModel.getRespMsg());
             return;
-        } else if (loginModel.getStatus() == 2){
+        } else if (loginModel.getRespCode() == 2){
             yzmLayout.setVisibility(View.VISIBLE);
-            ToastUtils.showToast(loginModel.getMessage());
+            ToastUtils.showToast(loginModel.getRespMsg());
             return;
         }else{
             saveUserToken(loginModel.getToken());
@@ -192,8 +188,8 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
 
 
     public void checkMsgResault(BaseStatusModel baseStatusModel) {
-        if (baseStatusModel.getStatus() != 200){
-            ToastUtils.showToast(baseStatusModel.getMessage());
+        if (baseStatusModel.getRespCode() != 200){
+            ToastUtils.showToast(baseStatusModel.getRespMsg());
             return;
         }else{
             ToastUtils.showToast("短信验证码已发送成功！");

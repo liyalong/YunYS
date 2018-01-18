@@ -36,8 +36,8 @@ public class CompanyProjectPresent extends XPresent<CompanyProjectFragment> {
 
                     @Override
                     public void onNext(ProjectListModel projectListModel) {
-                        if (projectListModel.getStatus() == 500){
-                            ToastUtils.showToast(projectListModel.getMessage());
+                        if (projectListModel.getRespCode() == 500){
+                            ToastUtils.showToast(projectListModel.getRespMsg());
                             return;
                         }
                         getV().setProjectListModel(projectListModel);

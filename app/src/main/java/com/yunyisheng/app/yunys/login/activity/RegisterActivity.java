@@ -159,8 +159,8 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
     }
 
     public void checkMsgResault(BaseStatusModel baseStatusModel) {
-        if(baseStatusModel.getStatus() != 200){
-            ToastUtils.showToast(baseStatusModel.getMessage());
+        if(baseStatusModel.getRespCode() != 200){
+            ToastUtils.showToast(baseStatusModel.getRespMsg());
             return;
         }else{
             ToastUtils.showToast("短信验证码已发送！");
@@ -171,8 +171,8 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
     
 
     public void checkRegiterInfo(BaseStatusModel baseStatusModel) {
-        if(baseStatusModel.getStatus() != 200){
-            ToastUtils.showToast(baseStatusModel.getMessage());
+        if(baseStatusModel.getRespCode() != 200){
+            ToastUtils.showToast(baseStatusModel.getRespMsg());
             return;
         }else{
             ToastUtils.showToast("注册成功！");

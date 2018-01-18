@@ -1,9 +1,5 @@
 package com.yunyisheng.app.yunys.base;
 
-import android.support.annotation.IntDef;
-
-import java.util.ArrayList;
-
 import cn.droidlover.xdroidmvp.net.IModel;
 
 /**
@@ -11,29 +7,27 @@ import cn.droidlover.xdroidmvp.net.IModel;
  */
 public class BaseModel implements IModel {
     protected boolean error;
-    protected Integer status;
-    protected String message;
+    protected Integer respCode ;
+    protected String respMsg ;
 
-
-    public void setStatus(Integer status) {
-        this.status = status;
+    public Integer getRespCode() {
+        return respCode;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setRespCode(Integer respCode) {
+        this.respCode = respCode;
     }
 
-    public Integer getStatus() {
-
-        return status;
+    public String getRespMsg() {
+        return respMsg;
     }
 
-    public String getMessage() {
-        return message;
+    public void setRespMsg(String respMsg) {
+        this.respMsg = respMsg;
     }
 
     public boolean isError(){
-        if(this.status != 200){
+        if(this.respCode != 200){
             this.setError(true);
         }else{
             this.setError(false);
@@ -63,6 +57,6 @@ public class BaseModel implements IModel {
 
     @Override
     public String getErrorMsg() {
-        return this.getMessage();
+        return this.getRespMsg();
     }
 }
