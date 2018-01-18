@@ -1,35 +1,75 @@
 package com.yunyisheng.app.yunys.project.adapter;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.yunyisheng.app.yunys.R;
+import com.yunyisheng.app.yunys.project.bean.ProjectBean;
 
 import java.util.List;
+
+import butterknife.BindView;
+import cn.droidlover.xdroidmvp.base.SimpleListAdapter;
+import cn.droidlover.xdroidmvp.kit.KnifeKit;
 
 /**
  * Created by liyalong on 2018/1/12.
  */
 
-public class ProjectListAdapter extends FragmentPagerAdapter {
-    private List<Fragment> list;
-    private List<String> title;
-    public ProjectListAdapter(FragmentManager fm, List<Fragment> list, List<String> title) {
-        super(fm);
-        this.list = list;
-        this.title = title;
+public class ProjectListAdapter extends SimpleListAdapter<ProjectBean, ProjectListAdapter.ViewHolder> {
+
+
+
+
+    public ProjectListAdapter(Context context, List<ProjectBean> data) {
+        super(context, data);
     }
 
     @Override
-    public Fragment getItem(int position) {
-        return list.get(position);
+    protected ViewHolder newViewHolder(View convertView) {
+        return new ViewHolder(convertView);
+    }
+
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.project_list_item;
     }
 
     @Override
-    public int getCount() {
-        return list.size();
+    protected void convert(ViewHolder holder, ProjectBean item, int position) {
+            final ProjectBean projectBean = data.get(position);
+            holder.projectName.setText(projectBean.getProjectName());
+            holder.projectCreateUser.setText(projectBean.getProjectUpdate());
+            holder.projectErrorLayout.setVisibility(View.GONE);
+            holder.projectNewtaskNums.setVisibility(View.GONE);
+
     }
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return title.get(position);
+
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.project_name)
+        TextView projectName;
+        @BindView(R.id.project_error_nums)
+        TextView projectErrorNums;
+        @BindView(R.id.project_error_layout)
+        LinearLayout projectErrorLayout;
+        @BindView(R.id.project_newtask_nums)
+        TextView projectNewtaskNums;
+        @BindView(R.id.project_newtask_layout)
+        LinearLayout projectNewtaskLayout;
+        @BindView(R.id.project_create_time)
+        TextView projectCreateTime;
+        @BindView(R.id.project_desc)
+        TextView projectDesc;
+        @BindView(R.id.project_create_user)
+        TextView projectCreateUser;
+        public ViewHolder(View itemView) {
+            super(itemView);
+            KnifeKit.bind(this, itemView);
+        }
     }
 }

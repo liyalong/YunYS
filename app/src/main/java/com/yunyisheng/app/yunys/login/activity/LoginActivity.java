@@ -1,20 +1,24 @@
 package com.yunyisheng.app.yunys.login.activity;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.MainActivity;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.login.model.LoginModel;
 import com.yunyisheng.app.yunys.login.present.LoginPresent;
 import com.yunyisheng.app.yunys.utils.AndroidIDUtil;
+import com.yunyisheng.app.yunys.utils.RegularUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import butterknife.BindView;
@@ -39,6 +43,12 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
     TextView register;
     @BindView(R.id.forgetPassword)
     TextView forgetPassword;
+    @BindView(R.id.yzm)
+    EditText yzm;
+    @BindView(R.id.get_yzm)
+    Button getYzm;
+    @BindView(R.id.yzm_layout)
+    LinearLayout yzmLayout;
 
     @Override
     public void initView() {
@@ -79,6 +89,8 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
             case R.id.forgetPassword:
                 toRetrievePassword();
                 break;
+            case R.id.get_yzm:
+                break;
         }
     }
 
@@ -101,13 +113,22 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
         String userPhone = etAccount.getText().toString().trim();
         String userPassword = etPassword.getText().toString().trim();
         String uuid = AndroidIDUtil.getDeviceid();
+        String yzmValue = yzm.getText().toString().trim();
+        int yzmLayoutStatus = yzmLayout.getVisibility();
+
         Log.i("LOGIN", userPhone + "----" + userPassword + "----" + uuid);
         if (TextUtils.isEmpty(userPhone) || TextUtils.isEmpty(userPassword)) {
             Log.i("LOGIN", "phone or password is empty!");
             ToastUtils.showToast("手机号或者密码不能为空！");
             return;
         }
-        getP().Login(userPhone, userPassword, uuid);
+        if (yzmLayoutStatus == 0){
+            if (TextUtils.isEmpty(yzmValue)){
+                ToastUtils.showToast("短信验证码不能为空！");
+                return;
+            }
+        }
+        getP().Login(userPhone, userPassword, uuid,yzmValue);
     }
 
     /**
@@ -116,10 +137,14 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
      * @param loginModel
      */
     public void checkLogin(LoginModel loginModel) {
-        if (loginModel.getStatus() != 200) {
+        if (loginModel.getStatus() != 1) {
             ToastUtils.showToast(loginModel.getMessage());
             return;
-        } else {
+        } else if (loginModel.getStatus() == 2){
+            yzmLayout.setVisibility(View.VISIBLE);
+            ToastUtils.showToast(loginModel.getMessage());
+            return;
+        }else{
             saveUserToken(loginModel.getToken());
             toMain();
         }
@@ -136,7 +161,46 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
         SharedPref.getInstance(context).putString("TOKEN", token);
     }
 
+    public void getYzm() {
+        String phone = etAccount.getText().toString().trim();
+        Log.i("yzm_phone",phone);
+        if(phone.isEmpty()){
+            ToastUtils.showToast("手机号不能为空！");
+            return;
+        }
+        if(!RegularUtil.isPhone(phone)){
+            ToastUtils.showToast("手机号格式错误！");
+            return;
+        }
+        getYzm.setEnabled(false);
+        CountDownTimer timer = new CountDownTimer(60000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                getYzm.setText(millisUntilFinished / 1000+"");
+            }
 
+            @Override
+            public void onFinish() {
+                getYzm.setEnabled(true);
+                getYzm.setText("获取验证码");
+            }
+        };
+        timer.start();
+        getP().getShortMessage(phone);
+    }
+
+
+
+    public void checkMsgResault(BaseStatusModel baseStatusModel) {
+        if (baseStatusModel.getStatus() != 200){
+            ToastUtils.showToast(baseStatusModel.getMessage());
+            return;
+        }else{
+            ToastUtils.showToast("短信验证码已发送成功！");
+            return;
+        }
+
+    }
 
 
 }

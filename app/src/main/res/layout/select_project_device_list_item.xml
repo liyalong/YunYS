@@ -18,11 +18,11 @@
         style="@style/radio"
         />
     <TextView
-        android:id="@+id/project_title"
+        android:id="@+id/device_title"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="项目名称"
+        android:text="设备名称"
         android:textColor="@color/color_333"
         android:gravity="center|left"/>
 </LinearLayout>
