@@ -22,6 +22,7 @@ import com.yunyisheng.app.yunys.main.activity.MessageActivity;
 import com.yunyisheng.app.yunys.main.activity.NoticeActivity;
 import com.yunyisheng.app.yunys.main.activity.ReportformActivity;
 import com.yunyisheng.app.yunys.utils.RecyclerBanner;
+import com.yunyisheng.app.yunys.utils.ScrowUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +55,8 @@ public class HomeFragement extends BaseFragement {
     TextView teSeeall;
     @BindView(R.id.rl_todaycolumn)
     RelativeLayout rlTodaycolumn;
-    @BindView(R.id.pull_to_refresh_scrollview)
-    PullToRefreshListView pullToRefreshScrollview;
+    @BindView(R.id.pull_to_refresh_listview)
+    PullToRefreshListView pullToRefreshListview;
     Unbinder unbinder;
     @BindView(R.id.line_notice)
     LinearLayout lineNotice;
@@ -69,11 +70,11 @@ public class HomeFragement extends BaseFragement {
     @Override
     public void initView() {
         rcyBanner.setContext((Activity) mContext);
+        ScrowUtil.listViewConfig(pullToRefreshListview);
     }
 
     @Override
     public void initAfter() {
-
         i++;
         urls.clear();
         if (i % 2 == 0) {

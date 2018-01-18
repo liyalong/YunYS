@@ -190,7 +190,7 @@
             android:background="@color/color_e7" />
 
         <com.handmark.pulltorefresh.library.PullToRefreshListView
-            android:id="@+id/pull_to_refresh_scrollview"
+            android:id="@+id/pull_to_refresh_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/view"

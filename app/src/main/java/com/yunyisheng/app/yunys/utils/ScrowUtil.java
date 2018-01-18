@@ -82,7 +82,11 @@ public class ScrowUtil {
         mlistview.getLoadingLayoutProxy(false, true).setRefreshingLabel(ConstantManager.RefreshingUpLabel);
         mlistview.getLoadingLayoutProxy(false, true).setReleaseLabel(ConstantManager.ReleaseUpLabel);
     }
-
+    /**
+     * @Author :付铎
+     * @DATE :2017/9/22 15:10
+     * @Params PullToRefreshListView 仅有下拉
+     */
     public static void listViewUpConfig(PullToRefreshListView mlistview){
         mlistview.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
         mlistview.getLoadingLayoutProxy(true, false).setPullLabel(ConstantManager.PullDownLabel);
