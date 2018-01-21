@@ -8,17 +8,11 @@ import com.yunyisheng.app.yunys.base.BaseFragement;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
- * Created by liyalong on 2018/1/10.
- * 我参与的项目列表
+ * Created by liyalong on 2018/1/18.
+ * 设备列表
  */
 
-public class MyProjectFargment extends BaseFragement {
-    public static MyProjectFargment newInstance(){
-        MyProjectFargment fargment = new MyProjectFargment();
-        return  fargment;
-
-    }
-
+public class DeviceListFragment extends BaseFragement {
     @Override
     public void initView() {
 
@@ -31,7 +25,7 @@ public class MyProjectFargment extends BaseFragement {
 
     @Override
     public int bindLayout() {
-        return R.layout.fragment_project_list_my;
+        return R.layout.fragment_device_list;
     }
 
     @Override

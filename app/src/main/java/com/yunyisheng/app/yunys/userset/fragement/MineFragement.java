@@ -75,7 +75,7 @@ public class MineFragement extends BaseFragement {
 
     @Override
     public int bindLayout() {
-        return R.layout.fargment_my;
+        return R.layout.fragment_my;
     }
 
     @Override

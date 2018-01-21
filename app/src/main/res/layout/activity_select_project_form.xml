@@ -58,7 +58,7 @@
             android:textColor="@color/color_333"/>
     </LinearLayout>
     <ListView
-        android:id="@+id/select_project_device_list"
+        android:id="@+id/select_project_form_list"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:choiceMode="singleChoice">

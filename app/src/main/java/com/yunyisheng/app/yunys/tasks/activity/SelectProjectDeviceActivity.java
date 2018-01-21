@@ -31,6 +31,7 @@ public class SelectProjectDeviceActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        ButterKnife.bind(this);
 
     }
 
@@ -51,18 +52,22 @@ public class SelectProjectDeviceActivity extends BaseActivity {
 
     @Override
     public void setListener() {
+        imgBack.setOnClickListener(this);
+        submit.setOnClickListener(this);
+        searchText.setOnClickListener(this);
 
     }
 
     @Override
     public void widgetClick(View v) {
-
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+        switch (v.getId()){
+            case R.id.img_back:
+                this.finish();
+                break;
+            case R.id.submit:
+                break;
+            case R.id.search_text:
+                break;
+        }
     }
 }

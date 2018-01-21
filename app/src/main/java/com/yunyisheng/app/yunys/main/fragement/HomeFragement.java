@@ -94,7 +94,7 @@ public class HomeFragement extends BaseFragement {
 
     @Override
     public int bindLayout() {
-        return R.layout.fargment_home;
+        return R.layout.fragment_home;
     }
 
     @Override

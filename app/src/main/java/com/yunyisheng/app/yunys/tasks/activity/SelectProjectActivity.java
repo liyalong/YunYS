@@ -1,6 +1,7 @@
 package com.yunyisheng.app.yunys.tasks.activity;
 
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +20,8 @@ public class SelectProjectActivity extends BaseActivity {
     ImageView imgBack;
     @BindView(R.id.submit)
     TextView submit;
+    @BindView(R.id.search_text)
+    EditText searchText;
     @BindView(R.id.select_project_list)
     ListView selectProjectList;
 
@@ -46,12 +49,21 @@ public class SelectProjectActivity extends BaseActivity {
     public void setListener() {
         imgBack.setOnClickListener(this);
         submit.setOnClickListener(this);
+        searchText.setOnClickListener(this);
 
     }
 
     @Override
     public void widgetClick(View v) {
-
+        switch (v.getId()){
+            case R.id.img_back:
+                this.finish();
+                break;
+            case R.id.submit:
+                break;
+            case R.id.search_text:
+                break;
+        }
     }
 
 }

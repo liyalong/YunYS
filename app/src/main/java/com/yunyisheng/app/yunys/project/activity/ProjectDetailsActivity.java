@@ -1,24 +1,17 @@
-package com.yunyisheng.app.yunys.project.fragement;
+package com.yunyisheng.app.yunys.project.activity;
 
 import android.view.View;
 
 import com.yunyisheng.app.yunys.R;
-import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.base.BaseActivity;
 
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
- * Created by liyalong on 2018/1/10.
- * 我参与的项目列表
+ * Created by liyalong on 2018/1/18.
  */
 
-public class MyProjectFargment extends BaseFragement {
-    public static MyProjectFargment newInstance(){
-        MyProjectFargment fargment = new MyProjectFargment();
-        return  fargment;
-
-    }
-
+public class ProjectDetailsActivity extends BaseActivity {
     @Override
     public void initView() {
 
@@ -31,7 +24,7 @@ public class MyProjectFargment extends BaseFragement {
 
     @Override
     public int bindLayout() {
-        return R.layout.fragment_project_list_my;
+        return R.layout.activity_project_details;
     }
 
     @Override

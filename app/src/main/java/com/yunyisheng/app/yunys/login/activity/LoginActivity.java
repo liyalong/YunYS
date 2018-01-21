@@ -133,15 +133,15 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
      * @param loginModel
      */
     public void checkLogin(LoginModel loginModel) {
-        if (loginModel.getRespCode() != 1) {
+        if (loginModel.getRespCode() == 1) {
             ToastUtils.showToast(loginModel.getRespMsg());
             return;
         } else if (loginModel.getRespCode() == 2){
             yzmLayout.setVisibility(View.VISIBLE);
             ToastUtils.showToast(loginModel.getRespMsg());
             return;
-        }else{
-            saveUserToken(loginModel.getToken());
+        }else if(loginModel.getRespCode() == 0){
+            saveUserToken(loginModel.getRespBody());
             toMain();
         }
     }
@@ -188,7 +188,7 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
 
 
     public void checkMsgResault(BaseStatusModel baseStatusModel) {
-        if (baseStatusModel.getRespCode() != 200){
+        if (baseStatusModel.getRespCode() != 0){
             ToastUtils.showToast(baseStatusModel.getRespMsg());
             return;
         }else{

@@ -163,7 +163,7 @@ public class RetrievePassword extends BaseActivity<RetrievePasswordPresent> {
     
 
     public void checkMsgResault(BaseStatusModel baseStatusModel) {
-        if (baseStatusModel.getRespCode() != 200){
+        if (baseStatusModel.getRespCode() != 0){
             ToastUtils.showToast(baseStatusModel.getRespMsg());
             return;
         }else{
@@ -174,7 +174,7 @@ public class RetrievePassword extends BaseActivity<RetrievePasswordPresent> {
     }
 
     public void checkResault(BaseStatusModel baseStatusModel, String phone, String password) {
-        if(baseStatusModel.getRespCode() != 200){
+        if(baseStatusModel.getRespCode() != 0){
             ToastUtils.showToast(baseStatusModel.getRespMsg());
             return;
         }else{

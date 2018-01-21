@@ -11,7 +11,7 @@ import java.util.List;
  */
 
 public class ProjectListModel extends BaseModel {
-    private static List<ProjectBean> list;
+    private static List<ProjectBean> respBody;
     private int total;
 
     public void setTotal(int total) {
@@ -23,13 +23,12 @@ public class ProjectListModel extends BaseModel {
         return total;
     }
 
-    public List<ProjectBean> getList() {
-        return list;
+    public static void setRespBody(List<ProjectBean> respBody) {
+        ProjectListModel.respBody = respBody;
     }
 
-    public void setList(List<ProjectBean> list) {
-        this.list = list;
+    public static List<ProjectBean> getRespBody() {
+
+        return respBody;
     }
-
-
 }

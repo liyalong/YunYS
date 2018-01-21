@@ -1,27 +1,31 @@
 package com.yunyisheng.app.yunys.project.fragement;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
- * Created by liyalong on 2018/1/10.
- * 我参与的项目列表
+ * Created by liyalong on 2018/1/18.
+ * 报警记录列表
  */
 
-public class MyProjectFargment extends BaseFragement {
-    public static MyProjectFargment newInstance(){
-        MyProjectFargment fargment = new MyProjectFargment();
-        return  fargment;
-
-    }
+public class AlarmListFragment extends BaseFragement {
+    @BindView(R.id.alarm_history_list)
+    ListView alarmHistoryList;
 
     @Override
     public void initView() {
-
+        ButterKnife.bind(this, context);
     }
 
     @Override
@@ -31,7 +35,7 @@ public class MyProjectFargment extends BaseFragement {
 
     @Override
     public int bindLayout() {
-        return R.layout.fragment_project_list_my;
+        return R.layout.fragment_alarm_history;
     }
 
     @Override
@@ -48,4 +52,5 @@ public class MyProjectFargment extends BaseFragement {
     public void widgetClick(View v) {
 
     }
+
 }

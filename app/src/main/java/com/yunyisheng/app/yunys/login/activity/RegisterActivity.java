@@ -159,7 +159,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
     }
 
     public void checkMsgResault(BaseStatusModel baseStatusModel) {
-        if(baseStatusModel.getRespCode() != 200){
+        if(baseStatusModel.getRespCode() != 0){
             ToastUtils.showToast(baseStatusModel.getRespMsg());
             return;
         }else{
@@ -171,7 +171,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
     
 
     public void checkRegiterInfo(BaseStatusModel baseStatusModel) {
-        if(baseStatusModel.getRespCode() != 200){
+        if(baseStatusModel.getRespCode() != 0){
             ToastUtils.showToast(baseStatusModel.getRespMsg());
             return;
         }else{

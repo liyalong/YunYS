@@ -31,7 +31,7 @@
         android:layout_height="@dimen/distance_1"
         android:background="@color/color_e7e7e7"/>
     <ListView
-    android:id="@+id/knowledge_list"
+    android:id="@+id/model_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 

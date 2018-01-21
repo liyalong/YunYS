@@ -7,16 +7,14 @@ import com.yunyisheng.app.yunys.base.BaseModel;
  */
 
 public class LoginModel extends BaseModel {
-    private String token;
+    private String respBody;
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setRespBody(String respBody) {
+        this.respBody = respBody;
     }
 
+    public String getRespBody() {
 
-    public String getToken() {
-
-        return token;
+        return respBody;
     }
-
 }

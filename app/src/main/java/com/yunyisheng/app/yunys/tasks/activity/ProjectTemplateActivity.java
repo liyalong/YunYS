@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.tasks.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -69,11 +70,19 @@ public class ProjectTemplateActivity extends BaseActivity {
 
     @Override
     public void widgetClick(View v) {
+        Intent intent = new Intent();
        switch (v.getId()){
+           case R.id.img_back:
+               setResult(1,intent);
+               finish();
+               break;
            case R.id.submit:
                adapter.notifyDataSetChanged();
                List<GroupBean> groupBeanList = adapter.getStrList();
                LogUtils.i("str", groupBeanList.get(0).toString());
+               intent.putExtra("group", String.valueOf(groupBeanList));
+               setResult(2,intent);
+               finish();
                break;
            case R.id.bottom:
                List<ChildBean> childBeans = new ArrayList<>();

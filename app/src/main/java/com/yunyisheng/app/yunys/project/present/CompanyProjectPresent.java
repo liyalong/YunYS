@@ -21,7 +21,7 @@ public class CompanyProjectPresent extends XPresent<CompanyProjectFragment> {
      * @param pageNum
      * @param pageSize
      */
-    public void getCompanyProjectList(int pageNum,int pageSize){
+    public void getCompanyProjectList(final int pageNum, int pageSize){
         Api.projectService().getCompanyProjectList(pageNum,pageSize)
                 .compose(XApi.<ProjectListModel>getApiTransformer())
                 .compose(XApi.<ProjectListModel>getScheduler())
@@ -36,11 +36,16 @@ public class CompanyProjectPresent extends XPresent<CompanyProjectFragment> {
 
                     @Override
                     public void onNext(ProjectListModel projectListModel) {
-                        if (projectListModel.getRespCode() == 500){
-                            ToastUtils.showToast(projectListModel.getRespMsg());
-                            return;
+                        try {
+                            if (projectListModel.getRespCode() == 1){
+                                ToastUtils.showToast(projectListModel.getRespMsg());
+                                return;
+                            }
+                            getV().setProjectListAdapter(projectListModel);
+                        }catch (Exception e){
+                            e.printStackTrace();
                         }
-                        getV().setProjectListModel(projectListModel);
+
                     }
                 });
 

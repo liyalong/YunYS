@@ -110,6 +110,7 @@
         <activity
             android:name=".tasks.activity.CreateNoneDeviceTaskAcitvity"
             android:screenOrientation="portrait" />
+        <activity android:name=".tasks.activity.ProjectTemplateActivity" android:screenOrientation="portrait"/>
         <activity android:name=".tasks.activity.SelectProjectActivity" android:screenOrientation="portrait" />
         <activity
             android:name=".schedule.activity.ScheduleSetActivity" android:screenOrientation="portrait" />

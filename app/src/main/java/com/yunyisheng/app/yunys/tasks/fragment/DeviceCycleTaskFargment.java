@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.tasks.activity.CronResultActivity;
+import com.yunyisheng.app.yunys.tasks.activity.ProjectTemplateActivity;
 import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.customDatePicker.CustomDatePicker;
@@ -36,6 +37,7 @@ public class DeviceCycleTaskFargment extends BaseFragement {
     private final static int PROJECTREQUESTCODE = 1;
     private final static int DEVICEEQUESTCODE = 2;
     private final static int CRONREQUESTCODE = 3;
+    private final static int TEMPLATEREQUESTCODE = 4;
 
     CustomDatePicker startCustomDatePicker,endCustomDatePicker;
     @BindView(R.id.cycle_select_project)
@@ -124,8 +126,11 @@ public class DeviceCycleTaskFargment extends BaseFragement {
                 XLog.d(getCycleTaskEndTime());
                 endCustomDatePicker.show(cycleTaskEndTime.getText().toString());
                 break;
-            case R.id.task_templates:
+            case R.id.cycle_task_templates:
                 ToastUtils.showToast("选择反馈项");
+                Intent intent4 = new Intent(context, ProjectTemplateActivity.class);
+                startActivityForResult(intent4,TEMPLATEREQUESTCODE);
+
                 break;
         }
 
@@ -142,6 +147,8 @@ public class DeviceCycleTaskFargment extends BaseFragement {
             case PROJECTREQUESTCODE:
                 break;
             case DEVICEEQUESTCODE:
+                break;
+            case TEMPLATEREQUESTCODE:
                 break;
         }
     }

@@ -59,7 +59,7 @@ public class ProjectFragement extends BaseFragement {
 
     @Override
     public int bindLayout() {
-        return R.layout.fargment_project;
+        return R.layout.fragment_project;
     }
 
     @Override

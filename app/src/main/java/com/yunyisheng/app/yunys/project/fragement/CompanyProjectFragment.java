@@ -1,9 +1,6 @@
 package com.yunyisheng.app.yunys.project.fragement;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,15 +12,14 @@ import com.yunyisheng.app.yunys.project.adapter.ProjectListAdapter;
 import com.yunyisheng.app.yunys.project.model.ProjectListModel;
 import com.yunyisheng.app.yunys.project.present.CompanyProjectPresent;
 import com.yunyisheng.app.yunys.utils.ScrowUtil;
-
-import java.util.List;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by liyalong on 2018/1/10.
+ * 公司项目列表
  */
 
 public class CompanyProjectFragment extends BaseFragement<CompanyProjectPresent> {
@@ -45,28 +41,9 @@ public class CompanyProjectFragment extends BaseFragement<CompanyProjectPresent>
     @Override
     public void initView() {
         ButterKnife.bind(this, context);
-        ScrowUtil.listViewConfig(companyProjectList);
-
-        companyProjectList.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                PAGE_NUM = 1;
-                getP().getCompanyProjectList(PAGE_NUM, PAGE_SIZE);
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                PAGE_NUM += 1;
-                getP().getCompanyProjectList(PAGE_NUM, PAGE_SIZE);
-
-            }
-        });
         getP().getCompanyProjectList(PAGE_NUM, PAGE_SIZE);
-        //设置总数
 
-//        companyProjectNums.setText(projectListModel.getTotal());
-//        ProjectListAdapter adapter = new ProjectListAdapter(context,projectListModel.getList());
-//        companyProjectList.setAdapter(adapter);
+
     }
 
 
@@ -77,7 +54,7 @@ public class CompanyProjectFragment extends BaseFragement<CompanyProjectPresent>
 
     @Override
     public int bindLayout() {
-        return R.layout.fargment_project_list_company;
+        return R.layout.fragment_project_list_company;
     }
 
     @Override
@@ -95,12 +72,34 @@ public class CompanyProjectFragment extends BaseFragement<CompanyProjectPresent>
 
     }
 
-    public ProjectListModel getProjectListModel() {
-        return projectListModel;
-    }
+    public void setProjectListAdapter(ProjectListModel projectListModel) {
 
-    public void setProjectListModel(ProjectListModel projectListModel) {
-        this.projectListModel = projectListModel;
+        ScrowUtil.listViewConfig(companyProjectList);
+        companyProjectList.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                PAGE_NUM = 1;
+                getP().getCompanyProjectList(PAGE_NUM, PAGE_SIZE);
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                PAGE_NUM += 1;
+                getP().getCompanyProjectList(PAGE_NUM, PAGE_SIZE);
+
+            }
+        });
+
+        //设置总数
+
+        //companyProjectNums.setText(projectListModel.getTotal());
+        if (projectListModel.getRespBody().size() > 0){
+            ProjectListAdapter adapter = new ProjectListAdapter(context,projectListModel.getRespBody());
+            companyProjectList.setAdapter(adapter);
+        }else {
+            ToastUtils.showToast("暂无数据！");
+        }
+
     }
 
 }
