@@ -3,7 +3,9 @@ package com.yunyisheng.app.yunys.net;
 import com.yunyisheng.app.yunys.login.service.CompanyService;
 import com.yunyisheng.app.yunys.login.service.ShortMessageService;
 import com.yunyisheng.app.yunys.login.service.UserService;
+import com.yunyisheng.app.yunys.main.service.HomeService;
 import com.yunyisheng.app.yunys.project.service.ProjectService;
+import com.yunyisheng.app.yunys.userset.service.UpdatePasswordService;
 
 import cn.droidlover.xdroidmvp.net.XApi;
 
@@ -13,11 +15,13 @@ import cn.droidlover.xdroidmvp.net.XApi;
 
 public class Api {
     //192.168.2.208   172.16.160.67
-    public static final String BASE_PATH = "http://172.16.160.67:8080/";
+    public static final String BASE_PATH = "http://172.16.160.67:8080/fairyland-system/";
     private static UserService userService;
     private static ShortMessageService shortMessageService;
     private static CompanyService companyService;
     private static ProjectService projectService;
+    private static UpdatePasswordService updatePasswordService;
+    private static HomeService homeService;
 
     public static UserService userService(){
         if(userService == null){
@@ -59,6 +63,28 @@ public class Api {
             }
         }
         return  projectService;
+    }
+
+    public static UpdatePasswordService updatePasswordService(){
+        if(updatePasswordService == null){
+            synchronized (Api.class){
+                if(updatePasswordService == null){
+                    updatePasswordService = XApi.getInstance().getRetrofit(BASE_PATH,true).create(UpdatePasswordService.class);
+                }
+            }
+        }
+        return updatePasswordService;
+    }
+
+    public static HomeService homeService(){
+        if(homeService == null){
+            synchronized (Api.class){
+                if(homeService == null){
+                    homeService = XApi.getInstance().getRetrofit(BASE_PATH,true).create(HomeService.class);
+                }
+            }
+        }
+        return homeService;
     }
 
 }
