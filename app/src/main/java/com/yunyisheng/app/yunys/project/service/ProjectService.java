@@ -22,4 +22,10 @@ public interface ProjectService {
     @POST("project/list/company")
     Flowable<ProjectListModel> getCompanyProjectList(@Field("pageNum") int pageNum,
                                                      @Field("pageSize") int pageSize);
+
+    @FormUrlEncoded
+    @POST("project/list/myJoin")
+    Flowable<ProjectListModel> getMyProjectList(@Field("pageNum") int pageNum,
+                                                @Field("pageSize") int pageSize,
+                                                @Field("projectName") String projectName);
 }

@@ -93,13 +93,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/projectCreateUser"
-            android:textColor="@color/color_333"/>
+            android:textColor="@color/color_666"/>
         <TextView
             android:id="@+id/project_create_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="张三"
-            android:textColor="@color/color_333"/>
+            android:textColor="@color/color_666"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"

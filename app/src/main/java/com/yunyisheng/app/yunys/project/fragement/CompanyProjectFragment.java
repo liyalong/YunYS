@@ -9,10 +9,14 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.project.adapter.ProjectListAdapter;
+import com.yunyisheng.app.yunys.project.bean.ProjectBean;
 import com.yunyisheng.app.yunys.project.model.ProjectListModel;
 import com.yunyisheng.app.yunys.project.present.CompanyProjectPresent;
 import com.yunyisheng.app.yunys.utils.ScrowUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +37,8 @@ public class CompanyProjectFragment extends BaseFragement<CompanyProjectPresent>
     private ProjectListModel projectListModel;
     private static int PAGE_NUM = 1;
     private static int PAGE_SIZE = 10;
+    List<ProjectBean> projectBeanList=new ArrayList<>();
+
 
     public static CompanyProjectFragment newInstance() {
         CompanyProjectFragment fragment = new CompanyProjectFragment();
@@ -94,11 +100,22 @@ public class CompanyProjectFragment extends BaseFragement<CompanyProjectPresent>
 
     public void setProjectListModel(ProjectListModel projectListModel) {
         this.projectListModel = projectListModel;
+
+
         //设置总数
         companyProjectNums.setText("（"+projectListModel.getTotal()+"条）");
         if (projectListModel.getRespBody().size() > 0){
-            ProjectListAdapter adapter = new ProjectListAdapter(context,projectListModel.getRespBody());
-            companyProjectList.setAdapter(adapter);
+            if (PAGE_NUM==1){
+                projectBeanList.clear();
+                projectBeanList.addAll(projectListModel.getRespBody());
+                ProjectListAdapter adapter = new ProjectListAdapter(context,projectBeanList);
+                companyProjectList.setAdapter(adapter);
+            }else {
+                projectBeanList.addAll(projectListModel.getRespBody());
+                ProjectListAdapter adapter = new ProjectListAdapter(context,projectBeanList);
+                companyProjectList.setAdapter(adapter);
+            }
+
         }else {
             ToastUtils.showToast("暂无数据！");
         }

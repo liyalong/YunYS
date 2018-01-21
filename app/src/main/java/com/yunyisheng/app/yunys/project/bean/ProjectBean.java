@@ -17,8 +17,8 @@ public class ProjectBean {
     private String projectEndtime;
     private Integer projectStat;
     private Integer projectTypeId;
-    private Integer companyId;
-    private Integer terraceId;
+    private String companyId;
+    private String terraceId;
     private String projectNationName;
     private String projectProvinceName;
     private String projectCityName;
@@ -69,6 +69,23 @@ public class ProjectBean {
         return projectUpdate;
     }
 
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
+
+    public void setTerraceId(String terraceId) {
+        this.terraceId = terraceId;
+    }
+
+    public String getCompanyId() {
+
+        return companyId;
+    }
+
+    public String getTerraceId() {
+        return terraceId;
+    }
+
     public void setProjectEndtime(String projectEndtime) {
         this.projectEndtime = projectEndtime;
     }
@@ -86,13 +103,7 @@ public class ProjectBean {
         return projectTypeId;
     }
 
-    public Integer getCompanyId() {
-        return companyId;
-    }
 
-    public Integer getTerraceId() {
-        return terraceId;
-    }
 
     public String getProjectNationName() {
         return projectNationName;
@@ -154,13 +165,7 @@ public class ProjectBean {
         this.projectTypeId = projectTypeId;
     }
 
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
-    }
 
-    public void setTerraceId(Integer terraceId) {
-        this.terraceId = terraceId;
-    }
 
     public void setProjectNationName(String projectNationName) {
         this.projectNationName = projectNationName;

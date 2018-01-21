@@ -38,5 +38,10 @@
         android:layout_height="@dimen/distance_0_5"
         android:background="@color/color_e7e7e7"
         />
-    <include layout="@layout/project_list_item"/>
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/my_project_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
 </LinearLayout>

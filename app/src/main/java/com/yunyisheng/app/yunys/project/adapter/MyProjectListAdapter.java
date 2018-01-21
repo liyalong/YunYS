@@ -1,7 +1,6 @@
 package com.yunyisheng.app.yunys.project.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,12 +18,12 @@ import cn.droidlover.xdroidmvp.kit.KnifeKit;
  * Created by liyalong on 2018/1/12.
  */
 
-public class ProjectListAdapter extends SimpleListAdapter<ProjectBean, ProjectListAdapter.ViewHolder> {
+public class MyProjectListAdapter extends SimpleListAdapter<ProjectBean, MyProjectListAdapter.ViewHolder> {
 
 
 
 
-    public ProjectListAdapter(Context context, List<ProjectBean> data) {
+    public MyProjectListAdapter(Context context, List<ProjectBean> data) {
         super(context, data);
     }
 
