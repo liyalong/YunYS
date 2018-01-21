@@ -8,17 +8,19 @@ import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.base.BaseModel;
+import com.yunyisheng.app.yunys.userset.present.UpdatePasswordPresent;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
  * @author fuduo
  * @time 2018/1/18  18:01
  * @describe 密码管理activity
  */
-public class MimaManagerActivity extends BaseActivity {
+public class MimaManagerActivity extends BaseActivity<UpdatePasswordPresent> {
 
     @BindView(R.id.img_back)
     ImageView imgBack;
@@ -50,8 +52,8 @@ public class MimaManagerActivity extends BaseActivity {
     }
 
     @Override
-    public XPresent bindPresent() {
-        return null;
+    public UpdatePasswordPresent bindPresent() {
+        return new UpdatePasswordPresent();
     }
 
     @Override
@@ -67,8 +69,44 @@ public class MimaManagerActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.btn_queren:
+                String newmima=edNewmima.getText().toString().trim();
+                String newmimaagain=edNewmimaagain.getText().toString().trim();
+                String oldmima=edYuanmima.getText().toString().trim();
+                if (oldmima!=null&&!oldmima.equals("")){
+                    if (newmima!=null&&!newmima.equals("")){
+                        if (newmimaagain!=null&&!newmimaagain.equals("")){
+                             if (newmima.equals(newmimaagain)){
+                                 updatePasswoed(oldmima,newmima);
+                             }else {
+                                 ToastUtils.showLongToast("密码不一致");
+                             }
+                        }else {
+                            ToastUtils.showLongToast("请再次填写新密码");
+                        }
+                    }else {
+                        ToastUtils.showLongToast("请填写新密码");
+                    }
+                }else {
+                    ToastUtils.showLongToast("请输入原密码");
+                }
                 break;
         }
+    }
+
+    private void updatePasswoed(String oldpassword,String newpassword){
+        getP().updatePassword(oldpassword,newpassword);
+    }
+
+    /**
+     * @author fuduo
+     * @time 2018/1/21  10:48
+     * @describe 检查是否修改成功
+     */
+    public void checkIssuccess(BaseModel baseModel){
+        if (baseModel.getRespCode()==0){
+            finish();
+        }
+        ToastUtils.showLongToast(baseModel.getRespMsg());
     }
 
 }

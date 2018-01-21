@@ -75,7 +75,7 @@ public class App extends Application {
             public Interceptor[] configInterceptors() {
                 Interceptor interceptor = new TokenHeaderInterceptor();
                 Interceptor resultinterceptor = new ResultInterceptor(mContext);
-                return new Interceptor[]{interceptor, resultinterceptor};
+                return new Interceptor[]{interceptor};
             }
 
             @Override
