@@ -71,6 +71,7 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
         btnLogin.setOnClickListener(this);
         register.setOnClickListener(this);
         forgetPassword.setOnClickListener(this);
+        getYzm.setOnClickListener(this);
     }
 
     @Override
@@ -86,6 +87,7 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
                 toRetrievePassword();
                 break;
             case R.id.get_yzm:
+                getYzm();
                 break;
         }
     }
