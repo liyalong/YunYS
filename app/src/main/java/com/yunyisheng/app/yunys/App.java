@@ -1,10 +1,12 @@
 package com.yunyisheng.app.yunys;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.os.Bundle;
 
+import com.yunyisheng.app.yunys.utils.ResultInterceptor;
 import com.yunyisheng.app.yunys.utils.TokenHeaderInterceptor;
-import com.yunyisheng.app.yunys.utils.UnCeHandler;
 
 import cn.droidlover.xdroidmvp.net.NetError;
 import cn.droidlover.xdroidmvp.net.NetProvider;
@@ -21,6 +23,7 @@ import okhttp3.OkHttpClient;
 public class App extends Application {
     public static Context context;
     public static App app;
+    private Context mContext;
 
     @Override
     public void onCreate() {
@@ -28,12 +31,51 @@ public class App extends Application {
         app = this;
         context = this;
         init();
+
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+                mContext = activity;
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+
+            }
+        });
+
         XApi.registerProvider(new NetProvider() {
 
             @Override
             public Interceptor[] configInterceptors() {
                 Interceptor interceptor = new TokenHeaderInterceptor();
-                return new Interceptor[]{interceptor};
+                Interceptor resultinterceptor = new ResultInterceptor(mContext);
+                return new Interceptor[]{interceptor, resultinterceptor};
             }
 
             @Override
@@ -80,6 +122,7 @@ public class App extends Application {
     public static Context getContext() {
         return context;
     }
+
     public static App getInstance() {
         return app;
     }

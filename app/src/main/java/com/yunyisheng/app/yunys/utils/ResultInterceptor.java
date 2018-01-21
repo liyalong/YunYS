@@ -1,5 +1,7 @@
 package com.yunyisheng.app.yunys.utils;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.yunyisheng.app.yunys.base.BaseModel;
 
@@ -16,6 +18,13 @@ import okhttp3.ResponseBody;
  */
 
 public class ResultInterceptor implements Interceptor {
+
+    private Context context;
+
+    public ResultInterceptor(Context context) {
+        this.context=context;
+    }
+
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
@@ -37,7 +46,6 @@ public class ResultInterceptor implements Interceptor {
                     baseModel = gson.fromJson(json,BaseModel.class);
                     Integer status = baseModel.getRespCode();
                     if(status != null && status.equals(501)){
-                       //TODO 跳转登录页
 
 
                     }
