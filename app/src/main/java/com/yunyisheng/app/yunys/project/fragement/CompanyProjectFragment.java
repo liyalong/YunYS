@@ -16,6 +16,7 @@ import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.droidlover.xdroidmvp.log.XLog;
 
 /**
  * Created by liyalong on 2018/1/10.
@@ -42,6 +43,21 @@ public class CompanyProjectFragment extends BaseFragement<CompanyProjectPresent>
     public void initView() {
         ButterKnife.bind(this, context);
         getP().getCompanyProjectList(PAGE_NUM, PAGE_SIZE);
+        ScrowUtil.listViewConfig(companyProjectList);
+        companyProjectList.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                PAGE_NUM = 1;
+                getP().getCompanyProjectList(PAGE_NUM, PAGE_SIZE);
+
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                PAGE_NUM += 1;
+                getP().getCompanyProjectList(PAGE_NUM, PAGE_SIZE);
+            }
+        });
 
 
     }
@@ -72,34 +88,21 @@ public class CompanyProjectFragment extends BaseFragement<CompanyProjectPresent>
 
     }
 
-    public void setProjectListAdapter(ProjectListModel projectListModel) {
+    public ProjectListModel getProjectListModel() {
+        return projectListModel;
+    }
 
-        ScrowUtil.listViewConfig(companyProjectList);
-        companyProjectList.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                PAGE_NUM = 1;
-                getP().getCompanyProjectList(PAGE_NUM, PAGE_SIZE);
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                PAGE_NUM += 1;
-                getP().getCompanyProjectList(PAGE_NUM, PAGE_SIZE);
-
-            }
-        });
-
+    public void setProjectListModel(ProjectListModel projectListModel) {
+        this.projectListModel = projectListModel;
         //设置总数
-
-        //companyProjectNums.setText(projectListModel.getTotal());
+        companyProjectNums.setText("（"+projectListModel.getTotal()+"条）");
         if (projectListModel.getRespBody().size() > 0){
             ProjectListAdapter adapter = new ProjectListAdapter(context,projectListModel.getRespBody());
             companyProjectList.setAdapter(adapter);
         }else {
             ToastUtils.showToast("暂无数据！");
         }
-
+        companyProjectList.onRefreshComplete();
     }
 
 }

@@ -43,14 +43,16 @@ public class ProjectListAdapter extends SimpleListAdapter<ProjectBean, ProjectLi
     protected void convert(ViewHolder holder, ProjectBean item, int position) {
             final ProjectBean projectBean = data.get(position);
             holder.projectName.setText(projectBean.getProjectName());
-            holder.projectCreateUser.setText(projectBean.getProjectUpdate());
+            holder.projectCreateUser.setText(projectBean.getProjectLeader());
             holder.projectErrorLayout.setVisibility(View.GONE);
             holder.projectNewtaskNums.setVisibility(View.GONE);
+            holder.projectCreateTime.setText(projectBean.getProjectCreate());
 
     }
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+    public static class ViewHolder{
         @BindView(R.id.project_name)
         TextView projectName;
         @BindView(R.id.project_error_nums)
@@ -68,7 +70,6 @@ public class ProjectListAdapter extends SimpleListAdapter<ProjectBean, ProjectLi
         @BindView(R.id.project_create_user)
         TextView projectCreateUser;
         public ViewHolder(View itemView) {
-            super(itemView);
             KnifeKit.bind(this, itemView);
         }
     }

@@ -41,7 +41,7 @@ public class CompanyProjectPresent extends XPresent<CompanyProjectFragment> {
                                 ToastUtils.showToast(projectListModel.getRespMsg());
                                 return;
                             }
-                            getV().setProjectListAdapter(projectListModel);
+                            getV().setProjectListModel(projectListModel);
                         }catch (Exception e){
                             e.printStackTrace();
                         }

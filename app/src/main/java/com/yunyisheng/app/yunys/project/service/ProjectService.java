@@ -19,7 +19,7 @@ public interface ProjectService {
      * @return
      */
     @FormUrlEncoded
-    @POST("fairyland-system/project/list/company")
+    @POST("project/list/company")
     Flowable<ProjectListModel> getCompanyProjectList(@Field("pageNum") int pageNum,
                                                      @Field("pageSize") int pageSize);
 }

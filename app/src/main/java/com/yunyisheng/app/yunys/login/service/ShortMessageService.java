@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.login.service;
 
+import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.base.BaseStatusModel;
 
 import io.reactivex.Flowable;

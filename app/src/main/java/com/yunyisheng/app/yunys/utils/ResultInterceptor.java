@@ -40,23 +40,35 @@ public class ResultInterceptor implements Interceptor {
             if (body != null) {
                 MediaType mediaType = body.contentType();
                 if (mediaType != null) {
-                    String json = body.string();
-                    BaseModel baseModel = new BaseModel();
-                    Gson gson = new Gson();
-                    baseModel = gson.fromJson(json,BaseModel.class);
-                    Integer status = baseModel.getRespCode();
-                    if(status != null && status.equals(501)){
+                    if (isText(mediaType)){
+                        String json = body.string();
+                        BaseModel baseModel = new BaseModel();
+                        Gson gson = new Gson();
+                        baseModel = gson.fromJson(json,BaseModel.class);
+                        Integer status = baseModel.getRespCode();
+                        if(status != null && status.equals(501)){
 
 
+                        }
+                        body = ResponseBody.create(mediaType, json);
+                        return response.newBuilder().body(body).build();
                     }
-                    String resp = body.string();
-                    body = ResponseBody.create(mediaType, resp);
-                    return response.newBuilder().body(body).build();
+
                 }
             }
         }catch (Exception e){
             e.printStackTrace();
         }
         return response;
+    }
+    private boolean isText(MediaType mediaType) {
+        if (mediaType == null) return false;
+
+        return ("text".equals(mediaType.subtype())
+                || "json".equals(mediaType.subtype())
+                || "xml".equals(mediaType.subtype())
+                || "html".equals(mediaType.subtype())
+                || "webviewhtml".equals(mediaType.subtype())
+                || "x-www-form-urlencoded".equals(mediaType.subtype()));
     }
 }

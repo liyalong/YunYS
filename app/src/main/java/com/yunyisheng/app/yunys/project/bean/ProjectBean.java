@@ -12,9 +12,9 @@ public class ProjectBean {
     private String projectId;
     private String projectName;
     private String projectNum;
-    private Integer projectCreate;
-    private Integer projectUpdate;
-    private Integer projectEndtime;
+    private String projectCreate;
+    private String projectUpdate;
+    private String projectEndtime;
     private Integer projectStat;
     private Integer projectTypeId;
     private Integer companyId;
@@ -29,10 +29,23 @@ public class ProjectBean {
     private String projectStopIndicators;
     private String isFocus;
     private String projectLeader;
+    private ProType proType;
+    public void setProType(ProType proType) {
+        this.proType = proType;
+    }
 
-    private HashMap<String,String> proType;
+    public ProType getProType() {
 
+        return proType;
+    }
+    public void setProjectCreate(String projectCreate) {
+        this.projectCreate = projectCreate;
+    }
 
+    public String getProjectCreate() {
+
+        return projectCreate;
+    }
 
     public String getProjectId() {
         return projectId;
@@ -46,15 +59,22 @@ public class ProjectBean {
         return projectNum;
     }
 
-    public Integer getProjectCreate() {
-        return projectCreate;
+
+    public void setProjectUpdate(String projectUpdate) {
+        this.projectUpdate = projectUpdate;
     }
 
-    public Integer getProjectUpdate() {
+    public String getProjectUpdate() {
+
         return projectUpdate;
     }
 
-    public Integer getProjectEndtime() {
+    public void setProjectEndtime(String projectEndtime) {
+        this.projectEndtime = projectEndtime;
+    }
+
+    public String getProjectEndtime() {
+
         return projectEndtime;
     }
 
@@ -124,18 +144,6 @@ public class ProjectBean {
 
     public void setProjectNum(String projectNum) {
         this.projectNum = projectNum;
-    }
-
-    public void setProjectCreate(Integer projectCreate) {
-        this.projectCreate = projectCreate;
-    }
-
-    public void setProjectUpdate(Integer projectUpdate) {
-        this.projectUpdate = projectUpdate;
-    }
-
-    public void setProjectEndtime(Integer projectEndtime) {
-        this.projectEndtime = projectEndtime;
     }
 
     public void setProjectStat(Integer projectStat) {
@@ -218,5 +226,35 @@ public class ProjectBean {
                 ", isFocus='" + isFocus + '\'' +
                 ", projectLeader='" + projectLeader + '\'' +
                 '}';
+    }
+    private class ProType{
+        private int projectTypeId;
+        private String projectTypeName;
+        private int projectTypeStat;
+
+        public void setProjectTypeId(int projectTypeId) {
+            this.projectTypeId = projectTypeId;
+        }
+
+        public void setProjectTypeName(String projectTypeName) {
+            this.projectTypeName = projectTypeName;
+        }
+
+        public void setProjectTypeStat(int projectTypeStat) {
+            this.projectTypeStat = projectTypeStat;
+        }
+
+        public int getProjectTypeId() {
+
+            return projectTypeId;
+        }
+
+        public String getProjectTypeName() {
+            return projectTypeName;
+        }
+
+        public int getProjectTypeStat() {
+            return projectTypeStat;
+        }
     }
 }

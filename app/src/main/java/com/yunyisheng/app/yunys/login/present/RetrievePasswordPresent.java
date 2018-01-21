@@ -1,6 +1,7 @@
 package com.yunyisheng.app.yunys.login.present;
 
 
+import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.activity.RetrievePassword;
 import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.net.Api;
