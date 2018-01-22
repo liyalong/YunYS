@@ -13,7 +13,16 @@ import java.util.List;
 public class ProjectListModel extends BaseModel {
     private List<ProjectBean> respBody;
     private int total;
+    private int lastPage;
 
+    public void setLastPage(int lastPage) {
+        this.lastPage = lastPage;
+    }
+
+    public int getLastPage() {
+
+        return lastPage;
+    }
 
     public void setTotal(int total) {
         this.total = total;
