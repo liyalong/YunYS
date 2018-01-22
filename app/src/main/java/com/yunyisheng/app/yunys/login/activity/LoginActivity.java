@@ -86,6 +86,7 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
                 toRetrievePassword();
                 break;
             case R.id.get_yzm:
+                getYzm();
                 break;
         }
     }

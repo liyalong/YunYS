@@ -15,10 +15,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.tasks.model.ChildBean;
 import com.yunyisheng.app.yunys.tasks.model.GroupBean;
+import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.MyListView;
 
 import java.util.ArrayList;
@@ -79,7 +81,7 @@ public class MyAdapter extends BaseAdapter {
             //绑定 Adapter到控件
             viewHolder.sp_type.setAdapter(spadapter);
         }
-
+        viewHolder.te_fankuisize.setText("("+ CommonUtils.formatInteger(position+1)+")");
         viewHolder.ed_wenzi.setText(strList.get(position).getWeniz());
         viewHolder.ed_fankui.setText(strList.get(position).getFankuiname());
         final List<ChildBean> stringList = strList.get(position).getChilddata();
@@ -92,6 +94,13 @@ public class MyAdapter extends BaseAdapter {
                 stringList.add(childBean);
                 strList.get(position).setChilddata(stringList);
                 adapter.notifyDataSetChanged();
+            }
+        });
+        viewHolder.img_delete_fankui.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                strList.remove(position);
+                notifyDataSetChanged();
             }
         });
         viewHolder.sp_type.setOnItemSelectedListener(new myItemSelectedListener(viewHolder, stringList, position));
@@ -143,8 +152,9 @@ public class MyAdapter extends BaseAdapter {
 
     class ViewHolder {
         EditText ed_fankui, ed_wenzi;
-        ImageView img_add;
+        ImageView img_add,img_delete_fankui;
         Spinner sp_type;
+        TextView te_fankuisize;
         LinearLayout line_item, line_beixuan;
         RelativeLayout line_select_type;
         MyListView myListView;
@@ -154,6 +164,8 @@ public class MyAdapter extends BaseAdapter {
             ed_fankui = (EditText) view.findViewById(R.id.ed_fankui);
             ed_wenzi = (EditText) view.findViewById(R.id.ed_wenzi);
             img_add = (ImageView) view.findViewById(R.id.img_add);
+            te_fankuisize=(TextView) view.findViewById(R.id.te_fankuisize);
+            img_delete_fankui=(ImageView)view.findViewById(R.id.img_delete_fankui);
             line_beixuan = (LinearLayout) view.findViewById(R.id.line_beixuan);
             line_select_type = (RelativeLayout) view.findViewById(R.id.line_select_type);
             line_item = (LinearLayout) view.findViewById(R.id.line_item);

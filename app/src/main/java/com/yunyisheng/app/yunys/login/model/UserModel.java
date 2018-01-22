@@ -2,197 +2,255 @@ package com.yunyisheng.app.yunys.login.model;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
 
-import java.util.Date;
-
 /**
  * Created by liyalong on 2017/12/16.
  */
 
 public class UserModel extends BaseModel {
-    private Integer userId;
-    private String userName;
-    private String userSex;
-    private String userJobTitle;
-    private String userPicture;
-    private String userPhone;
-    private Integer userNumber;
-    private String userMailbox;
-    private String userPassword;
-    private String userPhoneState;
-    private String userMailboxState;
-    private String userState;
-    private Date userSetTime;
-    private Integer rolesId;
-    private String enterpriseId;
-    private String parent;
-    private Integer userIsShow;
-    private Integer enterpriseRolesId;
 
-    public Integer getUserId() {
-        return userId;
+    /**
+     * respBody : {"userPhoneState":"1","phone":null,"userMailboxState":"0","userPassword":null,"parent":"谢智","enterpriseId":"0d67725d97b644489419e7f700fcfcb6","enterpriseRolesId":5,"userIsShow":true,"userPicture":null,"userNumber":523458,"userType":"1","userState":"1","userJobTitle":"安卓工程师","userMailbox":"13635706239@163.com","userId":308,"userSex":"男","userName":"Android","userPhone":"18610922052","rolesId":null,"userSetTime":1516480519000}
+     */
+
+    private RespBodyBean respBody;
+
+    public RespBodyBean getRespBody() {
+        return respBody;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setRespBody(RespBodyBean respBody) {
+        this.respBody = respBody;
     }
 
-    public String getUserName() {
-        return userName;
-    }
+    public static class RespBodyBean {
+        /**
+         * userPhoneState : 1
+         * phone : null
+         * userMailboxState : 0
+         * userPassword : null
+         * parent : 谢智
+         * enterpriseId : 0d67725d97b644489419e7f700fcfcb6
+         * enterpriseRolesId : 5
+         * userIsShow : true
+         * userPicture : null
+         * userNumber : 523458
+         * userType : 1
+         * userState : 1
+         * userJobTitle : 安卓工程师
+         * userMailbox : 13635706239@163.com
+         * userId : 308
+         * userSex : 男
+         * userName : Android
+         * userPhone : 18610922052
+         * rolesId : null
+         * userSetTime : 1516480519000
+         */
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+        private String userPhoneState;
+        private String phone;
+        private String userMailboxState;
+        private String userPassword;
+        private String parent;
+        private String enterpriseId;
+        private int enterpriseRolesId;
+        private boolean userIsShow;
+        private String userPicture;
+        private int userNumber;
+        private String userType;
+        private String userState;
+        private String userJobTitle;
+        private String userMailbox;
+        private int userId;
+        private String userSex;
+        private String userName;
+        private String userPhone;
+        private int rolesId;
+        private long userSetTime;
 
-    public String getUserSex() {
-        return userSex;
-    }
+        public String getUserPhoneState() {
+            return userPhoneState;
+        }
 
-    public void setUserSex(String userSex) {
-        this.userSex = userSex;
-    }
+        public void setUserPhoneState(String userPhoneState) {
+            this.userPhoneState = userPhoneState;
+        }
 
-    public String getUserJobTitle() {
-        return userJobTitle;
-    }
+        public String getPhone() {
+            return phone;
+        }
 
-    public void setUserJobTitle(String userJobTitle) {
-        this.userJobTitle = userJobTitle;
-    }
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
 
-    public String getUserPicture() {
-        return userPicture;
-    }
+        public String getUserMailboxState() {
+            return userMailboxState;
+        }
 
-    public void setUserPicture(String userPicture) {
-        this.userPicture = userPicture;
-    }
+        public void setUserMailboxState(String userMailboxState) {
+            this.userMailboxState = userMailboxState;
+        }
 
-    public String getUserPhone() {
-        return userPhone;
-    }
+        public String getUserPassword() {
+            return userPassword;
+        }
 
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
-    }
+        public void setUserPassword(String userPassword) {
+            this.userPassword = userPassword;
+        }
 
-    public Integer getUserNumber() {
-        return userNumber;
-    }
+        public String getParent() {
+            return parent;
+        }
 
-    public void setUserNumber(Integer userNumber) {
-        this.userNumber = userNumber;
-    }
+        public void setParent(String parent) {
+            this.parent = parent;
+        }
 
-    public String getUserMailbox() {
-        return userMailbox;
-    }
+        public String getEnterpriseId() {
+            return enterpriseId;
+        }
 
-    public void setUserMailbox(String userMailbox) {
-        this.userMailbox = userMailbox;
-    }
+        public void setEnterpriseId(String enterpriseId) {
+            this.enterpriseId = enterpriseId;
+        }
 
-    public String getUserPassword() {
-        return userPassword;
-    }
+        public int getEnterpriseRolesId() {
+            return enterpriseRolesId;
+        }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
+        public void setEnterpriseRolesId(int enterpriseRolesId) {
+            this.enterpriseRolesId = enterpriseRolesId;
+        }
 
-    public String getUserPhoneState() {
-        return userPhoneState;
-    }
+        public boolean isUserIsShow() {
+            return userIsShow;
+        }
 
-    public void setUserPhoneState(String userPhoneState) {
-        this.userPhoneState = userPhoneState;
-    }
+        public void setUserIsShow(boolean userIsShow) {
+            this.userIsShow = userIsShow;
+        }
 
-    public String getUserMailboxState() {
-        return userMailboxState;
-    }
+        public String getUserPicture() {
+            return userPicture;
+        }
 
-    public void setUserMailboxState(String userMailboxState) {
-        this.userMailboxState = userMailboxState;
-    }
+        public void setUserPicture(String userPicture) {
+            this.userPicture = userPicture;
+        }
 
-    public String getUserState() {
-        return userState;
-    }
+        public int getUserNumber() {
+            return userNumber;
+        }
 
-    public void setUserState(String userState) {
-        this.userState = userState;
-    }
+        public void setUserNumber(int userNumber) {
+            this.userNumber = userNumber;
+        }
 
-    public Date getUserSetTime() {
-        return userSetTime;
-    }
+        public String getUserType() {
+            return userType;
+        }
 
-    public void setUserSetTime(Date userSetTime) {
-        this.userSetTime = userSetTime;
-    }
+        public void setUserType(String userType) {
+            this.userType = userType;
+        }
 
-    public Integer getRolesId() {
-        return rolesId;
-    }
+        public String getUserState() {
+            return userState;
+        }
 
-    public void setRolesId(Integer rolesId) {
-        this.rolesId = rolesId;
-    }
+        public void setUserState(String userState) {
+            this.userState = userState;
+        }
 
-    public String getEnterpriseId() {
-        return enterpriseId;
-    }
+        public String getUserJobTitle() {
+            return userJobTitle;
+        }
 
-    public void setEnterpriseId(String enterpriseId) {
-        this.enterpriseId = enterpriseId;
-    }
+        public void setUserJobTitle(String userJobTitle) {
+            this.userJobTitle = userJobTitle;
+        }
 
-    public String getParent() {
-        return parent;
-    }
+        public String getUserMailbox() {
+            return userMailbox;
+        }
 
-    public void setParent(String parent) {
-        this.parent = parent;
-    }
+        public void setUserMailbox(String userMailbox) {
+            this.userMailbox = userMailbox;
+        }
 
-    public Integer getUserIsShow() {
-        return userIsShow;
-    }
+        public int getUserId() {
+            return userId;
+        }
 
-    public void setUserIsShow(Integer userIsShow) {
-        this.userIsShow = userIsShow;
-    }
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
 
-    public Integer getEnterpriseRolesId() {
-        return enterpriseRolesId;
-    }
+        public String getUserSex() {
+            return userSex;
+        }
 
-    public void setEnterpriseRolesId(Integer enterpriseRolesId) {
-        this.enterpriseRolesId = enterpriseRolesId;
-    }
+        public void setUserSex(String userSex) {
+            this.userSex = userSex;
+        }
 
-    @Override
-    public String toString() {
-        return "UserInfoModel{" +
-                "userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", userSex='" + userSex + '\'' +
-                ", userJobTitle='" + userJobTitle + '\'' +
-                ", userPicture='" + userPicture + '\'' +
-                ", userPhone='" + userPhone + '\'' +
-                ", userNumber=" + userNumber +
-                ", userMailbox='" + userMailbox + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                ", userPhoneState='" + userPhoneState + '\'' +
-                ", userMailboxState='" + userMailboxState + '\'' +
-                ", userState='" + userState + '\'' +
-                ", userSetTime=" + userSetTime +
-                ", rolesId=" + rolesId +
-                ", enterpriseId='" + enterpriseId + '\'' +
-                ", parent='" + parent + '\'' +
-                ", userIsShow=" + userIsShow +
-                ", enterpriseRolesId=" + enterpriseRolesId +
-                '}';
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public String getUserPhone() {
+            return userPhone;
+        }
+
+        public void setUserPhone(String userPhone) {
+            this.userPhone = userPhone;
+        }
+
+        public int getRolesId() {
+            return rolesId;
+        }
+
+        public void setRolesId(int rolesId) {
+            this.rolesId = rolesId;
+        }
+
+        public long getUserSetTime() {
+            return userSetTime;
+        }
+
+        public void setUserSetTime(long userSetTime) {
+            this.userSetTime = userSetTime;
+        }
+
+        @Override
+        public String toString() {
+            return "RespBodyBean{" +
+                    "userPhoneState='" + userPhoneState + '\'' +
+                    ", phone=" + phone +
+                    ", userMailboxState='" + userMailboxState + '\'' +
+                    ", userPassword=" + userPassword +
+                    ", parent='" + parent + '\'' +
+                    ", enterpriseId='" + enterpriseId + '\'' +
+                    ", enterpriseRolesId=" + enterpriseRolesId +
+                    ", userIsShow=" + userIsShow +
+                    ", userPicture=" + userPicture +
+                    ", userNumber=" + userNumber +
+                    ", userType='" + userType + '\'' +
+                    ", userState='" + userState + '\'' +
+                    ", userJobTitle='" + userJobTitle + '\'' +
+                    ", userMailbox='" + userMailbox + '\'' +
+                    ", userId=" + userId +
+                    ", userSex='" + userSex + '\'' +
+                    ", userName='" + userName + '\'' +
+                    ", userPhone='" + userPhone + '\'' +
+                    ", rolesId=" + rolesId +
+                    ", userSetTime=" + userSetTime +
+                    '}';
+        }
     }
 }

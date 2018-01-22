@@ -1,6 +1,9 @@
 package com.yunyisheng.app.yunys.userset.fragement;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,22 +21,23 @@ import com.yunyisheng.app.yunys.userset.activity.ClearCatchActivity;
 import com.yunyisheng.app.yunys.userset.activity.EnterpriseinformationActivity;
 import com.yunyisheng.app.yunys.userset.activity.MimaManagerActivity;
 import com.yunyisheng.app.yunys.userset.activity.MyInformationActivity;
+import com.yunyisheng.app.yunys.userset.present.EnterpriseinformationPresent;
 import com.yunyisheng.app.yunys.utils.DialogManager;
 import com.yunyisheng.app.yunys.utils.getapp.AppApplicationMgr;
+import com.yunyisheng.app.yunys.utils.glide.GlideDownLoadImage;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.droidlover.xdroidbase.cache.SharedPref;
 import cn.droidlover.xdroidbase.router.Router;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
  * 作者：fuduo on 2018/1/10 09:22
  * 邮箱：duoendeavor@163.com
  * 用途：我的fragement
  */
-public class MineFragement extends BaseFragement {
+public class MineFragement extends BaseFragement<EnterpriseinformationPresent> {
 
     Unbinder unbinder;
     @BindView(R.id.img_worker_head)
@@ -66,11 +70,21 @@ public class MineFragement extends BaseFragement {
     @Override
     public void initView() {
         teVersioncode.setText(AppApplicationMgr.getVersionCode(mContext));
+        MyReceiver receiver = new MyReceiver();//广播接受者实例
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("action");
+        mContext.registerReceiver(receiver, intentFilter);
     }
 
     @Override
     public void initAfter() {
-
+        String username = SharedPref.getInstance(mContext).getString("username", "");
+        String userjob = SharedPref.getInstance(mContext).getString("userjob", "");
+        String userhead = SharedPref.getInstance(mContext).getString("userhead", "");
+        String userphone = SharedPref.getInstance(mContext).getString("userphone", "");
+        teNameZhize.setText(username + " | " + userjob);
+        GlideDownLoadImage.getInstance().loadCircleImage(mContext, userhead, imgWorkerHead);
+        tePhonenum.setText(userphone);
     }
 
     @Override
@@ -79,8 +93,8 @@ public class MineFragement extends BaseFragement {
     }
 
     @Override
-    public XPresent bindPresent() {
-        return null;
+    public EnterpriseinformationPresent bindPresent() {
+        return new EnterpriseinformationPresent();
     }
 
     @Override
@@ -94,6 +108,25 @@ public class MineFragement extends BaseFragement {
         companyInfo.setOnClickListener(this);
         cleanCache.setOnClickListener(this);
         logout.setOnClickListener(this);
+    }
+    class MyReceiver extends BroadcastReceiver {
+        public MyReceiver() {
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String data = intent.getStringExtra("data");
+            if ("changename".equals(data)) {
+                String username = SharedPref.getInstance(mContext).getString("username", "");
+                String userjob = SharedPref.getInstance(mContext).getString("userjob", "");
+                teNameZhize.setText(username + " | " + userjob);
+            } else if ("changephonenum".equals(data)) {
+                String userphone = SharedPref.getInstance(mContext).getString("userphone", "");
+                tePhonenum.setText(userphone);
+            }
+
+        }
+
     }
 
     @Override

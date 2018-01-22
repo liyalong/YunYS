@@ -51,6 +51,9 @@ import java.util.regex.Pattern;
 public class CommonUtils {
 
     public static ConnectivityManager manager;
+    static String ss[] = new String[] { "个", "十", "百", "千", "万", "十", "百", "千", "亿" };
+    static char[] numArray = {'零','一','二','三','四','五','六','七','八','九'};
+
 //    public static HttpHandler<File> handler = null;
 //    public static FinalHttp fh = new FinalHttp();
 
@@ -89,6 +92,27 @@ public class CommonUtils {
             mNetWorkType = NETWORKTYPE_INVALID;
         }
         return mNetWorkType;
+    }
+
+    /**
+     * 将整数转换成汉字数字
+     * @param num 需要转换的数字
+     * @return 转换后的汉字
+     */
+    public static String formatInteger(int num) {
+        String s = String.valueOf(num);
+        System.out.println(s);
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < s.length(); i++) {
+            String index = String.valueOf(s.charAt(i));
+            sb = sb.append(numArray[Integer.parseInt(index)]);
+        }
+//        String sss = String.valueOf(sb);
+//        int i = 0;
+//        for (int j = sss.length(); j > 0; j--) {
+//            sb = sb.insert(j, ss[i++]);
+//        }
+        return sb.toString();
     }
 
     /**

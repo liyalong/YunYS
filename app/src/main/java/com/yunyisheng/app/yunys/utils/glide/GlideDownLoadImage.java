@@ -149,13 +149,13 @@ public class GlideDownLoadImage {
      * @Data 2017-9-5 11:18
      */
     public void loadCircleImage(Context mContext, int resId, ImageView view) {
-//        Glide.with(mContext)
-//                .load(resId)
-//                .placeholder(R.mipmap.moren_yuan)
-//                .error(R.mipmap.moren_yuan)
-//                .bitmapTransform(new GlideCircleTransform(mContext))
-//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                .into(view);
+        Glide.with(mContext)
+                .load(resId)
+                .placeholder(R.mipmap.moren_head)
+                .error(R.mipmap.moren_head)
+                .bitmapTransform(new GlideCircleTransform(mContext))
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(view);
     }
 
     /**
@@ -167,13 +167,13 @@ public class GlideDownLoadImage {
      * @Data 2017-9-5 11:18
      */
     public void loadCircleImage(Activity activity, int resId, ImageView view) {
-//        Glide.with(activity)
-//                .load(resId)
-//                .placeholder(R.mipmap.moren_yuan)
-//                .error(R.mipmap.moren_yuan)
-//                .bitmapTransform(new GlideCircleTransform(activity))
-//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                .into(view);
+        Glide.with(activity)
+                .load(resId)
+                .placeholder(R.mipmap.moren_head)
+                .error(R.mipmap.moren_head)
+                .bitmapTransform(new GlideCircleTransform(activity))
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(view);
     }
 
 
@@ -185,13 +185,13 @@ public class GlideDownLoadImage {
      * @Data 2017-9-5 11:18
      */
     public void loadCircleImage(int resId, ImageView view) {
-//        Glide.with(App.getContext())
-//                .load(resId)
-//                .placeholder(R.mipmap.moren_yuan)
-//                .error(R.mipmap.moren_yuan)
-//                .bitmapTransform(new GlideCircleTransform(App.getContext()))
-//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                .into(view);
+        Glide.with(App.getContext())
+                .load(resId)
+                .placeholder(R.mipmap.moren_head)
+                .error(R.mipmap.moren_head)
+                .bitmapTransform(new GlideCircleTransform(App.getContext()))
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(view);
     }
 
     /**
@@ -202,13 +202,13 @@ public class GlideDownLoadImage {
      * @Data 2017-9-5 11:18
      */
     public void loadCircleImage(String url, ImageView view) {
-//        Glide.with(App.getContext())
-//                .load(url)
-//                .placeholder(R.mipmap.moren_yuan)
-//                .error(R.mipmap.moren_yuan)
-//                .bitmapTransform(new GlideCircleTransform(App.getContext()))
-//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                .into(view);
+        Glide.with(App.getContext())
+                .load(url)
+                .placeholder(R.mipmap.moren_head)
+                .error(R.mipmap.moren_head)
+                .bitmapTransform(new GlideCircleTransform(App.getContext()))
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(view);
     }
 
     /**
@@ -220,13 +220,13 @@ public class GlideDownLoadImage {
      * @Data 2017-9-5 11:18
      */
     public void loadCircleImage(Activity activity, String url, ImageView view) {
-//        Glide.with(activity)
-//                .load(url)
-//                .placeholder(R.mipmap.moren_yuan)
-//                .error(R.mipmap.moren_yuan)
-//                .bitmapTransform(new GlideCircleTransform(activity))
-//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                .into(view);
+        Glide.with(activity)
+                .load(url)
+                .placeholder(R.mipmap.moren_head)
+                .error(R.mipmap.moren_head)
+                .bitmapTransform(new GlideCircleTransform(activity))
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(view);
     }
 
     /**
@@ -238,13 +238,13 @@ public class GlideDownLoadImage {
      * @Data 2017-9-5 11:18
      */
     public void loadCircleImage(Context mComtext, String url, ImageView view) {
-//        Glide.with(mComtext)
-//                .load(url)
-//                .placeholder(R.mipmap.moren_yuan)
-//                .error(R.mipmap.moren_yuan)
-//                .bitmapTransform(new GlideCircleTransform(mComtext))
-//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                .into(view);
+        Glide.with(mComtext)
+                .load(url)
+                .placeholder(R.mipmap.moren_head)
+                .error(R.mipmap.moren_head)
+                .bitmapTransform(new GlideCircleTransform(mComtext))
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(view);
     }
 
     /**
@@ -256,13 +256,13 @@ public class GlideDownLoadImage {
      * @Data 2017-9-5 11:18
      */
     public void loadCircleImage(Fragment fragment, String url, ImageView view) {
-//        Glide.with(fragment)
-//                .load(url)
-//                .placeholder(R.mipmap.moren_yuan)
-//                .error(R.mipmap.moren_yuan)
-//                .bitmapTransform(new GlideCircleTransform(fragment.getContext()))
-//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                .into(view);
+        Glide.with(fragment)
+                .load(url)
+                .placeholder(R.mipmap.moren_head)
+                .error(R.mipmap.moren_head)
+                .bitmapTransform(new GlideCircleTransform(fragment.getContext()))
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(view);
     }
 
     /**
@@ -275,13 +275,13 @@ public class GlideDownLoadImage {
      * @Data 2017-9-5 11:18
      */
     public void loadCircleImageRole(Fragment fragment, int resId, ImageView view, int dp) {
-//        Glide.with(fragment)
-//                .load(resId)
-//                .placeholder(R.mipmap.moren_yuan)
-//                .error(R.mipmap.moren_yuan)
-//                .bitmapTransform(new GlideRoundTransform(fragment.getContext(), dp))
-//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                .into(view);
+        Glide.with(fragment)
+                .load(resId)
+                .placeholder(R.mipmap.moren_head)
+                .error(R.mipmap.moren_head)
+                .bitmapTransform(new GlideRoundTransform(fragment.getContext(), dp))
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(view);
     }
 
     /**
@@ -294,13 +294,13 @@ public class GlideDownLoadImage {
      * @Data 2017-9-5 11:18
      */
     public void loadCircleImageRole(Activity activity, int resId, ImageView view, int dp) {
-//        Glide.with(activity)
-//                .load(resId)
-//                .placeholder(R.mipmap.moren_yuan)
-//                .error(R.mipmap.moren_yuan)
-//                .bitmapTransform(new GlideRoundTransform(activity, dp))
-//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                .into(view);
+        Glide.with(activity)
+                .load(resId)
+                .placeholder(R.mipmap.moren_head)
+                .error(R.mipmap.moren_head)
+                .bitmapTransform(new GlideRoundTransform(activity, dp))
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(view);
     }
 
     /**
@@ -313,13 +313,13 @@ public class GlideDownLoadImage {
      * @Data 2017-9-5 11:18
      */
     public void loadCircleImageRole(Context mContext, int resId, ImageView view, int dp) {
-//        Glide.with(mContext)
-//                .load(resId)
-//                .placeholder(R.mipmap.moren_yuan)
-//                .error(R.mipmap.moren_yuan)
-//                .bitmapTransform(new GlideRoundTransform(mContext, dp))
-//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                .into(view);
+        Glide.with(mContext)
+                .load(resId)
+                .placeholder(R.mipmap.moren_head)
+                .error(R.mipmap.moren_head)
+                .bitmapTransform(new GlideRoundTransform(mContext, dp))
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(view);
     }
 
     /**
@@ -331,13 +331,13 @@ public class GlideDownLoadImage {
      * @Data 2017-9-5 11:18
      */
     public void loadCircleImageRole( int resId, ImageView view, int dp) {
-//        Glide.with(App.getContext())
-//                .load(resId)
-//                .placeholder(R.mipmap.moren_yuan)
-//                .error(R.mipmap.moren_yuan)
-//                .bitmapTransform(new GlideRoundTransform(App.getContext(), dp))
-//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//                .into(view);
+        Glide.with(App.getContext())
+                .load(resId)
+                .placeholder(R.mipmap.moren_head)
+                .error(R.mipmap.moren_head)
+                .bitmapTransform(new GlideRoundTransform(App.getContext(), dp))
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(view);
     }
 
 

@@ -5,7 +5,7 @@ import com.yunyisheng.app.yunys.login.service.ShortMessageService;
 import com.yunyisheng.app.yunys.login.service.UserService;
 import com.yunyisheng.app.yunys.main.service.HomeService;
 import com.yunyisheng.app.yunys.project.service.ProjectService;
-import com.yunyisheng.app.yunys.userset.service.UpdatePasswordService;
+import com.yunyisheng.app.yunys.userset.service.UserSetService;
 
 import cn.droidlover.xdroidmvp.net.XApi;
 
@@ -20,7 +20,7 @@ public class Api {
     private static ShortMessageService shortMessageService;
     private static CompanyService companyService;
     private static ProjectService projectService;
-    private static UpdatePasswordService updatePasswordService;
+    private static UserSetService userSetService;
     private static HomeService homeService;
 
     public static UserService userService(){
@@ -65,15 +65,15 @@ public class Api {
         return  projectService;
     }
 
-    public static UpdatePasswordService updatePasswordService(){
-        if(updatePasswordService == null){
+    public static UserSetService userSetService(){
+        if(userSetService == null){
             synchronized (Api.class){
-                if(updatePasswordService == null){
-                    updatePasswordService = XApi.getInstance().getRetrofit(BASE_PATH,true).create(UpdatePasswordService.class);
+                if(userSetService == null){
+                    userSetService = XApi.getInstance().getRetrofit(BASE_PATH,true).create(UserSetService.class);
                 }
             }
         }
-        return updatePasswordService;
+        return userSetService;
     }
 
     public static HomeService homeService(){

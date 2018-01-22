@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.net.Api;
-import com.yunyisheng.app.yunys.userset.activity.MimaManagerActivity;
+import com.yunyisheng.app.yunys.userset.activity.AccountSetActivity;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
@@ -19,11 +19,11 @@ import cn.droidlover.xdroidmvp.net.XApi;
  * 用途：
  */
 
-public class UpdatePasswordPresent extends XPresent<MimaManagerActivity> {
+public class AccountSetlPresent extends XPresent<AccountSetActivity> {
 
-    public void updatePassword(String oldpassword, String newpassword) {
+    public void sendCode(String phone) {
         LoadingDialog.show(getV());
-        Api.userSetService().upDatepassword(oldpassword, newpassword)
+        Api.userSetService().sendCode(phone)
                 .compose(XApi.<BaseModel>getApiTransformer()) //统一异常处理
                 .compose(XApi.<BaseModel>getScheduler()) //线程调度
                 .compose(getV().<BaseModel>bindToLifecycle()) //内存泄漏处理
@@ -32,13 +32,14 @@ public class UpdatePasswordPresent extends XPresent<MimaManagerActivity> {
                     protected void onFail(NetError error) {
                         LoadingDialog.dismiss(getV());
                         Log.i("ERROR", error.toString());
-                        ToastUtils.showToast("请求数据失败！");
+                        ToastUtils.showToast("发送失败！");
                     }
 
                     @Override
                     public void onNext(BaseModel baseModel) {
                         LoadingDialog.dismiss(getV());
-                        getV().checkIssuccess(baseModel);
+                        ToastUtils.showToast(baseModel.getRespMsg());
+
                     }
                 });
     }

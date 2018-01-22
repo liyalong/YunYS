@@ -15,6 +15,8 @@
     <string name="zhuce">立即注册</string>
     <string name="forgetpassword">忘记密码？</string>
     <string name="company_name">公司名称</string>
+    <string name="company_address">公司地址</string>
+    <string name="company_num">公司编号</string>
     <string name="user_name">姓名</string>
     <string name="phone_num">手机号</string>
     <string name="yzm">验证码</string>
@@ -225,7 +227,6 @@
     <string name="select_project_device_list">选择设备列表</string>
     <string name="select_project_form_list">选择工单列表</string>
     <string name="select_process_form_list">选择流程表单列表</string>
-
 
 
     <string name="cancle">取消</string>

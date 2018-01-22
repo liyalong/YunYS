@@ -13,7 +13,6 @@
             android:id="@+id/top"
             android:layout_width="match_parent"
             android:layout_height="@dimen/distance_49"
-            android:layout_marginBottom="@dimen/distance_10"
             android:background="@color/white"
             android:paddingHorizontal="@dimen/distance_10">
 

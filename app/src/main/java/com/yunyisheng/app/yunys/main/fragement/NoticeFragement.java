@@ -11,11 +11,13 @@ import android.widget.ListView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.main.model.SendNoticeBean;
+import com.yunyisheng.app.yunys.main.present.NoticePresent;
+import com.yunyisheng.app.yunys.utils.LogUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
  * 作者：fuduo on 2018/1/18 17:38
@@ -23,7 +25,7 @@ import cn.droidlover.xdroidmvp.mvp.XPresent;
  * 用途：公告fragement
  */
 
-public class NoticeFragement extends BaseFragement {
+public class NoticeFragement extends BaseFragement<NoticePresent> {
     @BindView(R.id.ed_search)
     EditText edSearch;
     @BindView(R.id.img_clear)
@@ -50,12 +52,18 @@ public class NoticeFragement extends BaseFragement {
 
     @Override
     public void initView() {
-
+        if (tabindex==0){
+            getP().getNoticelist(10,1,"");
+        }
     }
 
     @Override
     public void initAfter() {
 
+    }
+
+    public void getList(SendNoticeBean sendNoticeBean){
+        LogUtils.i("notice",sendNoticeBean.toString());
     }
 
     @Override
@@ -64,8 +72,8 @@ public class NoticeFragement extends BaseFragement {
     }
 
     @Override
-    public XPresent bindPresent() {
-        return null;
+    public NoticePresent bindPresent() {
+        return new NoticePresent();
     }
 
     @Override

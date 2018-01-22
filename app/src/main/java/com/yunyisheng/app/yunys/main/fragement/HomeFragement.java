@@ -16,13 +16,17 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yunyisheng.app.yunys.MainActivity;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.login.model.UserModel;
 import com.yunyisheng.app.yunys.main.activity.MailListActivity;
 import com.yunyisheng.app.yunys.main.activity.MemorandumActivity;
 import com.yunyisheng.app.yunys.main.activity.MessageActivity;
 import com.yunyisheng.app.yunys.main.activity.NoticeActivity;
 import com.yunyisheng.app.yunys.main.activity.ReportformActivity;
+import com.yunyisheng.app.yunys.main.present.HomePresent;
+import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.RecyclerBanner;
 import com.yunyisheng.app.yunys.utils.ScrowUtil;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +34,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
+import cn.droidlover.xdroidbase.cache.SharedPref;
 
 /**
  * 作者：fuduo on 2018/1/10 09:24
@@ -38,7 +42,7 @@ import cn.droidlover.xdroidmvp.mvp.XPresent;
  * 用途：首页fragement
  */
 
-public class HomeFragement extends BaseFragement {
+public class HomeFragement extends BaseFragement<HomePresent> {
     @BindView(R.id.rcy_banner)
     RecyclerBanner rcyBanner;
     @BindView(R.id.img_baobiao)
@@ -90,6 +94,9 @@ public class HomeFragement extends BaseFragement {
         long t = System.currentTimeMillis();
         rcyBanner.setDatas(urls);
         Log.w("---", System.currentTimeMillis() - t + "");
+        getP().getUserInfo();
+        String token=SharedPref.getInstance(mContext).getString("TOKEN","");
+        LogUtils.i("token",token);
     }
 
     @Override
@@ -98,8 +105,8 @@ public class HomeFragement extends BaseFragement {
     }
 
     @Override
-    public XPresent bindPresent() {
-        return null;
+    public HomePresent bindPresent() {
+        return new HomePresent();
     }
 
     @Override
@@ -134,6 +141,23 @@ public class HomeFragement extends BaseFragement {
                 startActivity(new Intent(mContext, MemorandumActivity.class));
                 break;
         }
+    }
+
+    public void getUserInfo(UserModel userModel){
+        if (userModel.getRespCode()==1){
+            ToastUtils.showLongToast("获取用户信息失败");
+        }else {
+            ToastUtils.showLongToast("获取用户信息成功");
+            SharedPref.getInstance(mContext).putString("username",userModel.getRespBody().getUserName());
+            SharedPref.getInstance(mContext).putString("usersex",userModel.getRespBody().getUserSex());
+            SharedPref.getInstance(mContext).putString("userphone",userModel.getRespBody().getUserPhone());
+            SharedPref.getInstance(mContext).putString("userjob",userModel.getRespBody().getUserJobTitle());
+            SharedPref.getInstance(mContext).putString("userhead",userModel.getRespBody().getUserPicture());
+            SharedPref.getInstance(mContext).putString("useremail",userModel.getRespBody().getUserMailbox());
+            SharedPref.getInstance(mContext).putString("userbumen",userModel.getRespBody().getEnterpriseId());
+            SharedPref.getInstance(mContext).putInt("userrole",userModel.getRespBody().getRolesId());
+        }
+        LogUtils.i("userinfo",userModel.getRespBody().toString());
     }
 
     @Override

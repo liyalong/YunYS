@@ -1,7 +1,7 @@
 package com.yunyisheng.app.yunys.userset.activity;
 
+import android.content.Intent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -11,6 +11,7 @@ import com.yunyisheng.app.yunys.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.droidlover.xdroidbase.cache.SharedPref;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
@@ -22,8 +23,8 @@ public class MyInformationActivity extends BaseActivity {
 
     @BindView(R.id.img_back)
     ImageView imgBack;
-    @BindView(R.id.te_ok)
-    TextView teOk;
+    //    @BindView(R.id.te_ok)
+//    TextView teOk;
     @BindView(R.id.rl_ed_username)
     RelativeLayout rlEdUsername;
     @BindView(R.id.rl_ed_userphone)
@@ -37,11 +38,11 @@ public class MyInformationActivity extends BaseActivity {
     @BindView(R.id.te_userjiaose)
     TextView teUserjiaose;
     @BindView(R.id.te_username)
-    EditText teUsername;
+    TextView teUsername;
     @BindView(R.id.te_userphone)
-    EditText teUserphone;
+    TextView teUserphone;
     @BindView(R.id.te_useremail)
-    EditText teUseremail;
+    TextView teUseremail;
 
     @Override
     public void initView() {
@@ -50,7 +51,14 @@ public class MyInformationActivity extends BaseActivity {
 
     @Override
     public void initAfter() {
-
+        String username = SharedPref.getInstance(mContext).getString("username", "");
+        String userphone = SharedPref.getInstance(mContext).getString("userphone", "");
+        String userjob = SharedPref.getInstance(mContext).getString("userjob", "");
+        String useremail = SharedPref.getInstance(mContext).getString("useremail", "");
+        teUsername.setText(username);
+        teUserzhiwei.setText(userjob);
+        teUserphone.setText(userphone);
+        teUseremail.setText(useremail);
     }
 
     @Override
@@ -66,7 +74,10 @@ public class MyInformationActivity extends BaseActivity {
     @Override
     public void setListener() {
         imgBack.setOnClickListener(this);
-        teOk.setOnClickListener(this);
+//        teOk.setOnClickListener(this);
+        rlEdUsername.setOnClickListener(this);
+        rlEdUserphone.setOnClickListener(this);
+        rlEdUsereamil.setOnClickListener(this);
     }
 
     @Override
@@ -75,8 +86,34 @@ public class MyInformationActivity extends BaseActivity {
             case R.id.img_back:
                 finish();
                 break;
-            case R.id.te_ok:
+            case R.id.rl_ed_username:
+                Intent intent = new Intent(this, ChangeInformationActivity.class);
+                intent.putExtra("type", 2);
+                startActivityForResult(intent, 2);
                 break;
+            case R.id.rl_ed_userphone:
+                startActivityForResult(new Intent(this, AccountSetActivity.class), 1);
+                break;
+            case R.id.rl_ed_usereamil:
+                Intent intent1 = new Intent(this, ChangeInformationActivity.class);
+                intent1.putExtra("type", 3);
+                startActivityForResult(intent1, 3);
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 2) {
+            String username = SharedPref.getInstance(mContext).getString("username", "");
+            teUsername.setText(username);
+        } else if (resultCode == 3) {
+            String useremail = SharedPref.getInstance(mContext).getString("useremail", "");
+            teUseremail.setText(useremail);
+        } else if (resultCode == 1) {
+            String userphone = SharedPref.getInstance(mContext).getString("userphone", "");
+            teUserphone.setText(userphone);
         }
     }
 }
