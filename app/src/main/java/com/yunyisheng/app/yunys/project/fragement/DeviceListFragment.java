@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.project.fragement;
 
+import android.app.Fragment;
 import android.view.View;
 
 import com.yunyisheng.app.yunys.R;
@@ -41,5 +42,9 @@ public class DeviceListFragment extends BaseFragement {
     @Override
     public void widgetClick(View v) {
 
+    }
+
+    public static DeviceListFragment newInstance() {
+        return new DeviceListFragment();
     }
 }

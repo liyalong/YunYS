@@ -30,6 +30,26 @@ public class ProjectBean {
     private String isFocus;
     private String projectLeader;
     private ProType proType;
+    private Integer unSeeTaskNum;
+
+    public void setUnSeeTaskNum(Integer unSeeTaskNum) {
+        this.unSeeTaskNum = unSeeTaskNum;
+    }
+
+    public void setWaringNum(Integer waringNum) {
+        this.waringNum = waringNum;
+    }
+
+    public Integer getUnSeeTaskNum() {
+
+        return unSeeTaskNum;
+    }
+
+    public Integer getWaringNum() {
+        return waringNum;
+    }
+
+    private Integer waringNum;
     public void setProType(ProType proType) {
         this.proType = proType;
     }

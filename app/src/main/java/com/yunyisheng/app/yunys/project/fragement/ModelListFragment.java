@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.project.fragement;
 
+import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.yunyisheng.app.yunys.R;
@@ -41,5 +42,9 @@ public class ModelListFragment extends BaseFragement {
     @Override
     public void widgetClick(View v) {
 
+    }
+
+    public static ModelListFragment newInstance() {
+        return new ModelListFragment();
     }
 }

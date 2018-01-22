@@ -121,6 +121,9 @@
             android:name=".tasks.activity.CronResultActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".userset.activity.ChangeInformationActivity"></activity>
+            android:name=".schedule.activity.ScheduleSetActivity" android:screenOrientation="portrait" />
+        <activity android:name=".tasks.activity.CronResultActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.activity.ProjectDetailsActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

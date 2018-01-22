@@ -1,6 +1,7 @@
 package com.yunyisheng.app.yunys.project.fragement;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,4 +54,7 @@ public class AlarmListFragment extends BaseFragement {
 
     }
 
+    public static AlarmListFragment newInstance() {
+        return new AlarmListFragment();
+    }
 }

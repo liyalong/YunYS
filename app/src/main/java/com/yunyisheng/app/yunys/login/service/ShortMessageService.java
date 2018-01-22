@@ -20,7 +20,7 @@ public interface ShortMessageService {
      */
     //fairyland-system/system/select/enterprirUser/authCode
     @FormUrlEncoded
-    @POST("fairyland-system/system/select/enterprirUser/authCode")
+    @POST("system/select/enterprirUser/authCode")
     Flowable<BaseStatusModel> getShortMessage(@Field("userName") String userPhone);
 
 }

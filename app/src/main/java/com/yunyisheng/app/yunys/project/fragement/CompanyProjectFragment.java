@@ -64,8 +64,6 @@ public class CompanyProjectFragment extends BaseFragement<CompanyProjectPresent>
                 getP().getCompanyProjectList(PAGE_NUM, PAGE_SIZE);
             }
         });
-
-
     }
 
 
@@ -115,8 +113,8 @@ public class CompanyProjectFragment extends BaseFragement<CompanyProjectPresent>
                 ProjectListAdapter adapter = new ProjectListAdapter(context,projectBeanList);
                 companyProjectList.setAdapter(adapter);
             }
-
         }else {
+            PAGE_NUM = projectListModel.getLastPage();
             ToastUtils.showToast("暂无数据！");
         }
         companyProjectList.onRefreshComplete();
