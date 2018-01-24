@@ -48,6 +48,7 @@
     <string name="senfrange">*发布范围</string>
     <string name="noticedeatil">*公告内容</string>
     <string name="noticedeatils">公告详情</string>
+    <string name="send">发布</string>
     <!--通讯录-->
     <string name="zuzhi">组织架构</string>
     <string name="projectjiagou">项目架构</string>

@@ -10,18 +10,18 @@ import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.base.BaseModel;
+import com.yunyisheng.app.yunys.main.present.UpdateMempPresent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
  * @author fuduo
  * @time 2018/1/16  21:24
  * @describe 添加通讯录
  */
-public class AddMemorandumActivity extends BaseActivity {
-
+public class AddMemorandumActivity extends BaseActivity<UpdateMempPresent> {
 
     @BindView(R.id.img_back)
     ImageView imgBack;
@@ -29,6 +29,7 @@ public class AddMemorandumActivity extends BaseActivity {
     TextView teAddok;
     @BindView(R.id.ed_memorandum)
     EditText edMemorandum;
+    private int memid;
 
     @Override
     public void initView() {
@@ -38,7 +39,10 @@ public class AddMemorandumActivity extends BaseActivity {
 
     @Override
     public void initAfter() {
-
+        Intent intent = getIntent();
+        memid = intent.getIntExtra("memid", 0);
+        String str_memoblue = intent.getStringExtra("memovlue");
+        edMemorandum.setText(str_memoblue);
     }
 
     @Override
@@ -47,8 +51,8 @@ public class AddMemorandumActivity extends BaseActivity {
     }
 
     @Override
-    public XPresent bindPresent() {
-        return null;
+    public UpdateMempPresent bindPresent() {
+        return new UpdateMempPresent();
     }
 
     @Override
@@ -59,14 +63,17 @@ public class AddMemorandumActivity extends BaseActivity {
 
     @Override
     public void widgetClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.img_back:
                 finish();
                 break;
             case R.id.te_addok:
-                Intent intent=getIntent();
-                setResult(1,intent);
-                finish();
+                String te_memo = edMemorandum.getText().toString().trim();
+                if (memid != 0) {
+                    getP().updateMemo(te_memo, memid);
+                } else {
+                    getP().addMemo(te_memo);
+                }
                 break;
         }
     }
@@ -93,5 +100,17 @@ public class AddMemorandumActivity extends BaseActivity {
 
         }
     };
+
+    public void getAddResult(BaseModel baseModel) {
+        if (baseModel.getRespCode() == 0) {
+            finish();
+        }
+    }
+
+    public void getDeleteResult(BaseModel baseModel) {
+        if (baseModel.getRespCode() == 0) {
+            finish();
+        }
+    }
 
 }

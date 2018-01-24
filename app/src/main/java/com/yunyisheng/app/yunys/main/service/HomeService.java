@@ -2,18 +2,23 @@ package com.yunyisheng.app.yunys.main.service;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.model.UserModel;
+import com.yunyisheng.app.yunys.main.model.MemorandumBean;
 import com.yunyisheng.app.yunys.main.model.ReciveNoticeBean;
 import com.yunyisheng.app.yunys.main.model.SendNoticeBean;
 
-import java.util.Map;
-
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.PartMap;
+import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 /**
  * 作者：fuduo on 2018/1/21 12:37
@@ -77,14 +82,9 @@ public interface HomeService {
      * @time 2018/1/21  10:38
      * @describe 7.5    发布公告
      */
-    @FormUrlEncoded
-    @Multipart
-    @POST("system/announcement/publish")
-    Flowable<BaseModel> sendNotice(@Field("title") String title,
-                                   @Field("content") String content,
-                                   @Field("receiverMap") String receiverMap,
-                                   @PartMap Map<String, ResponseBody> map
-    );
+    @POST()
+    Observable<ResponseBody> sendNotice(@Url() String url,
+                                        @Body RequestBody Body);
 
     /**
      * @author fuduo
@@ -130,4 +130,43 @@ public interface HomeService {
                                               @Field("userId") String userId,
                                               @Field("userPicture") String userPicture
     );
+
+    /**
+     * @author fuduo
+     * @time 2018/1/23  14:02
+     * @describe 查询备忘录
+     */
+    @GET("memo/selectmemo")
+    Flowable<MemorandumBean> getMemorandumList(@Query("pagenum") int pagenum,
+                                               @Query("pagerows") int pagerows);
+
+    /**
+     * @author fuduo
+     * @time 2018/1/21  10:38
+     * @describe 创建备忘录
+     */
+    @FormUrlEncoded
+    @POST("memo/creatememo")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    Flowable<BaseModel> createMemo(@Field("memoVal") String memoVal);
+
+    /**
+     * @author fuduo
+     * @time 2018/1/21  10:38
+     * @describe 修改备忘录
+     */
+    @FormUrlEncoded
+    @POST("memo/updatememo")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    Flowable<BaseModel> updateMemo(@Field("memoVal") String memoValz, @Field("memoId") int memoId);
+
+    /**
+     * @author fuduo
+     * @time 2018/1/21  10:38
+     * @describe 删除备忘录
+     */
+    @FormUrlEncoded
+    @POST("memo/deletememo")
+    Flowable<BaseModel> deleteMemo(@Field("ids") int ids);
+
 }

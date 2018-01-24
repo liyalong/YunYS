@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +16,15 @@ import android.widget.TextView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
+import com.yunyisheng.app.yunys.login.model.UserModel;
 import com.yunyisheng.app.yunys.userset.activity.AboutOurActivity;
 import com.yunyisheng.app.yunys.userset.activity.AccountSetActivity;
 import com.yunyisheng.app.yunys.userset.activity.ClearCatchActivity;
 import com.yunyisheng.app.yunys.userset.activity.EnterpriseinformationActivity;
 import com.yunyisheng.app.yunys.userset.activity.MimaManagerActivity;
 import com.yunyisheng.app.yunys.userset.activity.MyInformationActivity;
-import com.yunyisheng.app.yunys.userset.present.EnterpriseinformationPresent;
+import com.yunyisheng.app.yunys.userset.present.MinePresent;
+import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.DialogManager;
 import com.yunyisheng.app.yunys.utils.getapp.AppApplicationMgr;
 import com.yunyisheng.app.yunys.utils.glide.GlideDownLoadImage;
@@ -37,7 +40,7 @@ import cn.droidlover.xdroidbase.router.Router;
  * 邮箱：duoendeavor@163.com
  * 用途：我的fragement
  */
-public class MineFragement extends BaseFragement<EnterpriseinformationPresent> {
+public class MineFragement extends BaseFragement<MinePresent> {
 
     Unbinder unbinder;
     @BindView(R.id.img_worker_head)
@@ -83,7 +86,10 @@ public class MineFragement extends BaseFragement<EnterpriseinformationPresent> {
         String userhead = SharedPref.getInstance(mContext).getString("userhead", "");
         String userphone = SharedPref.getInstance(mContext).getString("userphone", "");
         teNameZhize.setText(username + " | " + userjob);
-        GlideDownLoadImage.getInstance().loadCircleImage(mContext, userhead, imgWorkerHead);
+        if (userhead!=null&&!userhead.equals("")) {
+            Bitmap bitmap = CommonUtils.stringtoBitmap(userhead);
+            GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(mContext, imgWorkerHead, bitmap);
+        }
         tePhonenum.setText(userphone);
     }
 
@@ -93,8 +99,8 @@ public class MineFragement extends BaseFragement<EnterpriseinformationPresent> {
     }
 
     @Override
-    public EnterpriseinformationPresent bindPresent() {
-        return new EnterpriseinformationPresent();
+    public MinePresent bindPresent() {
+        return new MinePresent();
     }
 
     @Override
@@ -109,6 +115,29 @@ public class MineFragement extends BaseFragement<EnterpriseinformationPresent> {
         cleanCache.setOnClickListener(this);
         logout.setOnClickListener(this);
     }
+
+
+    public void getUserInfo(UserModel userModel){
+        if (userModel.getRespCode()==1){
+        }else {
+            String userhead=userModel.getRespBody().getUserPicture();
+//            SharedPref.getInstance(mContext).putInt("userid",userModel.getRespBody().getUserId());
+//            SharedPref.getInstance(mContext).putString("username",userModel.getRespBody().getUserName());
+//            SharedPref.getInstance(mContext).putString("usersex",userModel.getRespBody().getUserSex());
+//            SharedPref.getInstance(mContext).putString("userphone",userModel.getRespBody().getUserPhone());
+//            SharedPref.getInstance(mContext).putString("userjob",userModel.getRespBody().getUserJobTitle());
+            SharedPref.getInstance(mContext).putString("userhead",userhead);
+//            SharedPref.getInstance(mContext).putString("useremail",userModel.getRespBody().getUserMailbox());
+//            SharedPref.getInstance(mContext).putString("userbumen",userModel.getRespBody().getEnterpriseId());
+//            SharedPref.getInstance(mContext).putInt("userrole",userModel.getRespBody().getRolesId());
+            if (userhead!=null&&!userhead.equals("")) {
+                Bitmap bitmap = CommonUtils.stringtoBitmap(userhead);
+                GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(mContext, imgWorkerHead, bitmap);
+            }
+        }
+        //LogUtils.i("userinfo",userModel.getRespBody().toString());
+    }
+
     class MyReceiver extends BroadcastReceiver {
         public MyReceiver() {
         }
@@ -124,9 +153,12 @@ public class MineFragement extends BaseFragement<EnterpriseinformationPresent> {
                 String userphone = SharedPref.getInstance(mContext).getString("userphone", "");
                 tePhonenum.setText(userphone);
             }
-
         }
 
+    }
+
+    public void setNewHead(){
+        getP().getUserInfo();
     }
 
     @Override

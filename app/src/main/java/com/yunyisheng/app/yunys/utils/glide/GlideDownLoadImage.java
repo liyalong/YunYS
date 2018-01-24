@@ -2,6 +2,7 @@ package com.yunyisheng.app.yunys.utils.glide;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 
@@ -9,6 +10,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.yunyisheng.app.yunys.App;
 import com.yunyisheng.app.yunys.R;
+
+import java.io.ByteArrayOutputStream;
 
 
 /**
@@ -337,6 +340,25 @@ public class GlideDownLoadImage {
                 .error(R.mipmap.moren_head)
                 .bitmapTransform(new GlideRoundTransform(App.getContext(), dp))
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(view);
+    }
+
+    /**
+     * @name 加载bitmap带角度的图片
+     * @auhtor fuduo
+     * @Data 2017-9-5 11:18
+     */
+    public void loadBitmapCircleImageRole(Context mContext, ImageView view, Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] bytes=baos.toByteArray();
+
+        Glide.with(mContext)
+                .load(bytes)
+                .centerCrop()
+                .placeholder(R.mipmap.moren_head)
+                .error(R.mipmap.moren_head)
+                .bitmapTransform(new GlideCircleTransform(mContext))
                 .into(view);
     }
 

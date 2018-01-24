@@ -94,7 +94,7 @@ public class HomeFragement extends BaseFragement<HomePresent> {
         long t = System.currentTimeMillis();
         rcyBanner.setDatas(urls);
         Log.w("---", System.currentTimeMillis() - t + "");
-        getP().getUserInfo();
+        getUserinfo();
         String token=SharedPref.getInstance(mContext).getString("TOKEN","");
         LogUtils.i("token",token);
     }
@@ -117,6 +117,10 @@ public class HomeFragement extends BaseFragement<HomePresent> {
         lineNotice.setOnClickListener(this);
         lineTongxunlu.setOnClickListener(this);
         lineBeiwanglu.setOnClickListener(this);
+    }
+
+    public void getUserinfo(){
+        getP().getUserInfo();
     }
 
     @Override
@@ -148,6 +152,7 @@ public class HomeFragement extends BaseFragement<HomePresent> {
             ToastUtils.showLongToast("获取用户信息失败");
         }else {
             ToastUtils.showLongToast("获取用户信息成功");
+            SharedPref.getInstance(mContext).putInt("userid",userModel.getRespBody().getUserId());
             SharedPref.getInstance(mContext).putString("username",userModel.getRespBody().getUserName());
             SharedPref.getInstance(mContext).putString("usersex",userModel.getRespBody().getUserSex());
             SharedPref.getInstance(mContext).putString("userphone",userModel.getRespBody().getUserPhone());

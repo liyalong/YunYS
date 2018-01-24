@@ -52,7 +52,7 @@ public class NoticeActivity extends BaseActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList, stringList);
         vpNotice.setAdapter(adapter);
         tablayoutNotice.setupWithViewPager(vpNotice);
-        setIndicator(this, tablayoutNotice, 10, 10);
+        setIndicator(this, tablayoutNotice, 8, 8);
     }
 
     @Override

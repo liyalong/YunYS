@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,25 +19,40 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.main.fragement.HomeFragement;
+import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.fragement.ProjectFragement;
 import com.yunyisheng.app.yunys.schedule.fragement.ScheduleTaskFragement;
 import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.CreateNoneDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.CreateProcessTaskAcitvity;
 import com.yunyisheng.app.yunys.userset.fragement.MineFragement;
+import com.yunyisheng.app.yunys.userset.service.UserSetService;
 import com.yunyisheng.app.yunys.utils.ActivityManager;
 import com.yunyisheng.app.yunys.utils.DialogManager;
+import com.yunyisheng.app.yunys.utils.FileCache;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.XRadioGroup;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidbase.cache.SharedPref;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 import cn.droidlover.xdroidmvp.router.Router;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 @SuppressLint("SetTextI18n")
 public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedChangeListener {
@@ -90,10 +106,10 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 
     }
 
-    public void changerTask(){
+    public void changerTask() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (scheduleTaskFragement==null){
-            scheduleTaskFragement=new ScheduleTaskFragement();
+        if (scheduleTaskFragement == null) {
+            scheduleTaskFragement = new ScheduleTaskFragement();
         }
         transaction.replace(R.id.content_main, scheduleTaskFragement);
         transaction.commit();
@@ -140,8 +156,8 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 createSelectTaskDialog(MainActivity.this);
                 break;
             case R.id.rb_task:
-                if (scheduleTaskFragement==null){
-                    scheduleTaskFragement=new ScheduleTaskFragement();
+                if (scheduleTaskFragement == null) {
+                    scheduleTaskFragement = new ScheduleTaskFragement();
                 }
                 transaction.replace(R.id.content_main, scheduleTaskFragement);
                 break;
@@ -168,7 +184,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
             intent.setAction("WindowFoucuschanged");
             intent.putExtra("code", 200);
             mContext.sendBroadcast(intent);
-            initiated=true;
+            initiated = true;
         }
 
     }
@@ -291,20 +307,65 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
             Log.i("xiaoqiang", "保存==" + photo);
             if (photo != null) {
 
-//                try {
-//                    FileCache.saveMyBitmap(123 + ".png", photo);
-//                } catch (Exception e) {
-//
-//                    e.printStackTrace();
-//                }
                 try {
-//                    setHeadImage(photo, CommonUtils.encodeBase64File(Environment
-//                            .getExternalStorageDirectory() + "/yunxue/123.png"));
+                    FileCache.saveMyBitmap(123 + ".png", photo);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    setHeadImage(Environment
+                            .getExternalStorageDirectory() + "/yunys/123.png");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
+    }
+
+    /**
+     * @author fuduo
+     * @time 2018/1/23  11:05
+     * @describe 上传头像
+     */
+    private void setHeadImage(String path) {
+        LoadingDialog.show(MainActivity.this);
+        Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(Api.BASE_PATH)
+                .build();
+        UserSetService service = retrofit.create(UserSetService.class);
+        String userid = SharedPref.getInstance(MainActivity.this).getInt("userid", 0) + "";
+        String token = SharedPref.getInstance(MainActivity.this).getString("TOKEN", null);
+        File file = new File(path);
+        //构建body
+        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("userId", userid)
+                .addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("file"), file))
+                .build();
+
+        Call<BaseModel> call = service.changeHead(token, "enterpriseUser/upload/pictures", requestBody);
+        // 执行
+        call.enqueue(new Callback<BaseModel>() {
+            @Override
+            public void onResponse(Call<BaseModel> call, Response<BaseModel> response) {
+                String msg = response.body().getRespMsg();
+                int code = response.body().getRespCode();
+                if (code==200){
+                    if (myFragment!=null){
+                        myFragment.setNewHead();
+                    }
+                }
+                ToastUtils.showToast(msg);
+                LogUtils.i("fjdlkf", msg + code);
+                LoadingDialog.dismiss(MainActivity.this);
+            }
+
+            @Override
+            public void onFailure(Call<BaseModel> call, Throwable t) {
+                LoadingDialog.dismiss(MainActivity.this);
+            }
+        });
+
     }
 
     @Override

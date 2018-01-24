@@ -1,7 +1,10 @@
 package com.yunyisheng.app.yunys.main.activity;
 
 import android.content.Intent;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,11 +45,29 @@ public class MailListActivity extends BaseActivity {
     ExpandableListView elvOrganizationframe;
     @BindView(R.id.img_clear)
     ImageView imgClear;
+    private String sousuo_neirong;
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
         teTitle.setText(R.string.tongxunlu);
+        edSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                sousuo_neirong = edSearch.getText().toString();
+                if(actionId == EditorInfo.IME_ACTION_SEARCH){
+                    ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(MailListActivity.this.getCurrentFocus()
+                                    .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    if (sousuo_neirong == null || sousuo_neirong.equals("")) {
+                        ToastUtils.showToast("搜索内容不能为空");
+                    } else {
+
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     @Override

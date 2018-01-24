@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * 作者：fuduo on 2018/1/21 17:42
  * 邮箱：duoendeavor@163.com
- * 用途：
+ * 用途：我发送的的公告bean
  */
 
 public class ReciveNoticeBean extends BaseModel {

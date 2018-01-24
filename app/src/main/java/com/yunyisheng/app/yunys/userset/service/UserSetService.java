@@ -4,9 +4,14 @@ import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.userset.model.CompanyBean;
 
 import io.reactivex.Flowable;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Url;
 
 /**
  * 作者：fuduo on 2018/1/21 16:15
@@ -24,6 +29,17 @@ public interface UserSetService {
     @POST("system/update/enterprirUser/password")
     Flowable<BaseModel> upDatepassword(@Field("oldPassword") String oldPassword,
                                        @Field("newPassword") String newPassword);
+
+    /**
+     * @author fuduo
+     * @time 2018/1/21  10:38
+     * @describe 修改头像
+     */
+    @POST()
+    Call<BaseModel> changeHead(@Header("token") String token,
+            @Url() String url,
+            @Body RequestBody Body);
+
 
     /**
      * @author fuduo
@@ -50,4 +66,6 @@ public interface UserSetService {
      */
     @POST("enterprise/forent")
     Flowable<CompanyBean> getCompanyinfo();
+
+
 }

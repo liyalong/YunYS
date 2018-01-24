@@ -1,10 +1,12 @@
 package com.yunyisheng.app.yunys.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
+import java.io.FileOutputStream;
 
 /**
  * 作者:fuDuo
@@ -100,6 +102,27 @@ public class FileCache {
                 file.mkdir();
             }
         } catch (Exception e) {
+
+        }
+    }
+
+    public static void saveMyBitmap(String bitName, Bitmap mBitmap)
+            throws Exception {
+
+        if (SDCardHelper.isSDCardMounted()) {
+
+            File f = getFilePath(path, bitName);
+
+            FileOutputStream fOut = null;
+
+            fOut = new FileOutputStream(f);
+
+            mBitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+            Log.i("xiaoqiang", "image is save");
+
+            fOut.flush();
+
+            fOut.close();
 
         }
     }
