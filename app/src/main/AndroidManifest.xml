@@ -165,6 +165,14 @@
             android:name=".project.activity.ProjectDetailsActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".main.activity.InviteWorkerActivity"></activity>
+        <activity android:name=".userset.activity.ChangeInformationActivity"></activity>
+        <activity android:name=".project.activity.ProjectDetailsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.activity.DeviceDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.activity.KnowledgeListActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.activity.DeviceAlarmRulesActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.activity.DevicePartsListActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".project.activity.PeriodicTaskListActivity" android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

@@ -14,6 +14,7 @@ import com.yunyisheng.app.yunys.project.fragement.AlarmListFragment;
 import com.yunyisheng.app.yunys.project.fragement.DeviceListFragment;
 import com.yunyisheng.app.yunys.project.fragement.ModelListFragment;
 import com.yunyisheng.app.yunys.project.fragement.TaskPoolFragment;
+import com.yunyisheng.app.yunys.project.model.DeviceListModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,17 +44,17 @@ public class ProjectDetailsActivity extends BaseActivity {
 
     private String projectId;
     private String projectName;
-
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        this.projectId = getIntent().getStringExtra("projectId");
-        this.projectName = getIntent().getStringExtra("projectName");
+        this.setProjectId(getIntent().getStringExtra("projectId"));
+        this.setProjectName(getIntent().getStringExtra("projectName"));
         projectDetailName.setText(projectName);
         mTitle.add("设备");
         mTitle.add("工艺模块");
         mTitle.add("报警记录");
         mTitle.add("任务池");
+
         fragments.add(DeviceListFragment.newInstance());
         fragments.add(ModelListFragment.newInstance());
         fragments.add(AlarmListFragment.newInstance());
@@ -82,6 +83,22 @@ public class ProjectDetailsActivity extends BaseActivity {
     @Override
     public void setListener() {
         imgBack.setOnClickListener(this);
+    }
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     @Override

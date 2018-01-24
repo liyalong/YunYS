@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_gravity="bottom"
     android:background="@color/white"
     android:orientation="vertical">
     <View
@@ -20,7 +19,7 @@
             android:paddingTop="@dimen/distance_10"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/alarm_rules"
+                android:id="@+id/to_alarm_rules"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -31,7 +30,7 @@
                 android:textSize="@dimen/distance_14"
                 />
             <TextView
-                android:id="@+id/knowledge"
+                android:id="@+id/to_knowledge"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -42,7 +41,7 @@
                 android:textSize="@dimen/distance_14"
                 />
             <TextView
-                android:id="@+id/device_parts"
+                android:id="@+id/to_device_parts"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -53,7 +52,7 @@
                 android:textSize="@dimen/distance_14"
                 />
             <TextView
-                android:id="@+id/periodic_tasks"
+                android:id="@+id/to_periodic_tasks"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
