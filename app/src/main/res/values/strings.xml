@@ -122,7 +122,7 @@
     <string name="alarmRecord">报警记录</string>
     <string name="tasks">任务池</string>
     <string name="devicelist">设备列表</string>
-    <string name="device_success">正常</string>
+    <string name="device_status_success">正常</string>
     <string name="device_status_error">异常</string>
     <string name="addTime">添加时间：</string>
     <string name="button_cz">操作</string>

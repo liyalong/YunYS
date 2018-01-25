@@ -34,7 +34,7 @@
                     android:background="@color/device_status_success"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:text="@string/device_success"
+                    android:text="@string/device_status_success"
                     android:paddingHorizontal="@dimen/distance_2"
                     android:textSize="@dimen/distance_8"
                     android:textColor="@color/white"
@@ -50,6 +50,7 @@
                     android:textColor="@color/color_666"
                     android:textSize="@dimen/distance_10"/>
                 <TextView
+                    android:id="@+id/device_create_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="2018-01-11 00:00:00"
@@ -59,6 +60,7 @@
 
         </LinearLayout>
         <TextView
+            android:id="@+id/item_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"

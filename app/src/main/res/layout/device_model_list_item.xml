@@ -34,7 +34,7 @@
                     android:background="@color/device_status_success"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:text="@string/device_success"
+                    android:text="@string/device_status_success"
                     android:paddingHorizontal="@dimen/distance_2"
                     android:textSize="@dimen/distance_8"
                     android:textColor="@color/white"

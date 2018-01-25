@@ -1,308 +1,563 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     android:background="@color/baseBackgroundColor">
+
     <LinearLayout
+        android:id="@+id/line"
         android:layout_width="match_parent"
-        android:background="@color/white"
         android:layout_height="@dimen/distance_49"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        android:background="@color/white">
+
         <ImageView
+            android:id="@+id/img_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_back"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/icon_back" />
+
         <TextView
-            android:id="@+id/include_banner_name"
+            android:id="@+id/device_detail_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/device_info"
-            android:textColor="@color/color_333"
             android:gravity="center"
-            />
+            android:text="@string/device_info"
+            android:textColor="@color/color_333" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_back"
             android:layout_gravity="center_vertical"
-            android:visibility="invisible"/>
+            android:src="@mipmap/icon_back"
+            android:visibility="invisible" />
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <LinearLayout android:layout_width="match_parent"
-            android:layout_height="@dimen/distance_42"
-            android:orientation="horizontal"
-            android:background="@color/white"
-            android:layout_marginTop="@dimen/distance_10">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@mipmap/icon_project_list_title_left"
-                android:gravity="center"
-                android:layout_marginLeft="@dimen/distance_10"
-                android:layout_marginRight="@dimen/distance_5"
-                />
-            <TextView
-                android:id="@+id/deviceinfo_bjxx_title"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/deviceinfo_bjxx"
-                android:textColor="@color/color_333"
-                android:textSize="@dimen/distance_14"
-                android:gravity="center|left" />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@mipmap/icon_device_right"
-                android:gravity="center"/>
-        </LinearLayout>
-        <!--<ListView-->
-            <!--android:id="@+id/deviceinfo_baojing_list"-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="@color/white">-->
 
-        <!--</ListView>-->
-    </LinearLayout>
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <LinearLayout android:layout_width="match_parent"
-            android:layout_height="@dimen/distance_42"
-            android:orientation="horizontal"
-            android:background="@color/white"
-            android:layout_marginTop="@dimen/distance_10">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@mipmap/icon_project_list_title_left"
-                android:gravity="center"
-                android:layout_marginLeft="@dimen/distance_10"
-                android:layout_marginRight="@dimen/distance_5"
-                />
-            <TextView
-                android:id="@+id/deviceinfo_sszb_title"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/deviceinfo_sszb"
-                android:textColor="@color/color_333"
-                android:textSize="@dimen/distance_14"
-                android:gravity="center|left" />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@mipmap/icon_device_right"
-                android:gravity="center"/>
-        </LinearLayout>
-        <!--<ListView-->
-        <!--android:id="@+id/deviceinfo_zhibiao_list"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@color/white">-->
+        android:layout_height="match_parent"
+        android:layout_below="@+id/line"
+        android:scrollbars="none">
 
-        <!--</ListView>-->
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-        <LinearLayout android:layout_width="match_parent"
-            android:layout_height="@dimen/distance_42"
-            android:orientation="horizontal"
-            android:background="@color/white"
-            android:layout_marginTop="@dimen/distance_10">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@mipmap/icon_project_list_title_left"
-                android:gravity="center"
-                android:layout_marginLeft="@dimen/distance_10"
-                android:layout_marginRight="@dimen/distance_5"
-                />
-            <TextView
-                android:id="@+id/deviceinfo_jbxx_title"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/deviceinfo_jbxx"
-                android:textColor="@color/color_333"
-                android:textSize="@dimen/distance_14"
-                android:gravity="center|left" />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@mipmap/icon_device_down"
-                android:gravity="center"/>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/distance_1"
-            android:background="@color/color_e7e7e7"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/white"
-            android:paddingHorizontal="@dimen/distance_10">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/distance_8"
-                android:background="@color/white"
-                android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/deviceinfo_status"
-                        android:textColor="@color/color_333"
-                        android:textSize="@dimen/distance_14"/>
-                    <TextView
-                        android:id="@+id/deviceinfo_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="启用"
-                        android:textColor="#999999"
-                        android:textSize="@dimen/distance_14"/>
+                android:layout_marginTop="@dimen/distance_10"
+                android:background="@color/white">
+                <com.yunyisheng.app.yunys.utils.SuperExpandableListView
+                    android:id="@+id/device_detail_bjxx_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </com.yunyisheng.app.yunys.utils.SuperExpandableListView>
             </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/distance_1"
-                android:layout_gravity="bottom"
-                android:background="@color/color_e7e7e7"
-                android:padding="@dimen/distance_10"
-                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/distance_8"
-                android:background="@color/white"
-                android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/deviceinfo_isPLC"
-                        android:textColor="@color/color_333"
-                        android:textSize="@dimen/distance_14"/>
-                    <TextView
-                        android:id="@+id/deviceinfo_isplc"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="是"
-                        android:textColor="#999999"
-                        android:textSize="@dimen/distance_14"/>
+                android:layout_marginTop="@dimen/distance_10"
+                android:background="@color/white">
+                <com.yunyisheng.app.yunys.utils.SuperExpandableListView
+                    android:id="@+id/device_detail_sszb_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </com.yunyisheng.app.yunys.utils.SuperExpandableListView>
             </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/distance_1"
-                android:layout_gravity="bottom"
-                android:background="@color/color_e7e7e7"
-                android:padding="@dimen/distance_10"
-                />
+
             <LinearLayout
-                android:id="@+id/alarm_rules"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/distance_8"
-                android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/alarm_rules"
-                        android:textColor="@color/color_333"
-                        android:textSize="@dimen/distance_14"/>
+                android:layout_marginTop="@dimen/distance_10"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/distance_42"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
                     <ImageView
                         android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/distance_10"
+                        android:layout_marginRight="@dimen/distance_5"
+                        android:gravity="center"
+                        android:src="@mipmap/icon_project_list_title_left" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center|left"
+                        android:text="@string/deviceinfo_jbxx"
+                        android:textColor="@color/color_333"
+                        android:textSize="@dimen/distance_14" />
+
+                    <ImageView
+                        android:id="@+id/info_drop_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:src="@mipmap/icon_device_down" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/distance_1"
+                    android:background="@color/color_e7e7e7" />
+
+                <LinearLayout
+                    android:id="@+id/jbxx_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/distance_10">
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/icon_right"/>
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/distance_8">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/deviceinfo_status"
+                            android:textColor="@color/color_333"
+                            android:textSize="@dimen/distance_14" />
+
+                        <TextView
+                            android:id="@+id/device_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="启用"
+                            android:textColor="@color/color_666"
+                            android:textSize="@dimen/distance_14" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/distance_1"
+                        android:layout_gravity="bottom"
+                        android:background="@color/color_e7e7e7"
+                        android:padding="@dimen/distance_10" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/distance_8">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/deviceinfo_isPLC"
+                            android:textColor="@color/color_333"
+                            android:textSize="@dimen/distance_14" />
+
+                        <TextView
+                            android:id="@+id/device_bind_plc_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="是"
+                            android:textColor="@color/color_666"
+                            android:textSize="@dimen/distance_14" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/distance_1"
+                        android:layout_gravity="bottom"
+                        android:background="@color/color_e7e7e7"
+                        android:padding="@dimen/distance_10" />
+
+                    <LinearLayout
+                        android:id="@+id/to_alarm_rules"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/distance_8">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/alarm_rules"
+                            android:textColor="@color/color_333"
+                            android:textSize="@dimen/distance_14" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_right" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/distance_1"
+                        android:layout_gravity="bottom"
+                        android:background="@color/color_e7e7e7"
+                        android:padding="@dimen/distance_10" />
+
+                    <LinearLayout
+                        android:id="@+id/to_knowledge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/distance_8">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/knowledge"
+                            android:textColor="@color/color_333"
+                            android:textSize="@dimen/distance_14" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_right" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/distance_1"
+                        android:layout_gravity="bottom"
+                        android:background="@color/color_e7e7e7"
+                        android:padding="@dimen/distance_10" />
+
+                    <LinearLayout
+                        android:id="@+id/to_device_parts"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/distance_8">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/device_parts"
+                            android:textColor="@color/color_333"
+                            android:textSize="@dimen/distance_14" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_right" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/distance_1"
+                        android:layout_gravity="bottom"
+                        android:background="@color/color_e7e7e7"
+                        android:padding="@dimen/distance_10" />
+
+                    <LinearLayout
+                        android:id="@+id/to_periodic_tasks"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/distance_8">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/periodic_tasks"
+                            android:textColor="@color/color_333"
+                            android:textSize="@dimen/distance_14" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_right" />
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/distance_1"
-                android:layout_gravity="bottom"
-                android:background="@color/color_e7e7e7"
-                android:padding="@dimen/distance_10"
-                />
-            <LinearLayout
-                android:id="@+id/knowledge"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/distance_8"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/knowledge"
-                    android:textColor="@color/color_333"
-                    android:textSize="@dimen/distance_14"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_right"/>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/distance_1"
-                android:layout_gravity="bottom"
-                android:background="@color/color_e7e7e7"
-                android:padding="@dimen/distance_10"
-                />
-            <LinearLayout
-                android:id="@+id/device_parts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/distance_8"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/device_parts"
-                    android:textColor="@color/color_333"
-                    android:textSize="@dimen/distance_14"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_right"/>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/distance_1"
-                android:layout_gravity="bottom"
-                android:background="@color/color_e7e7e7"
-                android:padding="@dimen/distance_10"
-                />
-            <LinearLayout
-                android:id="@+id/periodic_tasks"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/distance_8"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/periodic_tasks"
-                    android:textColor="@color/color_333"
-                    android:textSize="@dimen/distance_14"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_right"/>
-            </LinearLayout>
+
+
+
+
+
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
+            <!--<LinearLayout android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/distance_42"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:background="@color/white"-->
+            <!--android:layout_marginTop="@dimen/distance_10">-->
+            <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@mipmap/icon_project_list_title_left"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_marginLeft="@dimen/distance_10"-->
+            <!--android:layout_marginRight="@dimen/distance_5"-->
+            <!--/>-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="@string/deviceinfo_bjxx"-->
+            <!--android:textColor="@color/color_333"-->
+            <!--android:textSize="@dimen/distance_14"-->
+            <!--android:gravity="center|left" />-->
+            <!--<ImageView-->
+            <!--android:id="@+id/bjxx_drop_btn"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@mipmap/icon_device_down"-->
+            <!--android:gravity="center"/>-->
+            <!--</LinearLayout>-->
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/distance_1"-->
+            <!--android:background="@color/color_e7e7e7"/>-->
+            <!---->
+            <!--</LinearLayout>-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
+            <!--<LinearLayout android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/distance_42"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:background="@color/white"-->
+            <!--android:layout_marginTop="@dimen/distance_10">-->
+            <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@mipmap/icon_project_list_title_left"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_marginLeft="@dimen/distance_10"-->
+            <!--android:layout_marginRight="@dimen/distance_5"-->
+            <!--/>-->
+            <!--<TextView-->
+            <!--android:id="@+id/deviceinfo_sszb_title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="@string/deviceinfo_sszb"-->
+            <!--android:textColor="@color/color_333"-->
+            <!--android:textSize="@dimen/distance_14"-->
+            <!--android:gravity="center|left" />-->
+            <!--<ImageView-->
+            <!--android:id="@+id/sszb_drop_btn"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@mipmap/icon_device_down"-->
+            <!--android:gravity="center"/>-->
+            <!--</LinearLayout>-->
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/distance_1"-->
+            <!--android:background="@color/color_e7e7e7"/>-->
+
+
+            <!--</LinearLayout>-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
+            <!--<LinearLayout android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/distance_42"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:background="@color/white"-->
+            <!--android:layout_marginTop="@dimen/distance_10">-->
+            <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@mipmap/icon_project_list_title_left"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_marginLeft="@dimen/distance_10"-->
+            <!--android:layout_marginRight="@dimen/distance_5"-->
+            <!--/>-->
+            <!--<TextView-->
+            <!--android:id="@+id/deviceinfo_jbxx_title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="@string/deviceinfo_jbxx"-->
+            <!--android:textColor="@color/color_333"-->
+            <!--android:textSize="@dimen/distance_14"-->
+            <!--android:gravity="center|left" />-->
+            <!--<ImageView-->
+            <!--android:id="@+id/info_drop_btn"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@mipmap/icon_device_down"-->
+            <!--android:gravity="center"/>-->
+            <!--</LinearLayout>-->
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/distance_1"-->
+            <!--android:background="@color/color_e7e7e7"/>-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:background="@color/white"-->
+            <!--android:paddingHorizontal="@dimen/distance_10">-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingVertical="@dimen/distance_8"-->
+            <!--android:background="@color/white"-->
+            <!--android:orientation="horizontal">-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="@string/deviceinfo_status"-->
+            <!--android:textColor="@color/color_333"-->
+            <!--android:textSize="@dimen/distance_14"/>-->
+            <!--<TextView-->
+            <!--android:id="@+id/device_detail_status"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:text="启用"-->
+            <!--android:textColor="#999999"-->
+            <!--android:textSize="@dimen/distance_14"/>-->
+            <!--</LinearLayout>-->
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/distance_1"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:background="@color/color_e7e7e7"-->
+            <!--android:padding="@dimen/distance_10"-->
+            <!--/>-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingVertical="@dimen/distance_8"-->
+            <!--android:background="@color/white"-->
+            <!--android:orientation="horizontal">-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="@string/deviceinfo_isPLC"-->
+            <!--android:textColor="@color/color_333"-->
+            <!--android:textSize="@dimen/distance_14"/>-->
+            <!--<TextView-->
+            <!--android:id="@+id/device_detail_isplc"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:text="是"-->
+            <!--android:textColor="#999999"-->
+            <!--android:textSize="@dimen/distance_14"/>-->
+            <!--</LinearLayout>-->
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/distance_1"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:background="@color/color_e7e7e7"-->
+            <!--android:padding="@dimen/distance_10"-->
+            <!--/>-->
+            <!--<LinearLayout-->
+            <!--android:id="@+id/to_alarm_rules"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingVertical="@dimen/distance_8"-->
+            <!--android:orientation="horizontal">-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="@string/alarm_rules"-->
+            <!--android:textColor="@color/color_333"-->
+            <!--android:textSize="@dimen/distance_14"/>-->
+            <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@mipmap/icon_right"/>-->
+            <!--</LinearLayout>-->
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/distance_1"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:background="@color/color_e7e7e7"-->
+            <!--android:padding="@dimen/distance_10"-->
+            <!--/>-->
+            <!--<LinearLayout-->
+            <!--android:id="@+id/to_knowledge"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingVertical="@dimen/distance_8"-->
+            <!--android:orientation="horizontal">-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="@string/knowledge"-->
+            <!--android:textColor="@color/color_333"-->
+            <!--android:textSize="@dimen/distance_14"/>-->
+            <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@mipmap/icon_right"/>-->
+            <!--</LinearLayout>-->
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/distance_1"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:background="@color/color_e7e7e7"-->
+            <!--android:padding="@dimen/distance_10"-->
+            <!--/>-->
+            <!--<LinearLayout-->
+            <!--android:id="@+id/to_device_parts"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingVertical="@dimen/distance_8"-->
+            <!--android:orientation="horizontal">-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="@string/device_parts"-->
+            <!--android:textColor="@color/color_333"-->
+            <!--android:textSize="@dimen/distance_14"/>-->
+            <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@mipmap/icon_right"/>-->
+            <!--</LinearLayout>-->
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/distance_1"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:background="@color/color_e7e7e7"-->
+            <!--android:padding="@dimen/distance_10"-->
+            <!--/>-->
+            <!--<LinearLayout-->
+            <!--android:id="@+id/to_periodic_tasks"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingVertical="@dimen/distance_8"-->
+            <!--android:orientation="horizontal">-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="@string/periodic_tasks"-->
+            <!--android:textColor="@color/color_333"-->
+            <!--android:textSize="@dimen/distance_14"/>-->
+            <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@mipmap/icon_right"/>-->
+            <!--</LinearLayout>-->
+            <!--</LinearLayout>-->
         </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+    </ScrollView>
+</RelativeLayout>
