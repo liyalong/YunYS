@@ -2,18 +2,18 @@ package com.yunyisheng.app.yunys.main.service;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.model.UserModel;
+import com.yunyisheng.app.yunys.main.model.GetOtherinfoBean;
 import com.yunyisheng.app.yunys.main.model.MemorandumBean;
-import com.yunyisheng.app.yunys.main.model.ReciveNoticeBean;
 import com.yunyisheng.app.yunys.main.model.SendNoticeBean;
 
 import io.reactivex.Flowable;
-import io.reactivex.Observable;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -42,7 +42,7 @@ public interface HomeService {
      * @describe 获取发布的公告列表
      */
     @FormUrlEncoded
-    @POST("system/announcement/list/publish")
+    @POST("announcement/list/publish")
     Flowable<SendNoticeBean> getSendNoticelist(@Field("pageNum") int pageNum,
                                                @Field("pageSize") int pageSize,
                                                @Field("title") String title);
@@ -53,8 +53,8 @@ public interface HomeService {
      * @describe 获取接收的公告列表
      */
     @FormUrlEncoded
-    @POST("system/announcement/list/receive")
-    Flowable<ReciveNoticeBean> getReciveNoticelist(@Field("pageNum") int pageNum,
+    @POST("announcement/list/receive")
+    Flowable<SendNoticeBean> getReciveNoticelist(@Field("pageNum") int pageNum,
                                                    @Field("pageSize") int pageSize,
                                                    @Field("title") String title);
 
@@ -83,7 +83,8 @@ public interface HomeService {
      * @describe 7.5    发布公告
      */
     @POST()
-    Observable<ResponseBody> sendNotice(@Url() String url,
+    Call<BaseModel> sendNotice(@Header("token") String token,
+                                        @Url() String url,
                                         @Body RequestBody Body);
 
     /**
@@ -168,5 +169,22 @@ public interface HomeService {
     @FormUrlEncoded
     @POST("memo/deletememo")
     Flowable<BaseModel> deleteMemo(@Field("ids") int ids);
+
+    /**
+     * 获取用户通讯录
+     *
+     * @return
+     */
+    @POST("android/enterprise/section/show")
+    Call<String> getUserFromwork();
+
+    /**
+     * @author fuduo
+     * @time 2018/1/21  10:38
+     * @describe 10.3	根据userid获取对应人员的基本信息
+     */
+    @FormUrlEncoded
+    @POST("android/enterprise/user/info")
+    Flowable<GetOtherinfoBean> getOtherinfo(@Field("userId") int userId);
 
 }

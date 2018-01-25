@@ -1,6 +1,7 @@
 package com.yunyisheng.app.yunys.main.activity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -40,10 +41,15 @@ public class NoticeDeatilActivity extends BaseActivity {
     TextView teFujinaType;
     @BindView(R.id.gv_fujianlist)
     GridView gvFujianlist;
+    private int noticeid;
+    private int type;
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        Intent intent = getIntent();
+        type = intent.getIntExtra("type", 0);
+        noticeid = intent.getIntExtra("noticeid", 0);
     }
 
     @Override

@@ -33,7 +33,7 @@
                 app:tabIndicatorColor="@color/color_44A7FD"
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/color_333"
-                app:tabTextAppearance="@style/TabLayoutTextStyle"
+                app:tabTextAppearance="@style/NoticeTabLayoutTextStyle"
                 app:tabTextColor="@color/color_333" />
 
             <TextView

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_81"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/distance_10"
+        android:paddingLeft="@dimen/distance_15"
+        android:paddingTop="@dimen/distance_12">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/te_noticetitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="反倒是房顶上"
+                android:textColor="@color/color_333"
+                android:textSize="@dimen/distance_14" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/te_noticetime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="反倒是房顶上"
+                android:textColor="@color/color_666"
+                android:textSize="@dimen/distance_14" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/te_noticedetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="反倒是房顶上发挥的空间恢复快结婚的恢复快接电话分开恢复快接电话"
+                android:textColor="@color/color_666"
+                android:textSize="@dimen/distance_14" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

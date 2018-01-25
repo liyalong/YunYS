@@ -11,27 +11,28 @@ import android.widget.Toast;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.main.service.HomeService;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.utils.FileUtil;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.SDCardHelper;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.Util;
 
 import java.io.File;
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.droidlover.xdroidbase.cache.SharedPref;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -57,6 +58,10 @@ public class SendNoticeActivity extends BaseActivity {
     @BindView(R.id.te_notice_deatil)
     EditText teNoticeDeatil;
     private String pathuri;
+    private String selectjson;
+    private String title;
+    private String content;
+    private RequestBody requestBody;
 
     @Override
     public void initView() {
@@ -93,7 +98,21 @@ public class SendNoticeActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.te_send:
-
+                title = edNoticetitle.getText().toString().trim();
+                content = teNoticeDeatil.getText().toString().trim();
+                if (title!=null&&!title.equals("")&&!title.equals("null")) {
+                    if (content != null && !content.equals("") && !content.equals("null")) {
+                        if (selectjson != null && !selectjson.equals("") && !selectjson.equals("null")) {
+                            sendNotice();
+                        } else {
+                            ToastUtils.showToast("请选择发布范围");
+                        }
+                    }else {
+                        ToastUtils.showToast("请输入公告内容");
+                    }
+                }else {
+                    ToastUtils.showToast("请输入公告标题");
+                }
                 break;
             case R.id.rl_fujian:
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -106,6 +125,7 @@ public class SendNoticeActivity extends BaseActivity {
                 }
                 break;
             case R.id.rl_senfrange:
+                startActivityForResult(new Intent(SendNoticeActivity.this, SelectPeopleActivity.class), 8);
                 break;
         }
     }
@@ -116,41 +136,44 @@ public class SendNoticeActivity extends BaseActivity {
                 .baseUrl(Api.BASE_PATH)
                 .build();
         HomeService service = retrofit.create(HomeService.class);
-        File file = new File(pathuri);
-        //构建body
-        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("title", "")
-                .addFormDataPart("content", "")
-                .addFormDataPart("receiverMap", "")
-                .addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("file"), file))
-                .build();
+        String token = SharedPref.getInstance(SendNoticeActivity.this).getString("TOKEN", null);
+        if (pathuri != null && !pathuri.equals("") && !pathuri.equals("null")) {
+            File file = new File(pathuri);
+            //构建body
+            requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("title", title)
+                    .addFormDataPart("content", content)
+                    .addFormDataPart("receiverMap", selectjson)
+                    .addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("file"), file))
+                    .build();
+        }else {
+            //构建body
+            requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("title", title)
+                    .addFormDataPart("content", content)
+                    .addFormDataPart("receiverMap", selectjson)
+                    .build();
+        }
+
 
         //如果和rxjava1.x , call就换成 Observable
-        Observable<ResponseBody> call = service.sendNotice("fairyland-system/announcement/publish", requestBody);
+        Call<BaseModel> call = service.sendNotice(token,"announcement/publish", requestBody);
         // 执行
-        call.subscribe(new Observer<ResponseBody>() {
+        call.enqueue(new Callback<BaseModel>() {
             @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(ResponseBody value) {
-                try {
-                    String str = value.string();
-                } catch (IOException e) {
-                    e.printStackTrace();
+            public void onResponse(Call<BaseModel> call, Response<BaseModel> response) {
+                String msg = response.body().getRespMsg();
+                int code = response.body().getRespCode();
+                if (code==0){
+                    ToastUtils.showToast("发布成功!");
                 }
+                LogUtils.i("fjdlkf", msg + code);
+                LoadingDialog.dismiss(SendNoticeActivity.this);
             }
 
             @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
+            public void onFailure(Call<BaseModel> call, Throwable t) {
+                ToastUtils.showToast("请检查网络设置");
             }
         });
 
@@ -160,9 +183,13 @@ public class SendNoticeActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) {
-            return;
+
+        if (resultCode == 8) {
+            int size = data.getIntExtra("size", 0);
+            selectjson = data.getStringExtra("selectjson");
+            teFrangesize.setText(size+"人");
         }
+
         switch (requestCode) {
             case 1:
                 if (resultCode == RESULT_OK) {

@@ -127,6 +127,9 @@
     <style name="TabLayoutTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
         <item name="android:textSize">@dimen/tablayout</item>
     </style>
+    <style name="NoticeTabLayoutTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">@dimen/text_small</item>
+    </style>
 
     <!-- 对话框样式 -->
     <style name="dialog_bottom_full" parent="android:style/Theme.Dialog">

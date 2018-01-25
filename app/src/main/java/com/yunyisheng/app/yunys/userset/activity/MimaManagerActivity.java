@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.userset.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,11 +10,13 @@ import android.widget.TextView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseModel;
+import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.userset.present.UpdatePasswordPresent;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.droidlover.xdroidbase.cache.SharedPref;
 
 /**
  * @author fuduo
@@ -104,6 +107,8 @@ public class MimaManagerActivity extends BaseActivity<UpdatePasswordPresent> {
      */
     public void checkIssuccess(BaseModel baseModel){
         if (baseModel.getRespCode()==0){
+            SharedPref.getInstance(context).remove("TOKEN");
+            startActivity(new Intent(MimaManagerActivity.this, LoginActivity.class));
             finish();
         }
         ToastUtils.showLongToast(baseModel.getRespMsg());

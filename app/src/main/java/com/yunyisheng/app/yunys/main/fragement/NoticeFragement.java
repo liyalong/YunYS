@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.main.fragement;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -17,8 +19,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.main.activity.NoticeDeatilActivity;
 import com.yunyisheng.app.yunys.main.adapter.PublishNoticeListAdapter;
-import com.yunyisheng.app.yunys.main.model.ReciveNoticeBean;
+import com.yunyisheng.app.yunys.main.adapter.ReceiveNoticeListAdapter;
 import com.yunyisheng.app.yunys.main.model.SendNoticeBean;
 import com.yunyisheng.app.yunys.main.present.NoticePresent;
 import com.yunyisheng.app.yunys.utils.ScrowUtil;
@@ -51,8 +54,8 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
     private String sousuo_neirong;
     private int pageindex = 1;
     private List<SendNoticeBean.ListBean> sendlist = new ArrayList<>();
-    private List<ReciveNoticeBean.ListBean> receivelist = new ArrayList<>();
     private PublishNoticeListAdapter adapter;
+    private ReceiveNoticeListAdapter adapter1;
 
     public static NoticeFragement getInstance(int index) {
         NoticeFragement fragement = new NoticeFragement();
@@ -72,9 +75,9 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
     @Override
     public void initView() {
         if (tabindex == 0) {
-            getP().getSendNoticelist(10, pageindex, "");
+            getP().getSendNoticelist(pageindex, 10, null);
         } else {
-            getP().getReceiveNoticelist(10, pageindex, "");
+            getP().getReceiveNoticelist(pageindex, 10, null);
         }
         ScrowUtil.listViewConfig(pullToRefreshListview);
         pullToRefreshListview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
@@ -83,10 +86,10 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
                 pageindex = 1;
                 if (tabindex == 0) {
                     sendlist.clear();
-                    getP().getSendNoticelist(10, pageindex, "");
+                    getP().getSendNoticelist(pageindex, 10, null);
                 } else {
-                    receivelist.clear();
-                    getP().getReceiveNoticelist(10, pageindex, "");
+                    sendlist.clear();
+                    getP().getReceiveNoticelist(pageindex, 10, null);
                 }
             }
 
@@ -94,9 +97,9 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 pageindex++;
                 if (tabindex == 0) {
-                    getP().getSendNoticelist(10, pageindex, "");
+                    getP().getSendNoticelist(pageindex, 10, null);
                 } else {
-                    getP().getReceiveNoticelist(10, pageindex, "");
+                    getP().getReceiveNoticelist(pageindex, 10, null);
                 }
             }
         });
@@ -113,14 +116,26 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
                     } else {
                         if (tabindex == 0) {
                             sendlist.clear();
-                            getP().getSendNoticelist(10, pageindex, sousuo_neirong);
+                            pageindex = 1;
+                            getP().getSendNoticelist(pageindex, 10, sousuo_neirong);
                         } else {
-                            receivelist.clear();
-                            getP().getReceiveNoticelist(10, pageindex, sousuo_neirong);
+                            sendlist.clear();
+                            pageindex = 1;
+                            getP().getReceiveNoticelist(pageindex, 10, sousuo_neirong);
                         }
                     }
                 }
                 return false;
+            }
+        });
+        pullToRefreshListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SendNoticeBean.ListBean listBean = sendlist.get(position);
+                Intent intent = new Intent(mContext, NoticeDeatilActivity.class);
+                intent.putExtra("type", tabindex);
+                intent.putExtra("noticeid", listBean.getAnnouncementId());
+                startActivity(intent);
             }
         });
     }
@@ -147,11 +162,19 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
                 ToastUtils.showToast("暂无更多数据");
             }
         }
+        pullToRefreshListview.onRefreshComplete();
     }
 
-    public void getRecelveList(ReciveNoticeBean reciveNoticeBean) {
-        if (reciveNoticeBean.getList().size() > 0) {
-
+    public void getRecelveList(SendNoticeBean sendNoticeBean) {
+        if (sendNoticeBean.getList().size() > 0) {
+            if (pageindex == 1) {
+                sendlist.addAll(sendNoticeBean.getList());
+                adapter1 = new ReceiveNoticeListAdapter(mContext, sendlist);
+                pullToRefreshListview.setAdapter(adapter1);
+            } else {
+                sendlist.addAll(sendNoticeBean.getList());
+                adapter.notifyDataSetChanged();
+            }
         } else {
             if (pageindex == 1) {
                 ToastUtils.showToast("暂无数据");
@@ -159,6 +182,7 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
                 ToastUtils.showToast("暂无更多数据");
             }
         }
+        pullToRefreshListview.onRefreshComplete();
     }
 
     @Override

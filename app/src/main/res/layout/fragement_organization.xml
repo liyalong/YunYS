@@ -73,13 +73,13 @@
                     android:textSize="@dimen/distance_14" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/line_all"
+            <ExpandableListView
+                android:id="@+id/elv_framework"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/distance_10"
                 android:background="@color/white"
-                android:orientation="vertical"></LinearLayout>
+                android:scrollbars="none"></ExpandableListView>
         </LinearLayout>
 
         <RelativeLayout

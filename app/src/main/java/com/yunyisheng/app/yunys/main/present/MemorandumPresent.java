@@ -22,7 +22,7 @@ public class MemorandumPresent extends XPresent<MemorandumActivity> {
     /**
      * @author fuduo
      * @time 2018/1/23  14:13
-     * @describe 查询通讯录
+     * @describe 查询备忘录
      */
     public void getMemoList(int pagenum, int pagerows) {
         Api.homeService().getMemorandumList(pagenum, pagerows)

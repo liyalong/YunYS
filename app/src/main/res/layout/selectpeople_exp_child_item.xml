@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_56"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/ck_select"
+            android:layout_width="@dimen/distance_15"
+            android:layout_height="@dimen/distance_15"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/distance_10"
+            android:layout_marginRight="@dimen/distance_10"
+            android:background="@mipmap/select_no"
+            />
+
+        <ImageView
+            android:id="@+id/img_woker_head"
+            android:layout_width="@dimen/distance_34"
+            android:layout_height="@dimen/distance_34"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/distance_3"
+            android:layout_toRightOf="@+id/ck_select"
+             />
+
+        <RelativeLayout
+            android:id="@+id/rel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/distance_10"
+            android:layout_toRightOf="@+id/img_woker_head">
+
+            <TextView
+                android:id="@+id/te_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="刘伟"
+                android:textColor="@color/color_666"
+                android:textSize="@dimen/distance_14" />
+
+            <TextView
+                android:id="@+id/te_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/distance_5"
+                android:layout_marginTop="@dimen/distance_1"
+                android:layout_toRightOf="@+id/te_name"
+                android:background="@mipmap/managerimg"
+                android:gravity="center"
+                android:visibility="gone"
+                android:text="管理员"
+                android:textSize="@dimen/distance_8" />
+
+            <TextView
+                android:id="@+id/te_zhiwei"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/te_name"
+                android:text="董事长"
+                android:textColor="@color/color_666"
+                android:textSize="@dimen/distance_14" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/img_send_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/distance_10"
+            android:layout_toLeftOf="@+id/img_call_phone"
+            android:background="@mipmap/msgimg" />
+
+        <ImageView
+            android:id="@+id/img_call_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/distance_25"
+            android:background="@mipmap/phoneimg" />
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_e7"
+            android:layout_marginRight="@dimen/distance_25"
+            android:layout_marginLeft="@dimen/distance_36"
+            />
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

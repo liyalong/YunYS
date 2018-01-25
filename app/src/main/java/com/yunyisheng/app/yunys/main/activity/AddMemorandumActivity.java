@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
-import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.main.present.UpdateMempPresent;
 
 import butterknife.BindView;
@@ -19,7 +18,7 @@ import butterknife.ButterKnife;
 /**
  * @author fuduo
  * @time 2018/1/16  21:24
- * @describe 添加通讯录
+ * @describe 添加备忘录
  */
 public class AddMemorandumActivity extends BaseActivity<UpdateMempPresent> {
 
@@ -101,16 +100,16 @@ public class AddMemorandumActivity extends BaseActivity<UpdateMempPresent> {
         }
     };
 
-    public void getAddResult(BaseModel baseModel) {
-        if (baseModel.getRespCode() == 0) {
-            finish();
-        }
-    }
-
-    public void getDeleteResult(BaseModel baseModel) {
-        if (baseModel.getRespCode() == 0) {
-            finish();
-        }
-    }
+//    public void getAddResult(BaseModel baseModel) {
+//        if (baseModel.getRespCode() == 0) {
+//            finish();
+//        }
+//    }
+//
+//    public void getDeleteResult(BaseModel baseModel) {
+//        if (baseModel.getRespCode() == 0) {
+//            finish();
+//        }
+//    }
 
 }

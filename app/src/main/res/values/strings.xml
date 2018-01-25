@@ -69,6 +69,9 @@
     <string name="paizhao">拍照</string>
     <string name="xiangce">相册</string>
     <string name="quxiao">取消</string>
+    <string name="username">用户名</string>
+    <string name="phone">手机</string>
+    <string name="workernum">员工编号</string>
 
     <!-- 我的-->
     <string name="my_information">个人中心</string>

@@ -20,5 +20,6 @@ public class ConstantManager {
     public static String ReleaseUpLabel = "上拉加载更多...";
     public static String REFRESH_RELEASE = "松开可刷新";
     /////////////////////上下拉的字段
+    public static String token="";
 
 }

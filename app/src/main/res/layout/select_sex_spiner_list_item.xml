@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/transparent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/transparent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_30"
+            android:layout_centerHorizontal="true"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/te_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/distance_10"
+                android:textColor="@color/color_999"
+                android:textSize="@dimen/distance_14" />
+        </RelativeLayout>
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

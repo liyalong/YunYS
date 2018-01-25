@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.yunyisheng.app.yunys.ConstantManager;
 import com.yunyisheng.app.yunys.MainActivity;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
@@ -96,6 +97,7 @@ public class HomeFragement extends BaseFragement<HomePresent> {
         Log.w("---", System.currentTimeMillis() - t + "");
         getUserinfo();
         String token=SharedPref.getInstance(mContext).getString("TOKEN","");
+        ConstantManager.token=token;
         LogUtils.i("token",token);
     }
 

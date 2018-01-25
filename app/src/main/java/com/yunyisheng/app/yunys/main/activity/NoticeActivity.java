@@ -45,14 +45,14 @@ public class NoticeActivity extends BaseActivity {
     public void initView() {
         ButterKnife.bind(this);
         stringList.add("我发布的");
-        stringList.add("发布的给我的");
+        stringList.add("发布给我的");
         for (int i = 0; i < stringList.size(); i++) {
             fragmentList.add(NoticeFragement.getInstance(i));
         }
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList, stringList);
         vpNotice.setAdapter(adapter);
         tablayoutNotice.setupWithViewPager(vpNotice);
-        setIndicator(this, tablayoutNotice, 8, 8);
+        setIndicator(this, tablayoutNotice, 6, 6);
     }
 
     @Override

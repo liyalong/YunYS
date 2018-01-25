@@ -156,6 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/test"
                 android:layout_marginLeft="@dimen/distance_13"
+                android:background="@null"
                 android:text="20人"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_14" />

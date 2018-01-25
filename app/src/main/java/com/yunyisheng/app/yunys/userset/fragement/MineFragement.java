@@ -85,10 +85,21 @@ public class MineFragement extends BaseFragement<MinePresent> {
         String userjob = SharedPref.getInstance(mContext).getString("userjob", "");
         String userhead = SharedPref.getInstance(mContext).getString("userhead", "");
         String userphone = SharedPref.getInstance(mContext).getString("userphone", "");
+        String usersex = SharedPref.getInstance(mContext).getString("usersex", "");
         teNameZhize.setText(username + " | " + userjob);
-        if (userhead!=null&&!userhead.equals("")) {
+        if (userhead != null && !userhead.equals("") && !userhead.equals("null")) {
             Bitmap bitmap = CommonUtils.stringtoBitmap(userhead);
             GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(mContext, imgWorkerHead, bitmap);
+        } else {
+            if (usersex != null && !usersex.equals("") && !usersex.equals("null")) {
+                if (usersex.equals("男")) {
+                    imgWorkerHead.setBackgroundResource(R.mipmap.man);
+                } else {
+                    imgWorkerHead.setBackgroundResource(R.mipmap.woman);
+                }
+            } else {
+                imgWorkerHead.setBackgroundResource(R.mipmap.man);
+            }
         }
         tePhonenum.setText(userphone);
     }
@@ -117,20 +128,20 @@ public class MineFragement extends BaseFragement<MinePresent> {
     }
 
 
-    public void getUserInfo(UserModel userModel){
-        if (userModel.getRespCode()==1){
-        }else {
-            String userhead=userModel.getRespBody().getUserPicture();
+    public void getUserInfo(UserModel userModel) {
+        if (userModel.getRespCode() == 1) {
+        } else {
+            String userhead = userModel.getRespBody().getUserPicture();
 //            SharedPref.getInstance(mContext).putInt("userid",userModel.getRespBody().getUserId());
 //            SharedPref.getInstance(mContext).putString("username",userModel.getRespBody().getUserName());
 //            SharedPref.getInstance(mContext).putString("usersex",userModel.getRespBody().getUserSex());
 //            SharedPref.getInstance(mContext).putString("userphone",userModel.getRespBody().getUserPhone());
 //            SharedPref.getInstance(mContext).putString("userjob",userModel.getRespBody().getUserJobTitle());
-            SharedPref.getInstance(mContext).putString("userhead",userhead);
+            SharedPref.getInstance(mContext).putString("userhead", userhead);
 //            SharedPref.getInstance(mContext).putString("useremail",userModel.getRespBody().getUserMailbox());
 //            SharedPref.getInstance(mContext).putString("userbumen",userModel.getRespBody().getEnterpriseId());
 //            SharedPref.getInstance(mContext).putInt("userrole",userModel.getRespBody().getRolesId());
-            if (userhead!=null&&!userhead.equals("")) {
+            if (userhead != null && !userhead.equals("")) {
                 Bitmap bitmap = CommonUtils.stringtoBitmap(userhead);
                 GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(mContext, imgWorkerHead, bitmap);
             }
@@ -157,7 +168,7 @@ public class MineFragement extends BaseFragement<MinePresent> {
 
     }
 
-    public void setNewHead(){
+    public void setNewHead() {
         getP().getUserInfo();
     }
 

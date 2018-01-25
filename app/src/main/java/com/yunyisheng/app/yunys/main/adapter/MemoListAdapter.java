@@ -68,7 +68,7 @@ public class MemoListAdapter extends BaseAdapter {
                 context.deleteMemo(list.get(position).getMemoId());
             }
         });
-        return null;
+        return convertView;
     }
 
     public void setList(List<MemorandumBean.ListBean> list){

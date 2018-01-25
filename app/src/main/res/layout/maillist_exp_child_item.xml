@@ -23,7 +23,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/distance_3"
             android:layout_toRightOf="@+id/img"
-            android:background="@mipmap/moren_head" />
+             />
 
         <RelativeLayout
             android:id="@+id/rel"
@@ -50,6 +50,7 @@
                 android:layout_toRightOf="@+id/te_name"
                 android:background="@mipmap/managerimg"
                 android:gravity="center"
+                android:visibility="gone"
                 android:text="管理员"
                 android:textSize="@dimen/distance_8" />
 
@@ -64,6 +65,7 @@
         </RelativeLayout>
 
         <ImageView
+            android:id="@+id/img_send_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -77,12 +79,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/distance_25"
             android:background="@mipmap/phoneimg" />
         <View
+            android:id="@+id/view1"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/distance_1"
+            android:layout_height="0.5dp"
             android:layout_alignParentBottom="true"
             android:background="@color/color_e7"
+            android:layout_marginRight="@dimen/distance_25"
             android:layout_marginLeft="@dimen/distance_36"
             />
     </RelativeLayout>

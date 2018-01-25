@@ -6,14 +6,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="@dimen/distance_340"
             android:layout_height="@dimen/distance_33"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/distance_10"
             android:layout_marginTop="@dimen/distance_10"
             android:background="@drawable/msf_search"
             android:orientation="horizontal"
@@ -50,10 +49,9 @@
             android:id="@+id/pull_to_refresh_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
             android:clickable="false"
-            android:divider="@color/color_e7"
-            android:dividerPadding="0.5dp"
+            android:divider="@color/transparent"
+            android:dividerHeight="@dimen/distance_10"
             android:scrollbars="none">
 
         </com.handmark.pulltorefresh.library.PullToRefreshListView>

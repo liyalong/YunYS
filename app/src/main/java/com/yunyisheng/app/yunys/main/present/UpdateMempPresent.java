@@ -31,7 +31,7 @@ public class UpdateMempPresent extends XPresent<AddMemorandumActivity> {
                 .subscribe(new ApiSubscriber<BaseModel>() {
                     @Override
                     public void onNext(BaseModel baseModel) {
-                        getV().getAddResult(baseModel);
+                        //getV().getAddResult(baseModel);
                         ToastUtils.showToast(baseModel.getRespMsg());
                     }
 
@@ -55,7 +55,7 @@ public class UpdateMempPresent extends XPresent<AddMemorandumActivity> {
                 .subscribe(new ApiSubscriber<BaseModel>() {
                     @Override
                     public void onNext(BaseModel baseModel) {
-                        getV().getDeleteResult(baseModel);
+                        //getV().getDeleteResult(baseModel);
                         ToastUtils.showToast(baseModel.getRespMsg());
                     }
 
