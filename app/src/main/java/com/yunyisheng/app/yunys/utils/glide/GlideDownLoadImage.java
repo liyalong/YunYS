@@ -352,13 +352,27 @@ public class GlideDownLoadImage {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] bytes=baos.toByteArray();
-
         Glide.with(mContext)
                 .load(bytes)
                 .centerCrop()
-                .placeholder(R.mipmap.moren_head)
                 .error(R.mipmap.moren_head)
                 .bitmapTransform(new GlideCircleTransform(mContext))
+                .into(view);
+    }
+
+    /**
+     * @name 加载bitmap的图片
+     * @auhtor fuduo
+     * @Data 2017-9-5 11:18
+     */
+    public void loadBitmapImageRole(Context mContext, ImageView view, Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] bytes=baos.toByteArray();
+        Glide.with(mContext)
+                .load(bytes)
+                .centerCrop()
+                .error(R.mipmap.moren_new)
                 .into(view);
     }
 
