@@ -1,10 +1,15 @@
 package com.yunyisheng.app.yunys.project.service;
 
 import com.yunyisheng.app.yunys.project.bean.DeviceBean;
+import com.yunyisheng.app.yunys.project.model.DeviceAlarmRulesModel;
+import com.yunyisheng.app.yunys.project.model.DeviceInfoModel;
 import com.yunyisheng.app.yunys.project.model.DeviceListModel;
 import com.yunyisheng.app.yunys.project.model.DevicePLCValueListModel;
+import com.yunyisheng.app.yunys.project.model.DevicePartsListModel;
 import com.yunyisheng.app.yunys.project.model.DeviceWarningListModel;
+import com.yunyisheng.app.yunys.project.model.KnowledgeListModel;
 import com.yunyisheng.app.yunys.project.model.ModelListModel;
+import com.yunyisheng.app.yunys.project.model.PeriodicTaskListModel;
 import com.yunyisheng.app.yunys.project.model.ProjectListModel;
 
 import io.reactivex.Flowable;
@@ -96,6 +101,81 @@ public interface ProjectService {
      */
     @FormUrlEncoded
     @POST("project/equip/info/{projectId}")
-    Flowable<DeviceBean> getDeviceInfo(@Path("projectId") String projectId,
-                                       @Field("equipmentId") String deviceId);
+    Flowable<DeviceInfoModel> getDeviceInfo(@Path("projectId") String projectId,
+                                            @Field("equipmentId") String deviceId);
+
+    /**
+     * 获取设备的报警规则列表
+     * @param projectId
+     * @param deviceId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("project/equip/warnList/{projectId}")
+    Flowable<DeviceAlarmRulesModel> getDeviceAlarmRulesList(@Path("projectId") String projectId,
+                                                            @Field("equipmentId") String deviceId,
+                                                            @Field("pageNum") int pageNum,
+                                                            @Field("pageSize") int pageSize);
+
+    /**
+     * 获取设备相关知识列表
+     * @param projectId
+     * @param deviceId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("project/knowledge/list/{projectId}")
+    Flowable<KnowledgeListModel> getKnowledgeList(@Path("projectId") String projectId,
+                                                  @Field("equipmentId") String deviceId,
+                                                  @Field("pageNum") int pageNum,
+                                                  @Field("pageSize") int pageSize);
+
+    /**
+     * 获取设备的备件列表
+     * @param projectId
+     * @param deviceId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("project/equip/spareList/{projectId}")
+    Flowable<DevicePartsListModel> getDevicePartsList(@Path("projectId") String projectId,
+                                                      @Field("equipmentId") String deviceId,
+                                                      @Field("pageNum") int pageNum,
+                                                      @Field("pageSize") int pageSize);
+
+    /**
+     * 获取设备的周期任务类别
+     * @param projectId
+     * @param deviceId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("project/equip/cycleTaskList/{projectId}")
+    Flowable<PeriodicTaskListModel> getPeriodicTaskList(@Path("projectId") String projectId,
+                                                        @Field("equipmentId") String deviceId,
+                                                        @Field("pageNum") int pageNum,
+                                                        @Field("pageSize") int pageSize);
+
+    /**
+     * 获取工艺模块下的设备列表
+     * @param projectId
+     * @param modelId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("project/pcm/equip/list/{projectId}")
+    Flowable<DeviceListModel> getModelDeviceList(@Path("projectId") String projectId,
+                                                 @Field("pcmId") String modelId,
+                                                 @Field("pageNum") int pageNum,
+                                                 @Field("pageSize") int pageSize);
 }

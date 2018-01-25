@@ -11,6 +11,7 @@
         android:layout_height="@dimen/distance_49"
         >
         <ImageView
+            android:id="@+id/img_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/icon_back"
@@ -56,11 +57,16 @@
             android:textSize="@dimen/distance_14"
             android:gravity="center" />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_1"
+        android:background="@color/color_e7e7e7"/>
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/alarm_rules_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:scrollbars="none"
+        android:divider="@null"
+        android:layout_height="match_parent">
 
     </com.handmark.pulltorefresh.library.PullToRefreshListView>
 

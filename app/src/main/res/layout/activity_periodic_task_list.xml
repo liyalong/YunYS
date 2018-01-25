@@ -11,6 +11,7 @@
         android:layout_height="@dimen/distance_49"
         >
         <ImageView
+            android:id="@+id/img_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/icon_back"
@@ -38,8 +39,7 @@
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="@dimen/distance_42"
         android:orientation="horizontal"
-        android:background="@color/white"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        android:background="@color/white">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -56,13 +56,10 @@
             android:textSize="@dimen/distance_14"
             android:gravity="center" />
     </LinearLayout>
-    <ListView
-        android:id="@+id/device_tasks_list"
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/periodic_task_list_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-    </ListView>
+        android:layout_height="match_parent"></com.handmark.pulltorefresh.library.PullToRefreshListView>
 
 
 </LinearLayout>

@@ -18,7 +18,6 @@
             android:layout_marginRight="@dimen/distance_5"
             />
         <TextView
-            android:id="@+id/include_title_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/model"
@@ -30,10 +29,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/distance_1"
         android:background="@color/color_e7e7e7"/>
-    <ListView
-    android:id="@+id/model_list"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/model_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    </ListView>
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
 </LinearLayout>

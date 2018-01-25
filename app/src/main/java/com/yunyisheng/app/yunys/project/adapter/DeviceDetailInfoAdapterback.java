@@ -78,7 +78,7 @@ public class DeviceDetailInfoAdapterback extends BaseExpandableListAdapter {
         TextView left_title = (TextView) view.findViewById(R.id.device_Left_title);
         TextView device_detail_status = (TextView)view.findViewById(R.id.device_detail_status);
         ImageView icon_right = (ImageView) view.findViewById(R.id.icon_right);
-        left_title.setText(childList.get(groupPosition).get(childPosition).getTitle());
+        //left_title.setText(childList.get(groupPosition).get(childPosition).getTitle());
 //        if (childPosition == 0 || childPosition == 1){
 //            icon_right.setVisibility(View.INVISIBLE);
 //        }else {

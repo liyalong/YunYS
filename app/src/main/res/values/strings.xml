@@ -156,15 +156,16 @@
     <string name="alarm_history_time">报警时间：</string>
     <string name="alarm_history_type">报警类型：</string>
     <string name="device_nums">设备数量：</string>
-    <string name="model_status">状态：</string>
-    <string name="enable">正常</string>
+    <string name="model_status">使用状态：</string>
+    <!-- 使用状态 -->
+    <string name="enable">启用</string>
     <string name="disable">禁用</string>
     <string name="alarmrules_status">状态：</string>
-    <string name="alarmrules_level_1">低低</string>
-    <string name="alarmrules_level_2">低</string>
-    <string name="alarmrules_level_3">中</string>
-    <string name="alarmrules_level_4">高</string>
-    <string name="alarmrules_level_5">高高</string>
+    <!-- 工艺模块运行状态 -->
+    <string name="model_running_status_1">正常</string>
+    <string name="model_running_status_2">异常</string>
+
+    <string name="model_picture">工艺模块图纸</string>
 
 
     <string name="project_tasks_list">任务池列表</string>
@@ -248,4 +249,23 @@
     <string name="search_device">搜索设备</string>
     <string name="search_form">搜索工单</string>
     <string name="search_process">搜索流程</string>
+    <!-- 设备使用状态 -->
+    <string name="device_status_1">启用</string>
+    <string name="device_status_2">禁用</string>
+    <!-- 报警规则状态 -->
+    <string name="alarm_rules_status_1">正常</string>
+    <string name="alarm_rules_status_2"></string>
+    <!-- 报警等级 -->
+    <string name="alarm_rules_level_1">普通</string>
+    <string name="alarm_rules_level_2">轻度</string>
+    <string name="alarm_rules_level_3">重度</string>
+    <string name="alarm_rules_level_4">测试</string>
+    <!-- 周期任务 -->
+    <string name="device_cycle_task_status_1">正常</string>
+    <string name="device_cycle_task_status_2">禁用</string>
+    <string name="cycle_task_corn_value">表达式：</string>
+
+
+    <string name="yes">是</string>
+    <string name="no">否</string>
 </resources>

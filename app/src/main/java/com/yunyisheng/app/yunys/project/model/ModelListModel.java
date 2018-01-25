@@ -1,7 +1,7 @@
 package com.yunyisheng.app.yunys.project.model;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
-import com.yunyisheng.app.yunys.project.bean.ModelBean;
+import com.yunyisheng.app.yunys.project.bean.ModelInfoBean;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ModelListModel extends BaseModel {
     private int total;
-    private List<ModelBean> list;
+    private List<ModelInfoBean> respBody;
     private int lastPage;
 
     public void setLastPage(int lastPage) {
@@ -27,15 +27,17 @@ public class ModelListModel extends BaseModel {
         return total;
     }
 
-    public List<ModelBean> getList() {
-        return list;
-    }
 
     public void setTotal(int total) {
         this.total = total;
     }
 
-    public void setList(List<ModelBean> list) {
-        this.list = list;
+    public void setRespBody(List<ModelInfoBean> respBody) {
+        this.respBody = respBody;
+    }
+
+    public List<ModelInfoBean> getRespBody() {
+
+        return respBody;
     }
 }

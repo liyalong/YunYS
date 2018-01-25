@@ -8,34 +8,13 @@
     android:orientation="vertical"
     android:paddingVertical="@dimen/distance_5">
     <TextView
-        android:id="@+id/beijian_name"
+        android:id="@+id/task_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="备件名称 bbbbb"
+        android:text="任务名称 bbbbb"
         android:textColor="@color/color_333"
         android:textSize="@dimen/distance_14"
         />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/beijian_code"
-            android:textColor="@color/color_666"
-            android:textSize="@dimen/distance_12"
-            />
-        <TextView
-            android:id="@+id/beijian_code"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="10086"
-            android:textColor="@color/color_666"
-            android:textSize="@dimen/distance_12"
-            />
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,15 +44,37 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/beijian_ghzq"
+            android:text="@string/device_tasks_status"
             android:textColor="@color/color_666"
             android:textSize="@dimen/distance_12"
             />
         <TextView
-            android:id="@+id/beijian_ghzq"
+            android:id="@+id/device_tasks_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="3天"
+            android:text="@string/device_cycle_task_status_1"
+            android:textColor="@color/color_666"
+            android:textSize="@dimen/distance_12"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cycle_task_corn_value"
+            android:textColor="@color/color_666"
+            android:textSize="@dimen/distance_12"
+            />
+        <TextView
+            android:id="@+id/cron_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="张三"
             android:textColor="@color/color_666"
             android:textSize="@dimen/distance_12"
             />

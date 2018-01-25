@@ -2,7 +2,7 @@ package com.yunyisheng.app.yunys.project.present;
 
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.activity.DeviceDetailActivity;
-import com.yunyisheng.app.yunys.project.bean.DeviceBean;
+import com.yunyisheng.app.yunys.project.model.DeviceInfoModel;
 import com.yunyisheng.app.yunys.project.model.DevicePLCValueListModel;
 import com.yunyisheng.app.yunys.project.model.DeviceWarningListModel;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
@@ -25,10 +25,10 @@ public class DeviceDetailPresent extends XPresent<DeviceDetailActivity> {
      */
     public void getDeviceInfo(String projectId,String deviceId){
         Api.projectService().getDeviceInfo(projectId,deviceId)
-                .compose(XApi.<DeviceBean>getApiTransformer())
-                .compose(XApi.<DeviceBean>getScheduler())
-                .compose(getV().<DeviceBean>bindToLifecycle())
-                .subscribe(new ApiSubscriber<DeviceBean>() {
+                .compose(XApi.<DeviceInfoModel>getApiTransformer())
+                .compose(XApi.<DeviceInfoModel>getScheduler())
+                .compose(getV().<DeviceInfoModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<DeviceInfoModel>() {
                     @Override
                     protected void onFail(NetError error) {
                         ToastUtils.showToast("网络请求错误！");
@@ -36,13 +36,13 @@ public class DeviceDetailPresent extends XPresent<DeviceDetailActivity> {
                     }
 
                     @Override
-                    public void onNext(DeviceBean deviceBean) {
-                        if (deviceBean.getRespCode() == 1){
-                            ToastUtils.showToast(deviceBean.getErrorMsg());
+                    public void onNext(DeviceInfoModel deviceInfoModel) {
+                        if (deviceInfoModel.getRespCode() == 1){
+                            ToastUtils.showToast(deviceInfoModel.getErrorMsg());
                             return;
                         }
-                        XLog.d(deviceBean.toString());
-                        getV().displayDeviceInfoList(deviceBean);
+                        XLog.d(deviceInfoModel.toString());
+                        getV().displayDeviceInfoList(deviceInfoModel);
                     }
                 });
 

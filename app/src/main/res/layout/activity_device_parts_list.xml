@@ -8,7 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:background="@color/white"
-        android:layout_height="@dimen/distance_49">
+        android:layout_height="@dimen/distance_49"
+        >
         <ImageView
             android:id="@+id/img_back"
             android:layout_width="wrap_content"
@@ -16,11 +17,10 @@
             android:src="@mipmap/icon_back"
             android:layout_gravity="center_vertical" />
         <TextView
-            android:id="@+id/knowledge_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/knowledge_list"
+            android:text="@string/beijian_list"
             android:textColor="@color/color_333"
             android:gravity="center"
             />
@@ -39,8 +39,7 @@
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="@dimen/distance_42"
         android:orientation="horizontal"
-        android:background="@color/white"
-        >
+        android:background="@color/white">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -50,20 +49,18 @@
             android:layout_marginRight="@dimen/distance_5"
             />
         <TextView
-            android:id="@+id/include_title_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/knowledge_list"
+            android:text="@string/beijian_list"
             android:textColor="@color/color_333"
             android:textSize="@dimen/distance_14"
             android:gravity="center" />
     </LinearLayout>
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/knowledge_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/device_parts_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.handmark.pulltorefresh.library.PullToRefreshListView>
 
 
 </LinearLayout>

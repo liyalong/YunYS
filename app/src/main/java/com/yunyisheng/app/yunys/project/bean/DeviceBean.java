@@ -1,12 +1,10 @@
 package com.yunyisheng.app.yunys.project.bean;
 
-import com.yunyisheng.app.yunys.base.BaseModel;
-
 /**
  * Created by liyalong on 2018/1/22.
  */
 
-public class DeviceBean extends BaseModel{
+public class DeviceBean{
     private String equipmentName;
     private int equipmentStat;
     private String equipmentCreate;

@@ -23,6 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidmvp.log.XLog;
+import cn.droidlover.xdroidmvp.router.Router;
 
 /**
  * Created by liyalong on 2018/1/18.
@@ -59,15 +60,11 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
     private String deviceId;
     private String projectId;
     private String deviceName;
-    private DeviceBean deviceBean;
 
     private List<String> groupList = new ArrayList<>();
 
-
     private List<DeviceWarningBean> deviceWarningList = new ArrayList<>();
     private List<DevicePLCValueBean> devicePLCValueList = new ArrayList<>();
-    private List<DeviceInfoModel> deviceInfoList = new ArrayList<>();
-    private DeviceInfoModel deviceInfoModel;
 
 
     @Override
@@ -100,6 +97,10 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
     @Override
     public void setListener() {
         imgBack.setOnClickListener(this);
+        toAlarmRules.setOnClickListener(this);
+        toKnowledge.setOnClickListener(this);
+        toDeviceParts.setOnClickListener(this);
+        toPeriodicTasks.setOnClickListener(this);
 
     }
 
@@ -108,6 +109,38 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
         switch (v.getId()) {
             case R.id.img_back:
                 this.finish();
+                break;
+            case R.id.to_alarm_rules:
+                Router.newIntent(context)
+                        .to(DeviceAlarmRulesActivity.class)
+                        .putString("projectId",projectId)
+                        .putString("deviceId",deviceId)
+                        .putString("deviceName",deviceName)
+                        .launch();
+                break;
+            case R.id.to_knowledge:
+                Router.newIntent(context)
+                        .to(KnowledgeListActivity.class)
+                        .putString("projectId",projectId)
+                        .putString("deviceId",deviceId)
+                        .putString("deviceName",deviceName)
+                        .launch();
+                break;
+            case R.id.to_device_parts:
+                Router.newIntent(context)
+                        .to(DevicePartsListActivity.class)
+                        .putString("projectId",projectId)
+                        .putString("deviceId",deviceId)
+                        .putString("deviceName",deviceName)
+                        .launch();
+                break;
+            case R.id.to_periodic_tasks:
+                Router.newIntent(context)
+                        .to(PeriodicTaskListActivity.class)
+                        .putString("projectId",projectId)
+                        .putString("deviceId",deviceId)
+                        .putString("deviceName",deviceName)
+                        .launch();
                 break;
         }
 
@@ -130,9 +163,22 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
         return deviceName;
     }
 
-    public void displayDeviceInfoList(DeviceBean deviceBean) {
-        this.deviceBean = deviceBean;
-
+    /**
+     * 处理基本信息中的设备状态和是否绑定plc
+     * @param deviceInfoModel
+     */
+    public void displayDeviceInfoList(DeviceInfoModel deviceInfoModel) {
+        DeviceBean deviceBean = deviceInfoModel.getRespBody();
+        if (deviceBean.getEquipmentStat() == 0){
+            deviceStatus.setText(R.string.device_status_1);
+        }else {
+            deviceStatus.setText(R.string.device_status_2);
+        }
+        if (deviceBean.getBindPlcNum() == 0){
+            deviceBindPlcStatus.setText(R.string.yes);
+        }else {
+            deviceBindPlcStatus.setText(R.string.no);
+        }
     }
 
     public void setDeviceWarningList(DeviceWarningListModel deviceWarningListModel) {
@@ -141,10 +187,6 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
 
     public void setDevicePLCValueList(DevicePLCValueListModel devicePLCValueList) {
 
-    }
-
-    public void setDeviceInfoList(List<DeviceInfoModel> deviceInfoList) {
-        this.deviceInfoList = deviceInfoList;
     }
 
     public void setProjectId(String projectId) {

@@ -1,12 +1,15 @@
 package com.yunyisheng.app.yunys.utils;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.google.gson.Gson;
 import com.yunyisheng.app.yunys.base.BaseModel;
+import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 
 import java.io.IOException;
 
+import cn.droidlover.xdroidmvp.router.Router;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.Request;
@@ -46,8 +49,10 @@ public class ResultInterceptor implements Interceptor {
                         Gson gson = new Gson();
                         baseModel = gson.fromJson(json,BaseModel.class);
                         Integer status = baseModel.getRespCode();
-                        if(status != null && status.equals(501)){
-
+                        if(status != null && status.equals(9)){
+                            Router.newIntent((Activity) context)
+                                    .to(LoginActivity.class)
+                                    .launch();
 
                         }
                         body = ResponseBody.create(mediaType, json);

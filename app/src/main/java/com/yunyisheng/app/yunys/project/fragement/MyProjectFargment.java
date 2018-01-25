@@ -45,7 +45,7 @@ public class MyProjectFargment extends BaseFragement<MyProjectPresent> {
     private static int PAGE_NUM = 1;
     private static int PAGE_SIZE = 10;
     private List<ProjectBean> mList = new ArrayList<>();
-
+    MyProjectListAdapter mAdapter;
 
     public static MyProjectFargment newInstance() {
         MyProjectFargment fargment = new MyProjectFargment();
@@ -118,19 +118,17 @@ public class MyProjectFargment extends BaseFragement<MyProjectPresent> {
             if (PAGE_NUM == 1){
                 mList.clear();
                 mList.addAll(projectListModel.getRespBody());
-                MyProjectListAdapter mAdapter = new MyProjectListAdapter(context,projectListModel.getRespBody());
+                mAdapter = new MyProjectListAdapter(context,projectListModel.getRespBody());
                 myProjectList.setAdapter(mAdapter);
             }else {
                 mList.addAll(projectListModel.getRespBody());
-                MyProjectListAdapter mAdapter = new MyProjectListAdapter(context,projectListModel.getRespBody());
-                myProjectList.setAdapter(mAdapter);
+                mAdapter.setData(mList);
             }
-
         }else {
-            PAGE_NUM = projectListModel.getLastPage();
+            PAGE_NUM -= 1;
             ToastUtils.showToast("暂无数据");
         }
         myProjectList.onRefreshComplete();
-
+        myProjectList.computeScroll();
     }
 }
