@@ -41,7 +41,9 @@ public class AddMemorandumActivity extends BaseActivity<UpdateMempPresent> {
         Intent intent = getIntent();
         memid = intent.getIntExtra("memid", 0);
         String str_memoblue = intent.getStringExtra("memovlue");
-        edMemorandum.setText(str_memoblue);
+        if (str_memoblue!=null&&!str_memoblue.equals("")&&!str_memoblue.equals("null")){
+            edMemorandum.setText(str_memoblue);
+        }
     }
 
     @Override

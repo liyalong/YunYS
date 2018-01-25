@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-     android:layout_width="@dimen/distance_69"
+     android:layout_width="@dimen/distance_80"
     android:layout_height="@dimen/distance_58"
     android:background="@color/color_ec4d">
     <TextView
@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/delete"
-        android:gravity="center"
+        android:padding="@dimen/distance_21"
         android:textColor="@color/white"
         android:textSize="@dimen/distance_14"
         android:layout_centerInParent="true"

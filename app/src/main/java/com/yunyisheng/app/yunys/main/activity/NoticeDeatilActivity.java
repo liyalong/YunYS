@@ -13,17 +13,18 @@ import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.main.model.NoticeDetailBean;
+import com.yunyisheng.app.yunys.main.present.NoticeDetaiPresent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
  * @author fuduo
  * @time 2018/1/11  16:56
  * @describe 公告详情
  */
-public class NoticeDeatilActivity extends BaseActivity {
+public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
 
     @BindView(R.id.img_back)
     ImageView imgBack;
@@ -54,6 +55,13 @@ public class NoticeDeatilActivity extends BaseActivity {
 
     @Override
     public void initAfter() {
+        if (type==0){
+            getP().getMineSendNotice(noticeid);
+            teMore.setVisibility(View.VISIBLE);
+        }else {
+            getP().getSendMineNotice(noticeid);
+            teMore.setVisibility(View.GONE);
+        }
 
     }
 
@@ -63,8 +71,18 @@ public class NoticeDeatilActivity extends BaseActivity {
     }
 
     @Override
-    public XPresent bindPresent() {
-        return null;
+    public NoticeDetaiPresent bindPresent() {
+        return new NoticeDetaiPresent();
+    }
+
+
+    public void getResultDetail(NoticeDetailBean noticeDetailBean){
+         if (noticeDetailBean.getRespCode()==0){
+             teNoticetitle.setText(noticeDetailBean.getRespBody().getTitle());
+             teNoticedeatils.setText(noticeDetailBean.getRespBody().getContent());
+             teNoticesender.setText("发布人："+noticeDetailBean.getRespBody().getCreateUserName());
+             teNoticetime.setText(noticeDetailBean.getRespBody().getCreateTime());
+         }
     }
 
     @Override
@@ -88,7 +106,7 @@ public class NoticeDeatilActivity extends BaseActivity {
     /**
      * @author fuduo
      * @time 2018/1/11  17:14
-     * @describe 删除图片对话框
+     * @describe 删除公告对话框
      */
     private void createDeleteNotice() {
         final Dialog mShareDialog = new Dialog(this, R.style.dialog_bottom_full);
@@ -101,7 +119,7 @@ public class NoticeDeatilActivity extends BaseActivity {
         butdelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+               getP().deleteNotice(noticeid);
             }
         });
         window.setContentView(view1);

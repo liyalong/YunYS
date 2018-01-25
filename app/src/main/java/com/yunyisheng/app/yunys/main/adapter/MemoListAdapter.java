@@ -42,7 +42,7 @@ public class MemoListAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -69,11 +69,6 @@ public class MemoListAdapter extends BaseAdapter {
             }
         });
         return convertView;
-    }
-
-    public void setList(List<MemorandumBean.ListBean> list){
-        this.list=list;
-        notifyDataSetChanged();
     }
 
     class Viewholder {

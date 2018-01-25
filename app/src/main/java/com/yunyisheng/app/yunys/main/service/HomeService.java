@@ -4,6 +4,7 @@ import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.model.UserModel;
 import com.yunyisheng.app.yunys.main.model.GetOtherinfoBean;
 import com.yunyisheng.app.yunys.main.model.MemorandumBean;
+import com.yunyisheng.app.yunys.main.model.NoticeDetailBean;
 import com.yunyisheng.app.yunys.main.model.SendNoticeBean;
 
 import io.reactivex.Flowable;
@@ -65,8 +66,8 @@ public interface HomeService {
      * @describe 7.3    获取发布的公告详情
      */
     @FormUrlEncoded
-    @POST("system/announcement/info/publish")
-    Flowable<BaseModel> getSendNoticeDetail(@Field("announcementId") int announcementId);
+    @POST("announcement/info/publish")
+    Flowable<NoticeDetailBean> getSendNoticeDetail(@Field("announcementId") int announcementId);
 
     /**
      * @author fuduo
@@ -74,8 +75,8 @@ public interface HomeService {
      * @describe 7.3    获取接收的公告详情
      */
     @FormUrlEncoded
-    @POST("system/announcement/info/publish")
-    Flowable<BaseModel> getReciveNoticeDetail(@Field("announcementId") int announcementId);
+    @POST("announcement/info/publish")
+    Flowable<NoticeDetailBean> getReciveNoticeDetail(@Field("announcementId") int announcementId);
 
     /**
      * @author fuduo

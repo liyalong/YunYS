@@ -32,7 +32,10 @@ public class UpdateMempPresent extends XPresent<AddMemorandumActivity> {
                     @Override
                     public void onNext(BaseModel baseModel) {
                         //getV().getAddResult(baseModel);
-                        ToastUtils.showToast(baseModel.getRespMsg());
+                        if (baseModel.getRespCode()==0){
+                            ToastUtils.showToast("添加成功");
+                        }
+                        //ToastUtils.showToast(baseModel.getRespMsg());
                     }
 
                     @Override
@@ -56,7 +59,10 @@ public class UpdateMempPresent extends XPresent<AddMemorandumActivity> {
                     @Override
                     public void onNext(BaseModel baseModel) {
                         //getV().getDeleteResult(baseModel);
-                        ToastUtils.showToast(baseModel.getRespMsg());
+                        if (baseModel.getRespCode()==0){
+                            ToastUtils.showToast("修改成功");
+                        }
+                        //ToastUtils.showToast(baseModel.getRespMsg());
                     }
 
                     @Override
