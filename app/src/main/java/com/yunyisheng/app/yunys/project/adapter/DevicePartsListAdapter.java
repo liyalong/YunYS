@@ -40,7 +40,11 @@ public class DevicePartsListAdapter extends SimpleListAdapter<DevicePartsBean, D
     protected void convert(ViewHolder holder, DevicePartsBean item, int position) {
         devicePartsBean = data.get(position);
         holder.devicePartsName.setText(devicePartsBean.getSpareName().toString());
-        holder.devicePartsCode.setText(devicePartsBean.getSpareModel().toString());
+        if (devicePartsBean.getSpareModel() == null){
+            holder.devicePartsCode.setText("");
+        }else {
+            holder.devicePartsCode.setText(devicePartsBean.getSpareModel().toString());
+        }
         holder.addtime.setText(devicePartsBean.getCreatet().toString());
         holder.beijianGhzq.setText(devicePartsBean.getReplaceVal()+""+cycleArray[devicePartsBean.getReplaceCycle()]);
     }

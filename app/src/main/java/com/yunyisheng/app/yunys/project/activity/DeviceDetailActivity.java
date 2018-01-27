@@ -66,6 +66,8 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
     private List<DeviceWarningBean> deviceWarningList = new ArrayList<>();
     private List<DevicePLCValueBean> devicePLCValueList = new ArrayList<>();
 
+    private boolean INFOISSHOW = true;
+
 
     @Override
     public void initView() {
@@ -101,7 +103,7 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
         toKnowledge.setOnClickListener(this);
         toDeviceParts.setOnClickListener(this);
         toPeriodicTasks.setOnClickListener(this);
-
+        infoDropBtn.setOnClickListener(this);
     }
 
     @Override
@@ -141,6 +143,18 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
                         .putString("deviceId",deviceId)
                         .putString("deviceName",deviceName)
                         .launch();
+                break;
+            case R.id.info_drop_btn:
+                if (INFOISSHOW){
+                    infoDropBtn.setImageResource(R.mipmap.icon_device_right);
+                    jbxxList.setVisibility(View.GONE);
+                    INFOISSHOW = false;
+                }else {
+                    infoDropBtn.setImageResource(R.mipmap.icon_device_down);
+                    jbxxList.setVisibility(View.VISIBLE);
+                    INFOISSHOW = true;
+                }
+
                 break;
         }
 

@@ -1,256 +1,339 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     android:background="@color/baseBackgroundColor">
-    <LinearLayout
+
+    <RelativeLayout
+        android:id="@+id/rl1"
         android:layout_width="match_parent"
-        android:background="@color/white"
         android:layout_height="@dimen/distance_49"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        android:background="@drawable/linearlayout_bottom_line">
+
         <ImageView
             android:id="@+id/img_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/icon_back"
-            android:layout_gravity="center_vertical" />
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"/>
+
         <TextView
             android:id="@+id/model_detail_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/device_model_info"
-            android:textColor="@color/color_333"
             android:gravity="center"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
+            android:text="@string/device_model_info"
+            android:textColor="@color/color_333" />
+    </RelativeLayout>
+    <ScrollView
+        android:id="@+id/rl2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl1">
+    <RelativeLayout
+        android:id="@+id/rl3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/rl4"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_back"
-            android:layout_gravity="center_vertical"
-            android:visibility="invisible"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <LinearLayout android:layout_width="match_parent"
-            android:layout_height="@dimen/distance_42"
-            android:orientation="horizontal"
-            android:background="@color/white"
-            android:layout_marginTop="@dimen/distance_10">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@mipmap/icon_project_list_title_left"
-                android:gravity="center"
-                android:layout_marginLeft="@dimen/distance_10"
-                android:layout_marginRight="@dimen/distance_5"
-                />
-            <TextView
-                android:id="@+id/deviceinfo_bjxx_title"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/deviceinfo_bjxx"
-                android:textColor="@color/color_333"
-                android:textSize="@dimen/distance_14"
-                android:gravity="center|left" />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@mipmap/icon_device_right"
-                android:gravity="center"/>
-        </LinearLayout>
-        <com.yunyisheng.app.yunys.utils.SuperExpandableListView
-            android:id="@+id/model_detail_warning_list_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:orientation="vertical"
+            android:layout_alignParentTop="true">
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/distance_42"-->
+                <!--android:layout_marginTop="@dimen/distance_10"-->
+                <!--android:background="@color/white"-->
+                <!--android:orientation="horizontal">-->
 
-        </com.yunyisheng.app.yunys.utils.SuperExpandableListView>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <LinearLayout android:layout_width="match_parent"
-            android:layout_height="@dimen/distance_42"
-            android:orientation="horizontal"
-            android:background="@color/white"
-            android:layout_marginTop="@dimen/distance_10">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@mipmap/icon_project_list_title_left"
-                android:gravity="center"
-                android:layout_marginLeft="@dimen/distance_10"
-                android:layout_marginRight="@dimen/distance_5"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/deviceinfo_sszb"
-                android:textColor="@color/color_333"
-                android:textSize="@dimen/distance_14"
-                android:gravity="center|left" />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@mipmap/icon_device_right"
-                android:gravity="center"/>
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <LinearLayout android:layout_width="match_parent"
-            android:layout_height="@dimen/distance_42"
-            android:orientation="horizontal"
-            android:background="@color/white"
-            android:layout_marginTop="@dimen/distance_10">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@mipmap/icon_project_list_title_left"
-                android:gravity="center"
-                android:layout_marginLeft="@dimen/distance_10"
-                android:layout_marginRight="@dimen/distance_5"
-                />
-            <TextView
+                <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_marginLeft="@dimen/distance_10"-->
+                    <!--android:layout_marginRight="@dimen/distance_5"-->
+                    <!--android:gravity="center"-->
+                    <!--android:src="@mipmap/icon_project_list_title_left" />-->
 
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/model_picture"
-                android:textColor="@color/color_333"
-                android:textSize="@dimen/distance_14"
-                android:gravity="center|left" />
-        </LinearLayout>
-        <ImageView
-            android:id="@+id/model_pic"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-    <LinearLayout
+                <!--<TextView-->
+                    <!--android:id="@+id/deviceinfo_bjxx_title"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:gravity="center|left"-->
+                    <!--android:text="@string/deviceinfo_bjxx"-->
+                    <!--android:textColor="@color/color_333"-->
+                    <!--android:textSize="@dimen/distance_14" />-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:gravity="center"-->
+                    <!--android:src="@mipmap/icon_device_right" />-->
+            <!--</LinearLayout>-->
+            <!--<com.yunyisheng.app.yunys.utils.SuperExpandableListView-->
+            <!--android:id="@+id/model_detail_warning_list_view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--</com.yunyisheng.app.yunys.utils.SuperExpandableListView>-->
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl5"
+        android:layout_below="@+id/rl4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/distance_42"-->
+            <!--android:layout_marginTop="@dimen/distance_10"-->
+            <!--android:background="@color/white"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginLeft="@dimen/distance_10"-->
+                <!--android:layout_marginRight="@dimen/distance_5"-->
+                <!--android:gravity="center"-->
+                <!--android:src="@mipmap/icon_project_list_title_left" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center|left"-->
+                <!--android:text="@string/deviceinfo_sszb"-->
+                <!--android:textColor="@color/color_333"-->
+                <!--android:textSize="@dimen/distance_14" />-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:gravity="center"-->
+                <!--android:src="@mipmap/icon_device_right" />-->
+        <!--</LinearLayout>-->
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        >
-        <LinearLayout android:layout_width="match_parent"
+        android:layout_below="@+id/rl5">
+
+        <RelativeLayout
+            android:id="@+id/rl6_1"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/distance_42"
-            android:orientation="horizontal"
-            android:background="@color/white"
-            android:layout_marginTop="@dimen/distance_10">
+            android:layout_marginTop="@dimen/distance_10"
+            android:background="@drawable/linearlayout_bottom_line"
+            android:layout_alignParentTop="true">
+
             <ImageView
+                android:id="@+id/rl6_1_1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@mipmap/icon_project_list_title_left"
-                android:gravity="center"
                 android:layout_marginLeft="@dimen/distance_10"
                 android:layout_marginRight="@dimen/distance_5"
-                />
+                android:layout_alignParentLeft="true"
+                android:gravity="center"
+                android:src="@mipmap/icon_project_list_title_left" />
+
+            <TextView
+                android:id="@+id/rl6_2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/model_picture"
+                android:textColor="@color/color_333"
+                android:textSize="@dimen/distance_14"
+                android:layout_toRightOf="@+id/rl6_1_1"/>
+
+            <ImageView
+                android:id="@+id/model_pic_drop"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:src="@mipmap/icon_device_down"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/model_pic_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/distance_10"
+            android:background="@color/white"
+            android:layout_below="@id/rl6_1">
+            <ImageView
+                android:id="@+id/model_pic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/rl6">
+
+        <RelativeLayout
+            android:id="@+id/rl7_1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_42"
+            android:layout_marginTop="@dimen/distance_10"
+            android:background="@drawable/linearlayout_bottom_line"
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true">
+
+            <ImageView
+                android:id="@+id/rl7_1_1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/distance_10"
+                android:layout_marginRight="@dimen/distance_5"
+                android:gravity="center"
+                android:layout_alignParentLeft="true"
+                android:src="@mipmap/icon_project_list_title_left" />
+
             <TextView
                 android:id="@+id/deviceinfo_jbxx_title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center|left"
+                android:layout_toRightOf="@id/rl7_1_1"
                 android:text="@string/deviceinfo_jbxx"
                 android:textColor="@color/color_333"
-                android:textSize="@dimen/distance_14"
-                android:gravity="center|left" />
+                android:textSize="@dimen/distance_14" />
+
             <ImageView
+                android:layout_alignParentRight="true"
                 android:id="@+id/model_detail_jbxx_drop"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@mipmap/icon_device_down"
-                android:gravity="center"/>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/distance_1"
-            android:background="@color/color_e7e7e7"/>
-        <LinearLayout
+                android:gravity="center"
+                android:src="@mipmap/icon_device_down" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/model_detail_jbxx_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/linearlayout_bottom_line"
             android:orientation="vertical"
-            android:background="@color/white"
-            android:paddingHorizontal="@dimen/distance_10">
-            <LinearLayout
+            android:labelFor="@+id/rl7_1"
+            android:paddingHorizontal="@dimen/distance_10"
+            android:layout_below="@id/rl7_1">
+
+            <RelativeLayout
+                android:id="@+id/rl7_2_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/distance_8"
-                android:background="@color/white"
-                android:orientation="horizontal">
+                android:background="@drawable/linearlayout_bottom_line"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/distance_8">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/device_use_status"
                     android:textColor="@color/color_333"
-                    android:textSize="@dimen/distance_14"/>
+                    android:textSize="@dimen/distance_14"
+                    android:layout_alignParentLeft="true"/>
+
                 <TextView
-                    android:id="@+id/device_model_info_status"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/device_model_detail_status"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="启用"
                     android:textColor="#999999"
-                    android:textSize="@dimen/distance_14"/>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/distance_1"
-                android:layout_gravity="bottom"
-                android:background="@color/color_e7e7e7"
-                android:padding="@dimen/distance_10"
-                />
-            <LinearLayout
+                    android:textSize="@dimen/distance_14" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
                 android:id="@+id/to_model_device_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:paddingVertical="@dimen/distance_8"
-                android:orientation="horizontal">
+                android:layout_below="@+id/rl7_2_1"
+                android:background="@drawable/linearlayout_bottom_line">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/device_model_about"
                     android:textColor="@color/color_333"
-                    android:textSize="@dimen/distance_14"/>
+                    android:textSize="@dimen/distance_14" />
+
                 <ImageView
+                    android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_right"/>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/distance_1"
-                android:layout_gravity="bottom"
-                android:background="@color/color_e7e7e7"
-                android:padding="@dimen/distance_10"
-                />
-            <LinearLayout
+                    android:src="@mipmap/icon_right" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/to_model_alarm_rules"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:paddingVertical="@dimen/distance_8"
-                android:orientation="horizontal">
+                android:background="@drawable/linearlayout_bottom_line"
+                android:layout_below="@+id/to_model_device_list">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/alarm_rules"
                     android:textColor="@color/color_333"
-                    android:textSize="@dimen/distance_14"/>
+                    android:textSize="@dimen/distance_14" />
+
                 <ImageView
+                    android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_right"/>
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+                    android:src="@mipmap/icon_right" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/to_model_knowledge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/distance_8"
+                android:layout_below="@+id/to_model_alarm_rules">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/knowledge"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_14" />
+
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_right" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+    </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

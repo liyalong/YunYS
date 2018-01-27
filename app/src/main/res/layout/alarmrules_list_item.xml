@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:background="@drawable/linearlayout_bottom_line"
+    android:background="@color/white"
     android:paddingHorizontal="@dimen/distance_10"
     android:orientation="vertical"
     android:paddingVertical="@dimen/distance_5">
@@ -73,6 +73,7 @@
             android:textColor="@color/color_666"
             android:textSize="@dimen/distance_12"/>
         <TextView
+            android:id="@+id/alarm_rules_level_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/alarmrules_value"

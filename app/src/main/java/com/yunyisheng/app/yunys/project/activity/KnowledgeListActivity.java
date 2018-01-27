@@ -41,6 +41,9 @@ public class KnowledgeListActivity extends BaseActivity<KnowledgeListPresent> {
     private String deviceId;
     private String deviceName;
 
+    private String modelId;
+    private String modelName;
+
     private int PAGE_NUM = 1;
     private int PAGE_SIZE = 10;
 
@@ -55,22 +58,44 @@ public class KnowledgeListActivity extends BaseActivity<KnowledgeListPresent> {
         this.projectId = getIntent().getStringExtra("projectId");
         this.deviceId = getIntent().getStringExtra("deviceId");
         this.deviceName = getIntent().getStringExtra("deviceName");
-        knowledgeTitle.setText(deviceName+"相关知识");
-        getP().getKnowledgeList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
+        this.modelId = getIntent().getStringExtra("modelId");
+        this.modelName = getIntent().getStringExtra("modelName");
         ScrowUtil.listViewConfig(knowledgeList);
-        knowledgeList.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                PAGE_NUM = 1;
-                getP().getKnowledgeList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
-            }
+        if (deviceId != null){
+            knowledgeTitle.setText(deviceName+"相关知识");
+            getP().getKnowledgeList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
+            knowledgeList.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+                @Override
+                public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                    PAGE_NUM = 1;
+                    getP().getKnowledgeList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
+                }
 
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                PAGE_NUM += 1;
-                getP().getKnowledgeList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
-            }
-        });
+                @Override
+                public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                    PAGE_NUM += 1;
+                    getP().getKnowledgeList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
+                }
+            });
+        }else if (modelId != null){
+            knowledgeTitle.setText(modelName+"相关知识");
+            getP().getKnowledgeList(projectId,modelId,PAGE_NUM,PAGE_SIZE);
+
+            knowledgeList.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+                @Override
+                public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                    PAGE_NUM = 1;
+                    getP().getKnowledgeList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
+                }
+
+                @Override
+                public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                    PAGE_NUM += 1;
+                    getP().getKnowledgeList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
+                }
+            });
+        }
+
     }
 
     @Override

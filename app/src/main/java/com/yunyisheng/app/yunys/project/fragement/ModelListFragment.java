@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.project.fragement;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -9,7 +10,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.project.activity.ModelDetailActivity;
-import com.yunyisheng.app.yunys.project.activity.ModelDeviceListActivity;
 import com.yunyisheng.app.yunys.project.activity.ProjectDetailsActivity;
 import com.yunyisheng.app.yunys.project.adapter.ModelListAdapter;
 import com.yunyisheng.app.yunys.project.bean.ModelInfoBean;
@@ -65,7 +65,7 @@ public class ModelListFragment extends BaseFragement<ModelListPresent> {
         modelListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ModelInfoBean modelInfoBean = dataList.get(i);
+                ModelInfoBean modelInfoBean = dataList.get(i-1);
                 Router.newIntent(context)
                         .to(ModelDetailActivity.class)
                         .putString("projectId",projectId)

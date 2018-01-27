@@ -1,10 +1,12 @@
 package com.yunyisheng.app.yunys.project.bean;
 
+import com.yunyisheng.app.yunys.base.BaseModel;
+
 /**
  * Created by liyalong on 2018/1/22.
  */
 
-public class ModelInfoBean {
+public class ModelInfoBean{
     private String pcmId;
     private String pcmName;
     private int pcmStat;

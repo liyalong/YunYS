@@ -1,6 +1,5 @@
 package com.yunyisheng.app.yunys.project.service;
 
-import com.yunyisheng.app.yunys.project.bean.DeviceBean;
 import com.yunyisheng.app.yunys.project.model.DeviceAlarmRulesModel;
 import com.yunyisheng.app.yunys.project.model.DeviceInfoModel;
 import com.yunyisheng.app.yunys.project.model.DeviceListModel;
@@ -8,6 +7,8 @@ import com.yunyisheng.app.yunys.project.model.DevicePLCValueListModel;
 import com.yunyisheng.app.yunys.project.model.DevicePartsListModel;
 import com.yunyisheng.app.yunys.project.model.DeviceWarningListModel;
 import com.yunyisheng.app.yunys.project.model.KnowledgeListModel;
+import com.yunyisheng.app.yunys.project.model.ModelAlarmRulesListModel;
+import com.yunyisheng.app.yunys.project.model.ModelDetailModel;
 import com.yunyisheng.app.yunys.project.model.ModelListModel;
 import com.yunyisheng.app.yunys.project.model.PeriodicTaskListModel;
 import com.yunyisheng.app.yunys.project.model.ProjectListModel;
@@ -17,7 +18,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 /**
  * Created by liyalong on 2018/1/17.
@@ -178,4 +178,45 @@ public interface ProjectService {
                                                  @Field("pcmId") String modelId,
                                                  @Field("pageNum") int pageNum,
                                                  @Field("pageSize") int pageSize);
+
+    /**
+     * 获取工艺模块详情
+     * @param projectId
+     * @param modelId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("project/pcm/info/{projectId}")
+    Flowable<ModelDetailModel> getModelDetail(@Path("projectId") String projectId,
+                                              @Field("pcmId") String modelId);
+
+    /**
+     * 获取工艺模块相关知识列表
+     * @param projectId
+     * @param modelId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("project/pcm/knowList/{projectId}")
+    Flowable<KnowledgeListModel> getModelKnowledgeList(@Path("projectId") String projectId,
+                                                       @Field("pcmId") String modelId,
+                                                       @Field("pageNum") int pageNum,
+                                                       @Field("pageSize") int pageSize);
+
+    /**
+     * 获取工艺模块相关报警规则列表
+     * @param projectId
+     * @param modelId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("project/pcm/knowList/{projectId}")
+    Flowable<ModelAlarmRulesListModel> getModelAlarmRulesList(@Path("projectId") String projectId,
+                                                              @Field("pcmId") String modelId,
+                                                              @Field("pageNum") int pageNum,
+                                                              @Field("pageSize") int pageSize);
 }

@@ -23,6 +23,7 @@ import com.yunyisheng.app.yunys.project.present.ModelDeviceListPresent;
 import com.yunyisheng.app.yunys.utils.ScrowUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -51,7 +52,7 @@ public class ModelDeviceListActivity extends BaseActivity<ModelDeviceListPresent
     private int PAGE_SIZE = 10;
 
     private DeviceListAdapter adapter;
-    private List<DeviceBean> dataList;
+    private List<DeviceBean> dataList = new ArrayList<>();
 
     @Override
     public void initView() {
@@ -143,8 +144,6 @@ public class ModelDeviceListActivity extends BaseActivity<ModelDeviceListPresent
 
     @Override
     public void click(View v) {
-        XLog.d( "listview的内部的按钮被点击了！，位置是-->" + (Integer) v.getTag() +
-                ",内容是-->" + dataList.get((Integer) v.getTag()).getEquipmentName());
         int position = (Integer) v.getTag();
         createDeviceListBtnDialog(context,position);
     }

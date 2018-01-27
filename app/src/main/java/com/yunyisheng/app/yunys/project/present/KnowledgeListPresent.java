@@ -44,4 +44,34 @@ public class KnowledgeListPresent extends XPresent<KnowledgeListActivity> {
                     }
                 });
     }
+
+    /**
+     * 获取工艺模块相关知识列表
+     * @param projectId
+     * @param modelId
+     * @param pageNum
+     * @param pageSize
+     */
+    public void getModelKnowledgeList(String projectId,String modelId,int pageNum,int pageSize){
+        Api.projectService().getKnowledgeList(projectId,modelId,pageNum,pageSize)
+                .compose(XApi.<KnowledgeListModel>getApiTransformer())
+                .compose(XApi.<KnowledgeListModel>getScheduler())
+                .compose(getV().<KnowledgeListModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<KnowledgeListModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        ToastUtils.showToast("网络请求错误！");
+                        return;
+                    }
+
+                    @Override
+                    public void onNext(KnowledgeListModel knowledgeListModel) {
+                        if (knowledgeListModel.getRespCode() == 1){
+                            ToastUtils.showToast(knowledgeListModel.getErrorMsg());
+                            return;
+                        }
+                        getV().setAdapter(knowledgeListModel);
+                    }
+                });
+    }
 }

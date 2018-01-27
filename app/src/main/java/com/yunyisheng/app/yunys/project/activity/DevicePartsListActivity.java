@@ -16,6 +16,7 @@ import com.yunyisheng.app.yunys.project.present.DevicePartsListPresent;
 import com.yunyisheng.app.yunys.utils.ScrowUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -32,7 +33,7 @@ public class DevicePartsListActivity extends BaseActivity<DevicePartsListPresent
     @BindView(R.id.device_parts_list_view)
     PullToRefreshListView devicePartsListView;
 
-    private List<DevicePartsBean> dataList;
+    private List<DevicePartsBean> dataList = new ArrayList<>();
 
     private int PAGE_NUM = 1;
     private int PAGE_SIZE = 10;
@@ -113,7 +114,6 @@ public class DevicePartsListActivity extends BaseActivity<DevicePartsListPresent
                 PAGE_NUM -= 1;
                 ToastUtils.showToast("暂无更多数据！");
             }
-            return;
         }
         devicePartsListView.onRefreshComplete();
         devicePartsListView.computeScroll();

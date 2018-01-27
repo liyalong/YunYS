@@ -1,13 +1,12 @@
 package com.yunyisheng.app.yunys.project.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
-import com.yunyisheng.app.yunys.project.activity.DeviceAlarmRulesActivity;
 import com.yunyisheng.app.yunys.project.bean.DeviceAlarmRulesBean;
+import com.yunyisheng.app.yunys.project.bean.ModelAlarmRulesBean;
 
 import java.util.List;
 
@@ -19,10 +18,10 @@ import cn.droidlover.xdroidmvp.kit.KnifeKit;
  * Created by liyalong on 2018/1/24.
  */
 
-public class DeviceAlarmRulesAdapter extends SimpleListAdapter<DeviceAlarmRulesBean, DeviceAlarmRulesAdapter.ViewHolder> {
-    private List<DeviceAlarmRulesBean> dataList;
+public class ModelAlarmRulesAdapter extends SimpleListAdapter<ModelAlarmRulesBean, ModelAlarmRulesAdapter.ViewHolder> {
+    private List<ModelAlarmRulesBean> dataList;
 
-    public DeviceAlarmRulesAdapter(Context context, List<DeviceAlarmRulesBean> data) {
+    public ModelAlarmRulesAdapter(Context context, List<ModelAlarmRulesBean> data) {
         super(context, data);
         this.dataList = data;
     }
@@ -38,10 +37,10 @@ public class DeviceAlarmRulesAdapter extends SimpleListAdapter<DeviceAlarmRulesB
     }
 
     @Override
-    protected void convert(ViewHolder holder, DeviceAlarmRulesBean item, int position) {
-        DeviceAlarmRulesBean deviceAlarmRulesBean = dataList.get(position);
-        holder.alramRulesName.setText(deviceAlarmRulesBean.getEquwarnName().toString());
-        switch (deviceAlarmRulesBean.getEquwarnLevel()) {
+    protected void convert(ViewHolder holder, ModelAlarmRulesBean item, int position) {
+        ModelAlarmRulesBean modelAlarmRulesBean = dataList.get(position);
+        holder.alramRulesName.setText(modelAlarmRulesBean.getPcmwarnName().toString());
+        switch (modelAlarmRulesBean.getPcmwarnLevel()) {
             case 1:
                 holder.alarmRulesLevel.setText(R.string.alarm_rules_level_1);
                 holder.alarmRulesLevel.setBackgroundColor(context.getResources().getColor(R.color.alarmrules_level_1));
@@ -59,20 +58,21 @@ public class DeviceAlarmRulesAdapter extends SimpleListAdapter<DeviceAlarmRulesB
                 holder.alarmRulesLevel.setBackgroundColor(context.getResources().getColor(R.color.alarmrules_level_4));
                 break;
         }
-        holder.addtime.setText(deviceAlarmRulesBean.getCreatet().toString());
-        holder.alarmrulesSet.setText(deviceAlarmRulesBean.getEquwarnCompare().toString());
-        if (deviceAlarmRulesBean.getDescription() != null) {
-            holder.alarmrulesDesc.setText(deviceAlarmRulesBean.getDescription().toString());
+        holder.addtime.setText(modelAlarmRulesBean.getCreatet().toString());
+        holder.alarmrulesSet.setText(modelAlarmRulesBean.getCompare().toString());
+        if (modelAlarmRulesBean.getRemark() != null) {
+            holder.alarmrulesDesc.setText(modelAlarmRulesBean.getRemark().toString());
         } else {
             holder.alarmrulesDesc.setText("");
         }
 
-        if (deviceAlarmRulesBean.getEquwarnStat() == 1) {
+        if (modelAlarmRulesBean.getPcmwarnStat() == 1) {
             holder.alarmrulesStatus.setText(R.string.alarm_rules_status_1);
         } else {
             holder.alarmrulesStatus.setText(R.string.alarm_rules_status_2);
         }
-        holder.alarmrulesValue.setText(deviceAlarmRulesBean.getEquwarnVal().toString());
+        holder.alarmrulesValue.setVisibility(View.GONE);
+        holder.alarmRulesLevelTitle.setVisibility(View.GONE);
     }
 
     public static class ViewHolder {
@@ -90,6 +90,8 @@ public class DeviceAlarmRulesAdapter extends SimpleListAdapter<DeviceAlarmRulesB
         TextView alarmrulesStatus;
         @BindView(R.id.alarmrules_desc)
         TextView alarmrulesDesc;
+        @BindView(R.id.alarm_rules_level_title)
+        TextView alarmRulesLevelTitle;
 
         public ViewHolder(View view) {
             KnifeKit.bind(this, view);
