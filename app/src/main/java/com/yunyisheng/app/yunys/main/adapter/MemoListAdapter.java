@@ -65,7 +65,7 @@ public class MemoListAdapter extends BaseAdapter {
         viewholder.te_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.deleteMemo(list.get(position).getMemoId());
+                context.deleteMemo(position,list.get(position).getMemoId());
             }
         });
         return convertView;

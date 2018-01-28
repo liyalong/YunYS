@@ -165,7 +165,7 @@ public class SelectPeopleExpenableAdapter extends BaseExpandableListAdapter {
                 boolean ischeckgroup = list.get(groupPosition).isIscheckgroup();
                 List<WorkerBean> workerBeanList = list.get(groupPosition).getWorkerBeanList();
                 if (ischeckgroup){
-                    list.get(groupPosition).setIscheckgroup(false);
+//                    list.get(groupPosition).setIscheckgroup(false);
                     for (int i = 0; i < workerBeanList.size(); i++) {
                         WorkerBean workerBean = workerBeanList.get(i);
                         if (workerBean.isIscheckchild()) {
@@ -173,7 +173,7 @@ public class SelectPeopleExpenableAdapter extends BaseExpandableListAdapter {
                         }
                     }
                 }else {
-                    list.get(groupPosition).setIscheckgroup(true);
+//                    list.get(groupPosition).setIscheckgroup(true);
                     for (int i = 0; i < workerBeanList.size(); i++) {
                         WorkerBean workerBean = workerBeanList.get(i);
                         if (!workerBean.isIscheckchild()) {
@@ -181,8 +181,8 @@ public class SelectPeopleExpenableAdapter extends BaseExpandableListAdapter {
                         }
                     }
                 }
-                notifyDataSetChanged();
-                myOnclicklisttener.Onclicklistener();
+//                notifyDataSetChanged();
+                myOnclicklisttener.Onclicklistener(groupPosition);
             }
         });
         groupViewHolder.te_groupname.setText(list.get(groupPosition).getGroupname());
@@ -256,7 +256,7 @@ public class SelectPeopleExpenableAdapter extends BaseExpandableListAdapter {
     }
 
     public interface myOnclicklisttener{
-        void Onclicklistener();
+        void Onclicklistener(int position);
     }
     public void setMyOnclicklisttener(myOnclicklisttener onclicklisttener){
         myOnclicklisttener=onclicklisttener;

@@ -57,6 +57,7 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
     private List<MemorandumBean.ListBean> beanList = new ArrayList<>();
     private MemoListAdapter adapter;
     private String sousuo_neirong;
+    int position;
 
     @Override
     public void initView() {
@@ -149,12 +150,14 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
         pullToRefreshScrollview.onRefreshComplete();
     }
 
-    public void deleteMemo(int ids) {
+    public void deleteMemo(int position, int ids) {
+        this.position=position;
         getP().deleteMemo(ids);
     }
 
     public void getDelete(BaseModel baseModel) {
         if (baseModel.getRespCode() == 0) {
+            beanList.remove(position);
             adapter.notifyDataSetChanged();
         }
     }

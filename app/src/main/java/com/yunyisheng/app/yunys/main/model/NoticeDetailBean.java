@@ -43,7 +43,7 @@ public class NoticeDetailBean extends BaseModel {
         private String title;
         private String createUserName;
         private List<ReceiverListBean> receiverList;
-        private List<Integer> annexList;
+        private List<AnnexBean> annexList;
 
         public boolean isIsDelete() {
             return isDelete;
@@ -93,11 +93,11 @@ public class NoticeDetailBean extends BaseModel {
             this.receiverList = receiverList;
         }
 
-        public List<Integer> getAnnexList() {
+        public List<AnnexBean> getAnnexList() {
             return annexList;
         }
 
-        public void setAnnexList(List<Integer> annexList) {
+        public void setAnnexList(List<AnnexBean> annexList) {
             this.annexList = annexList;
         }
 
@@ -156,5 +156,6 @@ public class NoticeDetailBean extends BaseModel {
                 this.receiveType = receiveType;
             }
         }
+
     }
 }

@@ -6,15 +6,26 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.main.adapter.NoticeFujianListAdapter;
+import com.yunyisheng.app.yunys.main.model.AnnexBean;
 import com.yunyisheng.app.yunys.main.model.NoticeDetailBean;
 import com.yunyisheng.app.yunys.main.present.NoticeDetaiPresent;
+import com.yunyisheng.app.yunys.net.Api;
+import com.yunyisheng.app.yunys.utils.CallOtherOpeanFile;
+import com.yunyisheng.app.yunys.utils.CommonUtils;
+import com.yunyisheng.app.yunys.utils.FileCache;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,10 +51,12 @@ public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
     TextView teNoticedeatils;
     @BindView(R.id.te_fujina_type)
     TextView teFujinaType;
-    @BindView(R.id.gv_fujianlist)
-    GridView gvFujianlist;
+    @BindView(R.id.lv_fujianlist)
+    ListView lvFujianlist;
     private int noticeid;
     private int type;
+    List<AnnexBean> annexList = new ArrayList<>();
+    private Dialog mShareDialog;
 
     @Override
     public void initView() {
@@ -51,14 +64,30 @@ public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
         Intent intent = getIntent();
         type = intent.getIntExtra("type", 0);
         noticeid = intent.getIntExtra("noticeid", 0);
+
+        lvFujianlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String url = Api.BASE_PATH + "announcement/annex/download";
+                AnnexBean annexBean = annexList.get(position);
+                if (CommonUtils.initDownPath(FileCache.path + annexBean.getAnnexName())) {
+                    File outFile = new File(FileCache.path + annexBean.getAnnexName());
+                    CallOtherOpeanFile callOtherOpeanFile = new CallOtherOpeanFile();
+                    callOtherOpeanFile.openFile(NoticeDeatilActivity.this, outFile);
+                } else {
+                    getP().downloadFujin(url, annexBean.getAnnexName(), annexBean.getAnnouncementAnnexId());
+                }
+
+            }
+        });
     }
 
     @Override
     public void initAfter() {
-        if (type==0){
+        if (type == 0) {
             getP().getMineSendNotice(noticeid);
             teMore.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             getP().getSendMineNotice(noticeid);
             teMore.setVisibility(View.GONE);
         }
@@ -76,13 +105,36 @@ public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
     }
 
 
-    public void getResultDetail(NoticeDetailBean noticeDetailBean){
-         if (noticeDetailBean.getRespCode()==0){
-             teNoticetitle.setText(noticeDetailBean.getRespBody().getTitle());
-             teNoticedeatils.setText(noticeDetailBean.getRespBody().getContent());
-             teNoticesender.setText("发布人："+noticeDetailBean.getRespBody().getCreateUserName());
-             teNoticetime.setText(noticeDetailBean.getRespBody().getCreateTime());
-         }
+    public void getResultDetail(NoticeDetailBean noticeDetailBean) {
+        teNoticetitle.setText(noticeDetailBean.getRespBody().getTitle());
+        teNoticedeatils.setText(noticeDetailBean.getRespBody().getContent());
+        if (noticeDetailBean.getRespBody().getCreateUserName() != null &&
+                !noticeDetailBean.getRespBody().getCreateUserName().equals("") &&
+                !noticeDetailBean.getRespBody().getCreateUserName().equals("null")) {
+            teNoticesender.setText("发布人：" + noticeDetailBean.getRespBody().getCreateUserName());
+        }
+        teNoticetime.setText(noticeDetailBean.getRespBody().getCreateTime());
+        annexList.addAll(noticeDetailBean.getRespBody().getAnnexList());
+        NoticeFujianListAdapter adapter = new NoticeFujianListAdapter(NoticeDeatilActivity.this, annexList);
+        lvFujianlist.setAdapter(adapter);
+    }
+
+    public void getResult(){
+        if (mShareDialog!=null&&mShareDialog.isShowing()){
+            mShareDialog.dismiss();
+            if (type==0){
+                Intent intent = new Intent();
+                intent.setAction("action");
+                intent.putExtra("data", "deletemysend");
+                sendBroadcast(intent);//发送普通广播
+            }else {
+                Intent intent = new Intent();
+                intent.setAction("action");
+                intent.putExtra("data", "deletesendme");
+                sendBroadcast(intent);//发送普通广播
+            }
+            finish();
+        }
     }
 
     @Override
@@ -109,7 +161,7 @@ public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
      * @describe 删除公告对话框
      */
     private void createDeleteNotice() {
-        final Dialog mShareDialog = new Dialog(this, R.style.dialog_bottom_full);
+        mShareDialog = new Dialog(this, R.style.dialog_bottom_full);
         mShareDialog.setCanceledOnTouchOutside(true);
         mShareDialog.setCancelable(true);
         Window window = mShareDialog.getWindow();
@@ -119,7 +171,7 @@ public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
         butdelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               getP().deleteNotice(noticeid);
+                getP().deleteNotice(noticeid);
             }
         });
         window.setContentView(view1);

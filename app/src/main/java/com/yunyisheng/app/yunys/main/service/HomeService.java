@@ -2,9 +2,15 @@ package com.yunyisheng.app.yunys.main.service;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.model.UserModel;
+import com.yunyisheng.app.yunys.main.model.BuMenBean;
+import com.yunyisheng.app.yunys.main.model.FindProjectWorkerBean;
+import com.yunyisheng.app.yunys.main.model.FindWorkerBean;
 import com.yunyisheng.app.yunys.main.model.GetOtherinfoBean;
 import com.yunyisheng.app.yunys.main.model.MemorandumBean;
 import com.yunyisheng.app.yunys.main.model.NoticeDetailBean;
+import com.yunyisheng.app.yunys.main.model.ProjectFromWorkBean;
+import com.yunyisheng.app.yunys.main.model.ReportFormBean;
+import com.yunyisheng.app.yunys.main.model.RoleBean;
 import com.yunyisheng.app.yunys.main.model.SendNoticeBean;
 
 import io.reactivex.Flowable;
@@ -16,7 +22,6 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
@@ -56,8 +61,8 @@ public interface HomeService {
     @FormUrlEncoded
     @POST("announcement/list/receive")
     Flowable<SendNoticeBean> getReciveNoticelist(@Field("pageNum") int pageNum,
-                                                   @Field("pageSize") int pageSize,
-                                                   @Field("title") String title);
+                                                 @Field("pageSize") int pageSize,
+                                                 @Field("title") String title);
 
     /**
      * @param announcementId 公告id
@@ -85,8 +90,8 @@ public interface HomeService {
      */
     @POST()
     Call<BaseModel> sendNotice(@Header("token") String token,
-                                        @Url() String url,
-                                        @Body RequestBody Body);
+                               @Url() String url,
+                               @Body RequestBody Body);
 
     /**
      * @author fuduo
@@ -94,7 +99,7 @@ public interface HomeService {
      * @describe 删除公告
      */
     @FormUrlEncoded
-    @POST("system/announcement/delete")
+    @POST("announcement/delete/publish")
     Flowable<BaseModel> deleteNotice(@Field("announcementId") int announcementId);
 
     /**
@@ -103,18 +108,17 @@ public interface HomeService {
      * @describe 添加新人员
      */
     @FormUrlEncoded
-    @Multipart
-    @POST("system/announcement/publish")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    @POST("enterprise/user/add")
     Flowable<BaseModel> addPeople(@Field("userName") String userName,
                                   @Field("userSex") String userSex,
                                   @Field("userPhone") String userPhone,
                                   @Field("userMailbox") String userMailbox,
                                   @Field("userNumber") String userNumber,
                                   @Field("userJobTitle") String userJobTitle,
-                                  @Field("enterpriseSectionId") String enterpriseSectionId,
-                                  @Field("enterpriseRolesId") String enterpriseRolesId,
-                                  @Field("userPicture") String userPicture
-    );
+                                  @Field("enterpriseSectionId") int enterpriseSectionId,
+                                  @Field("enterpriseRolesId") int enterpriseRolesId,
+                                  @Field("userPicture") String userPicture);
 
     /**
      * @author fuduo
@@ -122,8 +126,8 @@ public interface HomeService {
      * @describe 修改其他员工资料
      */
     @FormUrlEncoded
-    @Multipart
-    @POST("system/update/enterprirUser/employee/info")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    @POST("update/enterprirUser/employee/info")
     Flowable<BaseModel> changeOtherWorkeninfo(@Field("userName") String userName,
                                               @Field("userSex") String userSex,
                                               @Field("userPhone") String userPhone,
@@ -182,10 +186,64 @@ public interface HomeService {
     /**
      * @author fuduo
      * @time 2018/1/21  10:38
-     * @describe 10.3	根据userid获取对应人员的基本信息
+     * @describe 10.3    根据userid获取对应人员的基本信息
      */
     @FormUrlEncoded
     @POST("android/enterprise/user/info")
     Flowable<GetOtherinfoBean> getOtherinfo(@Field("userId") int userId);
+
+    /**
+     * 获取报表列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("myReport/select/all")
+    Flowable<ReportFormBean> getBaobiaolist(@Field("pagenum") int Pagenum, @Field("pagerows") int Pagerows);
+
+    /**
+     * @author fuduo
+     * @time 2018/1/26  20:26
+     * @describe 获取项目架构
+     */
+    @POST("project/projectsAndPeoples")
+    Flowable<ProjectFromWorkBean> getProjectFromwork();
+
+
+    /**
+     * 通讯录全文检索
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("look/addressBook/user/search")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    Flowable<FindWorkerBean> getfindworkerlist(@Field("parameter") String parameter);
+
+    /**
+     * 项目检索
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("project/searchPeoplesInProjects")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    Flowable<FindProjectWorkerBean> getfindProjectworkerlist(@Field("content") String content);
+
+    /**
+     * @author fuduo
+     * @time 2018/1/26  20:26
+     * @describe 获取所有部门
+     */
+    @POST("enterprise/section/show")
+    Flowable<BuMenBean> getBumenlist();
+
+    /**
+     * @author fuduo
+     * @time 2018/1/26  20:26
+     * @describe 获取所在通讯录角色
+     */
+    @POST("look/addressBook/role")
+    Flowable<RoleBean> getRolelist();
 
 }

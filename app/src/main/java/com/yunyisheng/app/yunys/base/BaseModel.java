@@ -10,6 +10,9 @@ public class BaseModel implements IModel {
     protected Integer respCode ;
     protected String respMsg ;
 
+    public BaseModel() {
+    }
+
     public Integer getRespCode() {
         return respCode;
     }

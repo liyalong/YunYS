@@ -36,6 +36,7 @@
                     android:layout_marginRight="@dimen/distance_10"
                     android:background="@null"
                     android:hint="搜索员工"
+                    android:imeOptions="actionSearch"
                     android:textColor="@color/color_333"
                     android:textColorHint="@color/color_666"
                     android:textSize="@dimen/distance_10" />
@@ -45,6 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:visibility="gone"
                     android:background="@mipmap/ed_close" />
             </LinearLayout>
 
@@ -53,13 +55,13 @@
                 android:layout_height="@dimen/distance_41"
                 android:background="@color/white">
 
-                <CheckBox
+                <ImageView
                     android:id="@+id/ck_allworker"
                     android:layout_width="@dimen/distance_15"
                     android:layout_height="@dimen/distance_15"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/distance_10"
-                    android:background="@drawable/btn_notice_check_select"
+                    android:background="@mipmap/select_no"
                     android:button="@null"
                     android:checked="false" />
 
@@ -80,6 +82,14 @@
                 android:layout_marginTop="@dimen/distance_10"
                 android:background="@color/white"
                 android:scrollbars="none"></ExpandableListView>
+            <ListView
+                android:id="@+id/lv_search"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/distance_10"
+                android:background="@color/white"
+                android:scrollbars="none"
+                android:visibility="gone"
+                android:layout_height="match_parent"></ListView>
         </LinearLayout>
 
         <RelativeLayout

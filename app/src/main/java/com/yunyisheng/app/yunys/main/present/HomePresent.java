@@ -31,7 +31,12 @@ public class HomePresent extends XPresent<HomeFragement> {
                .subscribe(new ApiSubscriber<UserModel>() {
                    @Override
                    public void onNext(UserModel userModel) {
-                      getV().getUserInfo(userModel);
+                       if (userModel.getRespCode()==0){
+                           getV().getUserInfo(userModel);
+                       }else {
+                           ToastUtils.showToast(userModel.getRespMsg());
+                       }
+
                    }
 
                    @Override

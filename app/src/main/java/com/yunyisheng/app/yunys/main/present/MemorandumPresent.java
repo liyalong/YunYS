@@ -49,18 +49,19 @@ public class MemorandumPresent extends XPresent<MemorandumActivity> {
     /**
      * @author fuduo
      * @time 2018/1/23  14:13
-     * @describe 删除通讯录
+     * @describe 删除备忘录
      */
     public void deleteMemo(int ids) {
         Api.homeService().deleteMemo(ids)
                 .compose(XApi.<BaseModel>getApiTransformer()) //统一异常处理
-                .compose(XApi.<BaseModel>getScheduler()) //线程调度
+                .compose(XApi.<BaseModel>getScheduler()) //线程调度fu
                 .compose(getV().<BaseModel>bindToLifecycle()) //内存泄漏处理
                 .subscribe(new ApiSubscriber<BaseModel>() {
                     @Override
                     public void onNext(BaseModel baseModel) {
                         if (baseModel.getRespCode()==0){
                             getV().getDelete(baseModel);
+                            ToastUtils.showToast("删除成功");
                         }else {
                             ToastUtils.showToast(baseModel.getRespMsg());
                         }

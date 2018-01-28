@@ -1,8 +1,13 @@
 package com.yunyisheng.app.yunys.main.fragement;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +24,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
-import com.yunyisheng.app.yunys.main.activity.NoticeDeatilActivity;
 import com.yunyisheng.app.yunys.main.adapter.PublishNoticeListAdapter;
 import com.yunyisheng.app.yunys.main.adapter.ReceiveNoticeListAdapter;
 import com.yunyisheng.app.yunys.main.model.SendNoticeBean;
@@ -103,6 +107,7 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
                 }
             }
         });
+        edSearch.addTextChangedListener(mTextWatcher);
         edSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -131,17 +136,66 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
         pullToRefreshListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SendNoticeBean.ListBean listBean = sendlist.get(position);
-                Intent intent = new Intent(mContext, NoticeDeatilActivity.class);
-                intent.putExtra("type", tabindex);
-                intent.putExtra("noticeid", listBean.getAnnouncementId());
-                startActivity(intent);
+//                SendNoticeBean.ListBean listBean = sendlist.get(position - 1);
+//                Intent intent = new Intent(mContext, NoticeDeatilActivity.class);
+//                intent.putExtra("type", tabindex);
+//                intent.putExtra("noticeid", listBean.getAnnouncementId());
+//                startActivityForResult(intent, 2);
+                sousuo_neirong = edSearch.getText().toString();
+                if (sousuo_neirong == null || sousuo_neirong.equals("")) {
+                    ToastUtils.showToast("搜索内容不能为空");
+                } else {
+                    if (tabindex == 0) {
+                        sendlist.clear();
+                        pageindex = 1;
+                        getP().getSendNoticelist(pageindex, 10, sousuo_neirong);
+                    } else {
+                        sendlist.clear();
+                        pageindex = 1;
+                        getP().getReceiveNoticelist(pageindex, 10, sousuo_neirong);
+                    }
+                }
             }
         });
     }
 
     @Override
     public void initAfter() {
+        MyReceiver receiver = new MyReceiver();//广播接受者实例
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("action");
+        getActivity().registerReceiver(receiver, intentFilter);
+    }
+
+    class MyReceiver extends BroadcastReceiver {
+        public MyReceiver() {
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String data = intent.getStringExtra("data");
+            if ("deletemysend".equals(data)) {
+                if (sendlist.size() == 1) {
+                    sendlist.clear();
+                    adapter = new PublishNoticeListAdapter(mContext, sendlist);
+                    pullToRefreshListview.setAdapter(adapter);
+                } else {
+                    sendlist.clear();
+                    getP().getSendNoticelist(pageindex, 10, null);
+                }
+
+            } else if ("deletesendme".equals(data)) {
+                if (sendlist.size() == 1) {
+                    sendlist.clear();
+                    adapter = new PublishNoticeListAdapter(mContext, sendlist);
+                    pullToRefreshListview.setAdapter(adapter);
+                } else {
+                    sendlist.clear();
+                    getP().getReceiveNoticelist(pageindex, 10, null);
+                }
+
+            }
+        }
 
     }
 
@@ -177,13 +231,34 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
             }
         } else {
             if (pageindex == 1) {
-                ToastUtils.showToast("暂无数据");
             } else {
                 ToastUtils.showToast("暂无更多数据");
             }
         }
         pullToRefreshListview.onRefreshComplete();
     }
+
+    //监听是否输入
+    TextWatcher mTextWatcher = new TextWatcher() {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int arg1, int arg2, int arg3) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int arg1, int arg2, int arg3) {
+            if (s.length() > 0) {
+                imgClear.setVisibility(View.VISIBLE);
+            } else {
+                imgClear.setVisibility(View.GONE);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
     @Override
     public int bindLayout() {

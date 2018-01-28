@@ -2,14 +2,16 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:background="@color/white">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        >
 
         <RelativeLayout
+            android:id="@+id/rl1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/distance_40"
             android:gravity="center_vertical">
@@ -34,25 +36,34 @@
 
         <View
             android:id="@+id/view"
+            android:layout_below="@+id/rl1"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/color_e7" />
 
         <com.yunyisheng.app.yunys.utils.MyGridView
             android:id="@+id/gv_added"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance_10"
+            android:layout_marginRight="@dimen/distance_21"
+            android:layout_marginLeft="@dimen/distance_21"
+            android:layout_below="@+id/view"
+            android:layout_marginBottom="@dimen/distance_20"
             android:numColumns="2"></com.yunyisheng.app.yunys.utils.MyGridView>
 
         <View
             android:id="@+id/view2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/distance_10"
+            android:layout_below="@+id/gv_added"
             android:background="@color/baseBackgroundColor" />
 
         <RelativeLayout
+            android:id="@+id/rl2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/distance_40"
+            android:layout_below="@+id/view2"
             android:gravity="center_vertical">
 
             <ImageView
@@ -75,15 +86,42 @@
 
         <View
             android:id="@+id/view3"
+            android:layout_below="@+id/rl2"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/color_e7" />
 
         <com.yunyisheng.app.yunys.utils.MyGridView
             android:id="@+id/gv_add"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/view3"
+            android:layout_marginTop="@dimen/distance_10"
+            android:layout_marginRight="@dimen/distance_21"
+            android:layout_marginLeft="@dimen/distance_21"
             android:layout_height="wrap_content"
             android:numColumns="2"></com.yunyisheng.app.yunys.utils.MyGridView>
-
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="@dimen/distance_206"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/distance_34"
+            android:layout_height="@dimen/distance_41">
+            <Button
+                android:id="@+id/btn_reset"
+                android:layout_width="@dimen/distance_96"
+                android:background="@drawable/btn_anpai_work"
+                android:text="@string/reset"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/distance_14"
+                />
+            <Button
+                android:id="@+id/btn_queren"
+                android:layout_width="@dimen/distance_96"
+                android:background="@drawable/btn_anpai_work"
+                android:text="@string/queren"
+                android:layout_height="match_parent"
+                />
+        </LinearLayout>
+    </RelativeLayout>
 </ScrollView>

@@ -25,8 +25,7 @@ import static com.yunyisheng.app.yunys.utils.ScreenUtils.setIndicator;
  * @time 2018/1/16  21:25
  * @describe 架构选人
  */
-public class SelectPeopleActivity extends BaseActivity {
-
+public class SelectPeopleActivity extends BaseActivity{
 
     @BindView(R.id.img_back)
     ImageView imgBack;
@@ -42,6 +41,8 @@ public class SelectPeopleActivity extends BaseActivity {
         ButterKnife.bind(this);
         mTitleList.add("组织架构");
         mTitleList.add("项目架构");
+//        //注册成为订阅者
+//        EventBus.getDefault().register(this);
         for (int i = 0; i < 2; i++) {
             fragmentList.add(OrganizationFragement.newInstance(i));
         }
@@ -81,4 +82,25 @@ public class SelectPeopleActivity extends BaseActivity {
     public void widgetClick(View v) {
 
     }
+//    //订阅方法，当接收到事件的时候，会调用该方法
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onEvent(ViewListBean viewListBean){
+//        Log.d("cylog","receive it");
+//        if (selectlist.size()>0){
+//            selectlist.clear();
+//        }
+//        selectlist.addAll(viewListBean.getList());
+//       if (selectlist.size()>0){
+//           rlBottom.setVisibility(View.VISIBLE);
+//       }else {
+//           rlBottom.setVisibility(View.GONE);
+//       }
+//    }
+
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        //解除注册
+//        EventBus.getDefault().unregister(this);
+//    }
 }

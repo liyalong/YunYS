@@ -22,6 +22,8 @@ import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.Util;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,6 +64,7 @@ public class SendNoticeActivity extends BaseActivity {
     private String title;
     private String content;
     private RequestBody requestBody;
+    private List<File> fileList = new ArrayList<>();
 
     @Override
     public void initView() {
@@ -100,17 +103,18 @@ public class SendNoticeActivity extends BaseActivity {
             case R.id.te_send:
                 title = edNoticetitle.getText().toString().trim();
                 content = teNoticeDeatil.getText().toString().trim();
-                if (title!=null&&!title.equals("")&&!title.equals("null")) {
-                    if (content != null && !content.equals("") && !content.equals("null")) {
-                        if (selectjson != null && !selectjson.equals("") && !selectjson.equals("null")) {
+                if (title != null && !title.equals("") && !title.equals("null")) {
+                    if (selectjson != null && !selectjson.equals("") && !selectjson.equals("null")) {
+                        if (content != null && !content.equals("") && !content.equals("null")) {
                             sendNotice();
                         } else {
-                            ToastUtils.showToast("请选择发布范围");
+                            ToastUtils.showToast("请输入公告内容");
                         }
-                    }else {
-                        ToastUtils.showToast("请输入公告内容");
+                    } else {
+                        ToastUtils.showToast("请选择发布范围");
                     }
-                }else {
+
+                } else {
                     ToastUtils.showToast("请输入公告标题");
                 }
                 break;
@@ -137,16 +141,20 @@ public class SendNoticeActivity extends BaseActivity {
                 .build();
         HomeService service = retrofit.create(HomeService.class);
         String token = SharedPref.getInstance(SendNoticeActivity.this).getString("TOKEN", null);
-        if (pathuri != null && !pathuri.equals("") && !pathuri.equals("null")) {
-            File file = new File(pathuri);
+        if (fileList != null && fileList.size() > 0) {
+
             //构建body
-            requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                    .addFormDataPart("title", title)
-                    .addFormDataPart("content", content)
-                    .addFormDataPart("receiverMap", selectjson)
-                    .addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("file"), file))
-                    .build();
-        }else {
+            MultipartBody.Builder builder = new MultipartBody.Builder();
+            builder.setType(MultipartBody.FORM);
+            builder.addFormDataPart("title", title);
+            builder.addFormDataPart("content", content);
+            builder.addFormDataPart("receiverMap", selectjson);
+            for (File file : fileList) {
+                RequestBody requestBody = RequestBody.create(MediaType.parse("file"), file);
+                builder.addFormDataPart("file", file.getName(), requestBody);
+            }
+            requestBody = builder.build();
+        } else {
             //构建body
             requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("title", title)
@@ -155,16 +163,15 @@ public class SendNoticeActivity extends BaseActivity {
                     .build();
         }
 
-
         //如果和rxjava1.x , call就换成 Observable
-        Call<BaseModel> call = service.sendNotice(token,"announcement/publish", requestBody);
+        Call<BaseModel> call = service.sendNotice(token, "announcement/publish", requestBody);
         // 执行
         call.enqueue(new Callback<BaseModel>() {
             @Override
             public void onResponse(Call<BaseModel> call, Response<BaseModel> response) {
                 String msg = response.body().getRespMsg();
                 int code = response.body().getRespCode();
-                if (code==0){
+                if (code == 0) {
                     ToastUtils.showToast("发布成功!");
                 }
                 LogUtils.i("fjdlkf", msg + code);
@@ -176,18 +183,15 @@ public class SendNoticeActivity extends BaseActivity {
                 ToastUtils.showToast("请检查网络设置");
             }
         });
-
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == 8) {
             int size = data.getIntExtra("size", 0);
             selectjson = data.getStringExtra("selectjson");
-            teFrangesize.setText(size+"人");
+            teFrangesize.setText(size + "人");
         }
 
         switch (requestCode) {
@@ -209,6 +213,27 @@ public class SendNoticeActivity extends BaseActivity {
                             ToastUtils.showToast("上传文件不能大于2M");
                         } else {
                             pathuri = realPathFromURI;
+                            if (fileList.size() > 3) {
+                                ToastUtils.showToast("最多上传三个附件");
+                            } else {
+                                if (fileList.size() > 0) {
+                                    for (int i = 0; i < fileList.size(); i++) {
+                                        String absolutePath = fileList.get(i).getAbsolutePath();
+                                        if (absolutePath.equals(pathuri)) {
+                                            ToastUtils.showToast("已在附件列表中");
+                                        } else {
+                                            File file = new File(pathuri);
+                                            fileList.add(file);
+                                            return;
+                                        }
+                                    }
+                                } else {
+                                    File file = new File(pathuri);
+                                    fileList.add(file);
+                                }
+
+                                // LogUtils.i("pathsfjlkd",file.getAbsolutePath());
+                            }
                         }
                     }
                 }

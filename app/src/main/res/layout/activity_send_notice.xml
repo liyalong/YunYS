@@ -152,12 +152,12 @@
 
             <EditText
                 android:id="@+id/te_notice_deatil"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_below="@+id/test"
+                android:gravity="top"
                 android:layout_marginLeft="@dimen/distance_13"
                 android:background="@null"
-                android:text="20人"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_14" />
         </RelativeLayout>

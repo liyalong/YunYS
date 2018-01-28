@@ -99,7 +99,7 @@
                         android:layout_height="match_parent"
                         android:spinnerMode="dropdown"
                         android:dropDownVerticalOffset="@dimen/distance_40"
-                        android:background="@null" />
+                         />
                     <ImageView
                         android:id="@+id/img_status"
                         android:layout_width="wrap_content"
@@ -132,6 +132,7 @@
                         android:background="@null"
                         android:hint="@string/phone"
                         android:inputType="number"
+                        android:maxLength="11"
                         android:textColor="@color/color_333"
                         android:textColorHint="@color/color_999"
                         android:textSize="@dimen/distance_14" />
@@ -236,7 +237,7 @@
                         android:background="@mipmap/bumen" />
 
                     <TextView
-                        android:id="@+id/ed_bumen"
+                        android:id="@+id/te_bumen"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -271,6 +272,7 @@
                         android:background="@mipmap/bumen" />
 
                     <TextView
+                        android:id="@+id/te_role"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -296,6 +298,7 @@
                     android:layout_marginTop="@dimen/distance_10"
                     android:background="@drawable/btn_anpai_work"
                     android:text="@string/queren"
+                    android:layout_marginBottom="@dimen/distance_20"
                     android:textColor="@color/white"
                     android:textSize="@dimen/distance_14" />
             </LinearLayout>

@@ -186,7 +186,17 @@
         <activity
             android:name=".project.activity.ModelDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".project.activity.ModelAlarmRulesActivity" android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".project.activity.ModelAlarmRulesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.activity.BumenActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".main.activity.RoleActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

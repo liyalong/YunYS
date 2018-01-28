@@ -1,5 +1,7 @@
 package com.yunyisheng.app.yunys.main.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -46,6 +48,7 @@ public class WorkerDataActivity extends BaseActivity {
     private List<Fragment> fragmentList = new ArrayList<>();
     private List<String> mTitleList = new ArrayList<>();
     private int tabindex;
+    int userid;
 
     @Override
     public void initView() {
@@ -53,16 +56,7 @@ public class WorkerDataActivity extends BaseActivity {
         mTitleList.add("基本资料");
         mTitleList.add("日程安排");
         mTitleList.add("参与项目");
-        BasicDataFragement basicDataFragement=new BasicDataFragement();
-        ScheduleFragement scheduleFragement=new ScheduleFragement();
-        ParticipateinFragement participateinFragement=new ParticipateinFragement();
-        fragmentList.add(basicDataFragement);
-        fragmentList.add(scheduleFragement);
-        fragmentList.add(participateinFragement);
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList, mTitleList);
-        vpInformation.setAdapter(adapter);
-        tablayoutInformation.setupWithViewPager(vpInformation);
-        setIndicator(this, tablayoutInformation, 45, 45);
+
 
         vpInformation.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -84,7 +78,21 @@ public class WorkerDataActivity extends BaseActivity {
 
     @Override
     public void initAfter() {
-
+        Intent intent = getIntent();
+        userid= intent.getIntExtra("userid", 0);
+        BasicDataFragement basicDataFragement=new BasicDataFragement();
+        Bundle bundle=new Bundle();
+        bundle.putInt("userid",userid);
+        basicDataFragement.setArguments(bundle);
+        ScheduleFragement scheduleFragement=new ScheduleFragement();
+        ParticipateinFragement participateinFragement=new ParticipateinFragement();
+        fragmentList.add(basicDataFragement);
+        fragmentList.add(scheduleFragement);
+        fragmentList.add(participateinFragement);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList, mTitleList);
+        vpInformation.setAdapter(adapter);
+        tablayoutInformation.setupWithViewPager(vpInformation);
+        setIndicator(this, tablayoutInformation, 45, 45);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.yunyisheng.app.yunys.main.activity;
 
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -8,12 +10,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.main.adapter.FindWorkerListAdapter;
 import com.yunyisheng.app.yunys.main.adapter.MaillistExpenableAdapter;
+import com.yunyisheng.app.yunys.main.model.FindWorkerBean;
 import com.yunyisheng.app.yunys.main.model.WorkerBean;
 import com.yunyisheng.app.yunys.main.model.WorkerListBean;
 import com.yunyisheng.app.yunys.main.present.MaillistPresent;
@@ -54,14 +59,17 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
     ExpandableListView elvOrganizationframe;
     @BindView(R.id.img_clear)
     ImageView imgClear;
+    @BindView(R.id.lv_search)
+    ListView lvSearch;
     private String sousuo_neirong;
     private List<WorkerListBean> workerbeanlist = new ArrayList<>();
-
+    private List<FindWorkerBean.respBodyBean> findWorkerBeanList = new ArrayList<>();
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
         teTitle.setText(R.string.tongxunlu);
+        edSearch.addTextChangedListener(mTextWatcher);
         edSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -73,13 +81,48 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
                     if (sousuo_neirong == null || sousuo_neirong.equals("")) {
                         ToastUtils.showToast("搜索内容不能为空");
                     } else {
-
+                        getP().getFindList(sousuo_neirong);
                     }
                 }
                 return false;
             }
         });
+
+        elvOrganizationframe.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                WorkerBean workerBean = workerbeanlist.get(groupPosition).getWorkerBeanList().get(childPosition);
+                Intent intent = new Intent(MailListActivity.this, WorkerDataActivity.class);
+                intent.putExtra("userid", workerBean.getUserId());
+                startActivity(intent);
+                return true;
+            }
+        });
     }
+
+    //监听是否输入
+    TextWatcher mTextWatcher = new TextWatcher() {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int arg1, int arg2, int arg3) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int arg1, int arg2, int arg3) {
+            if (s.length() > 0) {
+                imgClear.setVisibility(View.VISIBLE);
+            } else {
+                elvOrganizationframe.setVisibility(View.VISIBLE);
+                lvSearch.setVisibility(View.GONE);
+                imgClear.setVisibility(View.GONE);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
     @Override
     public void initAfter() {
@@ -158,9 +201,9 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
                         listBean2.setWorkerBeanList(workerlist2);
                     }
                     workerbeanlist.add(listBean2);
-                    if (!subdivisionobject.isNull("subdivision")){
+                    if (!subdivisionobject.isNull("subdivision")) {
                         JSONArray subdivisionarray = subdivisionobject.getJSONArray("subdivision");
-                        if (subdivisionarray.length()>0){
+                        if (subdivisionarray.length() > 0) {
                             getChildBumen(subdivisionarray);
                         }
                     }
@@ -184,14 +227,14 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
                     JSONObject subdivisionobject = new JSONObject(jsonArray.get(i).toString());
                     String subdivisionname = subdivisionobject.getString("text");
                     listBean.setGroupname(subdivisionname);
-                    if (!subdivisionobject.isNull("subdivision")){
+                    if (!subdivisionobject.isNull("subdivision")) {
                         JSONArray subdivisionarray = subdivisionobject.getJSONArray("subdivision");
-                        if (subdivisionarray.length()>0){
+                        if (subdivisionarray.length() > 0) {
                             getChildBumen(subdivisionarray);
                         }
                     }
                     JSONArray users = subdivisionobject.getJSONArray("users");
-                    if (users.length()>0){
+                    if (users.length() > 0) {
                         WorkerBean workerBean = new WorkerBean();
                         JSONObject usersobject = new JSONObject(users.get(i).toString());
                         int userId = usersobject.getInt("userId");
@@ -214,6 +257,18 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
             }
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void getFindList(FindWorkerBean findWorkerBean){
+        if (findWorkerBean.getRespBodyBeanList().size()>0){
+            findWorkerBeanList.clear();
+            elvOrganizationframe.setVisibility(View.GONE);
+            lvSearch.setVisibility(View.VISIBLE);
+            List<FindWorkerBean.respBodyBean> respBodyBeanList = findWorkerBean.getRespBodyBeanList();
+            findWorkerBeanList.addAll(respBodyBeanList);
+            FindWorkerListAdapter adapter=new FindWorkerListAdapter(MailListActivity.this,findWorkerBeanList);
+            lvSearch.setAdapter(adapter);
         }
     }
 
@@ -248,5 +303,4 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
                 break;
         }
     }
-
 }

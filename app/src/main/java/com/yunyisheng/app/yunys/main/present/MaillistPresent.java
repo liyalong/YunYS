@@ -3,11 +3,17 @@ package com.yunyisheng.app.yunys.main.present;
 import android.util.Log;
 
 import com.yunyisheng.app.yunys.main.activity.MailListActivity;
+import com.yunyisheng.app.yunys.main.model.FindWorkerBean;
 import com.yunyisheng.app.yunys.main.service.HomeService;
+import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.net.RetrofitManager;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import cn.droidlover.xdroidmvp.mvp.XPresent;
+import cn.droidlover.xdroidmvp.net.ApiSubscriber;
+import cn.droidlover.xdroidmvp.net.NetError;
+import cn.droidlover.xdroidmvp.net.XApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -42,4 +48,34 @@ public class MaillistPresent extends XPresent<MailListActivity> {
             }
         });
     }
+    /**
+     * @author fuduo
+     * @time 2018/1/23  20:05
+     * @describe 获取搜索人员列表
+     */
+    public void getFindList(String title){
+        LoadingDialog.show(getV());
+        Api.homeService().getfindworkerlist(title)
+                .compose(XApi.<FindWorkerBean>getApiTransformer()) //统一异常处理
+                .compose(XApi.<FindWorkerBean>getScheduler()) //线程调度
+                .compose(getV().<FindWorkerBean>bindToLifecycle()) //内存泄漏处理
+                .subscribe(new ApiSubscriber<FindWorkerBean>() {
+                    @Override
+                    public void onNext(FindWorkerBean FindWorkerBean) {
+                        LoadingDialog.dismiss(getV());
+                        if (FindWorkerBean.getRespCode()==0){
+                            getV().getFindList(FindWorkerBean);
+                        }else {
+                            ToastUtils.showToast(FindWorkerBean.getRespMsg());
+                        }
+                    }
+
+                    @Override
+                    protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
+                        ToastUtils.showToast("请求数据失败！");
+                    }
+                });
+    }
+
 }

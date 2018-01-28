@@ -7,12 +7,13 @@
     android:background="@color/color_f4f4f4"
     tools:context="com.yunyisheng.app.yunys.main.activity.SelectPeopleActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        >
 
         <RelativeLayout
+            android:id="@+id/rl1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/distance_49"
             android:background="@color/white">
@@ -41,6 +42,49 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_jiagou"
             android:layout_width="match_parent"
+            android:layout_below="@+id/rl1"
             android:layout_height="match_parent"></android.support.v4.view.ViewPager>
-    </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/rl_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_46"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"
+            android:background="@color/white">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_e7" />
+
+            <HorizontalScrollView
+                android:id="@+id/scro_all"
+                android:layout_width="@dimen/distance_270"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/distance_5"
+                android:layout_marginLeft="@dimen/distance_10"
+                android:layout_marginTop="@dimen/distance_5"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/line_selecall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal"></LinearLayout>
+            </HorizontalScrollView>
+
+            <Button
+                android:id="@+id/btn_queren"
+                android:layout_width="@dimen/distance_60"
+                android:layout_height="@dimen/distance_28"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/distance_10"
+                android:background="@drawable/btn_anpai_work"
+                android:text="@string/queren"
+                android:textColor="@color/white"
+                android:textSize="@dimen/distance_12" />
+        </RelativeLayout>
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

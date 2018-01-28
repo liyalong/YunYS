@@ -1,6 +1,7 @@
 package com.yunyisheng.app.yunys.main.fragement;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,12 @@ import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.main.model.GetOtherinfoBean;
+import com.yunyisheng.app.yunys.main.present.BasicDataPresent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
  * 作者：fuduo on 2018/1/12 11:47
@@ -21,7 +23,7 @@ import cn.droidlover.xdroidmvp.mvp.XPresent;
  * 用途：员工个人信息详情fragement
  */
 
-public class BasicDataFragement extends BaseFragement {
+public class BasicDataFragement extends BaseFragement<BasicDataPresent> {
 
     @BindView(R.id.te_sex)
     TextView teSex;
@@ -34,10 +36,13 @@ public class BasicDataFragement extends BaseFragement {
     @BindView(R.id.btn_anpai_work)
     Button btnAnpaiWork;
     Unbinder unbinder;
+    int userid;
 
-    public static BasicDataFragement newInstance() {
-        BasicDataFragement fragement = new BasicDataFragement();
-        return fragement;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle arguments = getArguments();
+        userid = arguments.getInt("userid", 0);
     }
 
     @Override
@@ -52,7 +57,7 @@ public class BasicDataFragement extends BaseFragement {
 
     @Override
     public void initAfter() {
-
+       getP().getOtherInfo(userid);
     }
 
     @Override
@@ -61,8 +66,18 @@ public class BasicDataFragement extends BaseFragement {
     }
 
     @Override
-    public XPresent bindPresent() {
-        return null;
+    public BasicDataPresent bindPresent() {
+        return new BasicDataPresent();
+    }
+
+    public void getResultInfo(GetOtherinfoBean getOtherinfoBean){
+        if (getOtherinfoBean.getRespBody().getUserMailbox()!=null
+                &&!getOtherinfoBean.getRespBody().getUserMailbox().equals("")
+                &&!getOtherinfoBean.getRespBody().getUserMailbox().equals("null")){
+            teEmail.setText(getOtherinfoBean.getRespBody().getUserMailbox());
+        }
+        tePhonenum.setText(getOtherinfoBean.getRespBody().getUserPhone());
+        teSex.setText(getOtherinfoBean.getRespBody().getUserSex());
     }
 
     @Override
