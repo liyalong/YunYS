@@ -38,7 +38,7 @@ public class KnowledgeListAdapter extends SimpleListAdapter<KnowledgeBean, Knowl
     protected void convert(ViewHolder holder, KnowledgeBean item, int position) {
         knowledgeBean = data.get(position);
         holder.knowledgeName.setText(knowledgeBean.getKnowledgeName().toString());
-        holder.knowledgeCreateTime.setText(knowledgeBean.getCreatet());
+        holder.knowledgeCreateTime.setText(knowledgeBean.getCreatet().toString());
     }
 
     public static class ViewHolder {

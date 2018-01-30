@@ -72,9 +72,9 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        this.setDeviceId(getIntent().getStringExtra("deviceId"));
-        this.setDeviceName(getIntent().getStringExtra("deviceName"));
-        this.setProjectId(getIntent().getStringExtra("projectId"));
+        this.deviceId = getIntent().getStringExtra("deviceId");
+        this.deviceName = getIntent().getStringExtra("deviceName");
+        this.projectId = getIntent().getStringExtra("projectId");
         XLog.d("deviceId:" + deviceId + ",deviceName:" + deviceName);
         deviceDetailTitle.setText(deviceName + "运行详情");
 
@@ -158,23 +158,6 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
                 break;
         }
 
-    }
-
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
-    }
-
-    public void setDeviceName(String deviceName) {
-        this.deviceName = deviceName;
-    }
-
-    public String getDeviceId() {
-
-        return deviceId;
-    }
-
-    public String getDeviceName() {
-        return deviceName;
     }
 
     /**

@@ -2,6 +2,8 @@ package com.yunyisheng.app.yunys.utils;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.ParseException;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -12,6 +14,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import cn.droidlover.xdroidmvp.log.XLog;
 
 /**
  * Created by liyalong on 2018/1/16.
@@ -71,24 +75,26 @@ public class DateTimeDialogUtils {
      now 现在的时间
      @return
      */
-    public static String DateCompare(String old,String now){
-        java.text.DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        java.util.Calendar c1=java.util.Calendar.getInstance();
-        java.util.Calendar c2=java.util.Calendar.getInstance();
+    public static boolean DateCompare(String old,String now) throws ParseException {
+        boolean isBigger = false;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date dt1 = null;
+        Date dt2 = null;
         try {
-            c1.setTime(df.parse(old));
-            c2.setTime(df.parse(now));
-        } catch (Exception e) {
-            System.out.println("格式不正确");
+            dt1 = sdf.parse(old);
+            dt2 = sdf.parse(now);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (java.text.ParseException e) {
             e.printStackTrace();
         }
-        int result=c1.compareTo(c2);
-        if(result==0){
-            return "相等";
-        }else if(result<0){
-            return "小于";
-        }else
-            return "大于";
+        XLog.d(old+"--"+now+":"+dt1.getTime()+"-------"+dt2.getTime());
+        if (dt1.getTime() > dt2.getTime()) {
+            isBigger = false;
+        } else if (dt1.getTime() <= dt2.getTime()) {
+            isBigger = true;
+        }
+        return isBigger;
     }
 
 

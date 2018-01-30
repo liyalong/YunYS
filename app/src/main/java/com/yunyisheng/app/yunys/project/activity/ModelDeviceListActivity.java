@@ -78,7 +78,7 @@ public class ModelDeviceListActivity extends BaseActivity<ModelDeviceListPresent
         modelDeviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                DeviceBean deviceBean = dataList.get(i);
+                DeviceBean deviceBean = dataList.get(i-1);
                 Router.newIntent(context)
                         .to(DeviceDetailActivity.class)
                         .putString("projectId",projectId)

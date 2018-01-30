@@ -22,7 +22,7 @@ public class KnowledgeListPresent extends XPresent<KnowledgeListActivity> {
      * @param pageNum
      * @param pageSize
      */
-    public void getKnowledgeList(String projectId,String deviceId,int pageNum,int pageSize){
+    public void  getKnowledgeList(String projectId,String deviceId,int pageNum,int pageSize){
         Api.projectService().getKnowledgeList(projectId,deviceId,pageNum,pageSize)
                 .compose(XApi.<KnowledgeListModel>getApiTransformer())
                 .compose(XApi.<KnowledgeListModel>getScheduler())

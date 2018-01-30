@@ -5,6 +5,7 @@ import com.yunyisheng.app.yunys.login.service.ShortMessageService;
 import com.yunyisheng.app.yunys.login.service.UserService;
 import com.yunyisheng.app.yunys.main.service.HomeService;
 import com.yunyisheng.app.yunys.project.service.ProjectService;
+import com.yunyisheng.app.yunys.tasks.service.TaskService;
 import com.yunyisheng.app.yunys.schedule.service.ScheduleService;
 import com.yunyisheng.app.yunys.userset.service.UserSetService;
 
@@ -23,6 +24,7 @@ public class Api {
     private static ProjectService projectService;
     private static UserSetService userSetService;
     private static HomeService homeService;
+    private static TaskService taskService;
     private static ScheduleService scheduleService;
 
     public static UserService userService(){
@@ -98,6 +100,17 @@ public class Api {
             }
         }
         return scheduleService;
+    }
+
+    public static TaskService taskService(){
+        if (taskService == null){
+            synchronized (Api.class){
+                if (taskService == null){
+                    taskService = XApi.getInstance().getRetrofit(BASE_PATH,true).create(TaskService.class);
+                }
+            }
+        }
+        return taskService;
     }
 
 }

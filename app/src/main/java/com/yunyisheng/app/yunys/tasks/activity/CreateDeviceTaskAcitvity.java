@@ -42,8 +42,8 @@ public class CreateDeviceTaskAcitvity extends BaseActivity {
         ButterKnife.bind(this);
         mtitle.add("临时任务");
         mtitle.add("周期任务");
-        fragments.add(DeviceCycleTaskFargment.newInstance());
         fragments.add(DeviceTemporaryTaskFargment.newInstance());
+        fragments.add(DeviceCycleTaskFargment.newInstance());
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(),fragments,mtitle);
         deviceTasksViewpage.setAdapter(adapter);
         ablayout.setupWithViewPager(deviceTasksViewpage);

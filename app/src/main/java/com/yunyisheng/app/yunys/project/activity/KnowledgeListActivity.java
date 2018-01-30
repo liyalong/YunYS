@@ -2,6 +2,7 @@ package com.yunyisheng.app.yunys.project.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.yunyisheng.app.yunys.project.bean.KnowledgeBean;
 import com.yunyisheng.app.yunys.project.model.KnowledgeListModel;
 import com.yunyisheng.app.yunys.project.present.KnowledgeListPresent;
 import com.yunyisheng.app.yunys.utils.ScrowUtil;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +24,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
+import cn.droidlover.xdroidmvp.router.Router;
 
 /**
  * Created by liyalong on 2018/1/22.
+ * 设备相关知识列表
  */
 
 public class KnowledgeListActivity extends BaseActivity<KnowledgeListPresent> {
@@ -61,45 +65,50 @@ public class KnowledgeListActivity extends BaseActivity<KnowledgeListPresent> {
         this.modelId = getIntent().getStringExtra("modelId");
         this.modelName = getIntent().getStringExtra("modelName");
         ScrowUtil.listViewConfig(knowledgeList);
-        if (deviceId != null){
-            knowledgeTitle.setText(deviceName+"相关知识");
-            getP().getKnowledgeList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
-            knowledgeList.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-                @Override
-                public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                    PAGE_NUM = 1;
+        knowledgeList.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                PAGE_NUM = 1;
+                if (deviceId != null){
                     getP().getKnowledgeList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
+                }else{
+                    getP().getKnowledgeList(projectId,modelId,PAGE_NUM,PAGE_SIZE);
                 }
-
-                @Override
-                public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                    PAGE_NUM += 1;
+            }
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                PAGE_NUM += 1;
+                if (deviceId != null){
                     getP().getKnowledgeList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
+                }else{
+                    getP().getKnowledgeList(projectId,modelId,PAGE_NUM,PAGE_SIZE);
                 }
-            });
-        }else if (modelId != null){
-            knowledgeTitle.setText(modelName+"相关知识");
-            getP().getKnowledgeList(projectId,modelId,PAGE_NUM,PAGE_SIZE);
-
-            knowledgeList.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-                @Override
-                public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                    PAGE_NUM = 1;
-                    getP().getKnowledgeList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
-                }
-
-                @Override
-                public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                    PAGE_NUM += 1;
-                    getP().getKnowledgeList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
-                }
-            });
-        }
+            }
+        });
+        knowledgeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                KnowledgeBean knowledgeBean = dataList.get(i-1);
+                Router.newIntent(context)
+                        .to(KnowledgeDetailActivity.class)
+                        .putString("projectId",projectId)
+                        .putString("knowledgeId", String.valueOf(knowledgeBean.getKnowledgeId()))
+                        .launch();
+            }
+        });
 
     }
 
     @Override
     public void initAfter() {
+
+        if (deviceId != null){
+            knowledgeTitle.setText(deviceName+"相关知识");
+            getP().getKnowledgeList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
+        }else if (modelId != null){
+            knowledgeTitle.setText(modelName+"相关知识");
+            getP().getKnowledgeList(projectId,modelId,PAGE_NUM,PAGE_SIZE);
+        }
 
     }
 
@@ -129,6 +138,26 @@ public class KnowledgeListActivity extends BaseActivity<KnowledgeListPresent> {
 
     public void setAdapter(KnowledgeListModel knowledgeListModel){
         this.knowledgeListModel = knowledgeListModel;
-        //TODO 调试知识内容
+        if (knowledgeListModel.getRespBody().size() > 0){
+            if (PAGE_NUM == 1){
+                dataList.clear();
+                dataList.addAll(knowledgeListModel.getRespBody());
+                if (adapter == null){
+                    adapter = new KnowledgeListAdapter(context,dataList);
+                }
+                knowledgeList.setAdapter(adapter);
+            }else {
+                dataList.addAll(knowledgeListModel.getRespBody());
+                adapter.setData(dataList);
+            }
+        }else {
+            if (PAGE_NUM == 1){
+                ToastUtils.showToast("暂无数据！");
+            }else {
+                ToastUtils.showToast("暂无更多数据！");
+            }
+        }
+        knowledgeList.onRefreshComplete();
+        knowledgeList.computeScroll();
     }
 }
