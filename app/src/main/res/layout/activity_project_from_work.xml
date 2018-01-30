@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f4f4f4"
+    tools:context="com.yunyisheng.app.yunys.main.activity.MailListActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/include_titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="@dimen/distance_340"
+            android:layout_height="@dimen/distance_33"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/distance_10"
+            android:layout_marginTop="@dimen/distance_10"
+            android:background="@drawable/msf_search"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/distance_10">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@mipmap/search" />
+
+            <EditText
+                android:id="@+id/ed_search"
+                android:layout_width="@dimen/distance_276"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/distance_7"
+                android:layout_marginRight="@dimen/distance_10"
+                android:background="@null"
+                android:hint="搜索员工"
+                android:imeOptions="actionSearch"
+                android:textColor="@color/color_333"
+                android:textColorHint="@color/color_666"
+                android:textSize="@dimen/distance_10" />
+
+            <ImageView
+                android:id="@+id/img_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@mipmap/ed_close"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <ExpandableListView
+            android:id="@+id/elv_organizationframe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:scrollbars="none"></ExpandableListView>
+
+        <ListView
+            android:id="@+id/lv_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:scrollbars="none"
+            android:visibility="gone"></ListView>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
