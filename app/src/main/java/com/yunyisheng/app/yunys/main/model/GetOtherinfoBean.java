@@ -2,13 +2,15 @@ package com.yunyisheng.app.yunys.main.model;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
 
+import java.io.Serializable;
+
 /**
  * 作者：fuduo on 2018/1/24 15:38
  * 邮箱：duoendeavor@163.com
  * 用途：
  */
 
-public class GetOtherinfoBean extends BaseModel {
+public class GetOtherinfoBean extends BaseModel implements Serializable {
 
 
     /**
@@ -25,7 +27,7 @@ public class GetOtherinfoBean extends BaseModel {
         this.respBody = respBody;
     }
 
-    public static class RespBodyBean {
+    public static class RespBodyBean implements Serializable{
         /**
          * userId : 308
          * userName : Android

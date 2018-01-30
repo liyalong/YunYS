@@ -291,6 +291,7 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
             case R.id.rl_organizationframe:
                 break;
             case R.id.rl_projectframe:
+                startActivity(new Intent(MailListActivity.this, ProjectFromWorkActivity.class));
                 break;
             case R.id.rl_arrangework:
                 startActivity(new Intent(MailListActivity.this, SelectPeopleActivity.class));

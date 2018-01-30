@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.schedule.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,11 +33,14 @@ public class ScheduleDeatilActivity extends BaseActivity {
     TextView teScheduleDetail;
     @BindView(R.id.te_zhixing_peo)
     TextView teZhixingPeo;
+    private String scheduleid;
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
         teTitle.setText("日程详情");
+        Intent intent = getIntent();
+        scheduleid = intent.getStringExtra("scheduleid");
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

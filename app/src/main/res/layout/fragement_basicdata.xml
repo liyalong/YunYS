@@ -34,7 +34,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/distance_13"
-                android:text="男"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_14" />
         </RelativeLayout>
@@ -64,7 +63,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/distance_13"
-                android:text="男"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_14" />
         </RelativeLayout>
@@ -94,7 +92,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/distance_13"
-                android:text="男"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_14" />
         </RelativeLayout>
@@ -124,7 +121,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/distance_13"
-                android:text="男"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_14" />
         </RelativeLayout>

@@ -40,12 +40,15 @@
                 android:background="@mipmap/blackback_r"
                 />
         </RelativeLayout>
-        <ListView
-            android:id="@+id/lv_message"
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/pull_to_list"
             android:layout_marginTop="@dimen/distance_10"
             android:layout_width="match_parent"
             android:divider="@color/color_e7"
-            android:dividerHeight="@dimen/distance_1"
-            android:layout_height="wrap_content"></ListView>
+            android:scrollbars="none"
+            android:dividerHeight="0.5dp"
+            android:layout_height="match_parent">
+
+        </com.handmark.pulltorefresh.library.PullToRefreshListView>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

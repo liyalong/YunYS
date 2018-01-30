@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewPager;
@@ -31,24 +32,39 @@ import com.ldf.calendar.model.CalendarDate;
 import com.ldf.calendar.view.Calendar;
 import com.ldf.calendar.view.MonthPager;
 import com.yunyisheng.app.yunys.R;
-import com.yunyisheng.app.yunys.schedule.adapter.TaskAdapter;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.schedule.adapter.TaskAdapter;
+import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
+import com.yunyisheng.app.yunys.schedule.model.PositionMessageEvent;
+import com.yunyisheng.app.yunys.schedule.present.MySchedulePresent;
 import com.yunyisheng.app.yunys.schedule.view.CustomDayView;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
+
+import static com.yunyisheng.app.yunys.utils.CommonUtils.ConverToDate;
+import static com.yunyisheng.app.yunys.utils.CommonUtils.getDayEndTime;
+import static com.yunyisheng.app.yunys.utils.CommonUtils.getDayStartTime;
+import static com.yunyisheng.app.yunys.utils.CommonUtils.getOtherEndtime;
+import static com.yunyisheng.app.yunys.utils.CommonUtils.getOtherStarttime;
 
 /**
  * 作者：fuduo on 2018/1/13 15:56
  * 邮箱：duoendeavor@163.com
  * 用途：我的日程和项目日程fragement
  */
-public class OurProjeceScheduleFragement extends BaseFragement {
+public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent> {
 
     Unbinder unbinder;
     @BindView(R.id.calendar_view)
@@ -68,7 +84,12 @@ public class OurProjeceScheduleFragement extends BaseFragement {
     private int mCurrentPage = MonthPager.CURRENT_DAY_INDEX;
     private CalendarDate currentDate;
     private int tabindex;
-    private WindowsReceiver mWindowsReceiver=new WindowsReceiver();
+    private WindowsReceiver mWindowsReceiver = new WindowsReceiver();
+    private List<MyScheduleBean.RespBodyBean.DataListBean> list = new ArrayList<>();
+    private TaskAdapter adapter;
+    private int pageindex = 1;
+    private long dayStartTime;
+    private long dayEndTime;
 
     public static OurProjeceScheduleFragement getInstance(int i) {
         OurProjeceScheduleFragement ourProjeceScheduleFragement = new OurProjeceScheduleFragement();
@@ -87,17 +108,49 @@ public class OurProjeceScheduleFragement extends BaseFragement {
 
     @Override
     public void initView() {
-        monthPager.setViewHeight(Utils.dpi2px(context, 270));
-        rvToDoList.setHasFixedSize(true);
-        //这里用线性显示 类似于listview
-        rvToDoList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvToDoList.setAdapter(new TaskAdapter(getActivity()));
+        monthPager.setViewHeight(Utils.dpi2px(mContext, 270));
         initCurrentDate();
         initCalendarView();
         initToolbarClickListener();
         Log.e("ldf", "OnCreated");
         IntentFilter intent2 = new IntentFilter("WindowFoucuschanged");
         mContext.registerReceiver(mWindowsReceiver, intent2);
+
+        rvToDoList.setHasFixedSize(true);
+        //这里用线性显示 类似于listview
+        rvToDoList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new TaskAdapter(mContext, list);
+        rvToDoList.setAdapter(adapter);
+        rvToDoList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                LinearLayoutManager lm = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int totalItemCount = recyclerView.getAdapter().getItemCount();
+                int lastVisibleItemPosition = lm.findLastVisibleItemPosition();
+                int visibleItemCount = recyclerView.getChildCount();
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE
+                        && lastVisibleItemPosition == totalItemCount - 1
+                        && visibleItemCount > 0) {
+                    loadMore();
+                }
+            }
+        });
+    }
+
+    private void loadMore() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //加载更多
+                if (tabindex==0){
+                    pageindex++;
+                    getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
+                }else {
+
+                }
+            }
+        }, 1000);
     }
 
     @Override
@@ -109,17 +162,45 @@ public class OurProjeceScheduleFragement extends BaseFragement {
                 createSelectTaskDialog(getActivity());
             }
         });
+        dayStartTime = getDayStartTime();
+        dayEndTime = getDayEndTime();
+        if (tabindex==0){
+            getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
+        }else {
+
+        }
     }
 
-    private class WindowsReceiver extends BroadcastReceiver{
+    public void getResultList(MyScheduleBean myScheduleBean) {
+        if (myScheduleBean.getRespBody().getDataList() != null && myScheduleBean.getRespBody().getDataList().size() > 0) {
+            list.addAll(myScheduleBean.getRespBody().getDataList());
+            adapter.setData(list);
+        } else {
+            if (pageindex == 1) {
+                ToastUtils.showToast("当前日期暂无日程");
+            } else {
+                ToastUtils.showToast("没有更多了");
+            }
+        }
+    }
+
+    //订阅方法，当接收到事件的时候，会调用该方法
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(PositionMessageEvent messageEvent){
+        Log.d("cylog","receive it");
+        String position = messageEvent.getPosition();
+        ToastUtils.showToast(position);
+    }
+
+    private class WindowsReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent != null && intent.getAction().equals("WindowFoucuschanged")) {
                 int code = intent.getIntExtra("code", 0);
-                if (code==200){
+                if (code == 200) {
                     refreshMonthPager();
-                    Log.d("odododood","33333333");
+                    Log.d("odododood", "33333333");
                 }
             }
         }
@@ -131,8 +212,8 @@ public class OurProjeceScheduleFragement extends BaseFragement {
     }
 
     @Override
-    public XPresent bindPresent() {
-        return null;
+    public MySchedulePresent bindPresent() {
+        return new MySchedulePresent();
     }
 
     @Override
@@ -167,9 +248,9 @@ public class OurProjeceScheduleFragement extends BaseFragement {
                 .findViewById(R.id.rl_liucheng_task);
         RelativeLayout rl_close = (RelativeLayout) view1
                 .findViewById(R.id.rl_close);
-        if (tabindex==0){
+        if (tabindex == 0) {
             rl_liucheng_task.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             rl_liucheng_task.setVisibility(View.GONE);
         }
         rl_shebei_task.setOnClickListener(new View.OnClickListener() {
@@ -299,6 +380,17 @@ public class OurProjeceScheduleFragement extends BaseFragement {
         onSelectDateListener = new OnSelectDateListener() {
             @Override
             public void onSelectDate(CalendarDate date) {
+                try {
+                    Date date1 = ConverToDate(date.toString());
+                    dayStartTime = getOtherStarttime(date1);
+                    dayEndTime = getOtherEndtime(date1);
+                    list.clear();
+                    pageindex = 1;
+                    getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 refreshClickDate(date);
             }
 
@@ -370,6 +462,7 @@ public class OurProjeceScheduleFragement extends BaseFragement {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
+        EventBus.getDefault().register(this);
         return rootView;
     }
 
@@ -378,6 +471,7 @@ public class OurProjeceScheduleFragement extends BaseFragement {
         super.onDestroyView();
         unbinder.unbind();
         getActivity().unregisterReceiver(mWindowsReceiver);
+        EventBus.getDefault().unregister(this);
     }
 
 }

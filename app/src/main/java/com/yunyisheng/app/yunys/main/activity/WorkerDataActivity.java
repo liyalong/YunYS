@@ -1,6 +1,7 @@
 package com.yunyisheng.app.yunys.main.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,7 +16,9 @@ import com.yunyisheng.app.yunys.main.adapter.ViewPagerAdapter;
 import com.yunyisheng.app.yunys.main.fragement.BasicDataFragement;
 import com.yunyisheng.app.yunys.main.fragement.ParticipateinFragement;
 import com.yunyisheng.app.yunys.main.fragement.ScheduleFragement;
-import com.yunyisheng.app.yunys.utils.ToastUtils;
+import com.yunyisheng.app.yunys.main.model.GetOtherinfoBean;
+import com.yunyisheng.app.yunys.utils.CommonUtils;
+import com.yunyisheng.app.yunys.utils.glide.GlideDownLoadImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +52,7 @@ public class WorkerDataActivity extends BaseActivity {
     private List<String> mTitleList = new ArrayList<>();
     private int tabindex;
     int userid;
+    private BasicDataFragement basicDataFragement;
 
     @Override
     public void initView() {
@@ -56,7 +60,6 @@ public class WorkerDataActivity extends BaseActivity {
         mTitleList.add("基本资料");
         mTitleList.add("日程安排");
         mTitleList.add("参与项目");
-
 
         vpInformation.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -66,7 +69,7 @@ public class WorkerDataActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                tabindex=position;
+                tabindex = position;
             }
 
             @Override
@@ -79,13 +82,13 @@ public class WorkerDataActivity extends BaseActivity {
     @Override
     public void initAfter() {
         Intent intent = getIntent();
-        userid= intent.getIntExtra("userid", 0);
-        BasicDataFragement basicDataFragement=new BasicDataFragement();
-        Bundle bundle=new Bundle();
-        bundle.putInt("userid",userid);
+        userid = intent.getIntExtra("userid", 0);
+        basicDataFragement = new BasicDataFragement();
+        Bundle bundle = new Bundle();
+        bundle.putInt("userid", userid);
         basicDataFragement.setArguments(bundle);
-        ScheduleFragement scheduleFragement=new ScheduleFragement();
-        ParticipateinFragement participateinFragement=new ParticipateinFragement();
+        ScheduleFragement scheduleFragement = new ScheduleFragement();
+        ParticipateinFragement participateinFragement = new ParticipateinFragement();
         fragmentList.add(basicDataFragement);
         fragmentList.add(scheduleFragement);
         fragmentList.add(participateinFragement);
@@ -111,16 +114,52 @@ public class WorkerDataActivity extends BaseActivity {
         teEdit.setOnClickListener(this);
     }
 
+    public void setInfodetail(GetOtherinfoBean getOtherinfoBean){
+        if (getOtherinfoBean.getRespBody().getUserPicture() != null && !getOtherinfoBean.getRespBody().getUserPicture().equals("")
+                && !getOtherinfoBean.getRespBody().getUserPicture().equals("null")) {
+            Bitmap bitmap = CommonUtils.stringtoBitmap(getOtherinfoBean.getRespBody().getUserPicture());
+            GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(context, imgWorkerHead, bitmap);
+        } else {
+            String sex = getOtherinfoBean.getRespBody().getUserSex();
+            if (sex != null && !sex.equals("") && !sex.equals("null")) {
+                if (sex.equals("男")) {
+                    imgWorkerHead.setBackgroundResource(R.mipmap.maillist_man);
+                } else {
+                    imgWorkerHead.setBackgroundResource(R.mipmap.maillist_woman);
+                }
+
+            } else {
+                imgWorkerHead.setBackgroundResource(R.mipmap.maillist_man);
+            }
+        }
+        teNameZhize.setText(getOtherinfoBean.getRespBody().getUserName()+" | "+getOtherinfoBean.getRespBody().getUserJobTitle());
+    }
+
     @Override
     public void widgetClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.img_back:
                 finish();
                 break;
             case R.id.te_edit:
-                ToastUtils.showLongToast(tabindex+"");
+                if (tabindex == 0) {
+                    if (basicDataFragement != null) {
+                        basicDataFragement.editInfo();
+                    }
+                }
                 break;
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case 5:
+                if (basicDataFragement != null) {
+                    basicDataFragement.getinfo();
+                }
+                break;
+        }
+    }
 }

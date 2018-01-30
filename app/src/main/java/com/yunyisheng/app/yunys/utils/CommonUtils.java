@@ -37,6 +37,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -291,12 +292,100 @@ public class CommonUtils {
     /**
      * @Author :付铎
      * @DATE :2017/9/21 10:32
+     * @Params //把日期转为字符串
+     */
+    public static String ConverToStringminute(Date date) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        return df.format(date);
+    }
+
+    /**
+     * @Author :付铎
+     * @DATE :2017/9/21 10:32
      * @Params //把字符串转为日期
      */
     public static Date ConverToDate(String strDate) throws Exception {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.parse(strDate);
     }
+
+    /**
+     * @author fuduo
+     * @time 2018/1/29  19:04
+     * @describe 获取一天的开始时间
+     */
+    public static long getDayStartTime(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date date=calendar.getTime();
+        String s = ConverToStringminute(date);
+        long stringToDate = getStringToDate(s, "yyyy-MM-dd HH:mm:ss");
+        System.out.println("开始时间："+s);
+        return stringToDate;
+    }
+
+    /**
+     * @author fuduo
+     * @time 2018/1/29  19:04
+     * @describe 获取一天的结束时间
+     */
+    public static long getDayEndTime(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        Date date=calendar.getTime();
+        String s = ConverToStringminute(date);
+        long stringToDate = getStringToDate(s, "yyyy-MM-dd HH:mm:ss");
+        System.out.println("结束时间："+s);
+        return stringToDate;
+    }
+
+    /**
+     *  @author fuduo
+     *  @time 2018/1/29  20:07
+     *  @describe 获取某天的开始时间
+     */
+    public static long getOtherStarttime(Date date){
+        date.getTime();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        Date time = calendar.getTime();
+        String s = ConverToStringminute(time);
+        long stringToDate = getStringToDate(s, "yyyy-MM-dd HH:mm:ss");
+        System.out.println("结束时间："+s);
+        return stringToDate;
+    }
+
+    /**
+     *  @author fuduo
+     *  @time 2018/1/29  20:07
+     *  @describe 获取某天的结束时间
+     */
+    public static long getOtherEndtime(Date date){
+        date.getTime();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date time = calendar.getTime();
+        String s = ConverToStringminute(time);
+        long stringToDate = getStringToDate(s, "yyyy-MM-dd HH:mm:ss");
+        System.out.println("开始时间："+s);
+        return stringToDate;
+    }
+
 
     /**
      * @Author :付铎

@@ -15,8 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
-import com.yunyisheng.app.yunys.main.model.WorkerBean;
-import com.yunyisheng.app.yunys.main.model.WorkerListBean;
+import com.yunyisheng.app.yunys.main.model.ProjectFromWorkBean;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.glide.GlideDownLoadImage;
 
@@ -28,13 +27,13 @@ import java.util.List;
  * 用途：
  */
 
-public class MaillistExpenableAdapter extends BaseExpandableListAdapter {
+public class ProjectFromWorkListExpenableAdapter extends BaseExpandableListAdapter {
 
-    private List<WorkerListBean> list;
+    private List<ProjectFromWorkBean.ListBean> list;
     private Context context;
     private LayoutInflater mInflater;
 
-    public MaillistExpenableAdapter(Context context, List<WorkerListBean> list) {
+    public ProjectFromWorkListExpenableAdapter(Context context, List<ProjectFromWorkBean.ListBean> list) {
         this.list = list;
         this.context = context;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -50,10 +49,10 @@ public class MaillistExpenableAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        if (list.get(groupPosition).getWorkerBeanList() == null) {
+        if (list.get(groupPosition).getUserList() == null) {
             return 0;
         }
-        return list.get(groupPosition).getWorkerBeanList().size();
+        return list.get(groupPosition).getUserList().size();
     }
 
     @Override
@@ -63,7 +62,7 @@ public class MaillistExpenableAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return list.get(groupPosition).getWorkerBeanList().get(childPosition);
+        return list.get(groupPosition).getUserList().get(childPosition);
     }
 
     @Override
@@ -82,7 +81,7 @@ public class MaillistExpenableAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         GroupViewHolder groupViewHolder = null;
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.maillist_exp_group_item, parent, false);
@@ -91,12 +90,12 @@ public class MaillistExpenableAdapter extends BaseExpandableListAdapter {
         } else {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
-        if (groupPosition == 0) {
+        if (groupPosition==0){
             groupViewHolder.viewwhite.setVisibility(View.GONE);
-        } else {
+        }else {
             groupViewHolder.viewwhite.setVisibility(View.VISIBLE);
         }
-        groupViewHolder.te_groupname.setText(list.get(groupPosition).getGroupname());
+        groupViewHolder.te_groupname.setText(list.get(groupPosition).getProjectName());
         if (isExpanded) {
             groupViewHolder.img_zhedie.setImageResource(R.mipmap.downsanjiao);
         } else {
@@ -107,36 +106,36 @@ public class MaillistExpenableAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-
         View view = mInflater.inflate(R.layout.maillist_exp_child_item, parent, false);
         TextView te_zhiwei = (TextView) view.findViewById(R.id.te_zhiwei);
         TextView te_name = (TextView) view.findViewById(R.id.te_name);
         ImageView img_woker_head = (ImageView) view.findViewById(R.id.img_woker_head);
         ImageView img_send_msg = (ImageView) view.findViewById(R.id.img_send_msg);
         ImageView img_call_phone = (ImageView) view.findViewById(R.id.img_call_phone);
-        View view1 = view.findViewById(R.id.view1);
-        final WorkerBean workerBean = list.get(groupPosition).getWorkerBeanList().get(childPosition);
-        te_name.setText(workerBean.getName());
-        int size = list.get(groupPosition).getWorkerBeanList().size();
-        if (childPosition == size - 1) {
+        View view1=view.findViewById(R.id.view1);   
+        final ProjectFromWorkBean.ListBean.UserListBean userListBean = list.get(groupPosition).getUserList().get(childPosition);
+        te_name.setText(userListBean.getUserName());
+        int size=list.get(groupPosition).getUserList().size();
+        if (childPosition==size-1){
             view1.setVisibility(View.GONE);
-        } else {
+        }else {
             view1.setVisibility(View.VISIBLE);
         }
-        if (workerBean.getIcon() != null && !workerBean.getIcon().equals("") && !workerBean.getIcon().equals("null")) {
-            Bitmap bitmap = CommonUtils.stringtoBitmap(workerBean.getIcon());
+        if (userListBean.getUserPicture() != null &&
+                !userListBean.getUserPicture().equals("")
+                && !userListBean.getUserPicture().equals("null")) {
+            Bitmap bitmap = CommonUtils.stringtoBitmap(userListBean.getUserPicture());
             GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(context, img_woker_head, bitmap);
-        } else {
-            img_woker_head.setBackground(null);
-            String sex = workerBean.getSex();
-            if (sex != null && !sex.equals("") && !sex.equals("null")) {
-                if (sex.equals("男")) {
+        }else {
+            String sex = userListBean.getUserSex();
+            if (sex!= null && !sex.equals("")&& !sex.equals("null")){
+                if (sex.equals("男")){
                     img_woker_head.setBackgroundResource(R.mipmap.maillist_man);
-                } else {
+                }else {
                     img_woker_head.setBackgroundResource(R.mipmap.maillist_woman);
                 }
 
-            } else {
+            }else {
                 img_woker_head.setBackgroundResource(R.mipmap.maillist_man);
             }
         }
@@ -144,7 +143,7 @@ public class MaillistExpenableAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri
-                        .parse("tel:" + workerBean.getUserPhone()));
+                        .parse("tel:" + userListBean.getUserPhone()));
                 if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
@@ -154,7 +153,7 @@ public class MaillistExpenableAdapter extends BaseExpandableListAdapter {
         img_send_msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri smsToUri = Uri.parse("smsto:" + workerBean.getUserPhone());
+                Uri smsToUri = Uri.parse("smsto:" + userListBean.getUserPhone());
                 Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);
                 context.startActivity(intent);
             }
@@ -168,14 +167,14 @@ public class MaillistExpenableAdapter extends BaseExpandableListAdapter {
     }
 
     class GroupViewHolder {
-        ImageView img_zhedie;
         TextView te_groupname;
         View viewwhite;
+        ImageView img_zhedie;
 
         public GroupViewHolder(View view) {
-            img_zhedie = (ImageView) view.findViewById(R.id.img_zhedie);
             te_groupname = (TextView) view.findViewById(R.id.te_groupname);
-            viewwhite = view.findViewById(R.id.view);
+            img_zhedie = (ImageView) view.findViewById(R.id.img_zhedie);
+            viewwhite=view.findViewById(R.id.view);
         }
     }
 
@@ -190,7 +189,7 @@ public class MaillistExpenableAdapter extends BaseExpandableListAdapter {
             img_woker_head = (ImageView) view.findViewById(R.id.img_woker_head);
             img_send_msg = (ImageView) view.findViewById(R.id.img_send_msg);
             img_call_phone = (ImageView) view.findViewById(R.id.img_call_phone);
-            view1 = view.findViewById(R.id.view1);
+            view1=view.findViewById(R.id.view1);
         }
     }
 }

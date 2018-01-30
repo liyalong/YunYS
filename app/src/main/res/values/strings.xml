@@ -37,6 +37,7 @@
     <string name="clickdelete">已添加(点击删除)</string>
     <string name="canadd">可添加</string>
     <string name="baobiao">报表</string>
+    <string name="shaixuan">筛选</string>
     <!--消息-->
     <string name="allmsg">全部消息</string>
     <!--公告-->
@@ -76,6 +77,7 @@
     <!-- 我的-->
     <string name="my_information">个人中心</string>
     <string name="my_info">我的资料</string>
+    <string name="changeziliao">编辑资料</string>
     <string name="soft_version">当前版本</string>
     <string name="user_setting">账号设置</string>
     <string name="mimamanager">密码管理</string>
@@ -89,8 +91,10 @@
     <string name="bumen">部门</string>
     <string name="zhiwei">职位</string>
     <string name="jiaose">角色</string>
+    <string name="isshownum">隐藏手机号</string>
     <string name="usezone">已用空间</string>
     <string name="clearcatch">清理缓存</string>
+    <string name="putzhiwei">请输入职位</string>
     <string name="putname">请输入姓名</string>
     <string name="puteamil">请输入邮箱</string>
     <string name="putphonenum">请输入手机号</string>

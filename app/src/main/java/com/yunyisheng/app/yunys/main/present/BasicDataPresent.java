@@ -33,7 +33,7 @@ public class BasicDataPresent extends XPresent<BasicDataFragement> {
                 .subscribe(new ApiSubscriber<GetOtherinfoBean>() {
                     @Override
                     public void onNext(GetOtherinfoBean getOtherinfoBean) {
-                        LoadingDialog.show(getV().getContext());
+                        LoadingDialog.dismiss(getV().getContext());
                         if (getOtherinfoBean.getRespCode()==0){
                             getV().getResultInfo(getOtherinfoBean);
                         }else {

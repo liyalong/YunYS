@@ -36,6 +36,18 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/distance_5"
                 android:background="@mipmap/setimg" />
+
+            <TextView
+                android:id="@+id/te_shaixuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/distance_10"
+                android:text="@string/shaixuan"
+                android:textColor="@color/color_333"
+                android:textSize="@dimen/distance_14"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <android.support.v4.view.ViewPager

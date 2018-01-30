@@ -7,6 +7,7 @@ import com.yunyisheng.app.yunys.main.model.FindProjectWorkerBean;
 import com.yunyisheng.app.yunys.main.model.FindWorkerBean;
 import com.yunyisheng.app.yunys.main.model.GetOtherinfoBean;
 import com.yunyisheng.app.yunys.main.model.MemorandumBean;
+import com.yunyisheng.app.yunys.main.model.MessageBean;
 import com.yunyisheng.app.yunys.main.model.NoticeDetailBean;
 import com.yunyisheng.app.yunys.main.model.ProjectFromWorkBean;
 import com.yunyisheng.app.yunys.main.model.ReportFormBean;
@@ -127,14 +128,14 @@ public interface HomeService {
      */
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
-    @POST("update/enterprirUser/employee/info")
+    @POST("system/update/enterprirUser/employee/info")
     Flowable<BaseModel> changeOtherWorkeninfo(@Field("userName") String userName,
-                                              @Field("userSex") String userSex,
                                               @Field("userPhone") String userPhone,
                                               @Field("userMailbox") String userMailbox,
                                               @Field("userJobTitle") String userJobTitle,
-                                              @Field("userId") String userId,
-                                              @Field("userPicture") String userPicture
+                                              @Field("userId") int userId,
+                                              @Field("userPicture") String userPicture,
+                                              @Field("userIsShow") boolean userIsShow
     );
 
     /**
@@ -245,5 +246,16 @@ public interface HomeService {
      */
     @POST("look/addressBook/role")
     Flowable<RoleBean> getRolelist();
+
+    /**
+     *  @author fuduo
+     *  @time 2018/1/30  14:56
+     *  @describe 查询所有消息
+     */
+    @FormUrlEncoded
+    @POST("message/selectMessage")
+    Flowable<MessageBean> getMessagelist(@Field("pagenum") int pagenum,
+                                         @Field("pagerows") int pagerows,
+                                         @Field("messageReceiveUserId") int userid);
 
 }

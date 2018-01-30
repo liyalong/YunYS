@@ -170,13 +170,7 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
         imgClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                edSearch.setText("");
-                sousuo_neirong = edSearch.getText().toString();
-                if (sousuo_neirong == null || sousuo_neirong.equals("")) {
-                    ToastUtils.showToast("搜索内容不能为空");
-                } else {
-                    getP().getFindProjectList(sousuo_neirong);
-                }
+                edSearch.setText("");
             }
         });
 

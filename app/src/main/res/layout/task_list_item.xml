@@ -2,9 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cv_item"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/distance_104"
+    android:layout_height="@dimen/distance_60"
     android:background="@color/white"
-    android:paddingBottom="@dimen/distance_10"
     android:paddingLeft="@dimen/distance_10">
 
     <ImageView
@@ -17,8 +16,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/distance_10"
         android:layout_marginRight="@dimen/distance_10"
+        android:layout_marginTop="@dimen/distance_10"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -44,6 +43,7 @@
                 android:background="@mipmap/liuchengbac"
                 android:gravity="center"
                 android:text="@string/liucheng"
+                android:textColor="@color/white"
                 android:textSize="@dimen/distance_8" />
 
         </RelativeLayout>
@@ -62,42 +62,11 @@
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_11" />
         </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/te_schedule_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:singleLine="true"
-                android:text="恢复快接电话是否健康当回事回复奋斗奋斗辅导费分地方地方辅导费"
-                android:textColor="@color/color_666"
-                android:textSize="@dimen/distance_14" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/te_zhixing_peo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:singleLine="true"
-                android:text="执行人：李尔 刘勇气 贝斯特"
-                android:textColor="@color/color_999"
-                android:textSize="@dimen/distance_12" />
-        </RelativeLayout>
     </LinearLayout>
-    <!--<View-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0.67dp"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:background="@android:color/white"/>-->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_e7" />
 </RelativeLayout>

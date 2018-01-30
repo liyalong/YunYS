@@ -49,9 +49,9 @@ public class SpinnerAdapter extends BaseAdapter {
         convertView= LayoutInflater.from(context).inflate(R.layout.spiner_list_item,null);
         if (convertView!=null){
             TextView tetype=(TextView) convertView.findViewById(R.id.te_type);
-            TextView te_msgsize=(TextView) convertView.findViewById(R.id.te_msgsize);
+//            TextView te_msgsize=(TextView) convertView.findViewById(R.id.te_msgsize);
             tetype.setText(mlist.get(position).getSptype());
-            te_msgsize.setText("("+mlist.get(position).getSptypesize()+")");
+//            te_msgsize.setText("("+mlist.get(position).getSptypesize()+")");
         }
         return convertView;
     }

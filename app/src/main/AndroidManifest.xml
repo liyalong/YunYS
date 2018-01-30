@@ -191,12 +191,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.BumenActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.RoleActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
+        <activity android:name=".main.activity.ChangeOtherUserinfoActivity" />
+        <activity android:name=".main.activity.ProjectFromWorkActivity"></activity>
     </application>
 
 </manifest>

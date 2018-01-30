@@ -191,44 +191,44 @@ public class SelectPeopleExpenableAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        ChildViewHolder childViewHolder = null;
-        if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.selectpeople_exp_child_item, parent, false);
-            childViewHolder = new ChildViewHolder(convertView);
-            convertView.setTag(childViewHolder);
-        } else {
-            childViewHolder = (ChildViewHolder) convertView.getTag();
-        }
+        View view = mInflater.inflate(R.layout.selectpeople_exp_child_item, parent, false);
+        TextView te_zhiwei = (TextView) view.findViewById(R.id.te_zhiwei);
+        TextView te_name = (TextView) view.findViewById(R.id.te_name);
+        ImageView img_woker_head = (ImageView) view.findViewById(R.id.img_woker_head);
+        ImageView img_send_msg = (ImageView) view.findViewById(R.id.img_send_msg);
+        ImageView img_call_phone = (ImageView) view.findViewById(R.id.img_call_phone);
+        ImageView ck_select = (ImageView) view.findViewById(R.id.ck_select);
+        View view1 = view.findViewById(R.id.view1);    
         final WorkerBean workerBean = list.get(groupPosition).getWorkerBeanList().get(childPosition);
-        childViewHolder.te_name.setText(workerBean.getName());
+        te_name.setText(workerBean.getName());
         int size = list.get(groupPosition).getWorkerBeanList().size();
         if (childPosition == size - 1) {
-            childViewHolder.view1.setVisibility(View.GONE);
+            view1.setVisibility(View.GONE);
         } else {
-            childViewHolder.view1.setVisibility(View.VISIBLE);
+            view1.setVisibility(View.VISIBLE);
         }
         if (workerBean.getIcon() != null && !workerBean.getIcon().equals("") && !workerBean.getIcon().equals("null")) {
             Bitmap bitmap = CommonUtils.stringtoBitmap(workerBean.getIcon());
-            GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(context, childViewHolder.img_woker_head, bitmap);
+            GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(context, img_woker_head, bitmap);
         } else {
             String sex = workerBean.getSex();
             if (sex != null && !sex.equals("") && !sex.equals("null")) {
                 if (sex.equals("男")) {
-                    childViewHolder.img_woker_head.setBackgroundResource(R.mipmap.maillist_man);
+                    img_woker_head.setBackgroundResource(R.mipmap.maillist_man);
                 } else {
-                    childViewHolder.img_woker_head.setBackgroundResource(R.mipmap.maillist_woman);
+                    img_woker_head.setBackgroundResource(R.mipmap.maillist_woman);
                 }
 
             } else {
-                childViewHolder.img_woker_head.setBackgroundResource(R.mipmap.maillist_man);
+                img_woker_head.setBackgroundResource(R.mipmap.maillist_man);
             }
         }
         if (workerBean.isIscheckchild()) {
-            childViewHolder.ck_select.setBackgroundResource(R.mipmap.select_yes);
+            ck_select.setBackgroundResource(R.mipmap.select_yes);
         } else {
-            childViewHolder.ck_select.setBackgroundResource(R.mipmap.select_no);
+            ck_select.setBackgroundResource(R.mipmap.select_no);
         }
-        childViewHolder.img_call_phone.setOnClickListener(new View.OnClickListener() {
+        img_call_phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri
@@ -239,7 +239,7 @@ public class SelectPeopleExpenableAdapter extends BaseExpandableListAdapter {
                 context.startActivity(intent);
             }
         });
-        childViewHolder.img_send_msg.setOnClickListener(new View.OnClickListener() {
+        img_send_msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Uri smsToUri = Uri.parse("smsto:" + workerBean.getUserPhone());
@@ -247,7 +247,7 @@ public class SelectPeopleExpenableAdapter extends BaseExpandableListAdapter {
                 context.startActivity(intent);
             }
         });
-        return convertView;
+        return view;
     }
 
     @Override
