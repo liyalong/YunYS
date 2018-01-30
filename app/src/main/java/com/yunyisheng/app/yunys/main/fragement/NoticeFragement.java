@@ -24,12 +24,18 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.main.activity.NoticeDeatilActivity;
 import com.yunyisheng.app.yunys.main.adapter.PublishNoticeListAdapter;
 import com.yunyisheng.app.yunys.main.adapter.ReceiveNoticeListAdapter;
 import com.yunyisheng.app.yunys.main.model.SendNoticeBean;
 import com.yunyisheng.app.yunys.main.present.NoticePresent;
+import com.yunyisheng.app.yunys.schedule.model.PositionMessageEvent;
 import com.yunyisheng.app.yunys.utils.ScrowUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +80,7 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         tabindex = bundle.getInt("tabindex", 0);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -136,25 +143,12 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
         pullToRefreshListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                SendNoticeBean.ListBean listBean = sendlist.get(position - 1);
-//                Intent intent = new Intent(mContext, NoticeDeatilActivity.class);
-//                intent.putExtra("type", tabindex);
-//                intent.putExtra("noticeid", listBean.getAnnouncementId());
-//                startActivityForResult(intent, 2);
+                SendNoticeBean.ListBean listBean = sendlist.get(position - 1);
+                Intent intent = new Intent(mContext, NoticeDeatilActivity.class);
+                intent.putExtra("type", tabindex);
+                intent.putExtra("noticeid", listBean.getAnnouncementId());
+                startActivityForResult(intent, 2);
                 sousuo_neirong = edSearch.getText().toString();
-                if (sousuo_neirong == null || sousuo_neirong.equals("")) {
-                    ToastUtils.showToast("搜索内容不能为空");
-                } else {
-                    if (tabindex == 0) {
-                        sendlist.clear();
-                        pageindex = 1;
-                        getP().getSendNoticelist(pageindex, 10, sousuo_neirong);
-                    } else {
-                        sendlist.clear();
-                        pageindex = 1;
-                        getP().getReceiveNoticelist(pageindex, 10, sousuo_neirong);
-                    }
-                }
             }
         });
     }
@@ -165,6 +159,18 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("action");
         getActivity().registerReceiver(receiver, intentFilter);
+    }
+
+    //订阅方法，当接收到事件的时候，会调用该方法
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(PositionMessageEvent messageEvent){
+        String position = messageEvent.getPosition();
+        if (position.equals("updatenotice")){
+            sendlist.clear();
+            pageindex = 1;
+            getP().getSendNoticelist(pageindex, 10, sousuo_neirong);
+        }
+
     }
 
     class MyReceiver extends BroadcastReceiver {
@@ -296,5 +302,6 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
 }

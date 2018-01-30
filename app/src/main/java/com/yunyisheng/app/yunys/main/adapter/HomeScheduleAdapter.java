@@ -1,11 +1,9 @@
-package com.yunyisheng.app.yunys.schedule.adapter;
+package com.yunyisheng.app.yunys.main.adapter;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,39 +15,44 @@ import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.droidlover.xrecyclerview.RecyclerAdapter;
+import cn.droidlover.xdroidmvp.base.SimpleListAdapter;
 
 /**
  * Created by liyalong on 2017/12/26.
  */
 
-public class TaskAdapter extends RecyclerAdapter<MyScheduleBean.RespBodyBean.DataListBean, TaskAdapter.ViewHolder> {
+public class HomeScheduleAdapter extends SimpleListAdapter<MyScheduleBean.RespBodyBean.DataListBean, HomeScheduleAdapter.ViewHolder> {
 
-    private final LayoutInflater layoutInflater;
     private final Context context;
     private List<MyScheduleBean.RespBodyBean.DataListBean> list = new ArrayList<>();
 
-    public TaskAdapter(Context context, List<MyScheduleBean.RespBodyBean.DataListBean> list) {
+    public HomeScheduleAdapter(Context context, List<MyScheduleBean.RespBodyBean.DataListBean> list) {
         super(context);
         this.context = context;
         this.list = list;
-        layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
-    public TaskAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(layoutInflater.inflate(R.layout.task_list_item, parent, false));
+    protected ViewHolder newViewHolder(View convertView) {
+        return new ViewHolder(convertView);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    protected int getLayoutId() {
+        return R.layout.task_list_item;
+    }
+
+    @Override
+    protected void convert(ViewHolder holder, MyScheduleBean.RespBodyBean.DataListBean item, int position) {
         final MyScheduleBean.RespBodyBean.DataListBean bean = list.get(position);
         holder.te_schedule_title.setText(bean.getTheme());
         String creationTime = bean.getCreationTime();
         String endTime = bean.getEndTime();
+
         if (position==list.size()-1){
             holder.view1.setVisibility(View.GONE);
         }
+
         holder.te_schedule_time.setText(creationTime + "-" + endTime);
         String type = bean.getType();
         if (type.equals("1")) {
@@ -75,10 +78,6 @@ public class TaskAdapter extends RecyclerAdapter<MyScheduleBean.RespBodyBean.Dat
         });
     }
 
-    @Override
-    public int getItemCount() {
-        return list == null ? 0 : list.size();
-    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView te_schedule_title, te_schedule_time, te_liucheng_type;

@@ -49,6 +49,7 @@ public interface HomeService {
      * @describe 获取发布的公告列表
      */
     @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     @POST("announcement/list/publish")
     Flowable<SendNoticeBean> getSendNoticelist(@Field("pageNum") int pageNum,
                                                @Field("pageSize") int pageSize,

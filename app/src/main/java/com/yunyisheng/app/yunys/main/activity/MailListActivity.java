@@ -294,7 +294,9 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
                 startActivity(new Intent(MailListActivity.this, ProjectFromWorkActivity.class));
                 break;
             case R.id.rl_arrangework:
-                startActivity(new Intent(MailListActivity.this, SelectPeopleActivity.class));
+                Intent intent=new Intent(MailListActivity.this, SelectPeopleActivity.class);
+                intent.putExtra("type",1);
+                startActivity(intent);
                 break;
             case R.id.rl_invite:
                 startActivity(new Intent(MailListActivity.this, InviteWorkerActivity.class));

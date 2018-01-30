@@ -35,10 +35,12 @@ public class SelectPeopleActivity extends BaseActivity{
     ViewPager vpJiagou;
     private List<Fragment> fragmentList = new ArrayList<>();
     private List<String> mTitleList = new ArrayList<>();
+    public int type;//区分从那样的页面跳转（1：通讯录；其他：需要选人）
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        type = getIntent().getIntExtra("type", 0);
         mTitleList.add("组织架构");
         mTitleList.add("项目架构");
 //        //注册成为订阅者

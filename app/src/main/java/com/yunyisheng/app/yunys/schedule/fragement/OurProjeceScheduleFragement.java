@@ -132,10 +132,26 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
                         && lastVisibleItemPosition == totalItemCount - 1
                         && visibleItemCount > 0) {
-                    loadMore();
+                    if (fastClick()){
+                        loadMore();
+                    }
                 }
             }
         });
+    }
+
+    /**
+     * [防止快速点击]
+     *
+     * @return
+     */
+    private boolean fastClick() {
+        long lastClick = 0;
+        if (System.currentTimeMillis() - lastClick <= 1000) {
+            return false;
+        }
+        lastClick = System.currentTimeMillis();
+        return true;
     }
 
     private void loadMore() {

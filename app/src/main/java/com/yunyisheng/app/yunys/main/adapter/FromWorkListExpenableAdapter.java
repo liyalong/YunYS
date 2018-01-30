@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.main.model.ProjectFromWorkBean;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.glide.GlideDownLoadImage;
 
 import java.util.ArrayList;
@@ -92,24 +93,28 @@ public class FromWorkListExpenableAdapter extends BaseExpandableListAdapter {
         for (int i = 0; i < list.size(); i++) {
             ProjectFromWorkBean.ListBean listBean = list.get(i);
             List<ProjectFromWorkBean.ListBean.UserListBean> userList = listBean.getUserList();
-            if (isselect) {
-                if (!listBean.isIscheckgroup()) {
-                    listBean.setIscheckgroup(true);
-                }
-                for (int j = 0; j < userList.size(); j++) {
-                    ProjectFromWorkBean.ListBean.UserListBean userListBean = userList.get(j);
-                    if (!userListBean.isIscheckchild()) {
-                        userListBean.setIscheckchild(true);
+            if (userList==null||userList.size()==0){
+                continue;
+            }else {
+                if (isselect) {
+                    if (!listBean.isIscheckgroup()) {
+                        listBean.setIscheckgroup(true);
                     }
-                }
-            } else {
-                if (listBean.isIscheckgroup()) {
-                    listBean.setIscheckgroup(false);
-                }
-                for (int j = 0; j < userList.size(); j++) {
-                    ProjectFromWorkBean.ListBean.UserListBean userListBean = userList.get(j);
-                    if (userListBean.isIscheckchild()) {
-                        userListBean.setIscheckchild(false);
+                    for (int j = 0; j < userList.size(); j++) {
+                        ProjectFromWorkBean.ListBean.UserListBean userListBean = userList.get(j);
+                        if (!userListBean.isIscheckchild()) {
+                            userListBean.setIscheckchild(true);
+                        }
+                    }
+                } else {
+                    if (listBean.isIscheckgroup()) {
+                        listBean.setIscheckgroup(false);
+                    }
+                    for (int j = 0; j < userList.size(); j++) {
+                        ProjectFromWorkBean.ListBean.UserListBean userListBean = userList.get(j);
+                        if (userListBean.isIscheckchild()) {
+                            userListBean.setIscheckchild(false);
+                        }
                     }
                 }
             }
@@ -166,22 +171,26 @@ public class FromWorkListExpenableAdapter extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 boolean ischeckgroup = list.get(groupPosition).isIscheckgroup();
                 List<ProjectFromWorkBean.ListBean.UserListBean> userList = list.get(groupPosition).getUserList();
-                if (ischeckgroup){
-                    for (int i = 0; i < userList.size(); i++) {
-                        ProjectFromWorkBean.ListBean.UserListBean userListBean = userList.get(i);
-                        if (userListBean.isIscheckchild()) {
-                            userListBean.setIscheckchild(false);
+                if (userList!=null&&userList.size()>0) {
+                    if (ischeckgroup) {
+                        for (int i = 0; i < userList.size(); i++) {
+                            ProjectFromWorkBean.ListBean.UserListBean userListBean = userList.get(i);
+                            if (userListBean.isIscheckchild()) {
+                                userListBean.setIscheckchild(false);
+                            }
+                        }
+                    } else {
+                        for (int i = 0; i < userList.size(); i++) {
+                            ProjectFromWorkBean.ListBean.UserListBean userListBean = userList.get(i);
+                            if (!userListBean.isIscheckchild()) {
+                                userListBean.setIscheckchild(true);
+                            }
                         }
                     }
+                    myOnclicklisttener.Onclicklistener(groupPosition);
                 }else {
-                    for (int i = 0; i < userList.size(); i++) {
-                        ProjectFromWorkBean.ListBean.UserListBean userListBean = userList.get(i);
-                        if (!userListBean.isIscheckchild()) {
-                            userListBean.setIscheckchild(true);
-                        }
-                    }
+                    ToastUtils.showToast("该项目未添加人员");
                 }
-                myOnclicklisttener.Onclicklistener(groupPosition);
             }
         });
         return convertView;

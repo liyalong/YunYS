@@ -18,6 +18,7 @@ import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.main.model.WorkerBean;
 import com.yunyisheng.app.yunys.main.model.WorkerListBean;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.glide.GlideDownLoadImage;
 
 import java.util.ArrayList;
@@ -93,24 +94,28 @@ public class SelectPeopleExpenableAdapter extends BaseExpandableListAdapter {
         for (int i = 0; i < list.size(); i++) {
             WorkerListBean workerListBean = list.get(i);
             List<WorkerBean> workerBeanList = workerListBean.getWorkerBeanList();
-            if (isselect) {
-                if (!workerListBean.isIscheckgroup()) {
-                    workerListBean.setIscheckgroup(true);
-                }
-                for (int j = 0; j < workerBeanList.size(); j++) {
-                    WorkerBean workerBean = workerBeanList.get(j);
-                    if (!workerBean.isIscheckchild()) {
-                        workerBean.setIscheckchild(true);
+            if (workerBeanList==null||workerBeanList.size()==0){
+                continue;
+            }else {
+                if (isselect) {
+                    if (!workerListBean.isIscheckgroup()) {
+                        workerListBean.setIscheckgroup(true);
                     }
-                }
-            } else {
-                if (workerListBean.isIscheckgroup()) {
-                    workerListBean.setIscheckgroup(false);
-                }
-                for (int j = 0; j < workerBeanList.size(); j++) {
-                    WorkerBean workerBean = workerBeanList.get(j);
-                    if (workerBean.isIscheckchild()) {
-                        workerBean.setIscheckchild(false);
+                    for (int j = 0; j < workerBeanList.size(); j++) {
+                        WorkerBean workerBean = workerBeanList.get(j);
+                        if (!workerBean.isIscheckchild()) {
+                            workerBean.setIscheckchild(true);
+                        }
+                    }
+                } else {
+                    if (workerListBean.isIscheckgroup()) {
+                        workerListBean.setIscheckgroup(false);
+                    }
+                    for (int j = 0; j < workerBeanList.size(); j++) {
+                        WorkerBean workerBean = workerBeanList.get(j);
+                        if (workerBean.isIscheckchild()) {
+                            workerBean.setIscheckchild(false);
+                        }
                     }
                 }
             }
@@ -164,25 +169,29 @@ public class SelectPeopleExpenableAdapter extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 boolean ischeckgroup = list.get(groupPosition).isIscheckgroup();
                 List<WorkerBean> workerBeanList = list.get(groupPosition).getWorkerBeanList();
-                if (ischeckgroup){
+                if (workerBeanList!=null&&workerBeanList.size()>0) {
+                    if (ischeckgroup) {
 //                    list.get(groupPosition).setIscheckgroup(false);
-                    for (int i = 0; i < workerBeanList.size(); i++) {
-                        WorkerBean workerBean = workerBeanList.get(i);
-                        if (workerBean.isIscheckchild()) {
-                            workerBean.setIscheckchild(false);
+                        for (int i = 0; i < workerBeanList.size(); i++) {
+                            WorkerBean workerBean = workerBeanList.get(i);
+                            if (workerBean.isIscheckchild()) {
+                                workerBean.setIscheckchild(false);
+                            }
                         }
-                    }
-                }else {
+                    } else {
 //                    list.get(groupPosition).setIscheckgroup(true);
-                    for (int i = 0; i < workerBeanList.size(); i++) {
-                        WorkerBean workerBean = workerBeanList.get(i);
-                        if (!workerBean.isIscheckchild()) {
-                            workerBean.setIscheckchild(true);
+                        for (int i = 0; i < workerBeanList.size(); i++) {
+                            WorkerBean workerBean = workerBeanList.get(i);
+                            if (!workerBean.isIscheckchild()) {
+                                workerBean.setIscheckchild(true);
+                            }
                         }
                     }
-                }
 //                notifyDataSetChanged();
-                myOnclicklisttener.Onclicklistener(groupPosition);
+                    myOnclicklisttener.Onclicklistener(groupPosition);
+                }else {
+                    ToastUtils.showToast("该部门未添加人员");
+                }
             }
         });
         groupViewHolder.te_groupname.setText(list.get(groupPosition).getGroupname());

@@ -85,7 +85,7 @@ public class ScrowUtil {
     /**
      * @Author :付铎
      * @DATE :2017/9/22 15:10
-     * @Params PullToRefreshListView 仅有下拉
+     * @Params PullToRefreshListView 仅有上拉
      */
     public static void listViewUpConfig(PullToRefreshListView mlistview){
         mlistview.setMode(PullToRefreshBase.Mode.PULL_FROM_END);

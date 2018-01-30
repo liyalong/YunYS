@@ -3,7 +3,10 @@ package com.yunyisheng.app.yunys.main.present;
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.main.activity.AddMemorandumActivity;
 import com.yunyisheng.app.yunys.net.Api;
+import com.yunyisheng.app.yunys.schedule.model.PositionMessageEvent;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 import cn.droidlover.xdroidmvp.net.ApiSubscriber;
@@ -31,11 +34,12 @@ public class UpdateMempPresent extends XPresent<AddMemorandumActivity> {
                 .subscribe(new ApiSubscriber<BaseModel>() {
                     @Override
                     public void onNext(BaseModel baseModel) {
-                        //getV().getAddResult(baseModel);
                         if (baseModel.getRespCode()==0){
                             ToastUtils.showToast("添加成功");
+                            EventBus.getDefault().post(new PositionMessageEvent("updatebeiwanglu"));
+                        }else {
+                            ToastUtils.showToast(baseModel.getRespMsg());
                         }
-                        //ToastUtils.showToast(baseModel.getRespMsg());
                     }
 
                     @Override

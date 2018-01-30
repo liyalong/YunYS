@@ -1,14 +1,19 @@
 package com.yunyisheng.app.yunys.main.fragement;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -24,6 +29,7 @@ import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.main.activity.SelectPeopleActivity;
 import com.yunyisheng.app.yunys.main.adapter.FromWorkListExpenableAdapter;
 import com.yunyisheng.app.yunys.main.adapter.SelectFindProjectWorkerListAdapter;
 import com.yunyisheng.app.yunys.main.adapter.SelectFindWorkerListAdapter;
@@ -157,11 +163,16 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
                     }
                     String str = object.toString();
                     Log.i("stridnifn", str);
-                    Intent intent = getActivity().getIntent();
-                    intent.putExtra("size", selectlist.size());
-                    intent.putExtra("selectjson", str);
-                    getActivity().setResult(8, intent);
-                    getActivity().finish();
+
+                    if (((SelectPeopleActivity)getActivity()).type==1){
+                        createSelectTaskDialog(getActivity());
+                    }else {
+                        Intent intent = getActivity().getIntent();
+                        intent.putExtra("size", selectlist.size());
+                        intent.putExtra("selectjson", str);
+                        getActivity().setResult(8, intent);
+                        getActivity().finish();
+                    }
                 }
             }
         });
@@ -344,6 +355,67 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
 
         }
     };
+
+    /**
+     * 选择任务对话框
+     *
+     * @param activity
+     * @return
+     */
+    public void createSelectTaskDialog(final Activity activity) {
+        final Dialog mSelectTask = new Dialog(activity, R.style.dialog_bottom_full);
+        mSelectTask.setCanceledOnTouchOutside(true);
+        mSelectTask.setCancelable(true);
+        Window window = mSelectTask.getWindow();
+        window.setGravity(Gravity.BOTTOM);
+        View view1 = View.inflate(activity, R.layout.dialog_select_task, null);
+        RelativeLayout rl_shebei_task = (RelativeLayout) view1
+                .findViewById(R.id.rl_shebei_task);
+        RelativeLayout rl_wrongshebei_task = (RelativeLayout) view1
+                .findViewById(R.id.rl_wrongshebei_task);
+
+        RelativeLayout rl_liucheng_task = (RelativeLayout) view1
+                .findViewById(R.id.rl_liucheng_task);
+        RelativeLayout rl_close = (RelativeLayout) view1
+                .findViewById(R.id.rl_close);
+        if (tabindex == 0) {
+            rl_liucheng_task.setVisibility(View.VISIBLE);
+        } else {
+            rl_liucheng_task.setVisibility(View.GONE);
+        }
+        rl_shebei_task.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+
+            }
+        });
+        rl_wrongshebei_task.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+            }
+        });
+        rl_liucheng_task.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        rl_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSelectTask.dismiss();
+            }
+        });
+
+        window.setContentView(view1);
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);//设置横向全屏
+        mSelectTask.show();
+    }
 
     @Override
     public void initAfter() {

@@ -167,7 +167,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/distance_5"
                 android:layout_toRightOf="@+id/te_columntitle"
-                android:text="(32)"
                 android:textColor="@color/color_666"
                 android:textSize="@dimen/distance_16" />
 
@@ -196,8 +195,7 @@
             android:layout_below="@+id/view"
             android:background="@color/white"
             android:clickable="false"
-            android:divider="@color/color_e7"
-            android:dividerPadding="0.5dp"
+            android:divider="@null"
             android:scrollbars="none"
             >
 

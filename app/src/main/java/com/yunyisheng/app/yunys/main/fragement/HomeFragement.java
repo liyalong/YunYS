@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yunyisheng.app.yunys.ConstantManager;
 import com.yunyisheng.app.yunys.MainActivity;
@@ -23,7 +25,9 @@ import com.yunyisheng.app.yunys.main.activity.MemorandumActivity;
 import com.yunyisheng.app.yunys.main.activity.MessageActivity;
 import com.yunyisheng.app.yunys.main.activity.NoticeActivity;
 import com.yunyisheng.app.yunys.main.activity.ReportformActivity;
+import com.yunyisheng.app.yunys.main.adapter.HomeScheduleAdapter;
 import com.yunyisheng.app.yunys.main.present.HomePresent;
+import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.RecyclerBanner;
 import com.yunyisheng.app.yunys.utils.ScrowUtil;
@@ -36,6 +40,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.droidlover.xdroidbase.cache.SharedPref;
+
+import static com.yunyisheng.app.yunys.utils.CommonUtils.getDayEndTime;
+import static com.yunyisheng.app.yunys.utils.CommonUtils.getDayStartTime;
 
 /**
  * 作者：fuduo on 2018/1/10 09:24
@@ -70,12 +77,34 @@ public class HomeFragement extends BaseFragement<HomePresent> {
     @BindView(R.id.line_beiwanglu)
     LinearLayout lineBeiwanglu;
     private List<RecyclerBanner.BannerEntity> urls = new ArrayList<>();
+    private List<MyScheduleBean.RespBodyBean.DataListBean> list = new ArrayList<>();
     int i;
+    private HomeScheduleAdapter adapter;
+    private int pageindex = 1;
+    private long dayStartTime;
+    private long dayEndTime;
+    private boolean isfirst=true;
 
     @Override
     public void initView() {
         rcyBanner.setContext((Activity) mContext);
-        ScrowUtil.listViewConfig(pullToRefreshListview);
+        ScrowUtil.listViewUpConfig(pullToRefreshListview);
+        dayStartTime = getDayStartTime();
+        dayEndTime = getDayEndTime();
+        adapter = new HomeScheduleAdapter(mContext, list);
+        pullToRefreshListview.setAdapter(adapter);
+        pullToRefreshListview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+               pageindex++;
+               getP().getMySchedulrList(pageindex,dayStartTime,dayEndTime);
+            }
+        });
     }
 
     @Override
@@ -99,6 +128,7 @@ public class HomeFragement extends BaseFragement<HomePresent> {
         String token=SharedPref.getInstance(mContext).getString("TOKEN","");
         ConstantManager.token=token;
         LogUtils.i("token",token);
+        getP().getMySchedulrList(pageindex,dayStartTime,dayEndTime);
     }
 
     @Override
@@ -178,6 +208,24 @@ public class HomeFragement extends BaseFragement<HomePresent> {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    public void getResultList(MyScheduleBean myScheduleBean) {
+        if (isfirst){
+            isfirst=false;
+            teColumnsize.setText("("+myScheduleBean.getTotal()+")");
+        }
+        if (myScheduleBean.getRespBody().getDataList() != null && myScheduleBean.getRespBody().getDataList().size() > 0) {
+            list.addAll(myScheduleBean.getRespBody().getDataList());
+            adapter.setData(list);
+        } else {
+            if (pageindex == 1) {
+                ToastUtils.showToast("当前日期暂无日程");
+            } else {
+                ToastUtils.showToast("没有更多了");
+            }
+        }
+        pullToRefreshListview.onRefreshComplete();
     }
 
     private class Entity implements RecyclerBanner.BannerEntity {

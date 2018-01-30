@@ -67,8 +67,8 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/distance_20"
-                android:hint="请输入公告标题"
                 android:background="@null"
+                android:hint="请输入公告标题"
                 android:textColor="@color/color_333"
                 android:textColorHint="@color/color_666"
                 android:textSize="@dimen/distance_13" />
@@ -121,7 +121,6 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/distance_13"
                 android:layout_toLeftOf="@+id/img"
-                android:text="20人"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_14" />
 
@@ -155,9 +154,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/test"
-                android:gravity="top"
                 android:layout_marginLeft="@dimen/distance_13"
                 android:background="@null"
+                android:gravity="top"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_14" />
         </RelativeLayout>

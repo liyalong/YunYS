@@ -14,12 +14,15 @@ import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.main.service.HomeService;
 import com.yunyisheng.app.yunys.net.Api;
+import com.yunyisheng.app.yunys.schedule.model.PositionMessageEvent;
 import com.yunyisheng.app.yunys.utils.FileUtil;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.SDCardHelper;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.Util;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -173,6 +176,7 @@ public class SendNoticeActivity extends BaseActivity {
                 int code = response.body().getRespCode();
                 if (code == 0) {
                     ToastUtils.showToast("发布成功!");
+                    EventBus.getDefault().post(new PositionMessageEvent("updatenotice"));
                 }
                 LogUtils.i("fjdlkf", msg + code);
                 LoadingDialog.dismiss(SendNoticeActivity.this);

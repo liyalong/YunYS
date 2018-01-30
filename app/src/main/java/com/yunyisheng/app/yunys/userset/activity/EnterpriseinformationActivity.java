@@ -21,7 +21,6 @@ import butterknife.ButterKnife;
  */
 public class EnterpriseinformationActivity extends BaseActivity<EnterpriseinformationPresent> {
 
-
     @BindView(R.id.img_back)
     ImageView imgBack;
     @BindView(R.id.te_name_code)
