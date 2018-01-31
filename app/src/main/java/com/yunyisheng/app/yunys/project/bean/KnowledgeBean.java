@@ -7,6 +7,9 @@ package com.yunyisheng.app.yunys.project.bean;
 public class KnowledgeBean {
     private int knowledgeId;
     private String knowledgeName;
+    private String knowledgeBase;
+    private String knowledgeExtend;
+    private int knowledgeTypeId;
     private String createt;
 
     public String getCreatet() {
@@ -36,12 +39,28 @@ public class KnowledgeBean {
         return knowledgeName;
     }
 
-    @Override
-    public String toString() {
-        return "KnowledgeBean{" +
-                "knowledgeId=" + knowledgeId +
-                ", knowledgeName='" + knowledgeName + '\'' +
-                ", createt='" + createt + '\'' +
-                '}';
+    public void setKnowledgeBase(String knowledgeBase) {
+        this.knowledgeBase = knowledgeBase;
+    }
+
+    public void setKnowledgeExtend(String knowledgeExtend) {
+        this.knowledgeExtend = knowledgeExtend;
+    }
+
+    public void setKnowledgeTypeId(int knowledgeTypeId) {
+        this.knowledgeTypeId = knowledgeTypeId;
+    }
+
+    public String getKnowledgeBase() {
+
+        return knowledgeBase;
+    }
+
+    public String getKnowledgeExtend() {
+        return knowledgeExtend;
+    }
+
+    public int getKnowledgeTypeId() {
+        return knowledgeTypeId;
     }
 }

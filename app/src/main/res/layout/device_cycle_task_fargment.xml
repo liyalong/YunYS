@@ -160,11 +160,12 @@
                 <TextView
                     android:id="@+id/cycle_select_cron"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:layout_height="match_parent"
                     android:text="@string/task_cycle_time"
                     android:textColor="@color/color_333"
                     android:textSize="@dimen/distance_14"/>
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

@@ -150,6 +150,7 @@
     <string name="beijian_ghzq">更换周期：</string>
     <string name="beijian_list">备件列表</string>
     <string name="knowledge_list">知识库列表</string>
+    <string name="knowlodge_detail">知识库详情</string>
     <string name="device_tasks_list">周期任务列表</string>
     <string name="device_tasks_status">状态：</string>
     <string name="device_tasks_desc">备注：</string>
@@ -183,16 +184,18 @@
     <string name="claim_task">认领任务</string>
     <string name="do_task">立即执行</string>
     <string name="back_task">回退</string>
+    <string name="look_task_info">详情</string>
     <string name="task_info">任务详情</string>
     <string name="task_create_user">创建人：</string>
     <string name="task_create_time">创建时间：</string>
     <string name="task_start_end_time">*起止时间</string>
     <string name="task_do_user">认领人：</string>
-    <string name="task_status_1">待认领</string>
+    <string name="task_status_1">未认领</string>
     <string name="task_status_2">已认领</string>
     <string name="task_status_3">已完成</string>
     <string name="task_status_4">未完成</string>
     <string name="task_status_5">已超时</string>
+    <string name="task_status_6">已退回</string>
 
 
     <string name="device_model_info">工艺模块运行详情</string>

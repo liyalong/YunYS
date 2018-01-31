@@ -241,8 +241,6 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
 
     @Override
     public void click(View v) {
-        XLog.d( "listview的内部的按钮被点击了！，位置是-->" + (Integer) v.getTag() +
-                ",内容是-->" + deviceBeanList.get((Integer) v.getTag()).getEquipmentName());
         int position = (Integer) v.getTag();
         createDeviceListBtnDialog(context,position);
     }

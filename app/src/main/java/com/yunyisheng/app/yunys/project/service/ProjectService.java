@@ -1,21 +1,25 @@
 package com.yunyisheng.app.yunys.project.service;
 
+import com.yunyisheng.app.yunys.project.bean.TaskBean;
 import com.yunyisheng.app.yunys.project.model.DeviceAlarmRulesModel;
 import com.yunyisheng.app.yunys.project.model.DeviceInfoModel;
 import com.yunyisheng.app.yunys.project.model.DeviceListModel;
 import com.yunyisheng.app.yunys.project.model.DevicePLCValueListModel;
 import com.yunyisheng.app.yunys.project.model.DevicePartsListModel;
 import com.yunyisheng.app.yunys.project.model.DeviceWarningListModel;
+import com.yunyisheng.app.yunys.project.model.KnowledgDetailModel;
 import com.yunyisheng.app.yunys.project.model.KnowledgeListModel;
 import com.yunyisheng.app.yunys.project.model.ModelAlarmRulesListModel;
 import com.yunyisheng.app.yunys.project.model.ModelDetailModel;
 import com.yunyisheng.app.yunys.project.model.ModelListModel;
 import com.yunyisheng.app.yunys.project.model.PeriodicTaskListModel;
 import com.yunyisheng.app.yunys.project.model.ProjectListModel;
+import com.yunyisheng.app.yunys.project.model.TaskListModel;
 
 import io.reactivex.Flowable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -219,4 +223,17 @@ public interface ProjectService {
                                                               @Field("pcmId") String modelId,
                                                               @Field("pageNum") int pageNum,
                                                               @Field("pageSize") int pageSize);
+
+    /**
+     * 获取知识详情
+     * @param projectId
+     * @param knowledgeId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("project/knowledge/info/{projectId}")
+    Flowable<KnowledgDetailModel> getKnowledgeDetail(@Path("projectId") String projectId,
+                                                     @Field("knowledgeId") String knowledgeId);
+
+
 }

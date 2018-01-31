@@ -78,4 +78,10 @@
     <color name="color3">#B0B0B0</color>
     <color name="color4">#666666</color>
     <color name="color5">#57C5E8</color>
+
+    <color name="task_status_1">#5FB878</color>
+    <color name="task_status_2">#1E9FFF</color>
+    <color name="task_status_3">#FF5722</color>
+    <color name="task_status_4">#FFB800</color>
+
 </resources>
