@@ -16,6 +16,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.project.activity.ProjectDetailsActivity;
 import com.yunyisheng.app.yunys.project.adapter.SpinnerAdapter;
 import com.yunyisheng.app.yunys.main.model.SpinnerBean;
@@ -280,5 +281,13 @@ public class TaskPoolFragment extends BaseFragement<TaskPresent> implements Task
         window.setContentView(v);
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);//设置横向全屏
         taskListBtnDialog.show();
+    }
+
+    public void checkClaimTaskStatus(BaseModel baseModel){
+        if (baseModel.getRespCode() == 0){
+            ToastUtils.showToast("认领成功！");
+            PAGE_NUM = 1;
+            getP().getTaskList(SELECT_TYPE,projectId,PAGE_NUM,PAGE_SIZE);
+        }
     }
 }

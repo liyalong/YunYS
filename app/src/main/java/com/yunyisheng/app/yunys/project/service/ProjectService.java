@@ -236,9 +236,7 @@ public interface ProjectService {
     Flowable<KnowledgDetailModel> getKnowledgeDetail(@Path("projectId") String projectId,
                                                      @Field("knowledgeId") String knowledgeId);
 
-//    @FormUrlEncoded
-//    @POST("task/claimTask")
-//    Flowable<BaseModel> claimTask(@Field(""));
+
 
 
 }

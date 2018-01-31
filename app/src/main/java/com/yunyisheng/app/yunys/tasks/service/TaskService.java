@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.tasks.service;
 
+import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.project.model.TaskListModel;
 
 import io.reactivex.Flowable;
@@ -53,4 +54,13 @@ public interface TaskService {
     Flowable<TaskListModel> getClaimTaskList(@Path("projectId") String projectId,
                                              @Query("pagenum") int pageNum,
                                              @Query("pagerows") int pageSize);
+
+    /**
+     * 认领任务
+     * @param taskId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("task/claimTask")
+    Flowable<BaseModel> claimTask(@Field("taskId") String taskId);
 }

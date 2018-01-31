@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.tasks.present;
 
+import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.fragement.TaskPoolFragment;
 import com.yunyisheng.app.yunys.project.model.TaskListModel;
@@ -112,6 +113,27 @@ public class TaskPresent extends XPresent<TaskPoolFragment> {
                         }
                         XLog.d(taskListModel.toString());
                         getV().setAdapter(taskListModel);
+                    }
+                });
+    }
+    public void claimTask(String taskId){
+        Api.taskService().claimTask(taskId)
+                .compose(XApi.<BaseModel>getApiTransformer())
+                .compose(XApi.<BaseModel>getScheduler())
+                .compose(getV().<BaseModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        ToastUtils.showToast("网络请求错误！");
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        if (baseModel.getRespCode() == 1){
+                            ToastUtils.showToast(baseModel.getRespMsg());
+                            return;
+                        }
+                        getV().checkClaimTaskStatus(baseModel);
                     }
                 });
     }
