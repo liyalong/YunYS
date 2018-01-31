@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <paths>
-        <external-path path="external_files" name="external-path"/>
+        <external-path path="name" name="path"/>
     </paths>
 </resources>
