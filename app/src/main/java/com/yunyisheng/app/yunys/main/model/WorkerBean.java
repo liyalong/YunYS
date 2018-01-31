@@ -10,10 +10,19 @@ public class WorkerBean {
     private String name;
     private int userId;
     private String icon;
+    private String userJobTitle;
     private String userPhone;
     private String sex;
     private String eamil;
     private boolean ischeckchild;
+
+    public String getUserJobTitle() {
+        return userJobTitle;
+    }
+
+    public void setUserJobTitle(String userJobTitle) {
+        this.userJobTitle = userJobTitle;
+    }
 
     public boolean isIscheckchild() {
         return ischeckchild;

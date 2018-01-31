@@ -15,7 +15,6 @@
             android:id="@+id/te_schedule_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="哦差发的很好"
             android:textColor="@color/color_333"
             android:textSize="@dimen/distance_14" />
 
@@ -28,7 +27,6 @@
             android:layout_toRightOf="@+id/te_schedule_title"
             android:background="@mipmap/liuchengbac"
             android:gravity="center"
-            android:text="@string/liucheng"
             android:textSize="@dimen/distance_8" />
 
         <TextView
@@ -37,7 +35,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/distance_2"
-            android:text="哦差发的很好fdfdsfsfdsfdsfsfds"
             android:textColor="@color/color_999"
             android:textSize="@dimen/distance_11" />
     </RelativeLayout>
@@ -53,7 +50,6 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:singleLine="true"
-            android:text="恢复快接电话是否健康当回事回复奋斗奋斗辅导费分地方地方辅导费"
             android:textColor="@color/color_666"
             android:textSize="@dimen/distance_14" />
     </RelativeLayout>
@@ -69,7 +65,6 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:singleLine="true"
-            android:text="执行人：李尔 刘勇气 贝斯特"
             android:textColor="@color/color_999"
             android:textSize="@dimen/distance_12" />
     </RelativeLayout>

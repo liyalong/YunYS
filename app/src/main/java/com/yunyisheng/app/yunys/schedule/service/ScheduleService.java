@@ -29,4 +29,18 @@ public interface ScheduleService {
                                                @Field("startTime") long startTime,
                                                @Field("endTime") long endTime);
 
+    /**
+     * 根据项目id获取项目日程
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("android/project/projectSchedule/lookList")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    Flowable<MyScheduleBean> getProjectschedulelist(@Field("pageNum") int pageNum,
+                                                  @Field("pageSize") int pageSize,
+                                                  @Field("projectId") String projectId,
+                                                  @Field("startTime") long startTime,
+                                                  @Field("endTime") long endTime);
+
 }

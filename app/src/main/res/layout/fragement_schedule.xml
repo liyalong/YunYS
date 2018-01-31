@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_f4f4f4"
-    >
+    android:background="@color/color_f4f4f4">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/distance_1"
             android:background="@color/color_e7" />
+
         <RelativeLayout
             android:id="@+id/rl_todaycolumn"
             android:layout_width="match_parent"
@@ -45,7 +46,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/distance_5"
                 android:layout_toRightOf="@+id/te_schudletitle"
-                android:text="(32)"
                 android:textColor="@color/color_666"
                 android:textSize="@dimen/distance_16" />
         </RelativeLayout>
@@ -56,12 +56,13 @@
             android:layout_height="0.5dp"
             android:layout_below="@+id/rl_todaycolumn"
             android:background="@color/color_e7" />
-        <ListView
-            android:id="@+id/lv_schudle"
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/pull_to_list_schudle"
             android:layout_width="match_parent"
-            android:scrollbars="none"
-            android:divider="@null"
-            android:layout_height="wrap_content">
-        </ListView>
+            android:layout_height="match_parent"
+            android:divider="@color/color_e7"
+            android:dividerHeight="0.5dp"
+            android:scrollbars="none"></com.handmark.pulltorefresh.library.PullToRefreshListView>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

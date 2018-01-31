@@ -1,7 +1,6 @@
 package com.yunyisheng.app.yunys.main.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -17,8 +16,6 @@ import com.yunyisheng.app.yunys.main.fragement.BasicDataFragement;
 import com.yunyisheng.app.yunys.main.fragement.ParticipateinFragement;
 import com.yunyisheng.app.yunys.main.fragement.ScheduleFragement;
 import com.yunyisheng.app.yunys.main.model.GetOtherinfoBean;
-import com.yunyisheng.app.yunys.utils.CommonUtils;
-import com.yunyisheng.app.yunys.utils.glide.GlideDownLoadImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,8 +114,8 @@ public class WorkerDataActivity extends BaseActivity {
     public void setInfodetail(GetOtherinfoBean getOtherinfoBean){
         if (getOtherinfoBean.getRespBody().getUserPicture() != null && !getOtherinfoBean.getRespBody().getUserPicture().equals("")
                 && !getOtherinfoBean.getRespBody().getUserPicture().equals("null")) {
-            Bitmap bitmap = CommonUtils.stringtoBitmap(getOtherinfoBean.getRespBody().getUserPicture());
-            GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(context, imgWorkerHead, bitmap);
+//            Bitmap bitmap = CommonUtils.stringtoBitmap(getOtherinfoBean.getRespBody().getUserPicture());
+//            GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(context, imgWorkerHead, bitmap);
         } else {
             String sex = getOtherinfoBean.getRespBody().getUserSex();
             if (sex != null && !sex.equals("") && !sex.equals("null")) {

@@ -83,7 +83,8 @@ public class HomeFragement extends BaseFragement<HomePresent> {
     private int pageindex = 1;
     private long dayStartTime;
     private long dayEndTime;
-    private boolean isfirst=true;
+    private boolean isfirst = true;
+    private boolean isonce = true;
 
     @Override
     public void initView() {
@@ -101,8 +102,8 @@ public class HomeFragement extends BaseFragement<HomePresent> {
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-               pageindex++;
-               getP().getMySchedulrList(pageindex,dayStartTime,dayEndTime);
+                pageindex++;
+                getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
             }
         });
     }
@@ -124,11 +125,14 @@ public class HomeFragement extends BaseFragement<HomePresent> {
         long t = System.currentTimeMillis();
         rcyBanner.setDatas(urls);
         Log.w("---", System.currentTimeMillis() - t + "");
-        getUserinfo();
-        String token=SharedPref.getInstance(mContext).getString("TOKEN","");
-        ConstantManager.token=token;
-        LogUtils.i("token",token);
-        getP().getMySchedulrList(pageindex,dayStartTime,dayEndTime);
+        if (isonce) {
+            isonce = false;
+            getUserinfo();
+        }
+        String token = SharedPref.getInstance(mContext).getString("TOKEN", "");
+        ConstantManager.token = token;
+        LogUtils.i("token", token);
+        getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
     }
 
     @Override
@@ -151,13 +155,13 @@ public class HomeFragement extends BaseFragement<HomePresent> {
         lineBeiwanglu.setOnClickListener(this);
     }
 
-    public void getUserinfo(){
+    public void getUserinfo() {
         getP().getUserInfo();
     }
 
     @Override
     public void widgetClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.img_baobiao:
                 startActivity(new Intent(mContext, ReportformActivity.class));
                 break;
@@ -165,7 +169,7 @@ public class HomeFragement extends BaseFragement<HomePresent> {
                 startActivity(new Intent(mContext, MessageActivity.class));
                 break;
             case R.id.te_seeall:
-                ((MainActivity)getActivity()).changerTask();
+                ((MainActivity) getActivity()).changerTask();
                 break;
             case R.id.line_notice:
                 startActivity(new Intent(mContext, NoticeActivity.class));
@@ -179,22 +183,22 @@ public class HomeFragement extends BaseFragement<HomePresent> {
         }
     }
 
-    public void getUserInfo(UserModel userModel){
-        if (userModel.getRespCode()==1){
+    public void getUserInfo(UserModel userModel) {
+        if (userModel.getRespCode() == 1) {
             ToastUtils.showLongToast("获取用户信息失败");
-        }else {
+        } else {
             ToastUtils.showLongToast("获取用户信息成功");
-            SharedPref.getInstance(mContext).putInt("userid",userModel.getRespBody().getUserId());
-            SharedPref.getInstance(mContext).putString("username",userModel.getRespBody().getUserName());
-            SharedPref.getInstance(mContext).putString("usersex",userModel.getRespBody().getUserSex());
-            SharedPref.getInstance(mContext).putString("userphone",userModel.getRespBody().getUserPhone());
-            SharedPref.getInstance(mContext).putString("userjob",userModel.getRespBody().getUserJobTitle());
-            SharedPref.getInstance(mContext).putString("userhead",userModel.getRespBody().getUserPicture());
-            SharedPref.getInstance(mContext).putString("useremail",userModel.getRespBody().getUserMailbox());
-            SharedPref.getInstance(mContext).putString("userbumen",userModel.getRespBody().getEnterpriseId());
-            SharedPref.getInstance(mContext).putInt("userrole",userModel.getRespBody().getRolesId());
+            SharedPref.getInstance(mContext).putInt("userid", userModel.getRespBody().getUserId());
+            SharedPref.getInstance(mContext).putString("username", userModel.getRespBody().getUserName());
+            SharedPref.getInstance(mContext).putString("usersex", userModel.getRespBody().getUserSex());
+            SharedPref.getInstance(mContext).putString("userphone", userModel.getRespBody().getUserPhone());
+            SharedPref.getInstance(mContext).putString("userjob", userModel.getRespBody().getUserJobTitle());
+            SharedPref.getInstance(mContext).putString("userhead", userModel.getRespBody().getUserPicture());
+            SharedPref.getInstance(mContext).putString("useremail", userModel.getRespBody().getUserMailbox());
+            SharedPref.getInstance(mContext).putString("userbumen", userModel.getRespBody().getEnterpriseId());
+            SharedPref.getInstance(mContext).putInt("userrole", userModel.getRespBody().getRolesId());
         }
-        LogUtils.i("userinfo",userModel.getRespBody().toString());
+        LogUtils.i("userinfo", userModel.getRespBody().toString());
     }
 
     @Override
@@ -211,9 +215,12 @@ public class HomeFragement extends BaseFragement<HomePresent> {
     }
 
     public void getResultList(MyScheduleBean myScheduleBean) {
-        if (isfirst){
-            isfirst=false;
-            teColumnsize.setText("("+myScheduleBean.getTotal()+")");
+        if (isfirst) {
+            isfirst = false;
+            teColumnsize.setText("(" + myScheduleBean.getRespBody().getTotal() + ")");
+        }
+        if (pageindex == 1) {
+            list.clear();
         }
         if (myScheduleBean.getRespBody().getDataList() != null && myScheduleBean.getRespBody().getDataList().size() > 0) {
             list.addAll(myScheduleBean.getRespBody().getDataList());

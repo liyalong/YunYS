@@ -44,7 +44,37 @@ public class MySchedulePresent extends XPresent<OurProjeceScheduleFragement> {
                     @Override
                     protected void onFail(NetError error) {
                         LoadingDialog.dismiss(getV().getContext());
-                        ToastUtils.showToast("添加失败！");
+                        ToastUtils.showToast("获取数据失败");
+                    }
+                });
+    }
+
+    /**
+     * @author fuduo
+     * @time 2018/1/29  19:21
+     * @describe 14.1    获取指定日期的当前登录员工的项目日程列表
+     */
+    public void getMyProjectSchedulrList(int pageNum,String projectid, long startTime, long endTim) {
+        LoadingDialog.show(getV().getContext());
+        Api.scheduleService().getProjectschedulelist(pageNum, 10,projectid, startTime, endTim)
+                .compose(XApi.<MyScheduleBean>getApiTransformer()) //统一异常处理
+                .compose(XApi.<MyScheduleBean>getScheduler()) //线程调度
+                .compose(getV().<MyScheduleBean>bindToLifecycle()) //内存泄漏处理
+                .subscribe(new ApiSubscriber<MyScheduleBean>() {
+                    @Override
+                    public void onNext(MyScheduleBean myScheduleBean) {
+                        LoadingDialog.dismiss(getV().getContext());
+                        if (myScheduleBean.getRespCode() == 0) {
+                            getV().getProjectResultList(myScheduleBean);
+                        } else {
+                            ToastUtils.showToast(myScheduleBean.getRespMsg());
+                        }
+                    }
+
+                    @Override
+                    protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV().getContext());
+                        ToastUtils.showToast("获取数据失败");
                     }
                 });
     }

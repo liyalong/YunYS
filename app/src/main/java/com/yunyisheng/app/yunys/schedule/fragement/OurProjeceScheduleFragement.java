@@ -90,6 +90,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
     private int pageindex = 1;
     private long dayStartTime;
     private long dayEndTime;
+    private String projectid;
 
     public static OurProjeceScheduleFragement getInstance(int i) {
         OurProjeceScheduleFragement ourProjeceScheduleFragement = new OurProjeceScheduleFragement();
@@ -132,7 +133,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
                         && lastVisibleItemPosition == totalItemCount - 1
                         && visibleItemCount > 0) {
-                    if (fastClick()){
+                    if (fastClick()) {
                         loadMore();
                     }
                 }
@@ -159,10 +160,10 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
             @Override
             public void run() {
                 //加载更多
-                if (tabindex==0){
+                if (tabindex == 0) {
                     pageindex++;
                     getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
-                }else {
+                } else {
 
                 }
             }
@@ -180,10 +181,8 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         });
         dayStartTime = getDayStartTime();
         dayEndTime = getDayEndTime();
-        if (tabindex==0){
+        if (tabindex == 0) {
             getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
-        }else {
-
         }
     }
 
@@ -202,10 +201,27 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
 
     //订阅方法，当接收到事件的时候，会调用该方法
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(PositionMessageEvent messageEvent){
-        Log.d("cylog","receive it");
-        String position = messageEvent.getPosition();
-        ToastUtils.showToast(position);
+    public void onEvent(PositionMessageEvent messageEvent) {
+        Log.d("cylog", "receive it");
+        projectid = messageEvent.getPosition();
+        if (projectid != null && !projectid.equals("")) {
+            list.clear();
+            pageindex = 1;
+            getP().getMyProjectSchedulrList(pageindex, projectid, dayStartTime, dayEndTime);
+        }
+    }
+
+    public void getProjectResultList(MyScheduleBean myScheduleBean) {
+        if (myScheduleBean.getRespBody().getDataList() != null && myScheduleBean.getRespBody().getDataList().size() > 0) {
+            list.addAll(myScheduleBean.getRespBody().getDataList());
+            adapter.setData(list);
+        } else {
+            if (pageindex == 1) {
+                ToastUtils.showToast("当前日期暂无日程");
+            } else {
+                ToastUtils.showToast("没有更多了");
+            }
+        }
     }
 
     private class WindowsReceiver extends BroadcastReceiver {
@@ -400,13 +416,18 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                     Date date1 = ConverToDate(date.toString());
                     dayStartTime = getOtherStarttime(date1);
                     dayEndTime = getOtherEndtime(date1);
-                    list.clear();
-                    pageindex = 1;
-                    getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
+                    if (tabindex == 0) {
+                        list.clear();
+                        pageindex = 1;
+                        getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
+                    } else {
+                        list.clear();
+                        pageindex = 1;
+                        getP().getMyProjectSchedulrList(pageindex, projectid, dayStartTime, dayEndTime);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
                 refreshClickDate(date);
             }
 

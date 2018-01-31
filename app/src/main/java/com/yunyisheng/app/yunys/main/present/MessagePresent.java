@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys.main.present;
 
 import com.yunyisheng.app.yunys.main.activity.MessageActivity;
 import com.yunyisheng.app.yunys.main.model.MessageBean;
+import com.yunyisheng.app.yunys.main.model.MessageTypeBean;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
@@ -23,11 +24,41 @@ public class MessagePresent extends XPresent<MessageActivity> {
     /**
      * @author fuduo
      * @time 2018/1/30  15:27
+     * @describe 获取消息类型
+     */
+    public void getMessageTypeList() {
+        LoadingDialog.show(getV());
+        Api.homeService().getMessagetypelist()
+                .compose(XApi.<MessageTypeBean>getApiTransformer()) //统一异常处理
+                .compose(XApi.<MessageTypeBean>getScheduler()) //线程调度
+                .compose(getV().<MessageTypeBean>bindToLifecycle()) //内存泄漏处理
+                .subscribe(new ApiSubscriber<MessageTypeBean>() {
+                    @Override
+                    public void onNext(MessageTypeBean messageTypeBean) {
+                        LoadingDialog.dismiss(getV());
+                        if (messageTypeBean.getRespCode() == 0) {
+                            getV().getMessageType(messageTypeBean);
+                        } else {
+                            ToastUtils.showToast(messageTypeBean.getRespMsg());
+                        }
+                    }
+
+                    @Override
+                    protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
+                        ToastUtils.showToast("请求数据失败！");
+                    }
+                });
+    }
+
+    /**
+     * @author fuduo
+     * @time 2018/1/30  15:27
      * @describe 获取消息集合
      */
-    public void getMessageList(int pagenum, int userid) {
+    public void getMessageList(String string) {
         LoadingDialog.show(getV());
-        Api.homeService().getMessagelist(pagenum, 10, userid)
+        Api.homeService().getTypeMessagelist(string)
                 .compose(XApi.<MessageBean>getApiTransformer()) //统一异常处理
                 .compose(XApi.<MessageBean>getScheduler()) //线程调度
                 .compose(getV().<MessageBean>bindToLifecycle()) //内存泄漏处理

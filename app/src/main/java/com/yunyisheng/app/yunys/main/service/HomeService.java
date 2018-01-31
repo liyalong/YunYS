@@ -8,11 +8,13 @@ import com.yunyisheng.app.yunys.main.model.FindWorkerBean;
 import com.yunyisheng.app.yunys.main.model.GetOtherinfoBean;
 import com.yunyisheng.app.yunys.main.model.MemorandumBean;
 import com.yunyisheng.app.yunys.main.model.MessageBean;
+import com.yunyisheng.app.yunys.main.model.MessageTypeBean;
 import com.yunyisheng.app.yunys.main.model.NoticeDetailBean;
 import com.yunyisheng.app.yunys.main.model.ProjectFromWorkBean;
 import com.yunyisheng.app.yunys.main.model.ReportFormBean;
 import com.yunyisheng.app.yunys.main.model.RoleBean;
 import com.yunyisheng.app.yunys.main.model.SendNoticeBean;
+import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 
 import io.reactivex.Flowable;
 import okhttp3.RequestBody;
@@ -249,14 +251,32 @@ public interface HomeService {
     Flowable<RoleBean> getRolelist();
 
     /**
-     *  @author fuduo
-     *  @time 2018/1/30  14:56
-     *  @describe 查询所有消息
+     * @author fuduo
+     * @time 2018/1/30  14:56
+     * @describe 查询其他人的日程
      */
     @FormUrlEncoded
-    @POST("message/selectMessage")
-    Flowable<MessageBean> getMessagelist(@Field("pagenum") int pagenum,
-                                         @Field("pagerows") int pagerows,
-                                         @Field("messageReceiveUserId") int userid);
+    @POST("android/appoint/enterpriseUser/schedule/lookList")
+    Flowable<MyScheduleBean> getOtherSchedulelist(@Field("pageNum") int pageNum,
+                                                  @Field("pageSize") int pageSize,
+                                                  @Field("userId") int userId,
+                                                  @Field("startTime") long startTime,
+                                                  @Field("endTime") long endTime);
 
+    /**
+     * @author fuduo
+     * @time 2018/1/26  20:26
+     * @describe 获取消息类型
+     */
+    @POST("message/TYPE")
+    Flowable<MessageTypeBean> getMessagetypelist();
+
+    /**
+     * @author fuduo
+     * @time 2018/1/30  14:56
+     * @describe 根据消息类型查询所有消息
+     */
+    @FormUrlEncoded
+    @POST("message/getMessageByTypeList")
+    Flowable<MessageBean> getTypeMessagelist(@Field("typelist") String typelist);
 }

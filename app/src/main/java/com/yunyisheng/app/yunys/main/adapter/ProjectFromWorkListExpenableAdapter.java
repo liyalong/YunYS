@@ -115,6 +115,7 @@ public class ProjectFromWorkListExpenableAdapter extends BaseExpandableListAdapt
         View view1=view.findViewById(R.id.view1);   
         final ProjectFromWorkBean.ListBean.UserListBean userListBean = list.get(groupPosition).getUserList().get(childPosition);
         te_name.setText(userListBean.getUserName());
+        te_zhiwei.setText(userListBean.getUserJobTitle());
         int size=list.get(groupPosition).getUserList().size();
         if (childPosition==size-1){
             view1.setVisibility(View.GONE);

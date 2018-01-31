@@ -40,7 +40,7 @@
                 android:background="@mipmap/blackback_r"
                 />
         </RelativeLayout>
-        <com.handmark.pulltorefresh.library.PullToRefreshListView
+        <ListView
             android:id="@+id/pull_to_list"
             android:layout_marginTop="@dimen/distance_10"
             android:layout_width="match_parent"
@@ -49,6 +49,6 @@
             android:dividerHeight="0.5dp"
             android:layout_height="match_parent">
 
-        </com.handmark.pulltorefresh.library.PullToRefreshListView>
+        </ListView>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

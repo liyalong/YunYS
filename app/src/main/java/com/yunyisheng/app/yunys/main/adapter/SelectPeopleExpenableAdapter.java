@@ -210,6 +210,7 @@ public class SelectPeopleExpenableAdapter extends BaseExpandableListAdapter {
         View view1 = view.findViewById(R.id.view1);    
         final WorkerBean workerBean = list.get(groupPosition).getWorkerBeanList().get(childPosition);
         te_name.setText(workerBean.getName());
+        te_zhiwei.setText(workerBean.getUserJobTitle());
         int size = list.get(groupPosition).getWorkerBeanList().size();
         if (childPosition == size - 1) {
             view1.setVisibility(View.GONE);

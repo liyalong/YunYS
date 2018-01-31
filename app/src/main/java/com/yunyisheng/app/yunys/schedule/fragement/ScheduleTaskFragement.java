@@ -201,6 +201,8 @@ public class ScheduleTaskFragement extends BaseFragement<SchedulrTaskPresent> {
         List<ProjectBean> respBody = projectListModel.getRespBody();
         if (respBody.size()>0){
             projectBeanList.addAll(respBody);
+            String projectId = respBody.get(0).getProjectId();
+            EventBus.getDefault().post(new PositionMessageEvent(projectId));
         }
     }
 }

@@ -746,6 +746,8 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
                     String userPhone = usersobject.getString("userPhone");
                     String userSex = usersobject.getString("userSex");
                     String icon = usersobject.getString("icon");
+                    String userJobTitle = usersobject.getString("userJobTitle");
+                    workerBean.setUserJobTitle(userJobTitle);
                     workerBean.setIcon(icon);
                     workerBean.setName(name);
                     workerBean.setUserId(userId);
@@ -778,6 +780,8 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
                             String userPhone = usersobject.getString("userPhone");
                             String userSex = usersobject.getString("userSex");
                             String icon = usersobject.getString("icon");
+                            String userJobTitle = usersobject.getString("userJobTitle");
+                            workerBean.setUserJobTitle(userJobTitle);
                             workerBean.setIcon(icon);
                             workerBean.setName(name);
                             workerBean.setUserId(userId);
@@ -843,6 +847,8 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
                         String userPhone = usersobject.getString("userPhone");
                         String userSex = usersobject.getString("userSex");
                         String icon = usersobject.getString("icon");
+                        String userJobTitle = usersobject.getString("userJobTitle");
+                        workerBean.setUserJobTitle(userJobTitle);
                         workerBean.setIcon(icon);
                         workerBean.setName(name);
                         workerBean.setUserId(userId);

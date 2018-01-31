@@ -72,7 +72,7 @@ public class HomePresent extends XPresent<HomeFragement> {
                     @Override
                     protected void onFail(NetError error) {
                         LoadingDialog.dismiss(getV().getContext());
-                        ToastUtils.showToast("添加失败！");
+                        ToastUtils.showToast("获取数据失败！");
                     }
                 });
     }

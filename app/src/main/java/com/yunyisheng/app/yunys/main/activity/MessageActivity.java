@@ -8,17 +8,15 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.main.adapter.MessageAdapter;
-import com.yunyisheng.app.yunys.main.adapter.SpinnerAdapter;
+import com.yunyisheng.app.yunys.main.adapter.MessageTypeAdapter;
 import com.yunyisheng.app.yunys.main.model.MessageBean;
-import com.yunyisheng.app.yunys.main.model.SpinnerBean;
+import com.yunyisheng.app.yunys.main.model.MessageTypeBean;
 import com.yunyisheng.app.yunys.main.present.MessagePresent;
+import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ScreenUtils;
-import com.yunyisheng.app.yunys.utils.ScrowUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -45,8 +43,8 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
     @BindView(R.id.sp_type)
     Spinner spType;
     @BindView(R.id.pull_to_list)
-    PullToRefreshListView pullToList;
-    private List<SpinnerBean> list = new ArrayList<>();
+    ListView pullToList;
+    private  List<MessageTypeBean.ListBean> typelist = new ArrayList<>();
     private List<MessageBean.RespBodyBean> messagelist = new ArrayList<>();
     private int pageindex = 1;
     private int userid;
@@ -56,20 +54,23 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
     public void initView() {
         ButterKnife.bind(this);
         userid = SharedPref.getInstance(MessageActivity.this).getInt("userid", 0);
-        ScrowUtil.listViewConfig(pullToList);
         teTitle.setText("消息");
-        list.add(new SpinnerBean("全部任务", 48));
-        list.add(new SpinnerBean("其他任务", 50));
-        list.add(new SpinnerBean("热门任务", 60));
         spType.setDropDownWidth(ScreenUtils.getScreenHeight(MessageActivity.this));
-        SpinnerAdapter adapter = new SpinnerAdapter(MessageActivity.this, list);
-        //绑定 Adapter到控件
-        spType.setAdapter(adapter);
         spType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int pos, long id) {
-                ToastUtils.showLongToast("你点击的是:" + list.get(pos));
+                List<String> type = typelist.get(pos).getType();
+                String str="";
+                for (int i=0;i<type.size();i++){
+                    if (i != type.size() - 1) {
+                        str += type.get(i) + ",";
+                    } else {
+                        str += type.get(i);
+                    }
+                }
+                getP().getMessageList(str);
+                LogUtils.i("fdfsfdsfdsf",str);
             }
 
             @Override
@@ -79,34 +80,28 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
         });
         messageAdapter = new MessageAdapter(MessageActivity.this, messagelist);
         pullToList.setAdapter(messageAdapter);
-        pullToList.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                pageindex = 1;
-                messagelist.clear();
-                getP().getMessageList(pageindex, userid);
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                pageindex++;
-                getP().getMessageList(pageindex, userid);
-            }
-        });
     }
 
     @Override
     public void initAfter() {
-        getP().getMessageList(pageindex, userid);
+        getP().getMessageTypeList();
+    }
+
+    public void getMessageType(MessageTypeBean messageTypeBean){
+        List<MessageTypeBean.ListBean> list = messageTypeBean.getList();
+        if (list!=null&&list.size()>0){
+            typelist.addAll(list);
+            MessageTypeAdapter adapter = new MessageTypeAdapter(MessageActivity.this, typelist);
+            //绑定 Adapter到控件
+            spType.setAdapter(adapter);
+        }
     }
 
     public void getMessageList(MessageBean messageBean) {
+        messagelist.clear();
         List<MessageBean.RespBodyBean> respBody = messageBean.getRespBody();
         if (respBody.size() > 0) {
             messagelist.addAll(respBody);
-            if (pageindex==1){
-
-            }
             messageAdapter.setData(messagelist);
         } else {
             if (pageindex == 1) {
@@ -115,7 +110,6 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
                 ToastUtils.showToast("没有更多了");
             }
         }
-        pullToList.onRefreshComplete();
     }
 
     @Override

@@ -7,13 +7,26 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.main.adapter.HomeScheduleAdapter;
+import com.yunyisheng.app.yunys.main.present.WorkerSchedulePresent;
+import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
+import com.yunyisheng.app.yunys.utils.ScrowUtil;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
+import cn.droidlover.xdroidbase.cache.SharedPref;
+
+import static com.yunyisheng.app.yunys.utils.CommonUtils.getDayEndTime;
+import static com.yunyisheng.app.yunys.utils.CommonUtils.getDayStartTime;
 
 /**
  * 作者：fuduo on 2018/1/12 12:12
@@ -21,21 +34,47 @@ import cn.droidlover.xdroidmvp.mvp.XPresent;
  * 用途：员工日程fragement
  */
 
-public class ScheduleFragement extends BaseFragement {
+public class ScheduleFragement extends BaseFragement<WorkerSchedulePresent> {
     @BindView(R.id.te_columnsize)
     TextView teColumnsize;
-    @BindView(R.id.lv_schudle)
-    ListView lvSchudle;
     Unbinder unbinder;
+    @BindView(R.id.pull_to_list_schudle)
+    PullToRefreshListView pullToListSchudle;
+    private int userid;
+    private long dayStartTime;
+    private long dayEndTime;
+    private int pageindex = 1;
+    private List<MyScheduleBean.RespBodyBean.DataListBean> dataListBeans = new ArrayList<>();
+    private HomeScheduleAdapter adapter;
+    private boolean isfirst = true;
 
     @Override
     public void initView() {
+        ScrowUtil.listViewConfig(pullToListSchudle);
+        userid = SharedPref.getInstance(mContext).getInt("userid", 0);
+        dayStartTime = getDayStartTime();
+        dayEndTime = getDayEndTime();
+        adapter = new HomeScheduleAdapter(mContext, dataListBeans);
+        pullToListSchudle.setAdapter(adapter);
+        pullToListSchudle.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                pageindex = 1;
+                dataListBeans.clear();
+                getP().getWorkerScheduleList(pageindex, userid, dayStartTime, dayEndTime);
+            }
 
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                pageindex++;
+                getP().getWorkerScheduleList(pageindex, userid, dayStartTime, dayEndTime);
+            }
+        });
     }
 
     @Override
     public void initAfter() {
-
+        getP().getWorkerScheduleList(pageindex, Integer.parseInt("312"), dayStartTime, dayEndTime);
     }
 
     @Override
@@ -44,8 +83,8 @@ public class ScheduleFragement extends BaseFragement {
     }
 
     @Override
-    public XPresent bindPresent() {
-        return null;
+    public WorkerSchedulePresent bindPresent() {
+        return new WorkerSchedulePresent();
     }
 
     @Override
@@ -69,5 +108,24 @@ public class ScheduleFragement extends BaseFragement {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    public void getWorkerSchedule(MyScheduleBean myScheduleBean) {
+        if (isfirst) {
+            isfirst = false;
+            int total = myScheduleBean.getRespBody().getTotal();
+            teColumnsize.setText("(" + total + ")");
+        }
+
+        List<MyScheduleBean.RespBodyBean.DataListBean> dataList = myScheduleBean.getRespBody().getDataList();
+        if (dataList != null && dataList.size() > 0) {
+            dataListBeans.addAll(dataList);
+        } else {
+            if (pageindex == 1) {
+                ToastUtils.showToast("暂无日程");
+            } else {
+                ToastUtils.showToast("没有更多了");
+            }
+        }
     }
 }

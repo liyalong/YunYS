@@ -18,15 +18,6 @@ public class MyScheduleBean extends BaseModel {
      */
 
     private RespBodyBean respBody;
-    private int total;
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
 
     public RespBodyBean getRespBody() {
         return respBody;
@@ -46,6 +37,15 @@ public class MyScheduleBean extends BaseModel {
          */
 
         private List<DataListBean> dataList;
+        private int total;
+
+        public int getTotal() {
+            return total;
+        }
+
+        public void setTotal(int total) {
+            this.total = total;
+        }
 
         public List<DataListBean> getDataList() {
             return dataList;
