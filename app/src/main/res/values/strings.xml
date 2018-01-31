@@ -150,6 +150,7 @@
     <string name="beijian_ghzq">更换周期：</string>
     <string name="beijian_list">备件列表</string>
     <string name="knowledge_list">知识库列表</string>
+    <string name="knowledge_file_list">附件列表</string>
     <string name="knowlodge_detail">知识库详情</string>
     <string name="device_tasks_list">周期任务列表</string>
     <string name="device_tasks_status">状态：</string>
@@ -279,4 +280,6 @@
 
     <string name="yes">是</string>
     <string name="no">否</string>
+    <string name="download">下载</string>
+    <string name="show">查看</string>
 </resources>

@@ -5,7 +5,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -61,6 +63,7 @@ public class DialogManager {
 
             @Override
             public void onClick(View arg0) {
+
                 Intent intent = new Intent(Intent.ACTION_PICK, null);
 
                 intent.setDataAndType(
@@ -75,10 +78,18 @@ public class DialogManager {
 
             @Override
             public void onClick(View arg0) {
+                Uri uri;
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    uri = FileProvider.getUriForFile(activity,"com.yunyisheng.app.yunys.fileprovider",tempFile);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
+                }else {
+                    uri=Uri.fromFile(tempFile);
+                }
+
                 // 指定调用相机拍照后照片的储存路径
-                intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(tempFile));
+                intent.putExtra(MediaStore.EXTRA_OUTPUT,uri
+                        );
                 activity.startActivityForResult(intent, 1);
                 mShareDialog.dismiss();
             }

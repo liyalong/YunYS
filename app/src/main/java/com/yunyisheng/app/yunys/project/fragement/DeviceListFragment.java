@@ -2,12 +2,10 @@ package com.yunyisheng.app.yunys.project.fragement;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -35,7 +33,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.droidlover.xdroidmvp.log.XLog;
 import cn.droidlover.xdroidmvp.router.Router;
 
 /**

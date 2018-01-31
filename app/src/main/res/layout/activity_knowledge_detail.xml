@@ -1,40 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="@dimen/distance_49">
+        android:layout_height="@dimen/distance_49"
+        android:background="@drawable/linearlayout_bottom_line">
+
         <ImageView
             android:id="@+id/img_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_back"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/icon_back" />
+
         <TextView
             android:id="@+id/knowledge_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/knowlodge_detail"
-            android:textColor="@color/color_333"
             android:gravity="center"
-            />
+            android:text="@string/knowlodge_detail"
+            android:textColor="@color/color_333" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_back"
             android:layout_gravity="center_vertical"
-            android:visibility="invisible"/>
+            android:src="@mipmap/icon_back"
+            android:visibility="invisible" />
     </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/knowledge_detail"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <WebView
+                android:id="@+id/knowledge_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/distance_10"
+                android:textColor="@color/color_333" />
+
+            <LinearLayout
+                android:id="@+id/knowledge_file_box"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible">
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="@dimen/distance_42"
+                    android:orientation="horizontal"
+                    android:background="@drawable/linearlayout_bottom_line">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/icon_project_list_title_left"
+                        android:gravity="center"
+                        android:layout_marginLeft="@dimen/distance_10"
+                        android:layout_marginRight="@dimen/distance_5"
+                        />
+                    <TextView
+                        android:id="@+id/include_title_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/knowledge_file_list"
+                        android:textColor="@color/color_333"
+                        android:textSize="@dimen/distance_14"
+                        android:gravity="center" />
+                </LinearLayout>
+                <ListView
+                    android:id="@+id/knowledge_file_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </ListView>
+            </LinearLayout>
+        </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

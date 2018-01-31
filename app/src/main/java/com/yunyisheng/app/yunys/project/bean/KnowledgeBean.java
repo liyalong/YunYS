@@ -1,5 +1,7 @@
 package com.yunyisheng.app.yunys.project.bean;
 
+import java.util.List;
+
 /**
  * Created by liyalong on 2018/1/24.
  */
@@ -11,6 +13,16 @@ public class KnowledgeBean {
     private String knowledgeExtend;
     private int knowledgeTypeId;
     private String createt;
+    private List<FileItem> files;
+
+    public void setFiles(List<FileItem> files) {
+        this.files = files;
+    }
+
+    public List<FileItem> getFiles() {
+
+        return files;
+    }
 
     public String getCreatet() {
         return createt;

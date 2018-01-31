@@ -6,9 +6,11 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -260,7 +262,8 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                                     Intent intent) {
         try {
             if (requestCode == 1 && resultCode == RESULT_OK) {
-                startPhotoZoom(Uri.fromFile(DialogManager.tempFile), 150);
+                Uri contentUri = FileProvider.getUriForFile(MainActivity.this,"com.yunyisheng.app.yunys.fileprovider",DialogManager.tempFile);
+                startPhotoZoom(contentUri, 150);
             } else if (requestCode == 2) {// 相册
                 if (intent != null) {
                     Log.i("xiaoqiang", "smdongxi==" + intent.getData());
@@ -285,6 +288,9 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
      */
     private void startPhotoZoom(Uri uri, int size) {
         Intent intent = new Intent("com.android.camera.action.CROP");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
         intent.setDataAndType(uri, "image/*");
         Log.i("xiaoqiang", "裁剪");
         intent.putExtra("crop", "true");

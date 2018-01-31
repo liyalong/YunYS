@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.project.service;
 
+import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.project.bean.TaskBean;
 import com.yunyisheng.app.yunys.project.model.DeviceAlarmRulesModel;
 import com.yunyisheng.app.yunys.project.model.DeviceInfoModel;
@@ -234,6 +235,10 @@ public interface ProjectService {
     @POST("project/knowledge/info/{projectId}")
     Flowable<KnowledgDetailModel> getKnowledgeDetail(@Path("projectId") String projectId,
                                                      @Field("knowledgeId") String knowledgeId);
+
+//    @FormUrlEncoded
+//    @POST("task/claimTask")
+//    Flowable<BaseModel> claimTask(@Field(""));
 
 
 }

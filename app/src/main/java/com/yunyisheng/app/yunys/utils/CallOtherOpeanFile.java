@@ -29,14 +29,14 @@ public class CallOtherOpeanFile {
             if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.N) {
                 Uri contentUri = FileProvider.getUriForFile(context,"com.yunyisheng.app.yunys.fileprovider",file);
                 Intent intent = new Intent();
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 //设置intent的Action属性
                 intent.setAction(Intent.ACTION_VIEW);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 //获取文件file的MIME类型
                 String type = getMIMEType(file);
                 //设置intent的data和Type属性。
-                intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+                intent.setDataAndType(contentUri, type);
                 //跳转
                 context.startActivity(intent);
             }else {
