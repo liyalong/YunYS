@@ -356,7 +356,7 @@ public class GlideDownLoadImage {
                 .load(bytes)
                 .centerCrop()
                 .error(R.mipmap.moren_head)
-                .bitmapTransform(new GlideRoundTransform(mContext,30))
+                .bitmapTransform(new GlideRoundTransform(mContext,90))
                 .into(view);
     }
 

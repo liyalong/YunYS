@@ -12,11 +12,8 @@
             android:id="@+id/lv_projectlist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/distance_40"
-            android:layout_marginRight="@dimen/distance_40"
             android:divider="@color/color_e7"
-            android:layout_centerInParent="true"
-            android:background="@drawable/shape_zheng_hui"
+            android:background="@color/white"
             android:dividerHeight="0.5dp"
             android:scrollbars="none"></ListView>
     </RelativeLayout>
