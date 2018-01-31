@@ -4,6 +4,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.content.FileProvider;
 
 import java.io.File;
 
@@ -22,17 +24,36 @@ public class CallOtherOpeanFile {
      */
     public void openFile(Context context, File file) {
         try {
-            Intent intent = new Intent();
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            //设置intent的Action属性
-            intent.setAction(Intent.ACTION_VIEW);
-            //获取文件file的MIME类型
-            String type = getMIMEType(file);
-            //设置intent的data和Type属性。
-            intent.setDataAndType(/*uri*/Uri.fromFile(file), type);
-            //跳转
-            context.startActivity(intent);
-            //      Intent.createChooser(intent, "请选择对应的软件打开该附件！");
+
+            //判断是否是AndroidN以及更高的版本，兼容7.0以上安卓版本
+            if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.N) {
+                Uri contentUri = FileProvider.getUriForFile(context,"com.yunyisheng.app.yunys.fileprovider",file);
+                Intent intent = new Intent();
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                //设置intent的Action属性
+                intent.setAction(Intent.ACTION_VIEW);
+                //获取文件file的MIME类型
+                String type = getMIMEType(file);
+                //设置intent的data和Type属性。
+                intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+                //跳转
+                context.startActivity(intent);
+            }else {
+                Intent intent = new Intent();
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //设置intent的Action属性
+                intent.setAction(Intent.ACTION_VIEW);
+                //获取文件file的MIME类型
+                String type = getMIMEType(file);
+                //设置intent的data和Type属性。
+                intent.setDataAndType(/*uri*/Uri.fromFile(file), type);
+                //跳转
+                context.startActivity(intent);
+                //      Intent.createChooser(intent, "请选择对应的软件打开该附件！");
+            }
+
+
         } catch (ActivityNotFoundException e) {
             Util.showToast(context, "附件不能打开，请下载相关软件！");
         }
