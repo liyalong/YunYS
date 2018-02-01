@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.main.adapter.ViewPagerAdapter;
+import com.yunyisheng.app.yunys.main.model.WorkerBean;
 import com.yunyisheng.app.yunys.tasks.fragment.NoneDeviceCycleTaskFargment;
 import com.yunyisheng.app.yunys.tasks.fragment.NoneDeviceTemporaryTaskFargment;
 
@@ -35,6 +36,7 @@ public class CreateNoneDeviceTaskAcitvity extends BaseActivity {
     ViewPager noneDeviceTasksViewpage;
     private List<Fragment> fragmentLists = new ArrayList<>();
     private List<String> mTitles = new ArrayList<>();
+    private List<WorkerBean> selectlist;
 
     @Override
     public void initView() {
@@ -50,7 +52,7 @@ public class CreateNoneDeviceTaskAcitvity extends BaseActivity {
 
     @Override
     public void initAfter() {
-
+        selectlist = (List<WorkerBean>) getIntent().getSerializableExtra("selectlist");//选中的人
     }
 
     @Override

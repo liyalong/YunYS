@@ -1,6 +1,5 @@
 package com.yunyisheng.app.yunys.tasks.activity;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -8,7 +7,10 @@ import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.main.model.WorkerBean;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +31,7 @@ public class CreateProcessTaskAcitvity extends BaseActivity {
     TextView selectProcessTaskToUser;
     @BindView(R.id.process_task_end_time)
     EditText processTaskEndTime;
+    public List<WorkerBean> selectlist;
 
     @Override
     public void initView() {
@@ -37,7 +40,8 @@ public class CreateProcessTaskAcitvity extends BaseActivity {
 
     @Override
     public void initAfter() {
-
+        //选中的人
+        selectlist = (List<WorkerBean>) getIntent().getSerializableExtra("selectlist");
     }
 
     @Override
@@ -60,7 +64,7 @@ public class CreateProcessTaskAcitvity extends BaseActivity {
 
     @Override
     public void widgetClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.img_back:
                 this.finish();
                 break;

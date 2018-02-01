@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.main.adapter.ViewPagerAdapter;
+import com.yunyisheng.app.yunys.main.model.WorkerBean;
 import com.yunyisheng.app.yunys.tasks.fragment.DeviceCycleTaskFargment;
 import com.yunyisheng.app.yunys.tasks.fragment.DeviceTemporaryTaskFargment;
 
@@ -35,7 +36,8 @@ public class CreateDeviceTaskAcitvity extends BaseActivity {
     ViewPager deviceTasksViewpage;
 
     private List<Fragment> fragments = new ArrayList<>();
-    private List<String > mtitle = new ArrayList<>();
+    private List<String> mtitle = new ArrayList<>();
+    public List<WorkerBean> selectlist;
 
     @Override
     public void initView() {
@@ -44,14 +46,14 @@ public class CreateDeviceTaskAcitvity extends BaseActivity {
         mtitle.add("周期任务");
         fragments.add(DeviceTemporaryTaskFargment.newInstance());
         fragments.add(DeviceCycleTaskFargment.newInstance());
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(),fragments,mtitle);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, mtitle);
         deviceTasksViewpage.setAdapter(adapter);
         ablayout.setupWithViewPager(deviceTasksViewpage);
     }
 
     @Override
     public void initAfter() {
-
+        selectlist = (List<WorkerBean>) getIntent().getSerializableExtra("selectlist");//选中的人
     }
 
     @Override
@@ -72,7 +74,7 @@ public class CreateDeviceTaskAcitvity extends BaseActivity {
 
     @Override
     public void widgetClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.img_back:
                 this.finish();
                 break;

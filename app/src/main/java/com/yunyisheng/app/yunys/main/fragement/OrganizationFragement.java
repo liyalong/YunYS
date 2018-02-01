@@ -40,12 +40,16 @@ import com.yunyisheng.app.yunys.main.model.ProjectFromWorkBean;
 import com.yunyisheng.app.yunys.main.model.WorkerBean;
 import com.yunyisheng.app.yunys.main.model.WorkerListBean;
 import com.yunyisheng.app.yunys.main.present.SelectPeoplePresent;
+import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
+import com.yunyisheng.app.yunys.tasks.activity.CreateNoneDeviceTaskAcitvity;
+import com.yunyisheng.app.yunys.tasks.activity.CreateProcessTaskAcitvity;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -387,21 +391,26 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
 
             @Override
             public void onClick(View arg0) {
-
-
+              Intent intent=new Intent(mContext, CreateDeviceTaskAcitvity.class);
+              intent.putExtra("selectlist",(Serializable)selectlist);
+              startActivity(intent);
             }
         });
         rl_wrongshebei_task.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-
+                Intent intent=new Intent(mContext, CreateNoneDeviceTaskAcitvity.class);
+                intent.putExtra("selectlist",(Serializable)selectlist);
+                startActivity(intent);
             }
         });
         rl_liucheng_task.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent=new Intent(mContext, CreateProcessTaskAcitvity.class);
+                intent.putExtra("selectlist",(Serializable)selectlist);
+                startActivity(intent);
             }
         });
 

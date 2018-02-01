@@ -1,12 +1,14 @@
 package com.yunyisheng.app.yunys.main.model;
 
+import java.io.Serializable;
+
 /**
  * 作者：fuduo on 2018/1/24 17:55
  * 邮箱：duoendeavor@163.com
  * 用途：
  */
 
-public class WorkerBean {
+public class WorkerBean implements Serializable{
     private String name;
     private int userId;
     private String icon;
