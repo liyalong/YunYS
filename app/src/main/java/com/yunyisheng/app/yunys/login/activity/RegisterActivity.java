@@ -55,7 +55,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
 
     @Override
     public int bindLayout() {
-        return R.layout.acitvity_register;
+        return R.layout.activity_register;
     }
 
     @Override

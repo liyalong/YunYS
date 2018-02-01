@@ -61,7 +61,6 @@
         <meta-data
             android:name="android.max_aspect"
             android:value="3.2" />
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.yunyisheng.app.yunys.fileprovider"
@@ -218,6 +217,9 @@
         <activity
             android:name=".userset.activity.FanKuiActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".project.activity.TaskDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

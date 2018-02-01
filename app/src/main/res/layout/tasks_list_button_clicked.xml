@@ -91,7 +91,18 @@
                 android:layout_weight="1"
                 android:text="@string/look_task_info"
                 android:textSize="@dimen/distance_14"
-                android:drawableTop="@mipmap/icon_back_task"
+                android:drawableTop="@mipmap/icon_task_back_info"
+                android:gravity="center"
+                android:textColor="@color/color_333"
+                />
+            <TextView
+                android:id="@+id/look_task_child_info"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/look_task_child"
+                android:textSize="@dimen/distance_14"
+                android:drawableTop="@mipmap/icon_task_child_list"
                 android:gravity="center"
                 android:textColor="@color/color_333"
                 />

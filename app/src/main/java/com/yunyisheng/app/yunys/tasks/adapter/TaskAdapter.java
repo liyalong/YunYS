@@ -6,7 +6,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
-import com.yunyisheng.app.yunys.project.bean.TaskBean;
+import com.yunyisheng.app.yunys.tasks.bean.TaskBean;
 import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 
 import java.util.List;

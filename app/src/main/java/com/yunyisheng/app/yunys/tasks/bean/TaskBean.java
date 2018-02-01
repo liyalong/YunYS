@@ -1,12 +1,14 @@
-package com.yunyisheng.app.yunys.project.bean;
+package com.yunyisheng.app.yunys.tasks.bean;
 
 import android.content.Intent;
+
+import java.io.Serializable;
 
 /**
  * Created by liyalong on 2018/1/29.
  */
 
-public class TaskBean {
+public class TaskBean implements Serializable{
     private String taskId;              //
     private String releaseId;           //任务id
     private String releaseName;         //任务名称

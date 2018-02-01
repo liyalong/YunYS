@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="@dimen/distance_84"
+    android:layout_height="@dimen/distance_89"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/distance_10"
@@ -83,8 +83,4 @@
             android:layout_height="match_parent"
             android:src="@mipmap/icon_right"/>
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/distance_1"
-        android:background="@color/color_e7e7e7"></View>
 </LinearLayout>

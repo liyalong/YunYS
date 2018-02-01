@@ -2,6 +2,7 @@ package com.yunyisheng.app.yunys.tasks.service;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.project.model.TaskListModel;
+import com.yunyisheng.app.yunys.tasks.model.TaskDetailModel;
 
 import io.reactivex.Flowable;
 import retrofit2.http.Field;
@@ -63,4 +64,17 @@ public interface TaskService {
     @FormUrlEncoded
     @POST("task/claimTask")
     Flowable<BaseModel> claimTask(@Field("taskId") String taskId);
+
+    /**
+     * 获取任务详情
+     * @param projectId
+     * @param taskId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("task/getTaskInfo/{projectId}")
+    Flowable<TaskDetailModel> getTaskDetail(@Path("projectId") String projectId,
+                                            @Field("taskId") String taskId);
+
+
 }

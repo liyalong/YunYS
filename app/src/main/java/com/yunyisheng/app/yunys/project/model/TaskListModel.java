@@ -1,7 +1,7 @@
 package com.yunyisheng.app.yunys.project.model;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
-import com.yunyisheng.app.yunys.project.bean.TaskBean;
+import com.yunyisheng.app.yunys.tasks.bean.TaskBean;
 
 import java.util.List;
 

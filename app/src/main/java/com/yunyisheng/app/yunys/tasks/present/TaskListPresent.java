@@ -16,7 +16,7 @@ import cn.droidlover.xdroidmvp.net.XApi;
  * Created by liyalong on 2018/1/29.
  */
 
-public class TaskPresent extends XPresent<TaskPoolFragment> {
+public class TaskListPresent extends XPresent<TaskPoolFragment> {
     /**
      * 根据下拉选项加载对应任务列表
      * @param selected
@@ -94,6 +94,13 @@ public class TaskPresent extends XPresent<TaskPoolFragment> {
                     }
                 });
     }
+
+    /**
+     * 获取未认领的任务列表
+     * @param projectId
+     * @param pageNum
+     * @param pageSize
+     */
     public void getUnClaimTaskList(String projectId,int pageNum,int pageSize){
         Api.taskService().getUnClaimTaskList(projectId,pageNum,pageSize)
                 .compose(XApi.<TaskListModel>getApiTransformer())
@@ -116,6 +123,11 @@ public class TaskPresent extends XPresent<TaskPoolFragment> {
                     }
                 });
     }
+
+    /**
+     * 认领任务
+     * @param taskId
+     */
     public void claimTask(String taskId){
         Api.taskService().claimTask(taskId)
                 .compose(XApi.<BaseModel>getApiTransformer())

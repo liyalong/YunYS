@@ -18,12 +18,13 @@ import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.project.activity.ProjectDetailsActivity;
+import com.yunyisheng.app.yunys.project.activity.TaskDetailActivity;
 import com.yunyisheng.app.yunys.project.adapter.SpinnerAdapter;
 import com.yunyisheng.app.yunys.main.model.SpinnerBean;
-import com.yunyisheng.app.yunys.project.bean.TaskBean;
+import com.yunyisheng.app.yunys.tasks.bean.TaskBean;
 import com.yunyisheng.app.yunys.project.model.TaskListModel;
 import com.yunyisheng.app.yunys.tasks.adapter.TaskAdapter;
-import com.yunyisheng.app.yunys.tasks.present.TaskPresent;
+import com.yunyisheng.app.yunys.tasks.present.TaskListPresent;
 import com.yunyisheng.app.yunys.utils.ScreenUtils;
 import com.yunyisheng.app.yunys.utils.ScrowUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
@@ -34,12 +35,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidmvp.log.XLog;
+import cn.droidlover.xdroidmvp.router.Router;
 
 /**
  * Created by liyalong on 2018/1/18.
  */
 
-public class TaskPoolFragment extends BaseFragement<TaskPresent> implements TaskAdapter.Callback{
+public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements TaskAdapter.Callback{
     @BindView(R.id.tasks_type)
     Spinner tasksType;
     @BindView(R.id.task_list_view)
@@ -106,6 +108,23 @@ public class TaskPoolFragment extends BaseFragement<TaskPresent> implements Task
                 getP().getTaskList(SELECT_TYPE,projectId,PAGE_NUM,PAGE_SIZE);
             }
         });
+        //跳转任务详情
+        taskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                TaskBean task = dataList.get(i-1);
+                if (SELECT_TYPE == 3){
+                    ToastUtils.showToast("子任务详情");
+                }else {
+                    Router.newIntent(context)
+                            .to(TaskDetailActivity.class)
+                            .putString("projectId",projectId)
+                            .putString("taskId",task.getTaskId())
+                            .putInt("selectType",SELECT_TYPE)
+                            .launch();
+                }
+            }
+        });
     }
 
     @Override
@@ -119,8 +138,8 @@ public class TaskPoolFragment extends BaseFragement<TaskPresent> implements Task
     }
 
     @Override
-    public TaskPresent bindPresent() {
-        return new TaskPresent();
+    public TaskListPresent bindPresent() {
+        return new TaskListPresent();
     }
 
     @Override
@@ -184,7 +203,9 @@ public class TaskPoolFragment extends BaseFragement<TaskPresent> implements Task
         TextView doTask = v.findViewById(R.id.do_task);
         TextView backTask = v.findViewById(R.id.back_task);
         TextView lookTaskInfo = v.findViewById(R.id.look_task_info);
+        TextView lookTaskChildInfo = v.findViewById(R.id.look_task_child_info);
         ImageView btn_cz_close = v.findViewById(R.id.btn_cz_close);
+
 
         switch (SELECT_TYPE){
             case 1:
@@ -195,6 +216,7 @@ public class TaskPoolFragment extends BaseFragement<TaskPresent> implements Task
                 doTask.setVisibility(View.GONE);
                 backTask.setVisibility(View.GONE);
                 lookTaskInfo.setVisibility(View.GONE);
+                lookTaskChildInfo.setVisibility(View.GONE);
                 break;
             case 2:
                 //待完成状态下进行执行和回退操作
@@ -203,6 +225,7 @@ public class TaskPoolFragment extends BaseFragement<TaskPresent> implements Task
                 assignTask.setVisibility(View.GONE);
                 claimTask.setVisibility(View.GONE);
                 lookTaskInfo.setVisibility(View.GONE);
+                lookTaskChildInfo.setVisibility(View.GONE);
                 break;
             case 3:
                 //已发布状态下进行编辑，查看认领情况，分配，撤销
@@ -247,7 +270,7 @@ public class TaskPoolFragment extends BaseFragement<TaskPresent> implements Task
         claimTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                getP().claimTask(clickTask.getTaskId());
             }
         });
         //执行任务
@@ -271,6 +294,14 @@ public class TaskPoolFragment extends BaseFragement<TaskPresent> implements Task
 
             }
         });
+        //已完成任务，查看任务反馈项
+        lookTaskChildInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        //关闭按钮
         btn_cz_close.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {

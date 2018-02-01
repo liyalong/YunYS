@@ -1,7 +1,5 @@
 package com.yunyisheng.app.yunys.project.service;
 
-import com.yunyisheng.app.yunys.base.BaseModel;
-import com.yunyisheng.app.yunys.project.bean.TaskBean;
 import com.yunyisheng.app.yunys.project.model.DeviceAlarmRulesModel;
 import com.yunyisheng.app.yunys.project.model.DeviceInfoModel;
 import com.yunyisheng.app.yunys.project.model.DeviceListModel;
@@ -15,12 +13,10 @@ import com.yunyisheng.app.yunys.project.model.ModelDetailModel;
 import com.yunyisheng.app.yunys.project.model.ModelListModel;
 import com.yunyisheng.app.yunys.project.model.PeriodicTaskListModel;
 import com.yunyisheng.app.yunys.project.model.ProjectListModel;
-import com.yunyisheng.app.yunys.project.model.TaskListModel;
 
 import io.reactivex.Flowable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 

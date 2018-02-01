@@ -187,7 +187,8 @@
     <string name="claim_task">认领任务</string>
     <string name="do_task">立即执行</string>
     <string name="back_task">回退</string>
-    <string name="look_task_info">详情</string>
+    <string name="look_task_info">查看反馈</string>
+    <string name="look_task_child">查看详情</string>
     <string name="task_info">任务详情</string>
     <string name="task_create_user">创建人：</string>
     <string name="task_create_time">创建时间：</string>
@@ -284,4 +285,8 @@
     <string name="no">否</string>
     <string name="download">下载</string>
     <string name="show">查看</string>
+
+    <!-- 任务详情 -->
+    <string name="the_project">所属项目：</string>
+    <string name="the_device">所属设备：</string>
 </resources>
