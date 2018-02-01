@@ -282,6 +282,7 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
                 Router.newIntent(context)
                         .to(RenwuFankuiFormActivity.class)
                         .putInt("taskid", Integer.parseInt(clickTask.getTaskId()))
+                        .putString("projectId",projectId)
                         .launch();
             }
         });
