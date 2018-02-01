@@ -18,6 +18,7 @@ import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.project.activity.ProjectDetailsActivity;
+import com.yunyisheng.app.yunys.project.activity.RenwuFankuiFormActivity;
 import com.yunyisheng.app.yunys.project.activity.TaskDetailActivity;
 import com.yunyisheng.app.yunys.project.adapter.SpinnerAdapter;
 import com.yunyisheng.app.yunys.main.model.SpinnerBean;
@@ -56,6 +57,8 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
 
     private TaskAdapter adapter;
     private List<TaskBean> dataList = new ArrayList<>();
+
+    private Dialog taskListBtnDialog;
 
     @Override
     public void initView() {
@@ -118,9 +121,8 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
                 }else {
                     Router.newIntent(context)
                             .to(TaskDetailActivity.class)
-                            .putString("projectId",projectId)
                             .putString("taskId",task.getTaskId())
-                            .putInt("selectType",SELECT_TYPE)
+                            .putString("taskType", String.valueOf(task.getReleaseTaskType()))
                             .launch();
                 }
             }
@@ -189,7 +191,7 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
     private void createTaskListBtnDialog(final Activity activity, int position) {
         final TaskBean clickTask = dataList.get(position);
 
-        final Dialog taskListBtnDialog = new Dialog(activity,R.style.dialog_bottom_full);
+        taskListBtnDialog = new Dialog(activity,R.style.dialog_bottom_full);
         taskListBtnDialog.setCanceledOnTouchOutside(true);
         taskListBtnDialog.setCancelable(true);
         Window window = taskListBtnDialog.getWindow();
@@ -277,7 +279,10 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
         doTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Router.newIntent(context)
+                        .to(RenwuFankuiFormActivity.class)
+                        .putInt("taskid", Integer.parseInt(clickTask.getTaskId()))
+                        .launch();
             }
         });
         //退回任务
@@ -316,6 +321,7 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
 
     public void checkClaimTaskStatus(BaseModel baseModel){
         if (baseModel.getRespCode() == 0){
+            taskListBtnDialog.hide();
             ToastUtils.showToast("认领成功！");
             PAGE_NUM = 1;
             getP().getTaskList(SELECT_TYPE,projectId,PAGE_NUM,PAGE_SIZE);

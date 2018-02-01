@@ -14,6 +14,7 @@ import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.droidlover.xdroidmvp.router.Router;
 
 /**
  * Created by liyalong on 2018/1/31.
@@ -68,15 +69,17 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
     TextView taskBackInfo;
     @BindView(R.id.task_child_list)
     TextView taskChildList;
-    private String projectId;
     private String taskId;
+    private String userId;
+    private String taskType;
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        this.projectId = getIntent().getStringExtra("projectId");
         this.taskId = getIntent().getStringExtra("taskId");
-        getP().getTaskDetail(projectId, taskId);
+        this.userId = getIntent().getStringExtra("userId");
+        this.taskType = getIntent().getStringExtra("taskType");
+        getP().getTask(taskId,taskType,userId);
     }
 
     @Override
@@ -127,6 +130,10 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                 break;
             case R.id.do_task:
                 //执行任务
+                Router.newIntent(context)
+                        .to(RenwuFankuiFormActivity.class)
+                        .putInt("taskid", Integer.parseInt(taskId))
+                        .launch();
                 break;
             case R.id.back_task:
                 //回退任务
