@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.schedule.present;
 
+import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.activity.DynamicFormActivity;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
@@ -56,10 +57,10 @@ public class ScheduleDetailPresent extends XPresent<DynamicFormActivity> {
      */
     public void getScheduleDetail(int taskId,String instanceFormStr){
         Api.scheduleService().putScheduleDetail(taskId,instanceFormStr)
-                .compose(XApi.<ScheduleDetailBean>getApiTransformer())
-                .compose(XApi.<ScheduleDetailBean>getScheduler())
-                .compose(getV().<ScheduleDetailBean>bindToLifecycle())
-                .subscribe(new ApiSubscriber<ScheduleDetailBean>() {
+                .compose(XApi.<BaseModel>getApiTransformer())
+                .compose(XApi.<BaseModel>getScheduler())
+                .compose(getV().<BaseModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel>() {
                     @Override
                     protected void onFail(NetError error) {
                         XLog.d("NET ERROR :"+error.toString());
@@ -68,13 +69,13 @@ public class ScheduleDetailPresent extends XPresent<DynamicFormActivity> {
                     }
 
                     @Override
-                    public void onNext(ScheduleDetailBean scheduleDetailBean) {
+                    public void onNext(BaseModel baseModel) {
                         try {
-                            if (scheduleDetailBean.getRespCode() == 1){
-                                ToastUtils.showToast(scheduleDetailBean.getRespMsg());
+                            if (baseModel.getRespCode() == 1){
+                                ToastUtils.showToast(baseModel.getRespMsg());
                                 return;
                             }
-                            getV().setFormDetail(scheduleDetailBean);
+
                         }catch (Exception e){
                             e.printStackTrace();
                         }
