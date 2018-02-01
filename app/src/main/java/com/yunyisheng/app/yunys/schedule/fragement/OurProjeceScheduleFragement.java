@@ -164,7 +164,8 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                     pageindex++;
                     getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
                 } else {
-
+                    pageindex++;
+                    getP().getMyProjectSchedulrList(pageindex, projectid, dayStartTime, dayEndTime);
                 }
             }
         }, 1000);

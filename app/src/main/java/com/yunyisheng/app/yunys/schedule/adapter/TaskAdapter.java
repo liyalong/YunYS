@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
-import com.yunyisheng.app.yunys.project.activity.DynamicFormActivity;
+import com.yunyisheng.app.yunys.project.activity.TaskDetailActivity;
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 
 import java.util.ArrayList;
@@ -69,9 +69,9 @@ public class TaskAdapter extends RecyclerAdapter<MyScheduleBean.RespBodyBean.Dat
         holder.cv_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, DynamicFormActivity.class);
+                Intent intent = new Intent(context, TaskDetailActivity.class);
                 intent.putExtra("type",type);
-                intent.putExtra("scheduleid", bean.getTaskId());
+                intent.putExtra("taskId", bean.getTaskId());
                 context.startActivity(intent);
             }
         });

@@ -75,7 +75,8 @@ public class ScheduleDetailPresent extends XPresent<DynamicFormActivity> {
                                 ToastUtils.showToast(baseModel.getRespMsg());
                                 return;
                             }
-
+                            ToastUtils.showToast("提交成功");
+                            getV().finish();
                         }catch (Exception e){
                             e.printStackTrace();
                         }

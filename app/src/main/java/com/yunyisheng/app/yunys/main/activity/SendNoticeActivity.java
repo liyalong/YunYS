@@ -138,6 +138,7 @@ public class SendNoticeActivity extends BaseActivity {
     }
 
     private void sendNotice() {
+        LoadingDialog.show(SendNoticeActivity.this);
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(Api.BASE_PATH)
@@ -185,6 +186,7 @@ public class SendNoticeActivity extends BaseActivity {
             @Override
             public void onFailure(Call<BaseModel> call, Throwable t) {
                 ToastUtils.showToast("请检查网络设置");
+                LoadingDialog.dismiss(SendNoticeActivity.this);
             }
         });
     }
