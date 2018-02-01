@@ -48,7 +48,7 @@ public class WorkerDataActivity extends BaseActivity {
     private List<Fragment> fragmentList = new ArrayList<>();
     private List<String> mTitleList = new ArrayList<>();
     private int tabindex;
-    int userid;
+    public  int userid;
     private BasicDataFragement basicDataFragement;
 
     @Override

@@ -70,7 +70,7 @@ public class TaskAdapter extends RecyclerAdapter<MyScheduleBean.RespBodyBean.Dat
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, TaskDetailActivity.class);
-                intent.putExtra("type",type);
+                intent.putExtra("taskType",type);
                 intent.putExtra("taskId", bean.getTaskId());
                 context.startActivity(intent);
             }

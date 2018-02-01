@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
-import com.yunyisheng.app.yunys.schedule.activity.ScheduleDeatilActivity;
+import com.yunyisheng.app.yunys.project.activity.TaskDetailActivity;
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 
 import java.util.ArrayList;
@@ -25,6 +25,7 @@ public class HomeScheduleAdapter extends SimpleListAdapter<MyScheduleBean.RespBo
 
     private final Context context;
     private List<MyScheduleBean.RespBodyBean.DataListBean> list = new ArrayList<>();
+    private int otheruserid;
 
     public HomeScheduleAdapter(Context context, List<MyScheduleBean.RespBodyBean.DataListBean> list) {
         super(context);
@@ -35,6 +36,10 @@ public class HomeScheduleAdapter extends SimpleListAdapter<MyScheduleBean.RespBo
     @Override
     protected ViewHolder newViewHolder(View convertView) {
         return new ViewHolder(convertView);
+    }
+
+    public void setOtheruserid(int userid) {
+        this.otheruserid = userid;
     }
 
     @Override
@@ -49,12 +54,12 @@ public class HomeScheduleAdapter extends SimpleListAdapter<MyScheduleBean.RespBo
         String creationTime = bean.getCreationTime();
         String endTime = bean.getEndTime();
 
-        if (position==list.size()-1){
+        if (position == list.size() - 1) {
             holder.view1.setVisibility(View.GONE);
         }
 
         holder.te_schedule_time.setText(creationTime + "-" + endTime);
-        String type = bean.getType();
+        final String type = bean.getType();
         if (type.equals("1")) {
             holder.te_liucheng_type.setText("设备");
         } else if (type.equals("2")) {
@@ -71,8 +76,12 @@ public class HomeScheduleAdapter extends SimpleListAdapter<MyScheduleBean.RespBo
         holder.cv_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ScheduleDeatilActivity.class);
-                intent.putExtra("scheduleid", bean.getTaskId());
+                Intent intent = new Intent(context, TaskDetailActivity.class);
+                if (otheruserid != 0) {
+                    intent.putExtra("userId", otheruserid + "");
+                }
+                intent.putExtra("taskType", type);
+                intent.putExtra("taskId", bean.getTaskId());
                 context.startActivity(intent);
             }
         });
@@ -92,7 +101,7 @@ public class HomeScheduleAdapter extends SimpleListAdapter<MyScheduleBean.RespBo
             cv_item = (RelativeLayout) view.findViewById(R.id.cv_item);
             te_schedule_title = (TextView) view.findViewById(R.id.te_schedule_title);
             te_schedule_time = (TextView) view.findViewById(R.id.te_schedule_time);
-            view1=view.findViewById(R.id.view);
+            view1 = view.findViewById(R.id.view);
         }
     }
 }

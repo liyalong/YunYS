@@ -11,6 +11,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.main.activity.WorkerDataActivity;
 import com.yunyisheng.app.yunys.main.adapter.HomeScheduleAdapter;
 import com.yunyisheng.app.yunys.main.present.WorkerSchedulePresent;
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
@@ -23,7 +24,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import cn.droidlover.xdroidbase.cache.SharedPref;
 
 import static com.yunyisheng.app.yunys.utils.CommonUtils.getDayEndTime;
 import static com.yunyisheng.app.yunys.utils.CommonUtils.getDayStartTime;
@@ -51,7 +51,7 @@ public class ScheduleFragement extends BaseFragement<WorkerSchedulePresent> {
     @Override
     public void initView() {
         ScrowUtil.listViewConfig(pullToListSchudle);
-        userid = SharedPref.getInstance(mContext).getInt("userid", 0);
+        userid =((WorkerDataActivity) getActivity()).userid;
         dayStartTime = getDayStartTime();
         dayEndTime = getDayEndTime();
         adapter = new HomeScheduleAdapter(mContext, dataListBeans);
@@ -74,7 +74,7 @@ public class ScheduleFragement extends BaseFragement<WorkerSchedulePresent> {
 
     @Override
     public void initAfter() {
-        getP().getWorkerScheduleList(pageindex, Integer.parseInt("312"), dayStartTime, dayEndTime);
+        getP().getWorkerScheduleList(pageindex, userid, dayStartTime, dayEndTime);
     }
 
     @Override
@@ -120,6 +120,8 @@ public class ScheduleFragement extends BaseFragement<WorkerSchedulePresent> {
         List<MyScheduleBean.RespBodyBean.DataListBean> dataList = myScheduleBean.getRespBody().getDataList();
         if (dataList != null && dataList.size() > 0) {
             dataListBeans.addAll(dataList);
+            adapter.setData(dataListBeans);
+            adapter.setOtheruserid(userid);
         } else {
             if (pageindex == 1) {
                 ToastUtils.showToast("暂无日程");
