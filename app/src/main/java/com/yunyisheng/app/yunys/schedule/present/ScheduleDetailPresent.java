@@ -42,7 +42,39 @@ public class ScheduleDetailPresent extends XPresent<DynamicFormActivity> {
                                 ToastUtils.showToast(scheduleDetailBean.getRespMsg());
                                 return;
                             }
-//                            getV().setScheduleDetailBean(ScheduleDetailBean);
+                            getV().setFormDetail(scheduleDetailBean);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+    }
+
+    /**
+     * 提交任务表单
+     */
+    public void getScheduleDetail(int taskId,String instanceFormStr){
+        Api.scheduleService().putScheduleDetail(taskId,instanceFormStr)
+                .compose(XApi.<ScheduleDetailBean>getApiTransformer())
+                .compose(XApi.<ScheduleDetailBean>getScheduler())
+                .compose(getV().<ScheduleDetailBean>bindToLifecycle())
+                .subscribe(new ApiSubscriber<ScheduleDetailBean>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        XLog.d("NET ERROR :"+error.toString());
+                        ToastUtils.showToast("网络请求错误！");
+                        return;
+                    }
+
+                    @Override
+                    public void onNext(ScheduleDetailBean scheduleDetailBean) {
+                        try {
+                            if (scheduleDetailBean.getRespCode() == 1){
+                                ToastUtils.showToast(scheduleDetailBean.getRespMsg());
+                                return;
+                            }
+                            getV().setFormDetail(scheduleDetailBean);
                         }catch (Exception e){
                             e.printStackTrace();
                         }

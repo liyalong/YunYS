@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.schedule.service;
 
+import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
 
@@ -54,4 +55,15 @@ public interface ScheduleService {
     Flowable<ScheduleDetailBean> getScheduleDetail(@Field("userId") int userId,
                                                    @Field("taskId") String taskId,
                                                    @Field("type") int type);
+
+    /**
+     *  @author fuduo
+     *  @time 2018/1/31  18:18
+     *  @describe 提交任务
+     */
+    @FormUrlEncoded
+    @POST("task/execute")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    Flowable<BaseModel> putScheduleDetail(@Field("taskId") int taskId,
+                                          @Field("instanceFormStr") String instanceFormStr);
 }
