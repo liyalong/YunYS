@@ -56,9 +56,9 @@ public class MessagePresent extends XPresent<MessageActivity> {
      * @time 2018/1/30  15:27
      * @describe 获取消息集合
      */
-    public void getMessageList(String string) {
+    public void getMessageList(String string,int pagenum) {
         LoadingDialog.show(getV());
-        Api.homeService().getTypeMessagelist(string)
+        Api.homeService().getTypeMessagelist(string,pagenum,10)
                 .compose(XApi.<MessageBean>getApiTransformer()) //统一异常处理
                 .compose(XApi.<MessageBean>getScheduler()) //线程调度
                 .compose(getV().<MessageBean>bindToLifecycle()) //内存泄漏处理

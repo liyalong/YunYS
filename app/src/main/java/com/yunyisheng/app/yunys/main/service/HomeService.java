@@ -278,5 +278,7 @@ public interface HomeService {
      */
     @FormUrlEncoded
     @POST("message/getMessageByTypeList")
-    Flowable<MessageBean> getTypeMessagelist(@Field("typelist") String typelist);
+    Flowable<MessageBean> getTypeMessagelist(@Field("typelist") String typelist,
+                                             @Field("pagenum") int pagenum,
+                                             @Field("pagerows") int pagerows);
 }

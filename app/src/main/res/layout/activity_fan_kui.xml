@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f4f4f4"
+    tools:context="com.yunyisheng.app.yunys.userset.activity.ChangeInformationActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/include_titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_206"
+            android:layout_marginTop="@dimen/distance_10"
+            android:background="@color/white">
+
+            <EditText
+                android:id="@+id/ed_put"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_206"
+                android:layout_marginLeft="@dimen/distance_10"
+                android:background="@null"
+                android:gravity="top"
+                android:paddingTop="@dimen/distance_10"
+                android:hint="@string/put_fankui"
+                android:textColor="@color/color_333"
+                android:textColorHint="@color/color_999"
+                android:textSize="@dimen/distance_14" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_queren"
+            android:layout_width="@dimen/distance_341"
+            android:layout_height="@dimen/distance_40"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/distance_20"
+            android:background="@drawable/btn_anpai_work"
+            android:text="@string/update"
+            android:textColor="@color/white"
+            android:textSize="@dimen/distance_14" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

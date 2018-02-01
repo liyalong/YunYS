@@ -84,6 +84,7 @@
     <string name="about_us">关于我们</string>
     <string name="company_info">企业信息</string>
     <string name="clean_cache">清理缓存</string>
+    <string name="fankui">意见反馈</string>
     <string name="logout">退出登录</string>
     <string name="queren">确认</string>
     <string name="querenpassword">确认密码</string>
@@ -94,6 +95,7 @@
     <string name="isshownum">隐藏手机号</string>
     <string name="usezone">已用空间</string>
     <string name="clearcatch">清理缓存</string>
+    <string name="put_fankui">请输入反馈建议</string>
     <string name="putzhiwei">请输入职位</string>
     <string name="putname">请输入姓名</string>
     <string name="puteamil">请输入邮箱</string>

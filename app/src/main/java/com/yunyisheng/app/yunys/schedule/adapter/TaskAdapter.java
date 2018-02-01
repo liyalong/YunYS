@@ -51,7 +51,7 @@ public class TaskAdapter extends RecyclerAdapter<MyScheduleBean.RespBodyBean.Dat
             holder.view1.setVisibility(View.GONE);
         }
         holder.te_schedule_time.setText(creationTime + "-" + endTime);
-        String type = bean.getType();
+        final String type = bean.getType();
         if (type.equals("1")) {
             holder.te_liucheng_type.setText("设备");
         } else if (type.equals("2")) {
@@ -69,6 +69,7 @@ public class TaskAdapter extends RecyclerAdapter<MyScheduleBean.RespBodyBean.Dat
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ScheduleDeatilActivity.class);
+                intent.putExtra("type",type);
                 intent.putExtra("scheduleid", bean.getTaskId());
                 context.startActivity(intent);
             }

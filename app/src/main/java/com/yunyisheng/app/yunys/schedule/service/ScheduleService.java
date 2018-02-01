@@ -1,6 +1,7 @@
 package com.yunyisheng.app.yunys.schedule.service;
 
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
+import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
 
 import io.reactivex.Flowable;
 import retrofit2.http.Field;
@@ -42,5 +43,15 @@ public interface ScheduleService {
                                                   @Field("projectId") String projectId,
                                                   @Field("startTime") long startTime,
                                                   @Field("endTime") long endTime);
-
+    /**
+     *  @author fuduo
+     *  @time 2018/1/31  18:18
+     *  @describe 14.2	查看日程详情(解析任务表单)
+     */
+    @FormUrlEncoded
+    @POST("task/information/lookList")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    Flowable<ScheduleDetailBean> getScheduleDetail(@Field("userId") int userId,
+                                                   @Field("taskId") String taskId,
+                                                   @Field("type") int type);
 }

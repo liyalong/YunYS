@@ -13,14 +13,14 @@ import java.util.List;
 public class MessageBean extends BaseModel {
 
 
-    private List<RespBodyBean> respBody;
+    private List<RespBodyBean> list;
 
     public List<RespBodyBean> getRespBody() {
-        return respBody;
+        return list;
     }
 
     public void setRespBody(List<RespBodyBean> respBody) {
-        this.respBody = respBody;
+        this.list = respBody;
     }
 
     public static class RespBodyBean {

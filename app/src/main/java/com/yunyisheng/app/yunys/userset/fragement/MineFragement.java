@@ -21,6 +21,7 @@ import com.yunyisheng.app.yunys.userset.activity.AboutOurActivity;
 import com.yunyisheng.app.yunys.userset.activity.AccountSetActivity;
 import com.yunyisheng.app.yunys.userset.activity.ClearCatchActivity;
 import com.yunyisheng.app.yunys.userset.activity.EnterpriseinformationActivity;
+import com.yunyisheng.app.yunys.userset.activity.FanKuiActivity;
 import com.yunyisheng.app.yunys.userset.activity.MimaManagerActivity;
 import com.yunyisheng.app.yunys.userset.activity.MyInformationActivity;
 import com.yunyisheng.app.yunys.userset.present.MinePresent;
@@ -63,6 +64,8 @@ public class MineFragement extends BaseFragement<MinePresent> {
     RelativeLayout companyInfo;
     @BindView(R.id.clean_cache)
     RelativeLayout cleanCache;
+    @BindView(R.id.rl_fankui)
+    RelativeLayout rlFankui;
     @BindView(R.id.logout)
     TextView logout;
     @BindView(R.id.img_carm)
@@ -125,6 +128,7 @@ public class MineFragement extends BaseFragement<MinePresent> {
         companyInfo.setOnClickListener(this);
         cleanCache.setOnClickListener(this);
         logout.setOnClickListener(this);
+        rlFankui.setOnClickListener(this);
     }
 
 
@@ -197,6 +201,9 @@ public class MineFragement extends BaseFragement<MinePresent> {
                 break;
             case R.id.clean_cache:
                 startActivity(new Intent(mContext, ClearCatchActivity.class));
+                break;
+            case R.id.rl_fankui:
+                startActivity(new Intent(mContext, FanKuiActivity.class));
                 break;
             case R.id.logout:
                 SharedPref.getInstance(context).remove("TOKEN");

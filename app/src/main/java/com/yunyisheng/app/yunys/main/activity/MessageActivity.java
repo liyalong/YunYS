@@ -8,6 +8,8 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.main.adapter.MessageAdapter;
@@ -17,6 +19,7 @@ import com.yunyisheng.app.yunys.main.model.MessageTypeBean;
 import com.yunyisheng.app.yunys.main.present.MessagePresent;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ScreenUtils;
+import com.yunyisheng.app.yunys.utils.ScrowUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -24,7 +27,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.droidlover.xdroidbase.cache.SharedPref;
 
 /**
  * @author fuduo
@@ -32,7 +34,6 @@ import cn.droidlover.xdroidbase.cache.SharedPref;
  * @describe 消息activity
  */
 public class MessageActivity extends BaseActivity<MessagePresent> {
-
 
     @BindView(R.id.img_back)
     ImageView imgBack;
@@ -43,25 +44,26 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
     @BindView(R.id.sp_type)
     Spinner spType;
     @BindView(R.id.pull_to_list)
-    ListView pullToList;
+    PullToRefreshListView pullToList;
     private  List<MessageTypeBean.ListBean> typelist = new ArrayList<>();
     private List<MessageBean.RespBodyBean> messagelist = new ArrayList<>();
     private int pageindex = 1;
     private int userid;
     private MessageAdapter messageAdapter;
+    private String str="";
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        userid = SharedPref.getInstance(MessageActivity.this).getInt("userid", 0);
+//        userid = SharedPref.getInstance(MessageActivity.this).getInt("userid", 0);
         teTitle.setText("消息");
+        ScrowUtil.listViewConfig(pullToList);
         spType.setDropDownWidth(ScreenUtils.getScreenHeight(MessageActivity.this));
         spType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int pos, long id) {
                 List<String> type = typelist.get(pos).getType();
-                String str="";
                 for (int i=0;i<type.size();i++){
                     if (i != type.size() - 1) {
                         str += type.get(i) + ",";
@@ -69,7 +71,9 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
                         str += type.get(i);
                     }
                 }
-                getP().getMessageList(str);
+                pageindex = 1;
+                messagelist.clear();
+                getP().getMessageList(str,1);
                 LogUtils.i("fdfsfdsfdsf",str);
             }
 
@@ -80,6 +84,20 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
         });
         messageAdapter = new MessageAdapter(MessageActivity.this, messagelist);
         pullToList.setAdapter(messageAdapter);
+        pullToList.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                pageindex = 1;
+                messagelist.clear();
+                getP().getMessageList(str,pageindex);
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                pageindex++;
+                getP().getMessageList(str,pageindex);
+            }
+        });
     }
 
     @Override
@@ -98,7 +116,6 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
     }
 
     public void getMessageList(MessageBean messageBean) {
-        messagelist.clear();
         List<MessageBean.RespBodyBean> respBody = messageBean.getRespBody();
         if (respBody.size() > 0) {
             messagelist.addAll(respBody);
@@ -110,6 +127,7 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
                 ToastUtils.showToast("没有更多了");
             }
         }
+        pullToList.onRefreshComplete();
     }
 
     @Override
