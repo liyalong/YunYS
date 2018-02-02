@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.tasks.fragment;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.tasks.activity.ProjectTemplateActivity;
 import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.customDatePicker.CustomDatePicker;
@@ -20,6 +22,12 @@ import cn.droidlover.xdroidmvp.mvp.XPresent;
  */
 
 public class DeviceTemporaryTaskFargment extends BaseFragement {
+
+    private final static int PROJECTREQUESTCODE = 1;
+    private final static int DEVICEEQUESTCODE = 2;
+    private final static int CRONREQUESTCODE = 3;
+    private final static int TEMPLATEREQUESTCODE = 4;
+
     @BindView(R.id.select_project)
     TextView selectProject;
     @BindView(R.id.select_project_device)
@@ -106,10 +114,29 @@ public class DeviceTemporaryTaskFargment extends BaseFragement {
                 ToastUtils.showToast("选择结束时间");
                 break;
             case R.id.task_templates:
-                ToastUtils.showToast("选择反馈项");
+                Intent intent4 = new Intent(context, ProjectTemplateActivity.class);
+                startActivityForResult(intent4,TEMPLATEREQUESTCODE);
                 break;
         }
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case CRONREQUESTCODE:
+
+                break;
+            case PROJECTREQUESTCODE:
+                break;
+            case DEVICEEQUESTCODE:
+                break;
+            case TEMPLATEREQUESTCODE:
+                if (resultCode==5){
+                    String fankuijson = data.getStringExtra("fankuijson");//任务反馈项json
+                }
+                break;
+        }
     }
 
 

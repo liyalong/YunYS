@@ -10,53 +10,42 @@ import java.util.List;
 
 public class GroupBean {
 
-    private String fankuiname;
+    private String feedbackName;
 
-    private String fankuitype;
-
-    private String weniz;
+    private int feedbackType;
 
     @Override
     public String toString() {
         return "GroupBean{" +
-                "fankuiname='" + fankuiname + '\'' +
-                ", fankuitype='" + fankuitype + '\'' +
-                ", weniz='" + weniz + '\'' +
-                ", childdata=" + childdata +
+                "feedbackName='" + feedbackName + '\'' +
+                ", feedbackType=" + feedbackType +
+                ", model=" + model +
                 '}';
     }
 
-    public String getWeniz() {
-        return weniz;
+    private List<ChildBean> model;
+
+    public String getfeedbackName() {
+        return feedbackName;
     }
 
-    public void setWeniz(String weniz) {
-        this.weniz = weniz;
+    public void setfeedbackName(String feedbackName) {
+        this.feedbackName = feedbackName;
     }
 
-    private List<ChildBean> childdata;
-
-    public String getFankuiname() {
-        return fankuiname;
+    public int getfeedbackType() {
+        return feedbackType;
     }
 
-    public void setFankuiname(String fankuiname) {
-        this.fankuiname = fankuiname;
+    public void setfeedbackType(int feedbackType) {
+        this.feedbackType = feedbackType;
     }
 
-    public String getFankuitype() {
-        return fankuitype;
+    public List<ChildBean> getModel() {
+        return model;
     }
 
-    public void setFankuitype(String fankuitype) {
-        this.fankuitype = fankuitype;
-    }
-
-    public List<ChildBean> getChilddata() {
-        return childdata;
-    }
-
-    public void setChilddata(List<ChildBean> childdata) {
-        this.childdata = childdata;
+    public void setModel(List<ChildBean> model) {
+        this.model = model;
     }
 }

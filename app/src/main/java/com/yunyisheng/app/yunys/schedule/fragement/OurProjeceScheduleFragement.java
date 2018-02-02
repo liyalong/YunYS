@@ -38,6 +38,9 @@ import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 import com.yunyisheng.app.yunys.schedule.model.PositionMessageEvent;
 import com.yunyisheng.app.yunys.schedule.present.MySchedulePresent;
 import com.yunyisheng.app.yunys.schedule.view.CustomDayView;
+import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
+import com.yunyisheng.app.yunys.tasks.activity.CreateNoneDeviceTaskAcitvity;
+import com.yunyisheng.app.yunys.tasks.activity.CreateProcessTaskAcitvity;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -52,6 +55,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.droidlover.xdroidmvp.router.Router;
 
 import static com.yunyisheng.app.yunys.utils.CommonUtils.ConverToDate;
 import static com.yunyisheng.app.yunys.utils.CommonUtils.getDayEndTime;
@@ -218,7 +222,6 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
             adapter.setData(list);
         } else {
             if (pageindex == 1) {
-                ToastUtils.showToast("当前日期暂无日程");
             } else {
                 ToastUtils.showToast("没有更多了");
             }
@@ -290,7 +293,10 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
 
             @Override
             public void onClick(View arg0) {
-
+                Router.newIntent(context)
+                        .to(CreateDeviceTaskAcitvity.class)
+                        .launch();
+                mSelectTask.closeOptionsMenu();
 
             }
         });
@@ -298,13 +304,19 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
 
             @Override
             public void onClick(View arg0) {
-
+                Router.newIntent(context)
+                        .to(CreateNoneDeviceTaskAcitvity.class)
+                        .launch();
+                mSelectTask.closeOptionsMenu();
             }
         });
         rl_liucheng_task.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Router.newIntent(context)
+                        .to(CreateProcessTaskAcitvity.class)
+                        .launch();
+                mSelectTask.closeOptionsMenu();
             }
         });
 

@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,7 +35,8 @@ public class MyAdapter extends BaseAdapter {
 
     Context context;
     List<GroupBean> strList = new ArrayList<>();
-    String[] str = new String[]{"单选", "照片", "文本", "多选"};
+//    String[] str = new String[]{"单选", "照片", "文本", "多选"};
+    List<ChildBean> stringList;
     private MySmallitemAdapter adapter;
 
     public MyAdapter(Context context, List<GroupBean> strList) {
@@ -76,24 +76,26 @@ public class MyAdapter extends BaseAdapter {
             viewHolder.ed_wenzi.removeTextChangedListener((TextWatcher) viewHolder.ed_wenzi.getTag());
         }
         if (viewHolder.sp_type.getCount() == 0) {
-            ArrayAdapter<String> spadapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, str);
-            spadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            SelectFankuiTypeSpinnerAdapter spadapter=new SelectFankuiTypeSpinnerAdapter(context);
             //绑定 Adapter到控件
             viewHolder.sp_type.setAdapter(spadapter);
         }
         viewHolder.te_fankuisize.setText("("+ CommonUtils.formatInteger(position+1)+")");
-        viewHolder.ed_wenzi.setText(strList.get(position).getWeniz());
-        viewHolder.ed_fankui.setText(strList.get(position).getFankuiname());
-        final List<ChildBean> stringList = strList.get(position).getChilddata();
+        viewHolder.ed_fankui.setText(strList.get(position).getfeedbackName());
+
+        stringList = strList.get(position).getModel();
         adapter = new MySmallitemAdapter(context, stringList);
         viewHolder.myListView.setAdapter(adapter);
+
         viewHolder.img_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                List<ChildBean> list = strList.get(position).getModel();
                 ChildBean childBean = new ChildBean();
-                stringList.add(childBean);
-                strList.get(position).setChilddata(stringList);
-                adapter.notifyDataSetChanged();
+                list.add(childBean);
+                stringList=list;
+                strList.get(position).setModel(stringList);
+                notifyDataSetChanged();
             }
         });
         viewHolder.img_delete_fankui.setOnClickListener(new View.OnClickListener() {
@@ -103,9 +105,23 @@ public class MyAdapter extends BaseAdapter {
                 notifyDataSetChanged();
             }
         });
+
+        int type = strList.get(position).getfeedbackType();
+        if (type==1){
+            viewHolder.sp_type.setSelection(2);
+        }else if (type==2){
+            viewHolder.sp_type.setSelection(0);
+        }else if (type==3){
+            viewHolder.sp_type.setSelection(3);
+        }else if (type==4){
+            viewHolder.sp_type.setSelection(1);
+        }else {
+            viewHolder.sp_type.setSelection(0);
+        }
         viewHolder.sp_type.setOnItemSelectedListener(new myItemSelectedListener(viewHolder, stringList, position));
+
         List<ChildBean> childBeanList = adapter.getStringList();
-        strList.get(position).setChilddata(childBeanList);
+        strList.get(position).setModel(childBeanList);
 
         TextWatcher fankuiwatcher = new TextWatcher() {
             @Override
@@ -119,9 +135,9 @@ public class MyAdapter extends BaseAdapter {
             @Override
             public void afterTextChanged(Editable s) {
                 if (TextUtils.isEmpty(s)) {
-                    strList.get(position).setFankuiname("");
+                    strList.get(position).setfeedbackName("");
                 } else {
-                    strList.get(position).setFankuiname(s.toString());
+                    strList.get(position).setfeedbackName(s.toString());
                 }
             }
         };
@@ -136,11 +152,11 @@ public class MyAdapter extends BaseAdapter {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (TextUtils.isEmpty(s)) {
-                    strList.get(position).setWeniz("");
-                } else {
-                    strList.get(position).setWeniz(s.toString());
-                }
+//                if (TextUtils.isEmpty(s)) {
+//                    strList.get(position).setWeniz("");
+//                } else {
+//                    strList.get(position).setWeniz(s.toString());
+//                }
             }
         };
         viewHolder.ed_fankui.addTextChangedListener(fankuiwatcher);
@@ -187,7 +203,15 @@ public class MyAdapter extends BaseAdapter {
 
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-            strList.get(position).setFankuitype(str[pos]);
+            if (pos==0){
+                strList.get(position).setfeedbackType(2);
+            }else if (pos==1){
+                strList.get(position).setfeedbackType(4);
+            }else if (pos==2){
+                strList.get(position).setfeedbackType(1);
+            }else if (pos==3){
+                strList.get(position).setfeedbackType(3);
+            }
             if (pos == 2 || pos == 1) {
                 viewHolder.line_beixuan.setVisibility(View.GONE);
                 stringList.clear();

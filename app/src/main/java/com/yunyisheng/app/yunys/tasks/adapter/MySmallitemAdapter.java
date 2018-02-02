@@ -49,19 +49,16 @@ public class MySmallitemAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHplder viewHplder = null;
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.line_item_small, null);
-            viewHplder = new ViewHplder(convertView);
-            convertView.setTag(viewHplder);
-        } else {
-            viewHplder = (ViewHplder) convertView.getTag();
+       
+        View view = LayoutInflater.from(context).inflate(R.layout.line_item_small, null);
+        EditText ed_beixuan = (EditText) view.findViewById(R.id.ed_beixuan);
+        ImageView img_remove = (ImageView) view.findViewById(R.id.img_remove);
+        
+        if (ed_beixuan.getTag() instanceof TextWatcher) {
+            ed_beixuan.removeTextChangedListener((TextWatcher) ed_beixuan.getTag());
         }
-        if (viewHplder.ed_beixuan.getTag() instanceof TextWatcher) {
-            viewHplder.ed_beixuan.removeTextChangedListener((TextWatcher) viewHplder.ed_beixuan.getTag());
-        }
-        viewHplder.ed_beixuan.setText(stringList.get(position).getFankuiitem());
-        viewHplder.img_remove.setOnClickListener(new View.OnClickListener() {
+        ed_beixuan.setText(stringList.get(position).getDynamic_type_name());
+        img_remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 stringList.remove(position);
@@ -80,15 +77,17 @@ public class MySmallitemAdapter extends BaseAdapter {
             @Override
             public void afterTextChanged(Editable s) {
                 if (TextUtils.isEmpty(s)) {
-                    stringList.get(position).setFankuiitem("");
+                    stringList.get(position).setIndex(position);
+                    stringList.get(position).setDynamic_type_name("");
                 } else {
-                    stringList.get(position).setFankuiitem(s.toString());
+                    stringList.get(position).setIndex(position);
+                    stringList.get(position).setDynamic_type_name(s.toString());
                 }
             }
         };
-        viewHplder.ed_beixuan.addTextChangedListener(watcher);
-        viewHplder.ed_beixuan.setTag(watcher);
-        return convertView;
+        ed_beixuan.addTextChangedListener(watcher);
+        ed_beixuan.setTag(watcher);
+        return view;
     }
 
     public List<ChildBean> getStringList() {

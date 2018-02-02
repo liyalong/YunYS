@@ -59,6 +59,7 @@ public class FanKuiActivity extends BaseActivity<FankuiPresent> {
                 break;
             case R.id.btn_queren:
                 String fankui = edPut.getText().toString().trim();
+                getP().sendFankui(fankui);
                 break;
         }
     }

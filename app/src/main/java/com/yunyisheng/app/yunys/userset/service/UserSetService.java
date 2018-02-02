@@ -10,6 +10,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Url;
 
@@ -67,5 +68,13 @@ public interface UserSetService {
     @POST("enterprise/forent")
     Flowable<CompanyBean> getCompanyinfo();
 
-
+    /**
+     * @author fuduo
+     * @time 2018/1/21  10:38
+     * @describe 3.1	反馈意见
+     */
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    @POST("idea/createidea")
+    Flowable<BaseModel> sendFankui(@Field("ideaVal") String ideaVal);
 }

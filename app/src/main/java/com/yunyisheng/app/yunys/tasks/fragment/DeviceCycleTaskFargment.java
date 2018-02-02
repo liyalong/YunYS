@@ -1,10 +1,7 @@
 package com.yunyisheng.app.yunys.tasks.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -17,14 +14,8 @@ import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.customDatePicker.CustomDatePicker;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.regex.Pattern;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.droidlover.xdroidmvp.log.XLog;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
@@ -127,10 +118,8 @@ public class DeviceCycleTaskFargment extends BaseFragement {
                 endCustomDatePicker.show(cycleTaskEndTime.getText().toString());
                 break;
             case R.id.cycle_task_templates:
-                ToastUtils.showToast("选择反馈项");
                 Intent intent4 = new Intent(context, ProjectTemplateActivity.class);
                 startActivityForResult(intent4,TEMPLATEREQUESTCODE);
-
                 break;
         }
 
@@ -149,6 +138,9 @@ public class DeviceCycleTaskFargment extends BaseFragement {
             case DEVICEEQUESTCODE:
                 break;
             case TEMPLATEREQUESTCODE:
+                if (resultCode==5){
+                    String fankuijson = data.getStringExtra("fankuijson");//任务反馈项json
+                }
                 break;
         }
     }

@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.tasks.adapter.MyAdapter;
@@ -48,6 +49,12 @@ public class ProjectTemplateActivity extends BaseActivity {
 
     @Override
     public void initAfter() {
+        List<ChildBean> childBeans = new ArrayList<>();
+        ChildBean childBean = new ChildBean();
+        childBeans.add(childBean);
+        GroupBean bean = new GroupBean();
+        bean.setModel(childBeans);
+        stringList.add(bean);
         adapter = new MyAdapter(ProjectTemplateActivity.this, stringList);
         lvAll.setAdapter(adapter);
     }
@@ -64,36 +71,40 @@ public class ProjectTemplateActivity extends BaseActivity {
 
     @Override
     public void setListener() {
-       submit.setOnClickListener(this);
-       bottom.setOnClickListener(this);
+        imgBack.setOnClickListener(this);
+        submit.setOnClickListener(this);
+        bottom.setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
-        Intent intent = new Intent();
-       switch (v.getId()){
-           case R.id.img_back:
-               setResult(1,intent);
-               finish();
-               break;
-           case R.id.submit:
-               adapter.notifyDataSetChanged();
-               List<GroupBean> groupBeanList = adapter.getStrList();
-               LogUtils.i("str", groupBeanList.get(0).toString());
-               intent.putExtra("group", String.valueOf(groupBeanList));
-               setResult(2,intent);
-               finish();
-               break;
-           case R.id.bottom:
-               List<ChildBean> childBeans = new ArrayList<>();
-               ChildBean childBean = new ChildBean();
-               childBeans.add(childBean);
-               GroupBean bean = new GroupBean();
-               bean.setChilddata(childBeans);
-               stringList.add(bean);
-               adapter.notifyDataSetChanged();
-               break;
-       }
+        switch (v.getId()) {
+            case R.id.img_back:
+                finish();
+                break;
+            case R.id.submit:
+                List<GroupBean> groupBeanList = adapter.getStrList();
+                String str = groupBeanList.get(0).toString();
+                String string = JSON.toJSONString(groupBeanList);
+                LogUtils.i("str", string);
+                Intent intent = getIntent();
+                intent.putExtra("fankuijson",str);
+                setResult(5,intent);
+                break;
+            case R.id.bottom:
+                List<GroupBean> list = adapter.getStrList();
+                List<ChildBean> childBeans = new ArrayList<>();
+                ChildBean childBean = new ChildBean();
+                childBeans.add(childBean);
+                GroupBean bean = new GroupBean();
+                bean.setModel(childBeans);
+                list.add(bean);
+                stringList=list;
+                adapter.notifyDataSetChanged();
+                break;
+        }
     }
+
+
 
 }
