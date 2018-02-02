@@ -2,14 +2,17 @@ package com.yunyisheng.app.yunys.login.model;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
 
+import java.util.List;
+
 /**
  * Created by liyalong on 2017/12/16.
  */
 
 public class UserModel extends BaseModel {
 
+
     /**
-     * respBody : {"userPhoneState":"1","phone":null,"userMailboxState":"0","userPassword":null,"parent":"谢智","enterpriseId":"0d67725d97b644489419e7f700fcfcb6","enterpriseRolesId":5,"userIsShow":true,"userPicture":null,"userNumber":523458,"userType":"1","userState":"1","userJobTitle":"安卓工程师","userMailbox":"13635706239@163.com","userId":308,"userSex":"男","userName":"Android","userPhone":"18610922052","rolesId":null,"userSetTime":1516480519000}
+     * respBody : {"reloName":"总经理","section":[{"sectionUpdatedTime":null,"sectionStatus":null,"sectionId":155,"principal":null,"enterpriseId":null,"isParent":null,"sectionName":"定理纪念室-研发一组","sectionSort":null,"sectionCreatedTime":null,"sectionParentid":null}],"enterpriseUser":{"userPhoneState":"1","phone":null,"userMailboxState":"0","userPassword":null,"parent":"谢智","enterpriseId":"88d3c7fccd154c66861621c45ed4d75e","consoleUsername":null,"enterpriseRolesId":1,"userIsShow":true,"userPicture":"7OVk8ua8IXvm2rW7H5o+g9q6WsmFtbZLW3SGMYVRitUrGbPNW/tPTco4lQdx2q","userNumber":523456,"userType":"1","userState":"1","userJobTitle":"研发工程师","userMailbox":"jifeihu@foxmail.com","userId":307,"userSex":"男","userName":"冀飞虎","userPhone":"13294029164","rolesId":null,"userSetTime":1517258135000}}
      */
 
     private RespBodyBean respBody;
@@ -24,233 +27,359 @@ public class UserModel extends BaseModel {
 
     public static class RespBodyBean {
         /**
-         * userPhoneState : 1
-         * phone : null
-         * userMailboxState : 0
-         * userPassword : null
-         * parent : 谢智
-         * enterpriseId : 0d67725d97b644489419e7f700fcfcb6
-         * enterpriseRolesId : 5
-         * userIsShow : true
-         * userPicture : null
-         * userNumber : 523458
-         * userType : 1
-         * userState : 1
-         * userJobTitle : 安卓工程师
-         * userMailbox : 13635706239@163.com
-         * userId : 308
-         * userSex : 男
-         * userName : Android
-         * userPhone : 18610922052
-         * rolesId : null
-         * userSetTime : 1516480519000
+         * reloName : 总经理
+         * section : [{"sectionUpdatedTime":null,"sectionStatus":null,"sectionId":155,"principal":null,"enterpriseId":null,"isParent":null,"sectionName":"定理纪念室-研发一组","sectionSort":null,"sectionCreatedTime":null,"sectionParentid":null}]
+         * enterpriseUser : {"userPhoneState":"1","phone":null,"userMailboxState":"0","userPassword":null,"parent":"谢智","enterpriseId":"88d3c7fccd154c66861621c45ed4d75e","consoleUsername":null,"enterpriseRolesId":1,"userIsShow":true,"userPicture":"7OVk8ua8IXvm2rW7H5o+g9q6WsmFtbZLW3SGMYVRitUrGbPNW/tPTco4lQdx2q","userNumber":523456,"userType":"1","userState":"1","userJobTitle":"研发工程师","userMailbox":"jifeihu@foxmail.com","userId":307,"userSex":"男","userName":"冀飞虎","userPhone":"13294029164","rolesId":null,"userSetTime":1517258135000}
          */
 
-        private String userPhoneState;
-        private String phone;
-        private String userMailboxState;
-        private String userPassword;
-        private String parent;
-        private String enterpriseId;
-        private int enterpriseRolesId;
-        private boolean userIsShow;
-        private String userPicture;
-        private int userNumber;
-        private String userType;
-        private String userState;
-        private String userJobTitle;
-        private String userMailbox;
-        private int userId;
-        private String userSex;
-        private String userName;
-        private String userPhone;
-        private int rolesId;
-        private long userSetTime;
+        private String reloName;
+        private EnterpriseUserBean enterpriseUser;
+        private List<SectionBean> section;
 
-        public String getUserPhoneState() {
-            return userPhoneState;
+        public String getReloName() {
+            return reloName;
         }
 
-        public void setUserPhoneState(String userPhoneState) {
-            this.userPhoneState = userPhoneState;
+        public void setReloName(String reloName) {
+            this.reloName = reloName;
         }
 
-        public String getPhone() {
-            return phone;
+        public EnterpriseUserBean getEnterpriseUser() {
+            return enterpriseUser;
         }
 
-        public void setPhone(String phone) {
-            this.phone = phone;
+        public void setEnterpriseUser(EnterpriseUserBean enterpriseUser) {
+            this.enterpriseUser = enterpriseUser;
         }
 
-        public String getUserMailboxState() {
-            return userMailboxState;
+        public List<SectionBean> getSection() {
+            return section;
         }
 
-        public void setUserMailboxState(String userMailboxState) {
-            this.userMailboxState = userMailboxState;
+        public void setSection(List<SectionBean> section) {
+            this.section = section;
         }
 
-        public String getUserPassword() {
-            return userPassword;
+        public static class EnterpriseUserBean {
+            /**
+             * userPhoneState : 1
+             * phone : null
+             * userMailboxState : 0
+             * userPassword : null
+             * parent : 谢智
+             * enterpriseId : 88d3c7fccd154c66861621c45ed4d75e
+             * consoleUsername : null
+             * enterpriseRolesId : 1
+             * userIsShow : true
+             * userPicture : 7OVk8ua8IXvm2rW7H5o+g9q6WsmFtbZLW3SGMYVRitUrGbPNW/tPTco4lQdx2q
+             * userNumber : 523456
+             * userType : 1
+             * userState : 1
+             * userJobTitle : 研发工程师
+             * userMailbox : jifeihu@foxmail.com
+             * userId : 307
+             * userSex : 男
+             * userName : 冀飞虎
+             * userPhone : 13294029164
+             * rolesId : null
+             * userSetTime : 1517258135000
+             */
+
+            private String userPhoneState;
+            private Object phone;
+            private String userMailboxState;
+            private Object userPassword;
+            private String parent;
+            private String enterpriseId;
+            private Object consoleUsername;
+            private int enterpriseRolesId;
+            private boolean userIsShow;
+            private String userPicture;
+            private int userNumber;
+            private String userType;
+            private String userState;
+            private String userJobTitle;
+            private String userMailbox;
+            private int userId;
+            private String userSex;
+            private String userName;
+            private String userPhone;
+            private Object rolesId;
+            private long userSetTime;
+
+            public String getUserPhoneState() {
+                return userPhoneState;
+            }
+
+            public void setUserPhoneState(String userPhoneState) {
+                this.userPhoneState = userPhoneState;
+            }
+
+            public Object getPhone() {
+                return phone;
+            }
+
+            public void setPhone(Object phone) {
+                this.phone = phone;
+            }
+
+            public String getUserMailboxState() {
+                return userMailboxState;
+            }
+
+            public void setUserMailboxState(String userMailboxState) {
+                this.userMailboxState = userMailboxState;
+            }
+
+            public Object getUserPassword() {
+                return userPassword;
+            }
+
+            public void setUserPassword(Object userPassword) {
+                this.userPassword = userPassword;
+            }
+
+            public String getParent() {
+                return parent;
+            }
+
+            public void setParent(String parent) {
+                this.parent = parent;
+            }
+
+            public String getEnterpriseId() {
+                return enterpriseId;
+            }
+
+            public void setEnterpriseId(String enterpriseId) {
+                this.enterpriseId = enterpriseId;
+            }
+
+            public Object getConsoleUsername() {
+                return consoleUsername;
+            }
+
+            public void setConsoleUsername(Object consoleUsername) {
+                this.consoleUsername = consoleUsername;
+            }
+
+            public int getEnterpriseRolesId() {
+                return enterpriseRolesId;
+            }
+
+            public void setEnterpriseRolesId(int enterpriseRolesId) {
+                this.enterpriseRolesId = enterpriseRolesId;
+            }
+
+            public boolean isUserIsShow() {
+                return userIsShow;
+            }
+
+            public void setUserIsShow(boolean userIsShow) {
+                this.userIsShow = userIsShow;
+            }
+
+            public String getUserPicture() {
+                return userPicture;
+            }
+
+            public void setUserPicture(String userPicture) {
+                this.userPicture = userPicture;
+            }
+
+            public int getUserNumber() {
+                return userNumber;
+            }
+
+            public void setUserNumber(int userNumber) {
+                this.userNumber = userNumber;
+            }
+
+            public String getUserType() {
+                return userType;
+            }
+
+            public void setUserType(String userType) {
+                this.userType = userType;
+            }
+
+            public String getUserState() {
+                return userState;
+            }
+
+            public void setUserState(String userState) {
+                this.userState = userState;
+            }
+
+            public String getUserJobTitle() {
+                return userJobTitle;
+            }
+
+            public void setUserJobTitle(String userJobTitle) {
+                this.userJobTitle = userJobTitle;
+            }
+
+            public String getUserMailbox() {
+                return userMailbox;
+            }
+
+            public void setUserMailbox(String userMailbox) {
+                this.userMailbox = userMailbox;
+            }
+
+            public int getUserId() {
+                return userId;
+            }
+
+            public void setUserId(int userId) {
+                this.userId = userId;
+            }
+
+            public String getUserSex() {
+                return userSex;
+            }
+
+            public void setUserSex(String userSex) {
+                this.userSex = userSex;
+            }
+
+            public String getUserName() {
+                return userName;
+            }
+
+            public void setUserName(String userName) {
+                this.userName = userName;
+            }
+
+            public String getUserPhone() {
+                return userPhone;
+            }
+
+            public void setUserPhone(String userPhone) {
+                this.userPhone = userPhone;
+            }
+
+            public Object getRolesId() {
+                return rolesId;
+            }
+
+            public void setRolesId(Object rolesId) {
+                this.rolesId = rolesId;
+            }
+
+            public long getUserSetTime() {
+                return userSetTime;
+            }
+
+            public void setUserSetTime(long userSetTime) {
+                this.userSetTime = userSetTime;
+            }
         }
 
-        public void setUserPassword(String userPassword) {
-            this.userPassword = userPassword;
-        }
+        public static class SectionBean {
+            /**
+             * sectionUpdatedTime : null
+             * sectionStatus : null
+             * sectionId : 155
+             * principal : null
+             * enterpriseId : null
+             * isParent : null
+             * sectionName : 定理纪念室-研发一组
+             * sectionSort : null
+             * sectionCreatedTime : null
+             * sectionParentid : null
+             */
 
-        public String getParent() {
-            return parent;
-        }
+            private Object sectionUpdatedTime;
+            private Object sectionStatus;
+            private int sectionId;
+            private Object principal;
+            private Object enterpriseId;
+            private Object isParent;
+            private String sectionName;
+            private Object sectionSort;
+            private Object sectionCreatedTime;
+            private Object sectionParentid;
 
-        public void setParent(String parent) {
-            this.parent = parent;
-        }
+            public Object getSectionUpdatedTime() {
+                return sectionUpdatedTime;
+            }
 
-        public String getEnterpriseId() {
-            return enterpriseId;
-        }
+            public void setSectionUpdatedTime(Object sectionUpdatedTime) {
+                this.sectionUpdatedTime = sectionUpdatedTime;
+            }
 
-        public void setEnterpriseId(String enterpriseId) {
-            this.enterpriseId = enterpriseId;
-        }
+            public Object getSectionStatus() {
+                return sectionStatus;
+            }
 
-        public int getEnterpriseRolesId() {
-            return enterpriseRolesId;
-        }
+            public void setSectionStatus(Object sectionStatus) {
+                this.sectionStatus = sectionStatus;
+            }
 
-        public void setEnterpriseRolesId(int enterpriseRolesId) {
-            this.enterpriseRolesId = enterpriseRolesId;
-        }
+            public int getSectionId() {
+                return sectionId;
+            }
 
-        public boolean isUserIsShow() {
-            return userIsShow;
-        }
+            public void setSectionId(int sectionId) {
+                this.sectionId = sectionId;
+            }
 
-        public void setUserIsShow(boolean userIsShow) {
-            this.userIsShow = userIsShow;
-        }
+            public Object getPrincipal() {
+                return principal;
+            }
 
-        public String getUserPicture() {
-            return userPicture;
-        }
+            public void setPrincipal(Object principal) {
+                this.principal = principal;
+            }
 
-        public void setUserPicture(String userPicture) {
-            this.userPicture = userPicture;
-        }
+            public Object getEnterpriseId() {
+                return enterpriseId;
+            }
 
-        public int getUserNumber() {
-            return userNumber;
-        }
+            public void setEnterpriseId(Object enterpriseId) {
+                this.enterpriseId = enterpriseId;
+            }
 
-        public void setUserNumber(int userNumber) {
-            this.userNumber = userNumber;
-        }
+            public Object getIsParent() {
+                return isParent;
+            }
 
-        public String getUserType() {
-            return userType;
-        }
+            public void setIsParent(Object isParent) {
+                this.isParent = isParent;
+            }
 
-        public void setUserType(String userType) {
-            this.userType = userType;
-        }
+            public String getSectionName() {
+                return sectionName;
+            }
 
-        public String getUserState() {
-            return userState;
-        }
+            public void setSectionName(String sectionName) {
+                this.sectionName = sectionName;
+            }
 
-        public void setUserState(String userState) {
-            this.userState = userState;
-        }
+            public Object getSectionSort() {
+                return sectionSort;
+            }
 
-        public String getUserJobTitle() {
-            return userJobTitle;
-        }
+            public void setSectionSort(Object sectionSort) {
+                this.sectionSort = sectionSort;
+            }
 
-        public void setUserJobTitle(String userJobTitle) {
-            this.userJobTitle = userJobTitle;
-        }
+            public Object getSectionCreatedTime() {
+                return sectionCreatedTime;
+            }
 
-        public String getUserMailbox() {
-            return userMailbox;
-        }
+            public void setSectionCreatedTime(Object sectionCreatedTime) {
+                this.sectionCreatedTime = sectionCreatedTime;
+            }
 
-        public void setUserMailbox(String userMailbox) {
-            this.userMailbox = userMailbox;
-        }
+            public Object getSectionParentid() {
+                return sectionParentid;
+            }
 
-        public int getUserId() {
-            return userId;
-        }
-
-        public void setUserId(int userId) {
-            this.userId = userId;
-        }
-
-        public String getUserSex() {
-            return userSex;
-        }
-
-        public void setUserSex(String userSex) {
-            this.userSex = userSex;
-        }
-
-        public String getUserName() {
-            return userName;
-        }
-
-        public void setUserName(String userName) {
-            this.userName = userName;
-        }
-
-        public String getUserPhone() {
-            return userPhone;
-        }
-
-        public void setUserPhone(String userPhone) {
-            this.userPhone = userPhone;
-        }
-
-        public int getRolesId() {
-            return rolesId;
-        }
-
-        public void setRolesId(int rolesId) {
-            this.rolesId = rolesId;
-        }
-
-        public long getUserSetTime() {
-            return userSetTime;
-        }
-
-        public void setUserSetTime(long userSetTime) {
-            this.userSetTime = userSetTime;
-        }
-
-        @Override
-        public String toString() {
-            return "RespBodyBean{" +
-                    "userPhoneState='" + userPhoneState + '\'' +
-                    ", phone=" + phone +
-                    ", userMailboxState='" + userMailboxState + '\'' +
-                    ", userPassword=" + userPassword +
-                    ", parent='" + parent + '\'' +
-                    ", enterpriseId='" + enterpriseId + '\'' +
-                    ", enterpriseRolesId=" + enterpriseRolesId +
-                    ", userIsShow=" + userIsShow +
-                    ", userPicture=" + userPicture +
-                    ", userNumber=" + userNumber +
-                    ", userType='" + userType + '\'' +
-                    ", userState='" + userState + '\'' +
-                    ", userJobTitle='" + userJobTitle + '\'' +
-                    ", userMailbox='" + userMailbox + '\'' +
-                    ", userId=" + userId +
-                    ", userSex='" + userSex + '\'' +
-                    ", userName='" + userName + '\'' +
-                    ", userPhone='" + userPhone + '\'' +
-                    ", rolesId=" + rolesId +
-                    ", userSetTime=" + userSetTime +
-                    '}';
+            public void setSectionParentid(Object sectionParentid) {
+                this.sectionParentid = sectionParentid;
+            }
         }
     }
 }

@@ -135,7 +135,7 @@ public class MineFragement extends BaseFragement<MinePresent> {
     public void getUserInfo(UserModel userModel) {
         if (userModel.getRespCode() == 1) {
         } else {
-            String userhead = userModel.getRespBody().getUserPicture();
+            String userhead = userModel.getRespBody().getEnterpriseUser().getUserPicture();
 //            SharedPref.getInstance(mContext).putInt("userid",userModel.getRespBody().getUserId());
 //            SharedPref.getInstance(mContext).putString("username",userModel.getRespBody().getUserName());
 //            SharedPref.getInstance(mContext).putString("usersex",userModel.getRespBody().getUserSex());

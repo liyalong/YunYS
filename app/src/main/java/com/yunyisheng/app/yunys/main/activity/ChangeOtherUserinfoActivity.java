@@ -64,10 +64,10 @@ public class ChangeOtherUserinfoActivity extends BaseActivity<ChangeOtherPresent
             isnull = true;
         }
         if (!isnull) {
-            userId = getOtherinfoBean.getRespBody().getUserId();
-            teUsername.setText(getOtherinfoBean.getRespBody().getUserName());
-            boolean isshow=getOtherinfoBean.getRespBody().isUserIsShow();
-            userphone = getOtherinfoBean.getRespBody().getUserPhone();
+            userId = getOtherinfoBean.getRespBody().getEnterpriseUser().getUserId();
+            teUsername.setText(getOtherinfoBean.getRespBody().getEnterpriseUser().getUserName());
+            boolean isshow=getOtherinfoBean.getRespBody().getEnterpriseUser().isUserIsShow();
+            userphone = getOtherinfoBean.getRespBody().getEnterpriseUser().getUserPhone();
             num = userphone.substring(0, 3) + "****"
                     + userphone.substring(7, userphone.length());
             if (!isshow){
@@ -75,8 +75,8 @@ public class ChangeOtherUserinfoActivity extends BaseActivity<ChangeOtherPresent
             }else {
                 teUserphone.setText(userphone);
             }
-            teUserzhiwei.setText(getOtherinfoBean.getRespBody().getUserJobTitle());
-            teUseremail.setText(getOtherinfoBean.getRespBody().getUserMailbox());
+            teUserzhiwei.setText(getOtherinfoBean.getRespBody().getEnterpriseUser().getUserJobTitle());
+            teUseremail.setText(getOtherinfoBean.getRespBody().getEnterpriseUser().getUserMailbox());
             cbIsshowphone.setChecked(!isshow);
 //            teUsername.setText(getOtherinfoBean.getRespBody().getUserName());
 //            teUsername.setText(getOtherinfoBean.getRespBody().getUserName());

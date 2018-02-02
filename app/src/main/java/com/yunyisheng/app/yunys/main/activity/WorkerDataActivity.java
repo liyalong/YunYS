@@ -112,12 +112,12 @@ public class WorkerDataActivity extends BaseActivity {
     }
 
     public void setInfodetail(GetOtherinfoBean getOtherinfoBean){
-        if (getOtherinfoBean.getRespBody().getUserPicture() != null && !getOtherinfoBean.getRespBody().getUserPicture().equals("")
-                && !getOtherinfoBean.getRespBody().getUserPicture().equals("null")) {
+        if (getOtherinfoBean.getRespBody().getEnterpriseUser().getUserPicture() != null && !getOtherinfoBean.getRespBody().getEnterpriseUser().getUserPicture().equals("")
+                && !getOtherinfoBean.getRespBody().getEnterpriseUser().getUserPicture().equals("null")) {
 //            Bitmap bitmap = CommonUtils.stringtoBitmap(getOtherinfoBean.getRespBody().getUserPicture());
 //            GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(context, imgWorkerHead, bitmap);
         } else {
-            String sex = getOtherinfoBean.getRespBody().getUserSex();
+            String sex = getOtherinfoBean.getRespBody().getEnterpriseUser().getUserSex();
             if (sex != null && !sex.equals("") && !sex.equals("null")) {
                 if (sex.equals("男")) {
                     imgWorkerHead.setBackgroundResource(R.mipmap.maillist_man);
@@ -129,7 +129,7 @@ public class WorkerDataActivity extends BaseActivity {
                 imgWorkerHead.setBackgroundResource(R.mipmap.maillist_man);
             }
         }
-        teNameZhize.setText(getOtherinfoBean.getRespBody().getUserName()+" | "+getOtherinfoBean.getRespBody().getUserJobTitle());
+        teNameZhize.setText(getOtherinfoBean.getRespBody().getEnterpriseUser().getUserName()+" | "+getOtherinfoBean.getRespBody().getEnterpriseUser().getUserJobTitle());
     }
 
     @Override

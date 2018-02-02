@@ -55,6 +55,10 @@ public class MyInformationActivity extends BaseActivity {
         String userphone = SharedPref.getInstance(mContext).getString("userphone", "");
         String userjob = SharedPref.getInstance(mContext).getString("userjob", "");
         String useremail = SharedPref.getInstance(mContext).getString("useremail", "");
+        String userbumen = SharedPref.getInstance(mContext).getString("userbumen", "");
+        String userrole = SharedPref.getInstance(mContext).getString("userrole", "");
+        teUserbumen.setText(userbumen);
+        teUserjiaose.setText(userrole);
         teUsername.setText(username);
         teUserzhiwei.setText(userjob);
         teUserphone.setText(userphone);

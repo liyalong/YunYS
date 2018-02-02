@@ -187,16 +187,25 @@ public class HomeFragement extends BaseFragement<HomePresent> {
         if (userModel.getRespCode() == 1) {
             ToastUtils.showLongToast("获取用户信息失败");
         } else {
-            ToastUtils.showLongToast("获取用户信息成功");
-            SharedPref.getInstance(mContext).putInt("userid", userModel.getRespBody().getUserId());
-            SharedPref.getInstance(mContext).putString("username", userModel.getRespBody().getUserName());
-            SharedPref.getInstance(mContext).putString("usersex", userModel.getRespBody().getUserSex());
-            SharedPref.getInstance(mContext).putString("userphone", userModel.getRespBody().getUserPhone());
-            SharedPref.getInstance(mContext).putString("userjob", userModel.getRespBody().getUserJobTitle());
-            SharedPref.getInstance(mContext).putString("userhead", userModel.getRespBody().getUserPicture());
-            SharedPref.getInstance(mContext).putString("useremail", userModel.getRespBody().getUserMailbox());
-            SharedPref.getInstance(mContext).putString("userbumen", userModel.getRespBody().getEnterpriseId());
-            SharedPref.getInstance(mContext).putInt("userrole", userModel.getRespBody().getRolesId());
+            SharedPref.getInstance(mContext).putInt("userid", userModel.getRespBody().getEnterpriseUser().getUserId());
+            SharedPref.getInstance(mContext).putString("username", userModel.getRespBody().getEnterpriseUser().getUserName());
+            SharedPref.getInstance(mContext).putString("usersex", userModel.getRespBody().getEnterpriseUser().getUserSex());
+            SharedPref.getInstance(mContext).putString("userphone", userModel.getRespBody().getEnterpriseUser().getUserPhone());
+            SharedPref.getInstance(mContext).putString("userjob", userModel.getRespBody().getEnterpriseUser().getUserJobTitle());
+            SharedPref.getInstance(mContext).putString("userhead", userModel.getRespBody().getEnterpriseUser().getUserPicture());
+            SharedPref.getInstance(mContext).putString("useremail", userModel.getRespBody().getEnterpriseUser().getUserMailbox());
+            List<UserModel.RespBodyBean.SectionBean> section = userModel.getRespBody().getSection();
+            String str = "";
+            for (int i = 0; i < section.size(); i++) {
+                String sectionName = section.get(i).getSectionName();
+                if (i != section.size() - 1) {
+                    str += sectionName + ",";
+                } else {
+                    str += sectionName;
+                }
+            }
+            SharedPref.getInstance(mContext).putString("userbumen", str);
+            SharedPref.getInstance(mContext).putString("userrole", userModel.getRespBody().getReloName());
         }
         LogUtils.i("userinfo", userModel.getRespBody().toString());
     }
@@ -235,7 +244,7 @@ public class HomeFragement extends BaseFragement<HomePresent> {
         stopRefresh();
     }
 
-    public void stopRefresh(){
+    public void stopRefresh() {
         pullToRefreshListview.onRefreshComplete();
     }
 

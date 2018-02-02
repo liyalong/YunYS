@@ -16,6 +16,8 @@ import com.yunyisheng.app.yunys.main.activity.WorkerDataActivity;
 import com.yunyisheng.app.yunys.main.model.GetOtherinfoBean;
 import com.yunyisheng.app.yunys.main.present.BasicDataPresent;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -61,7 +63,7 @@ public class BasicDataFragement extends BaseFragement<BasicDataPresent> {
 
     @Override
     public void initAfter() {
-       getP().getOtherInfo(userid);
+        getP().getOtherInfo(userid);
     }
 
     @Override
@@ -74,26 +76,37 @@ public class BasicDataFragement extends BaseFragement<BasicDataPresent> {
         return new BasicDataPresent();
     }
 
-    public void getResultInfo(GetOtherinfoBean getOtherinfoBean){
-        ((WorkerDataActivity)getActivity()).setInfodetail(getOtherinfoBean);
-        if (getOtherinfoBean.getRespBody().getUserMailbox()!=null
-                &&!getOtherinfoBean.getRespBody().getUserMailbox().equals("")
-                &&!getOtherinfoBean.getRespBody().getUserMailbox().equals("null")){
-            teEmail.setText(getOtherinfoBean.getRespBody().getUserMailbox());
+    public void getResultInfo(GetOtherinfoBean getOtherinfoBean) {
+        ((WorkerDataActivity) getActivity()).setInfodetail(getOtherinfoBean);
+        if (getOtherinfoBean.getRespBody().getEnterpriseUser().getUserMailbox() != null
+                && !getOtherinfoBean.getRespBody().getEnterpriseUser().getUserMailbox().equals("")
+                && !getOtherinfoBean.getRespBody().getEnterpriseUser().getUserMailbox().equals("null")) {
+            teEmail.setText(getOtherinfoBean.getRespBody().getEnterpriseUser().getUserMailbox());
         }
-        tePhonenum.setText(getOtherinfoBean.getRespBody().getUserPhone());
-        teSex.setText(getOtherinfoBean.getRespBody().getUserSex());
-        this.getOtherinfoBean=getOtherinfoBean;
+        List<GetOtherinfoBean.RespBodyBean.SectionBean> section = getOtherinfoBean.getRespBody().getSection();
+        String str = "";
+        for (int i = 0; i < section.size(); i++) {
+            String sectionName = section.get(i).getSectionName();
+            if (i != section.size() - 1) {
+                str += sectionName + ",";
+            } else {
+                str += sectionName;
+            }
+        }
+        teZuzhibumen.setText(str);
+        tePhonenum.setText(getOtherinfoBean.getRespBody().getEnterpriseUser().getUserPhone());
+        teSex.setText(getOtherinfoBean.getRespBody().getEnterpriseUser().getUserSex());
+        this.getOtherinfoBean = getOtherinfoBean;
     }
 
-    public void getinfo(){
+    public void getinfo() {
         getP().getOtherInfo(userid);
     }
 
-    public void editInfo(){
-        Intent intent=new Intent(getActivity(), ChangeOtherUserinfoActivity.class);
-        intent.putExtra("otherinfo",getOtherinfoBean);
-        getActivity().startActivityForResult(intent,9);
+    public void editInfo() {
+        Intent intent = new Intent(getActivity(), ChangeOtherUserinfoActivity.class);
+        intent.putExtra("otherinfo", getOtherinfoBean);
+        getActivity().startActivityForResult(intent, 9);
     }
 
     @Override

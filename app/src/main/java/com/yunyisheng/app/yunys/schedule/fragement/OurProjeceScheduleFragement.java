@@ -195,6 +195,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         if (myScheduleBean.getRespBody().getDataList() != null && myScheduleBean.getRespBody().getDataList().size() > 0) {
             list.addAll(myScheduleBean.getRespBody().getDataList());
             adapter.setData(list);
+            adapter.setType(4);
         } else {
             if (pageindex == 1) {
                 ToastUtils.showToast("当前日期暂无日程");
@@ -220,6 +221,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         if (myScheduleBean.getRespBody().getDataList() != null && myScheduleBean.getRespBody().getDataList().size() > 0) {
             list.addAll(myScheduleBean.getRespBody().getDataList());
             adapter.setData(list);
+            adapter.setType(6);
         } else {
             if (pageindex == 1) {
             } else {

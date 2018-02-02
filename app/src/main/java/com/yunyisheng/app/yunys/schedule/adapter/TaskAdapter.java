@@ -29,12 +29,17 @@ public class TaskAdapter extends RecyclerAdapter<MyScheduleBean.RespBodyBean.Dat
     private final LayoutInflater layoutInflater;
     private final Context context;
     private List<MyScheduleBean.RespBodyBean.DataListBean> list = new ArrayList<>();
+    int scheduletype;
 
     public TaskAdapter(Context context, List<MyScheduleBean.RespBodyBean.DataListBean> list) {
         super(context);
         this.context = context;
         this.list = list;
         layoutInflater = LayoutInflater.from(context);
+    }
+
+    public void setType(int type){
+        this.scheduletype=type;
     }
 
     @Override
@@ -74,6 +79,11 @@ public class TaskAdapter extends RecyclerAdapter<MyScheduleBean.RespBodyBean.Dat
                     Intent intent = new Intent(context, TaskDetailActivity.class);
                     intent.putExtra("taskType", type);
                     intent.putExtra("taskId", bean.getTaskId());
+                    if (scheduletype==5){
+                        intent.putExtra("fromPage ",4);
+                    }else if (scheduletype==6){
+                        intent.putExtra("fromPage ",5);
+                    }
                     context.startActivity(intent);
                 }else {
                     Intent intent=new Intent(context, CreateProcessTaskAcitvity.class);
