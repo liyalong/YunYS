@@ -42,6 +42,7 @@ public class MemorandumPresent extends XPresent<MemorandumActivity> {
                     @Override
                     protected void onFail(NetError error) {
                         ToastUtils.showToast("请求数据失败！");
+                        getV().stopRefresh();
                     }
                 });
     }

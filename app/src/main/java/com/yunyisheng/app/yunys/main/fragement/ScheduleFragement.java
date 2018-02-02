@@ -129,6 +129,11 @@ public class ScheduleFragement extends BaseFragement<WorkerSchedulePresent> {
                 ToastUtils.showToast("没有更多了");
             }
         }
+        stopRefresh();
+    }
+
+    public void stopRefresh(){
         pullToListSchudle.onRefreshComplete();
     }
+
 }

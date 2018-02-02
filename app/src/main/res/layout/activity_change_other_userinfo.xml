@@ -163,6 +163,7 @@
             android:id="@+id/rl_bumen"
             android:layout_width="match_parent"
             android:layout_height="@dimen/distance_48"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/distance_1"
             android:background="@color/white">
 
@@ -234,6 +235,7 @@
             android:id="@+id/rl_role"
             android:layout_width="match_parent"
             android:layout_height="@dimen/distance_48"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/distance_1"
             android:background="@color/white">
 

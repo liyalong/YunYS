@@ -62,7 +62,11 @@
             android:id="@+id/lv_participatein"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="@null"
+            android:paddingLeft="@dimen/distance_10"
+            android:paddingRight="@dimen/distance_10"
+            android:divider="@color/color_e7"
+            android:background="@color/white"
+            android:dividerHeight="0.5dp"
             android:scrollbars="none"></ListView>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

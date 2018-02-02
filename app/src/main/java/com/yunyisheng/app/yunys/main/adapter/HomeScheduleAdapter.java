@@ -76,13 +76,20 @@ public class HomeScheduleAdapter extends SimpleListAdapter<MyScheduleBean.RespBo
         holder.cv_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, TaskDetailActivity.class);
-                if (otheruserid != 0) {
-                    intent.putExtra("userId", otheruserid + "");
+
+                if (type.equals("1")||type.equals("2")){
+                    Intent intent = new Intent(context, TaskDetailActivity.class);
+                    if (otheruserid != 0) {
+                        intent.putExtra("userId", otheruserid + "");
+                    }
+                    intent.putExtra("taskType", type);
+                    intent.putExtra("taskId", bean.getTaskId());
+                    context.startActivity(intent);
+                }else {
+
+
                 }
-                intent.putExtra("taskType", type);
-                intent.putExtra("taskId", bean.getTaskId());
-                context.startActivity(intent);
+
             }
         });
     }

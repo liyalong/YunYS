@@ -222,6 +222,10 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
                 ToastUtils.showToast("暂无更多数据");
             }
         }
+        stopRefresh();
+    }
+
+    public void stopRefresh(){
         pullToRefreshListview.onRefreshComplete();
     }
 
@@ -241,7 +245,7 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
                 ToastUtils.showToast("暂无更多数据");
             }
         }
-        pullToRefreshListview.onRefreshComplete();
+        stopRefresh();
     }
 
     //监听是否输入

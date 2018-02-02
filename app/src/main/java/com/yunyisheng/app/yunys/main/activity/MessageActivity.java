@@ -127,6 +127,10 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
                 ToastUtils.showToast("没有更多了");
             }
         }
+        stopRefresh();
+    }
+
+    public void stopRefresh(){
         pullToList.onRefreshComplete();
     }
 

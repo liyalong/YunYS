@@ -76,6 +76,7 @@ public class MessagePresent extends XPresent<MessageActivity> {
                     @Override
                     protected void onFail(NetError error) {
                         LoadingDialog.dismiss(getV());
+                        getV().stopRefresh();
                         ToastUtils.showToast("请求数据失败！");
                     }
                 });

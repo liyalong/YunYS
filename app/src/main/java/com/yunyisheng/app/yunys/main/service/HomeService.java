@@ -14,6 +14,7 @@ import com.yunyisheng.app.yunys.main.model.ProjectFromWorkBean;
 import com.yunyisheng.app.yunys.main.model.ReportFormBean;
 import com.yunyisheng.app.yunys.main.model.RoleBean;
 import com.yunyisheng.app.yunys.main.model.SendNoticeBean;
+import com.yunyisheng.app.yunys.project.model.ProjectListModel;
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 
 import io.reactivex.Flowable;
@@ -281,4 +282,19 @@ public interface HomeService {
     Flowable<MessageBean> getTypeMessagelist(@Field("typelist") String typelist,
                                              @Field("pagenum") int pagenum,
                                              @Field("pagerows") int pagerows);
+
+    /**
+     * 获取其他人参与的项目列表
+     *
+     * @param pageNum
+     * @param pageSize
+     * @param projectName
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("project/list/myJoin")
+    Flowable<ProjectListModel> getOtherProjectList(@Field("pageNum") int pageNum,
+                                                   @Field("pageSize") int pageSize,
+                                                   @Field("projectName") String projectName,
+                                                   @Field("userId") int userId);
 }

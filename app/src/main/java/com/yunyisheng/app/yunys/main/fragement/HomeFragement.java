@@ -232,6 +232,10 @@ public class HomeFragement extends BaseFragement<HomePresent> {
                 ToastUtils.showToast("没有更多了");
             }
         }
+        stopRefresh();
+    }
+
+    public void stopRefresh(){
         pullToRefreshListview.onRefreshComplete();
     }
 

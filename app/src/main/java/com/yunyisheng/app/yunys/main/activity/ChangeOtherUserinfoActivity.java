@@ -50,6 +50,8 @@ public class ChangeOtherUserinfoActivity extends BaseActivity<ChangeOtherPresent
     private GetOtherinfoBean getOtherinfoBean;
     private boolean isnull;
     private int userId;
+    private String userphone;
+    private String num;
 
     @Override
     public void initView() {
@@ -64,17 +66,30 @@ public class ChangeOtherUserinfoActivity extends BaseActivity<ChangeOtherPresent
         if (!isnull) {
             userId = getOtherinfoBean.getRespBody().getUserId();
             teUsername.setText(getOtherinfoBean.getRespBody().getUserName());
-            teUserphone.setText(getOtherinfoBean.getRespBody().getUserPhone());
+            boolean isshow=getOtherinfoBean.getRespBody().isUserIsShow();
+            userphone = getOtherinfoBean.getRespBody().getUserPhone();
+            num = userphone.substring(0, 3) + "****"
+                    + userphone.substring(7, userphone.length());
+            if (!isshow){
+                teUserphone.setText(num);
+            }else {
+                teUserphone.setText(userphone);
+            }
             teUserzhiwei.setText(getOtherinfoBean.getRespBody().getUserJobTitle());
             teUseremail.setText(getOtherinfoBean.getRespBody().getUserMailbox());
-            cbIsshowphone.setChecked(!getOtherinfoBean.getRespBody().isUserIsShow());
+            cbIsshowphone.setChecked(!isshow);
 //            teUsername.setText(getOtherinfoBean.getRespBody().getUserName());
 //            teUsername.setText(getOtherinfoBean.getRespBody().getUserName());
         }
         cbIsshowphone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                isshowphone = isChecked;
+                isshowphone = !isChecked;
+                if (isChecked){
+                    teUserphone.setText(num);
+                }else {
+                    teUserphone.setText(userphone);
+                }
             }
         });
     }

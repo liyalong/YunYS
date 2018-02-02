@@ -1,9 +1,5 @@
 package com.yunyisheng.app.yunys.project.bean;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Created by liyalong on 2018/1/17.
  */
@@ -252,7 +248,7 @@ public class ProjectBean {
                 ", projectLeader='" + projectLeader + '\'' +
                 '}';
     }
-    private class ProType{
+    public class ProType{
         private int projectTypeId;
         private String projectTypeName;
         private int projectTypeStat;

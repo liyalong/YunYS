@@ -9,11 +9,18 @@ import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.main.activity.WorkerDataActivity;
+import com.yunyisheng.app.yunys.main.adapter.WorkerDatProjectlistAdapter;
+import com.yunyisheng.app.yunys.main.present.ParticpateinPresent;
+import com.yunyisheng.app.yunys.project.bean.ProjectBean;
+import com.yunyisheng.app.yunys.project.model.ProjectListModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
  * 作者：fuduo on 2018/1/12 12:12
@@ -21,22 +28,27 @@ import cn.droidlover.xdroidmvp.mvp.XPresent;
  * 用途：员工参与项目fragement
  */
 
-public class ParticipateinFragement extends BaseFragement {
+public class ParticipateinFragement extends BaseFragement<ParticpateinPresent> {
 
     @BindView(R.id.te_columnsize)
     TextView teColumnsize;
     @BindView(R.id.lv_participatein)
     ListView lvParticipatein;
     Unbinder unbinder;
+    private  List<ProjectBean> respBodylist=new ArrayList<>();
+    private WorkerDatProjectlistAdapter adapter;
+    private int userid;
 
     @Override
     public void initView() {
-
+        userid = ((WorkerDataActivity) getActivity()).userid;
+        adapter = new WorkerDatProjectlistAdapter(mContext,respBodylist);
+        lvParticipatein.setAdapter(adapter);
     }
 
     @Override
     public void initAfter() {
-
+        getP().getOtherProjectList(userid,"");
     }
 
     @Override
@@ -45,8 +57,8 @@ public class ParticipateinFragement extends BaseFragement {
     }
 
     @Override
-    public XPresent bindPresent() {
-        return null;
+    public ParticpateinPresent bindPresent() {
+        return new ParticpateinPresent();
     }
 
     @Override
@@ -70,5 +82,13 @@ public class ParticipateinFragement extends BaseFragement {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    public void setProjectListModel(ProjectListModel projectListModel) {
+        List<ProjectBean> respBody = projectListModel.getRespBody();
+        if (respBody!=null&&respBody.size()>0){
+            respBodylist.addAll(respBody);
+            adapter.setData(respBodylist);
+        }
     }
 }

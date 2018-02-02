@@ -164,6 +164,10 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
             }
         }
         setListViewHeightBasedOnChildren(lvMemarand);
+        stopRefresh();
+    }
+
+    public void stopRefresh(){
         pullToRefreshScrollview.onRefreshComplete();
     }
 

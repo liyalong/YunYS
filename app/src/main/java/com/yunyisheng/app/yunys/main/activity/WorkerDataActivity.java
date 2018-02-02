@@ -92,7 +92,7 @@ public class WorkerDataActivity extends BaseActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList, mTitleList);
         vpInformation.setAdapter(adapter);
         tablayoutInformation.setupWithViewPager(vpInformation);
-        setIndicator(this, tablayoutInformation, 45, 45);
+        setIndicator(this, tablayoutInformation, 35, 35);
     }
 
     @Override

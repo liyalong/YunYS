@@ -69,10 +69,14 @@ public class TaskAdapter extends RecyclerAdapter<MyScheduleBean.RespBodyBean.Dat
         holder.cv_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, TaskDetailActivity.class);
-                intent.putExtra("taskType",type);
-                intent.putExtra("taskId", bean.getTaskId());
-                context.startActivity(intent);
+                if (type.equals("1")||type.equals("2")) {
+                    Intent intent = new Intent(context, TaskDetailActivity.class);
+                    intent.putExtra("taskType", type);
+                    intent.putExtra("taskId", bean.getTaskId());
+                    context.startActivity(intent);
+                }else {
+
+                }
             }
         });
     }

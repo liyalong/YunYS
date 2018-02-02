@@ -44,6 +44,7 @@ public class WorkerSchedulePresent extends XPresent<ScheduleFragement> {
                     @Override
                     protected void onFail(NetError error) {
                         LoadingDialog.dismiss(getV().getContext());
+                        getV().stopRefresh();
                         ToastUtils.showToast("请求数据失败！");
                     }
                 });

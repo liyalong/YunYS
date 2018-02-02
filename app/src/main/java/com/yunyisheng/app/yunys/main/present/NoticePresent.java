@@ -44,6 +44,7 @@ public class NoticePresent extends XPresent<NoticeFragement> {
                     @Override
                     protected void onFail(NetError error) {
                         LoadingDialog.dismiss(getV().getContext());
+                        getV().stopRefresh();
                         ToastUtils.showToast("请求数据失败！");
                     }
                 });
@@ -71,6 +72,7 @@ public class NoticePresent extends XPresent<NoticeFragement> {
 
                     @Override
                     protected void onFail(NetError error) {
+                        getV().stopRefresh();
                         ToastUtils.showToast("请求数据失败！");
                     }
                 });
