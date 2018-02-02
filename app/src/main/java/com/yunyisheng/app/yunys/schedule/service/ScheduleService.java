@@ -14,6 +14,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Url;
 
 /**
@@ -77,11 +78,23 @@ public interface ScheduleService {
     /**
      * @author fuduo
      * @time 2018/1/31  18:18
+     * @describe 提交任务
+     */
+    @FormUrlEncoded
+    @POST("task/execute")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    Flowable<BaseModel> putRenwuDetail(@Field("taskId") int taskId,
+                                          @Field("feedbackStr") String feedbackStr);
+
+    /**
+     * @author fuduo
+     * @time 2018/1/31  18:18
      * @describe 14.2   (解析任务反馈项)
      */
     @FormUrlEncoded
-    @POST("task/getTaskInfo")
-    Flowable<RenWuFanKuiDetailBean> getTaskInfo(@Field("taskId") int taskId);
+    @POST("task/getTaskInfo/{projectId}")
+    Flowable<RenWuFanKuiDetailBean> getTaskInfo(@Path("projectId") String projectId,
+                                                @Field("taskId") int taskId);
 
     /**
      *  @author fuduo

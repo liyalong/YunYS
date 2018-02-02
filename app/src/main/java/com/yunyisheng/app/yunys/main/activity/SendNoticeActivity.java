@@ -178,6 +178,8 @@ public class SendNoticeActivity extends BaseActivity {
                 if (code == 0) {
                     ToastUtils.showToast("发布成功!");
                     EventBus.getDefault().post(new PositionMessageEvent("updatenotice"));
+                }else {
+                    ToastUtils.showToast("发布失败!");
                 }
                 LogUtils.i("fjdlkf", msg + code);
                 LoadingDialog.dismiss(SendNoticeActivity.this);
@@ -237,8 +239,6 @@ public class SendNoticeActivity extends BaseActivity {
                                     File file = new File(pathuri);
                                     fileList.add(file);
                                 }
-
-                                // LogUtils.i("pathsfjlkd",file.getAbsolutePath());
                             }
                         }
                     }

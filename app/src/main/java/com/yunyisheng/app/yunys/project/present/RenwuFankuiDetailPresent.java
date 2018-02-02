@@ -23,8 +23,8 @@ public class RenwuFankuiDetailPresent extends XPresent<RenwuFankuiFormActivity> 
     /**
      * 14.2	查看任务反馈项
      */
-    public void getScheduleDetail(int taskid) {
-        Api.scheduleService().getTaskInfo(taskid)
+    public void getScheduleDetail(String projectid,int taskid) {
+        Api.scheduleService().getTaskInfo(projectid,taskid)
                 .compose(XApi.<RenWuFanKuiDetailBean>getApiTransformer())
                 .compose(XApi.<RenWuFanKuiDetailBean>getScheduler())
                 .compose(getV().<RenWuFanKuiDetailBean>bindToLifecycle())
@@ -43,7 +43,11 @@ public class RenwuFankuiDetailPresent extends XPresent<RenwuFankuiFormActivity> 
                                 ToastUtils.showToast(renWuFanKuiDetailBean.getRespMsg());
                                 return;
                             }
-                            getV().setRenwuFormDetail(renWuFanKuiDetailBean);
+                            if (renWuFanKuiDetailBean.getRespBody().getFeedbackItem()!=null&&
+                                    renWuFanKuiDetailBean.getRespBody().getFeedbackItem().size()>0){
+                                getV().setRenwuFormDetail(renWuFanKuiDetailBean);
+                            }
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -56,7 +60,7 @@ public class RenwuFankuiDetailPresent extends XPresent<RenwuFankuiFormActivity> 
      * 提交任务反馈项
      */
     public void getScheduleDetail(int taskId, String instanceFormStr) {
-        Api.scheduleService().putScheduleDetail(taskId, instanceFormStr)
+        Api.scheduleService().putRenwuDetail(taskId, instanceFormStr)
                 .compose(XApi.<BaseModel>getApiTransformer())
                 .compose(XApi.<BaseModel>getScheduler())
                 .compose(getV().<BaseModel>bindToLifecycle())

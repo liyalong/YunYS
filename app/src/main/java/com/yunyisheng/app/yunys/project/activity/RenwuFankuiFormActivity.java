@@ -30,6 +30,8 @@ import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.Util;
 
+import org.json.JSONObject;
+
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -67,12 +69,14 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
     private String valuestr = "feedbackVal";
     private MyHandler handler = new MyHandler(this);
     private String imgstr;
+    private String projectId;
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         taskid = intent.getIntExtra("taskid", 0);
+        projectId = intent.getStringExtra("projectId");
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +87,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
 
     @Override
     public void initAfter() {
-        getP().getScheduleDetail(taskid);
+        getP().getScheduleDetail(projectId,taskid);
     }
 
     @Override
@@ -128,12 +132,12 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                     LinearLayout.LayoutParams.WRAP_CONTENT);
             LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                     1);
-            LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(50,
-                    50);
+            LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(100,
+                    100);
             if (type == 1) {
                 TextView name = new TextView(this);
                 name.setPadding(0, 10, 0, 0);
-                name.setText("输入框");
+                name.setText(feedbackItemBean.getFeedbackName());
                 name.setTextColor(getResources().getColor(R.color.color_333));
                 name.setTextSize(15);
                 lineAll.addView(name);
@@ -152,7 +156,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
             } else if (type == 2) {
                 TextView name = new TextView(this);
                 name.setPadding(0, 10, 0, 0);
-                name.setText("单选");
+                name.setText(feedbackItemBean.getFeedbackName());
                 name.setTextColor(getResources().getColor(R.color.color_333));
                 name.setTextSize(15);
                 lineAll.addView(name);
@@ -161,9 +165,6 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 radioGroup.setId(id);
                 radioGroup.setPadding(0, 10, 0, 0);
                 radioGroup.setOrientation(LinearLayout.VERTICAL);
-                View view = new View(this);
-                view.setLayoutParams(lpview);
-                view.setBackgroundColor(getResources().getColor(R.color.color_e7));
                 List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> model = feedbackItemBean.getModel();
                 if (model.size() < 1) return;
                 for (int j = 0; j < model.size(); j++) {
@@ -176,11 +177,10 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                     radioGroup.addView(radioButton);
                 }
                 lineAll.addView(radioGroup);
-                lineAll.addView(view);
             } else if (type == 3) {
                 TextView name = new TextView(this);
                 name.setPadding(0, 10, 0, 0);
-                name.setText("复选");
+                name.setText(feedbackItemBean.getFeedbackName());
                 name.setTextColor(getResources().getColor(R.color.color_333));
                 name.setTextSize(15);
                 lineAll.addView(name);
@@ -207,31 +207,36 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 lineAll.addView(l);
                 lineAll.addView(view);
             } else if (type == 4) {
-                final Map<String, String> map = new HashMap<>();
-                int imgid = feedbackItemBean.getFeedbackItemId();
-                map.put(kongjianid,imgid+"");
-                map.put(valuestr,"");
-                TextView name = new TextView(this);
-                name.setPadding(0, 10, 0, 0);
-                name.setText("图片");
-                name.setTextColor(getResources().getColor(R.color.color_333));
-                name.setTextSize(15);
-                lineAll.addView(name);
-                ImageView imageView = new ImageView(this);
-                imageView.setLayoutParams(imgview);
-                imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        List<Map> l = new ArrayList();
-                        l.add(map);
-                        imgstr = JSONArray.toJSONString(l);
-                        DialogManager.createPickImageDialog(RenwuFankuiFormActivity.this);
-                    }
-                });
+                try {
+                    final JSONObject jsonObject = new JSONObject();
+                    int imgid = feedbackItemBean.getFeedbackItemId();
+                    jsonObject.put(kongjianid, imgid + "");
+                    jsonObject.put(valuestr, null);
+                    TextView name = new TextView(this);
+                    name.setPadding(0, 10, 0, 0);
+                    name.setText(feedbackItemBean.getFeedbackName());
+                    name.setTextColor(getResources().getColor(R.color.color_333));
+                    name.setTextSize(15);
+                    lineAll.addView(name);
+                    ImageView imageView = new ImageView(this);
+                    imageView.setLayoutParams(imgview);
+                    imageView.setBackgroundResource(R.mipmap.moren_new);
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            imgstr = jsonObject.toString();
+                            DialogManager.createPickImageDialog(RenwuFankuiFormActivity.this);
+                        }
+                    });
+                    lineAll.addView(imageView);
+                }catch (Exception e){
+
+                }
             }
         }
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(0,20,0,0);
         Button button = new Button(this);
         button.setLayoutParams(layoutParams);
         button.setText("提交");
@@ -258,13 +263,12 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            try {
                 if (msg.what == 0) {
                     List<Map> l = new ArrayList();
                     for (int i = 0; i < feedbackItemlist.size(); i++) {
                         Map<String, String> map = new HashMap<>();
                         RenWuFanKuiDetailBean.RespBodyBean.FeedbackItemBean feedbackItemBean = feedbackItemlist.get(i);
-                        int type = feedbackItemBean.getTaskType();
+                        int type = feedbackItemBean.getFeedbackType();
                         int id = feedbackItemBean.getFeedbackItemId();
                         if (type == 1) {
                             EditText editText = findViewById(id);
@@ -281,6 +285,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                                 l.add(map);
                             } else {
                                 ToastUtils.showToast("您还有未选择的选项");
+                                return;
                             }
                         } else if (type == 3) {
                             List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> model = feedbackItemBean.getModel();
@@ -300,6 +305,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                                 l.add(map);
                             } else {
                                 ToastUtils.showToast("您还有未选择的选项");
+                                return;
                             }
                         }
                     }
@@ -307,9 +313,6 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                     LogUtils.i("gdsgfdsgfg", str);
                     getP().getScheduleDetail(taskid, str);
                 }
-            } catch (Exception e) {
-
-            }
         }
     }
 
@@ -367,6 +370,8 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 int code = response.body().getRespCode();
                 if (code == 0) {
                     ToastUtils.showToast("上传成功!");
+                }else {
+                    ToastUtils.showToast("上传失败!");
                 }
                 LogUtils.i("fjdlkf", msg + code);
                 LoadingDialog.dismiss(RenwuFankuiFormActivity.this);

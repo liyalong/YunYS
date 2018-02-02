@@ -286,9 +286,9 @@ public class RenWuFanKuiDetailBean extends BaseModel {
             private int feedbackItemId;
             private String feedbackName;
             private int feedbackType;
-            private long createt;
+            private String createt;
             private Object updatet;
-            private List<Valueitem> modellist;
+            private List<Valueitem> modelArray;
             private int taskType;
             private int taskId;
             private String feedbackBacknum;
@@ -318,11 +318,11 @@ public class RenWuFanKuiDetailBean extends BaseModel {
                 this.feedbackType = feedbackType;
             }
 
-            public long getCreatet() {
+            public String getCreatet() {
                 return createt;
             }
 
-            public void setCreatet(long createt) {
+            public void setCreatet(String createt) {
                 this.createt = createt;
             }
 
@@ -335,11 +335,11 @@ public class RenWuFanKuiDetailBean extends BaseModel {
             }
 
             public List<Valueitem> getModel() {
-                return modellist;
+                return modelArray;
             }
 
             public void setModel(List<Valueitem> model) {
-                this.modellist = model;
+                this.modelArray = model;
             }
 
             public int getTaskType() {
@@ -382,15 +382,15 @@ public class RenWuFanKuiDetailBean extends BaseModel {
              * index : 0
              */
 
-            private String dynamic_type_name;
+            private String dynamicTypeName;
             private int index;
 
             public String getDynamic_type_name() {
-                return dynamic_type_name;
+                return dynamicTypeName;
             }
 
             public void setDynamic_type_name(String dynamic_type_name) {
-                this.dynamic_type_name = dynamic_type_name;
+                this.dynamicTypeName = dynamic_type_name;
             }
 
             public int getIndex() {
