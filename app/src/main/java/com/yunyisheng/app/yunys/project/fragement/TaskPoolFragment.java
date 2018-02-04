@@ -20,18 +20,18 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.base.BaseModel;
+import com.yunyisheng.app.yunys.main.model.SpinnerBean;
 import com.yunyisheng.app.yunys.project.activity.DynamicFormActivity;
 import com.yunyisheng.app.yunys.project.activity.ProjectDetailsActivity;
 import com.yunyisheng.app.yunys.project.activity.RenwuFankuiFormActivity;
 import com.yunyisheng.app.yunys.project.activity.TaskDetailActivity;
 import com.yunyisheng.app.yunys.project.adapter.SpinnerAdapter;
-import com.yunyisheng.app.yunys.main.model.SpinnerBean;
+import com.yunyisheng.app.yunys.project.model.TaskListModel;
 import com.yunyisheng.app.yunys.tasks.activity.MyPushTaskChildListActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectUserListActivity;
+import com.yunyisheng.app.yunys.tasks.adapter.TaskAdapter;
 import com.yunyisheng.app.yunys.tasks.bean.ProjectUserBean;
 import com.yunyisheng.app.yunys.tasks.bean.TaskBean;
-import com.yunyisheng.app.yunys.project.model.TaskListModel;
-import com.yunyisheng.app.yunys.tasks.adapter.TaskAdapter;
 import com.yunyisheng.app.yunys.tasks.present.TaskListPresent;
 import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 import com.yunyisheng.app.yunys.utils.ScreenUtils;
@@ -46,7 +46,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidmvp.log.XLog;
-import cn.droidlover.xdroidmvp.mvp.IView;
 import cn.droidlover.xdroidmvp.router.Router;
 
 /**
@@ -305,7 +304,6 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
                             .to(DynamicFormActivity.class)
                             .putInt("type", clickTask.getReleaseTaskType())
                             .putString("scheduleid",clickTask.getTaskId())
-                            .putString("projectId",projectId)
                             .launch();
                 }
 

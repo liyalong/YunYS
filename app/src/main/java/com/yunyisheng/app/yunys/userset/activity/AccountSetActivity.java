@@ -75,7 +75,14 @@ public class AccountSetActivity extends BaseActivity<AccountSetlPresent> {
     public void widgetClick(View v) {
         switch (v.getId()) {
             case R.id.img_back:
-                finish();
+                String string = btnQueren.getText().toString();
+                if (string.equals("确认")) {
+                    rlPutyzm.setVisibility(View.VISIBLE);
+                    rlPutphone.setVisibility(View.GONE);
+                    btnQueren.setText("下一步");
+                }else {
+                    finish();
+                }
                 break;
             case R.id.get_yzm:
                 getCode();
@@ -84,21 +91,10 @@ public class AccountSetActivity extends BaseActivity<AccountSetlPresent> {
                 String str = btnQueren.getText().toString();
                 if (str.equals("确认")) {
                     phonenum = edPhonenum.getText().toString().trim();
-
-                    SharedPref.getInstance(AccountSetActivity.this).putString("userphone", phonenum);
-                    Intent intent = new Intent();
-                    intent.setAction("action");
-                    intent.putExtra("data", "changephonenum");
-                    sendBroadcast(intent);//发送普通广播
-
-                    Intent intent1 = getIntent();
-                    setResult(1, intent1);
-                    finish();
+                    getP().changePhone(yanzhengma, phonenum);
                 } else {
                     yanzhengma = edYanzhengnum.getText().toString().trim();
-                    rlPutyzm.setVisibility(View.GONE);
-                    rlPutphone.setVisibility(View.VISIBLE);
-                    btnQueren.setText("确认");
+                    getP().checkCode(yanzhengma);
                 }
                 break;
         }
@@ -120,6 +116,24 @@ public class AccountSetActivity extends BaseActivity<AccountSetlPresent> {
         };
         timer.start();
         getP().sendCode(SharedPref.getInstance(AccountSetActivity.this).getString("userphone", ""));
+    }
+
+    public void checkCode() {
+        rlPutyzm.setVisibility(View.GONE);
+        rlPutphone.setVisibility(View.VISIBLE);
+        btnQueren.setText("确认");
+    }
+
+    public void changePhone() {
+        SharedPref.getInstance(AccountSetActivity.this).putString("userphone", phonenum);
+        Intent intent = new Intent();
+        intent.setAction("action");
+        intent.putExtra("data", "changephonenum");
+        sendBroadcast(intent);//发送普通广播
+
+        Intent intent1 = getIntent();
+        setResult(1, intent1);
+        finish();
     }
 
 }

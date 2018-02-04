@@ -192,6 +192,9 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
     }
 
     public void getResultList(MyScheduleBean myScheduleBean) {
+        if (pageindex == 1) {
+            list.clear();
+        }
         if (myScheduleBean.getRespBody().getDataList() != null && myScheduleBean.getRespBody().getDataList().size() > 0) {
             list.addAll(myScheduleBean.getRespBody().getDataList());
             adapter.setData(list);
@@ -218,6 +221,9 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
     }
 
     public void getProjectResultList(MyScheduleBean myScheduleBean) {
+        if (pageindex == 1) {
+            list.clear();
+        }
         if (myScheduleBean.getRespBody().getDataList() != null && myScheduleBean.getRespBody().getDataList().size() > 0) {
             list.addAll(myScheduleBean.getRespBody().getDataList());
             adapter.setData(list);

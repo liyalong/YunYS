@@ -220,7 +220,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                     lineAll.addView(name);
                     ImageView imageView = new ImageView(this);
                     imageView.setLayoutParams(imgview);
-                    imageView.setBackgroundResource(R.mipmap.moren_new);
+                    imageView.setBackgroundResource(R.mipmap.put_img);
                     imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

@@ -98,6 +98,22 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
                 getP().getMessageList(str,pageindex);
             }
         });
+        pullToList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                MessageBean.RespBodyBean respBodyBean = messagelist.get(position-1);
+                String messageStat = respBodyBean.getMessageStat();
+                int messageId = respBodyBean.getMessageId();
+                if (messageStat.equals("1")){
+                    getP().updateMessage(messageId,position-1);
+                }
+            }
+        });
+    }
+
+    public void setVoalGone(int position){
+        messagelist.get(position).setMessageStat("0");
+        messageAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.yunyisheng.app.yunys.main.present;
 
 
+import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.main.activity.MessageActivity;
 import com.yunyisheng.app.yunys.main.model.MessageBean;
 import com.yunyisheng.app.yunys.main.model.MessageTypeBean;
@@ -78,6 +79,34 @@ public class MessagePresent extends XPresent<MessageActivity> {
                         LoadingDialog.dismiss(getV());
                         getV().stopRefresh();
                         ToastUtils.showToast("请求数据失败！");
+                    }
+                });
+    }
+
+    /**
+     * @author fuduo
+     * @time 2018/1/30  15:27
+     * @describe 修改消息 – 将消息置为已读
+     */
+    public void updateMessage(int messageid, final int position) {
+        Api.homeService().updateMessage(messageid)
+                .compose(XApi.<BaseModel>getApiTransformer()) //统一异常处理
+                .compose(XApi.<BaseModel>getScheduler()) //线程调度
+                .compose(getV().<BaseModel>bindToLifecycle()) //内存泄漏处理
+                .subscribe(new ApiSubscriber<BaseModel>() {
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        LoadingDialog.dismiss(getV());
+                        if (baseModel.getRespCode() == 0) {
+                           getV().setVoalGone(position);
+                        } else {
+                            ToastUtils.showToast(baseModel.getRespMsg());
+                        }
+                    }
+
+                    @Override
+                    protected void onFail(NetError error) {
+                        ToastUtils.showToast("网络连接失败");
                     }
                 });
     }

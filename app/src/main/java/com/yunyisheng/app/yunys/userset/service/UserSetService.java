@@ -77,4 +77,23 @@ public interface UserSetService {
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     @POST("idea/createidea")
     Flowable<BaseModel> sendFankui(@Field("ideaVal") String ideaVal);
+
+    /**
+     * @author fuduo
+     * @time 2018/1/21  10:38
+     * @describe 3.1	校验验证码
+     */
+    @FormUrlEncoded
+    @POST("system/enterprirUser/authentication/userPhone")
+    Flowable<BaseModel> checkCode(@Field("authCode") String authCode);
+
+    /**
+     * @author fuduo
+     * @time 2018/1/21  10:38
+     * @describe 3.1	认证新手机号,并完成手机号修改
+     */
+    @FormUrlEncoded
+    @POST("system/update/enterprirUser/userPhone")
+    Flowable<BaseModel> chengPhone(@Field("authCode") String authCode,
+                                   @Field("newPhone") String newPhone);
 }

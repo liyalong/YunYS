@@ -77,9 +77,9 @@ public class TaskDetailPresent extends XPresent<TaskDetailActivity> {
                             ToastUtils.showToast(taskDetailModel.getRespMsg());
                             return;
                         }
-                        getV().setDetail(taskDetailModel.getRespBody().get(0).getTask(),
-                                taskDetailModel.getRespBody().get(0).getTaskback(),
-                                taskDetailModel.getRespBody().get(0).getForm());
+                        getV().setDetail(taskDetailModel.getRespBody().getTask(),
+                                taskDetailModel.getRespBody().getTaskback(),
+                                taskDetailModel.getRespBody().getForm());
                     }
                 });
     }
