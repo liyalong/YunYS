@@ -1,12 +1,14 @@
 package com.yunyisheng.app.yunys.tasks.bean;
 
+import android.content.Intent;
+
 /**
  * Created by liyalong on 2018/2/4.
  */
 
 public class UpdateCycleTaskBean {
     private String projectId;
-    private int cycletaskId;
+    private Integer cycletaskId;
     private String cycletaskName;
     private String cycletaskRemark;
     private String cycletaskStat;
@@ -19,6 +21,16 @@ public class UpdateCycleTaskBean {
     private String templateId;
     private String userIds;
     private String feedbackJSON;
+    private String userIdStr;
+
+    public void setUserIdStr(String userIdStr) {
+        this.userIdStr = userIdStr;
+    }
+
+    public String getUserIdStr() {
+
+        return userIdStr;
+    }
 
     public void setProjectId(String projectId) {
         this.projectId = projectId;
@@ -29,7 +41,7 @@ public class UpdateCycleTaskBean {
         return projectId;
     }
 
-    public int getCycletaskId() {
+    public Integer getCycletaskId() {
         return cycletaskId;
     }
 
@@ -81,7 +93,7 @@ public class UpdateCycleTaskBean {
         return feedbackJSON;
     }
 
-    public void setCycletaskId(int cycletaskId) {
+    public void setCycletaskId(Integer cycletaskId) {
         this.cycletaskId = cycletaskId;
     }
 

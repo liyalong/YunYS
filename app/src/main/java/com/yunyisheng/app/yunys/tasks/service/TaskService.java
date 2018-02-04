@@ -180,7 +180,7 @@ public interface TaskService {
      * @return
      */
     @FormUrlEncoded
-    @POST("createReleaseTask/{projectId}")
+    @POST("task/createReleaseTask/{projectId}")
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     Flowable<BaseModel> createReleaseTask(@Path("projectId") String projectId,
                                           @Field("releaseTaskType") String releaseTaskType,
@@ -215,7 +215,7 @@ public interface TaskService {
     @POST("project/cycleTask/saveOrUpdateForProject/{projectId}")
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     Flowable<BaseModel> createCycleTask(@Path("projectId") String projectId,
-                                        @Field("cycletaskId") int cycletaskId,
+                                        @Field("cycletaskId") Integer cycletaskId,
                                         @Field("cycletaskName") String cycletaskName,
                                         @Field("cycletaskRemark") String cycletaskRemark,
                                         @Field("cycletaskStat") String cycletaskStat,
@@ -227,6 +227,7 @@ public interface TaskService {
                                         @Field("timeLength") String timeLength,
                                         @Field("templateId") String templateId,
                                         @Field("userIds") String userIds,
+                                        @Field("userIdStr") String userIdStr,
                                         @Field("feedbackJSON") String feedbackJSON);
 
 

@@ -67,7 +67,6 @@ public class CreateDeviceTaskAcitvity extends BaseActivity<CreateDeviceTaskPrese
         tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                XLog.d(String.valueOf(tab.getPosition()));
                 selectTabPostion = tab.getPosition();
             }
 

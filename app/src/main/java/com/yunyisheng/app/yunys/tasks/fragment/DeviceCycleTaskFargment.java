@@ -23,6 +23,7 @@ import com.yunyisheng.app.yunys.utils.customDatePicker.CustomDatePicker;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,16 +70,16 @@ public class DeviceCycleTaskFargment extends BaseFragement {
     @BindView(R.id.select_cycle_assign_users)
     TextView selectCycleAssignUsers;
 
-    private String selectProjectId;
-    private String selectProjectName;
+    private String cycleSelectProjectId;
+    private String cycleSelectProjectName;
 
-    private String selectDeviceId;
-    private String selectDeviceName;
-    private List<ProjectUserBean> selectUsers = new ArrayList<>();
+    private String cycleSelectDeviceId;
+    private String cycleSelectDeviceName;
+    private List<ProjectUserBean> cycleSelectUsers = new ArrayList<>();
 
-    private String feedbackJSON;
+    private String cycleFeedbackJSON;
 
-    UpdateCycleTaskBean taskForm;
+    UpdateCycleTaskBean cycleTaskForm;
 
     @Override
     public void initView() {
@@ -122,12 +123,12 @@ public class DeviceCycleTaskFargment extends BaseFragement {
                 break;
             case R.id.cycle_select_project_device:
                 //选择设备
-                if (selectProjectId == null){
+                if (cycleSelectProjectId == null){
                     ToastUtils.showToast("请先选择项目！");
                     return;
                 }
                 Intent intent2 = new Intent(context, SelectProjectDeviceActivity.class);
-                intent2.putExtra("projectId",selectProjectId);
+                intent2.putExtra("projectId",cycleSelectProjectId);
                 startActivityForResult(intent2,DEVICEEQUESTCODE);
                 break;
             case R.id.cycle_select_cron:
@@ -145,12 +146,12 @@ public class DeviceCycleTaskFargment extends BaseFragement {
                 startActivityForResult(intent4,TEMPLATEREQUESTCODE);
                 break;
             case R.id.select_cycle_assign_users:
-                if (selectProjectId == null){
+                if (cycleSelectProjectId == null){
                     ToastUtils.showToast("请先选择项目！");
                     return;
                 }
                 Intent intent5 = new Intent(context, SelectProjectUserListActivity.class);
-                intent5.putExtra("projectId",selectProjectId);
+                intent5.putExtra("projectId",cycleSelectProjectId);
                 startActivityForResult(intent5,PROJECTUSERCODE);
                 break;
         }
@@ -167,31 +168,31 @@ public class DeviceCycleTaskFargment extends BaseFragement {
                 break;
             case PROJECTREQUESTCODE:
                 if (resultCode == 1){
-                    selectProjectId = data.getStringExtra("selectProjectId");
-                    selectProjectName = data.getStringExtra("selectProjectName");
-                    cycleSelectProject.setText(selectProjectName.toString());
+                    cycleSelectProjectId = data.getStringExtra("selectProjectId");
+                    cycleSelectProjectName = data.getStringExtra("selectProjectName");
+                    cycleSelectProject.setText(cycleSelectProjectName.toString());
                 }
                 break;
             case DEVICEEQUESTCODE:
                 if (resultCode == 1){
-                    selectDeviceId = data.getStringExtra("selectDeviceId");
-                    selectDeviceName = data.getStringExtra("selectDeviceName");
-                    cycleSelectProjectDevice.setText(selectDeviceName);
+                    cycleSelectDeviceId = data.getStringExtra("selectDeviceId");
+                    cycleSelectDeviceName = data.getStringExtra("selectDeviceName");
+                    cycleSelectProjectDevice.setText(cycleSelectDeviceName);
                 }
                 break;
             case TEMPLATEREQUESTCODE:
                 if (resultCode==5){
-                    feedbackJSON = data.getStringExtra("fankuijson");//任务反馈项json
+                    cycleFeedbackJSON = data.getStringExtra("fankuijson");//任务反馈项json
                     cycleTaskTemplates.setText("任务反馈项（已添加）");
                 }
                 break;
             case PROJECTUSERCODE:
                 if (resultCode == 1){
-                    selectUsers.clear();
-                    selectUsers =(List<ProjectUserBean>) data.getSerializableExtra("selectlist");
+                    cycleSelectUsers.clear();
+                    cycleSelectUsers =(List<ProjectUserBean>) data.getSerializableExtra("selectlist");
                     String selectUserNames = "";
-                    for (int i=0;i<selectUsers.size();i++){
-                        selectUserNames += selectUsers.get(i).getUserName() + " ";
+                    for (int i=0;i<cycleSelectUsers.size();i++){
+                        selectUserNames += cycleSelectUsers.get(i).getUserName() + " ";
                     }
                     selectCycleAssignUsers.setText(selectUserNames);
                 }
@@ -223,46 +224,46 @@ public class DeviceCycleTaskFargment extends BaseFragement {
 
     public Map<String,String> checkFormResult() {
         Map<String,String> checkStatus = new HashMap<>();
-        taskForm = new UpdateCycleTaskBean();
-        if (selectProjectId == null){
+        cycleTaskForm = new UpdateCycleTaskBean();
+        if (cycleSelectProjectId == null){
             checkStatus.put("status","error");
             checkStatus.put("msg","请选择项目！");
             return checkStatus;
         }
-        taskForm.setProjectId(selectProjectId);
-        if (selectDeviceId == null){
+        cycleTaskForm.setProjectId(cycleSelectProjectId);
+        if (cycleSelectDeviceId == null){
             checkStatus.put("status","error");
             checkStatus.put("msg","请选择设备！");
             return checkStatus;
         }
-        taskForm.setEquipmentId(selectDeviceId);
+        cycleTaskForm.setEquipmentId(cycleSelectDeviceId);
         String cycletaskName = cycleTaskName.getText().toString().trim();
         if (cycletaskName.length() == 0){
             checkStatus.put("status","error");
             checkStatus.put("msg","任务名称不能为空！");
             return checkStatus;
         }
-        taskForm.setCycletaskName(cycletaskName);
-        taskForm.setCycletaskBegint(cycleTaskStartTime.getText().toString().trim()+":00");
-        taskForm.setCycletaskEndt(cycleTaskEndTime.getText().toString().trim()+":00");
+        cycleTaskForm.setCycletaskName(cycletaskName);
+        cycleTaskForm.setCycletaskBegint(cycleTaskStartTime.getText().toString().trim()+":00");
+        cycleTaskForm.setCycletaskEndt(cycleTaskEndTime.getText().toString().trim()+":00");
         String cron = cycleSelectCron.getText().toString().trim();
         if (cron == "*执行周期"){
             checkStatus.put("status","error");
             checkStatus.put("msg","请选择执行周期！");
             return checkStatus;
         }
-        taskForm.setCorn(cron);
+        cycleTaskForm.setCorn(cron);
         String timeLength = cycleTaskUsedTime.getText().toString().trim();
         if (timeLength.length() == 0){
             checkStatus.put("status","error");
             checkStatus.put("msg","请输入执行时长！");
             return checkStatus;
         }
-        taskForm.setTimeLength(timeLength);
+        cycleTaskForm.setTimeLength(timeLength);
         if (cycleTasksType.isChecked()){
-            taskForm.setCycletaskStat("1");
+            cycleTaskForm.setCycletaskStat("1");
         }else {
-            taskForm.setCycletaskStat("2");
+            cycleTaskForm.setCycletaskStat("2");
         }
         String cycletaskRemark = cycleTaskDesc.getText().toString().trim();
         if (cycletaskRemark.length() == 0){
@@ -270,29 +271,31 @@ public class DeviceCycleTaskFargment extends BaseFragement {
             checkStatus.put("msg","任务备注不能为空！");
             return checkStatus;
         }
-        taskForm.setCycletaskRemark(cycletaskRemark);
-        if (selectUsers.size() > 0){
-            List<Map<String,String>> listStr = new ArrayList<>();
-            for (int i=0;i<selectUsers.size();i++){
-                Map<String,String> user = new HashMap<>();
-                user.put("userId", String.valueOf(selectUsers.get(i).getUserId()));
-                listStr.add(user);
+        cycleTaskForm.setCycletaskRemark(cycletaskRemark);
+        if (cycleSelectUsers.size() > 0){
+            List<Integer> listStr = new ArrayList<>();
+            //List<Map<String,String>> listStr = new ArrayList<>();
+            for (int i=0;i<cycleSelectUsers.size();i++){
+                listStr.add(cycleSelectUsers.get(i).getUserId());
+//                Map<String,String> user = new HashMap<>();
+//                user.put("userId", String.valueOf(cycleSelectUsers.get(i).getUserId()));
+//                listStr.add(user);
             }
-            taskForm.setUserIds(JSON.toJSONString(listStr));
+            cycleTaskForm.setUserIdStr(JSON.toJSONString(listStr));
         }
 
-        if (feedbackJSON == null){
+        if (cycleFeedbackJSON == null){
             checkStatus.put("status","error");
             checkStatus.put("msg","任务反馈项不能为空！");
             return checkStatus;
         }
-        taskForm.setFeedbackJSON(feedbackJSON.toString());
-        taskForm.setCycletaskType("1");
+        cycleTaskForm.setFeedbackJSON(cycleFeedbackJSON.toString());
+        cycleTaskForm.setCycletaskType("1");
         checkStatus.put("status","success");
         checkStatus.put("msg","验证通过！");
         return checkStatus;
     }
     public UpdateCycleTaskBean getTaskFormData() {
-        return taskForm;
+        return cycleTaskForm;
     }
 }

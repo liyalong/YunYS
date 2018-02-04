@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.tasks.activity.CronResultActivity;
@@ -16,12 +17,15 @@ import com.yunyisheng.app.yunys.tasks.activity.SelectProjectActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectForm;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectUserListActivity;
 import com.yunyisheng.app.yunys.tasks.bean.ProjectUserBean;
+import com.yunyisheng.app.yunys.tasks.bean.UpdateCycleTaskBean;
 import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.customDatePicker.CustomDatePicker;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,12 +63,14 @@ public class NoneDeviceCycleTaskFargment extends BaseFragement {
     private final static int TEMPLATEREQUESTCODE = 4;
     private final static int PROJECTUSERCODE = 5;
     CustomDatePicker startCustomDatePicker, endCustomDatePicker;
-    private String selectProjectId;
-    private String selectProjectName;
-    private List<ProjectUserBean> selectUsers = new ArrayList<>();
+    private String cycleSelectProjectId;
+    private String cycleSelectProjectName;
+    private List<ProjectUserBean> cycleSelectUsers = new ArrayList<>();
 
-    private String selectFormId;
-    private String selectFormName;
+    private String cycleSelectFormId;
+    private String cycleSelectFormName;
+
+    UpdateCycleTaskBean cycleTaskForm;
 
     public static NoneDeviceCycleTaskFargment newInstance() {
         return new NoneDeviceCycleTaskFargment();
@@ -124,12 +130,12 @@ public class NoneDeviceCycleTaskFargment extends BaseFragement {
                 startActivityForResult(intent1,PROJECTREQUESTCODE);
                 break;
             case R.id.select_cycle_assign_users:
-                if (selectProjectId == null){
+                if (cycleSelectProjectId == null){
                     ToastUtils.showToast("请先选择项目！");
                     return;
                 }
                 Intent intent5 = new Intent(context, SelectProjectUserListActivity.class);
-                intent5.putExtra("projectId",selectProjectId);
+                intent5.putExtra("projectId",cycleSelectProjectId);
                 startActivityForResult(intent5,PROJECTUSERCODE);
                 break;
         }
@@ -167,29 +173,100 @@ public class NoneDeviceCycleTaskFargment extends BaseFragement {
                 break;
             case PROJECTREQUESTCODE:
                 if (resultCode == 1){
-                    selectProjectId = data.getStringExtra("selectProjectId");
-                    selectProjectName = data.getStringExtra("selectProjectName");
-                    cycleSelectProject.setText(selectProjectName.toString());
+                    cycleSelectProjectId = data.getStringExtra("selectProjectId");
+                    cycleSelectProjectName = data.getStringExtra("selectProjectName");
+                    cycleSelectProject.setText(cycleSelectProjectName.toString());
                 }
                 break;
             case TEMPLATEREQUESTCODE:
                 if (resultCode == 1){
-                    selectFormId = data.getStringExtra("selectFormId");
-                    selectFormName = data.getStringExtra("selectFormName");
-                    cycleTaskTemplates.setText(selectFormName);
+                    cycleSelectFormId = data.getStringExtra("selectFormId");
+                    cycleSelectFormName = data.getStringExtra("selectFormName");
+                    cycleTaskTemplates.setText(cycleSelectFormName);
                 }
                 break;
             case PROJECTUSERCODE:
                 if (resultCode == 1){
-                    selectUsers.clear();
-                    selectUsers =(List<ProjectUserBean>) data.getSerializableExtra("selectlist");
+                   cycleSelectUsers.clear();
+                    cycleSelectUsers =(List<ProjectUserBean>) data.getSerializableExtra("selectlist");
                     String selectUserNames = "";
-                    for (int i=0;i<selectUsers.size();i++){
-                        selectUserNames += selectUsers.get(i).getUserName() + " ";
+                    for (int i=0;i<cycleSelectUsers.size();i++){
+                        selectUserNames += cycleSelectUsers.get(i).getUserName() + " ";
                     }
                     selectCycleAssignUsers.setText(selectUserNames);
                 }
                 break;
         }
+    }
+    public Map<String,String> checkFormResult() {
+        Map<String,String> checkStatus = new HashMap<>();
+        cycleTaskForm = new UpdateCycleTaskBean();
+        if (cycleSelectProjectId == null){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","请选择项目！");
+            return checkStatus;
+        }
+        cycleTaskForm.setProjectId(cycleSelectProjectId);
+
+        String cycletaskName = cycleTaskName.getText().toString().trim();
+        if (cycletaskName.length() == 0){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","任务名称不能为空！");
+            return checkStatus;
+        }
+        cycleTaskForm.setCycletaskName(cycletaskName);
+        cycleTaskForm.setCycletaskBegint(cycleTaskStartTime.getText().toString().trim()+":00");
+        cycleTaskForm.setCycletaskEndt(cycleTaskEndTime.getText().toString().trim()+":00");
+        String cron = cycleSelectCron.getText().toString().trim();
+        if (cron == "*执行周期"){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","请选择执行周期！");
+            return checkStatus;
+        }
+        cycleTaskForm.setCorn(cron);
+        String timeLength = cycleTaskUsedTime.getText().toString().trim();
+        if (timeLength.length() == 0){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","请输入执行时长！");
+            return checkStatus;
+        }
+        cycleTaskForm.setTimeLength(timeLength);
+        if (cycleTasksType.isChecked()){
+            cycleTaskForm.setCycletaskStat("1");
+        }else {
+            cycleTaskForm.setCycletaskStat("2");
+        }
+        String cycletaskRemark = cycleTaskDesc.getText().toString().trim();
+        if (cycletaskRemark.length() == 0){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","任务备注不能为空！");
+            return checkStatus;
+        }
+        cycleTaskForm.setCycletaskRemark(cycletaskRemark);
+        if (cycleSelectUsers.size() > 0){
+            List<Integer> listStr = new ArrayList<>();
+            //List<Map<String,String>> listStr = new ArrayList<>();
+            for (int i=0;i<cycleSelectUsers.size();i++){
+                listStr.add(cycleSelectUsers.get(i).getUserId());
+//                Map<String,String> user = new HashMap<>();
+//                user.put("userId", String.valueOf(cycleSelectUsers.get(i).getUserId()));
+//                listStr.add(user);
+            }
+            cycleTaskForm.setUserIdStr(JSON.toJSONString(listStr));
+        }
+
+        if (cycleSelectFormId == null){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","任务反馈表单不能为空！");
+            return checkStatus;
+        }
+        cycleTaskForm.setTemplateId(cycleSelectFormId);
+        cycleTaskForm.setCycletaskType("3");
+        checkStatus.put("status","success");
+        checkStatus.put("msg","验证通过！");
+        return checkStatus;
+    }
+    public UpdateCycleTaskBean getTaskFormData() {
+        return cycleTaskForm;
     }
 }

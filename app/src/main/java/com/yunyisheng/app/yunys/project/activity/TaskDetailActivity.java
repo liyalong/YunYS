@@ -173,6 +173,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                             .to(RenwuFankuiFormActivity.class)
                             .putInt("taskid", Integer.parseInt(String.valueOf(task.getTaskId())))
                             .putString("projectId",projectId)
+                            .putInt("type",1)
                             .launch();
                 }else {
                     Router.newIntent(context)
@@ -181,6 +182,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                             .putString("scheduleid", String.valueOf(task.getTaskId()))
                             .putString("projectId",projectId)
                             .putInt("userId",userId)
+                            .putInt("type",1)
                             .launch();
                 }
                 break;
@@ -190,6 +192,23 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                 break;
             case R.id.task_back_info:
                 //TODO 查看任务反馈项
+                if (task.getReleaseFormId() == null){
+                    Router.newIntent(context)
+                            .to(RenwuFankuiFormActivity.class)
+                            .putInt("taskid", Integer.parseInt(String.valueOf(task.getTaskId())))
+                            .putString("projectId",projectId)
+                            .putInt("type",2)
+                            .launch();
+                }else {
+                    Router.newIntent(context)
+                            .to(DynamicFormActivity.class)
+                            .putInt("type", task.getReleaseTaskType())
+                            .putString("scheduleid", String.valueOf(task.getTaskId()))
+                            .putString("projectId",projectId)
+                            .putInt("userId",userId)
+                            .putInt("type",2)
+                            .launch();
+                }
                 //查看执行情况
                 break;
             case R.id.task_child_list:
@@ -202,7 +221,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
     public void setDetail(ScheduleDetailBean.RespBodyBean.TaskBean task,
                           List<ScheduleDetailBean.RespBodyBean.TaskBackBean> taskback,
                           ScheduleDetailBean.RespBodyBean.FormBean form) {
-
+            this.task = task;
             initTaskBtn(task,fromPage);
             //任务名称
             taskName.setText(task.getReleaseName().toString());

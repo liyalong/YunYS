@@ -66,8 +66,6 @@ public class DeviceTemporaryTaskFargment extends BaseFragement {
     private String selectDeviceName;
     private List<ProjectUserBean> selectUsers = new ArrayList<>();
 
-    private String releaseId;
-
     private UpdateTemporaryTaskBean taskForm;
 
     private String feedbackJSON;

@@ -80,7 +80,7 @@ public class SelectProjectForm extends BaseActivity<ProjectFormPresent> {
                 if (selectPostion == -1){
                     setResult(2,intent);
                 }else {
-                    String selectFormId = dataLists.get(selectPostion).getUuid();
+                    String selectFormId = String.valueOf(dataLists.get(selectPostion).getId());
                     String selectFormName = dataLists.get(selectPostion).getBaseName();
                     intent.putExtra("selectFormId",selectFormId);
                     intent.putExtra("selectFormName",selectFormName);

@@ -1,8 +1,8 @@
-package com.yunyisheng.app.yunys.tasks.fragment;
+package com.yunyisheng.app.yunys.tasks.present;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.net.Api;
-import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
+import com.yunyisheng.app.yunys.tasks.activity.CreateNoneDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.bean.UpdateCycleTaskBean;
 import com.yunyisheng.app.yunys.tasks.bean.UpdateTemporaryTaskBean;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
@@ -16,7 +16,7 @@ import cn.droidlover.xdroidmvp.net.XApi;
  * Created by liyalong on 2018/2/4.
  */
 
-public class CreateDeviceTaskPresent extends XPresent<CreateDeviceTaskAcitvity> {
+public class NoneDeviceTaskPresent extends XPresent<CreateNoneDeviceTaskAcitvity> {
     //添加，更新临时任务
     public void updateDeviceTemporaryTask(UpdateTemporaryTaskBean task){
         Api.taskService().createReleaseTask(task.getProjectId(), String.valueOf(task.getReleaseTaskType()),
@@ -66,5 +66,4 @@ public class CreateDeviceTaskPresent extends XPresent<CreateDeviceTaskAcitvity> 
                     }
                 });
     }
-
 }

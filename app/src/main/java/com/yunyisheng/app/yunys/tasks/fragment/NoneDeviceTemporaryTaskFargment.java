@@ -8,12 +8,15 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectForm;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectUserListActivity;
 import com.yunyisheng.app.yunys.tasks.bean.ProjectUserBean;
+import com.yunyisheng.app.yunys.tasks.bean.UpdateCycleTaskBean;
+import com.yunyisheng.app.yunys.tasks.bean.UpdateTemporaryTaskBean;
 import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.customDatePicker.CustomDatePicker;
@@ -21,7 +24,9 @@ import com.yunyisheng.app.yunys.utils.customDatePicker.CustomDatePicker;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,6 +65,7 @@ public class NoneDeviceTemporaryTaskFargment extends BaseFragement {
     private List<ProjectUserBean> selectUsers = new ArrayList<>();
     private String selectFormId;
     private String selectFormName;
+    private UpdateTemporaryTaskBean taskForm;
 
     public static NoneDeviceTemporaryTaskFargment newInstance() {
         return new NoneDeviceTemporaryTaskFargment();
@@ -182,6 +188,62 @@ public class NoneDeviceTemporaryTaskFargment extends BaseFragement {
                 break;
         }
     }
+    public Map<String,String> checkFormResult(){
+        Map<String,String> checkStatus = new HashMap<>();
+        taskForm = new UpdateTemporaryTaskBean();
+
+        if (selectProjectId == null){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","请选择项目！");
+            return checkStatus;
+        }
+        if (selectProjectId == null){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","请选择项目！");
+            return checkStatus;
+        }
+        taskForm.setProjectId(selectProjectId);
+        String releaseName = taskName.getText().toString().trim();
+        if (releaseName.length() == 0){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","任务名称不能为空！");
+            return checkStatus;
+        }
+        taskForm.setReleaseName(releaseName);
+        taskForm.setReleaseBegint(taskStartTime.getText().toString()+":00");
+        taskForm.setReleaseEndt(taskEndTime.getText().toString()+":00");
+
+        String releaseRemark = tasksDesc.getText().toString().trim();
+        if (releaseRemark.length() == 0){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","任务备注不能为空！");
+            return checkStatus;
+        }
+        taskForm.setReleaseRemark(releaseRemark);
+
+        if (selectUsers.size() > 0){
+            List<Map<String,String>> listStr = new ArrayList<>();
+            for (int i=0;i<selectUsers.size();i++){
+                Map<String,String> user = new HashMap<>();
+                user.put("userId", String.valueOf(selectUsers.get(i).getUserId()));
+                listStr.add(user);
+            }
+            taskForm.setListStr(JSON.toJSONString(listStr));
+        }
+        if (selectFormId == null){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","任务反馈表单不能为空！");
+            return checkStatus;
+        }
+        taskForm.setReleaseBaseformId(selectFormId);
+        taskForm.setReleaseTaskType(2);
+        checkStatus.put("status","success");
+        checkStatus.put("msg","完成验证！");
+        return checkStatus;
+    }
 
 
+    public UpdateTemporaryTaskBean getFormData() {
+        return taskForm;
+    }
 }

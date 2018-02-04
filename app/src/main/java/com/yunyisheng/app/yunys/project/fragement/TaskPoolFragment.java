@@ -298,12 +298,14 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
                             .to(RenwuFankuiFormActivity.class)
                             .putInt("taskid", Integer.parseInt(clickTask.getTaskId()))
                             .putString("projectId",projectId)
+                            .putInt("type",1)
                             .launch();
                 }else {
                     Router.newIntent(context)
                             .to(DynamicFormActivity.class)
                             .putInt("type", clickTask.getReleaseTaskType())
                             .putString("scheduleid",clickTask.getTaskId())
+                            .putInt("type",1)
                             .launch();
                 }
 
@@ -321,6 +323,21 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
             @Override
             public void onClick(View view) {
                 //TODO 查看任务反馈项
+                if (clickTask.getReleaseFormId() == null){
+                    Router.newIntent(context)
+                            .to(RenwuFankuiFormActivity.class)
+                            .putInt("taskid", Integer.parseInt(clickTask.getTaskId()))
+                            .putString("projectId",projectId)
+                            .putInt("type",2)
+                            .launch();
+                }else {
+                    Router.newIntent(context)
+                            .to(DynamicFormActivity.class)
+                            .putInt("type", clickTask.getReleaseTaskType())
+                            .putString("scheduleid",clickTask.getTaskId())
+                            .putInt("type",2)
+                            .launch();
+                }
             }
         });
         //查看子任务列表
