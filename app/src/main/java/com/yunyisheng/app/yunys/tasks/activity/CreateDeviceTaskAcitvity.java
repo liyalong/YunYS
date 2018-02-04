@@ -51,10 +51,15 @@ public class CreateDeviceTaskAcitvity extends BaseActivity<CreateDeviceTaskPrese
     DeviceTemporaryTaskFargment deviceTemporaryTaskFargment;
     DeviceCycleTaskFargment deviceCycleTaskFargment;
 
+    private String taskId;
+
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        this.taskId = getIntent().getStringExtra("taskId");
+
+
         mtitle.add("临时任务");
         mtitle.add("周期任务");
         deviceTemporaryTaskFargment = new DeviceTemporaryTaskFargment();

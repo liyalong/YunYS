@@ -305,7 +305,7 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
                             .to(DynamicFormActivity.class)
                             .putInt("type", clickTask.getReleaseTaskType())
                             .putString("scheduleid",clickTask.getTaskId())
-                            .putInt("type",1)
+                            .putInt("othertype",1)
                             .launch();
                 }
 
@@ -334,7 +334,7 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
                             .to(DynamicFormActivity.class)
                             .putInt("type", clickTask.getReleaseTaskType())
                             .putString("scheduleid",clickTask.getTaskId())
-                            .putInt("type",2)
+                            .putInt("othertype",2)
                             .launch();
                 }
             }

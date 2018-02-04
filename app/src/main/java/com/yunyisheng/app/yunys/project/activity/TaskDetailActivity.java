@@ -150,6 +150,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
             case R.id.edit_task:
                 //编辑任务
                 //TODO 跳转编辑任务
+
                 break;
             case R.id.remove_task:
                 //撤销任务
@@ -182,7 +183,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                             .putString("scheduleid", String.valueOf(task.getTaskId()))
                             .putString("projectId",projectId)
                             .putInt("userId",userId)
-                            .putInt("type",1)
+                            .putInt("othertype",1)
                             .launch();
                 }
                 break;
