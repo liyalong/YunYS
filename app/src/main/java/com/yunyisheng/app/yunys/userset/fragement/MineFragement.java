@@ -164,9 +164,6 @@ public class MineFragement extends BaseFragement<MinePresent> {
                 String username = SharedPref.getInstance(mContext).getString("username", "");
                 String userjob = SharedPref.getInstance(mContext).getString("userjob", "");
                 teNameZhize.setText(username + " | " + userjob);
-            } else if ("changephonenum".equals(data)) {
-                String userphone = SharedPref.getInstance(mContext).getString("userphone", "");
-                tePhonenum.setText(userphone);
             }
         }
 
@@ -206,7 +203,7 @@ public class MineFragement extends BaseFragement<MinePresent> {
                 startActivity(new Intent(mContext, FanKuiActivity.class));
                 break;
             case R.id.logout:
-                SharedPref.getInstance(context).remove("TOKEN");
+                SharedPref.getInstance(context).clear();
                 Router.newIntent(context)
                         .to(LoginActivity.class)
                         .launch();

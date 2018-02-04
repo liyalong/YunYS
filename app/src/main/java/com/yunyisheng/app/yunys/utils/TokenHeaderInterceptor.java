@@ -3,7 +3,6 @@ package com.yunyisheng.app.yunys.utils;
 import java.io.IOException;
 
 import cn.droidlover.xdroidbase.cache.SharedPref;
-import cn.droidlover.xdroidmvp.log.XLog;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -21,7 +20,8 @@ public class TokenHeaderInterceptor implements Interceptor {
         Request originalRequest = chain.request();
         if (!originalRequest.url().toString().contains("user/login")
                 && !originalRequest.url().toString().contains("authCode")
-                && !originalRequest.url().toString().contains("feorget/password")){
+                && !originalRequest.url().toString().contains("feorget/password")
+                && !originalRequest.url().toString().contains("enterpriseConflict/add")){
             String token = SharedPref.getInstance(context).getString("TOKEN",null);
             Request updateRequest = originalRequest.newBuilder()
                     .header("token", token)

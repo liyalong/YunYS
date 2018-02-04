@@ -12,10 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.airsaid.pickerviewlibrary.CityPickerView;
-import com.airsaid.pickerviewlibrary.listener.OnSimpleCitySelectListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yunyisheng.app.yunys.ConstantManager;
@@ -27,6 +24,7 @@ import com.yunyisheng.app.yunys.main.activity.MailListActivity;
 import com.yunyisheng.app.yunys.main.activity.MemorandumActivity;
 import com.yunyisheng.app.yunys.main.activity.MessageActivity;
 import com.yunyisheng.app.yunys.main.activity.NoticeActivity;
+import com.yunyisheng.app.yunys.main.activity.ReportformActivity;
 import com.yunyisheng.app.yunys.main.adapter.HomeScheduleAdapter;
 import com.yunyisheng.app.yunys.main.present.HomePresent;
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
@@ -165,8 +163,7 @@ public class HomeFragement extends BaseFragement<HomePresent> {
     public void widgetClick(View v) {
         switch (v.getId()) {
             case R.id.img_baobiao:
-                selectAddress();
-//                startActivity(new Intent(mContext, ReportformActivity.class));
+                startActivity(new Intent(mContext, ReportformActivity.class));
                 break;
             case R.id.img_message:
                 startActivity(new Intent(mContext, MessageActivity.class));
@@ -184,44 +181,6 @@ public class HomeFragement extends BaseFragement<HomePresent> {
                 startActivity(new Intent(mContext, MemorandumActivity.class));
                 break;
         }
-    }
-
-    private void selectAddress(){
-        CityPickerView mCityPickerView = new CityPickerView(getContext());
-        // 设置点击外部是否消失
-        mCityPickerView.setCancelable(true);
-        // 设置滚轮字体大小
-//        mCityPickerView.setTextSize(18f);
-        // 设置标题
-//        mCityPickerView.setTitle("我是标题");
-        // 设置取消文字
-//        mCityPickerView.setCancelText("我是取消文字");
-        // 设置取消文字颜色
-//        mCityPickerView.setCancelTextColor(Color.GRAY);
-        // 设置取消文字大小
-//        mCityPickerView.setCancelTextSize(14f);
-        // 设置确定文字
-//        mCityPickerView.setSubmitText("我是确定文字");
-        // 设置确定文字颜色
-//        mCityPickerView.setSubmitTextColor(Color.BLACK);
-        // 设置确定文字大小
-//        mCityPickerView.setSubmitTextSize(14f);
-        // 设置头部背景
-//        mCityPickerView.setHeadBackgroundColor(Color.RED);
-        mCityPickerView.setOnCitySelectListener(new OnSimpleCitySelectListener(){
-            @Override
-            public void onCitySelect(String prov, String city, String area) {
-                // 省、市、区 分开获取
-                Log.e(TAG, "省: " + prov + " 市: " + city + " 区: " + area);
-            }
-
-            @Override
-            public void onCitySelect(String str) {
-                // 一起获取
-                Toast.makeText(getContext(), "选择了：" + str, Toast.LENGTH_SHORT).show();
-            }
-        });
-        mCityPickerView.show();
     }
 
     public void getUserInfo(UserModel userModel) {

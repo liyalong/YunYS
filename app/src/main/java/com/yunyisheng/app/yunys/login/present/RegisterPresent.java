@@ -1,7 +1,7 @@
 package com.yunyisheng.app.yunys.login.present;
 
+import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.activity.RegisterActivity;
-import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
@@ -15,38 +15,31 @@ import cn.droidlover.xdroidmvp.net.XApi;
  */
 
 public class RegisterPresent extends XPresent<RegisterActivity> {
-    public void getShortMessage(String phone){
-        Api.shortMessageService().getShortMessage(phone)
-                .compose(XApi.<BaseStatusModel>getApiTransformer()) //统一异常处理
-                .compose(XApi.<BaseStatusModel>getScheduler()) //线程调度
-                .compose(getV().<BaseStatusModel>bindToLifecycle()) //内存泄漏处理
-                .subscribe(new ApiSubscriber<BaseStatusModel>() {
-                    @Override
-                    public void onNext(BaseStatusModel baseStatusModel) {
-                        getV().checkMsgResault(baseStatusModel);
-                    }
 
-                    @Override
-                    protected void onFail(NetError error) {
-                        ToastUtils.showToast("请求数据失败！");
-                    }
-
-                });
-    }
-    public void registerCompany(String company_name,String name,String phone,String password,String code){
-        Api.companyService().registerCompany(company_name,name,phone,password,code)
-                .compose(XApi.<BaseStatusModel>getApiTransformer())
-                .compose(XApi.<BaseStatusModel>getScheduler())
-                .compose(getV().<BaseStatusModel>bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseStatusModel>() {
+    /**
+     * @author fuduo
+     * @time 2018/2/4  16:20
+     * @describe 企业注册
+     */
+    public void registerCompany(String enterpriseName, String enterpriseAddressProvince, String enterpriseAddressCity,
+                                String enterpriseAddressDistrict,
+                                String enterpriseAddressParticular, String enterpriseContact, String enterprisePhone,
+                                String enterpriseMailbox, String description) {
+        Api.companyService().registerCompany(enterpriseName, enterpriseAddressProvince, enterpriseAddressCity, enterpriseAddressDistrict,
+                enterpriseAddressParticular,
+                enterpriseContact, enterprisePhone, enterpriseMailbox, description)
+                .compose(XApi.<BaseModel>getApiTransformer())
+                .compose(XApi.<BaseModel>getScheduler())
+                .compose(getV().<BaseModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel>() {
                     @Override
                     protected void onFail(NetError error) {
                         ToastUtils.showToast("请求数据失败！");
                     }
 
                     @Override
-                    public void onNext(BaseStatusModel baseStatusModel) {
-                        getV().checkRegiterInfo(baseStatusModel);
+                    public void onNext(BaseModel baseModel) {
+                        getV().checkRegiterInfo(baseModel);
                     }
                 });
 

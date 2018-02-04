@@ -16,7 +16,7 @@ public class GroupBean {
 
     @Override
     public String toString() {
-        return "GroupBean{" +
+        return "{" +
                 "feedbackName='" + feedbackName + '\'' +
                 ", feedbackType=" + feedbackType +
                 ", model=" + model +

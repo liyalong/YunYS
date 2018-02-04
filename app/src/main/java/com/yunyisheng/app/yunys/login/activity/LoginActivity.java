@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys.login.activity;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.login.model.LoginModel;
 import com.yunyisheng.app.yunys.login.present.LoginPresent;
+import com.yunyisheng.app.yunys.utils.ActivityManager;
 import com.yunyisheng.app.yunys.utils.AndroidIDUtil;
 import com.yunyisheng.app.yunys.utils.RegularUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
@@ -45,6 +47,7 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
     Button getYzm;
     @BindView(R.id.yzm_layout)
     LinearLayout yzmLayout;
+    private long exitTime = 0;
 
     @Override
     public void initView() {
@@ -120,13 +123,13 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
             ToastUtils.showToast("手机号或者密码不能为空！");
             return;
         }
-        if (yzmLayoutStatus == 0){
-            if (TextUtils.isEmpty(yzmValue)){
+        if (yzmLayoutStatus == 0) {
+            if (TextUtils.isEmpty(yzmValue)) {
                 ToastUtils.showToast("短信验证码不能为空！");
                 return;
             }
         }
-        getP().Login(userPhone, userPassword, uuid,yzmValue);
+        getP().Login(userPhone, userPassword, uuid, yzmValue);
     }
 
     /**
@@ -138,11 +141,11 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
         if (loginModel.getRespCode() == 1) {
             ToastUtils.showToast(loginModel.getRespMsg());
             return;
-        } else if (loginModel.getRespCode() == 2){
+        } else if (loginModel.getRespCode() == 2) {
             yzmLayout.setVisibility(View.VISIBLE);
             ToastUtils.showToast(loginModel.getRespMsg());
             return;
-        }else if(loginModel.getRespCode() == 0){
+        } else if (loginModel.getRespCode() == 0) {
             saveUserToken(loginModel.getRespBody());
             toMain();
         }
@@ -161,20 +164,20 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
 
     public void getYzm() {
         String phone = etAccount.getText().toString().trim();
-        Log.i("yzm_phone",phone);
-        if(phone.isEmpty()){
+        Log.i("yzm_phone", phone);
+        if (phone.isEmpty()) {
             ToastUtils.showToast("手机号不能为空！");
             return;
         }
-        if(!RegularUtil.isPhone(phone)){
+        if (!RegularUtil.isPhone(phone)) {
             ToastUtils.showToast("手机号格式错误！");
             return;
         }
         getYzm.setEnabled(false);
-        CountDownTimer timer = new CountDownTimer(60000,1000) {
+        CountDownTimer timer = new CountDownTimer(60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                getYzm.setText(millisUntilFinished / 1000+"");
+                getYzm.setText(millisUntilFinished / 1000 + "");
             }
 
             @Override
@@ -188,17 +191,35 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
     }
 
 
-
     public void checkMsgResault(BaseStatusModel baseStatusModel) {
-        if (baseStatusModel.getRespCode() != 0){
+        if (baseStatusModel.getRespCode() != 0) {
             ToastUtils.showToast(baseStatusModel.getRespMsg());
             return;
-        }else{
+        } else {
             ToastUtils.showToast("短信验证码已发送成功！");
             return;
         }
-
     }
 
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
 
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                ToastUtils.showToast("再按一次退出程序");
+                exitTime = System.currentTimeMillis();
+            } else {
+//				NotificationManager nm =(NotificationManager)BottomMenuActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
+//				nm.cancelAll();//清空通知栏
+//				Session.onKillProcess();
+//				ExampleApplication.exit();
+                ActivityManager.getScreenManager().popAllActivity();
+//				System.exit(0);
+
+            }
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
+    }
 }

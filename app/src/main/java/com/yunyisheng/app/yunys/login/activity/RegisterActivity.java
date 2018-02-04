@@ -1,15 +1,19 @@
 package com.yunyisheng.app.yunys.login.activity;
 
-import android.os.CountDownTimer;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.airsaid.pickerviewlibrary.CityPickerView;
+import com.airsaid.pickerviewlibrary.listener.OnSimpleCitySelectListener;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
-import com.yunyisheng.app.yunys.base.BaseStatusModel;
+import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.present.RegisterPresent;
 import com.yunyisheng.app.yunys.utils.RegularUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
@@ -23,25 +27,31 @@ import cn.droidlover.xdroidmvp.router.Router;
  */
 
 public class RegisterActivity extends BaseActivity<RegisterPresent> {
+
     @BindView(R.id.company_name)
     EditText companyName;
-    @BindView(R.id.user_name)
-    EditText userName;
+    @BindView(R.id.company_lianxi_name)
+    EditText companyLianxiName;
     @BindView(R.id.phone_num)
     EditText phoneNum;
-    @BindView(R.id.password)
-    EditText password;
-    @BindView(R.id.yzm)
-    EditText yzm;
-    @BindView(R.id.get_yzm)
-    Button get_yzm;
+    @BindView(R.id.ed_company_email)
+    EditText edCompanyEmail;
+    @BindView(R.id.ed_company_description)
+    TextView edCompanyDescription;
+    @BindView(R.id.ed_company_address)
+    TextView edCompanyAddress;
+    @BindView(R.id.line_address)
+    LinearLayout lineAddress;
     @BindView(R.id.btn_register)
     Button btnRegister;
-    @BindView(R.id.xy)
-    RadioButton xy;
     @BindView(R.id.toLogin)
     TextView toLogin;
-
+    @BindView(R.id.xy)
+    RadioButton xy;
+    private String enterpriseAddressProvince;
+    private String enterpriseAddressDistrict;
+    private String enterpriseAddressCity;
+    private String enterpriseAddressParticular;
 
     @Override
     public void initView() {
@@ -65,20 +75,19 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
 
     @Override
     public void setListener() {
-        get_yzm.setOnClickListener(this);
         toLogin.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
+        lineAddress.setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
         switch (v.getId()) {
-
+            case R.id.line_address:
+                selectAddress();
+                break;
             case R.id.toLogin:
                 toLoginView();
-                break;
-            case R.id.get_yzm:
-                getYzm();
                 break;
             case R.id.btn_register:
                 register_company();
@@ -86,42 +95,97 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
         }
     }
 
+    private void selectAddress() {
+        CityPickerView mCityPickerView = new CityPickerView(this);
+        // 设置点击外部是否消失
+        mCityPickerView.setCancelable(true);
+        // 设置滚轮字体大小
+//        mCityPickerView.setTextSize(18f);
+        // 设置标题
+//        mCityPickerView.setTitle("我是标题");
+        // 设置取消文字
+//        mCityPickerView.setCancelText("我是取消文字");
+        // 设置取消文字颜色
+//        mCityPickerView.setCancelTextColor(Color.GRAY);
+        // 设置取消文字大小
+//        mCityPickerView.setCancelTextSize(14f);
+        // 设置确定文字
+//        mCityPickerView.setSubmitText("我是确定文字");
+        // 设置确定文字颜色
+//        mCityPickerView.setSubmitTextColor(Color.BLACK);
+        // 设置确定文字大小
+//        mCityPickerView.setSubmitTextSize(14f);
+        // 设置头部背景
+//        mCityPickerView.setHeadBackgroundColor(Color.RED);
+        mCityPickerView.setOnCitySelectListener(new OnSimpleCitySelectListener() {
+
+            @Override
+            public void onCitySelect(String prov, String city, String area) {
+                // 省、市、区 分开获取
+                Log.e(TAG, "省: " + prov + " 市: " + city + " 区: " + area);
+                enterpriseAddressProvince = prov;
+                if (city==null||city.equals("")){
+                    enterpriseAddressCity =enterpriseAddressProvince;
+                }else {
+                    enterpriseAddressCity = city;
+                }
+                enterpriseAddressDistrict = area;
+            }
+
+            @Override
+            public void onCitySelect(String str) {
+                enterpriseAddressParticular = str;
+                edCompanyAddress.setText(str);
+            }
+        });
+        mCityPickerView.show();
+    }
+
     private void register_company() {
         String company_name = companyName.getText().toString().trim();
-        String user_name = userName.getText().toString().trim();
+        String companyAddress = edCompanyAddress.getText().toString().trim();
         String phone = phoneNum.getText().toString().trim();
-        String passwordValue = password.getText().toString().trim();
-        String code = yzm.getText().toString().trim();
-        if (company_name.isEmpty()){
+        String companyDescription = edCompanyDescription.getText().toString().trim();
+        String companyEmail = edCompanyEmail.getText().toString().trim();
+        String companylianxiName = companyLianxiName.getText().toString().trim();
+        if (company_name.isEmpty()) {
             ToastUtils.showToast("公司名称不能为空！");
             return;
         }
-        if (user_name.isEmpty()){
-            ToastUtils.showToast("姓名不能为空！");
+        if (companyAddress.equals("请选择企业省市")) {
+            ToastUtils.showToast("公司地址不能为空！");
             return;
         }
-        if(phone.isEmpty()){
+        if (companylianxiName.isEmpty()) {
+            ToastUtils.showToast("公司联系人不能为空！");
+            return;
+        }
+        if (phone.isEmpty()) {
             ToastUtils.showToast("手机号不能为空!");
             return;
         }
-        if(!RegularUtil.isPhone(phone)){
+        if (!RegularUtil.isPhone(phone)) {
             ToastUtils.showToast("手机号格式错误！");
             return;
         }
-        if(passwordValue.isEmpty()){
-            ToastUtils.showToast("密码不能为空！");
+        if (companyEmail.isEmpty()) {
+            ToastUtils.showToast("邮箱不能为空！");
             return;
         }
-        if(!RegularUtil.isPsw(passwordValue)){
-            ToastUtils.showToast("密码必须大于6位！");
+        if (!RegularUtil.isEmail(companyEmail)) {
+            ToastUtils.showToast("邮箱格式错误！");
             return;
         }
-        if(code.isEmpty()){
-            ToastUtils.showToast("验证码不能为空！");
+        if (companyDescription.isEmpty()) {
+            ToastUtils.showToast("请填写公司需求！");
             return;
         }
-        getP().registerCompany(company_name,user_name,phone,passwordValue,code);
-
+        if (!xy.isChecked()){
+            ToastUtils.showToast("请同意用户协议");
+            return;
+        }
+        getP().registerCompany(company_name, enterpriseAddressProvince, enterpriseAddressCity,
+                enterpriseAddressDistrict, enterpriseAddressParticular, companylianxiName, phone, companyEmail, companyDescription);
     }
 
     private void toLoginView() {
@@ -130,54 +194,21 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
                 .launch();
         this.finish();
     }
-    public void getYzm() {
-        String phone = phoneNum.getText().toString().trim();
-//        Toast.makeText(this,phone,Toast.LENGTH_SHORT);
-        if(phone.isEmpty()){
-            ToastUtils.showToast("手机号不能为空！");
-            return;
-        }
-        if(!RegularUtil.isPhone(phone)){
-            ToastUtils.showToast("手机号者格式错误！");
-            return;
-        }
-        get_yzm.setEnabled(false);
-        CountDownTimer timer = new CountDownTimer(60000,1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                get_yzm.setText(millisUntilFinished / 1000+"");
-            }
 
-            @Override
-            public void onFinish() {
-                get_yzm.setEnabled(true);
-                get_yzm.setText("获取验证码");
-            }
-        };
-        timer.start();
-        getP().getShortMessage(phone);
-    }
-
-    public void checkMsgResault(BaseStatusModel baseStatusModel) {
-        if(baseStatusModel.getRespCode() != 0){
+    public void checkRegiterInfo(BaseModel baseStatusModel) {
+        if (baseStatusModel.getRespCode() != 0) {
             ToastUtils.showToast(baseStatusModel.getRespMsg());
             return;
-        }else{
-            ToastUtils.showToast("短信验证码已发送！");
-            return;
-        }
-    }
-
-    
-
-    public void checkRegiterInfo(BaseStatusModel baseStatusModel) {
-        if(baseStatusModel.getRespCode() != 0){
-            ToastUtils.showToast(baseStatusModel.getRespMsg());
-            return;
-        }else{
+        } else {
             ToastUtils.showToast("注册成功！");
             toLoginView();
         }
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

@@ -84,11 +84,10 @@ public class ProjectTemplateActivity extends BaseActivity {
                 break;
             case R.id.submit:
                 List<GroupBean> groupBeanList = adapter.getStrList();
-                String str = groupBeanList.get(0).toString();
                 String string = JSON.toJSONString(groupBeanList);
                 LogUtils.i("str", string);
                 Intent intent = getIntent();
-                intent.putExtra("fankuijson",str);
+                intent.putExtra("fankuijson",string);
                 setResult(5,intent);
                 finish();
                 break;

@@ -5,11 +5,11 @@
     android:background="@mipmap/login_bg"
     android:orientation="vertical">
     <ImageView
-        android:layout_width="110dp"
-        android:layout_height="95dp"
+        android:layout_width="@dimen/distance_110"
+        android:layout_height="@dimen/distance_95"
         android:layout_gravity="center"
-        android:layout_marginBottom="22dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginBottom="@dimen/distance_15"
+        android:layout_marginTop="@dimen/distance_15"
         android:src="@mipmap/login_logo" />
     <LinearLayout
         style="@style/login_linearLayout_style">
@@ -18,7 +18,7 @@
             android:background="@mipmap/icon_company_name"/>
         <EditText
             android:id="@+id/company_name"
-            style="@style/LoginInput"
+            style="@style/LoginInputother"
             android:hint="@string/company_name"
             />
     </LinearLayout>
@@ -28,9 +28,9 @@
             style="@style/login_icon_style"
             android:background="@mipmap/icon_user_name"/>
         <EditText
-            android:id="@+id/user_name"
+            android:id="@+id/company_lianxi_name"
             style="@style/LoginInput"
-            android:hint="@string/user_name"
+            android:hint="请输入企业联系人"
             />
     </LinearLayout>
     <LinearLayout
@@ -41,7 +41,7 @@
         <EditText
             android:id="@+id/phone_num"
             style="@style/LoginInput"
-            android:hint="@string/phone_num"
+            android:hint="请输入企业联系电话"
             />
     </LinearLayout>
     <LinearLayout
@@ -50,10 +50,9 @@
             style="@style/login_icon_style"
             android:background="@mipmap/login_icon_password"/>
         <EditText
-            android:id="@+id/password"
-            style="@style/LoginInput"
-            android:inputType="textPassword"
-            android:hint="@string/password"
+            android:id="@+id/ed_company_email"
+            style="@style/LoginInputother"
+            android:hint="请输入企业邮箱"
             />
     </LinearLayout>
     <LinearLayout
@@ -63,22 +62,31 @@
             style="@style/login_icon_style"
             android:background="@mipmap/icon_message"/>
         <EditText
-            android:id="@+id/yzm"
-            style="@style/LoginInput"
-            android:hint="@string/yzm"
+            android:id="@+id/ed_company_description"
+            style="@style/LoginInputother"
+            android:hint="请输入企业需求"
             android:layout_width="match_parent"
             android:layout_weight="2"
             />
-        <Button
-            android:id="@+id/get_yzm"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:gravity="center"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/white"
-            android:background="@drawable/yzm_bg"
-            android:text="@string/get_yzm"/>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/line_address"
+        style="@style/login_linearLayout_style"
+        android:orientation="horizontal">
+        <ImageView
+            style="@style/login_icon_style"
+            android:background="@mipmap/icon_message"/>
+        <TextView
+            android:id="@+id/ed_company_address"
+            style="@style/LoginInput"
+            android:text="请选择企业省市"
+            android:layout_width="match_parent"
+            android:textColor="@color/white"
+            android:layout_weight="2"
+            />
+    </LinearLayout>
+
     <Button
         android:id="@+id/btn_register"
         style="@style/LoginInput.Button"
@@ -89,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="35dp"
         android:layout_marginLeft="35dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <RadioButton

@@ -56,6 +56,16 @@
         <item name="android:textSize">@dimen/text_main</item>
         <item name="android:layout_marginLeft">-15dp</item>
     </style>
+    <style name="LoginInputother">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColor">@color/color_333</item>
+        <item name="android:textSize">@dimen/text_main</item>
+        <item name="android:layout_marginLeft">-15dp</item>
+    </style>
 
     <style name="LoginInput.Button">
         <item name="android:layout_marginLeft">@dimen/distance_35</item>

@@ -1,21 +1,23 @@
 package com.yunyisheng.app.yunys.userset.activity;
 
-import android.content.Intent;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.userset.present.AccountSetlPresent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidbase.cache.SharedPref;
+import cn.droidlover.xdroidbase.router.Router;
 
 /**
  * @author fuduo
@@ -40,6 +42,12 @@ public class AccountSetActivity extends BaseActivity<AccountSetlPresent> {
     RelativeLayout rlPutphone;
     @BindView(R.id.rl_putyzm)
     RelativeLayout rlPutyzm;
+    @BindView(R.id.ed_new_yanzhengnum)
+    EditText edNewYanzhengnum;
+    @BindView(R.id.get_new_yzm)
+    Button getNewYzm;
+    @BindView(R.id.line_new)
+    LinearLayout lineNew;
     private String yanzhengma;
     private String phonenum;
 
@@ -69,6 +77,7 @@ public class AccountSetActivity extends BaseActivity<AccountSetlPresent> {
         imgBack.setOnClickListener(this);
         getYzm.setOnClickListener(this);
         btnQueren.setOnClickListener(this);
+        getNewYzm.setOnClickListener(this);
     }
 
     @Override
@@ -78,9 +87,9 @@ public class AccountSetActivity extends BaseActivity<AccountSetlPresent> {
                 String string = btnQueren.getText().toString();
                 if (string.equals("确认")) {
                     rlPutyzm.setVisibility(View.VISIBLE);
-                    rlPutphone.setVisibility(View.GONE);
+                    lineNew.setVisibility(View.GONE);
                     btnQueren.setText("下一步");
-                }else {
+                } else {
                     finish();
                 }
                 break;
@@ -90,14 +99,36 @@ public class AccountSetActivity extends BaseActivity<AccountSetlPresent> {
             case R.id.btn_queren:
                 String str = btnQueren.getText().toString();
                 if (str.equals("确认")) {
-                    phonenum = edPhonenum.getText().toString().trim();
-                    getP().changePhone(yanzhengma, phonenum);
+                    String newyanzhengma = edNewYanzhengnum.getText().toString().trim();
+                    getP().changePhone(newyanzhengma, phonenum);
                 } else {
                     yanzhengma = edYanzhengnum.getText().toString().trim();
                     getP().checkCode(yanzhengma);
                 }
                 break;
+            case R.id.get_new_yzm:
+                phonenum = edPhonenum.getText().toString().trim();
+                getNewPhoneCode(phonenum);
+                break;
         }
+    }
+
+    private void getNewPhoneCode(String phonenum){
+        getNewYzm.setEnabled(false);
+        CountDownTimer timer = new CountDownTimer(60000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                getNewYzm.setText(millisUntilFinished / 1000 + "");
+            }
+
+            @Override
+            public void onFinish() {
+                getNewYzm.setEnabled(true);
+                getNewYzm.setText("获取验证码");
+            }
+        };
+        timer.start();
+        getP().sendCode(phonenum);
     }
 
     private void getCode() {
@@ -120,19 +151,15 @@ public class AccountSetActivity extends BaseActivity<AccountSetlPresent> {
 
     public void checkCode() {
         rlPutyzm.setVisibility(View.GONE);
-        rlPutphone.setVisibility(View.VISIBLE);
+        lineNew.setVisibility(View.VISIBLE);
         btnQueren.setText("确认");
     }
 
     public void changePhone() {
-        SharedPref.getInstance(AccountSetActivity.this).putString("userphone", phonenum);
-        Intent intent = new Intent();
-        intent.setAction("action");
-        intent.putExtra("data", "changephonenum");
-        sendBroadcast(intent);//发送普通广播
-
-        Intent intent1 = getIntent();
-        setResult(1, intent1);
+        SharedPref.getInstance(context).clear();
+        Router.newIntent(context)
+                .to(LoginActivity.class)
+                .launch();
         finish();
     }
 

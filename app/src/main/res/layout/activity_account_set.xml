@@ -17,41 +17,87 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <RelativeLayout
-            android:id="@+id/rl_putphone"
+        <LinearLayout
+            android:id="@+id/line_new"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/distance_50"
-            android:layout_marginTop="@dimen/distance_10"
-            android:background="@color/white"
-            android:visibility="gone">
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/distance_10"
-                android:background="@mipmap/password" />
-
-            <EditText
-                android:id="@+id/ed_phonenum"
+            <RelativeLayout
+                android:id="@+id/rl_putphone"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_toRightOf="@+id/img"
-                android:background="@null"
-                android:hint="@string/putphonenum"
-                android:inputType="number"
-                android:textColor="@color/color_333"
-                android:textColorHint="@color/color_999"
-                android:textSize="@dimen/distance_14" />
-        </RelativeLayout>
+                android:layout_height="@dimen/distance_50"
+                android:layout_marginTop="@dimen/distance_10"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/distance_10"
+                    android:background="@mipmap/password" />
+
+                <EditText
+                    android:id="@+id/ed_phonenum"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/img"
+                    android:background="@null"
+                    android:hint="@string/putphonenum"
+                    android:inputType="number"
+                    android:textColor="@color/color_333"
+                    android:textColorHint="@color/color_999"
+                    android:textSize="@dimen/distance_14" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_50"
+                android:layout_marginTop="@dimen/distance_10"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/img5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/distance_10"
+                    android:background="@mipmap/yanzhengma" />
+
+                <EditText
+                    android:id="@+id/ed_new_yanzhengnum"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/img5"
+                    android:background="@null"
+                    android:hint="@string/getyanzheng"
+                    android:inputType="number"
+                    android:textColor="@color/color_333"
+                    android:textColorHint="@color/color_999"
+                    android:textSize="@dimen/distance_14" />
+
+                <Button
+                    android:id="@+id/get_new_yzm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/yzm_bg"
+                    android:text="@string/get_yzm"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/rl_putyzm"
             android:layout_width="match_parent"
             android:layout_height="@dimen/distance_50"
             android:layout_marginTop="@dimen/distance_10"
-            android:background="@color/white">
+            android:background="@color/white"
+            >
 
             <ImageView
                 android:id="@+id/img2"

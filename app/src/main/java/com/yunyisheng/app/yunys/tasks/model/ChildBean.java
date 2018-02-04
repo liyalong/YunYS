@@ -13,7 +13,7 @@ public class ChildBean {
 
     @Override
     public String toString() {
-        return "ChildBean{" +
+        return "{" +
                 "dynamic_type_name='" + dynamic_type_name + '\'' +
                 ", index=" + index +
                 '}';
