@@ -55,14 +55,25 @@ public interface ScheduleService {
     /**
      * @author fuduo
      * @time 2018/1/31  18:18
-     * @describe 14.2    查看日程详情(解析任务表单)
+     * @describe 14.2    查看别人日程详情(解析任务表单)
      */
     @FormUrlEncoded
     @POST("task/information/lookList")
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
-    Flowable<ScheduleDetailBean> getScheduleDetail(@Field("userId") int userId,
-                                                   @Field("taskId") String taskId,
-                                                   @Field("type") int type);
+    Flowable<ScheduleDetailBean> getOtherScheduleDetail(@Field("userId") int userId,
+                                                        @Field("taskId") String taskId,
+                                                        @Field("type") int type);
+
+    /**
+     * @author fuduo
+     * @time 2018/1/31  18:18
+     * @describe 14.2    查看自己日程详情(解析任务表单)
+     */
+    @FormUrlEncoded
+    @POST("task/information/lookList")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    Flowable<ScheduleDetailBean> getMineScheduleDetail(@Field("taskId") String taskId,
+                                                       @Field("type") int type);
 
     /**
      * @author fuduo
@@ -84,7 +95,7 @@ public interface ScheduleService {
     @POST("task/execute")
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     Flowable<BaseModel> putRenwuDetail(@Field("taskId") int taskId,
-                                          @Field("feedbackStr") String feedbackStr);
+                                       @Field("feedbackStr") String feedbackStr);
 
     /**
      * @author fuduo
@@ -97,12 +108,12 @@ public interface ScheduleService {
                                                 @Field("taskId") int taskId);
 
     /**
-     *  @author fuduo
-     *  @time 2018/2/1  18:05
-     *  @describe 提交任务反馈项的图片
+     * @author fuduo
+     * @time 2018/2/1  18:05
+     * @describe 提交任务反馈项的图片
      */
     @POST()
     Call<BaseModel> putRenwuPic(@Header("token") String token,
-                               @Url() String url,
-                               @Body RequestBody Body);
+                                @Url() String url,
+                                @Body RequestBody Body);
 }

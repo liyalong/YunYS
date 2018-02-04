@@ -29,7 +29,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.droidlover.xdroidbase.cache.SharedPref;
 
 public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
 
@@ -41,7 +40,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
     LinearLayout lineAll;
     private String scheduleid;
     private int type;
-    private int userid;
+    private int userId;
     private String kongjianid = "fieldId";
     private String valuestr = "value";
     private List<ScheduleDetailBean.RespBodyBean.FormBean.DataBean> alldataBeanList = new ArrayList<>();
@@ -52,8 +51,8 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        userid = SharedPref.getInstance(this).getInt("userid", 0);
         Intent intent = getIntent();
+        userId = intent.getIntExtra("userId",0);
         type = intent.getIntExtra("type", 0);
         scheduleid = intent.getStringExtra("scheduleid");
         imgBack.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +65,11 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
 
     @Override
     public void initAfter() {
-        getP().getScheduleDetail(userid, scheduleid, type);
+        if (userId==0){
+            getP().getMineScheduleDetail(scheduleid,type);
+        }else {
+            getP().getOtherScheduleDetail(userId, scheduleid, type);
+        }
     }
 
     @Override
