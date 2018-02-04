@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/distance_30">
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_42"
+        android:orientation="horizontal"
+        android:background="@drawable/linearlayout_bottom_line">
+        <TextView
+            android:id="@+id/include_title_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/task_back_info_title"
+            android:textColor="@color/color_333"
+            android:textSize="@dimen/distance_14"
+            android:gravity="center" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_120"
+        android:background="@drawable/linearlayout_bottom_line"
+        android:padding="@dimen/distance_10">
+        <EditText
+            android:id="@+id/task_back_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/color_333"
+            android:hint="请输入回退意见"
+            android:gravity="left|top"
+            android:inputType="textMultiLine"
+            android:maxLength="800"
+            android:minLines="7"
+            android:textColorHint="@color/color_666"
+            android:textSize="@dimen/distance_14"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:paddingVertical="@dimen/distance_10">
+    <TextView
+        android:id="@+id/back_task_submit"
+        android:layout_width="@dimen/distance_120"
+        android:layout_height="@dimen/distance_40"
+        android:text="@string/submit"
+        android:textColor="@color/color_333"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:background="@color/color_green_main"/>
+        <TextView
+            android:id="@+id/back_task_close"
+            android:layout_width="@dimen/distance_120"
+            android:layout_height="@dimen/distance_40"
+            android:layout_marginLeft="@dimen/distance_10"
+            android:text="@string/close"
+            android:textColor="@color/color_333"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@color/color_999"/>
+    </LinearLayout>
+</LinearLayout>

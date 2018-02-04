@@ -1,10 +1,12 @@
 package com.yunyisheng.app.yunys.project.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by liyalong on 2018/1/22.
  */
 
-public class DeviceBean{
+public class DeviceBean implements Serializable{
     private String equipmentName;
     private int equipmentStat;
     private String equipmentCreate;

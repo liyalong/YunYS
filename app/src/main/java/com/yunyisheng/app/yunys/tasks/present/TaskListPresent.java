@@ -4,7 +4,10 @@ import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.fragement.TaskPoolFragment;
 import com.yunyisheng.app.yunys.project.model.TaskListModel;
+import com.yunyisheng.app.yunys.tasks.bean.ProjectUserBean;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+
+import java.util.List;
 
 import cn.droidlover.xdroidmvp.log.XLog;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
@@ -146,6 +149,70 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
                             return;
                         }
                         getV().checkClaimTaskStatus(baseModel);
+                    }
+                });
+    }
+    public void backTask(String taskId,String backText){
+        Api.taskService().backTask(taskId,backText)
+                .compose(XApi.<BaseModel>getApiTransformer())
+                .compose(XApi.<BaseModel>getScheduler())
+                .compose(getV().<BaseModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        ToastUtils.showToast("网络链接错误！");
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        if (baseModel.getRespCode() == 1){
+                            ToastUtils.showToast(baseModel.getRespMsg());
+                            return;
+                        }
+                        getV().checkTaskBack(baseModel);
+                    }
+                });
+
+    }
+    public void repealTask(String projectId,String releaseId){
+        Api.taskService().repealTask(projectId,releaseId)
+                .compose(XApi.<BaseModel>getApiTransformer())
+                .compose(XApi.<BaseModel>getScheduler())
+                .compose(getV().<BaseModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        ToastUtils.showToast("网络链接错误！");
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        if (baseModel.getRespCode() == 1){
+                            ToastUtils.showToast(baseModel.getRespMsg());
+                            return;
+                        }
+                        getV().checkRepealTaskStatus(baseModel);
+                    }
+                });
+    }
+    public void assingTaskByUser(String projectId, String list,String releaseId){
+        Api.taskService().assignTask(projectId,list,releaseId)
+                .compose(XApi.<BaseModel>getApiTransformer())
+                .compose(XApi.<BaseModel>getScheduler())
+                .compose(getV().<BaseModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        ToastUtils.showToast("网络链接错误！");
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        if (baseModel.getRespCode() == 1){
+                            ToastUtils.showToast(baseModel.getRespMsg());
+                            return;
+                        }
+                        getV().checkAssignTaskResult(baseModel);
                     }
                 });
     }

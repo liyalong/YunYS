@@ -172,9 +172,9 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
             deviceStatus.setText(R.string.device_status_2);
         }
         if (deviceBean.getBindPlcNum() == 0){
-            deviceBindPlcStatus.setText(R.string.yes);
-        }else {
             deviceBindPlcStatus.setText(R.string.no);
+        }else {
+            deviceBindPlcStatus.setText(R.string.yes);
         }
     }
 

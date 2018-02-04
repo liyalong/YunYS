@@ -13,6 +13,16 @@ public class DeviceListModel extends BaseModel {
     private int total;
     private List<DeviceBean> list;
     private int lastPage;
+    private List<DeviceBean> respBody;
+
+    public void setRespBody(List<DeviceBean> respBody) {
+        this.respBody = respBody;
+    }
+
+    public List<DeviceBean> getRespBody() {
+
+        return respBody;
+    }
 
     public void setLastPage(int lastPage) {
         this.lastPage = lastPage;

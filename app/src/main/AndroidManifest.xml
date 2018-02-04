@@ -163,7 +163,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.SelectProjectActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".schedule.activity.ScheduleSetActivity"
             android:screenOrientation="portrait" />
@@ -214,15 +215,26 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".project.activity.DynamicFormActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".userset.activity.FanKuiActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".project.activity.TaskDetailActivity"
             android:screenOrientation="portrait" />
+        android:screenOrientation="portrait" />
+        <activity
+            android:name=".project.activity.RenwuFankuiFormActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".project.activity.RenwuFankuiFormActivity"></activity>
+        <activity
+            android:name=".tasks.activity.MyPushTaskChildListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tasks.activity.SelectProjectUserListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tasks.activity.SelectProjectDeviceActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -31,6 +31,18 @@ public class ScheduleDetailBean extends BaseModel {
 
         private TaskBean task;
         private FormBean form;
+        private List<TaskBackBean> taskback;
+
+        public void setTaskback(List<TaskBackBean> taskback) {
+            this.taskback = taskback;
+        }
+
+        public List<TaskBackBean> getTaskback() {
+
+            return taskback;
+        }
+
+
 
         public TaskBean getTask() {
             return task;
@@ -96,6 +108,34 @@ public class ScheduleDetailBean extends BaseModel {
             private String companyId;
             private Object terraceId;
             private Object task_is_delete;
+            private String taskCreatet;
+            private String projectName;
+            private String equipmentName;
+
+            public String getTaskCreatet() {
+                return taskCreatet;
+            }
+
+            public String getProjectName() {
+                return projectName;
+            }
+
+            public String getEquipmentName() {
+                return equipmentName;
+            }
+
+            public void setTaskCreatet(String taskCreatet) {
+
+                this.taskCreatet = taskCreatet;
+            }
+
+            public void setProjectName(String projectName) {
+                this.projectName = projectName;
+            }
+
+            public void setEquipmentName(String equipmentName) {
+                this.equipmentName = equipmentName;
+            }
 
             public int getTaskId() {
                 return taskId;
@@ -760,6 +800,73 @@ public class ScheduleDetailBean extends BaseModel {
                 public void setName(String name) {
                     this.name = name;
                 }
+            }
+        }
+
+        public class TaskBackBean {
+            private int taskbackId;
+            private int releaseId;
+            private String releaseName;
+            private int taskbackUserId;
+            private String taskbackUsername;
+            private String taskbackVal;
+            private String taskbackCreatet;
+
+            public void setTaskbackId(int taskbackId) {
+                this.taskbackId = taskbackId;
+            }
+
+            public void setReleaseId(int releaseId) {
+                this.releaseId = releaseId;
+            }
+
+            public void setReleaseName(String releaseName) {
+                this.releaseName = releaseName;
+            }
+
+            public void setTaskbackUserId(int taskbackUserId) {
+                this.taskbackUserId = taskbackUserId;
+            }
+
+            public void setTaskbackUsername(String taskbackUsername) {
+                this.taskbackUsername = taskbackUsername;
+            }
+
+            public void setTaskbackVal(String taskbackVal) {
+                this.taskbackVal = taskbackVal;
+            }
+
+            public void setTaskbackCreatet(String taskbackCreatet) {
+                this.taskbackCreatet = taskbackCreatet;
+            }
+
+            public int getTaskbackId() {
+
+                return taskbackId;
+            }
+
+            public int getReleaseId() {
+                return releaseId;
+            }
+
+            public String getReleaseName() {
+                return releaseName;
+            }
+
+            public int getTaskbackUserId() {
+                return taskbackUserId;
+            }
+
+            public String getTaskbackUsername() {
+                return taskbackUsername;
+            }
+
+            public String getTaskbackVal() {
+                return taskbackVal;
+            }
+
+            public String getTaskbackCreatet() {
+                return taskbackCreatet;
             }
         }
     }

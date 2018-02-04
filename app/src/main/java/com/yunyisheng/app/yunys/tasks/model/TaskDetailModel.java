@@ -24,57 +24,33 @@ public class TaskDetailModel extends BaseModel {
         return respBody;
     }
     public class Resbody{
-        private TaskBean task;
-        private List<TaskBackBean> taskback;
+        private ScheduleDetailBean.RespBodyBean.TaskBean task;
+        private List<ScheduleDetailBean.RespBodyBean.TaskBackBean> taskback;
         private ScheduleDetailBean.RespBodyBean.FormBean form;
+
+        public void setTask(ScheduleDetailBean.RespBodyBean.TaskBean task) {
+            this.task = task;
+        }
+
+        public void setTaskback(List<ScheduleDetailBean.RespBodyBean.TaskBackBean> taskback) {
+            this.taskback = taskback;
+        }
 
         public void setForm(ScheduleDetailBean.RespBodyBean.FormBean form) {
             this.form = form;
         }
 
-        public ScheduleDetailBean.RespBodyBean.FormBean getForm() {
-
-            return form;
-        }
-
-
-
-        public void setTask(TaskBean task) {
-            this.task = task;
-        }
-
-
-        public void setFeedbackItem(FeedBackItemBean feedbackItem) {
-            this.feedbackItem = feedbackItem;
-        }
-
-        public TaskBean getTask() {
+        public ScheduleDetailBean.RespBodyBean.TaskBean getTask() {
 
             return task;
         }
 
-        public List<TaskBackBean> getTaskback() {
+        public List<ScheduleDetailBean.RespBodyBean.TaskBackBean> getTaskback() {
             return taskback;
         }
 
-        public void setTaskback(List<TaskBackBean> taskback) {
-
-            this.taskback = taskback;
-        }
-
-        public FeedBackItemBean getFeedbackItem() {
-            return feedbackItem;
-        }
-
-        private FeedBackItemBean feedbackItem;
-
-        @Override
-        public String toString() {
-            return "Resbody{" +
-                    "task=" + task +
-                    ", taskback=" + taskback +
-                    ", feedbackItem=" + feedbackItem +
-                    '}';
+        public ScheduleDetailBean.RespBodyBean.FormBean getForm() {
+            return form;
         }
     }
 }

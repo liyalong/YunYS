@@ -9,8 +9,6 @@ import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.tasks.bean.TaskBean;
 import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,18 +19,16 @@ import cn.droidlover.xdroidmvp.kit.KnifeKit;
  * Created by liyalong on 2018/1/30.
  */
 
-public class TaskAdapter extends SimpleListAdapter<TaskBean, TaskAdapter.ViewHolder> implements View.OnClickListener {
+public class MyPushTaskListAdapter extends SimpleListAdapter<TaskBean, MyPushTaskListAdapter.ViewHolder> implements View.OnClickListener {
     TaskBean taskBean;
-    private int SELECT_TYPE;
 
-    private TaskAdapter.Callback mCallback;
+    private MyPushTaskListAdapter.Callback mCallback;
     public interface Callback{
         public void click(View v);
     }
 
-    public TaskAdapter(Context context, List<TaskBean> data,int selectType,Callback callback) {
+    public MyPushTaskListAdapter(Context context, List<TaskBean> data, Callback callback) {
         super(context, data);
-        this.SELECT_TYPE = selectType;
         mCallback = callback;
     }
 
@@ -48,33 +44,28 @@ public class TaskAdapter extends SimpleListAdapter<TaskBean, TaskAdapter.ViewHol
 
     @Override
     protected void convert(ViewHolder holder, TaskBean item, int position) {
+        holder.taskStatusBox.setVisibility(View.GONE);
+
         holder.taskName.setText(item.getReleaseName().toString());
         holder.taskStartTime.setText(item.getReleaseBegint().toString());
         holder.taskEndTime.setText(item.getReleaseEndt().toString());
         holder.createUser.setText(item.getReleaseUsername().toString());
-        if (SELECT_TYPE == 1 || SELECT_TYPE == 2){
-            //待认领任务设置待认领状态隐藏，认领人信息隐藏
-            //待完成任务状态，设置待认领状态隐藏,认领人信息隐藏
-            holder.taskDoUserInfo.setVisibility(View.GONE);
-            holder.takeDoUser.setVisibility(View.GONE);
-            holder.taskStatusBox.setVisibility(View.GONE);
 
-        }else if(SELECT_TYPE == 3){
-            //已发布任务
-            holder.userInfoBox.setVisibility(View.GONE);
-            holder.releaseStatFinish.setText(String.valueOf(item.getReleaseStatFinish()));
-            holder.releaseStatClaim.setText(String.valueOf(item.getReleaseStatClaim()));
-            holder.releaseStatBack.setText(String.valueOf(item.getReleaseStatBack()));
-            holder.releaseStatUnclaim.setText(String.valueOf(item.getReleaseStatUnclaim()));
-        }
-        if (item.getTaskStat() == 3){
-            holder.taskStat.setVisibility(View.VISIBLE);
-            holder.taskBtn.setEnabled(false);
-            holder.taskBtn.setBackgroundColor(context.getResources().getColor(R.color.color_c8c8c8));
-        }else {
-            holder.taskStat.setVisibility(View.GONE);
-            holder.taskBtn.setEnabled(true);
-            holder.taskBtn.setBackground(context.getResources().getDrawable(R.mipmap.button_cz));
+        //待认领任务设置待认领状态隐藏，认领人信息隐藏
+        //待完成任务状态，设置待认领状态隐藏,认领人信息隐藏
+        holder.taskStat.setVisibility(View.VISIBLE);
+        holder.taskStat.setBackgroundColor(context.getResources().getColor(R.color.device_status_success));
+        holder.taskStat.setTextColor(context.getResources().getColor(R.color.white));
+        if (item.getTaskStat() == 0){
+            holder.taskStat.setText(R.string.task_status_1);
+        }else if (item.getTaskStat() == 1){
+            holder.taskStat.setText(R.string.task_status_2);
+        }else if (item.getTaskStat() == 2){
+            holder.taskStat.setText(R.string.task_status_3);
+        }else if (item.getTaskStat() == 3){
+            holder.taskStat.setText(R.string.task_status_6);
+//            holder.taskStat.setTextColor(context.getResources().getColor(R.color.color_2F));
+//            holder.taskStat.setBackgroundColor(context.getResources().getColor(R.color.color_green_main_disabled));
         }
         if (item.getTaskSubmitTime() == null){
             //判断超时，
@@ -85,8 +76,9 @@ public class TaskAdapter extends SimpleListAdapter<TaskBean, TaskAdapter.ViewHol
                 holder.taskStatusIstimeout.setVisibility(View.GONE);
             }
         }
+        holder.taskBtn.setVisibility(View.GONE);
         holder.taskBtn.setTag(position);
-        holder.taskBtn.setOnClickListener(this);
+        //holder.taskBtn.setOnClickListener(this);
 
     }
 

@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/distance_49"
-        android:background="@color/white">
+        android:background="@drawable/linearlayout_bottom_line">
 
         <ImageView
             android:id="@+id/img_back"
@@ -34,390 +34,452 @@
             android:visibility="invisible" />
     </LinearLayout>
 
-    <View
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/distance_1"
-        android:layout_marginBottom="@dimen/distance_10"
-        android:background="@color/color_e7e7e7" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/distance_42"
-        android:background="@color/white"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/distance_10"
-            android:layout_marginRight="@dimen/distance_5"
-            android:gravity="center"
-            android:src="@mipmap/icon_project_list_title_left" />
-
-        <TextView
-            android:id="@+id/include_title_name"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/task_info"
-            android:textColor="@color/color_333"
-            android:textSize="@dimen/distance_14" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/distance_1"
-        android:background="@color/color_e7" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/distance_10"
-        android:paddingVertical="@dimen/distance_10">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/task_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:text="任务名称aaaa"
-                android:textColor="@color/color_333"
-                android:textSize="@dimen/distance_14" />
-
-            <TextView
-                android:id="@+id/task_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/distance_10"
-                android:background="@color/color_green_status"
-                android:gravity="center"
-                android:paddingHorizontal="@dimen/distance_5"
-                android:paddingVertical="@dimen/distance_3"
-                android:text="@string/task_status_1"
-                android:textColor="@color/white"
-                android:textSize="@dimen/distance_8" />
-
-            <TextView
-                android:id="@+id/task_status_istimeout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/distance_10"
-                android:background="@color/device_status_error"
-                android:gravity="center"
-                android:paddingHorizontal="@dimen/distance_5"
-                android:paddingVertical="@dimen/distance_3"
-                android:text="@string/task_status_5"
-                android:textColor="@color/white"
-                android:textSize="@dimen/distance_8"
-                android:visibility="gone"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/distance_5">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/task_create_time"
-                android:textColor="@color/color_666"
-                android:textSize="@dimen/distance_12" />
-
-            <TextView
-                android:id="@+id/create_time"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:text="2018-01-11 00:00:00"
-                android:textColor="@color/color_666"
-                android:textSize="@dimen/distance_12" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/distance_2">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/task_create_user"
-                android:textColor="@color/color_666"
-                android:textSize="@dimen/distance_12" />
-
-            <TextView
-                android:id="@+id/create_user"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:text="zhangsan"
-                android:textColor="@color/color_666"
-                android:textSize="@dimen/distance_12" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/do_user_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/distance_5">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/task_do_user"
-                android:textColor="@color/color_666"
-                android:textSize="@dimen/distance_12" />
-
-            <TextView
-                android:id="@+id/do_user"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:text="zhangsan"
-                android:textColor="@color/color_666"
-                android:textSize="@dimen/distance_12" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/task_desc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distance_5"
-                android:text="任务详情介绍"
-                android:textColor="@color/color_333"
-                android:textSize="@dimen/distance_14" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/distance_1"
-        android:background="@color/color_e7" />
-
-    <LinearLayout
-        android:id="@+id/device_task_box"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/distance_10"
-        android:background="@color/white"
-        android:paddingHorizontal="@dimen/distance_10"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/distance_40"
-            android:background="@drawable/linearlayout_bottom_line">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/the_project"
-                android:textColor="@color/color_333"
-                android:layout_gravity="center"
-                android:gravity="center"/>
-
-            <TextView
-                android:id="@+id/project_name"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="项目名称"
-                android:gravity="center|left"
-                android:layout_gravity="center"
-                android:textColor="@color/color_333"
-                android:textSize="@dimen/distance_14" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/distance_40">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/the_device"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:textColor="@color/color_333" />
-            <TextView
-                android:id="@+id/device_name"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="设备名称"
-                android:gravity="center|left"
-                android:layout_gravity="center"
-                android:textColor="@color/color_333"
-                android:textSize="@dimen/distance_14" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/distance_14"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:padding="@dimen/distance_9">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/task_start_end_time"
-            android:textColor="@color/color_333"
-            android:textSize="@dimen/distance_14" />
-
-        <View
-            android:layout_width="@dimen/distance_1"
-            android:layout_height="match_parent"
-            android:background="@color/color_e7" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/begin_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:gravity="right"
-                android:text="2018-01-12 00:00:00"
-                android:textColor="@color/color_666"
-                android:textSize="@dimen/distance_12" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/distance_1"
-                android:layout_marginVertical="@dimen/distance_14"
+                android:layout_marginBottom="@dimen/distance_10"
+                android:background="@color/color_e7e7e7" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_42"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/distance_10"
+                    android:layout_marginRight="@dimen/distance_5"
+                    android:gravity="center"
+                    android:src="@mipmap/icon_project_list_title_left" />
+
+                <TextView
+                    android:id="@+id/include_title_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/task_info"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_14" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_1"
                 android:background="@color/color_e7" />
 
-            <TextView
-                android:id="@+id/end_time"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|right"
-                android:gravity="center|right"
-                android:text="2018-01-12 00:00:00"
-                android:textColor="@color/color_666"
-                android:textSize="@dimen/distance_12" />
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/distance_10"
+                android:paddingVertical="@dimen/distance_10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/task_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="任务名称aaaa"
+                        android:textColor="@color/color_333"
+                        android:textSize="@dimen/distance_14" />
+
+                    <TextView
+                        android:id="@+id/task_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/distance_10"
+                        android:background="@color/color_green_status"
+                        android:gravity="center"
+                        android:paddingHorizontal="@dimen/distance_5"
+                        android:paddingVertical="@dimen/distance_3"
+                        android:text="@string/task_status_1"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/distance_8" />
+
+                    <TextView
+                        android:id="@+id/task_status_istimeout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/distance_10"
+                        android:background="@color/device_status_error"
+                        android:gravity="center"
+                        android:paddingHorizontal="@dimen/distance_5"
+                        android:paddingVertical="@dimen/distance_3"
+                        android:text="@string/task_status_5"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/distance_8"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/distance_5">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/task_create_time"
+                        android:textColor="@color/color_666"
+                        android:textSize="@dimen/distance_12" />
+
+                    <TextView
+                        android:id="@+id/create_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:text="2018-01-11 00:00:00"
+                        android:textColor="@color/color_666"
+                        android:textSize="@dimen/distance_12" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/distance_2">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/task_create_user"
+                        android:textColor="@color/color_666"
+                        android:textSize="@dimen/distance_12" />
+
+                    <TextView
+                        android:id="@+id/create_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:text="zhangsan"
+                        android:textColor="@color/color_666"
+                        android:textSize="@dimen/distance_12" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/do_user_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/distance_5">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/task_do_user"
+                        android:textColor="@color/color_666"
+                        android:textSize="@dimen/distance_12" />
+
+                    <TextView
+                        android:id="@+id/do_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:text="zhangsan"
+                        android:textColor="@color/color_666"
+                        android:textSize="@dimen/distance_12" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/task_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/distance_5"
+                        android:text="任务详情介绍"
+                        android:textColor="@color/color_333"
+                        android:textSize="@dimen/distance_14" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_1"
+                android:background="@color/color_e7" />
+
+            <LinearLayout
+                android:id="@+id/device_task_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance_10"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/distance_10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/distance_40"
+                    android:background="@drawable/linearlayout_bottom_line">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/the_project"
+                        android:textColor="@color/color_333" />
+
+                    <TextView
+                        android:id="@+id/project_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center|left"
+                        android:text="项目名称"
+                        android:textColor="@color/color_333"
+                        android:textSize="@dimen/distance_14" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/distance_40">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/the_device"
+                        android:textColor="@color/color_333" />
+
+                    <TextView
+                        android:id="@+id/device_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center|left"
+                        android:text="设备名称"
+                        android:textColor="@color/color_333"
+                        android:textSize="@dimen/distance_14" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance_14"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/distance_9">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/task_start_end_time"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_14" />
+
+                <View
+                    android:layout_width="@dimen/distance_1"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_e7" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/begin_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:gravity="right"
+                        android:text="2018-01-12 00:00:00"
+                        android:textColor="@color/color_666"
+                        android:textSize="@dimen/distance_12" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/distance_1"
+                        android:layout_marginVertical="@dimen/distance_14"
+                        android:background="@color/color_e7" />
+
+                    <TextView
+                        android:id="@+id/end_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|right"
+                        android:gravity="center|right"
+                        android:text="2018-01-12 00:00:00"
+                        android:textColor="@color/color_666"
+                        android:textSize="@dimen/distance_12" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/back_info_box"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/linearlayout_bottom_line"
+                android:layout_marginTop="@dimen/distance_10"
+                android:visibility="gone">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/distance_42"
+                        android:background="@drawable/linearlayout_bottom_line"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/distance_10"
+                            android:layout_marginRight="@dimen/distance_5"
+                            android:gravity="center"
+                            android:src="@mipmap/icon_project_list_title_left" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="@string/task_back_info_list"
+                            android:textColor="@color/color_333"
+                            android:textSize="@dimen/distance_14" />
+                    </LinearLayout>
+                    <ListView
+                        android:id="@+id/back_info_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/linearlayout_bottom_line">
+
+                    </ListView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/caozuo_box"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="@dimen/distance_14"
+                android:background="@color/white"
+                android:paddingVertical="@dimen/distance_20">
+
+                <TextView
+                    android:id="@+id/edit_task"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/distance_100"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/icon_edit_task"
+                    android:gravity="center"
+                    android:text="@string/edit_task"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_14"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/remove_task"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/distance_100"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/icon_remove_task"
+                    android:gravity="center"
+                    android:text="@string/remove_task"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_14"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/assign_task"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/distance_100"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/icon_assign_task"
+                    android:gravity="center"
+                    android:text="@string/assign_task"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_14"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/claim_task"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/distance_100"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/icon_claim_task"
+                    android:gravity="center"
+                    android:text="@string/claim_task"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_14"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/do_task"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/distance_100"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/icon_do_task"
+                    android:gravity="center"
+                    android:text="@string/do_task"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_14"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/back_task"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/distance_100"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/icon_back_task"
+                    android:gravity="center"
+                    android:text="@string/back_task"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_14"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/task_back_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/distance_100"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/icon_task_back_info"
+                    android:gravity="center"
+                    android:text="@string/look_task_info"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_14"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/task_child_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/distance_100"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/icon_task_child_list"
+                    android:gravity="center"
+                    android:text="@string/look_task_child"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_14"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/distance_14"
-        android:layout_gravity="bottom"
-        android:background="@color/white"
-        android:paddingVertical="@dimen/distance_20">
-
-        <TextView
-            android:id="@+id/edit_task"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/distance_100"
-            android:layout_weight="1"
-            android:drawableTop="@mipmap/icon_edit_task"
-            android:gravity="center"
-            android:layout_gravity="bottom"
-            android:text="@string/edit_task"
-            android:textColor="@color/color_333"
-            android:textSize="@dimen/distance_14" />
-
-        <TextView
-            android:id="@+id/remove_task"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/distance_100"
-            android:layout_weight="1"
-            android:drawableTop="@mipmap/icon_remove_task"
-            android:gravity="center"
-            android:layout_gravity="bottom"
-            android:text="@string/remove_task"
-            android:textColor="@color/color_333"
-            android:textSize="@dimen/distance_14" />
-
-        <TextView
-            android:id="@+id/assign_task"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/distance_100"
-            android:layout_weight="1"
-            android:drawableTop="@mipmap/icon_assign_task"
-            android:gravity="center"
-            android:layout_gravity="bottom"
-            android:text="@string/assign_task"
-            android:textColor="@color/color_333"
-            android:textSize="@dimen/distance_14" />
-
-        <TextView
-            android:id="@+id/claim_task"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/distance_100"
-            android:layout_weight="1"
-            android:drawableTop="@mipmap/icon_claim_task"
-            android:gravity="center"
-            android:text="@string/claim_task"
-            android:layout_gravity="bottom"
-            android:textColor="@color/color_333"
-            android:textSize="@dimen/distance_14" />
-
-        <TextView
-            android:id="@+id/do_task"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/distance_100"
-            android:layout_weight="1"
-            android:drawableTop="@mipmap/icon_do_task"
-            android:gravity="center"
-            android:text="@string/do_task"
-            android:layout_gravity="bottom"
-            android:textColor="@color/color_333"
-            android:textSize="@dimen/distance_14" />
-
-        <TextView
-            android:id="@+id/back_task"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/distance_100"
-            android:layout_weight="1"
-            android:drawableTop="@mipmap/icon_back_task"
-            android:gravity="center"
-            android:text="@string/back_task"
-            android:layout_gravity="bottom"
-            android:textColor="@color/color_333"
-            android:textSize="@dimen/distance_14" />
-        <TextView
-            android:id="@+id/task_back_info"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/distance_100"
-            android:layout_weight="1"
-            android:drawableTop="@mipmap/icon_task_back_info"
-            android:gravity="center"
-            android:layout_gravity="bottom"
-            android:text="@string/look_task_info"
-            android:textColor="@color/color_333"
-            android:textSize="@dimen/distance_14" />
-        <TextView
-            android:id="@+id/task_child_list"
-            android:layout_width="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_height="@dimen/distance_100"
-            android:layout_weight="1"
-            android:drawableTop="@mipmap/icon_task_child_list"
-            android:gravity="center"
-            android:text="@string/look_task_child"
-            android:textColor="@color/color_333"
-            android:textSize="@dimen/distance_14" />
-
-    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

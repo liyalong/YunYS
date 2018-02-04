@@ -51,17 +51,20 @@
         <EditText
             android:id="@+id/search_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/distance_45"
             android:hint="@string/search_project"
             android:textColorHint="@color/color_666"
             android:textSize="@dimen/distance_12"
-            android:textColor="@color/color_333"/>
+            android:background="@null"
+            android:textColor="@color/color_333"
+            android:imeOptions="actionSearch"/>
     </LinearLayout>
     <ListView
         android:id="@+id/select_project_list"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:choiceMode="singleChoice">
+        android:choiceMode="singleChoice"
+        android:background="@color/white">
 
     </ListView>
 

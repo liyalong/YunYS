@@ -6,23 +6,24 @@
     android:paddingHorizontal="@dimen/distance_10"
     android:paddingVertical="@dimen/distance_5"
     android:orientation="horizontal"
-    android:background="@color/white">
-    <RadioButton
+    android:background="@drawable/linearlayout_bottom_line">
+    <ImageView
         android:id="@+id/m_radio_button"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:clickable="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        style="@style/radio"
+        android:layout_width="@dimen/distance_20"
+        android:layout_height="@dimen/distance_20"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/distance_10"
+        android:layout_marginRight="@dimen/distance_10"
+        android:background="@mipmap/icon_radio"
         />
     <TextView
         android:id="@+id/project_title"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_40"
         android:layout_weight="1"
         android:text="项目名称"
         android:textColor="@color/color_333"
-        android:gravity="center|left"/>
+        android:gravity="center|left"
+        android:textSize="@dimen/distance_14" />
 </LinearLayout>

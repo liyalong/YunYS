@@ -1,10 +1,12 @@
 package com.yunyisheng.app.yunys.project.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by liyalong on 2018/1/17.
  */
 
-public class ProjectBean {
+public class ProjectBean implements Serializable {
     private String projectId;
     private String projectName;
     private String projectNum;

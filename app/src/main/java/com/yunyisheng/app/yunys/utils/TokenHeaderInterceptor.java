@@ -19,7 +19,6 @@ public class TokenHeaderInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request originalRequest = chain.request();
-        XLog.d("url",originalRequest.url().toString());
         if (!originalRequest.url().toString().contains("user/login")
                 && !originalRequest.url().toString().contains("authCode")
                 && !originalRequest.url().toString().contains("feorget/password")){

@@ -4,6 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/baseBackgroundColor">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -104,7 +107,7 @@
                     android:orientation="horizontal">
                     <TextView
                         android:id="@+id/task_start_time"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="@dimen/distance_40"
                         android:layout_weight="1"
                         android:hint="@string/task_start_time"
@@ -130,9 +133,9 @@
                         android:orientation="horizontal">
                             <TextView
                                 android:id="@+id/task_end_time"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_weight="1"
-                                android:layout_height="wrap_content"
+                                android:layout_height="@dimen/distance_40"
                                 android:hint="@string/task_end_time"
                                 android:textColorHint="@color/color_666"
                                 android:textSize="@dimen/distance_14"
@@ -148,53 +151,50 @@
                 </LinearLayout>
 
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:layout_marginTop="@dimen/distance_10"
-                android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/distance_10">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/task_status"
-                    android:textColor="@color/color_333"
-                    android:textSize="@dimen/distance_14"
-                    android:paddingVertical="@dimen/distance_18"/>
 
-                <Switch
-                    android:id="@+id/tasks_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:checked="true"
-                    android:thumb="@drawable/thumb"
-                    android:track="@drawable/track"/>
-
-            </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:layout_marginTop="@dimen/distance_10"
             android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/distance_10">
-            <TextView
-
+            android:paddingHorizontal="@dimen/distance_10"
+            android:paddingVertical="@dimen/distance_10">
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/distance_60"
                 android:layout_weight="1"
                 android:hint="@string/task_desc"
                 android:textColorHint="@color/color_666"
                 android:textColor="@color/color_333"
                 android:textSize="@dimen/distance_14"
-                android:paddingVertical="@dimen/distance_18"
+                android:gravity="top|left"
                 android:background="@null"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/distance_50"
+            android:background="@color/white"
+            android:layout_marginTop="@dimen/distance_10"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/distance_10">
+            <TextView
+                android:id="@+id/select_assign_users"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_50"
+                android:layout_weight="1"
+                android:text="@string/select_project_user_list"
+                android:textColor="@color/color_333"
+                android:textSize="@dimen/distance_14"
+                android:gravity="center|left"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/icon_right"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_50"
             android:background="@color/white"
             android:layout_marginTop="@dimen/distance_10"
             android:orientation="horizontal"
@@ -202,17 +202,17 @@
             <TextView
                 android:id="@+id/task_templates"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/distance_50"
                 android:layout_weight="1"
                 android:text="@string/task_back_detail"
                 android:textColor="@color/color_333"
                 android:textSize="@dimen/distance_14"
-                android:paddingVertical="@dimen/distance_18"/>
+                android:gravity="center|left"/>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@mipmap/icon_right"/>
         </LinearLayout>
         </LinearLayout>
-
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>
