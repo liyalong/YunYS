@@ -4,6 +4,7 @@ import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.project.model.TaskListModel;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
 import com.yunyisheng.app.yunys.tasks.bean.ProjectUserBean;
+import com.yunyisheng.app.yunys.tasks.model.ProjectFormListModel;
 import com.yunyisheng.app.yunys.tasks.model.ProjectUserListModel;
 import com.yunyisheng.app.yunys.tasks.model.TaskDetailModel;
 
@@ -91,7 +92,7 @@ public interface TaskService {
     @FormUrlEncoded
     @POST("task/information/lookList")
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
-    Flowable<ScheduleDetailBean> getTaskDetailByUser(@Field("userId") String userId,
+    Flowable<ScheduleDetailBean> getTaskDetailByUser(@Field("userId") int userId,
                                                      @Field("taskId") String taskId,
                                                    @Field("type") String type);
 
@@ -154,5 +155,8 @@ public interface TaskService {
     Flowable<BaseModel> assignTask(@Path("projectId") String projectId,
                                    @Field("userlist") String userList,
                                    @Field("releaseId") String releaseId);
+    @FormUrlEncoded
+    @POST("formBase/all")
+    Flowable<ProjectFormListModel> getProjectFormList();
 
 }

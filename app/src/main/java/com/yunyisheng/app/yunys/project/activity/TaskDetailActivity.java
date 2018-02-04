@@ -94,7 +94,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
     @BindView(R.id.back_info_list)
     ListView backInfoList;
     private String taskId;
-    private String userId;
+    private int userId;
     private String taskType;
     private Dialog taskBackInfoDialog;
     private String projectId;
@@ -106,7 +106,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
     public void initView() {
         ButterKnife.bind(this);
         this.taskId = getIntent().getStringExtra("taskId");
-        this.userId = getIntent().getStringExtra("userId");
+        this.userId = getIntent().getIntExtra("userId",0);
         this.taskType = getIntent().getStringExtra("taskType");
         this.fromPage = getIntent().getIntExtra("fromPage",1);
         this.projectId = getIntent().getStringExtra("projectId");
@@ -180,12 +180,9 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                             .putInt("type", task.getReleaseTaskType())
                             .putString("scheduleid", String.valueOf(task.getTaskId()))
                             .putString("projectId",projectId)
+                            .putInt("userId",userId)
                             .launch();
                 }
-                Router.newIntent(context)
-                        .to(RenwuFankuiFormActivity.class)
-                        .putInt("taskid", Integer.parseInt(taskId))
-                        .launch();
                 break;
             case R.id.back_task:
                 //回退任务

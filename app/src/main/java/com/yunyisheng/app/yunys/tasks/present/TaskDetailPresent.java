@@ -17,7 +17,7 @@ import cn.droidlover.xdroidmvp.net.XApi;
  */
 
 public class TaskDetailPresent extends XPresent<TaskDetailActivity> {
-    public void getTask(String projectId,String taskId,String taskType,String userId){
+    public void getTask(String projectId,String taskId,String taskType,int userId){
         if (projectId != null){
             getMyTaskDetail(projectId,taskId);
         }else {
@@ -60,7 +60,7 @@ public class TaskDetailPresent extends XPresent<TaskDetailActivity> {
      * @param taskType
      * @param userId
      */
-    public void getTaskDetailByUserId(String taskId,String taskType,String userId){
+    public void getTaskDetailByUserId(String taskId,String taskType,int userId){
         Api.taskService().getTaskDetailByUser(userId,taskId,taskType)
                 .compose(XApi.<ScheduleDetailBean>getApiTransformer())
                 .compose(XApi.<ScheduleDetailBean>getScheduler())

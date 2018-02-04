@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectActivity;
+import com.yunyisheng.app.yunys.tasks.activity.SelectProjectForm;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectUserListActivity;
 import com.yunyisheng.app.yunys.tasks.bean.ProjectUserBean;
 import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
@@ -57,7 +58,8 @@ public class NoneDeviceTemporaryTaskFargment extends BaseFragement {
     private String selectProjectId;
     private String selectProjectName;
     private List<ProjectUserBean> selectUsers = new ArrayList<>();
-
+    private String selectFormId;
+    private String selectFormName;
 
     public static NoneDeviceTemporaryTaskFargment newInstance() {
         return new NoneDeviceTemporaryTaskFargment();
@@ -127,7 +129,8 @@ public class NoneDeviceTemporaryTaskFargment extends BaseFragement {
                 endTimeCustomDatePicker.show(taskEndTime.getText().toString());
                 break;
             case R.id.task_templates:
-                ToastUtils.showToast("选择反馈项");
+                Intent intent4 = new Intent(context, SelectProjectForm.class);
+                startActivityForResult(intent4,TEMPLATEREQUESTCODE);
                 break;
             case R.id.select_project:
                 //选择项目
@@ -160,7 +163,11 @@ public class NoneDeviceTemporaryTaskFargment extends BaseFragement {
                 }
                 break;
             case TEMPLATEREQUESTCODE:
-
+                if (resultCode == 1){
+                    selectFormId = data.getStringExtra("selectFormId");
+                    selectFormName = data.getStringExtra("selectFormName");
+                    taskTemplates.setText(selectFormName);
+                }
                 break;
             case PROJECTUSERREQUESTCODE:
                 if (resultCode == 1){

@@ -13,6 +13,7 @@ import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.tasks.activity.CronResultActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectActivity;
+import com.yunyisheng.app.yunys.tasks.activity.SelectProjectForm;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectUserListActivity;
 import com.yunyisheng.app.yunys.tasks.bean.ProjectUserBean;
 import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
@@ -61,6 +62,9 @@ public class NoneDeviceCycleTaskFargment extends BaseFragement {
     private String selectProjectId;
     private String selectProjectName;
     private List<ProjectUserBean> selectUsers = new ArrayList<>();
+
+    private String selectFormId;
+    private String selectFormName;
 
     public static NoneDeviceCycleTaskFargment newInstance() {
         return new NoneDeviceCycleTaskFargment();
@@ -112,7 +116,8 @@ public class NoneDeviceCycleTaskFargment extends BaseFragement {
                 endCustomDatePicker.show(cycleTaskEndTime.getText().toString());
                 break;
             case R.id.cycle_task_templates:
-                ToastUtils.showToast("选择反馈项");
+                Intent intent4 = new Intent(context, SelectProjectForm.class);
+                startActivityForResult(intent4,TEMPLATEREQUESTCODE);
                 break;
             case R.id.cycle_select_project:
                 Intent intent1 = new Intent(context, SelectProjectActivity.class);
@@ -168,7 +173,11 @@ public class NoneDeviceCycleTaskFargment extends BaseFragement {
                 }
                 break;
             case TEMPLATEREQUESTCODE:
-                //TODO 选择表单
+                if (resultCode == 1){
+                    selectFormId = data.getStringExtra("selectFormId");
+                    selectFormName = data.getStringExtra("selectFormName");
+                    cycleTaskTemplates.setText(selectFormName);
+                }
                 break;
             case PROJECTUSERCODE:
                 if (resultCode == 1){
