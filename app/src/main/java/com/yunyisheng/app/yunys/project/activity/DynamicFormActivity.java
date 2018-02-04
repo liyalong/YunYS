@@ -90,12 +90,12 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
     }
 
     public void setFormDetail(ScheduleDetailBean scheduleDetailBean) {
-        List<ScheduleDetailBean.RespBodyBean> respBody = scheduleDetailBean.getRespBody();
-        ScheduleDetailBean.RespBodyBean.TaskBean task = respBody.get(0).getTask();
+       ScheduleDetailBean.RespBodyBean respBody = scheduleDetailBean.getRespBody();
+        ScheduleDetailBean.RespBodyBean.TaskBean task = respBody.getTask();
         teTitle.setText(task.getReleaseName());
         taskId = task.getTaskId();
         releaseFormId = task.getReleaseFormId();
-        List<ScheduleDetailBean.RespBodyBean.FormBean.DataBean> dataBeanList = respBody.get(0).getForm().getData();
+        List<ScheduleDetailBean.RespBodyBean.FormBean.DataBean> dataBeanList = respBody.getForm().getData();
         if (dataBeanList.size() > 0) {
             alldataBeanList.addAll(dataBeanList);
             initUi();

@@ -39,20 +39,34 @@ public class MessageAdapter extends SimpleListAdapter<MessageBean.RespBodyBean, 
     @Override
     protected void convert(ViewHolder holder, MessageBean.RespBodyBean item, int position) {
         MessageBean.RespBodyBean respBodyBean = data.get(position);
+
         holder.teMsgdetail.setText(respBodyBean.getMessageRemark());
         holder.teMsgtime.setText(respBodyBean.getMessageCreateTime()+" - "+respBodyBean.getMessageUpdateTime());
         String messageType = respBodyBean.getMessageType();
         if (messageType.equals("3")){
+            holder.teMsgtitle.setVisibility(View.VISIBLE);
             holder.imgMsgtype.setVisibility(View.VISIBLE);
             holder.imgMsgtype.setBackgroundResource(R.mipmap.noticeimg);
+            holder.teMsgtitle.setText("公告消息");
         }else if (messageType.equals("1")){
+            holder.teMsgtitle.setVisibility(View.VISIBLE);
             holder.imgMsgtype.setVisibility(View.VISIBLE);
             holder.imgMsgtype.setBackgroundResource(R.mipmap.taskimg);
+            holder.teMsgtitle.setText("任务消息");
         }else if (messageType.equals("2")){
+            holder.teMsgtitle.setVisibility(View.VISIBLE);
             holder.imgMsgtype.setVisibility(View.VISIBLE);
             holder.imgMsgtype.setBackgroundResource(R.mipmap.waringimg);
+            holder.teMsgtitle.setText("报警消息");
         }else {
             holder.imgMsgtype.setVisibility(View.GONE);
+            holder.teMsgtitle.setVisibility(View.GONE);
+        }
+        String messageStat = respBodyBean.getMessageStat();
+        if (messageStat.equals("0")){
+            holder.imgOval.setVisibility(View.GONE);
+        }else {
+            holder.imgOval.setVisibility(View.VISIBLE);
         }
     }
 
@@ -64,6 +78,10 @@ public class MessageAdapter extends SimpleListAdapter<MessageBean.RespBodyBean, 
         TextView teMsgdetail;
         @BindView(R.id.img_msgtype)
         ImageView imgMsgtype;
+        @BindView(R.id.te_msgtitle)
+        TextView teMsgtitle;
+        @BindView(R.id.img_oval)
+        ImageView imgOval;
 
         public ViewHolder(View view) {
             KnifeKit.bind(this,view);

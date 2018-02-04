@@ -297,4 +297,12 @@ public interface HomeService {
                                                    @Field("pageSize") int pageSize,
                                                    @Field("projectName") String projectName,
                                                    @Field("userId") int userId);
+    /**
+     * @author fuduo
+     * @time 2018/1/30  14:56
+     * @describe 修改消息 – 将消息置为已读
+     */
+    @FormUrlEncoded
+    @POST("message/updateMessage")
+    Flowable<BaseModel> updateMessage(@Field("messageId") int messageId);
 }

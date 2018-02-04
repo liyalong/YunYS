@@ -38,6 +38,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-scalars:2.0.0'
     compile 'com.alibaba:fastjson:1.2.36'
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.airsaid.library:pickerview:1.0.3'
 }
 
 

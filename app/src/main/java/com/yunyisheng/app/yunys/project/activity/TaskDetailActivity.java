@@ -179,13 +179,9 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                             .to(DynamicFormActivity.class)
                             .putInt("type", task.getReleaseTaskType())
                             .putString("scheduleid", String.valueOf(task.getTaskId()))
-                            .putString("projectId",projectId)
                             .launch();
                 }
-                Router.newIntent(context)
-                        .to(RenwuFankuiFormActivity.class)
-                        .putInt("taskid", Integer.parseInt(taskId))
-                        .launch();
+
                 break;
             case R.id.back_task:
                 //回退任务
