@@ -90,6 +90,7 @@ public class ProjectTemplateActivity extends BaseActivity {
                 Intent intent = getIntent();
                 intent.putExtra("fankuijson",str);
                 setResult(5,intent);
+                finish();
                 break;
             case R.id.bottom:
                 List<GroupBean> list = adapter.getStrList();

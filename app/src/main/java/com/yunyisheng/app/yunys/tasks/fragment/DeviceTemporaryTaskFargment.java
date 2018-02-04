@@ -3,30 +3,30 @@ package com.yunyisheng.app.yunys.tasks.fragment;
 import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
-import com.yunyisheng.app.yunys.project.bean.ProjectBean;
 import com.yunyisheng.app.yunys.tasks.activity.ProjectTemplateActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectDeviceActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectUserListActivity;
 import com.yunyisheng.app.yunys.tasks.bean.ProjectUserBean;
+import com.yunyisheng.app.yunys.tasks.bean.UpdateTemporaryTaskBean;
 import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.customDatePicker.CustomDatePicker;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.droidlover.xdroidmvp.log.XLog;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
-import cn.droidlover.xdroidmvp.router.Router;
 
 /**
  * Created by liyalong on 2018/1/13.
@@ -54,6 +54,8 @@ public class DeviceTemporaryTaskFargment extends BaseFragement {
     TextView taskTemplates;
     @BindView(R.id.select_assign_users)
     TextView selectAssignUsers;
+    @BindView(R.id.task_desc)
+    EditText taskDesc;
 
     CustomDatePicker startTimeCustomDatePicker,endTimeCustomDatePicker;
 
@@ -64,10 +66,17 @@ public class DeviceTemporaryTaskFargment extends BaseFragement {
     private String selectDeviceName;
     private List<ProjectUserBean> selectUsers = new ArrayList<>();
 
+    private String releaseId;
+
+    private UpdateTemporaryTaskBean taskForm;
+
+    private String feedbackJSON;
+
 
     @Override
     public void initView() {
         ButterKnife.bind(this, context);
+
         initDatePicker();
     }
     //初始化日期时间选择插件
@@ -184,7 +193,8 @@ public class DeviceTemporaryTaskFargment extends BaseFragement {
                 break;
             case TEMPLATEREQUESTCODE:
                 if (resultCode==5){
-                    String fankuijson = data.getStringExtra("fankuijson");//任务反馈项json
+                    feedbackJSON = data.getStringExtra("fankuijson");//任务反馈项json
+                    taskTemplates.setText("任务反馈项（已添加）");
                 }
                 break;
             case PROJECTUSERREQUESTCODE:
@@ -200,9 +210,63 @@ public class DeviceTemporaryTaskFargment extends BaseFragement {
                 break;
         }
     }
+    public Map<String,String> checkFormResult(){
+        Map<String,String> checkStatus = new HashMap<>();
+        taskForm = new UpdateTemporaryTaskBean();
 
+        if (selectProjectId == null){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","请选择项目！");
+            return checkStatus;
+        }
+        taskForm.setProjectId(selectProjectId);
+        if (selectDeviceId == null){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","请选择设备！");
+            return checkStatus;
+        }
+        taskForm.setEquipmentId(selectDeviceId);
 
-    public static DeviceTemporaryTaskFargment newInstance() {
-        return new DeviceTemporaryTaskFargment();
+        String releaseName = taskName.getText().toString().trim();
+        if (releaseName.length() == 0){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","任务名称不能为空！");
+            return checkStatus;
+        }
+        taskForm.setReleaseName(releaseName);
+        taskForm.setReleaseBegint(taskStartTime.getText().toString()+":00");
+        taskForm.setReleaseEndt(taskEndTime.getText().toString()+":00");
+
+        String releaseRemark = taskDesc.getText().toString().trim();
+        if (releaseRemark.length() == 0){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","任务备注不能为空！");
+            return checkStatus;
+        }
+        taskForm.setReleaseRemark(releaseRemark);
+
+        if (selectUsers.size() > 0){
+            List<Map<String,String>> listStr = new ArrayList<>();
+            for (int i=0;i<selectUsers.size();i++){
+                Map<String,String> user = new HashMap<>();
+                user.put("userId", String.valueOf(selectUsers.get(i).getUserId()));
+                listStr.add(user);
+            }
+            taskForm.setListStr(JSON.toJSONString(listStr));
+        }
+        if (feedbackJSON == null){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","任务反馈项不能为空！");
+            return checkStatus;
+        }
+        taskForm.setFeedbackJSON(feedbackJSON);
+        taskForm.setReleaseTaskType(1);
+        checkStatus.put("status","success");
+        checkStatus.put("msg","完成验证！");
+        return checkStatus;
     }
+    public UpdateTemporaryTaskBean getFormData() {
+        return taskForm;
+    }
+
 }

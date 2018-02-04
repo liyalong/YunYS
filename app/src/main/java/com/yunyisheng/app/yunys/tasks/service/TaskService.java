@@ -155,8 +155,79 @@ public interface TaskService {
     Flowable<BaseModel> assignTask(@Path("projectId") String projectId,
                                    @Field("userlist") String userList,
                                    @Field("releaseId") String releaseId);
+
+    /**
+     * 查询任务表单
+     * @param projectId
+     * @return
+     */
     @FormUrlEncoded
     @POST("formBase/all")
-    Flowable<ProjectFormListModel> getProjectFormList();
+    Flowable<ProjectFormListModel> getProjectFormList(@Field("projectId") String projectId);
+
+    /**
+     * 保存临时任务
+     * @param projectId
+     * @param releaseTaskType
+     * @param releaseName
+     * @param releaseRemark
+     * @param releaseBegint
+     * @param releaseEndt
+     * @param listStr
+     * @param releaseBaseformId
+     * @param equipmentId
+     * @param feedbackJSON
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("createReleaseTask/{projectId}")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    Flowable<BaseModel> createReleaseTask(@Path("projectId") String projectId,
+                                          @Field("releaseTaskType") String releaseTaskType,
+                                          @Field("releaseName") String releaseName,
+                                          @Field("releaseRemark") String releaseRemark,
+                                          @Field("releaseBegint") String releaseBegint,
+                                          @Field("releaseEndt") String releaseEndt,
+                                          @Field("listStr") String listStr,
+                                          @Field("releaseBaseformId") String releaseBaseformId,
+                                          @Field("equipmentId") String equipmentId,
+                                          @Field("feedbackJSON") String feedbackJSON);
+
+    /**
+     * 保存周期任务
+     * @param projectId
+     * @param cycletaskId
+     * @param cycletaskName
+     * @param cycletaskRemark
+     * @param cycletaskStat
+     * @param cycletaskBegint
+     * @param cycletaskEndt
+     * @param corn
+     * @param cycletaskType
+     * @param equipmentId
+     * @param timeLength
+     * @param templateId
+     * @param userIds
+     * @param feedbackJSON
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("project/cycleTask/saveOrUpdateForProject/{projectId}")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    Flowable<BaseModel> createCycleTask(@Path("projectId") String projectId,
+                                        @Field("cycletaskId") int cycletaskId,
+                                        @Field("cycletaskName") String cycletaskName,
+                                        @Field("cycletaskRemark") String cycletaskRemark,
+                                        @Field("cycletaskStat") String cycletaskStat,
+                                        @Field("cycletaskBegint") String cycletaskBegint,
+                                        @Field("cycletaskEndt") String cycletaskEndt,
+                                        @Field("corn") String corn,
+                                        @Field("cycletaskType") String cycletaskType,
+                                        @Field("equipmentId") String equipmentId,
+                                        @Field("timeLength") String timeLength,
+                                        @Field("templateId") String templateId,
+                                        @Field("userIds") String userIds,
+                                        @Field("feedbackJSON") String feedbackJSON);
+
 
 }

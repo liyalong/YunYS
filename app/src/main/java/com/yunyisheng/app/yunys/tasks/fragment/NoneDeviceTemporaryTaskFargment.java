@@ -182,4 +182,6 @@ public class NoneDeviceTemporaryTaskFargment extends BaseFragement {
                 break;
         }
     }
+
+
 }

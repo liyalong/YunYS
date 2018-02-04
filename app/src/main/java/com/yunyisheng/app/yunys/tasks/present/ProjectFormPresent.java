@@ -15,8 +15,8 @@ import cn.droidlover.xdroidmvp.net.XApi;
  */
 
 public class ProjectFormPresent extends XPresent<SelectProjectForm> {
-    public void getProjectFormList(){
-        Api.taskService().getProjectFormList()
+    public void getProjectFormList(String projectId){
+        Api.taskService().getProjectFormList(projectId)
                 .compose(XApi.<ProjectFormListModel>getApiTransformer())
                 .compose(XApi.<ProjectFormListModel>getScheduler())
                 .compose(getV().<ProjectFormListModel>bindToLifecycle())
