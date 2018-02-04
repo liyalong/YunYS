@@ -81,12 +81,10 @@
                 android:gravity="center_horizontal">
 
                 <RadioButton
-                    android:id="@+id/rb_center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_weight="1"
-                    android:background="@drawable/btn_center_select"
                     android:button="@null"
                     android:checked="false"
                     android:textSize="12dp" />
@@ -126,6 +124,23 @@
                     android:textSize="12dp" />
             </RelativeLayout>
         </com.yunyisheng.app.yunys.utils.XRadioGroup>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_weight="1"
+                android:background="@drawable/btn_center_select"
+                android:button="@null"
+                android:checked="false"
+                android:textSize="12dp" />
+        </RelativeLayout>
     </RelativeLayout>
 
 

@@ -3,7 +3,6 @@ package com.yunyisheng.app.yunys.main.service;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.IBinder;
@@ -11,10 +10,19 @@ import android.os.Vibrator;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.yunyisheng.app.yunys.main.model.WarningMessageEvent;
+import com.yunyisheng.app.yunys.main.model.WarnningMessageBean;
 import com.yunyisheng.app.yunys.net.Api;
+import com.yunyisheng.app.yunys.utils.LogUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 
+import cn.droidlover.xdroidbase.cache.SharedPref;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -33,8 +41,6 @@ public class MessageService extends Service {
 	private static final String TAG = "MessageService";
 	
 	private boolean isRun;
-
-	MediaPlayer mMediaPlayer;
 	
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -56,6 +62,7 @@ public class MessageService extends Service {
     public void onDestroy() {
 		Log.i(TAG, "onDestroy:");
 	    isRun = false;
+	    startService(new Intent(this,MessageService.class));
         super.onDestroy();
     }
 
@@ -134,56 +141,27 @@ public class MessageService extends Service {
 				.build();
 
 
-//		GetRequest_Interface request = retrofit.create(GetRequest_Interface.class);
-//
-//		//对 发送请求 进行封装
-//		Call<Translation> call = request.getCall();
-//
-//
-//		call.enqueue(new Callback<Translation>() {
-//			//请求成功时回调
-//			@Override
-//			public void onResponse(Call<Translation> call, Response<Translation> response) {
-//				// 步骤7：处理返回的数据结果
-//				response.body().show();
-//			}
-//
-//			//请求失败时回调
-//			@Override
-//			public void onFailure(Call<Translation> call, Throwable throwable) {
-//				System.out.println("连接失败");
-//			}
-//		});
+		HomeService request = retrofit.create(HomeService.class);
+		int userid = SharedPref.getInstance(this).getInt("userid", 0);
+		//对 发送请求 进行封装
+		Call<WarnningMessageBean> call = request.getWarningSize(userid+"");
+        call.enqueue(new Callback<WarnningMessageBean>() {
+			@Override
+			public void onResponse(Call<WarnningMessageBean> call, Response<WarnningMessageBean> response) {
+				WarnningMessageBean body = response.body();
+				int respBody = body.getRespBody();
+				LogUtils.i("servicehflkdh",body.getRespBody()+"");
+				if (respBody>0){
+					doVibrator();
+				}
+				EventBus.getDefault().post(new WarningMessageEvent(respBody));
+			}
 
-//		HttpRequestUtil.getInstance().doGet(HttpUrlRes.GET_NEW+"?sessionId="+ TYUIKit.getSessionId(), new HttpRequestCallback() {
-//			@Override
-//			public void onSuccess(Object obj) {
-//				Log.i(TAG, "read success---"+obj);
-//				Intent intent = new Intent(MainActivity.class.getSimpleName());
-//				intent.putExtra("messageStr", (String)obj);
-//				TYUIKit.getContext().sendBroadcast(intent);
-//				int i ;
-//				try {
-//					JSONObject object = new JSONObject((String) obj);
-//					i = object.optInt("fwLevel",-1);
-//					if (i == 0) {
-//						playAudio();
-//						doVibrator();
-//					} else if(i == 1 || i == 2 || i == 3){
-//						doVibrator();
-//					}
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//
-//			@Override
-//			public void onFail(VolleyError volleyError) {
-////				Log.e(TAG, "onFail: ", volleyError);
-////				Toast.makeText(TYUIKit.getContext(), "消息处理异常", Toast.LENGTH_SHORT).show();
-////				readMessage();
-//			}
-//		},"lunxun"+(new Date()).getTime());
+			@Override
+			public void onFailure(Call<WarnningMessageBean> call, Throwable t) {
+
+			}
+		});
 	}
 
 	private static NetworkInfo getActiveNetworkInfo(Context context) {
@@ -200,5 +178,7 @@ public class MessageService extends Service {
 		Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 		vibrator.vibrate(1500);//振动两秒
 	}
+
+
 
 }

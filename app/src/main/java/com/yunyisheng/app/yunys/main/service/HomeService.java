@@ -14,6 +14,7 @@ import com.yunyisheng.app.yunys.main.model.ProjectFromWorkBean;
 import com.yunyisheng.app.yunys.main.model.ReportFormBean;
 import com.yunyisheng.app.yunys.main.model.RoleBean;
 import com.yunyisheng.app.yunys.main.model.SendNoticeBean;
+import com.yunyisheng.app.yunys.main.model.WarnningMessageBean;
 import com.yunyisheng.app.yunys.project.model.ProjectListModel;
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 
@@ -27,6 +28,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 
@@ -305,4 +307,12 @@ public interface HomeService {
     @FormUrlEncoded
     @POST("message/updateMessage")
     Flowable<BaseModel> updateMessage(@Field("messageId") int messageId);
+
+    /**
+     * @author fuduo
+     * @time 2018/1/26  20:26
+     * @describe 获取项目报警总数
+     */
+    @POST("alarmLogging/isWarningForProjectByUserId/{userId}")
+    Call<WarnningMessageBean> getWarningSize(@Path("userId") String userId);
 }

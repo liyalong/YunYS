@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -17,6 +18,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 
@@ -24,6 +26,8 @@ import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.main.fragement.HomeFragement;
+import com.yunyisheng.app.yunys.main.model.WarningMessageEvent;
+import com.yunyisheng.app.yunys.main.service.MessageService;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.fragement.ProjectFragement;
 import com.yunyisheng.app.yunys.schedule.fragement.ScheduleTaskFragement;
@@ -39,6 +43,10 @@ import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.XRadioGroup;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 
@@ -74,6 +82,8 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     RadioButton rbMine;
     @BindView(R.id.radioGroup1)
     XRadioGroup radioGroup1;
+    @BindView(R.id.img_oval)
+    ImageView imgOval;
     private boolean initiated = false;
     private long exitTime = 0;
 
@@ -98,14 +108,38 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 
     @Override
     public void initView() {
+        EventBus.getDefault().register(this);
         ButterKnife.bind(this);
         checkToken();
         initTab();
+        rbCenter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createSelectTaskDialog(MainActivity.this);
+                rbShouye.setChecked(false);
+                rbTask.setChecked(false);
+                rbXiangmu.setChecked(false);
+                rbMine.setChecked(false);
+            }
+        });
+    }
+
+    //订阅方法，当接收到事件的时候，会调用该方法
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(WarningMessageEvent messageEvent) {
+        int size = messageEvent.getSize();
+        if (size > 0) {
+            imgOval.setVisibility(View.VISIBLE);
+        } else {
+            imgOval.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
     public void initAfter() {
-
+        Intent intent=new Intent(MainActivity.this, MessageService.class);
+        startService(intent);
     }
 
     public void changerTask() {
@@ -116,6 +150,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         transaction.replace(R.id.content_main, scheduleTaskFragement);
         transaction.commit();
         rbTask.setChecked(true);
+
     }
 
     @Override
@@ -153,9 +188,6 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                     projectFragment = new ProjectFragement();
                 }
                 transaction.replace(R.id.content_main, projectFragment);
-                break;
-            case R.id.rb_center:
-                createSelectTaskDialog(MainActivity.this);
                 break;
             case R.id.rb_task:
                 if (scheduleTaskFragement == null) {
@@ -214,6 +246,13 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         RelativeLayout rl_close = (RelativeLayout) view1
                 .findViewById(R.id.rl_close);
 
+        mSelectTask.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                rbCenter.setChecked(false);
+            }
+        });
+
         rl_shebei_task.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -262,7 +301,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                                     Intent intent) {
         try {
             if (requestCode == 1 && resultCode == RESULT_OK) {
-                Uri contentUri = FileProvider.getUriForFile(MainActivity.this,"com.yunyisheng.app.yunys.fileprovider",DialogManager.tempFile);
+                Uri contentUri = FileProvider.getUriForFile(MainActivity.this, "com.yunyisheng.app.yunys.fileprovider", DialogManager.tempFile);
                 startPhotoZoom(contentUri, 150);
             } else if (requestCode == 2) {// 相册
                 if (intent != null) {
@@ -356,8 +395,8 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
             public void onResponse(Call<BaseModel> call, Response<BaseModel> response) {
                 String msg = response.body().getRespMsg();
                 int code = response.body().getRespCode();
-                if (code==200){
-                    if (myFragment!=null){
+                if (code == 200) {
+                    if (myFragment != null) {
                         myFragment.setNewHead();
                     }
                 }
@@ -372,6 +411,12 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
             }
         });
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -395,5 +440,4 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         }
         return super.dispatchKeyEvent(event);
     }
-
 }
