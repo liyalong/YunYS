@@ -222,7 +222,6 @@
         <activity
             android:name=".project.activity.TaskDetailActivity"
             android:screenOrientation="portrait" />
-        android:screenOrientation="portrait" />
         <activity
             android:name=".project.activity.RenwuFankuiFormActivity"
             android:screenOrientation="portrait" />
@@ -234,6 +233,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.SelectProjectDeviceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tasks.activity.SelectProjectForm"
             android:screenOrientation="portrait" />
     </application>
 

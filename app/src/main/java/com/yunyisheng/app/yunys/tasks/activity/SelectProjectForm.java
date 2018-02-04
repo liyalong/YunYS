@@ -12,6 +12,7 @@ import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.tasks.adapter.ProjectFormListAdapter;
 import com.yunyisheng.app.yunys.tasks.bean.ProjectFormBean;
 import com.yunyisheng.app.yunys.tasks.model.ProjectFormListModel;
+import com.yunyisheng.app.yunys.tasks.present.SelectProjectPresen;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import java.util.List;
@@ -25,7 +26,7 @@ import cn.droidlover.xdroidmvp.mvp.XPresent;
  * 选择工单列表
  */
 
-public class SelectProjectForm extends BaseActivity {
+public class SelectProjectForm extends BaseActivity<SelectProjectPresen> {
 
 
     @BindView(R.id.img_back)
@@ -41,6 +42,7 @@ public class SelectProjectForm extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
+
     }
 
     @Override
@@ -54,8 +56,8 @@ public class SelectProjectForm extends BaseActivity {
     }
 
     @Override
-    public XPresent bindPresent() {
-        return null;
+    public SelectProjectPresen bindPresent() {
+        return  new SelectProjectPresen();
     }
 
     @Override
