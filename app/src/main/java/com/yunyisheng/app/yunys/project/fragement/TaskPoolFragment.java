@@ -322,7 +322,6 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
         lookTaskInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO 查看任务反馈项
                 if (clickTask.getReleaseFormId() == null){
                     Router.newIntent(context)
                             .to(RenwuFankuiFormActivity.class)
