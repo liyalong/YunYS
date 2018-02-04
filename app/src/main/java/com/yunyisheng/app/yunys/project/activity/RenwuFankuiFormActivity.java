@@ -132,8 +132,8 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                     LinearLayout.LayoutParams.WRAP_CONTENT);
             LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                     1);
-            LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(100,
-                    100);
+            LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(170,
+                    170);
             if (type == 1) {
                 TextView name = new TextView(this);
                 name.setPadding(0, 10, 0, 0);
