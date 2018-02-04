@@ -27,6 +27,7 @@ import com.yunyisheng.app.yunys.project.activity.RenwuFankuiFormActivity;
 import com.yunyisheng.app.yunys.project.activity.TaskDetailActivity;
 import com.yunyisheng.app.yunys.project.adapter.SpinnerAdapter;
 import com.yunyisheng.app.yunys.project.model.TaskListModel;
+import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.MyPushTaskChildListActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectUserListActivity;
 import com.yunyisheng.app.yunys.tasks.adapter.TaskAdapter;
@@ -63,7 +64,7 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
     private int PAGE_NUM = 1;
     private int PAGE_SIZE = 10;
     private String projectId;
-    private int SELECT_TYPE = 1;  //选择项：1待认领，2待完成，3已发布
+    private int SELECT_TYPE = 1;  //选择项：1待认领，2待完成，3已发布 4已完成
 
     private TaskAdapter taskAdapter;
     private List<TaskBean> dataList = new ArrayList<>();
@@ -80,14 +81,13 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
         sList.add(new SpinnerBean("待认领",0));
         sList.add(new SpinnerBean("待完成",0));
         sList.add(new SpinnerBean("已发布",0));
+        sList.add(new SpinnerBean("已完成",0));
         tasksType.setDropDownWidth(ScreenUtils.getScreenHeight(TaskPoolFragment.super.context));
         SpinnerAdapter adapter = new SpinnerAdapter(TaskPoolFragment.super.context,sList);
         tasksType.setAdapter(adapter);
         tasksType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                ToastUtils.showLongToast("你点击的是:"+sList.get(i).getSptype());
-                XLog.d("selectedId",String.valueOf(i));
                 PAGE_NUM = 1;
                 switch (i){
                     case 0:
@@ -98,6 +98,9 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
                         break;
                     case 2:
                         SELECT_TYPE = 3;
+                        break;
+                    case 3:
+                        SELECT_TYPE = 9;
                         break;
                 }
 
@@ -173,7 +176,7 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
     }
 
     public void setAdapter(TaskListModel taskListModel){
-        if (taskListModel.getRespBody().size() > 0){
+        if (taskListModel.getRespBody().size() > 0 && taskListModel.getRespBody() != null){
             if (PAGE_NUM == 1){
                 dataList.clear();
                 dataList.addAll(taskListModel.getRespBody());
@@ -185,9 +188,9 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
             }
         }else {
             if (PAGE_NUM == 1){
-                if (taskAdapter != null){
-                    taskAdapter.clearData();
-                }
+                dataList.clear();
+                taskAdapter = new TaskAdapter(context,dataList,SELECT_TYPE,this);
+                taskListView.setAdapter(taskAdapter);
                 ToastUtils.showToast("暂无数据！");
             }else {
                 ToastUtils.showToast("暂无更多数据");
@@ -257,12 +260,21 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
                     lookTaskChildInfo.setVisibility(View.VISIBLE);
                 }
                 break;
+            case 9:
+                lookTaskInfo.setVisibility(View.VISIBLE);
+                break;
         }
         //编辑任务
         editTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO 跳转编辑任务
+                Router.newIntent(context)
+                        .to(CreateDeviceTaskAcitvity.class)
+                        .putInt("taskType",1)
+                        .putString("taskId", String.valueOf(clickTask.getReleaseId()))
+                        .putString("projectId",projectId)
+                        .launch();
             }
         });
         //撤销任务

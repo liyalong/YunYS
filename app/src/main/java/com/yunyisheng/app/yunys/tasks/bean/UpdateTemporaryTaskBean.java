@@ -16,6 +16,7 @@ public class UpdateTemporaryTaskBean {
     private String equipmentId;     //设备id
     private String feedbackJSON;     //任务反馈项
     private String projectId;
+    private String feedbackBacknum; //反馈项id
 
     public void setProjectId(String projectId) {
         this.projectId = projectId;
@@ -105,5 +106,14 @@ public class UpdateTemporaryTaskBean {
 
     public void setFeedbackJSON(String feedbackJSON) {
         this.feedbackJSON = feedbackJSON;
+    }
+
+    public void setFeedbackBacknum(String feedbackBacknum) {
+        this.feedbackBacknum = feedbackBacknum;
+    }
+
+    public String getFeedbackBacknum() {
+
+        return feedbackBacknum;
     }
 }

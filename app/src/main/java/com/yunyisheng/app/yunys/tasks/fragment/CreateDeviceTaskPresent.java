@@ -17,11 +17,35 @@ import cn.droidlover.xdroidmvp.net.XApi;
  */
 
 public class CreateDeviceTaskPresent extends XPresent<CreateDeviceTaskAcitvity> {
-    //添加，更新临时任务
+    //添加临时任务
     public void updateDeviceTemporaryTask(UpdateTemporaryTaskBean task){
         Api.taskService().createReleaseTask(task.getProjectId(), String.valueOf(task.getReleaseTaskType()),
                 task.getReleaseName(),task.getReleaseRemark(),task.getReleaseBegint(),task.getReleaseEndt(),
                 task.getListStr(),task.getReleaseBaseformId(),task.getEquipmentId(),task.getFeedbackJSON())
+                .compose(XApi.<BaseModel>getApiTransformer())
+                .compose(XApi.<BaseModel>getScheduler())
+                .compose(getV().<BaseModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        ToastUtils.showToast("网络链接错误！");
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        if (baseModel.getRespCode() == 1){
+                            ToastUtils.showToast(baseModel.getRespMsg());
+                            return;
+                        }
+                        getV().checkUpdateDeviceTemporaryTaskStatus(baseModel);
+                    }
+                });
+    }
+    //修改临时任务
+    public void updateTemporaryTask(UpdateTemporaryTaskBean task){
+        Api.taskService().updateReleaseTask(task.getProjectId(),task.getReleaseId(), String.valueOf(task.getReleaseTaskType()),
+                task.getReleaseName(),task.getReleaseRemark(),task.getReleaseBegint(),task.getReleaseEndt(),
+                task.getListStr(),task.getReleaseBaseformId(),task.getEquipmentId(),task.getFeedbackBacknum())
                 .compose(XApi.<BaseModel>getApiTransformer())
                 .compose(XApi.<BaseModel>getScheduler())
                 .compose(getV().<BaseModel>bindToLifecycle())

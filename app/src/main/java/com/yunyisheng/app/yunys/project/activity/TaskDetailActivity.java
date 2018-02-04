@@ -18,6 +18,7 @@ import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
+import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectUserListActivity;
 import com.yunyisheng.app.yunys.tasks.adapter.TaskBackListAdapter;
 import com.yunyisheng.app.yunys.tasks.bean.ProjectUserBean;
@@ -149,8 +150,12 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                 break;
             case R.id.edit_task:
                 //编辑任务
-                //TODO 跳转编辑任务
-
+                Router.newIntent(context)
+                        .to(CreateDeviceTaskAcitvity.class)
+                        .putInt("taskType",1)
+                        .putString("taskId", String.valueOf(task.getTaskId()))
+                        .putString("projectId",projectId)
+                        .launch();
                 break;
             case R.id.remove_task:
                 //撤销任务
@@ -192,7 +197,6 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                 createTaskBackInfoDialog(context,task);
                 break;
             case R.id.task_back_info:
-                //TODO 查看任务反馈项
                 if (task.getReleaseFormId() == null){
                     Router.newIntent(context)
                             .to(RenwuFankuiFormActivity.class)
@@ -261,10 +265,17 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
             } else {
                 deviceTaskBox.setVisibility(View.GONE);
             }
-            if (task.getTaskSubmitTime() == null) {
+            if (task.getTaskStat() != 2) {
                 //判断超时，
                 String now = DateTimeDialogUtils.getCurrentDate("yyyy-MM-dd HH:mm:ss");
                 if (DateTimeDialogUtils.DateCompare(task.getReleaseEndt(), now) == true) {
+                    taskStatusIstimeout.setVisibility(View.VISIBLE);
+                }else {
+                    taskStatusIstimeout.setVisibility(View.GONE);
+                }
+            }else {
+                String now = DateTimeDialogUtils.getCurrentDate("yyyy-MM-dd HH:mm:ss");
+                if (DateTimeDialogUtils.DateCompare(task.getTaskSubmitTime(), now) == true) {
                     taskStatusIstimeout.setVisibility(View.VISIBLE);
                 }else {
                     taskStatusIstimeout.setVisibility(View.GONE);
@@ -301,6 +312,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                 }
                 break;
             case 3:
+            case 9:
                 if (task.getTaskStat() == 0){
                     taskStatus.setText(R.string.task_status_1);
                     caozuoBox.setVisibility(View.GONE);
@@ -442,5 +454,8 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
             ToastUtils.showToast("分派成功！");
             getP().getTask(projectId,taskId,taskType,userId);
         }
+    }
+    public void goFinish(){
+        finish();
     }
 }

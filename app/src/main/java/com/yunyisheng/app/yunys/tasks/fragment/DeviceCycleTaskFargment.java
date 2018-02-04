@@ -10,6 +10,8 @@ import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
+import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.CronResultActivity;
 import com.yunyisheng.app.yunys.tasks.activity.ProjectTemplateActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectActivity;
@@ -17,6 +19,8 @@ import com.yunyisheng.app.yunys.tasks.activity.SelectProjectDeviceActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectUserListActivity;
 import com.yunyisheng.app.yunys.tasks.bean.ProjectUserBean;
 import com.yunyisheng.app.yunys.tasks.bean.UpdateCycleTaskBean;
+import com.yunyisheng.app.yunys.tasks.model.TaskDetailModel;
+import com.yunyisheng.app.yunys.tasks.present.DeviceCycleTaskPresent;
 import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.customDatePicker.CustomDatePicker;
@@ -38,7 +42,7 @@ import cn.droidlover.xdroidmvp.mvp.XPresent;
  * Created by liyalong on 2018/1/13.
  */
 
-public class DeviceCycleTaskFargment extends BaseFragement {
+public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresent> {
 
     private final static int PROJECTREQUESTCODE = 1;
     private final static int DEVICEEQUESTCODE = 2;
@@ -80,11 +84,19 @@ public class DeviceCycleTaskFargment extends BaseFragement {
     private String cycleFeedbackJSON;
 
     UpdateCycleTaskBean cycleTaskForm;
+    private String cycleTaskId;
+    private String cycleProjectId;
 
     @Override
     public void initView() {
         ButterKnife.bind(this, context);
         initDatePicker();
+        CreateDeviceTaskAcitvity DeviceTaskAcitvity = (CreateDeviceTaskAcitvity) getActivity();
+        this.cycleTaskId = DeviceTaskAcitvity.getTaskEditId();
+        this.cycleProjectId = DeviceTaskAcitvity.getProjectId();
+        if (cycleTaskId != null){
+            getP().getCycleTaskInfo(cycleProjectId,cycleTaskId);
+        }
     }
 
     @Override
@@ -98,8 +110,8 @@ public class DeviceCycleTaskFargment extends BaseFragement {
     }
 
     @Override
-    public XPresent bindPresent() {
-        return null;
+    public DeviceCycleTaskPresent bindPresent() {
+        return new DeviceCycleTaskPresent();
     }
 
     @Override
@@ -297,5 +309,9 @@ public class DeviceCycleTaskFargment extends BaseFragement {
     }
     public UpdateCycleTaskBean getTaskFormData() {
         return cycleTaskForm;
+    }
+
+    public void setDetailData(TaskDetailModel taskDetailModel) {
+
     }
 }

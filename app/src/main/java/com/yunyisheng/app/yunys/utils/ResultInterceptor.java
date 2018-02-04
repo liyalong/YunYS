@@ -49,7 +49,7 @@ public class ResultInterceptor implements Interceptor {
                         Gson gson = new Gson();
                         baseModel = gson.fromJson(json,BaseModel.class);
                         Integer status = baseModel.getRespCode();
-                        if(status != null && status.equals(9)){
+                        if(status != null && status.equals(3)){
                             Router.newIntent((Activity) context)
                                     .to(LoginActivity.class)
                                     .launch();

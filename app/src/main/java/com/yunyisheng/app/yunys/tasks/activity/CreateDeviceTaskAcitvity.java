@@ -52,20 +52,41 @@ public class CreateDeviceTaskAcitvity extends BaseActivity<CreateDeviceTaskPrese
     DeviceCycleTaskFargment deviceCycleTaskFargment;
 
     private String taskId;
+    private int taskType;   //1、临时任务、2周期任务
+    private String projectId;
+
+
+
+
 
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
         this.taskId = getIntent().getStringExtra("taskId");
+        this.taskType = getIntent().getIntExtra("taskType",0);
+        this.projectId = getIntent().getStringExtra("projectId");
 
+        if (taskType == 0){
+            mtitle.add("临时任务");
+            mtitle.add("周期任务");
+            deviceTemporaryTaskFargment = new DeviceTemporaryTaskFargment();
+            deviceCycleTaskFargment = new DeviceCycleTaskFargment();
+            fragments.add(deviceTemporaryTaskFargment);
+            fragments.add(deviceCycleTaskFargment);
 
-        mtitle.add("临时任务");
-        mtitle.add("周期任务");
-        deviceTemporaryTaskFargment = new DeviceTemporaryTaskFargment();
-        deviceCycleTaskFargment = new DeviceCycleTaskFargment();
-        fragments.add(deviceTemporaryTaskFargment);
-        fragments.add(deviceCycleTaskFargment);
+        }else if (taskType == 1){
+            mtitle.add("临时任务");
+            deviceTemporaryTaskFargment = new DeviceTemporaryTaskFargment();
+            fragments.add(deviceTemporaryTaskFargment);
+            selectTabPostion = 0;
+        }else if (taskType == 2){
+            mtitle.add("周期任务");
+            deviceCycleTaskFargment = new DeviceCycleTaskFargment();
+            fragments.add(deviceCycleTaskFargment);
+            selectTabPostion = 1;
+        }
+
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, mtitle);
         deviceTasksViewpage.setAdapter(adapter);
         tablayout.setupWithViewPager(deviceTasksViewpage);
@@ -85,6 +106,7 @@ public class CreateDeviceTaskAcitvity extends BaseActivity<CreateDeviceTaskPrese
 
             }
         });
+
 
     }
 
@@ -134,7 +156,12 @@ public class CreateDeviceTaskAcitvity extends BaseActivity<CreateDeviceTaskPrese
             return;
         }
         UpdateTemporaryTaskBean taskValue = deviceTemporaryTaskFargment.getFormData();
-        getP().updateDeviceTemporaryTask(taskValue);
+        if (taskValue.getReleaseId() == null){
+            getP().updateDeviceTemporaryTask(taskValue);
+        }else {
+
+        }
+
     }
     public void updateCycleTask(){
         Map<String,String> checked = deviceCycleTaskFargment.checkFormResult();
@@ -158,5 +185,11 @@ public class CreateDeviceTaskAcitvity extends BaseActivity<CreateDeviceTaskPrese
             ToastUtils.showToast("提交成功！");
             finish();
         }
+    }
+    public String getTaskEditId() {
+        return taskId;
+    }
+    public String getProjectId(){
+        return projectId;
     }
 }
