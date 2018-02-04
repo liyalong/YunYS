@@ -47,6 +47,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
     private MyHandler handler = new MyHandler(this);
     private int taskId;
     private String releaseFormId;
+    private int seetype;
 
     @Override
     public void initView() {
@@ -54,6 +55,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
         Intent intent = getIntent();
         userId = intent.getIntExtra("userId",0);
         type = intent.getIntExtra("type", 0);
+        seetype = intent.getIntExtra("othertype", 0);
         scheduleid = intent.getStringExtra("scheduleid");
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +129,10 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 editText.setTextColor(getResources().getColor(R.color.color_666));
                 editText.setTextSize(14);
                 editText.setBackground(null);
+                if (seetype==2){
+                    editText.setFocusable(false);
+                    editText.setFocusableInTouchMode(false);
+                }
                 editText.setLayoutParams(lp);
                 if (dataBean.getValue() != null && !dataBean.getValue().equals("")) {
                     editText.setText(value);
@@ -154,6 +160,10 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                     radioButton.setTextSize(14);
                     radioButton.setId(Integer.parseInt(id + "1" + j));
                     radioButton.setText(valuetext);
+                    if (seetype==2){
+                        radioButton.setFocusable(false);
+                        radioButton.setClickable(false);
+                    }
                     radioGroup.addView(radioButton);
                 }
                 lineAll.addView(radioGroup);
@@ -176,25 +186,30 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                     checkBox.setId(Integer.parseInt(id + "2" + j));
                     // checkBox.setButtonDrawable(getResources().getDrawable(R.drawable.checkbox_selector));
                     checkBox.setText(valuetext);
+                    if (seetype==2){
+                        checkBox.setClickable(false);
+                    }
                     l.addView(checkBox);
                 }
                 lineAll.addView(l);
                 lineAll.addView(view);
             }
         }
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        Button button = new Button(this);
-        button.setLayoutParams(layoutParams);
-        button.setText("提交");
-        button.setBackgroundResource(R.drawable.btn_anpai_work);
-        button.setTextColor(getResources().getColor(R.color.white));
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handler.sendEmptyMessage(0);
-            }
-        });
-        lineAll.addView(button);
+        if (seetype == 1) {
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            Button button = new Button(this);
+            button.setLayoutParams(layoutParams);
+            button.setText("提交");
+            button.setBackgroundResource(R.drawable.btn_anpai_work);
+            button.setTextColor(getResources().getColor(R.color.white));
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    handler.sendEmptyMessage(0);
+                }
+            });
+            lineAll.addView(button);
+        }
     }
 
     class MyHandler extends Handler {

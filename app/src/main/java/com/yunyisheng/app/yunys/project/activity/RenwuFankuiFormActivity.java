@@ -70,6 +70,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
     private MyHandler handler = new MyHandler(this);
     private String imgstr;
     private String projectId;
+    private int seetype;
 
     @Override
     public void initView() {
@@ -77,6 +78,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
         Intent intent = getIntent();
         taskid = intent.getIntExtra("taskid", 0);
         projectId = intent.getStringExtra("projectId");
+        seetype = intent.getIntExtra("type", 0);
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +89,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
 
     @Override
     public void initAfter() {
-        getP().getScheduleDetail(projectId,taskid);
+        getP().getScheduleDetail(projectId, taskid);
     }
 
     @Override
@@ -147,6 +149,10 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 editText.setTextSize(14);
                 editText.setBackground(null);
                 editText.setLayoutParams(lp);
+                if (seetype==2){
+                    editText.setFocusable(false);
+                    editText.setFocusableInTouchMode(false);
+                }
 
                 View view = new View(this);
                 view.setLayoutParams(lpview);
@@ -174,6 +180,10 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                     radioButton.setTextSize(14);
                     radioButton.setId(Integer.parseInt(id + "1" + j));
                     radioButton.setText(valuetext);
+                    if (seetype==2){
+                        radioButton.setFocusable(false);
+                        radioButton.setClickable(false);
+                    }
                     radioGroup.addView(radioButton);
                 }
                 lineAll.addView(radioGroup);
@@ -202,6 +212,9 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                     checkBox.setId(Integer.parseInt(id + "2" + j));
                     // checkBox.setButtonDrawable(getResources().getDrawable(R.drawable.checkbox_selector));
                     checkBox.setText(valuetext);
+                    if (seetype==2){
+                        checkBox.setClickable(false);
+                    }
                     l.addView(checkBox);
                 }
                 lineAll.addView(l);
@@ -221,34 +234,40 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                     ImageView imageView = new ImageView(this);
                     imageView.setLayoutParams(imgview);
                     imageView.setBackgroundResource(R.mipmap.put_img);
-                    imageView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            imgstr = jsonObject.toString();
-                            DialogManager.createPickImageDialog(RenwuFankuiFormActivity.this);
-                        }
-                    });
+                    if (seetype == 1) {
+                        imageView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                imgstr = jsonObject.toString();
+                                DialogManager.createPickImageDialog(RenwuFankuiFormActivity.this);
+                            }
+                        });
+                    }
                     lineAll.addView(imageView);
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
             }
         }
 
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(0,20,0,0);
-        Button button = new Button(this);
-        button.setLayoutParams(layoutParams);
-        button.setText("提交");
-        button.setBackgroundResource(R.drawable.btn_anpai_work);
-        button.setTextColor(getResources().getColor(R.color.white));
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handler.sendEmptyMessage(0);
-            }
-        });
-        lineAll.addView(button);
+        if (seetype == 1) {
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(0, 20, 0, 0);
+            Button button = new Button(this);
+            button.setLayoutParams(layoutParams);
+            button.setText("提交");
+            button.setBackgroundResource(R.drawable.btn_anpai_work);
+            button.setTextColor(getResources().getColor(R.color.white));
+
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    handler.sendEmptyMessage(0);
+                }
+            });
+            lineAll.addView(button);
+        }
+
 
     }
 
@@ -263,56 +282,56 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-                if (msg.what == 0) {
-                    List<Map> l = new ArrayList();
-                    for (int i = 0; i < feedbackItemlist.size(); i++) {
-                        Map<String, String> map = new HashMap<>();
-                        RenWuFanKuiDetailBean.RespBodyBean.FeedbackItemBean feedbackItemBean = feedbackItemlist.get(i);
-                        int type = feedbackItemBean.getFeedbackType();
-                        int id = feedbackItemBean.getFeedbackItemId();
-                        if (type == 1) {
-                            EditText editText = findViewById(id);
-                            map.put(kongjianid, id + "");
-                            map.put(valuestr, editText.getText().toString().trim());
+            if (msg.what == 0) {
+                List<Map> l = new ArrayList();
+                for (int i = 0; i < feedbackItemlist.size(); i++) {
+                    Map<String, String> map = new HashMap<>();
+                    RenWuFanKuiDetailBean.RespBodyBean.FeedbackItemBean feedbackItemBean = feedbackItemlist.get(i);
+                    int type = feedbackItemBean.getFeedbackType();
+                    int id = feedbackItemBean.getFeedbackItemId();
+                    if (type == 1) {
+                        EditText editText = findViewById(id);
+                        map.put(kongjianid, id + "");
+                        map.put(valuestr, editText.getText().toString().trim());
+                        l.add(map);
+                    } else if (type == 2) {
+                        RadioGroup radioGroup = findViewById(id);
+                        map.put(kongjianid, id + "");
+                        RadioButton r = findViewById(radioGroup.getCheckedRadioButtonId());
+                        if (r != null) {
+                            String val = r.getText().toString();
+                            map.put(valuestr, val);
                             l.add(map);
-                        } else if (type == 2) {
-                            RadioGroup radioGroup = findViewById(id);
-                            map.put(kongjianid, id + "");
-                            RadioButton r = findViewById(radioGroup.getCheckedRadioButtonId());
-                            if (r != null) {
-                                String val = r.getText().toString();
-                                map.put(valuestr, val);
-                                l.add(map);
-                            } else {
-                                ToastUtils.showToast("您还有未选择的选项");
-                                return;
-                            }
-                        } else if (type == 3) {
-                            List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> model = feedbackItemBean.getModel();
-                            map.put(kongjianid, id + "");
-                            String val = "";
-                            if (model.size() < 1) return;
-                            for (int j = 0; j < model.size(); j++) {
-                                CheckBox cb = findViewById(Integer.parseInt(id + "2" + j));
-                                if (cb.isChecked()) {
-                                    val += cb.getText().toString() + ",";
-                                }
-                            }
-                            if (!val.equals("")) {
-                                if (val.lastIndexOf(",") == val.length() - 1)
-                                    val = val.substring(0, val.length() - 1);
-                                map.put(valuestr, val);
-                                l.add(map);
-                            } else {
-                                ToastUtils.showToast("您还有未选择的选项");
-                                return;
+                        } else {
+                            ToastUtils.showToast("您还有未选择的选项");
+                            return;
+                        }
+                    } else if (type == 3) {
+                        List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> model = feedbackItemBean.getModel();
+                        map.put(kongjianid, id + "");
+                        String val = "";
+                        if (model.size() < 1) return;
+                        for (int j = 0; j < model.size(); j++) {
+                            CheckBox cb = findViewById(Integer.parseInt(id + "2" + j));
+                            if (cb.isChecked()) {
+                                val += cb.getText().toString() + ",";
                             }
                         }
+                        if (!val.equals("")) {
+                            if (val.lastIndexOf(",") == val.length() - 1)
+                                val = val.substring(0, val.length() - 1);
+                            map.put(valuestr, val);
+                            l.add(map);
+                        } else {
+                            ToastUtils.showToast("您还有未选择的选项");
+                            return;
+                        }
                     }
-                    String str = JSONArray.toJSONString(l);
-                    LogUtils.i("gdsgfdsgfg", str);
-                    getP().getScheduleDetail(taskid, str);
                 }
+                String str = JSONArray.toJSONString(l);
+                LogUtils.i("gdsgfdsgfg", str);
+                getP().getScheduleDetail(taskid, str);
+            }
         }
     }
 
@@ -370,7 +389,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 int code = response.body().getRespCode();
                 if (code == 0) {
                     ToastUtils.showToast("上传成功!");
-                }else {
+                } else {
                     ToastUtils.showToast("上传失败!");
                 }
                 LogUtils.i("fjdlkf", msg + code);
