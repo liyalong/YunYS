@@ -56,7 +56,7 @@ public class ScheduleDeatilActivity extends BaseActivity<ScheduleDetailPresent> 
 
     @Override
     public void initAfter() {
-        getP().getScheduleDetail(userid,scheduleid,type);
+//        getP().getScheduleDetail(userid,scheduleid,type);
     }
 
     @Override

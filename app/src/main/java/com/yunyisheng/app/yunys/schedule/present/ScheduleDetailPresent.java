@@ -21,10 +21,42 @@ import cn.droidlover.xdroidmvp.net.XApi;
 public class ScheduleDetailPresent extends XPresent<DynamicFormActivity> {
 
     /**
-     * 14.2	查看日程详情
+     * 14.2	查看别人任务表单
      */
-    public void getScheduleDetail(int userid,String taskid,int type){
-        Api.scheduleService().getScheduleDetail(userid,taskid,type)
+    public void getOtherScheduleDetail(int userid,String taskid,int type){
+        Api.scheduleService().getOtherScheduleDetail(userid,taskid,type)
+                .compose(XApi.<ScheduleDetailBean>getApiTransformer())
+                .compose(XApi.<ScheduleDetailBean>getScheduler())
+                .compose(getV().<ScheduleDetailBean>bindToLifecycle())
+                .subscribe(new ApiSubscriber<ScheduleDetailBean>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        XLog.d("NET ERROR :"+error.toString());
+                        ToastUtils.showToast("网络请求错误！");
+                        return;
+                    }
+
+                    @Override
+                    public void onNext(ScheduleDetailBean scheduleDetailBean) {
+                        try {
+                            if (scheduleDetailBean.getRespCode() == 1){
+                                ToastUtils.showToast(scheduleDetailBean.getRespMsg());
+                                return;
+                            }
+                            getV().setFormDetail(scheduleDetailBean);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+    }
+
+    /**
+     * 14.2	查看自己任务表单
+     */
+    public void getMineScheduleDetail(String taskid,int type){
+        Api.scheduleService().getMineScheduleDetail(taskid,type)
                 .compose(XApi.<ScheduleDetailBean>getApiTransformer())
                 .compose(XApi.<ScheduleDetailBean>getScheduler())
                 .compose(getV().<ScheduleDetailBean>bindToLifecycle())
