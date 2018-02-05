@@ -51,7 +51,12 @@ public class WelcomeActivity extends BaseActivity<WelcomePagePresent> {
         if (!isFirstOpen) {
             netError();
         } else {
-            getP().getWelcomePage();
+            String token = SharedPref.getInstance(context).getString("TOKEN","");
+            if (token!=null&&!token.equals(""))      {
+                getP().getWelcomePage();
+            }else {
+                netError();
+            }
         }
     }
 

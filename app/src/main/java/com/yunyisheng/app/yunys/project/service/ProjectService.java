@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.project.service;
 
+import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.project.model.DeviceAlarmRulesModel;
 import com.yunyisheng.app.yunys.project.model.DeviceInfoModel;
 import com.yunyisheng.app.yunys.project.model.DeviceListModel;
@@ -254,6 +255,19 @@ public interface ProjectService {
     @FormUrlEncoded
     @POST("selectProcFormBasicDataList")
     Flowable<ProcessTaskFormDetailBean> getProcessTaskForm(@Field("processDefinitionId") String processDefinitionId);
+
+    /**
+     * 1.3	启动流程，并且设置当前流程实例的下一个办理人
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("startProInsWithObj")
+    Flowable<BaseModel> putProcessTaskForm(@Field("instanceFormStr") String instanceFormStr,
+                                           @Field("assignee") int assignee,
+                                           @Field("processDefinitionId") String processDefinitionId,
+                                           @Field("endTime") String endTime);
+
     /**
      * 获取项目报警历史记录，设备、工艺模块实时报警记录
      *

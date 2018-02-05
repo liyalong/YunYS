@@ -237,7 +237,7 @@ public class ProcessTaskFormDetailBean extends BaseModel {
             private String orgalign;
             private String optionStr;
             private String orgtype;
-            private List<?> options;
+            private List<opationValue> options;
 
             public int getId() {
                 return id;
@@ -439,13 +439,61 @@ public class ProcessTaskFormDetailBean extends BaseModel {
                 this.orgtype = orgtype;
             }
 
-            public List<?> getOptions() {
+            public List<opationValue> getOptions() {
                 return options;
             }
 
-            public void setOptions(List<?> options) {
+            public void setOptions(List<opationValue> options) {
                 this.options = options;
             }
         }
+
+        public static class opationValue{
+
+            /**
+             * value : 单选1
+             * type : radio
+             * checked : checked
+             * name : data_3
+             */
+
+            private String value;
+            private String type;
+            private String checked;
+            private String name;
+
+            public String getValue() {
+                return value;
+            }
+
+            public void setValue(String value) {
+                this.value = value;
+            }
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public String getChecked() {
+                return checked;
+            }
+
+            public void setChecked(String checked) {
+                this.checked = checked;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+        }
+
     }
 }
