@@ -16,7 +16,7 @@ import cn.droidlover.xdroidmvp.net.XApi;
 
 public class ProcessFormListPresent extends XPresent<SelectProcessFormActivity> {
     public void getProcessFormList(){
-        Api.taskService().getProecssList(1,999,"88d3c7fccd154c66861621c45ed4d75e")
+        Api.taskService().getProecssList(1,999)
                 .compose(XApi.<ProcessFormListModel>getApiTransformer())
                 .compose(XApi.<ProcessFormListModel>getScheduler())
                 .compose(getV().<ProcessFormListModel>bindToLifecycle())

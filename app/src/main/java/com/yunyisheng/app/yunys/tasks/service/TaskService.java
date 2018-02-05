@@ -267,8 +267,7 @@ public interface TaskService {
     @FormUrlEncoded
     @POST("selectEnterpriseActActivate")
     Flowable<ProcessFormListModel> getProecssList(@Field("pageNum") int pageNum,
-                                                  @Field("pageSize") int pageSize,
-                                                  @Field("enterpriseId") String enterpriseId);
+                                                  @Field("pageSize") int pageSize);
 
     /**
      * 获取企业所有用户列表
