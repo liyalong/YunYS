@@ -74,7 +74,6 @@ public class MyProjectFargment extends BaseFragement<MyProjectPresent> {
         myProjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                XLog.d(i+"-----"+l);
                 ProjectBean item = mList.get(i-1);
                 XLog.d(item.toString());
                 Router.newIntent(context)

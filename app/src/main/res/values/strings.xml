@@ -169,6 +169,8 @@
     <string name="alarm_history_type">报警类型：</string>
     <string name="device_nums">设备数量：</string>
     <string name="model_status">使用状态：</string>
+    <string name="alarm_history_type_1">设备报警</string>
+    <string name="alarm_history_type_2">工艺模块报警</string>
     <!-- 使用状态 -->
     <string name="enable">启用</string>
     <string name="disable">禁用</string>
@@ -279,6 +281,10 @@
     <string name="alarm_rules_level_2">轻度</string>
     <string name="alarm_rules_level_3">重度</string>
     <string name="alarm_rules_level_4">测试</string>
+    <!--告警处理状态 -->
+    <string name="alarm_handle_type_1">触发</string>
+    <string name="alarm_handle_type_2">自动恢复</string>
+    <string name="alarm_handle_type_3">手动复位</string>
     <!-- 周期任务 -->
     <string name="device_cycle_task_status_1">正常</string>
     <string name="device_cycle_task_status_2">禁用</string>

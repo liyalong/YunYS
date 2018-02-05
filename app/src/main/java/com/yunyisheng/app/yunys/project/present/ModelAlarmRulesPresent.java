@@ -31,6 +31,7 @@ public class ModelAlarmRulesPresent extends XPresent<ModelAlarmRulesActivity> {
                     public void onNext(ModelAlarmRulesListModel modelAlarmRulesListModel) {
                         if (modelAlarmRulesListModel.getRespCode() == 1){
                             ToastUtils.showToast(modelAlarmRulesListModel.getRespMsg());
+                            getV().initRefresh();
                             return;
                         }
                         getV().setAdapter(modelAlarmRulesListModel);

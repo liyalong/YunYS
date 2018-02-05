@@ -31,6 +31,7 @@ public class ModelDeviceListPresent extends XPresent<ModelDeviceListActivity> {
                     public void onNext(DeviceListModel deviceListModel) {
                         if (deviceListModel.getRespCode() == 1){
                             ToastUtils.showToast(deviceListModel.getRespMsg());
+                            getV().initRefresh();
                             return;
                         }
                         getV().setAdapter(deviceListModel);

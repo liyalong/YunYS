@@ -43,13 +43,20 @@ public class MyProjectListAdapter extends SimpleListAdapter<ProjectBean, MyProje
             final ProjectBean projectBean = data.get(position);
             holder.projectName.setText(projectBean.getProjectName());
             holder.projectCreateUser.setText(projectBean.getProjectLeader());
-            holder.projectErrorLayout.setVisibility(View.GONE);
+            if (item.getUnSeeTaskNum() != null){
+                holder.projectNewtaskLayout.setVisibility(View.VISIBLE);
+                holder.projectNewtaskNums.setText(item.getUnSeeTaskNum().toString());
+            }else {
+                holder.projectErrorLayout.setVisibility(View.GONE);
+            }
+            if (item.getWaringNum() != null){
+                holder.projectErrorLayout.setVisibility(View.VISIBLE);
+                holder.projectErrorNums.setText(item.getWaringNum().toString());
+            }
             holder.projectNewtaskLayout.setVisibility(View.GONE);
             holder.projectCreateTime.setText(projectBean.getProjectCreate());
             holder.projectDesc.setText(projectBean.getProjectRemarks());
     }
-
-
 
     public static class ViewHolder{
         @BindView(R.id.project_name)

@@ -38,6 +38,7 @@ public class KnowledgeListPresent extends XPresent<KnowledgeListActivity> {
                     public void onNext(KnowledgeListModel knowledgeListModel) {
                         if (knowledgeListModel.getRespCode() == 1){
                             ToastUtils.showToast(knowledgeListModel.getErrorMsg());
+                            getV().initRefresh();
                             return;
                         }
                         getV().setAdapter(knowledgeListModel);
@@ -68,6 +69,7 @@ public class KnowledgeListPresent extends XPresent<KnowledgeListActivity> {
                     public void onNext(KnowledgeListModel knowledgeListModel) {
                         if (knowledgeListModel.getRespCode() == 1){
                             ToastUtils.showToast(knowledgeListModel.getErrorMsg());
+                            getV().initRefresh();
                             return;
                         }
                         getV().setAdapter(knowledgeListModel);

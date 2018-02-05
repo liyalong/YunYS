@@ -215,7 +215,7 @@ public interface ProjectService {
      * @return
      */
     @FormUrlEncoded
-    @POST("project/pcm/knowList/{projectId}")
+    @POST("project/pcm/warnList/{projectId}")
     Flowable<ModelAlarmRulesListModel> getModelAlarmRulesList(@Path("projectId") String projectId,
                                                               @Field("pcmId") String modelId,
                                                               @Field("pageNum") int pageNum,
@@ -231,6 +231,19 @@ public interface ProjectService {
     @POST("project/knowledge/info/{projectId}")
     Flowable<KnowledgDetailModel> getKnowledgeDetail(@Path("projectId") String projectId,
                                                      @Field("knowledgeId") String knowledgeId);
+
+    /**
+     * 获取项目的报警记录列表
+     * @param projectId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("alarmLogging/getAlarmLogging/{projectId}")
+    Flowable<DeviceWarningListModel> getProjectWarningLists(@Path("projectId") String projectId,
+                                                            @Field("pageNum") int pageNum,
+                                                            @Field("pageSize") int pageSize);
 
 
 

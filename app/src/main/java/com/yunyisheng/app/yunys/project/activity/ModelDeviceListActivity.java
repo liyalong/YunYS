@@ -138,10 +138,12 @@ public class ModelDeviceListActivity extends BaseActivity<ModelDeviceListPresent
                 ToastUtils.showToast("暂无更多数据！");
             }
         }
+        initRefresh();
+    }
+    public void initRefresh(){
         modelDeviceListView.onRefreshComplete();
         modelDeviceListView.computeScroll();
     }
-
     @Override
     public void click(View v) {
         int position = (Integer) v.getTag();

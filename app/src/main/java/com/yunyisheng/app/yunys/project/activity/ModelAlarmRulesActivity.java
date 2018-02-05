@@ -102,14 +102,15 @@ public class ModelAlarmRulesActivity extends BaseActivity<ModelAlarmRulesPresent
             }
         } else {
             if (PAGE_NUM == 1) {
-                if (PAGE_NUM == 1) {
-                    ToastUtils.showToast("暂无数据！");
-                } else {
-                    PAGE_NUM -= 1;
-                    ToastUtils.showToast("暂无更多数据！");
-                }
+                ToastUtils.showToast("暂无数据！");
+            } else {
+                PAGE_NUM -= 1;
+                ToastUtils.showToast("暂无更多数据！");
             }
         }
+        initRefresh();
+    }
+    public void initRefresh(){
         modelAlarmRulesList.onRefreshComplete();
         modelAlarmRulesList.computeScroll();
     }

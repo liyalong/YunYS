@@ -72,7 +72,7 @@ public class KnowledgeListActivity extends BaseActivity<KnowledgeListPresent> {
                 if (deviceId != null){
                     getP().getKnowledgeList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
                 }else{
-                    getP().getKnowledgeList(projectId,modelId,PAGE_NUM,PAGE_SIZE);
+                    getP().getModelKnowledgeList(projectId,modelId,PAGE_NUM,PAGE_SIZE);
                 }
             }
             @Override
@@ -81,7 +81,7 @@ public class KnowledgeListActivity extends BaseActivity<KnowledgeListPresent> {
                 if (deviceId != null){
                     getP().getKnowledgeList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
                 }else{
-                    getP().getKnowledgeList(projectId,modelId,PAGE_NUM,PAGE_SIZE);
+                    getP().getModelKnowledgeList(projectId,modelId,PAGE_NUM,PAGE_SIZE);
                 }
             }
         });
@@ -107,7 +107,7 @@ public class KnowledgeListActivity extends BaseActivity<KnowledgeListPresent> {
             getP().getKnowledgeList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
         }else if (modelId != null){
             knowledgeTitle.setText(modelName+"相关知识");
-            getP().getKnowledgeList(projectId,modelId,PAGE_NUM,PAGE_SIZE);
+            getP().getModelKnowledgeList(projectId,modelId,PAGE_NUM,PAGE_SIZE);
         }
 
     }
@@ -154,9 +154,13 @@ public class KnowledgeListActivity extends BaseActivity<KnowledgeListPresent> {
             if (PAGE_NUM == 1){
                 ToastUtils.showToast("暂无数据！");
             }else {
+                PAGE_NUM -= 1;
                 ToastUtils.showToast("暂无更多数据！");
             }
         }
+        initRefresh();
+    }
+    public void initRefresh(){
         knowledgeList.onRefreshComplete();
         knowledgeList.computeScroll();
     }

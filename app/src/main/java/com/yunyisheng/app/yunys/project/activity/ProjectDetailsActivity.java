@@ -27,6 +27,7 @@ import static com.yunyisheng.app.yunys.utils.ScreenUtils.setIndicator;
 
 /**
  * Created by liyalong on 2018/1/18.
+ * 项目详情
  */
 
 public class ProjectDetailsActivity extends BaseActivity {
