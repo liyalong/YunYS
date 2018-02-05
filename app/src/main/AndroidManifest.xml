@@ -246,6 +246,9 @@
         <activity
             android:name=".tasks.activity.SelectProcessFormActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".tasks.activity.ProcessTaskFormActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

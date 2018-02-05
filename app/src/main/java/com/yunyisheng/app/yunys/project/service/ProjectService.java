@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.project.service;
 
+import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.project.model.DeviceAlarmRulesModel;
 import com.yunyisheng.app.yunys.project.model.DeviceInfoModel;
 import com.yunyisheng.app.yunys.project.model.DeviceListModel;
@@ -12,6 +13,7 @@ import com.yunyisheng.app.yunys.project.model.ModelAlarmRulesListModel;
 import com.yunyisheng.app.yunys.project.model.ModelDetailModel;
 import com.yunyisheng.app.yunys.project.model.ModelListModel;
 import com.yunyisheng.app.yunys.project.model.PeriodicTaskListModel;
+import com.yunyisheng.app.yunys.project.model.ProcessTaskFormDetailBean;
 import com.yunyisheng.app.yunys.project.model.ProjectListModel;
 
 import io.reactivex.Flowable;
@@ -27,6 +29,7 @@ import retrofit2.http.Path;
 public interface ProjectService {
     /**
      * 获取公司项目列表
+     *
      * @param pageNum
      * @param pageSize
      * @return
@@ -38,6 +41,7 @@ public interface ProjectService {
 
     /**
      * 获取我参与的项目列表
+     *
      * @param pageNum
      * @param pageSize
      * @param projectName
@@ -51,6 +55,7 @@ public interface ProjectService {
 
     /**
      * 获取项目下的设备列表
+     *
      * @param projectId
      * @param pageNum
      * @param PageSize
@@ -66,6 +71,7 @@ public interface ProjectService {
 
     /**
      * 获取项目下工艺模块列表
+     *
      * @param projectId
      * @param pageNum
      * @param pageSize
@@ -79,6 +85,7 @@ public interface ProjectService {
 
     /**
      * 获取设备的实时报警列表
+     *
      * @param deviceId
      * @return
      */
@@ -88,6 +95,7 @@ public interface ProjectService {
 
     /**
      * 获取设备的实时指标列表
+     *
      * @param deviceId
      * @return
      */
@@ -97,6 +105,7 @@ public interface ProjectService {
 
     /**
      * 获取设备的基本信息
+     *
      * @param deviceId
      * @return
      */
@@ -107,6 +116,7 @@ public interface ProjectService {
 
     /**
      * 获取设备的报警规则列表
+     *
      * @param projectId
      * @param deviceId
      * @param pageNum
@@ -122,6 +132,7 @@ public interface ProjectService {
 
     /**
      * 获取设备相关知识列表
+     *
      * @param projectId
      * @param deviceId
      * @param pageNum
@@ -137,6 +148,7 @@ public interface ProjectService {
 
     /**
      * 获取设备的备件列表
+     *
      * @param projectId
      * @param deviceId
      * @param pageNum
@@ -152,6 +164,7 @@ public interface ProjectService {
 
     /**
      * 获取设备的周期任务类别
+     *
      * @param projectId
      * @param deviceId
      * @param pageNum
@@ -167,6 +180,7 @@ public interface ProjectService {
 
     /**
      * 获取工艺模块下的设备列表
+     *
      * @param projectId
      * @param modelId
      * @param pageNum
@@ -182,6 +196,7 @@ public interface ProjectService {
 
     /**
      * 获取工艺模块详情
+     *
      * @param projectId
      * @param modelId
      * @return
@@ -193,6 +208,7 @@ public interface ProjectService {
 
     /**
      * 获取工艺模块相关知识列表
+     *
      * @param projectId
      * @param modelId
      * @param pageNum
@@ -208,6 +224,7 @@ public interface ProjectService {
 
     /**
      * 获取工艺模块相关报警规则列表
+     *
      * @param projectId
      * @param modelId
      * @param pageNum
@@ -223,6 +240,7 @@ public interface ProjectService {
 
     /**
      * 获取知识详情
+     *
      * @param projectId
      * @param knowledgeId
      * @return
@@ -234,6 +252,7 @@ public interface ProjectService {
 
     /**
      * 获取项目的报警记录列表
+     *
      * @param projectId
      * @param pageNum
      * @param pageSize
@@ -245,7 +264,26 @@ public interface ProjectService {
                                                             @Field("pageNum") int pageNum,
                                                             @Field("pageSize") int pageSize);
 
+    /**
+     * 1.3	1.2	获取表单模版下的所有控件
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("selectProcFormBasicDataList")
+    Flowable<ProcessTaskFormDetailBean> getProcessTaskForm(@Field("processDefinitionId") String processDefinitionId);
 
+    /**
+     * 1.3	启动流程，并且设置当前流程实例的下一个办理人
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("startProInsWithObj")
+    Flowable<BaseModel> putProcessTaskForm(@Field("instanceFormStr") String instanceFormStr,
+                                           @Field("assignee") int assignee,
+                                           @Field("processDefinitionId") String processDefinitionId,
+                                           @Field("endTime") String endTime);
 
 
 }
