@@ -95,6 +95,7 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> impl
             @Override
             public void run() {
                 getP().getDeviceWarningList(projectId, 1, 999, deviceId);
+                getP().getDevicePlcValueList(projectId,deviceId);
 
             }
         }, 0, 10000);
@@ -225,7 +226,9 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> impl
     }
 
     public void setDevicePLCValueList(DevicePLCValueListModel devicePLCValueList) {
+        if (devicePLCValueList.getRespBody().size() > 0){
 
+        }
     }
 
     public void setProjectId(String projectId) {
