@@ -50,7 +50,7 @@ import static com.yunyisheng.app.yunys.utils.CommonUtils.getDayStartTime;
  * 用途：首页fragement
  */
 
-public class HomeFragement extends BaseFragement<HomePresent> {
+public class HomeFragement extends BaseFragement<HomePresent>{
     @BindView(R.id.rcy_banner)
     RecyclerBanner rcyBanner;
     @BindView(R.id.img_baobiao)
@@ -89,7 +89,7 @@ public class HomeFragement extends BaseFragement<HomePresent> {
     @Override
     public void initView() {
         rcyBanner.setContext((Activity) mContext);
-        ScrowUtil.listViewUpConfig(pullToRefreshListview);
+        ScrowUtil.listViewConfig(pullToRefreshListview);
         dayStartTime = getDayStartTime();
         dayEndTime = getDayEndTime();
         adapter = new HomeScheduleAdapter(mContext, list);
@@ -97,7 +97,9 @@ public class HomeFragement extends BaseFragement<HomePresent> {
         pullToRefreshListview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-
+                pageindex=1;
+                getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
+                getP().getBannerList();
             }
 
             @Override
@@ -110,18 +112,6 @@ public class HomeFragement extends BaseFragement<HomePresent> {
 
     @Override
     public void initAfter() {
-//        i++;
-//        urls.clear();
-//        if (i % 2 == 0) {
-//            urls.add(new Entity("http://pic.58pic.com/58pic/12/46/13/03B58PICXxE.jpg"));
-//            urls.add(new Entity("http://www.jitu5.com/uploads/allimg/121120/260529-121120232T546.jpg"));
-//            urls.add(new Entity("http://pic34.nipic.com/20131025/2531170_132447503000_2.jpg"));
-//            urls.add(new Entity("http://img5.imgtn.bdimg.com/it/u=3462610901,3870573928&fm=206&gp=0.jpg"));
-//        } else {
-//            urls.add(new Entity("http://img0.imgtn.bdimg.com/it/u=726278301,2143262223&fm=11&gp=0.jpg"));
-//            urls.add(new Entity("http://pic51.nipic.com/file/20141023/2531170_115622554000_2.jpg"));
-//            urls.add(new Entity("http://img3.imgtn.bdimg.com/it/u=2968209827,470106340&fm=21&gp=0.jpg"));
-//        }
         if (isonce) {
             isonce = false;
             getUserinfo();
@@ -251,6 +241,4 @@ public class HomeFragement extends BaseFragement<HomePresent> {
     public void stopRefresh() {
         pullToRefreshListview.onRefreshComplete();
     }
-
-
 }
