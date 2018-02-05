@@ -17,7 +17,7 @@
             android:background="@mipmap/login_icon_phone"/>
         <EditText
             android:id="@+id/et_account"
-            style="@style/LoginInput"
+            style="@style/LoginInputother"
             android:hint="@string/account"
             />
     </LinearLayout>
@@ -28,7 +28,7 @@
             android:background="@mipmap/login_icon_password"/>
         <EditText
             android:id="@+id/et_password"
-            style="@style/LoginInput"
+            style="@style/LoginInputother"
             android:inputType="textPassword"
             android:textColorHint="@color/white"
             android:hint="@string/password" />
@@ -60,15 +60,20 @@
     </LinearLayout>
     <Button
         android:id="@+id/btn_login"
-        style="@style/LoginInput.Button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_41"
+        android:background="@drawable/login_linearlayout_button_radios"
+        android:textColor="@color/color_login_button"
+        android:layout_marginLeft="@dimen/distance_35"
+        android:layout_marginRight="@dimen/distance_35"
         android:text="@string/login"
         />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="35dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginRight="@dimen/distance_35"
+        android:layout_marginLeft="@dimen/distance_35"
+        android:layout_marginTop="@dimen/distance_12"
         android:orientation="horizontal">
         <TextView
             android:id="@+id/register"

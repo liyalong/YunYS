@@ -31,7 +31,7 @@
             android:background="@mipmap/address"/>
         <TextView
             android:id="@+id/ed_company_address"
-            style="@style/LoginInput"
+            style="@style/LoginInputother"
             android:text="企业地址"
             android:layout_width="match_parent"
             android:textColor="@color/white"
@@ -51,7 +51,7 @@
             android:background="@mipmap/icon_user_name"/>
         <EditText
             android:id="@+id/company_lianxi_name"
-            style="@style/LoginInput"
+            style="@style/LoginInputother"
             android:hint="企业联系人"
             />
     </LinearLayout>
@@ -62,7 +62,7 @@
             android:background="@mipmap/login_icon_phone"/>
         <EditText
             android:id="@+id/phone_num"
-            style="@style/LoginInput"
+            style="@style/LoginInputother"
             android:hint="联系人电话"
             />
     </LinearLayout>
@@ -94,7 +94,12 @@
 
     <Button
         android:id="@+id/btn_register"
-        style="@style/LoginInput.Button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_41"
+        android:background="@drawable/login_linearlayout_button_radios"
+        android:textColor="@color/color_login_button"
+        android:layout_marginLeft="@dimen/distance_35"
+        android:layout_marginRight="@dimen/distance_35"
         android:text="@string/zhuce"
         />
     <LinearLayout
