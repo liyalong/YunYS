@@ -57,7 +57,7 @@ public class MySmallitemAdapter extends BaseAdapter {
         if (ed_beixuan.getTag() instanceof TextWatcher) {
             ed_beixuan.removeTextChangedListener((TextWatcher) ed_beixuan.getTag());
         }
-        ed_beixuan.setText(stringList.get(position).getDynamic_type_name());
+        ed_beixuan.setText(stringList.get(position).getDynamicTypeName());
         img_remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,10 +78,10 @@ public class MySmallitemAdapter extends BaseAdapter {
             public void afterTextChanged(Editable s) {
                 if (TextUtils.isEmpty(s)) {
                     stringList.get(position).setIndex(position);
-                    stringList.get(position).setDynamic_type_name("");
+                    stringList.get(position).setDynamicTypeName("");
                 } else {
                     stringList.get(position).setIndex(position);
-                    stringList.get(position).setDynamic_type_name(s.toString());
+                    stringList.get(position).setDynamicTypeName(s.toString());
                 }
             }
         };

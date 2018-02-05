@@ -8,23 +8,23 @@ package com.yunyisheng.app.yunys.tasks.model;
 
 public class ChildBean {
 
-    private String dynamic_type_name;
+    private String dynamicTypeName;
     private int index;
 
     @Override
     public String toString() {
         return "{" +
-                "dynamic_type_name='" + dynamic_type_name + '\'' +
+                "dynamicTypeName='" + dynamicTypeName + '\'' +
                 ", index=" + index +
                 '}';
     }
 
-    public String getDynamic_type_name() {
-        return dynamic_type_name;
+    public String getDynamicTypeName() {
+        return dynamicTypeName;
     }
 
-    public void setDynamic_type_name(String dynamic_type_name) {
-        this.dynamic_type_name = dynamic_type_name;
+    public void setDynamicTypeName(String dynamicTypeName) {
+        this.dynamicTypeName = dynamicTypeName;
     }
 
     public int getIndex() {

@@ -292,7 +292,7 @@ public class RenWuFanKuiDetailBean extends BaseModel {
             private int taskType;
             private int taskId;
             private String feedbackBacknum;
-            private Object feedbackVal;
+            private String feedbackVal;
 
             public int getFeedbackItemId() {
                 return feedbackItemId;
@@ -366,11 +366,11 @@ public class RenWuFanKuiDetailBean extends BaseModel {
                 this.feedbackBacknum = feedbackBacknum;
             }
 
-            public Object getFeedbackVal() {
+            public String getFeedbackVal() {
                 return feedbackVal;
             }
 
-            public void setFeedbackVal(Object feedbackVal) {
+            public void setFeedbackVal(String feedbackVal) {
                 this.feedbackVal = feedbackVal;
             }
         }

@@ -181,7 +181,6 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                             .to(DynamicFormActivity.class)
                             .putInt("type", task.getReleaseTaskType())
                             .putString("scheduleid", String.valueOf(task.getTaskId()))
-                            .putString("projectId",projectId)
                             .putInt("userId",userId)
                             .putInt("othertype",1)
                             .launch();
@@ -205,9 +204,8 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                             .to(DynamicFormActivity.class)
                             .putInt("type", task.getReleaseTaskType())
                             .putString("scheduleid", String.valueOf(task.getTaskId()))
-                            .putString("projectId",projectId)
                             .putInt("userId",userId)
-                            .putInt("type",2)
+                            .putInt("othertype",2)
                             .launch();
                 }
                 //查看执行情况

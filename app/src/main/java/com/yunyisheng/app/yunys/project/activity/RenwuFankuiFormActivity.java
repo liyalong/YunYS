@@ -1,6 +1,7 @@
 package com.yunyisheng.app.yunys.project.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
@@ -51,6 +52,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.yunyisheng.app.yunys.utils.CommonUtils.stringtoBitmap;
+
 /**
  * @author fuduo
  * @time 2018/2/1  1818:33* @describe
@@ -71,6 +74,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
     private String imgstr;
     private String projectId;
     private int seetype;
+    private ImageView image;
 
     @Override
     public void initView() {
@@ -130,6 +134,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
             RenWuFanKuiDetailBean.RespBodyBean.FeedbackItemBean feedbackItemBean = feedbackItemlist.get(i);
             int id = feedbackItemBean.getFeedbackItemId();
             int type = feedbackItemBean.getFeedbackType();
+            String feedbackVal = feedbackItemBean.getFeedbackVal();
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
             LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
@@ -143,21 +148,27 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 name.setTextColor(getResources().getColor(R.color.color_333));
                 name.setTextSize(15);
                 lineAll.addView(name);
-                EditText editText = new EditText(this);
-                editText.setId(id);
-                editText.setTextColor(getResources().getColor(R.color.color_666));
-                editText.setTextSize(14);
-                editText.setBackground(null);
-                editText.setLayoutParams(lp);
-                if (seetype==2){
-                    editText.setFocusable(false);
-                    editText.setFocusableInTouchMode(false);
-                }
 
+                if (seetype==2){
+                    TextView namevalue = new TextView(this);
+                    namevalue.setPadding(0, 10, 0, 0);
+                    namevalue.setTextColor(getResources().getColor(R.color.color_333));
+                    namevalue.setTextSize(13);
+                    namevalue.setText(feedbackVal);
+                    lineAll.addView(namevalue);
+                }else {
+                    EditText editText = new EditText(this);
+                    editText.setId(id);
+                    editText.setTextColor(getResources().getColor(R.color.color_666));
+                    editText.setTextSize(14);
+                    editText.setBackground(null);
+                    editText.setLayoutParams(lp);
+                    lineAll.addView(editText);
+                }
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
-                lineAll.addView(editText);
+
                 lineAll.addView(view);
             } else if (type == 2) {
                 TextView name = new TextView(this);
@@ -166,27 +177,37 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 name.setTextColor(getResources().getColor(R.color.color_333));
                 name.setTextSize(15);
                 lineAll.addView(name);
-                RadioGroup radioGroup = new RadioGroup(this);
-                radioGroup.setLayoutParams(lp);
-                radioGroup.setId(id);
-                radioGroup.setPadding(0, 10, 0, 0);
-                radioGroup.setOrientation(LinearLayout.VERTICAL);
-                List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> model = feedbackItemBean.getModel();
-                if (model.size() < 1) return;
-                for (int j = 0; j < model.size(); j++) {
-                    String valuetext = model.get(j).getDynamic_type_name();
-                    RadioButton radioButton = new RadioButton(this);
-                    radioButton.setTextColor(getResources().getColor(R.color.color_666));
-                    radioButton.setTextSize(14);
-                    radioButton.setId(Integer.parseInt(id + "1" + j));
-                    radioButton.setText(valuetext);
-                    if (seetype==2){
-                        radioButton.setFocusable(false);
-                        radioButton.setClickable(false);
+
+                if (seetype==2){
+                    TextView namevalue = new TextView(this);
+                    namevalue.setPadding(0, 10, 0, 0);
+                    namevalue.setTextColor(getResources().getColor(R.color.color_333));
+                    namevalue.setTextSize(13);
+                    namevalue.setText(feedbackVal);
+                    lineAll.addView(namevalue);
+                }else {
+                    RadioGroup radioGroup = new RadioGroup(this);
+                    radioGroup.setLayoutParams(lp);
+                    radioGroup.setId(id);
+                    radioGroup.setPadding(0, 10, 0, 0);
+                    radioGroup.setOrientation(LinearLayout.VERTICAL);
+                    List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> model = feedbackItemBean.getModel();
+                    if (model.size() < 1) return;
+                    for (int j = 0; j < model.size(); j++) {
+                        String valuetext = model.get(j).getDynamic_type_name();
+                        RadioButton radioButton = new RadioButton(this);
+                        radioButton.setTextColor(getResources().getColor(R.color.color_666));
+                        radioButton.setTextSize(14);
+                        radioButton.setId(Integer.parseInt(id + "1" + j));
+                        radioButton.setText(valuetext);
+                        if (seetype == 2) {
+                            radioButton.setFocusable(false);
+                            radioButton.setClickable(false);
+                        }
+                        radioGroup.addView(radioButton);
                     }
-                    radioGroup.addView(radioButton);
+                    lineAll.addView(radioGroup);
                 }
-                lineAll.addView(radioGroup);
             } else if (type == 3) {
                 TextView name = new TextView(this);
                 name.setPadding(0, 10, 0, 0);
@@ -194,56 +215,77 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 name.setTextColor(getResources().getColor(R.color.color_333));
                 name.setTextSize(15);
                 lineAll.addView(name);
-
-                LinearLayout l = new LinearLayout(this);
+                if (seetype==2){
+                    TextView namevalue = new TextView(this);
+                    namevalue.setPadding(0, 10, 0, 0);
+                    namevalue.setTextColor(getResources().getColor(R.color.color_333));
+                    namevalue.setTextSize(13);
+                    namevalue.setText(feedbackVal);
+                    lineAll.addView(namevalue);
+                }else {
+                    LinearLayout l = new LinearLayout(this);
 //                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                l.setId(id);
-                l.setOrientation(LinearLayout.VERTICAL);
+                    l.setId(id);
+                    l.setOrientation(LinearLayout.VERTICAL);
+                    List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> model = feedbackItemBean.getModel();
+                    if (model.size() < 1) return;
+                    for (int j = 0; j < model.size(); j++) {
+                        String valuetext = model.get(j).getDynamic_type_name();
+                        CheckBox checkBox = new CheckBox(this);
+                        checkBox.setTextColor(getResources().getColor(R.color.color_666));
+                        checkBox.setTextSize(14);
+                        checkBox.setId(Integer.parseInt(id + "2" + j));
+                        // checkBox.setButtonDrawable(getResources().getDrawable(R.drawable.checkbox_selector));
+                        checkBox.setText(valuetext);
+                        if (seetype == 2) {
+                            checkBox.setClickable(false);
+                        }
+                        l.addView(checkBox);
+                    }
+                    lineAll.addView(l);
+                }
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
-                List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> model = feedbackItemBean.getModel();
-                if (model.size() < 1) return;
-                for (int j = 0; j < model.size(); j++) {
-                    String valuetext = model.get(j).getDynamic_type_name();
-                    CheckBox checkBox = new CheckBox(this);
-                    checkBox.setTextColor(getResources().getColor(R.color.color_666));
-                    checkBox.setTextSize(14);
-                    checkBox.setId(Integer.parseInt(id + "2" + j));
-                    // checkBox.setButtonDrawable(getResources().getDrawable(R.drawable.checkbox_selector));
-                    checkBox.setText(valuetext);
-                    if (seetype==2){
-                        checkBox.setClickable(false);
-                    }
-                    l.addView(checkBox);
-                }
-                lineAll.addView(l);
                 lineAll.addView(view);
+
             } else if (type == 4) {
                 try {
-                    final JSONObject jsonObject = new JSONObject();
-                    int imgid = feedbackItemBean.getFeedbackItemId();
-                    jsonObject.put(kongjianid, imgid + "");
-                    jsonObject.put(valuestr, null);
-                    TextView name = new TextView(this);
-                    name.setPadding(0, 10, 0, 0);
-                    name.setText(feedbackItemBean.getFeedbackName());
-                    name.setTextColor(getResources().getColor(R.color.color_333));
-                    name.setTextSize(15);
-                    lineAll.addView(name);
-                    ImageView imageView = new ImageView(this);
-                    imageView.setLayoutParams(imgview);
-                    imageView.setBackgroundResource(R.mipmap.put_img);
-                    if (seetype == 1) {
-                        imageView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                imgstr = jsonObject.toString();
-                                DialogManager.createPickImageDialog(RenwuFankuiFormActivity.this);
-                            }
-                        });
+                    if (seetype==2){
+                        ImageView imageView = new ImageView(this);
+                        imageView.setLayoutParams(imgview);
+                        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                        if (feedbackVal!=null&&!feedbackVal.equals("")){
+                            Bitmap bitmap = stringtoBitmap(feedbackVal);
+                            imageView.setImageBitmap(bitmap);
+                        }
+                        lineAll.addView(imageView);
+                    }else {
+                        final JSONObject jsonObject = new JSONObject();
+                        int imgid = feedbackItemBean.getFeedbackItemId();
+                        jsonObject.put(kongjianid, imgid + "");
+                        jsonObject.put(valuestr, null);
+                        TextView name = new TextView(this);
+                        name.setPadding(0, 10, 0, 0);
+                        name.setText(feedbackItemBean.getFeedbackName());
+                        name.setTextColor(getResources().getColor(R.color.color_333));
+                        name.setTextSize(15);
+                        lineAll.addView(name);
+                        final ImageView imageView = new ImageView(this);
+                        imageView.setLayoutParams(imgview);
+                        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                        imageView.setBackgroundResource(R.mipmap.put_img);
+
+                            imageView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    imgstr = jsonObject.toString();
+                                    image=imageView;
+                                    DialogManager.createPickImageDialog(RenwuFankuiFormActivity.this);
+                                }
+                            });
+                        lineAll.addView(imageView);
                     }
-                    lineAll.addView(imageView);
                 } catch (Exception e) {
 
                 }
@@ -343,14 +385,14 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 Uri uri = intent.getData();
                 String realPathFromURI = Util.getFileAbsolutePath(this, uri);
                 File file = new File(realPathFromURI);
-                putPic(file);
+                putPic(file,uri);
             } else if (requestCode == 2) {// 相册
                 if (intent != null) {
                     Log.i("xiaoqiang", "smdongxi==" + intent.getData());
                     Uri uri = intent.getData();
                     String realPathFromURI = Util.getFileAbsolutePath(this, uri);
                     File file = new File(realPathFromURI);
-                    putPic(file);
+                    putPic(file,uri);
                 }
             }
         } catch (Exception e) {
@@ -364,7 +406,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
      * @time 2018/2/1  18:22
      * @describe 上传图片
      */
-    private void putPic(File file) {
+    private void putPic(File file, final Uri uri) {
         LoadingDialog.show(RenwuFankuiFormActivity.this);
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
@@ -389,6 +431,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 int code = response.body().getRespCode();
                 if (code == 0) {
                     ToastUtils.showToast("上传成功!");
+                    image.setImageURI(uri);
                 } else {
                     ToastUtils.showToast("上传失败!");
                 }
