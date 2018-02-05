@@ -5,11 +5,11 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="110dp"
-        android:layout_height="95dp"
+        android:layout_width="@dimen/distance_110"
+        android:layout_height="@dimen/distance_95"
         android:layout_gravity="center"
-        android:layout_marginBottom="52dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginBottom="@dimen/distance_52"
+        android:layout_marginTop="@dimen/distance_55"
         android:src="@mipmap/login_logo" />
 
     <LinearLayout style="@style/login_linearLayout_style">
