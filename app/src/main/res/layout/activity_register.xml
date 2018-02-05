@@ -23,6 +23,28 @@
             />
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/line_address"
+        style="@style/login_linearLayout_style"
+        android:orientation="horizontal">
+        <ImageView
+            style="@style/login_icon_style"
+            android:background="@mipmap/address"/>
+        <TextView
+            android:id="@+id/ed_company_address"
+            style="@style/LoginInput"
+            android:text="企业地址"
+            android:layout_width="match_parent"
+            android:textColor="@color/white"
+            android:layout_weight="2"
+            />
+        <ImageView
+           android:layout_width="@dimen/distance_13"
+            android:layout_height="@dimen/distance_7"
+            android:layout_marginRight="@dimen/distance_7"
+            android:layout_gravity="center"
+            android:background="@mipmap/white_down"/>
+    </LinearLayout>
+    <LinearLayout
         style="@style/login_linearLayout_style">
         <ImageView
             style="@style/login_icon_style"
@@ -30,7 +52,7 @@
         <EditText
             android:id="@+id/company_lianxi_name"
             style="@style/LoginInput"
-            android:hint="请输入企业联系人"
+            android:hint="企业联系人"
             />
     </LinearLayout>
     <LinearLayout
@@ -41,18 +63,18 @@
         <EditText
             android:id="@+id/phone_num"
             style="@style/LoginInput"
-            android:hint="请输入企业联系电话"
+            android:hint="联系人电话"
             />
     </LinearLayout>
     <LinearLayout
         style="@style/login_linearLayout_style">
         <ImageView
             style="@style/login_icon_style"
-            android:background="@mipmap/login_icon_password"/>
+            android:background="@mipmap/company_email"/>
         <EditText
             android:id="@+id/ed_company_email"
             style="@style/LoginInputother"
-            android:hint="请输入企业邮箱"
+            android:hint="企业邮箱"
             />
     </LinearLayout>
     <LinearLayout
@@ -60,29 +82,12 @@
         android:orientation="horizontal">
         <ImageView
             style="@style/login_icon_style"
-            android:background="@mipmap/icon_message"/>
+            android:background="@mipmap/gaunzhu"/>
         <EditText
             android:id="@+id/ed_company_description"
             style="@style/LoginInputother"
-            android:hint="请输入企业需求"
+            android:hint="企业需求及关注点"
             android:layout_width="match_parent"
-            android:layout_weight="2"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/line_address"
-        style="@style/login_linearLayout_style"
-        android:orientation="horizontal">
-        <ImageView
-            style="@style/login_icon_style"
-            android:background="@mipmap/icon_message"/>
-        <TextView
-            android:id="@+id/ed_company_address"
-            style="@style/LoginInput"
-            android:text="请选择企业省市"
-            android:layout_width="match_parent"
-            android:textColor="@color/white"
             android:layout_weight="2"
             />
     </LinearLayout>
@@ -97,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="35dp"
         android:layout_marginLeft="35dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/distance_2"
         android:orientation="horizontal">
 
         <RadioButton
@@ -105,12 +110,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="@dimen/distance_12"
             android:text="@string/xy" />
         <TextView
             android:id="@+id/toLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_main"
+            android:textSize="@dimen/distance_12"
             android:textColor="@color/white"
             android:text="@string/tologin"
             />

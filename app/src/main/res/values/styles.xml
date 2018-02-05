@@ -32,11 +32,11 @@
     <!-- 登录界面 -->
     <style name="login_linearLayout_style">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">@dimen/distance_41</item>
         <item name="android:background">@drawable/login_linearlayout_radios</item>
-        <item name="android:layout_marginLeft">35dp</item>
-        <item name="android:layout_marginRight">35dp</item>
-        <item name="android:layout_marginBottom">12dp</item>
+        <item name="android:layout_marginLeft">@dimen/distance_35</item>
+        <item name="android:layout_marginRight">@dimen/distance_35</item>
+        <item name="android:layout_marginBottom">@dimen/distance_12</item>
     </style>
 
     <style name="login_icon_style">
@@ -48,22 +48,22 @@
     <style name="LoginInput">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">12dp</item>
+        <item name="android:padding">10dp</item>
         <item name="android:maxLength">11</item>
         <item name="android:background">#00000000</item>
         <item name="android:textColorHint">@color/white</item>
         <item name="android:textColor">@color/color_333</item>
-        <item name="android:textSize">@dimen/text_main</item>
+        <item name="android:textSize">@dimen/distance_14</item>
         <item name="android:layout_marginLeft">-15dp</item>
     </style>
     <style name="LoginInputother">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">12dp</item>
+        <item name="android:padding">@dimen/distance_12</item>
         <item name="android:background">#00000000</item>
         <item name="android:textColorHint">@color/white</item>
         <item name="android:textColor">@color/color_333</item>
-        <item name="android:textSize">@dimen/text_main</item>
+        <item name="android:textSize">@dimen/distance_14</item>
         <item name="android:layout_marginLeft">-15dp</item>
     </style>
 

@@ -11,7 +11,7 @@
     <string name="account">手机号</string>
     <string name="password">密码</string>
     <string name="login">登录</string>
-    <string name="tologin">立即登录</string>
+    <string name="tologin">立即登陆</string>
     <string name="zhuce">立即注册</string>
     <string name="forgetpassword">忘记密码？</string>
     <string name="company_name">公司名称</string>
