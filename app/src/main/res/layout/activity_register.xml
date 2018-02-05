@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@mipmap/login_bg"
     android:orientation="vertical">
+
     <ImageView
         android:layout_width="@dimen/distance_110"
         android:layout_height="@dimen/distance_95"
@@ -11,102 +12,111 @@
         android:layout_marginBottom="@dimen/distance_15"
         android:layout_marginTop="@dimen/distance_15"
         android:src="@mipmap/login_logo" />
-    <LinearLayout
-        style="@style/login_linearLayout_style">
+
+    <LinearLayout style="@style/login_linearLayout_style">
+
         <ImageView
             style="@style/login_icon_style"
-            android:background="@mipmap/icon_company_name"/>
+            android:background="@mipmap/icon_company_name" />
+
         <EditText
             android:id="@+id/company_name"
             style="@style/LoginInputother"
-            android:hint="@string/company_name"
-            />
+            android:hint="@string/company_name" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/line_address"
         style="@style/login_linearLayout_style"
         android:orientation="horizontal">
+
         <ImageView
             style="@style/login_icon_style"
-            android:background="@mipmap/address"/>
+            android:background="@mipmap/address" />
+
         <TextView
             android:id="@+id/ed_company_address"
             style="@style/LoginInputother"
-            android:text="企业地址"
             android:layout_width="match_parent"
-            android:textColor="@color/white"
             android:layout_weight="2"
-            />
+            android:text="企业地址"
+            android:textColor="@color/white" />
+
         <ImageView
-           android:layout_width="@dimen/distance_13"
+            android:layout_width="@dimen/distance_13"
             android:layout_height="@dimen/distance_7"
-            android:layout_marginRight="@dimen/distance_7"
             android:layout_gravity="center"
-            android:background="@mipmap/white_down"/>
+            android:layout_marginRight="@dimen/distance_7"
+            android:background="@mipmap/white_down" />
     </LinearLayout>
-    <LinearLayout
-        style="@style/login_linearLayout_style">
+
+    <LinearLayout style="@style/login_linearLayout_style">
+
         <ImageView
             style="@style/login_icon_style"
-            android:background="@mipmap/icon_user_name"/>
+            android:background="@mipmap/icon_user_name" />
+
         <EditText
             android:id="@+id/company_lianxi_name"
             style="@style/LoginInputother"
-            android:hint="企业联系人"
-            />
+            android:hint="企业联系人" />
     </LinearLayout>
-    <LinearLayout
-        style="@style/login_linearLayout_style">
+
+    <LinearLayout style="@style/login_linearLayout_style">
+
         <ImageView
             style="@style/login_icon_style"
-            android:background="@mipmap/login_icon_phone"/>
+            android:background="@mipmap/login_icon_phone" />
+
         <EditText
             android:id="@+id/phone_num"
             style="@style/LoginInputother"
-            android:hint="联系人电话"
-            />
+            android:hint="联系人电话" />
     </LinearLayout>
-    <LinearLayout
-        style="@style/login_linearLayout_style">
+
+    <LinearLayout style="@style/login_linearLayout_style">
+
         <ImageView
             style="@style/login_icon_style"
-            android:background="@mipmap/company_email"/>
+            android:background="@mipmap/company_email" />
+
         <EditText
             android:id="@+id/ed_company_email"
             style="@style/LoginInputother"
-            android:hint="企业邮箱"
-            />
+            android:hint="企业邮箱" />
     </LinearLayout>
+
     <LinearLayout
         style="@style/login_linearLayout_style"
         android:orientation="horizontal">
+
         <ImageView
             style="@style/login_icon_style"
-            android:background="@mipmap/gaunzhu"/>
+            android:background="@mipmap/gaunzhu" />
+
         <EditText
             android:id="@+id/ed_company_description"
             style="@style/LoginInputother"
-            android:hint="企业需求及关注点"
             android:layout_width="match_parent"
             android:layout_weight="2"
-            />
+            android:hint="企业需求及关注点" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="@dimen/distance_41"
-        android:background="@drawable/login_linearlayout_button_radios"
-        android:textColor="@color/color_login_button"
         android:layout_marginLeft="@dimen/distance_35"
         android:layout_marginRight="@dimen/distance_35"
+        android:background="@drawable/login_linearlayout_button_radios"
         android:text="@string/zhuce"
-        />
+        android:textColor="@color/color_login_button" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="35dp"
         android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
         android:layout_marginTop="@dimen/distance_2"
         android:orientation="horizontal">
 
@@ -115,15 +125,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/distance_12"
-            android:text="@string/xy" />
+            android:text="@string/xy"
+            android:textSize="@dimen/distance_12" />
+
         <TextView
             android:id="@+id/toLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/distance_12"
-            android:textColor="@color/white"
             android:text="@string/tologin"
-            />
+            android:textColor="@color/white"
+            android:textSize="@dimen/distance_12" />
     </LinearLayout>
 </LinearLayout>
