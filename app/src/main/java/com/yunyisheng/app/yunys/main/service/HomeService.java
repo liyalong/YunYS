@@ -2,6 +2,7 @@ package com.yunyisheng.app.yunys.main.service;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.model.UserModel;
+import com.yunyisheng.app.yunys.main.model.BannerBean;
 import com.yunyisheng.app.yunys.main.model.BuMenBean;
 import com.yunyisheng.app.yunys.main.model.FindProjectWorkerBean;
 import com.yunyisheng.app.yunys.main.model.FindWorkerBean;
@@ -299,6 +300,7 @@ public interface HomeService {
                                                    @Field("pageSize") int pageSize,
                                                    @Field("projectName") String projectName,
                                                    @Field("userId") int userId);
+
     /**
      * @author fuduo
      * @time 2018/1/30  14:56
@@ -315,4 +317,12 @@ public interface HomeService {
      */
     @POST("alarmLogging/isWarningForProjectByUserId/{userId}")
     Call<WarnningMessageBean> getWarningSize(@Path("userId") String userId);
+
+    /**
+     * @author fuduo
+     * @time 2018/1/30  14:56
+     * @describe 获取个人标签（首页轮播图）
+     */
+    @POST("lebel/user/seek")
+    Flowable<BannerBean> getBannerList();
 }

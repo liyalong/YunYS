@@ -3,7 +3,6 @@ package com.yunyisheng.app.yunys.main.fragement;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +25,7 @@ import com.yunyisheng.app.yunys.main.activity.MessageActivity;
 import com.yunyisheng.app.yunys.main.activity.NoticeActivity;
 import com.yunyisheng.app.yunys.main.activity.ReportformActivity;
 import com.yunyisheng.app.yunys.main.adapter.HomeScheduleAdapter;
+import com.yunyisheng.app.yunys.main.model.BannerBean;
 import com.yunyisheng.app.yunys.main.present.HomePresent;
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 import com.yunyisheng.app.yunys.utils.LogUtils;
@@ -76,7 +76,7 @@ public class HomeFragement extends BaseFragement<HomePresent> {
     LinearLayout lineTongxunlu;
     @BindView(R.id.line_beiwanglu)
     LinearLayout lineBeiwanglu;
-    private List<RecyclerBanner.BannerEntity> urls = new ArrayList<>();
+    private List<BannerBean.RespBodyBean> labelListBeans = new ArrayList<>();
     private List<MyScheduleBean.RespBodyBean.DataListBean> list = new ArrayList<>();
     int i;
     private HomeScheduleAdapter adapter;
@@ -110,21 +110,18 @@ public class HomeFragement extends BaseFragement<HomePresent> {
 
     @Override
     public void initAfter() {
-        i++;
-        urls.clear();
-        if (i % 2 == 0) {
-            urls.add(new Entity("http://pic.58pic.com/58pic/12/46/13/03B58PICXxE.jpg"));
-            urls.add(new Entity("http://www.jitu5.com/uploads/allimg/121120/260529-121120232T546.jpg"));
-            urls.add(new Entity("http://pic34.nipic.com/20131025/2531170_132447503000_2.jpg"));
-            urls.add(new Entity("http://img5.imgtn.bdimg.com/it/u=3462610901,3870573928&fm=206&gp=0.jpg"));
-        } else {
-            urls.add(new Entity("http://img0.imgtn.bdimg.com/it/u=726278301,2143262223&fm=11&gp=0.jpg"));
-            urls.add(new Entity("http://pic51.nipic.com/file/20141023/2531170_115622554000_2.jpg"));
-            urls.add(new Entity("http://img3.imgtn.bdimg.com/it/u=2968209827,470106340&fm=21&gp=0.jpg"));
-        }
-        long t = System.currentTimeMillis();
-        rcyBanner.setDatas(urls);
-        Log.w("---", System.currentTimeMillis() - t + "");
+//        i++;
+//        urls.clear();
+//        if (i % 2 == 0) {
+//            urls.add(new Entity("http://pic.58pic.com/58pic/12/46/13/03B58PICXxE.jpg"));
+//            urls.add(new Entity("http://www.jitu5.com/uploads/allimg/121120/260529-121120232T546.jpg"));
+//            urls.add(new Entity("http://pic34.nipic.com/20131025/2531170_132447503000_2.jpg"));
+//            urls.add(new Entity("http://img5.imgtn.bdimg.com/it/u=3462610901,3870573928&fm=206&gp=0.jpg"));
+//        } else {
+//            urls.add(new Entity("http://img0.imgtn.bdimg.com/it/u=726278301,2143262223&fm=11&gp=0.jpg"));
+//            urls.add(new Entity("http://pic51.nipic.com/file/20141023/2531170_115622554000_2.jpg"));
+//            urls.add(new Entity("http://img3.imgtn.bdimg.com/it/u=2968209827,470106340&fm=21&gp=0.jpg"));
+//        }
         if (isonce) {
             isonce = false;
             getUserinfo();
@@ -133,6 +130,16 @@ public class HomeFragement extends BaseFragement<HomePresent> {
         ConstantManager.token = token;
         LogUtils.i("token", token);
         getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
+        getP().getBannerList();
+    }
+
+    public void getBannerList(BannerBean bannerBean) {
+        labelListBeans.clear();
+        List<BannerBean.RespBodyBean> respBody = bannerBean.getRespBody();
+        if (respBody != null && respBody.size() > 0) {
+            labelListBeans.addAll(respBody);
+            rcyBanner.setDatas(labelListBeans);
+        }
     }
 
     @Override
@@ -245,17 +252,5 @@ public class HomeFragement extends BaseFragement<HomePresent> {
         pullToRefreshListview.onRefreshComplete();
     }
 
-    private class Entity implements RecyclerBanner.BannerEntity {
 
-        String url;
-
-        public Entity(String url) {
-            this.url = url;
-        }
-
-        @Override
-        public String getUrl() {
-            return url;
-        }
-    }
 }

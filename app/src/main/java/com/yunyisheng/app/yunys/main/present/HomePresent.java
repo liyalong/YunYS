@@ -2,6 +2,7 @@ package com.yunyisheng.app.yunys.main.present;
 
 import com.yunyisheng.app.yunys.login.model.UserModel;
 import com.yunyisheng.app.yunys.main.fragement.HomeFragement;
+import com.yunyisheng.app.yunys.main.model.BannerBean;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
@@ -74,6 +75,33 @@ public class HomePresent extends XPresent<HomeFragement> {
                         LoadingDialog.dismiss(getV().getContext());
                         getV().stopRefresh();
                         ToastUtils.showToast("获取数据失败！");
+                    }
+                });
+    }
+
+    /**
+     * @author fuduo
+     * @time 2018/1/21  16:51
+     * @describe 获取轮播图
+     */
+    public void getBannerList() {
+        Api.homeService().getBannerList()
+                .compose(XApi.<BannerBean>getApiTransformer()) //统一异常处理
+                .compose(XApi.<BannerBean>getScheduler()) //线程调度
+                .compose(getV().<BannerBean>bindToLifecycle()) //内存泄漏处理
+                .subscribe(new ApiSubscriber<BannerBean>() {
+                    @Override
+                    public void onNext(BannerBean bannerBean) {
+                        if (bannerBean.getRespCode() == 0) {
+                            getV().getBannerList(bannerBean);
+                        } else {
+                            ToastUtils.showToast(bannerBean.getRespMsg());
+                        }
+                    }
+
+                    @Override
+                    protected void onFail(NetError error) {
+                        ToastUtils.showToast("请求数据失败！");
                     }
                 });
     }

@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
+import com.yunyisheng.app.yunys.main.model.BannerBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,53 +36,49 @@ public class RecyclerBanner extends FrameLayout {
     Context mContext;
     RecyclerView recyclerView;
     LinearLayout linearLayout;
-    GradientDrawable defaultDrawable,selectedDrawable;
+    GradientDrawable defaultDrawable, selectedDrawable;
 
     ReyclerAdapter adapter;
     OnPagerClickListener onPagerClickListener;
-    private List<BannerEntity> datas = new ArrayList<>();
+    private List<BannerBean.RespBodyBean> datas = new ArrayList<>();
 
-    int size,startX, startY,currentIndex;
+    int size, startX, startY, currentIndex;
     boolean isPlaying;
 
-    public interface OnPagerClickListener{
+    public interface OnPagerClickListener {
 
-        void onClick(BannerEntity entity);
-    }
-
-    public interface BannerEntity{
-        String getUrl();
+        void onClick(BannerBean.RespBodyBean bean);
     }
 
     private Handler handler = new Handler();
 
-    private Runnable playTask = new  Runnable(){
+    private Runnable playTask = new Runnable() {
 
         @Override
         public void run() {
             recyclerView.smoothScrollToPosition(++currentIndex);
             changePoint();
-            handler.postDelayed(this,3000);
+            handler.postDelayed(this, 3000);
         }
     };
 
     public RecyclerBanner(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public RecyclerBanner(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public RecyclerBanner(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         size = (int) (6 * context.getResources().getDisplayMetrics().density + 0.5f);
         defaultDrawable = new GradientDrawable();
-        defaultDrawable.setSize(size,size);
+        defaultDrawable.setSize(size, size);
         defaultDrawable.setCornerRadius(size);
         defaultDrawable.setColor(0xffffffff);
         selectedDrawable = new GradientDrawable();
-        selectedDrawable.setSize(size,size);
+        selectedDrawable.setSize(size, size);
         selectedDrawable.setCornerRadius(size);
         selectedDrawable.setColor(0xff0094ff);
 
@@ -91,13 +88,13 @@ public class RecyclerBanner extends FrameLayout {
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         LayoutParams linearLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         linearLayout.setGravity(Gravity.CENTER);
-        linearLayout.setPadding(size * 2,size * 2,size * 2,size * 9);
+        linearLayout.setPadding(size * 2, size * 2, size * 2, size * 9);
         linearLayoutParams.gravity = Gravity.BOTTOM;
-        addView(recyclerView,vpLayoutParams);
-        addView(linearLayout,linearLayoutParams);
+        addView(recyclerView, vpLayoutParams);
+        addView(linearLayout, linearLayoutParams);
 
         new PagerSnapHelper().attachToRecyclerView(recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         adapter = new ReyclerAdapter();
         recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -105,9 +102,9 @@ public class RecyclerBanner extends FrameLayout {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                int first = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-                int last = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastVisibleItemPosition();
-                if(currentIndex != (first + last) / 2){
+                int first = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+                int last = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+                if (currentIndex != (first + last) / 2) {
                     currentIndex = (first + last) / 2;
                     changePoint();
                 }
@@ -119,45 +116,45 @@ public class RecyclerBanner extends FrameLayout {
         this.onPagerClickListener = onPagerClickListener;
     }
 
-    public synchronized void setPlaying(boolean playing){
-        if(!isPlaying && playing && adapter != null && adapter.getItemCount() > 2){
-            handler.postDelayed(playTask,3000);
+    public synchronized void setPlaying(boolean playing) {
+        if (!isPlaying && playing && adapter != null && adapter.getItemCount() > 2) {
+            handler.postDelayed(playTask, 3000);
             isPlaying = true;
-        }else if(isPlaying && !playing){
+        } else if (isPlaying && !playing) {
             handler.removeCallbacksAndMessages(null);
             isPlaying = false;
         }
     }
 
-    public int setDatas(List<BannerEntity> datas){
+    public int setDatas(List<BannerBean.RespBodyBean> datas) {
         setPlaying(false);
         this.datas.clear();
         linearLayout.removeAllViews();
-        if(datas != null){
+        if (datas != null) {
             this.datas.addAll(datas);
         }
-        if(this.datas.size() > 1){
+        if (this.datas.size() > 1) {
             currentIndex = this.datas.size() * 10000;
             adapter.notifyDataSetChanged();
             recyclerView.scrollToPosition(currentIndex);
             for (int i = 0; i < this.datas.size(); i++) {
                 ImageView img = new ImageView(getContext());
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                lp.leftMargin = size/2;
-                lp.rightMargin = size/2;
+                lp.leftMargin = size / 2;
+                lp.rightMargin = size / 2;
                 img.setImageDrawable(i == 0 ? selectedDrawable : defaultDrawable);
-                linearLayout.addView(img,lp);
+                linearLayout.addView(img, lp);
             }
             setPlaying(true);
-        }else {
+        } else {
             currentIndex = 0;
             adapter.notifyDataSetChanged();
         }
         return this.datas.size();
     }
 
-    public void setContext(Context context){
-        mContext=context;
+    public void setContext(Context context) {
+        mContext = context;
     }
 
 
@@ -200,20 +197,21 @@ public class RecyclerBanner extends FrameLayout {
 
     @Override
     protected void onWindowVisibilityChanged(int visibility) {
-        if(visibility == View.GONE){
+        if (visibility == View.GONE) {
             // 停止轮播
             setPlaying(false);
-        }else if(visibility == View.VISIBLE){
+        } else if (visibility == View.VISIBLE) {
             // 开始轮播
             setPlaying(true);
         }
         super.onWindowVisibilityChanged(visibility);
     }
+
     // 内置适配器
-    private class ReyclerAdapter extends RecyclerView.Adapter{
+    private class ReyclerAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 //            ImageView img = new ImageView(parent.getContext());
 //            RecyclerView.LayoutParams l = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 //            img.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -229,15 +227,48 @@ public class RecyclerBanner extends FrameLayout {
 //            });
 //            return new RecyclerView.ViewHolder(img) {};
             View view = LayoutInflater.from(mContext).inflate(R.layout.main_banner_item, parent, false);
-
-            return new MyViewHolder(view) {};
+            return new MyViewHolder(view) {
+            };
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-//            ImageView img = (ImageView) holder.itemView.findViewById(R.id.icon);
+        public void onBindViewHolder(MyViewHolder holder, int position) {
+            //            ImageView img = (ImageView) holder.itemView.findViewById(R.id.icon);
 //            Glide.with(img.getContext()).load(datas.get(position % datas.size()).getUrl()).placeholder(R.mipmap.ic_launcher).into(img);
+            List<BannerBean.RespBodyBean.PersonalLabelListBean> personalLabelList = datas.get(position % datas.size()).getPersonalLabelList();
+
+            if (personalLabelList.size() == 3) {
+                for (int i = 0; i < personalLabelList.size(); i++) {
+                    BannerBean.RespBodyBean.PersonalLabelListBean personalLabelListBean = personalLabelList.get(i);
+                    if (i == 0) {
+                        holder.allnumbertitle.setText(personalLabelListBean.getStatusName());
+                        holder.allnumber.setText(personalLabelListBean.getLabelValue());
+                    } else if (i == 1) {
+                        holder.todaywaringtitle.setText(personalLabelListBean.getStatusName());
+                        holder.todaywaringnumber.setText(personalLabelListBean.getLabelValue());
+                    } else {
+                        holder.waringalltitle.setText(personalLabelListBean.getStatusName());
+                        holder.waringallnumber.setText(personalLabelListBean.getLabelValue());
+                    }
+                }
+            } else if (personalLabelList.size() == 2) {
+                for (int i = 0; i < personalLabelList.size(); i++) {
+                    BannerBean.RespBodyBean.PersonalLabelListBean personalLabelListBean = personalLabelList.get(i);
+                    if (i == 0) {
+                        holder.allnumbertitle.setText(personalLabelListBean.getStatusName());
+                        holder.allnumber.setText(personalLabelListBean.getLabelValue());
+                    } else if (i == 1) {
+                        holder.todaywaringtitle.setText(personalLabelListBean.getStatusName());
+                        holder.todaywaringnumber.setText(personalLabelListBean.getLabelValue());
+                    }
+                }
+            } else if (personalLabelList.size() == 1) {
+                BannerBean.RespBodyBean.PersonalLabelListBean personalLabelListBean = personalLabelList.get(0);
+                holder.allnumbertitle.setText(personalLabelListBean.getStatusName());
+                holder.allnumber.setText(personalLabelListBean.getLabelValue());
+            }
         }
+
 
         @Override
         public int getItemCount() {
@@ -245,16 +276,19 @@ public class RecyclerBanner extends FrameLayout {
         }
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView allnumbertitle,allnumber,todaywaringtitle,todaywaringnumber,waringalltitle,waringallnumber;
+    class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView allnumbertitle, allnumber, todaywaringtitle, todaywaringnumber, waringalltitle, waringallnumber;
+
         public MyViewHolder(View itemView) {
             super(itemView);
-            allnumbertitle=(TextView)itemView.findViewById(R.id.te_allnumbertitle);
-            allnumber=(TextView)itemView.findViewById(R.id.te_allnumber);
-            todaywaringtitle=(TextView)itemView.findViewById(R.id.te_todaywaringtitle);
-            todaywaringnumber=(TextView)itemView.findViewById(R.id.te_todaywaringnumber);
-            waringalltitle=(TextView)itemView.findViewById(R.id.te_waringalltitle);
-            waringallnumber=(TextView)itemView.findViewById(R.id.te_waringallnumber);
+            allnumbertitle = (TextView) itemView.findViewById(R.id.te_allnumbertitle);
+            allnumber = (TextView) itemView.findViewById(R.id.te_allnumber);
+
+            todaywaringtitle = (TextView) itemView.findViewById(R.id.te_todaywaringtitle);
+            todaywaringnumber = (TextView) itemView.findViewById(R.id.te_todaywaringnumber);
+
+            waringalltitle = (TextView) itemView.findViewById(R.id.te_waringalltitle);
+            waringallnumber = (TextView) itemView.findViewById(R.id.te_waringallnumber);
         }
     }
 
@@ -264,10 +298,10 @@ public class RecyclerBanner extends FrameLayout {
         public int findTargetSnapPosition(RecyclerView.LayoutManager layoutManager, int velocityX, int velocityY) {
             int targetPos = super.findTargetSnapPosition(layoutManager, velocityX, velocityY);
             final View currentView = findSnapView(layoutManager);
-            if(targetPos != RecyclerView.NO_POSITION && currentView != null){
+            if (targetPos != RecyclerView.NO_POSITION && currentView != null) {
                 int currentPostion = layoutManager.getPosition(currentView);
-                int first = ((LinearLayoutManager)layoutManager).findFirstVisibleItemPosition();
-                int last = ((LinearLayoutManager)layoutManager).findLastVisibleItemPosition();
+                int first = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
+                int last = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
                 currentPostion = targetPos < currentPostion ? last : (targetPos > currentPostion ? first : currentPostion);
                 targetPos = targetPos < currentPostion ? currentPostion - 1 : (targetPos > currentPostion ? currentPostion + 1 : currentPostion);
             }
@@ -275,10 +309,10 @@ public class RecyclerBanner extends FrameLayout {
         }
     }
 
-    private void changePoint(){
-        if(linearLayout != null && linearLayout.getChildCount() > 0){
+    private void changePoint() {
+        if (linearLayout != null && linearLayout.getChildCount() > 0) {
             for (int i = 0; i < linearLayout.getChildCount(); i++) {
-                ((ImageView)linearLayout.getChildAt(i)).setImageDrawable(i == currentIndex % datas.size() ? selectedDrawable : defaultDrawable);
+                ((ImageView) linearLayout.getChildAt(i)).setImageDrawable(i == currentIndex % datas.size() ? selectedDrawable : defaultDrawable);
             }
         }
     }
