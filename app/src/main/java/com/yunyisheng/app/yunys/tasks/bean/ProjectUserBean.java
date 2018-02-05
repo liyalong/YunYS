@@ -11,6 +11,15 @@ public class ProjectUserBean implements Serializable {
     private String userName;
     private String userSex;
     private boolean isCheck;
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public void setCheck(boolean check) {
         isCheck = check;

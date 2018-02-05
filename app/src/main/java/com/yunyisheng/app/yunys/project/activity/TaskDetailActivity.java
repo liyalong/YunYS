@@ -153,7 +153,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                 Router.newIntent(context)
                         .to(CreateDeviceTaskAcitvity.class)
                         .putInt("taskType",1)
-                        .putString("taskId", String.valueOf(task.getTaskId()))
+                        .putString("editTaskId", String.valueOf(task.getTaskId()))
                         .putString("projectId",projectId)
                         .launch();
                 break;

@@ -222,7 +222,7 @@
     <string name="task_flow">流程任务</string>
     <string name="task_temporary">临时任务</string>
     <string name="task_cycle">周期任务</string>
-    <string name="task_flow_form">*流程表单</string>
+    <string name="task_flow_form">*流程定义</string>
     <string name="task_flow_user">*审批人</string>
     <string name="task_flow_time">*审批截止时间</string>
     <string name="task_start_time">*开始时间</string>

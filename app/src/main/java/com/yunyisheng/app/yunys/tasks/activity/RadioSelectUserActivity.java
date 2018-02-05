@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.tasks.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,7 +9,14 @@ import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.tasks.adapter.RadioSelectUserAdapter;
+import com.yunyisheng.app.yunys.tasks.bean.ProjectUserBean;
+import com.yunyisheng.app.yunys.tasks.model.ProjectUserListModel;
 import com.yunyisheng.app.yunys.tasks.present.RadioSelectUserPresent;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +30,9 @@ public class RadioSelectUserActivity extends BaseActivity<RadioSelectUserPresent
     @BindView(R.id.select_check_user_list)
     ListView selectCheckUserList;
 
+    RadioSelectUserAdapter adapter;
+    List<ProjectUserBean> dataList = new ArrayList<>();
+
     @Override
     public void initView() {
         ButterKnife.bind(this);
@@ -29,7 +40,7 @@ public class RadioSelectUserActivity extends BaseActivity<RadioSelectUserPresent
 
     @Override
     public void initAfter() {
-
+        getP().getAllUserLists();
     }
 
     @Override
@@ -55,8 +66,29 @@ public class RadioSelectUserActivity extends BaseActivity<RadioSelectUserPresent
                 finish();
                 break;
             case R.id.submit:
+                Intent intent = new Intent();
+                int selectPosition = adapter.getSelectPosition();
+                if (selectPosition == -1){
+                    setResult(2,intent);
+                }else {
+                    ProjectUserBean selectUser = dataList.get(selectPosition);
+                    intent.putExtra("selectUserId",selectUser.getUserId());
+                    intent.putExtra("selectUserName",selectUser.getName());
+                    setResult(1,intent);
+                }
+                finish();
                 break;
         }
     }
 
+    public void setAdapterData(ProjectUserListModel projectUserListModel) {
+        if (projectUserListModel.getRespBody().size() > 0){
+            dataList.clear();
+            dataList.addAll(projectUserListModel.getRespBody());
+            adapter = new RadioSelectUserAdapter(context,dataList);
+            selectCheckUserList.setAdapter(adapter);
+        }else {
+            ToastUtils.showToast("暂无人员！");
+        }
+    }
 }

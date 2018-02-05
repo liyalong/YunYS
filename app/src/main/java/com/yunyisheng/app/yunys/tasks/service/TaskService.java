@@ -270,5 +270,10 @@ public interface TaskService {
                                                   @Field("pageSize") int pageSize,
                                                   @Field("enterpriseId") String enterpriseId);
 
-
+    /**
+     * 获取企业所有用户列表
+     * @return
+     */
+    @POST("enterpriseUser/enterprises/list")
+    Flowable<ProjectUserListModel> getAllUserLists();
 }
