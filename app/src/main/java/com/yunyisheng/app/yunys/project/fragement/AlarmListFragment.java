@@ -53,20 +53,20 @@ public class AlarmListFragment extends BaseFragement<AlarmListPresent> {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 PAGE_NUM = 1;
-                getP().getAlarmLists(projectId,PAGE_NUM,PAGE_SIZE);
+                getP().getProjectAlarmLists(projectId,PAGE_NUM,PAGE_SIZE);
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 PAGE_NUM += 1;
-                getP().getAlarmLists(projectId,PAGE_NUM,PAGE_SIZE);
+                getP().getProjectAlarmLists(projectId,PAGE_NUM,PAGE_SIZE);
             }
         });
     }
 
     @Override
     public void initAfter() {
-        getP().getAlarmLists(projectId,PAGE_NUM,PAGE_SIZE);
+        getP().getProjectAlarmLists(projectId,PAGE_NUM,PAGE_SIZE);
     }
 
     @Override

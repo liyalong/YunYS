@@ -76,7 +76,6 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 DeviceBean deviceBean= deviceBeanList.get(i-1);
-                ToastUtils.showToast(deviceBean.getEquipmentName());
                 Router.newIntent(context)
                         .to(DeviceDetailActivity.class)
                         .putString("projectId",projectId)

@@ -50,12 +50,16 @@ public class DeviceListAdapter extends SimpleListAdapter<DeviceBean, DeviceListA
         final DeviceBean deviceBean = data.get(position);
         holder.deviceName.setText(deviceBean.getEquipmentName());
         holder.deviceCreateTime.setText(deviceBean.getEquipmentCreate());
-        if (deviceBean.getIsWarning() == 1){
-            holder.deviceStatus.setBackgroundColor(context.getResources().getColor(R.color.device_status_error));
-            holder.deviceStatus.setText(context.getResources().getString(R.string.device_status_error));
-        }else {
+        if (deviceBean.getEquipmentStat() == 1){
             holder.deviceStatus.setBackgroundColor(context.getResources().getColor(R.color.device_status_success));
             holder.deviceStatus.setText(context.getResources().getString(R.string.device_status_success));
+
+        }else if (deviceBean.getEquipmentStat() == 2){
+            holder.deviceStatus.setBackgroundColor(context.getResources().getColor(R.color.device_status_error));
+            holder.deviceStatus.setText(context.getResources().getString(R.string.device_status_error));
+        }else if (deviceBean.getEquipmentStat() == 3){
+            holder.deviceStatus.setBackgroundColor(context.getResources().getColor(R.color.black_overlay));
+            holder.deviceStatus.setText(context.getResources().getString(R.string.disable));
         }
         holder.itemButton.setTag(position);
         holder.itemButton.setOnClickListener(this);

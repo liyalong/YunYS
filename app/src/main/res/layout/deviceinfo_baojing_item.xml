@@ -1,45 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="@dimen/distance_42"
+    android:layout_height="@dimen/distance_49"
     android:layout_width="match_parent"
-    android:background="@drawable/linearlayout_bottom_line"
+    android:background="@color/white"
     android:paddingHorizontal="@dimen/distance_10">
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/linearlayout_bottom_line">
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center|left"
         android:layout_gravity="center">
         <TextView
             android:id="@+id/baojing_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:text="报警标题aaaaa"
             android:textColor="@color/color_333"
             android:textSize="@dimen/distance_14"/>
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/baojing_status"
-            android:background="@color/device_status_error"
+            android:layout_width="@dimen/distance_27"
+            android:layout_height="@dimen/distance_14"
+            android:textColor="@color/color_333"
+            android:text="@string/alarm_rules_level_4"
+            android:background="@color/alarmrules_level_4"
             android:textSize="@dimen/distance_8"
-            android:paddingHorizontal="@dimen/distance_6"
-            android:paddingVertical="@dimen/distance_2"
+            android:gravity="center"
             android:layout_marginLeft="@dimen/distance_8"/>
     </LinearLayout>
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
+        android:id="@+id/fuwei"
+        android:layout_width="@dimen/distance_49"
+        android:layout_height="@dimen/distance_22"
         android:text="@string/fuwei"
         android:textSize="@dimen/distance_12"
-        android:textColor="@color/white"
-        android:paddingVertical="@dimen/distance_3"
-        android:paddingHorizontal="@dimen/distance_10"
+        android:textColor="@color/color_FBFBFB"
         android:background="@mipmap/icon_device_fuwei"
         android:gravity="center"
         android:layout_gravity="center"
         />
-
+    </LinearLayout>
 </LinearLayout>

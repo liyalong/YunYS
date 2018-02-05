@@ -52,8 +52,8 @@ public class DeviceDetailPresent extends XPresent<DeviceDetailActivity> {
      * 获取设备的报警信息列表
      * @param deviceId
      */
-    public void getDeviceWarningList(String deviceId){
-        Api.projectService().getDeviceWarningList(deviceId)
+    public void getDeviceWarningList(String projectId,int pageNum,int pageSize,String deviceId){
+        Api.projectService().getWarningLists(projectId,pageNum,pageSize,projectId,deviceId,1,0)
                 .compose(XApi.<DeviceWarningListModel>getApiTransformer())
                 .compose(XApi.<DeviceWarningListModel>getScheduler())
                 .compose(getV().<DeviceWarningListModel>bindToLifecycle())
@@ -61,13 +61,12 @@ public class DeviceDetailPresent extends XPresent<DeviceDetailActivity> {
                     @Override
                     protected void onFail(NetError error) {
                         ToastUtils.showToast("网络请求错误！");
-                        return;
                     }
 
                     @Override
                     public void onNext(DeviceWarningListModel deviceWarningListModel) {
                         if (deviceWarningListModel.getRespCode() == 1){
-                            ToastUtils.showToast(deviceWarningListModel.getErrorMsg());
+                            ToastUtils.showToast(deviceWarningListModel.getRespMsg());
                             return;
                         }
                         getV().setDeviceWarningList(deviceWarningListModel);
@@ -75,12 +74,14 @@ public class DeviceDetailPresent extends XPresent<DeviceDetailActivity> {
                 });
     }
 
+
     /**
      * 获取设备的实时指标
+     * @param projectId
      * @param deviceId
      */
-    public void getDevicePlcValueList(String deviceId){
-        Api.projectService().getDevicePlcValueList(deviceId)
+    public void getDevicePlcValueList(String projectId,String deviceId){
+        Api.projectService().getDevicePLCValueList(projectId,deviceId)
                 .compose(XApi.<DevicePLCValueListModel>getApiTransformer())
                 .compose(XApi.<DevicePLCValueListModel>getScheduler())
                 .compose(getV().<DevicePLCValueListModel>bindToLifecycle())

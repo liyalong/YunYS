@@ -135,6 +135,7 @@
     <string name="device_status_success">正常</string>
     <string name="device_status_error">异常</string>
     <string name="addTime">添加时间：</string>
+    <string name="device_use_state">使用状态：</string>
     <string name="button_cz">操作</string>
     <string name="alarm_rules">报警规则</string>
     <string name="knowledge">相关知识</string>

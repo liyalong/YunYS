@@ -15,8 +15,9 @@ import cn.droidlover.xdroidmvp.net.XApi;
  */
 
 public class AlarmListPresent extends XPresent<AlarmListFragment> {
-    public void getAlarmLists(String projectId,int pageNum,int pageSize){
-        Api.projectService().getProjectWarningLists(projectId,pageNum,pageSize)
+
+    public void getProjectAlarmLists(String projectId,int pageNum,int pageSize){
+        Api.projectService().getWarningLists(projectId,pageNum,pageSize,null,null,null,null)
                 .compose(XApi.<DeviceWarningListModel>getApiTransformer())
                 .compose(XApi.<DeviceWarningListModel>getScheduler())
                 .compose(getV().<DeviceWarningListModel>bindToLifecycle())

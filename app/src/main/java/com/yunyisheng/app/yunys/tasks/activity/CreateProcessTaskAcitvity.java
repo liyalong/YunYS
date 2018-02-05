@@ -43,7 +43,7 @@ public class CreateProcessTaskAcitvity extends BaseActivity {
     private String selectFormId;
     private String selectFormName;
     CustomDatePicker startCustomDatePicker;
-    private String selectUserId;
+    private Integer selectUserId;
     private String selectUserName;
 
     @Override
@@ -119,18 +119,18 @@ public class CreateProcessTaskAcitvity extends BaseActivity {
             ToastUtils.showToast("请选择流程定义！");
             return;
         }
-        if (selectUserId == null){
+        if (selectUserId == 0){
             ToastUtils.showToast("请选择审核人！");
             return;
         }
         String endTime = processTaskEndTime.getText().toString().trim()+":00";
         //跳转到填写表单页面
-//        Router.newIntent(context)
-//                .to()
-//                .putString("selectFormId",selectFormId)
-//                .putString("selectUserId",selectUserId)
-//                .putString("endTime",endTime)
-//                .launch();
+        Router.newIntent(context)
+                .to(ProcessTaskFormActivity.class)
+                .putString("selectFormId",selectFormId)
+                .putInt("selectUserId",selectUserId)
+                .putString("endTime",endTime)
+                .launch();
 
     }
 
@@ -146,7 +146,7 @@ public class CreateProcessTaskAcitvity extends BaseActivity {
                 break;
             case USERREQUESTCODE:
                 if (resultCode == 1){
-                    selectUserId = data.getStringExtra("selectUserId");
+                    selectUserId = data.getIntExtra("selectUserId",0);
                     selectUserName = data.getStringExtra("selectUserName");
                     selectProcessTaskToUser.setText(selectUserName);
                 }
