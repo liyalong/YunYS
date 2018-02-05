@@ -1,37 +1,39 @@
 package com.yunyisheng.app.yunys.login.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.yunyisheng.app.yunys.MainActivity;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.login.model.WelcomePageBean;
+import com.yunyisheng.app.yunys.login.present.WelcomePagePresent;
+import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.Constans;
 
 import java.lang.ref.WeakReference;
 
+import butterknife.BindView;
 import cn.droidlover.xdroidbase.cache.SharedPref;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
  * Created by liyalong on 2017/12/15.
  */
 
-public class WelcomeActivity extends BaseActivity {
+public class WelcomeActivity extends BaseActivity<WelcomePagePresent> {
 
-    private mHandler handler=new mHandler(this);
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    @BindView(R.id.welcomeView)
+    ImageView welcomeView;
+    private mHandler handler = new mHandler(this);
+    private String enterpriseimg;
+    private String companyimg;
 
     private void gotoMainActivity() {
-        Intent intent = new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
@@ -42,33 +44,76 @@ public class WelcomeActivity extends BaseActivity {
         SharedPref.init(Constans.SHARD_NAME);
         SharedPref sharedPref = SharedPref.getInstance(this);
 
-        boolean isFirstOpen = sharedPref.getBoolean(Constans.FIRST_OPEN,true);
-        if(!isFirstOpen){
+        boolean isFirstOpen = sharedPref.getBoolean(Constans.FIRST_OPEN, true);
+        if (!isFirstOpen) {
             //添加引导流程页
-
         }
-        handler.sendEmptyMessageDelayed(0,2000);
+        if (!isFirstOpen) {
+            netError();
+        } else {
+            getP().getWelcomePage();
+        }
     }
 
-    public class mHandler extends Handler{
+    public class mHandler extends Handler {
         WeakReference<WelcomeActivity> activity;
 
         public mHandler(WelcomeActivity welcomeActivity) {
-            activity=new WeakReference<WelcomeActivity>(welcomeActivity);
+            activity = new WeakReference<WelcomeActivity>(welcomeActivity);
         }
 
         @Override
         public void handleMessage(Message msg) {
+            int what = msg.what;
             WelcomeActivity welcomeActivity = activity.get();
-            if (welcomeActivity!=null){
-                gotoMainActivity();
+            if (what == 0) {
+                try {
+                    if (companyimg != null && !companyimg.equals("")) {
+                        Bitmap bitmap = CommonUtils.stringtoBitmap(companyimg);
+                        welcomeView.setImageBitmap(bitmap);
+                        handler.sendEmptyMessageDelayed(1, 2000);
+                    } else {
+                        netError();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    netError();
+                }
+            } else if (what == 1) {
+                if (welcomeActivity != null) {
+                    gotoMainActivity();
+                }
+            } else {
+                if (welcomeActivity != null) {
+                    gotoMainActivity();
+                }
             }
         }
     }
 
     @Override
     public void initAfter() {
+    }
 
+    public void setImageBac(WelcomePageBean welcomePageBean) {
+        companyimg = welcomePageBean.getRespBody().getCompany();
+        enterpriseimg = welcomePageBean.getRespBody().getEnterprise();
+        try {
+            if (enterpriseimg != null && !enterpriseimg.equals("")) {
+                Bitmap bitmap = CommonUtils.stringtoBitmap(enterpriseimg);
+                welcomeView.setImageBitmap(bitmap);
+                handler.sendEmptyMessageDelayed(0, 2000);
+            } else {
+                netError();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            netError();
+        }
+    }
+
+    public void netError() {
+        handler.sendEmptyMessageDelayed(2, 2000);
     }
 
     @Override
@@ -80,8 +125,8 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     @Override
-    public XPresent bindPresent() {
-        return null;
+    public WelcomePagePresent bindPresent() {
+        return new WelcomePagePresent();
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.yunyisheng.app.yunys.login.service;
 
 import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.login.model.LoginModel;
+import com.yunyisheng.app.yunys.login.model.WelcomePageBean;
 
 import io.reactivex.Flowable;
 import retrofit2.http.Field;
@@ -39,5 +40,10 @@ public interface UserService {
                                                    @Field("authCode") String code,
                                                    @Field("newPassword") String password);
 
+    /**
+     * 获取欢迎页
+     */
+    @POST("enterprise/companysApp")
+    Flowable<WelcomePageBean> getWelcomePage();
 
 }
