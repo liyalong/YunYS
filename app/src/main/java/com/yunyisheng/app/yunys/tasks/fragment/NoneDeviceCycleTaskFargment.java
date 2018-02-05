@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.main.model.WorkerBean;
+import com.yunyisheng.app.yunys.tasks.activity.CreateNoneDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.CronResultActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectForm;
@@ -80,6 +82,21 @@ public class NoneDeviceCycleTaskFargment extends BaseFragement {
     public void initView() {
         ButterKnife.bind(this, context);
         initDatePicker();
+        CreateNoneDeviceTaskAcitvity NoneDeviceTaskAcitvity = (CreateNoneDeviceTaskAcitvity) getActivity();
+
+        List<WorkerBean> selectUsersFromWork = NoneDeviceTaskAcitvity.getSelectWorkList();
+        if (selectUsersFromWork.size() > 0){
+            String selectUserStr = "";
+            for (int i=0;i<selectUsersFromWork.size();i++){
+                selectUserStr += selectUsersFromWork.get(i).getName()+" ";
+                ProjectUserBean projeceUser = new ProjectUserBean();
+                projeceUser.setUserId(selectUsersFromWork.get(i).getUserId());
+                projeceUser.setUserName(selectUsersFromWork.get(i).getName());
+                projeceUser.setUserSex(selectUsersFromWork.get(i).getSex());
+                cycleSelectUsers.add(projeceUser);
+            }
+            selectCycleAssignUsers.setText(selectUserStr);
+        }
     }
 
     @Override

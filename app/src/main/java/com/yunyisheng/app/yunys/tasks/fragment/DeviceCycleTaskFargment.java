@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.main.model.WorkerBean;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
 import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.CronResultActivity;
@@ -92,8 +93,23 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
         ButterKnife.bind(this, context);
         initDatePicker();
         CreateDeviceTaskAcitvity DeviceTaskAcitvity = (CreateDeviceTaskAcitvity) getActivity();
-        this.cycleTaskId = DeviceTaskAcitvity.getTaskEditId();
+        this.cycleTaskId = String.valueOf(DeviceTaskAcitvity.getTaskEditId());
         this.cycleProjectId = DeviceTaskAcitvity.getProjectId();
+        //从通讯录安排工作跳转来的人员
+        List<WorkerBean> selectUsersFromWork = DeviceTaskAcitvity.getSelectWorkList();
+        if (selectUsersFromWork.size() > 0){
+            String selectCycleUserStr = "";
+            for (int i=0;i<selectUsersFromWork.size();i++){
+                selectCycleUserStr += selectUsersFromWork.get(i).getName()+" ";
+                ProjectUserBean projeceUser = new ProjectUserBean();
+                projeceUser.setUserId(selectUsersFromWork.get(i).getUserId());
+                projeceUser.setUserName(selectUsersFromWork.get(i).getName());
+                projeceUser.setUserSex(selectUsersFromWork.get(i).getSex());
+                cycleSelectUsers.add(projeceUser);
+            }
+            selectCycleAssignUsers.setText(selectCycleUserStr);
+        }
+
         if (cycleTaskId != null){
             getP().getCycleTaskInfo(cycleProjectId,cycleTaskId);
         }

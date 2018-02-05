@@ -42,21 +42,41 @@ public class CreateNoneDeviceTaskAcitvity extends BaseActivity<NoneDeviceTaskPre
     ViewPager noneDeviceTasksViewpage;
     private List<Fragment> fragmentLists = new ArrayList<>();
     private List<String> mTitles = new ArrayList<>();
-    private List<WorkerBean> selectlist;
     private int selectTabPostion = 0;
 
     NoneDeviceTemporaryTaskFargment noneDeviceTemporaryTaskFargment;
     NoneDeviceCycleTaskFargment noneDeviceCycleTaskFargment;
+
+
+    private  List<WorkerBean> selectWorkList; //安排工作跳转来的人员列表
+
+    private String editTaskId;          //编辑页面跳转过来的任务id
+    private int fromPageType;           //编辑页面跳转的对应任务类型，0,新建任务，1、临时任务，2、周期任务
+
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        mTitles.add("临时任务");
-        mTitles.add("周期任务");
+        this.editTaskId = getIntent().getStringExtra("editTaskId");
+        this.fromPageType = getIntent().getIntExtra("fromPageType",0);
+        if (fromPageType == 0){
+            mTitles.add("临时任务");
+            mTitles.add("周期任务");
 
-        noneDeviceTemporaryTaskFargment = new NoneDeviceTemporaryTaskFargment();
-        noneDeviceCycleTaskFargment = new NoneDeviceCycleTaskFargment();
-        fragmentLists.add(noneDeviceTemporaryTaskFargment);
-        fragmentLists.add(noneDeviceCycleTaskFargment);
+            noneDeviceTemporaryTaskFargment = new NoneDeviceTemporaryTaskFargment();
+            noneDeviceCycleTaskFargment = new NoneDeviceCycleTaskFargment();
+            fragmentLists.add(noneDeviceTemporaryTaskFargment);
+            fragmentLists.add(noneDeviceCycleTaskFargment);
+        }else if (fromPageType == 1){
+            mTitles.add("临时任务");
+            noneDeviceTemporaryTaskFargment = new NoneDeviceTemporaryTaskFargment();
+            fragmentLists.add(noneDeviceTemporaryTaskFargment);
+            selectTabPostion = 0;
+        }else if (fromPageType == 2){
+            mTitles.add("周期任务");
+            noneDeviceCycleTaskFargment = new NoneDeviceCycleTaskFargment();
+            fragmentLists.add(noneDeviceCycleTaskFargment);
+            selectTabPostion = 1;
+        }
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(),fragmentLists,mTitles);
         noneDeviceTasksViewpage.setAdapter(adapter);
@@ -81,7 +101,7 @@ public class CreateNoneDeviceTaskAcitvity extends BaseActivity<NoneDeviceTaskPre
 
     @Override
     public void initAfter() {
-        selectlist = (List<WorkerBean>) getIntent().getSerializableExtra("selectlist");//选中的人
+        selectWorkList = (List<WorkerBean>) getIntent().getSerializableExtra("selectlist");//选中的人
     }
 
     @Override
@@ -150,5 +170,16 @@ public class CreateNoneDeviceTaskAcitvity extends BaseActivity<NoneDeviceTaskPre
             ToastUtils.showToast("提交成功！");
             finish();
         }
+    }
+    public List<WorkerBean> getSelectWorkList() {
+        return selectWorkList;
+    }
+
+    public String getEditTaskId() {
+        return editTaskId;
+    }
+
+    public int getFromPageType() {
+        return fromPageType;
     }
 }

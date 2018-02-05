@@ -51,11 +51,13 @@ public class CreateDeviceTaskAcitvity extends BaseActivity<CreateDeviceTaskPrese
     DeviceTemporaryTaskFargment deviceTemporaryTaskFargment;
     DeviceCycleTaskFargment deviceCycleTaskFargment;
 
-    private String taskId;
-    private int taskType;   //1、临时任务、2周期任务
+    private String editTaskId;
+    private int fromPageType;   //1、临时任务、2周期任务
     private String projectId;
 
 
+
+    private  List<WorkerBean> selectWorkList; //安排工作跳转来的人员列表
 
 
 
@@ -63,11 +65,13 @@ public class CreateDeviceTaskAcitvity extends BaseActivity<CreateDeviceTaskPrese
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        this.taskId = getIntent().getStringExtra("taskId");
-        this.taskType = getIntent().getIntExtra("taskType",0);
+        this.editTaskId = getIntent().getStringExtra("taskId");
+        this.fromPageType = getIntent().getIntExtra("fromPageType",0);
         this.projectId = getIntent().getStringExtra("projectId");
 
-        if (taskType == 0){
+        this.selectWorkList = (List<WorkerBean>) getIntent().getSerializableExtra("selectlist");
+
+        if (fromPageType == 0){
             mtitle.add("临时任务");
             mtitle.add("周期任务");
             deviceTemporaryTaskFargment = new DeviceTemporaryTaskFargment();
@@ -75,12 +79,12 @@ public class CreateDeviceTaskAcitvity extends BaseActivity<CreateDeviceTaskPrese
             fragments.add(deviceTemporaryTaskFargment);
             fragments.add(deviceCycleTaskFargment);
 
-        }else if (taskType == 1){
+        }else if (fromPageType == 1){
             mtitle.add("临时任务");
             deviceTemporaryTaskFargment = new DeviceTemporaryTaskFargment();
             fragments.add(deviceTemporaryTaskFargment);
             selectTabPostion = 0;
-        }else if (taskType == 2){
+        }else if (fromPageType == 2){
             mtitle.add("周期任务");
             deviceCycleTaskFargment = new DeviceCycleTaskFargment();
             fragments.add(deviceCycleTaskFargment);
@@ -186,10 +190,14 @@ public class CreateDeviceTaskAcitvity extends BaseActivity<CreateDeviceTaskPrese
             finish();
         }
     }
-    public String getTaskEditId() {
-        return taskId;
+    public int getTaskEditId() {
+        return fromPageType;
     }
     public String getProjectId(){
         return projectId;
+    }
+
+    public List<WorkerBean> getSelectWorkList() {
+        return selectWorkList;
     }
 }

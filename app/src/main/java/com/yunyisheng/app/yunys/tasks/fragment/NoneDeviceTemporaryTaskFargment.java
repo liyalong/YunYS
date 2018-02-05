@@ -11,6 +11,9 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.main.model.WorkerBean;
+import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
+import com.yunyisheng.app.yunys.tasks.activity.CreateNoneDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectForm;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectUserListActivity;
@@ -67,14 +70,29 @@ public class NoneDeviceTemporaryTaskFargment extends BaseFragement {
     private String selectFormName;
     private UpdateTemporaryTaskBean taskForm;
 
-    public static NoneDeviceTemporaryTaskFargment newInstance() {
-        return new NoneDeviceTemporaryTaskFargment();
-    }
+    private String editTemporaryTaskId;
+
 
     @Override
     public void initView() {
         ButterKnife.bind(this, context);
         initDatePicker();
+        CreateNoneDeviceTaskAcitvity createNoneDeviceTaskAcitvity = (CreateNoneDeviceTaskAcitvity) getActivity();
+        this.editTemporaryTaskId = createNoneDeviceTaskAcitvity.getEditTaskId();
+
+        List<WorkerBean> selectUsersFromWork = createNoneDeviceTaskAcitvity.getSelectWorkList();
+        if (selectUsersFromWork.size() > 0){
+            String selectUserStr = "";
+            for (int i=0;i<selectUsersFromWork.size();i++){
+                selectUserStr += selectUsersFromWork.get(i).getName()+" ";
+                ProjectUserBean projeceUser = new ProjectUserBean();
+                projeceUser.setUserId(selectUsersFromWork.get(i).getUserId());
+                projeceUser.setUserName(selectUsersFromWork.get(i).getName());
+                projeceUser.setUserSex(selectUsersFromWork.get(i).getSex());
+                selectUsers.add(projeceUser);
+            }
+            selectAssignUsers.setText(selectUserStr);
+        }
     }
 
     @Override

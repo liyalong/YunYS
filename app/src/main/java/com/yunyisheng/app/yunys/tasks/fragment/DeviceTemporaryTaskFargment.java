@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.main.model.WorkerBean;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
 import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.ProjectTemplateActivity;
@@ -76,6 +77,8 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
     private String taskId;
     private String projectId;
 
+
+
     @Override
     public void initView() {
         ButterKnife.bind(this, context);
@@ -83,8 +86,22 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
         initDatePicker();
 
         CreateDeviceTaskAcitvity createDeviceTaskAcitvity = (CreateDeviceTaskAcitvity) getActivity();
-        this.taskId = createDeviceTaskAcitvity.getTaskEditId();
+        this.taskId = String.valueOf(createDeviceTaskAcitvity.getTaskEditId());
         this.projectId = createDeviceTaskAcitvity.getProjectId();
+
+        List<WorkerBean> selectUsersFromWork = createDeviceTaskAcitvity.getSelectWorkList();
+        if (selectUsersFromWork.size() > 0){
+            String selectUserStr = "";
+            for (int i=0;i<selectUsersFromWork.size();i++){
+                selectUserStr += selectUsersFromWork.get(i).getName()+" ";
+                ProjectUserBean projeceUser = new ProjectUserBean();
+                projeceUser.setUserId(selectUsersFromWork.get(i).getUserId());
+                projeceUser.setUserName(selectUsersFromWork.get(i).getName());
+                projeceUser.setUserSex(selectUsersFromWork.get(i).getSex());
+                selectUsers.add(projeceUser);
+            }
+            selectAssignUsers.setText(selectUserStr);
+        }
         if (taskId != null){
             getP().getTexporaryTaskInfo(projectId,taskId);
         }
