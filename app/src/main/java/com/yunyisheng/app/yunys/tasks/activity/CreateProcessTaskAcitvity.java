@@ -130,6 +130,7 @@ public class CreateProcessTaskAcitvity extends BaseActivity {
                 .putString("selectFormId",selectFormId)
                 .putInt("selectUserId",selectUserId)
                 .putString("endTime",endTime)
+                .putInt("type",1)
                 .launch();
 
     }
