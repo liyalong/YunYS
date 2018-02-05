@@ -38,8 +38,35 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
             case 3:
                 getMyTaskList(projectId,pageNum,pageSize);
                 break;
+            case 9:
+                getFinishTaskList(projectId,pageNum,pageSize);
+                break;
         }
     }
+
+    private void getFinishTaskList(String projectId, int pageNum, int pageSize) {
+        Api.taskService().getFinishTaskList(projectId,pageNum,pageSize)
+                .compose(XApi.<TaskListModel>getApiTransformer())
+                .compose(XApi.<TaskListModel>getScheduler())
+                .compose(getV().<TaskListModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<TaskListModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        ToastUtils.showToast("网络链接错误！");
+                    }
+
+                    @Override
+                    public void onNext(TaskListModel taskListModel) {
+                        if (taskListModel.getRespCode() == 1){
+                            ToastUtils.showToast(taskListModel.getRespMsg());
+                            return;
+                        }
+                        XLog.d(taskListModel.toString());
+                        getV().setAdapter(taskListModel);
+                    }
+                });
+    }
+
     /**
      * 获取已发布的任务列表
      * @param projectId

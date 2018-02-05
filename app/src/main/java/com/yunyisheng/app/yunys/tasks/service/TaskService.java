@@ -4,6 +4,7 @@ import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.project.model.TaskListModel;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
 import com.yunyisheng.app.yunys.tasks.bean.ProjectUserBean;
+import com.yunyisheng.app.yunys.tasks.model.ProcessFormListModel;
 import com.yunyisheng.app.yunys.tasks.model.ProjectFormListModel;
 import com.yunyisheng.app.yunys.tasks.model.ProjectUserListModel;
 import com.yunyisheng.app.yunys.tasks.model.TaskDetailModel;
@@ -62,6 +63,19 @@ public interface TaskService {
     Flowable<TaskListModel> getClaimTaskList(@Path("projectId") String projectId,
                                              @Query("pagenum") int pageNum,
                                              @Query("pagerows") int pageSize);
+
+    /**
+     * 获取已完成任务列表
+     * @param projectId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("task/getFinishTask/{projectId}")
+    Flowable<TaskListModel> getFinishTaskList(@Path("projectId") String projectId,
+                                              @Field("pagenum") int pageNum,
+                                              @Field("pagerows") int pageSize);
 
     /**
      * 认领任务
@@ -193,6 +207,20 @@ public interface TaskService {
                                           @Field("equipmentId") String equipmentId,
                                           @Field("feedbackJSON") String feedbackJSON);
 
+    @FormUrlEncoded
+    @POST("task/updateTask/{projectId}")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    Flowable<BaseModel> updateReleaseTask(@Path("projectId") String projectId,
+                                          @Field("releaseId") String releaseId,
+                                          @Field("releaseTaskType") String releaseTaskType,
+                                          @Field("releaseName") String releaseName,
+                                          @Field("releaseRemark") String releaseRemark,
+                                          @Field("releaseBegint") String releaseBegint,
+                                          @Field("releaseEndt") String releaseEndt,
+                                          @Field("listStr") String listStr,
+                                          @Field("releaseBaseformId") String releaseBaseformId,
+                                          @Field("equipmentId") String equipmentId,
+                                          @Field("feedbackBacknum") String feedbackBacknum);
     /**
      * 保存周期任务
      * @param projectId
@@ -229,6 +257,18 @@ public interface TaskService {
                                         @Field("userIds") String userIds,
                                         @Field("userIdStr") String userIdStr,
                                         @Field("feedbackJSON") String feedbackJSON);
+
+    /**
+     * 获取流程表单列表
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("selectEnterpriseActActivate")
+    Flowable<ProcessFormListModel> getProecssList(@Field("pageNum") int pageNum,
+                                                  @Field("pageSize") int pageSize,
+                                                  @Field("enterpriseId") String enterpriseId);
 
 
 }

@@ -43,10 +43,11 @@
             android:paddingHorizontal="@dimen/distance_13">
             <TextView
                 android:id="@+id/select_process_task_form_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/task_flow_form"
+                android:gravity="center|left"
                 android:textColor="@color/color_333"
                 android:layout_gravity="center"/>
             <ImageView
@@ -67,8 +68,9 @@
                 android:background="@drawable/linearlayout_bottom_line">
                 <TextView
                     android:id="@+id/select_process_task_to_user"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
                     android:layout_weight="1"
                     android:text="@string/task_flow_user"
                     android:textColor="@color/color_333"
@@ -82,15 +84,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/distance_48"
                 android:background="@color/white">
-                <EditText
-                    android:id="@+id/process_task_end_time"
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/task_flow_time"
-                    android:textColorHint="@color/color_666"
+                    android:layout_height="match_parent"
+                    android:text="@string/task_flow_time"
                     android:textColor="@color/color_333"
-                    android:layout_gravity="center"/>
+                    android:gravity="center|left"/>
+                <TextView
+                    android:id="@+id/process_task_end_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/color_333"
+                    android:gravity="center|right"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

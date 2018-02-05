@@ -247,6 +247,7 @@
     <string name="select_project_form_list">选择工单列表</string>
     <string name="select_process_form_list">选择流程表单列表</string>
     <string name="select_project_user_list">选择分派人员列表</string>
+    <string name="select_checked_user_list">选择审批人员</string>
 
 
     <string name="cancle">取消</string>

@@ -27,11 +27,11 @@ public class TaskDetailPresent extends XPresent<TaskDetailActivity> {
 
     /**
      * 获取当前登录人的任务详情
+     * @param projectId
      * @param taskId
-     * @param taskType
      */
-    public void getMyTaskDetail(String taskId,String taskType){
-        Api.taskService().getTaskDetail(taskId,taskType)
+    public void getMyTaskDetail(String projectId,String taskId){
+        Api.taskService().getTaskDetail(projectId,taskId)
                 .compose(XApi.<TaskDetailModel>getApiTransformer())
                 .compose(XApi.<TaskDetailModel>getScheduler())
                 .compose(getV().<TaskDetailModel>bindToLifecycle())
@@ -45,6 +45,7 @@ public class TaskDetailPresent extends XPresent<TaskDetailActivity> {
                     public void onNext(TaskDetailModel taskDetailModel) {
                         if (taskDetailModel.getRespCode() == 1){
                             ToastUtils.showToast(taskDetailModel.getRespMsg());
+                            getV().goFinish();
                             return;
                         }
                         getV().setDetail(taskDetailModel.getRespBody().getTask(),
@@ -75,6 +76,7 @@ public class TaskDetailPresent extends XPresent<TaskDetailActivity> {
                     public void onNext(ScheduleDetailBean taskDetailModel) {
                         if (taskDetailModel.getRespCode() == 1){
                             ToastUtils.showToast(taskDetailModel.getRespMsg());
+                            getV().goFinish();
                             return;
                         }
                         getV().setDetail(taskDetailModel.getRespBody().getTask(),

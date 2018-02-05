@@ -9,12 +9,15 @@ import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
+import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.ProjectTemplateActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectDeviceActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectUserListActivity;
 import com.yunyisheng.app.yunys.tasks.bean.ProjectUserBean;
 import com.yunyisheng.app.yunys.tasks.bean.UpdateTemporaryTaskBean;
+import com.yunyisheng.app.yunys.tasks.present.DeviceTemporaryTaskPresent;
 import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.customDatePicker.CustomDatePicker;
@@ -26,13 +29,14 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.droidlover.xdroidmvp.log.XLog;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
  * Created by liyalong on 2018/1/13.
  */
 
-public class DeviceTemporaryTaskFargment extends BaseFragement {
+public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTaskPresent> {
 
     private final static int PROJECTREQUESTCODE = 1;
     private final static int DEVICEEQUESTCODE = 2;
@@ -69,13 +73,21 @@ public class DeviceTemporaryTaskFargment extends BaseFragement {
     private UpdateTemporaryTaskBean taskForm;
 
     private String feedbackJSON;
-
+    private String taskId;
+    private String projectId;
 
     @Override
     public void initView() {
         ButterKnife.bind(this, context);
 
         initDatePicker();
+
+        CreateDeviceTaskAcitvity createDeviceTaskAcitvity = (CreateDeviceTaskAcitvity) getActivity();
+        this.taskId = createDeviceTaskAcitvity.getTaskEditId();
+        this.projectId = createDeviceTaskAcitvity.getProjectId();
+        if (taskId != null){
+            getP().getTexporaryTaskInfo(projectId,taskId);
+        }
     }
     //初始化日期时间选择插件
     private void initDatePicker() {
@@ -114,10 +126,13 @@ public class DeviceTemporaryTaskFargment extends BaseFragement {
     }
 
     @Override
-    public XPresent bindPresent() {
-        return null;
+    public DeviceTemporaryTaskPresent bindPresent() {
+        return new DeviceTemporaryTaskPresent();
     }
 
+    public void initEditTaskInfo(){
+
+    };
     @Override
     public void setListener() {
         selectProject.setOnClickListener(this);
@@ -267,4 +282,28 @@ public class DeviceTemporaryTaskFargment extends BaseFragement {
         return taskForm;
     }
 
+
+    public void setDetail(ScheduleDetailBean.RespBodyBean.TaskBean task,
+                          List<ScheduleDetailBean.RespBodyBean.TaskBackBean> taskback,
+                          ScheduleDetailBean.RespBodyBean.FormBean form) {
+        XLog.d(task.toString());
+        selectProjectId = task.getProjectId();
+
+        selectDeviceId = String.valueOf(task.getEquipmentId());
+
+        selectProject.setText(task.getProjectName());
+        selectProject.setClickable(false);
+        selectProjectDevice.setText(task.getEquipmentName());
+        selectProjectDevice.setClickable(false);
+        taskName.setText(task.getReleaseName());
+        taskStartTime.setText(task.getReleaseBegint().substring(0,16));
+        taskEndTime.setText(task.getReleaseEndt().substring(0,16));
+        if (task.getReleaseRemark() != null){
+            taskDesc.setText(task.getReleaseRemark().toString());
+        }
+        taskTemplates.setClickable(false);
+        selectAssignUsers.setClickable(false);
+
+
+    }
 }

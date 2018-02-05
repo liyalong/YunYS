@@ -72,7 +72,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <service android:name=".main.service.MessageService"/>
+
+        <service android:name=".main.service.MessageService" />
+
         <activity
             android:name=".login.activity.WelcomeActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
@@ -237,6 +239,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.SelectProjectForm"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tasks.activity.RadioSelectUserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tasks.activity.SelectProcessFormActivity"
             android:screenOrientation="portrait" />
     </application>
 

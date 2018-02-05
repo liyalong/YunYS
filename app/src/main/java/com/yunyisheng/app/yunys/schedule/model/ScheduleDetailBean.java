@@ -99,7 +99,7 @@ public class ScheduleDetailBean extends BaseModel {
             private int taskStat;
             private int taskUserId;
             private String taskUserName;
-            private Object taskSubmitTime;
+            private String taskSubmitTime;
             private int releaseAllot;
             private Object feedbackBacknum;
             private int releaseTaskType;
@@ -241,11 +241,11 @@ public class ScheduleDetailBean extends BaseModel {
                 this.taskUserName = taskUserName;
             }
 
-            public Object getTaskSubmitTime() {
+            public String getTaskSubmitTime() {
                 return taskSubmitTime;
             }
 
-            public void setTaskSubmitTime(Object taskSubmitTime) {
+            public void setTaskSubmitTime(String taskSubmitTime) {
                 this.taskSubmitTime = taskSubmitTime;
             }
 

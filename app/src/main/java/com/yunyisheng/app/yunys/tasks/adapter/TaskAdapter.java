@@ -52,7 +52,7 @@ public class TaskAdapter extends SimpleListAdapter<TaskBean, TaskAdapter.ViewHol
         holder.taskStartTime.setText(item.getReleaseBegint().toString());
         holder.taskEndTime.setText(item.getReleaseEndt().toString());
         holder.createUser.setText(item.getReleaseUsername().toString());
-        if (SELECT_TYPE == 1 || SELECT_TYPE == 2){
+        if (SELECT_TYPE == 1 || SELECT_TYPE == 2 || SELECT_TYPE == 9){
             //待认领任务设置待认领状态隐藏，认领人信息隐藏
             //待完成任务状态，设置待认领状态隐藏,认领人信息隐藏
             holder.taskDoUserInfo.setVisibility(View.GONE);
