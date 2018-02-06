@@ -1,6 +1,7 @@
 package com.yunyisheng.app.yunys.main.present;
 
 import com.yunyisheng.app.yunys.login.model.UserModel;
+import com.yunyisheng.app.yunys.login.model.WelcomePageBean;
 import com.yunyisheng.app.yunys.main.fragement.HomeFragement;
 import com.yunyisheng.app.yunys.main.model.BannerBean;
 import com.yunyisheng.app.yunys.net.Api;
@@ -8,6 +9,7 @@ import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
+import cn.droidlover.xdroidmvp.log.XLog;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 import cn.droidlover.xdroidmvp.net.ApiSubscriber;
 import cn.droidlover.xdroidmvp.net.NetError;
@@ -102,6 +104,31 @@ public class HomePresent extends XPresent<HomeFragement> {
                     @Override
                     protected void onFail(NetError error) {
                         ToastUtils.showToast("请求数据失败！");
+                    }
+                });
+    }
+
+    /**
+     *  @author fuduo
+     *  @time 2018/2/5  12:43
+     *  @describe 获取启动页
+     */
+    public void getWelcomePage(){
+        Api.userService().getWelcomePage()
+                .compose(XApi.<WelcomePageBean>getApiTransformer()) //统一异常处理
+                .compose(XApi.<WelcomePageBean>getScheduler()) //线程调度
+                .compose(getV().<WelcomePageBean>bindToLifecycle()) //内存泄漏处理
+                .subscribe(new ApiSubscriber<WelcomePageBean>() {
+                    @Override
+                    public void onNext(WelcomePageBean welcomePageBean) {
+                        if (welcomePageBean.getRespCode()==0){
+                            getV().preservationImg(welcomePageBean);
+                        }
+                    }
+
+                    @Override
+                    protected void onFail(NetError error) {
+                        XLog.d("error",error);
                     }
                 });
     }

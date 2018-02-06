@@ -29,6 +29,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.droidlover.xdroidbase.cache.SharedPref;
 
 /**
  * 作者：fuduo on 2018/2/5 17:11
@@ -57,6 +58,7 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
     private MyHandler myHandler = new MyHandler(this);
     private int selectUserId1;
     private String selectUserName;
+    private int userid;
 
     @Override
     public void initView() {
@@ -71,6 +73,7 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
 
     @Override
     public void initAfter() {
+        userid = SharedPref.getInstance(ProcessTaskFormActivity.this).getInt("userid", 0);
         Intent intent = getIntent();
         seetype = intent.getIntExtra("type", 0);
         selectUserId = intent.getIntExtra("selectUserId", 0);
@@ -219,6 +222,7 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
         }
         if (seetype == 1) {
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(0,20,0,0);
             Button button = new Button(this);
             button.setLayoutParams(layoutParams);
             button.setText("提交");
@@ -231,19 +235,20 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                 }
             });
             lineAll.addView(button);
-
-            Button zhuanbutton = new Button(this);
-            zhuanbutton.setLayoutParams(layoutParams);
-            zhuanbutton.setText("转办");
-            zhuanbutton.setBackgroundResource(R.drawable.btn_anpai_work);
-            zhuanbutton.setTextColor(getResources().getColor(R.color.white));
-            zhuanbutton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                   startActivityForResult(new Intent(ProcessTaskFormActivity.this,RadioSelectUserActivity.class),5);
-                }
-            });
-            lineAll.addView(zhuanbutton);
+            if (selectUserId==userid){
+                Button zhuanbutton = new Button(this);
+                zhuanbutton.setLayoutParams(layoutParams);
+                zhuanbutton.setText("转办");
+                zhuanbutton.setBackgroundResource(R.drawable.btn_anpai_work);
+                zhuanbutton.setTextColor(getResources().getColor(R.color.white));
+                zhuanbutton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivityForResult(new Intent(ProcessTaskFormActivity.this,RadioSelectUserActivity.class),5);
+                    }
+                });
+                lineAll.addView(zhuanbutton);
+            }
         }
     }
 
@@ -326,8 +331,7 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
         if (resultCode==1){
             selectUserId1 = data.getIntExtra("selectUserId", 0);
             selectUserName = data.getStringExtra("selectUserName");
-
+            getP().zhuanProcessTaskForm(selectFormId,selectUserId1);
         }
-
     }
 }

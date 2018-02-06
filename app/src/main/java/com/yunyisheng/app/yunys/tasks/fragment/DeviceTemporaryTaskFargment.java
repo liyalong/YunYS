@@ -6,7 +6,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.google.gson.Gson;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.main.model.WorkerBean;
@@ -31,7 +30,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidmvp.log.XLog;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
  * Created by liyalong on 2018/1/13.
@@ -90,7 +88,7 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
         this.projectId = createDeviceTaskAcitvity.getProjectId();
 
         List<WorkerBean> selectUsersFromWork = createDeviceTaskAcitvity.getSelectWorkList();
-        if (selectUsersFromWork.size() > 0){
+        if (selectUsersFromWork!=null&&selectUsersFromWork.size() > 0){
             String selectUserStr = "";
             for (int i=0;i<selectUsersFromWork.size();i++){
                 selectUserStr += selectUsersFromWork.get(i).getName()+" ";

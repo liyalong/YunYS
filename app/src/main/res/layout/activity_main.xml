@@ -29,7 +29,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:gravity="center_horizontal">
 
                 <RadioButton
@@ -48,7 +48,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:gravity="center_horizontal">
 
 
@@ -77,7 +77,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.8"
                 android:gravity="center_horizontal">
 
                 <RadioButton
@@ -94,7 +94,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:gravity="center_horizontal">
 
                 <RadioButton
@@ -110,7 +110,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:gravity="center_horizontal">
 
                 <RadioButton

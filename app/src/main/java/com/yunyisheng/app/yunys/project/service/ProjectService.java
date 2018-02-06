@@ -19,6 +19,7 @@ import com.yunyisheng.app.yunys.project.model.ProjectListModel;
 import io.reactivex.Flowable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -253,6 +254,7 @@ public interface ProjectService {
      * @return
      */
     @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     @POST("selectProcFormBasicDataList")
     Flowable<ProcessTaskFormDetailBean> getProcessTaskForm(@Field("processDefinitionId") String processDefinitionId);
 
@@ -262,11 +264,23 @@ public interface ProjectService {
      * @return
      */
     @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     @POST("startProInsWithObj")
     Flowable<BaseModel> putProcessTaskForm(@Field("instanceFormStr") String instanceFormStr,
                                            @Field("assignee") int assignee,
                                            @Field("processDefinitionId") String processDefinitionId,
                                            @Field("endTime") String endTime);
+
+    /**
+     * 1.3	流程任务的转办
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    @POST("task/setNextTaskUser")
+    Flowable<BaseModel> zhaunBanTask(@Field("taskId") String taskId,
+                                     @Field("userId") int userId);
 
     /**
      * 获取项目报警历史记录，设备、工艺模块实时报警记录

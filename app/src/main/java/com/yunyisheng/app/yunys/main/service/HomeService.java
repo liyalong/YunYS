@@ -13,6 +13,7 @@ import com.yunyisheng.app.yunys.main.model.MessageTypeBean;
 import com.yunyisheng.app.yunys.main.model.NoticeDetailBean;
 import com.yunyisheng.app.yunys.main.model.ProjectFromWorkBean;
 import com.yunyisheng.app.yunys.main.model.ReportFormBean;
+import com.yunyisheng.app.yunys.main.model.ReportListBean;
 import com.yunyisheng.app.yunys.main.model.RoleBean;
 import com.yunyisheng.app.yunys.main.model.SendNoticeBean;
 import com.yunyisheng.app.yunys.main.model.WarnningMessageBean;
@@ -201,13 +202,22 @@ public interface HomeService {
     Flowable<GetOtherinfoBean> getOtherinfo(@Field("userId") int userId);
 
     /**
-     * 获取报表列表
+     * 获取报表名字列表
      *
      * @return
      */
     @FormUrlEncoded
     @POST("myReport/select/all")
     Flowable<ReportFormBean> getBaobiaolist(@Field("pagenum") int Pagenum, @Field("pagerows") int Pagerows);
+
+    /**
+     * 获取报表具体信息
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("myReport/select/all")
+    Flowable<ReportListBean> getBaobiaoDetail(@Field("instanceId") int instanceId);
 
     /**
      * @author fuduo

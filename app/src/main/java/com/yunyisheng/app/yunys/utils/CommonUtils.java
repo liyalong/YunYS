@@ -458,11 +458,38 @@ public class CommonUtils {
     }
 
     /**
-     * 根据byte数组生成文件
-     *
-     * @param bytes
-     *            生成文件用到的byte数组
+     * @author fuduo
+     * @time 2018/2/5  22:08
+     * @describe 保存字符串为文件
      */
+    public static void saveFile(String str,String name) {
+        String filePath = null;
+        boolean hasSDCard = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+        if (hasSDCard) { // SD卡根目录的hello.text
+            filePath = FileCache.path + name+".txt";
+        } else {  // 系统下载缓存根目录的hello.text
+            filePath =  FileCache.path + name+ ".txt";
+        }
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                File dir = new File(file.getParent());
+                dir.mkdirs();
+                file.createNewFile();
+            }
+            FileOutputStream outStream = new FileOutputStream(file);
+            outStream.write(str.getBytes());
+            outStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+        /**
+         * 根据byte数组生成文件
+         *
+         * @param bytes
+         *            生成文件用到的byte数组
+         */
     private void createFileWithByte(byte[] bytes) {
         /**
          * 创建File对象，其中包含文件所在的目录以及文件的命名

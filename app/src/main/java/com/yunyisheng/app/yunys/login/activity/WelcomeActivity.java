@@ -51,10 +51,22 @@ public class WelcomeActivity extends BaseActivity<WelcomePagePresent> {
         if (!isFirstOpen) {
             netError();
         } else {
-            String token = SharedPref.getInstance(context).getString("TOKEN","");
-            if (token!=null&&!token.equals(""))      {
-                getP().getWelcomePage();
-            }else {
+            String token = SharedPref.getInstance(context).getString("TOKEN", "");
+            if (token != null && !token.equals("")) {
+                enterpriseimg = SharedPref.getInstance(mContext).getString("enterpriseimg", "");
+                if (enterpriseimg != null && !enterpriseimg.equals("")) {
+                    try {
+                        Bitmap bitmap = CommonUtils.stringtoBitmap(enterpriseimg);
+                        welcomeView.setImageBitmap(bitmap);
+                        handler.sendEmptyMessageDelayed(0, 2000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        netError();
+                    }
+                } else {
+                    netError();
+                }
+            } else {
                 netError();
             }
         }
@@ -73,6 +85,7 @@ public class WelcomeActivity extends BaseActivity<WelcomePagePresent> {
             WelcomeActivity welcomeActivity = activity.get();
             if (what == 0) {
                 try {
+                    companyimg = SharedPref.getInstance(mContext).getString("companyimg", "");
                     if (companyimg != null && !companyimg.equals("")) {
                         Bitmap bitmap = CommonUtils.stringtoBitmap(companyimg);
                         welcomeView.setImageBitmap(bitmap);
@@ -101,20 +114,20 @@ public class WelcomeActivity extends BaseActivity<WelcomePagePresent> {
     }
 
     public void setImageBac(WelcomePageBean welcomePageBean) {
-        companyimg = welcomePageBean.getRespBody().getCompany();
-        enterpriseimg = welcomePageBean.getRespBody().getEnterprise();
-        try {
-            if (enterpriseimg != null && !enterpriseimg.equals("")) {
-                Bitmap bitmap = CommonUtils.stringtoBitmap(enterpriseimg);
-                welcomeView.setImageBitmap(bitmap);
-                handler.sendEmptyMessageDelayed(0, 2000);
-            } else {
-                netError();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            netError();
-        }
+//        companyimg = welcomePageBean.getRespBody().getCompany();
+//        enterpriseimg = welcomePageBean.getRespBody().getEnterprise();
+//        try {
+//            if (enterpriseimg != null && !enterpriseimg.equals("")) {
+//                Bitmap bitmap = CommonUtils.stringtoBitmap(enterpriseimg);
+//                welcomeView.setImageBitmap(bitmap);
+//                handler.sendEmptyMessageDelayed(0, 2000);
+//            } else {
+//                netError();
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            netError();
+//        }
     }
 
     public void netError() {

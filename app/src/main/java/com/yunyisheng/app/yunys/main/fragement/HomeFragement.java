@@ -19,6 +19,7 @@ import com.yunyisheng.app.yunys.MainActivity;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.login.model.UserModel;
+import com.yunyisheng.app.yunys.login.model.WelcomePageBean;
 import com.yunyisheng.app.yunys.main.activity.MailListActivity;
 import com.yunyisheng.app.yunys.main.activity.MemorandumActivity;
 import com.yunyisheng.app.yunys.main.activity.MessageActivity;
@@ -50,7 +51,7 @@ import static com.yunyisheng.app.yunys.utils.CommonUtils.getDayStartTime;
  * 用途：首页fragement
  */
 
-public class HomeFragement extends BaseFragement<HomePresent>{
+public class HomeFragement extends BaseFragement<HomePresent> {
     @BindView(R.id.rcy_banner)
     RecyclerBanner rcyBanner;
     @BindView(R.id.img_baobiao)
@@ -97,7 +98,7 @@ public class HomeFragement extends BaseFragement<HomePresent>{
         pullToRefreshListview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                pageindex=1;
+                pageindex = 1;
                 getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
                 getP().getBannerList();
             }
@@ -112,15 +113,19 @@ public class HomeFragement extends BaseFragement<HomePresent>{
 
     @Override
     public void initAfter() {
-        if (isonce) {
-            isonce = false;
-            getUserinfo();
-        }
         String token = SharedPref.getInstance(mContext).getString("TOKEN", "");
         ConstantManager.token = token;
         LogUtils.i("token", token);
+        if (isonce) {
+            isonce = false;
+            getUserinfo();
+            if (token != null && !token.equals("")) {
+                getP().getWelcomePage();
+            }
+        }
         getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
         getP().getBannerList();
+
     }
 
     public void getBannerList(BannerBean bannerBean) {
@@ -240,5 +245,16 @@ public class HomeFragement extends BaseFragement<HomePresent>{
 
     public void stopRefresh() {
         pullToRefreshListview.onRefreshComplete();
+    }
+
+    public void preservationImg(WelcomePageBean welcomePageBean) {
+        String companyimg = welcomePageBean.getRespBody().getCompany();
+        String enterpriseimg = welcomePageBean.getRespBody().getEnterprise();
+        if (enterpriseimg != null && !enterpriseimg.equals("")) {
+            SharedPref.getInstance(mContext).putString("enterpriseimg", enterpriseimg);
+        }
+        if (companyimg != null && !companyimg.equals("")) {
+            SharedPref.getInstance(mContext).putString("companyimg", companyimg);
+        }
     }
 }

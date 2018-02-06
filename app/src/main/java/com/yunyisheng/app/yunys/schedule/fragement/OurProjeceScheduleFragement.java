@@ -95,6 +95,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
     private long dayStartTime;
     private long dayEndTime;
     private String projectid;
+    private boolean nomore;
 
     public static OurProjeceScheduleFragement getInstance(int i) {
         OurProjeceScheduleFragement ourProjeceScheduleFragement = new OurProjeceScheduleFragement();
@@ -163,13 +164,15 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //加载更多
-                if (tabindex == 0) {
-                    pageindex++;
-                    getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
-                } else {
-                    pageindex++;
-                    getP().getMyProjectSchedulrList(pageindex, projectid, dayStartTime, dayEndTime);
+                if (!nomore) {
+                    //加载更多
+                    if (tabindex == 0) {
+                        pageindex++;
+                        getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
+                    } else {
+                        pageindex++;
+                        getP().getMyProjectSchedulrList(pageindex, projectid, dayStartTime, dayEndTime);
+                    }
                 }
             }
         }, 1000);
@@ -204,6 +207,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                 ToastUtils.showToast("当前日期暂无日程");
             } else {
                 ToastUtils.showToast("没有更多了");
+                nomore = true;
             }
         }
     }
@@ -232,6 +236,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
             if (pageindex == 1) {
             } else {
                 ToastUtils.showToast("没有更多了");
+                nomore = true;
             }
         }
     }
@@ -438,10 +443,12 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                     dayStartTime = getOtherStarttime(date1);
                     dayEndTime = getOtherEndtime(date1);
                     if (tabindex == 0) {
+                        nomore = false;
                         list.clear();
                         pageindex = 1;
                         getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
                     } else {
+                        nomore = false;
                         list.clear();
                         pageindex = 1;
                         getP().getMyProjectSchedulrList(pageindex, projectid, dayStartTime, dayEndTime);

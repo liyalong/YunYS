@@ -7,11 +7,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.google.gson.Gson;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.main.model.WorkerBean;
-import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
 import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.CronResultActivity;
 import com.yunyisheng.app.yunys.tasks.activity.ProjectTemplateActivity;
@@ -26,9 +24,6 @@ import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.customDatePicker.CustomDatePicker;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,8 +31,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.droidlover.xdroidmvp.log.XLog;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
  * Created by liyalong on 2018/1/13.
@@ -97,7 +90,7 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
         this.cycleProjectId = DeviceTaskAcitvity.getProjectId();
         //从通讯录安排工作跳转来的人员
         List<WorkerBean> selectUsersFromWork = DeviceTaskAcitvity.getSelectWorkList();
-        if (selectUsersFromWork.size() > 0){
+        if (selectUsersFromWork!=null&&selectUsersFromWork.size() > 0){
             String selectCycleUserStr = "";
             for (int i=0;i<selectUsersFromWork.size();i++){
                 selectCycleUserStr += selectUsersFromWork.get(i).getName()+" ";

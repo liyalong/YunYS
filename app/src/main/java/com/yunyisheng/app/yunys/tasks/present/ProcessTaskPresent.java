@@ -68,10 +68,37 @@ public class ProcessTaskPresent extends XPresent<ProcessTaskFormActivity> {
                     public void onNext(BaseModel baseModel) {
                         if (baseModel.getRespCode() == 1) {
                             ToastUtils.showToast(baseModel.getRespMsg());
-
                             return;
                         }
+                        ToastUtils.showToast("提交成功");
+                        getV().finish();
+                    }
+                });
+    }
 
+    /**
+     * @author fuduo
+     * @time 2018/2/5  17:15
+     * @describe 转办流程任务表单
+     */
+    public void zhuanProcessTaskForm(String taskId, int userId) {
+        Api.projectService().zhaunBanTask(taskId, userId)
+                .compose(XApi.<BaseModel>getApiTransformer())
+                .compose(XApi.<BaseModel>getScheduler())
+                .compose(getV().<BaseModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        ToastUtils.showToast("网络请求错误！");
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        if (baseModel.getRespCode() == 1) {
+                            ToastUtils.showToast(baseModel.getRespMsg());
+                            return;
+                        }
+                        ToastUtils.showToast("转办成功");
                     }
                 });
     }
