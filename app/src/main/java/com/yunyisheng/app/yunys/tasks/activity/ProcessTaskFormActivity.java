@@ -1,9 +1,13 @@
 package com.yunyisheng.app.yunys.tasks.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -59,6 +63,8 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
     private int selectUserId1;
     private String selectUserName;
     private int userid;
+    private String taskid;
+    private String state;
 
     @Override
     public void initView() {
@@ -79,6 +85,8 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
         selectUserId = intent.getIntExtra("selectUserId", 0);
         selectFormId = intent.getStringExtra("selectFormId");
         endTime = intent.getStringExtra("endTime");
+        taskid = intent.getStringExtra("taskid");
+        state = intent.getStringExtra("state");
         getP().getProcessTaskDetail(selectFormId);
     }
 
@@ -114,7 +122,6 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
     }
 
     private void initUi() {
-
         for (int i = 0; i < dataBeanList.size(); i++) {
             ProcessTaskFormDetailBean.RespBodyBean.DataBean dataBean = dataBeanList.get(i);
             String leipiplugins = dataBean.getLeipiplugins();
@@ -220,36 +227,64 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                 lineAll.addView(view);
             }
         }
-        if (seetype == 1) {
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(0,20,0,0);
-            Button button = new Button(this);
-            button.setLayoutParams(layoutParams);
-            button.setText("提交");
-            button.setBackgroundResource(R.drawable.btn_anpai_work);
-            button.setTextColor(getResources().getColor(R.color.white));
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myHandler.sendEmptyMessage(0);
+            layoutParams.setMargins(0, 20, 0, 0);
+            if (state != null && !state.equals("")) {
+                if (state.equals("101")) {
+                    Button but_ok = new Button(this);
+                    but_ok.setLayoutParams(layoutParams);
+                    but_ok.setText("同意");
+                    but_ok.setBackgroundResource(R.drawable.btn_anpai_work);
+                    but_ok.setTextColor(getResources().getColor(R.color.white));
+                    but_ok.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            createYijianDialog(1);
+                        }
+                    });
+                    lineAll.addView(but_ok);
+
+                    Button but_no = new Button(this);
+                    but_no.setLayoutParams(layoutParams);
+                    but_no.setText("拒绝");
+                    but_no.setBackgroundResource(R.drawable.btn_anpai_work);
+                    but_no.setTextColor(getResources().getColor(R.color.white));
+                    but_no.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            createYijianDialog(2);
+                        }
+                    });
+                    lineAll.addView(but_no);
+
+                    Button zhuanbutton = new Button(this);
+                    zhuanbutton.setLayoutParams(layoutParams);
+                    zhuanbutton.setText("转办");
+                    zhuanbutton.setBackgroundResource(R.drawable.btn_anpai_work);
+                    zhuanbutton.setTextColor(getResources().getColor(R.color.white));
+                    zhuanbutton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivityForResult(new Intent(ProcessTaskFormActivity.this, RadioSelectUserActivity.class), 5);
+                        }
+                    });
+                    lineAll.addView(zhuanbutton);
+                } else if (state.equals("103")) {
+                    Button button = new Button(this);
+                    button.setLayoutParams(layoutParams);
+                    button.setText("提交");
+                    button.setBackgroundResource(R.drawable.btn_anpai_work);
+                    button.setTextColor(getResources().getColor(R.color.white));
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            myHandler.sendEmptyMessage(0);
+                        }
+                    });
+                    lineAll.addView(button);
                 }
-            });
-            lineAll.addView(button);
-            if (selectUserId==userid){
-                Button zhuanbutton = new Button(this);
-                zhuanbutton.setLayoutParams(layoutParams);
-                zhuanbutton.setText("转办");
-                zhuanbutton.setBackgroundResource(R.drawable.btn_anpai_work);
-                zhuanbutton.setTextColor(getResources().getColor(R.color.white));
-                zhuanbutton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivityForResult(new Intent(ProcessTaskFormActivity.this,RadioSelectUserActivity.class),5);
-                    }
-                });
-                lineAll.addView(zhuanbutton);
             }
-        }
+
     }
 
     class MyHandler extends Handler {
@@ -325,13 +360,63 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
         }
     }
 
+    /**
+     * @author fuduo
+     * @time 2018/2/6  21:26
+     * @describe 反馈意见框
+     */
+    private void createYijianDialog(final int type){
+        final Dialog mShareDialog = new Dialog(this, R.style.dialog_bottom_full);
+        mShareDialog.setCanceledOnTouchOutside(true);
+        mShareDialog.setCancelable(true);
+        Window window = mShareDialog.getWindow();
+        window.setGravity(Gravity.CENTER);
+        View view1 = View.inflate(this, R.layout.dialog_put_shenhestring, null);
+        RelativeLayout rl_ok = (RelativeLayout) view1
+                .findViewById(R.id.rl_ok);
+        RelativeLayout btn_cancel = (RelativeLayout) view1
+                .findViewById(R.id.rl_cancle);
+
+        final EditText ed_putstr = (EditText) view1
+                .findViewById(R.id.ed_putstr);
+
+        rl_ok.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                String trim = ed_putstr.getText().toString().trim();
+                if (type==1){
+                    getP().agreeProcessTaskForm(taskid,trim);
+                }else {
+                    getP().refuseProcessTaskForm(taskid,trim);
+                }
+                mShareDialog.dismiss();
+
+            }
+        });
+
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mShareDialog.dismiss();
+            }
+        });
+
+        window.setContentView(view1);
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);//设置横向全屏
+        mShareDialog.show();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==1){
+        if (resultCode == 1) {
             selectUserId1 = data.getIntExtra("selectUserId", 0);
             selectUserName = data.getStringExtra("selectUserName");
-            getP().zhuanProcessTaskForm(selectFormId,selectUserId1);
+            if (taskid!=null&&!taskid.equals("")){
+                getP().zhuanProcessTaskForm(taskid, selectUserId1);
+            }
         }
     }
 }

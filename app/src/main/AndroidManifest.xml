@@ -249,7 +249,8 @@
         <activity
             android:name=".tasks.activity.ProcessTaskFormActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".project.activity.PLCDetailActivity"></activity>
+        <activity android:name=".project.activity.PLCDetailActivity" />
+        <activity android:name=".tasks.activity.ProcessDetailActivity"></activity>
     </application>
 
 </manifest>

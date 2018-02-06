@@ -3,13 +3,11 @@ package com.yunyisheng.app.yunys.tasks.service;
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.project.model.TaskListModel;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
-import com.yunyisheng.app.yunys.tasks.bean.ProjectUserBean;
+import com.yunyisheng.app.yunys.tasks.bean.ProcessDetailBean;
 import com.yunyisheng.app.yunys.tasks.model.ProcessFormListModel;
 import com.yunyisheng.app.yunys.tasks.model.ProjectFormListModel;
 import com.yunyisheng.app.yunys.tasks.model.ProjectUserListModel;
 import com.yunyisheng.app.yunys.tasks.model.TaskDetailModel;
-
-import java.util.List;
 
 import io.reactivex.Flowable;
 import retrofit2.http.Field;
@@ -97,7 +95,6 @@ public interface TaskService {
     Flowable<TaskDetailModel> getTaskDetail(@Path("projectId") String projectId,
                                             @Field("taskId") String taskId);
 
-
     /**
      *  @author fuduo
      *  @time 2018/1/31  18:18
@@ -109,6 +106,18 @@ public interface TaskService {
     Flowable<ScheduleDetailBean> getTaskDetailByUser(@Field("userId") int userId,
                                                      @Field("taskId") String taskId,
                                                    @Field("type") String type);
+
+    /**
+     *  @author fuduo
+     *  @time 2018/1/31  18:18
+     *  @describe 14.2	获取指定用户的流程任务详情
+     */
+    @FormUrlEncoded
+    @POST("task/information/lookList")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    Flowable<ProcessDetailBean> getProcessTaskDetailByUser(@Field("userId") String userId,
+                                                           @Field("taskId") String taskId,
+                                                           @Field("type") String type);
 
     /**
      * 退回任务

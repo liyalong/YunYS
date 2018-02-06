@@ -284,6 +284,28 @@ public interface ProjectService {
                                      @Field("userId") int userId);
 
     /**
+     * 1.3	流程任务批准
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    @POST("completeTask")
+    Flowable<BaseModel> agreeTask(@Field("taskId") String taskId,
+                                     @Field("comment") String comment);
+
+    /**
+     * 1.3	流程任务拒绝
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    @POST("task/refuseTask")
+    Flowable<BaseModel> refuseTask(@Field("taskId") String taskId,
+                                  @Field("comment") String comment);
+
+    /**
      * 获取项目报警历史记录，设备、工艺模块实时报警记录
      *
      * @param projectId

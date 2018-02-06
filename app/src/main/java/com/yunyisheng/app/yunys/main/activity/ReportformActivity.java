@@ -1,7 +1,11 @@
 package com.yunyisheng.app.yunys.main.activity;
 
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.AdapterView;
@@ -34,7 +38,6 @@ import cn.droidlover.xdroidbase.cache.SharedPref;
  */
 public class ReportformActivity extends BaseActivity<ReportFormPresent> {
 
-
     @BindView(R.id.img_back)
     ImageView imgBack;
     @BindView(R.id.img_add)
@@ -50,6 +53,16 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
     private List<ReportFormBean.ListBean> list = new ArrayList<>();
     private List<ReportFormBean.ListBean> addedlist = new ArrayList<>();
     private AddedReportformListAdapter adapter;
+    private String netstring;
+    private String json;
+    private int instanceid;
+    private String addedReformString;
+
+    @JavascriptInterface
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+    }
 
     @Override
     public void initView() {
@@ -91,9 +104,25 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ReportFormBean.ListBean listBean = list.get(position);
-                addedlist.add(listBean);
-                adapter = new AddedReportformListAdapter(ReportformActivity.this, addedlist);
-                gvadded.setAdapter(adapter);
+                int instanceId = listBean.getInstanceId();
+                if (addedlist!=null&&addedlist.size()>0){
+                    for (int i=0;i<addedlist.size();i++){
+                        int instanceId1 = addedlist.get(i).getInstanceId();
+                        if (instanceId==instanceId1){
+                            return;
+                        }else {
+                            if (i==addedlist.size()-1){
+                                addedlist.add(listBean);
+                                adapter = new AddedReportformListAdapter(ReportformActivity.this, addedlist);
+                                gvadded.setAdapter(adapter);
+                            }
+                        }
+                    }
+                }else {
+                    addedlist.add(listBean);
+                    adapter = new AddedReportformListAdapter(ReportformActivity.this, addedlist);
+                    gvadded.setAdapter(adapter);
+                }
             }
         });
 
@@ -114,30 +143,33 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
         webSettings.setJavaScriptEnabled(true);
         // 设置允许JS弹窗
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        loadJs();
     }
 
     private void loadJs(){
         // 先载入JS代码
         // 格式规定为:file:///android_asset/文件名.html
-        web.loadUrl("file:///android_asset/javascript.html");
+        web.loadUrl("file:///android_asset/table.html");
+        web.addJavascriptInterface(this,"reportDetail");
         // 必须另开线程进行JS方法调用(否则无法调用)
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-
-                // 注意调用的JS方法名要对应上
-                // 调用javascript的callJS()方法
-                //web.loadUrl("javascript:callJS()");
-            }
-        });
     }
 
     @Override
     public void initAfter() {
-        String addedReformString = SharedPref.getInstance(ReportformActivity.this).getString("AddedReformString", "");
+        setWeb();
+        addedReformString = SharedPref.getInstance(ReportformActivity.this).getString("AddedReformString", "");
         if (addedReformString != null && !addedReformString.equals("")) {
             ReportFormBean bean = JSON.parseObject(addedReformString, ReportFormBean.class);
             setAddedlist(bean);
+            web.post(new Runnable() {
+                @Override
+                public void run() {
+                    // 注意调用的JS方法名要对应上
+                    // 调用javascript的callJS()方法
+                    web.loadUrl("javascript:createTableDiv("+ addedReformString +")");
+                }
+            });
         }
         getP().getBaobiaoList(1, 0);
     }
@@ -171,6 +203,17 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
     public void getResultList(ReportFormBean reportFormBean) {
         if (reportFormBean.getList().size() > 0) {
             list.addAll(reportFormBean.getList());
+            if (addedReformString == null || addedReformString.equals("")) {
+                netstring = JSON.toJSONString(list);
+                web.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 注意调用的JS方法名要对应上
+                        // 调用javascript的callJS()方法
+                        web.loadUrl("javascript:createTableDiv("+ netstring +")");
+                    }
+                });
+            }
             CanAddReportformListAdapter addReportformListAdapter = new CanAddReportformListAdapter(ReportformActivity.this, list);
             gvadd.setAdapter(addReportformListAdapter);
         }
@@ -197,17 +240,34 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
                 break;
             case R.id.btn_queren:
                 if (addedlist != null && addedlist.size() > 0) {
-                    String json = JSON.toJSONString(addedlist);
-                    SharedPref.getInstance(ReportformActivity.this).putString("AddedReformString", "{\"list\":" + json + "}");
-                    LogUtils.i("string", "{\"list\":" + json + "}");
+                    json = JSON.toJSONString(addedlist);
+                    SharedPref.getInstance(ReportformActivity.this).putString("AddedReformString",json);
+                    LogUtils.i("string", json);
                 }
                 menu.toggle();
                 break;
         }
     }
 
+    @JavascriptInterface
+    public void getReportDeatil(int instanceId){
+        instanceid = instanceId;
+        getP().getBaobiaoDetail(instanceId);
+    }
+
     public void getReportResultList(ReportListBean reportListBean) {
         List<ReportListBean.RespBodyBean> respBody = reportListBean.getRespBody();
-
+        if (respBody!=null) {
+            final String string = JSON.toJSONString(respBody);
+            // 必须另开线程进行JS方法调用(否则无法调用)
+            web.post(new Runnable() {
+                @Override
+                public void run() {
+                    // 注意调用的JS方法名要对应上
+                    // 调用javascript的createChart(instanceId,data)方法
+                    web.loadUrl("javascript:createChart(" + instanceid + "," + string + ")");
+                }
+            });
+        }
     }
 }

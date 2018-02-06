@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.project.activity.TaskDetailActivity;
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
-import com.yunyisheng.app.yunys.tasks.activity.CreateProcessTaskAcitvity;
+import com.yunyisheng.app.yunys.tasks.activity.ProcessDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +90,12 @@ public class HomeScheduleAdapter extends SimpleListAdapter<MyScheduleBean.RespBo
                     intent.putExtra("taskId", bean.getTaskId());
                     context.startActivity(intent);
                 }else {
-                    Intent intent=new Intent(context, CreateProcessTaskAcitvity.class);
+                    Intent intent=new Intent(context, ProcessDetailActivity.class);
+                    if (otheruserid != 0) {
+                        intent.putExtra("userId", otheruserid + "");
+                    }
+                    intent.putExtra("taskType", type);
+                    intent.putExtra("taskId", bean.getTaskId());
                     context.startActivity(intent);
                 }
 

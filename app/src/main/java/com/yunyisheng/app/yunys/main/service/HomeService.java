@@ -12,6 +12,7 @@ import com.yunyisheng.app.yunys.main.model.MessageBean;
 import com.yunyisheng.app.yunys.main.model.MessageTypeBean;
 import com.yunyisheng.app.yunys.main.model.NoticeDetailBean;
 import com.yunyisheng.app.yunys.main.model.ProjectFromWorkBean;
+import com.yunyisheng.app.yunys.main.model.ReceiveMeMessageBean;
 import com.yunyisheng.app.yunys.main.model.ReportFormBean;
 import com.yunyisheng.app.yunys.main.model.ReportListBean;
 import com.yunyisheng.app.yunys.main.model.RoleBean;
@@ -69,9 +70,9 @@ public interface HomeService {
      */
     @FormUrlEncoded
     @POST("announcement/list/receive")
-    Flowable<SendNoticeBean> getReciveNoticelist(@Field("pageNum") int pageNum,
-                                                 @Field("pageSize") int pageSize,
-                                                 @Field("title") String title);
+    Flowable<ReceiveMeMessageBean> getReciveNoticelist(@Field("pageNum") int pageNum,
+                                                       @Field("pageSize") int pageSize,
+                                                       @Field("title") String title);
 
     /**
      * @param announcementId 公告id
@@ -216,7 +217,7 @@ public interface HomeService {
      * @return
      */
     @FormUrlEncoded
-    @POST("myReport/select/all")
+    @POST("myReport/select/num")
     Flowable<ReportListBean> getBaobiaoDetail(@Field("instanceId") int instanceId);
 
     /**

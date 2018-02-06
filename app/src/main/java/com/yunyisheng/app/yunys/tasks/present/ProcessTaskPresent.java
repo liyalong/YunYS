@@ -99,6 +99,63 @@ public class ProcessTaskPresent extends XPresent<ProcessTaskFormActivity> {
                             return;
                         }
                         ToastUtils.showToast("转办成功");
+                        getV().finish();
+                    }
+                });
+    }
+
+    /**
+     * @author fuduo
+     * @time 2018/2/5  17:15
+     * @describe 同意流程任务表单
+     */
+    public void agreeProcessTaskForm(String taskId, String comment) {
+        Api.projectService().agreeTask(taskId, comment)
+                .compose(XApi.<BaseModel>getApiTransformer())
+                .compose(XApi.<BaseModel>getScheduler())
+                .compose(getV().<BaseModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        ToastUtils.showToast("网络请求错误！");
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        if (baseModel.getRespCode() == 1) {
+                            ToastUtils.showToast(baseModel.getRespMsg());
+                            return;
+                        }
+                        ToastUtils.showToast("审批成功");
+                        getV().finish();
+                    }
+                });
+    }
+
+    /**
+     * @author fuduo
+     * @time 2018/2/5  17:15
+     * @describe 拒绝流程任务表单
+     */
+    public void refuseProcessTaskForm(String taskId, String comment) {
+        Api.projectService().refuseTask(taskId, comment)
+                .compose(XApi.<BaseModel>getApiTransformer())
+                .compose(XApi.<BaseModel>getScheduler())
+                .compose(getV().<BaseModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        ToastUtils.showToast("网络请求错误！");
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        if (baseModel.getRespCode() == 1) {
+                            ToastUtils.showToast(baseModel.getRespMsg());
+                            return;
+                        }
+                        ToastUtils.showToast("审批成功");
+                        getV().finish();
                     }
                 });
     }
