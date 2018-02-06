@@ -13,7 +13,7 @@ import java.util.List;
 public class ReportListBean extends BaseModel {
 
 
-    private List<RespBodyBean> respBody;
+    private List<RespBodyBean> respBody ;
 
     public List<RespBodyBean> getRespBody() {
         return respBody;
