@@ -65,6 +65,7 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
     LinearLayout toPeriodicTasks;
     @BindView(R.id.jbxx_list)
     LinearLayout jbxxList;
+
     private String deviceId;
     private String projectId;
     private String deviceName;
@@ -111,6 +112,8 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
                 Router.newIntent(context)
                         .to(PLCDetailActivity.class)
                         .putString("plcName", String.valueOf(clickPlc.getPropertyId()))
+                        .putString("plcUnits",clickPlc.getUnits())
+                        .putString("plcDesc",clickPlc.getDetail())
                         .launch();
                 return true;
             }
@@ -221,7 +224,7 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
     }
 
     public void setDeviceWarningList(DeviceWarningListModel deviceWarningListModel) {
-        if (deviceWarningListModel.getRespBody().size() > 0) {
+        if (deviceWarningListModel.getRespBody() != null) {
             warningDataList.clear();
             warningDataList.addAll(deviceWarningListModel.getRespBody());
             warningAdapter = new DeviceOrPCMAlarmListAdapter(context,PLCGroupList, warningDataList);
@@ -232,7 +235,7 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
     }
 
     public void setDevicePLCValueList(DevicePLCValueListModel devicePLCValueListModel) {
-        if (devicePLCValueListModel.getRespBody().size() > 0) {
+        if (devicePLCValueListModel.getRespBody() != null) {
             devicePLCValueList.clear();
             devicePLCValueList.addAll(devicePLCValueListModel.getRespBody());
             PLCAdapter = new DeviceOrPcmPLCValueListAdapter(context,PLCGroupList, devicePLCValueList);

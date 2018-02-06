@@ -38,10 +38,10 @@ public class ModelListAdapter extends SimpleListAdapter<ModelInfoBean, ModelList
     protected void convert(ViewHolder holder, ModelInfoBean item, int position) {
         modelInfoBean = data.get(position);
         holder.modelName.setText(modelInfoBean.getPcmName().toString());
-        if (modelInfoBean.getPcmBindnum() == null){
+        if (modelInfoBean.getEquipmentNum() == null){
             holder.modelBindDeviceNums.setText(0+"");
         }else {
-            holder.modelBindDeviceNums.setText(modelInfoBean.getPcmBindnum().toString());
+            holder.modelBindDeviceNums.setText(modelInfoBean.getEquipmentNum().toString());
         }
 
         if (modelInfoBean.getPcmIsWarning() == 0){

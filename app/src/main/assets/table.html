@@ -9,15 +9,21 @@
     <script src="jqueyr-3.1.0.min.js"></script>
     <script type="bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script src="echarts.min.js"></script>
-
 </head>
-<body >
+<body>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xs-12" id="pcldetail" style="height:100%;"></div>
+        <div class="col-xs-12" id="tabList" style="height:100%;">
+
+        </div>
     </div>
 
 </div>
-<script src="plcDetail.js"></script>
+<script src="table.js"></script>
+<script type="text/javascript">
+    function getChartData(instanceId){
+        reportDetail.getReportDeatil(instanceId);
+    }
+</script>
 </body>
 </html>

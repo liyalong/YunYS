@@ -7,6 +7,7 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.project.bean.PLCValueBean;
@@ -33,21 +34,27 @@ public class PLCDetailActivity extends BaseActivity<PLCDetailPresent> {
     private List<PLCValueBean> dataList;
     Timer timer;
     private String plcName;
+    private String plcUnits;
+    private String plcDesc;
     @Override
     public void initView() {
         ButterKnife.bind(this);
         plcName = getIntent().getStringExtra("plcName");
+        plcUnits = getIntent().getStringExtra("plcUnits");
+        plcDesc = getIntent().getStringExtra("plcDesc");
+        deviceDetailTitle.setText(plcDesc+" 最新10分钟数据");
         WebSettings plcDetailSettings = plcDetail.getSettings();
         plcDetailSettings.setJavaScriptEnabled(true);
         plcDetail.loadUrl("file:///android_asset/plcDetail.html");
 
-//        timer = new Timer();
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                getP().getPlcDetail(plcName);
-//            }
-//        },0,10000);
+
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                getP().getPlcDetail(plcName);
+            }
+        },0,10000);
     }
 
     @Override
@@ -82,7 +89,7 @@ public class PLCDetailActivity extends BaseActivity<PLCDetailPresent> {
     public void setPLCData(PLCListModel plcListModel) {
         if (plcListModel.getRespBody().size() > 0){
             dataList = plcListModel.getRespBody();
-            plcDetail.loadUrl("javascript:createCharts()");
+            plcDetail.loadUrl("javascript:createCharts("+ JSON.toJSONString(dataList)+","+plcUnits+")");
         }else {
             ToastUtils.showToast("暂无数据！");
         }

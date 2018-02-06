@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys.project.activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -10,15 +11,29 @@ import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.base.BaseModel;
+import com.yunyisheng.app.yunys.project.adapter.DeviceOrPCMAlarmListAdapter;
+import com.yunyisheng.app.yunys.project.adapter.DeviceOrPcmPLCValueListAdapter;
+import com.yunyisheng.app.yunys.project.bean.DevicePLCValueBean;
+import com.yunyisheng.app.yunys.project.bean.DeviceWarningBean;
 import com.yunyisheng.app.yunys.project.bean.ModelInfoBean;
+import com.yunyisheng.app.yunys.project.model.DevicePLCValueListModel;
+import com.yunyisheng.app.yunys.project.model.DeviceWarningListModel;
 import com.yunyisheng.app.yunys.project.model.ModelDetailModel;
 import com.yunyisheng.app.yunys.project.present.ModelDetailPresent;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
+import com.yunyisheng.app.yunys.utils.SuperExpandableListView;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.glide.GlideDownLoadImage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.droidlover.xdroidmvp.log.XLog;
 import cn.droidlover.xdroidmvp.router.Router;
 
 /**
@@ -37,18 +52,25 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> {
     @BindView(R.id.device_model_detail_status)
     TextView deviceModelDetailStatus;
     @BindView(R.id.to_model_device_list)
-    RelativeLayout toModelDeviceList;
+    LinearLayout toModelDeviceList;
     @BindView(R.id.to_model_alarm_rules)
-    RelativeLayout toModelAlarmRules;
+    LinearLayout toModelAlarmRules;
     @BindView(R.id.model_detail_jbxx_box)
-    RelativeLayout modelDetailJbxxBox;
+    LinearLayout modelDetailJbxxBox;
     @BindView(R.id.to_model_knowledge)
-    RelativeLayout toModelKnowledge;
+    LinearLayout toModelKnowledge;
     @BindView(R.id.model_pic_drop)
     ImageView modelPicDrop;
     @BindView(R.id.model_pic_box)
     RelativeLayout modelPicBox;
+    @BindView(R.id.bjxx_list)
+    SuperExpandableListView bjxxList;
+    @BindView(R.id.sszb_list)
+    SuperExpandableListView sszbList;
 
+
+    private List<String> PLCGroupList = new ArrayList<>();
+    private List<String> warningGrouptList = new ArrayList<>();
 
     private boolean jbxxBoxIsshow = true;
     private boolean MODELPICISSHOW = true;
@@ -56,14 +78,47 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> {
     private String projectId;
     private String modelId;
     private String modelName;
+    private Timer timer;
+    private DeviceOrPCMAlarmListAdapter warningAdapter;
+    private List<DeviceWarningBean> warningDataList = new ArrayList<>();
 
+    private DeviceOrPcmPLCValueListAdapter PLCAdapter;
+    private List<DevicePLCValueBean> devicePLCValueList = new ArrayList<>();
     @Override
     public void initView() {
         ButterKnife.bind(this);
         this.projectId = getIntent().getStringExtra("projectId");
         this.modelId = getIntent().getStringExtra("modelId");
         this.modelName = getIntent().getStringExtra("modelName");
+
+        PLCGroupList.add("实时指标");
+        warningGrouptList.add("实时报警");
+
         getP().getModelDetail(projectId, modelId);
+        //实时报警列表
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                getP().getModelWarningList(projectId, 1, 999, modelId);
+                getP().getModelPlcValueList(projectId, modelId);
+
+            }
+        }, 0, 10000);
+        sszbList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+                DevicePLCValueBean clickPlc = devicePLCValueList.get(i1);
+                XLog.d(String.valueOf(clickPlc.getPropertyId()));
+                Router.newIntent(context)
+                        .to(PLCDetailActivity.class)
+                        .putString("plcName", String.valueOf(clickPlc.getPropertyId()))
+                        .putString("plcUnits",clickPlc.getUnits())
+                        .putString("plcDesc",clickPlc.getDetail())
+                        .launch();
+                return true;
+            }
+        });
 
     }
 
@@ -96,6 +151,7 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> {
     public void widgetClick(View v) {
         switch (v.getId()) {
             case R.id.img_back:
+                stopTimer();
                 finish();
                 break;
             case R.id.model_detail_jbxx_drop:
@@ -156,4 +212,40 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> {
         }
     }
 
+    public void setModelWarningList(DeviceWarningListModel deviceWarningListModel) {
+        if (deviceWarningListModel.getRespBody() != null) {
+            warningDataList.clear();
+            warningDataList.addAll(deviceWarningListModel.getRespBody());
+            warningAdapter = new DeviceOrPCMAlarmListAdapter(context,warningGrouptList, warningDataList);
+            bjxxList.setAdapter(warningAdapter);
+            bjxxList.expandGroup(0);
+        }
+    }
+
+    public void setModelPLCValueList(DevicePLCValueListModel devicePLCValueListModel) {
+        if (devicePLCValueListModel.getRespBody() != null) {
+            devicePLCValueList.clear();
+            devicePLCValueList.addAll(devicePLCValueListModel.getRespBody());
+            PLCAdapter = new DeviceOrPcmPLCValueListAdapter(context,PLCGroupList, devicePLCValueList);
+            sszbList.setAdapter(PLCAdapter);
+            sszbList.expandGroup(0);
+
+        }
+    }
+
+    public void warningReset(Integer warningId){
+        getP().warningReset(warningId);
+    }
+    public void checkWarningReset(BaseModel baseModel) {
+        if (baseModel.getRespCode() == 0){
+            ToastUtils.showToast(baseModel.getRespMsg());
+            getP().getModelWarningList(projectId, 1, 999, modelId);
+        }
+    }
+    private void stopTimer() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+    }
 }

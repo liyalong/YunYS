@@ -19,6 +19,7 @@ public class ModelInfoBean{
     private String pcmWarningLevel;
     private String pcmBindnum;
     private String companyId;
+    private String equipmentNum;
     private String equs;
 
     public String getPcmId() {
@@ -123,6 +124,15 @@ public class ModelInfoBean{
 
     public void setEqus(String equs) {
         this.equs = equs;
+    }
+
+    public void setEquipmentNum(String equipmentNum) {
+        this.equipmentNum = equipmentNum;
+    }
+
+    public String getEquipmentNum() {
+
+        return equipmentNum;
     }
 
     @Override

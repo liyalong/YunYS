@@ -317,6 +317,17 @@ public interface ProjectService {
                                                             @Field("deviceId") String deviceId);
 
     /**
+     * 获取工艺模块plc实时指标
+     * @param projectId
+     * @param modelId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("property/selectPcmAllProperty/{projectId}")
+    Flowable<DevicePLCValueListModel> getModelPLCValueList(@Path("projectId") String projectId,
+                                                            @Field("pcmId") String modelId);
+
+    /**
      * 报警重置
      * @param alarmLoggingId
      * @return
