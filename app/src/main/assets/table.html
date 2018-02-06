@@ -87,7 +87,7 @@ function createChart(instanceId,data){
                     var itemNum = count(item);
 
                     if(itemNum > 0){
-                        var seriesItem = {name:lineName,type:"line",data:[]};
+                        var seriesItem = {name:lineName,type:"line",data:[],smooth: true};
                         if(chartType == 1){
                             seriesItem.stack = '堆积';
                         }else if(chartType == 2){

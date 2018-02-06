@@ -18,7 +18,7 @@ var option = {
                     }
         },
         yAxis: {
-            type: 'value'
+            type: 'category'
         },
         series: [{
             data: [],
