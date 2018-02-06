@@ -27,6 +27,7 @@ import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.main.activity.NoticeDeatilActivity;
 import com.yunyisheng.app.yunys.main.adapter.PublishNoticeListAdapter;
 import com.yunyisheng.app.yunys.main.adapter.ReceiveNoticeListAdapter;
+import com.yunyisheng.app.yunys.main.model.ReceiveMeMessageBean;
 import com.yunyisheng.app.yunys.main.model.SendNoticeBean;
 import com.yunyisheng.app.yunys.main.present.NoticePresent;
 import com.yunyisheng.app.yunys.schedule.model.PositionMessageEvent;
@@ -64,6 +65,7 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
     private String sousuo_neirong;
     private int pageindex = 1;
     private List<SendNoticeBean.ListBean> sendlist = new ArrayList<>();
+    private List<ReceiveMeMessageBean.ListBean> receivemelist=new ArrayList<>();
     private PublishNoticeListAdapter adapter;
     private ReceiveNoticeListAdapter adapter1;
 
@@ -229,14 +231,14 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
         pullToRefreshListview.onRefreshComplete();
     }
 
-    public void getRecelveList(SendNoticeBean sendNoticeBean) {
-        if (sendNoticeBean.getList().size() > 0) {
+    public void getRecelveList(ReceiveMeMessageBean receiveMeMessageBean) {
+        if (receiveMeMessageBean.getList().size() > 0) {
             if (pageindex == 1) {
-                sendlist.addAll(sendNoticeBean.getList());
-                adapter1 = new ReceiveNoticeListAdapter(mContext, sendlist);
+                receivemelist.addAll(receiveMeMessageBean.getList());
+                adapter1 = new ReceiveNoticeListAdapter(mContext, receivemelist);
                 pullToRefreshListview.setAdapter(adapter1);
             } else {
-                sendlist.addAll(sendNoticeBean.getList());
+                receivemelist.addAll(receiveMeMessageBean.getList());
                 adapter.notifyDataSetChanged();
             }
         } else {

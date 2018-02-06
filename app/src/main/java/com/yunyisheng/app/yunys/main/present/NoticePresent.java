@@ -1,6 +1,7 @@
 package com.yunyisheng.app.yunys.main.present;
 
 import com.yunyisheng.app.yunys.main.fragement.NoticeFragement;
+import com.yunyisheng.app.yunys.main.model.ReceiveMeMessageBean;
 import com.yunyisheng.app.yunys.main.model.SendNoticeBean;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
@@ -57,16 +58,16 @@ public class NoticePresent extends XPresent<NoticeFragement> {
      */
     public void getReceiveNoticelist(int pagenum,int pageindex,String title){
         Api.homeService().getReciveNoticelist(pagenum,pageindex,title)
-                .compose(XApi.<SendNoticeBean>getApiTransformer()) //统一异常处理
-                .compose(XApi.<SendNoticeBean>getScheduler()) //线程调度
-                .compose(getV().<SendNoticeBean>bindToLifecycle()) //内存泄漏处理
-                .subscribe(new ApiSubscriber<SendNoticeBean>() {
+                .compose(XApi.<ReceiveMeMessageBean>getApiTransformer()) //统一异常处理
+                .compose(XApi.<ReceiveMeMessageBean>getScheduler()) //线程调度
+                .compose(getV().<ReceiveMeMessageBean>bindToLifecycle()) //内存泄漏处理
+                .subscribe(new ApiSubscriber<ReceiveMeMessageBean>() {
                     @Override
-                    public void onNext(SendNoticeBean sendNoticeBean) {
-                        if (sendNoticeBean.getRespCode()==0){
-                            getV().getRecelveList(sendNoticeBean);
+                    public void onNext(ReceiveMeMessageBean receiveMeMessageBean) {
+                        if (receiveMeMessageBean.getRespCode()==0){
+                            getV().getRecelveList(receiveMeMessageBean);
                         }else {
-                            ToastUtils.showToast(sendNoticeBean.getRespMsg());
+                            ToastUtils.showToast(receiveMeMessageBean.getRespMsg());
                         }
                     }
 

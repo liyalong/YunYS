@@ -14,7 +14,6 @@ import com.yunyisheng.app.yunys.project.fragement.AlarmListFragment;
 import com.yunyisheng.app.yunys.project.fragement.DeviceListFragment;
 import com.yunyisheng.app.yunys.project.fragement.ModelListFragment;
 import com.yunyisheng.app.yunys.project.fragement.TaskPoolFragment;
-import com.yunyisheng.app.yunys.project.model.DeviceListModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +62,7 @@ public class ProjectDetailsActivity extends BaseActivity {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),fragments,mTitle);
         projectDetailViewpage.setAdapter(viewPagerAdapter);
         detailLayout.setupWithViewPager(projectDetailViewpage);
-        setIndicator(context, detailLayout, 15, 15);
+        setIndicator(context, detailLayout, 10, 10);
     }
 
     @Override

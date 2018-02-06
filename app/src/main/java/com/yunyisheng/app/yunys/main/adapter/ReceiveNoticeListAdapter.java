@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
-import com.yunyisheng.app.yunys.main.model.SendNoticeBean;
+import com.yunyisheng.app.yunys.main.model.ReceiveMeMessageBean;
 
 import java.util.List;
 
@@ -19,10 +19,10 @@ import cn.droidlover.xdroidmvp.kit.KnifeKit;
  * 用途：
  */
 
-public class ReceiveNoticeListAdapter extends SimpleListAdapter<SendNoticeBean.ListBean, ReceiveNoticeListAdapter.ViewHolder> {
+public class ReceiveNoticeListAdapter extends SimpleListAdapter<ReceiveMeMessageBean.ListBean, ReceiveNoticeListAdapter.ViewHolder> {
 
 
-    public ReceiveNoticeListAdapter(Context context, List<SendNoticeBean.ListBean> data) {
+    public ReceiveNoticeListAdapter(Context context, List<ReceiveMeMessageBean.ListBean> data) {
         super(context, data);
     }
 
@@ -37,11 +37,11 @@ public class ReceiveNoticeListAdapter extends SimpleListAdapter<SendNoticeBean.L
     }
 
     @Override
-    protected void convert(ViewHolder holder, SendNoticeBean.ListBean item, int position) {
-        SendNoticeBean.ListBean listBean = data.get(position);
-        holder.teNoticetitle.setText(listBean.getTitle());
-        holder.teNoticetime.setText(listBean.getCreateTime());
-        holder.teNoticedetail.setText(listBean.getContent());
+    protected void convert(ViewHolder holder, ReceiveMeMessageBean.ListBean item, int position) {
+        ReceiveMeMessageBean.ListBean.AnnouncementBean announcement = data.get(position).getAnnouncement();
+        holder.teNoticetitle.setText(announcement.getTitle());
+        holder.teNoticetime.setText(announcement.getCreateTime());
+        holder.teNoticedetail.setText(announcement.getContent());
     }
 
 

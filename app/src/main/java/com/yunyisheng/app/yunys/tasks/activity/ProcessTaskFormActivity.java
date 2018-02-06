@@ -1,9 +1,13 @@
 package com.yunyisheng.app.yunys.tasks.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -235,7 +239,7 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                     but_ok.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            createYijianDialog(1);
                         }
                     });
                     lineAll.addView(but_ok);
@@ -248,7 +252,7 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                     but_no.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            createYijianDialog(2);
                         }
                     });
                     lineAll.addView(but_no);
@@ -356,13 +360,63 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
         }
     }
 
+    /**
+     * @author fuduo
+     * @time 2018/2/6  21:26
+     * @describe 反馈意见框
+     */
+    private void createYijianDialog(final int type){
+        final Dialog mShareDialog = new Dialog(this, R.style.dialog_bottom_full);
+        mShareDialog.setCanceledOnTouchOutside(true);
+        mShareDialog.setCancelable(true);
+        Window window = mShareDialog.getWindow();
+        window.setGravity(Gravity.CENTER);
+        View view1 = View.inflate(this, R.layout.dialog_put_shenhestring, null);
+        RelativeLayout rl_ok = (RelativeLayout) view1
+                .findViewById(R.id.rl_ok);
+        RelativeLayout btn_cancel = (RelativeLayout) view1
+                .findViewById(R.id.rl_cancle);
+
+        final EditText ed_putstr = (EditText) view1
+                .findViewById(R.id.ed_putstr);
+
+        rl_ok.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                String trim = ed_putstr.getText().toString().trim();
+                if (type==1){
+                    getP().agreeProcessTaskForm(taskid,trim);
+                }else {
+                    getP().refuseProcessTaskForm(taskid,trim);
+                }
+                mShareDialog.dismiss();
+
+            }
+        });
+
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mShareDialog.dismiss();
+            }
+        });
+
+        window.setContentView(view1);
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);//设置横向全屏
+        mShareDialog.show();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 1) {
             selectUserId1 = data.getIntExtra("selectUserId", 0);
             selectUserName = data.getStringExtra("selectUserName");
-            getP().zhuanProcessTaskForm(selectFormId, selectUserId1);
+            if (taskid!=null&&!taskid.equals("")){
+                getP().zhuanProcessTaskForm(taskid, selectUserId1);
+            }
         }
     }
 }

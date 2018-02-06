@@ -9,10 +9,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/include_titlebar"
+            />
         <Button
             android:id="@+id/but_start"
             android:layout_width="@dimen/distance_100"
             android:layout_height="@dimen/distance_41"
+            android:layout_centerInParent="true"
             android:text="开始"
             />
     </RelativeLayout>
