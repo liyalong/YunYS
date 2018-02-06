@@ -50,6 +50,22 @@
             android:background="@mipmap/white_down" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/line_address_detail"
+        style="@style/login_linearLayout_style"
+        android:orientation="horizontal">
+
+        <ImageView
+            style="@style/login_icon_style"
+            android:background="@mipmap/address_detail" />
+
+        <EditText
+            android:id="@+id/ed_company_address_detail"
+            style="@style/LoginInputother"
+            android:hint="企业详细地址"
+            />
+    </LinearLayout>
+
     <LinearLayout style="@style/login_linearLayout_style">
 
         <ImageView
@@ -71,6 +87,8 @@
         <EditText
             android:id="@+id/phone_num"
             style="@style/LoginInputother"
+            android:inputType="number"
+            android:maxLength="11"
             android:hint="联系人电话" />
     </LinearLayout>
 

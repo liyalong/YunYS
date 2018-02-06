@@ -36,6 +36,8 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
     EditText phoneNum;
     @BindView(R.id.ed_company_email)
     EditText edCompanyEmail;
+    @BindView(R.id.ed_company_address_detail)
+    EditText edCompanyaddressdetail;
     @BindView(R.id.ed_company_description)
     TextView edCompanyDescription;
     @BindView(R.id.ed_company_address)
@@ -51,7 +53,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
     private String enterpriseAddressProvince;
     private String enterpriseAddressDistrict;
     private String enterpriseAddressCity;
-    private String enterpriseAddressParticular;
 
     @Override
     public void initView() {
@@ -134,7 +135,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
 
             @Override
             public void onCitySelect(String str) {
-                enterpriseAddressParticular = str;
                 edCompanyAddress.setText(str);
             }
         });
@@ -148,12 +148,17 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
         String companyDescription = edCompanyDescription.getText().toString().trim();
         String companyEmail = edCompanyEmail.getText().toString().trim();
         String companylianxiName = companyLianxiName.getText().toString().trim();
+        String companyaddressdetail = edCompanyaddressdetail.getText().toString().trim();
         if (company_name.isEmpty()) {
             ToastUtils.showToast("公司名称不能为空！");
             return;
         }
         if (companyAddress.equals("请选择企业省市")) {
-            ToastUtils.showToast("公司地址不能为空！");
+            ToastUtils.showToast("公司省市不能为空！");
+            return;
+        }
+        if (companyaddressdetail.isEmpty()) {
+            ToastUtils.showToast("公司详细地址不能为空！");
             return;
         }
         if (companylianxiName.isEmpty()) {
@@ -185,7 +190,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
             return;
         }
         getP().registerCompany(company_name, enterpriseAddressProvince, enterpriseAddressCity,
-                enterpriseAddressDistrict, enterpriseAddressParticular, companylianxiName, phone, companyEmail, companyDescription);
+                enterpriseAddressDistrict, companyaddressdetail, companylianxiName, phone, companyEmail, companyDescription);
     }
 
     private void toLoginView() {
