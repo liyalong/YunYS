@@ -1,14 +1,8 @@
 package com.yunyisheng.app.yunys.tasks.activity;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,12 +11,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
-import com.yunyisheng.app.yunys.base.BaseModel;
-import com.yunyisheng.app.yunys.project.activity.RenwuFankuiFormActivity;
 import com.yunyisheng.app.yunys.project.activity.TaskDetailActivity;
 import com.yunyisheng.app.yunys.project.model.TaskListModel;
 import com.yunyisheng.app.yunys.tasks.adapter.MyPushTaskListAdapter;
-import com.yunyisheng.app.yunys.tasks.adapter.TaskAdapter;
 import com.yunyisheng.app.yunys.tasks.bean.TaskBean;
 import com.yunyisheng.app.yunys.tasks.present.MyPushTaskChildPersen;
 import com.yunyisheng.app.yunys.utils.ScrowUtil;
@@ -33,7 +24,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
 import cn.droidlover.xdroidmvp.router.Router;
 
 public class MyPushTaskChildListActivity extends BaseActivity<MyPushTaskChildPersen> implements MyPushTaskListAdapter.Callback{

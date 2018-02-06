@@ -46,7 +46,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.droidlover.xdroidmvp.log.XLog;
 import cn.droidlover.xdroidmvp.router.Router;
 
 /**
@@ -268,10 +267,10 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
         editTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO 跳转编辑任务
                 Router.newIntent(context)
                         .to(CreateDeviceTaskAcitvity.class)
                         .putInt("taskType",1)
+                        .putInt("fromPageType",1)
                         .putString("taskId", String.valueOf(clickTask.getReleaseId()))
                         .putString("projectId",projectId)
                         .launch();

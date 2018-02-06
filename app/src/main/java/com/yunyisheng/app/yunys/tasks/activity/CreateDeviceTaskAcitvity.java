@@ -190,8 +190,8 @@ public class CreateDeviceTaskAcitvity extends BaseActivity<CreateDeviceTaskPrese
             finish();
         }
     }
-    public int getTaskEditId() {
-        return fromPageType;
+    public String getTaskEditId() {
+        return editTaskId;
     }
     public String getProjectId(){
         return projectId;

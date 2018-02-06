@@ -43,17 +43,18 @@ public class MyProjectListAdapter extends SimpleListAdapter<ProjectBean, MyProje
             final ProjectBean projectBean = data.get(position);
             holder.projectName.setText(projectBean.getProjectName());
             holder.projectCreateUser.setText(projectBean.getProjectLeader());
-            if (item.getUnSeeTaskNum() != null){
+            if (item.getUnSeeTaskNum() != null && item.getUnSeeTaskNum() > 0){
                 holder.projectNewtaskLayout.setVisibility(View.VISIBLE);
                 holder.projectNewtaskNums.setText(item.getUnSeeTaskNum().toString());
             }else {
-                holder.projectErrorLayout.setVisibility(View.GONE);
+                holder.projectNewtaskLayout.setVisibility(View.GONE);
             }
-            if (item.getWaringNum() != null){
+            if (item.getWaringNum() != null && item.getWaringNum() > 0){
                 holder.projectErrorLayout.setVisibility(View.VISIBLE);
                 holder.projectErrorNums.setText(item.getWaringNum().toString());
+            }else {
+                holder.projectErrorLayout.setVisibility(View.GONE);
             }
-            holder.projectNewtaskLayout.setVisibility(View.GONE);
             holder.projectCreateTime.setText(projectBean.getProjectCreate());
             holder.projectDesc.setText(projectBean.getProjectRemarks());
     }
