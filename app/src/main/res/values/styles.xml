@@ -56,6 +56,7 @@
         <item name="android:textSize">@dimen/distance_14</item>
 
     </style>
+
     <style name="LoginInputother">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -139,6 +140,7 @@
     <style name="TabLayoutTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
         <item name="android:textSize">@dimen/tablayout</item>
     </style>
+
     <style name="NoticeTabLayoutTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
         <item name="android:textSize">@dimen/text_small</item>
     </style>
@@ -164,6 +166,7 @@
         <item name="android:gravity">center</item>
         <item name="android:layout_margin">@dimen/distance_10</item>
     </style>
+
     <style name="time_dialog" parent="android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
@@ -173,7 +176,7 @@
     </style>
 
     <!-- 单选radio-->
-    <style name="radio" >
+    <style name="radio">
         <item name="android:button">@drawable/radio</item>
         <item name="android:gravity">center</item>
         <item name="android:color">@color/color3</item>

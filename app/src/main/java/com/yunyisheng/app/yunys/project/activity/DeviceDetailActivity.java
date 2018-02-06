@@ -2,14 +2,17 @@ package com.yunyisheng.app.yunys.project.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.project.adapter.DeviceOrPCMAlarmListAdapter;
+import com.yunyisheng.app.yunys.project.adapter.DeviceOrPcmPLCValueListAdapter;
 import com.yunyisheng.app.yunys.project.bean.DeviceBean;
 import com.yunyisheng.app.yunys.project.bean.DevicePLCValueBean;
 import com.yunyisheng.app.yunys.project.bean.DeviceWarningBean;
@@ -18,6 +21,7 @@ import com.yunyisheng.app.yunys.project.model.DevicePLCValueListModel;
 import com.yunyisheng.app.yunys.project.model.DeviceWarningListModel;
 import com.yunyisheng.app.yunys.project.present.DeviceDetailPresent;
 import com.yunyisheng.app.yunys.utils.SuperExpandableListView;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +38,17 @@ import cn.droidlover.xdroidmvp.router.Router;
  * 设备详情页面
  */
 
-public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> implements DeviceOrPCMAlarmListAdapter.Callback {
-
-
+public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
     @BindView(R.id.img_back)
     ImageView imgBack;
     @BindView(R.id.device_detail_title)
     TextView deviceDetailTitle;
+    @BindView(R.id.line)
+    LinearLayout line;
+    @BindView(R.id.device_detail_bjxx_list)
+    SuperExpandableListView deviceDetailBjxxList;
+    @BindView(R.id.device_detail_sszb_list)
+    SuperExpandableListView deviceDetailSszbList;
     @BindView(R.id.info_drop_btn)
     ImageView infoDropBtn;
     @BindView(R.id.device_status)
@@ -57,28 +65,22 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> impl
     LinearLayout toPeriodicTasks;
     @BindView(R.id.jbxx_list)
     LinearLayout jbxxList;
-    @BindView(R.id.jbxx_drop_btn)
-    ImageView jbxxDropBtn;
-    @BindView(R.id.device_detail_bjxx_list)
-    ListView deviceDetailBjxxList;
-    @BindView(R.id.sszb_drop_btn)
-    ImageView sszbDropBtn;
-    @BindView(R.id.device_detail_sszb_list)
-    SuperExpandableListView deviceDetailSszbList;
     private String deviceId;
     private String projectId;
     private String deviceName;
 
-    private List<String> groupList = new ArrayList<>();
+    private List<String> PLCGroupList = new ArrayList<>();
+    private List<String> warningGrouptList = new ArrayList<>();
 
-    private List<DevicePLCValueBean> devicePLCValueList = new ArrayList<>();
 
     private boolean INFOISSHOW = true;
-    private boolean BJXXISSHOW = true;
     private Timer timer;
 
     private DeviceOrPCMAlarmListAdapter warningAdapter;
     private List<DeviceWarningBean> warningDataList = new ArrayList<>();
+
+    private DeviceOrPcmPLCValueListAdapter PLCAdapter;
+    private List<DevicePLCValueBean> devicePLCValueList = new ArrayList<>();
 
     @Override
     public void initView() {
@@ -95,10 +97,25 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> impl
             @Override
             public void run() {
                 getP().getDeviceWarningList(projectId, 1, 999, deviceId);
-                getP().getDevicePlcValueList(projectId,deviceId);
+                getP().getDevicePlcValueList(projectId, deviceId);
 
             }
         }, 0, 10000);
+       PLCGroupList.add("实时指标");
+       warningGrouptList.add("实时报警");
+        deviceDetailSszbList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+                DevicePLCValueBean clickPlc = devicePLCValueList.get(i1);
+                XLog.d(String.valueOf(clickPlc.getPropertyId()));
+                Router.newIntent(context)
+                        .to(PLCDetailActivity.class)
+                        .putString("plcName", String.valueOf(clickPlc.getPropertyId()))
+                        .launch();
+                return true;
+            }
+        });
+
     }
 
     @Override
@@ -124,7 +141,6 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> impl
         toDeviceParts.setOnClickListener(this);
         toPeriodicTasks.setOnClickListener(this);
         infoDropBtn.setOnClickListener(this);
-        jbxxDropBtn.setOnClickListener(this);
 
     }
 
@@ -179,17 +195,6 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> impl
                 }
 
                 break;
-            case R.id.jbxx_drop_btn:
-                if (BJXXISSHOW){
-                    jbxxDropBtn.setImageResource(R.mipmap.icon_device_right);
-                    deviceDetailBjxxList.setVisibility(View.GONE);
-                    BJXXISSHOW = false;
-                }else {
-                    jbxxDropBtn.setImageResource(R.mipmap.icon_device_down);
-                    deviceDetailBjxxList.setVisibility(View.VISIBLE);
-                    BJXXISSHOW = true;
-                }
-                break;
         }
 
     }
@@ -203,9 +208,9 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> impl
         DeviceBean deviceBean = deviceInfoModel.getRespBody();
         if (deviceBean.getEquipmentStat() == 1) {
             deviceStatus.setText(R.string.device_status_1);
-        } else if (deviceBean.getEquipmentStat() == 2){
+        } else if (deviceBean.getEquipmentStat() == 2) {
             deviceStatus.setText(R.string.model_running_status_2);
-        }else if (deviceBean.getEquipmentStat() == 3){
+        } else if (deviceBean.getEquipmentStat() == 3) {
             deviceStatus.setText(R.string.device_status_2);
         }
         if (deviceBean.getBindPlcNum() == 0) {
@@ -219,14 +224,20 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> impl
         if (deviceWarningListModel.getRespBody().size() > 0) {
             warningDataList.clear();
             warningDataList.addAll(deviceWarningListModel.getRespBody());
-            warningAdapter = new DeviceOrPCMAlarmListAdapter(context, warningDataList, this);
+            warningAdapter = new DeviceOrPCMAlarmListAdapter(context,PLCGroupList, warningDataList);
             deviceDetailBjxxList.setAdapter(warningAdapter);
+            deviceDetailBjxxList.expandGroup(0);
         }
 
     }
 
-    public void setDevicePLCValueList(DevicePLCValueListModel devicePLCValueList) {
-        if (devicePLCValueList.getRespBody().size() > 0){
+    public void setDevicePLCValueList(DevicePLCValueListModel devicePLCValueListModel) {
+        if (devicePLCValueListModel.getRespBody().size() > 0) {
+            devicePLCValueList.clear();
+            devicePLCValueList.addAll(devicePLCValueListModel.getRespBody());
+            PLCAdapter = new DeviceOrPcmPLCValueListAdapter(context,PLCGroupList, devicePLCValueList);
+            deviceDetailSszbList.setAdapter(PLCAdapter);
+            deviceDetailSszbList.expandGroup(0);
 
         }
     }
@@ -241,10 +252,13 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> impl
             timer = null;
         }
     }
-
-    @Override
-    public void click(View v) {
-        Integer position = (Integer) v.getTag();
+    public void warningReset(Integer warningId){
+        getP().warningReset(warningId);
     }
-
+    public void checkWarningReset(BaseModel baseModel) {
+        if (baseModel.getRespCode() == 0){
+            ToastUtils.showToast(baseModel.getRespMsg());
+            getP().getDeviceWarningList(projectId, 1, 999, deviceId);
+        }
+    }
 }

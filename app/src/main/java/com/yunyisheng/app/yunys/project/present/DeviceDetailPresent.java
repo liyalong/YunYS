@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.project.present;
 
+import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.activity.DeviceDetailActivity;
 import com.yunyisheng.app.yunys.project.model.DeviceInfoModel;
@@ -102,4 +103,27 @@ public class DeviceDetailPresent extends XPresent<DeviceDetailActivity> {
                     }
                 });
     }
+
+    public void warningReset(int warningId){
+        Api.projectService().warningReset(warningId)
+                .compose(XApi.<BaseModel>getApiTransformer())
+                .compose(XApi.<BaseModel>getScheduler())
+                .compose(getV().<BaseModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        ToastUtils.showToast("网络请求错误！");
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        if (baseModel.getRespCode() == 1){
+                            ToastUtils.showToast(baseModel.getRespMsg());
+                            return;
+                        }
+                        getV().checkWarningReset(baseModel);
+                    }
+                });
+    }
+
 }

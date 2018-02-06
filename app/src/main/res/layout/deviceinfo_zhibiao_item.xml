@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="@dimen/distance_42"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@drawable/linearlayout_bottom_line"
+    android:layout_height="@dimen/distance_39"
+    android:background="@color/white"
     android:paddingHorizontal="@dimen/distance_10">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/distance_39"
+        android:background="@drawable/linearlayout_bottom_line">
 
         <TextView
             android:id="@+id/plc_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="1"
+            android:gravity="center|left"
             android:text="指标名称bbbbb"
             android:textColor="@color/color_333"
-            android:textSize="@dimen/distance_14"
-            android:gravity="center|left"
-            android:layout_gravity="center"/>
+            android:textSize="@dimen/distance_14" />
+
         <TextView
             android:id="@+id/plc_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="9.03PPm"
+            android:layout_gravity="center"
             android:background="@color/color_zhibiao_bg"
-            android:textSize="@dimen/distance_12"
             android:paddingHorizontal="@dimen/distance_7"
             android:paddingVertical="@dimen/distance_2"
-            android:layout_gravity="center"/>
+            android:text="9.03PPm"
+            android:textSize="@dimen/distance_12" />
+    </LinearLayout>
 </LinearLayout>
