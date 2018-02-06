@@ -2,20 +2,14 @@ package com.yunyisheng.app.yunys.tasks.activity;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
-import com.yunyisheng.app.yunys.main.model.WorkerBean;
 import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.customDatePicker.CustomDatePicker;
-
-import org.w3c.dom.Text;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -130,6 +124,7 @@ public class CreateProcessTaskAcitvity extends BaseActivity {
                 .putString("selectFormId",selectFormId)
                 .putInt("selectUserId",selectUserId)
                 .putString("endTime",endTime)
+                .putString("state","103")
                 .putInt("type",1)
                 .launch();
 

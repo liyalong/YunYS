@@ -216,7 +216,7 @@ public interface HomeService {
      * @return
      */
     @FormUrlEncoded
-    @POST("myReport/select/all")
+    @POST("myReport/select/num")
     Flowable<ReportListBean> getBaobiaoDetail(@Field("instanceId") int instanceId);
 
     /**

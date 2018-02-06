@@ -59,6 +59,8 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
     private int selectUserId1;
     private String selectUserName;
     private int userid;
+    private String taskid;
+    private String state;
 
     @Override
     public void initView() {
@@ -79,6 +81,8 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
         selectUserId = intent.getIntExtra("selectUserId", 0);
         selectFormId = intent.getStringExtra("selectFormId");
         endTime = intent.getStringExtra("endTime");
+        taskid = intent.getStringExtra("taskid");
+        state = intent.getStringExtra("state");
         getP().getProcessTaskDetail(selectFormId);
     }
 
@@ -114,7 +118,6 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
     }
 
     private void initUi() {
-
         for (int i = 0; i < dataBeanList.size(); i++) {
             ProcessTaskFormDetailBean.RespBodyBean.DataBean dataBean = dataBeanList.get(i);
             String leipiplugins = dataBean.getLeipiplugins();
@@ -220,36 +223,64 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                 lineAll.addView(view);
             }
         }
-        if (seetype == 1) {
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(0,20,0,0);
-            Button button = new Button(this);
-            button.setLayoutParams(layoutParams);
-            button.setText("提交");
-            button.setBackgroundResource(R.drawable.btn_anpai_work);
-            button.setTextColor(getResources().getColor(R.color.white));
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    myHandler.sendEmptyMessage(0);
+            layoutParams.setMargins(0, 20, 0, 0);
+            if (state != null && !state.equals("")) {
+                if (state.equals("101")) {
+                    Button but_ok = new Button(this);
+                    but_ok.setLayoutParams(layoutParams);
+                    but_ok.setText("同意");
+                    but_ok.setBackgroundResource(R.drawable.btn_anpai_work);
+                    but_ok.setTextColor(getResources().getColor(R.color.white));
+                    but_ok.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+                    lineAll.addView(but_ok);
+
+                    Button but_no = new Button(this);
+                    but_no.setLayoutParams(layoutParams);
+                    but_no.setText("拒绝");
+                    but_no.setBackgroundResource(R.drawable.btn_anpai_work);
+                    but_no.setTextColor(getResources().getColor(R.color.white));
+                    but_no.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+                    lineAll.addView(but_no);
+
+                    Button zhuanbutton = new Button(this);
+                    zhuanbutton.setLayoutParams(layoutParams);
+                    zhuanbutton.setText("转办");
+                    zhuanbutton.setBackgroundResource(R.drawable.btn_anpai_work);
+                    zhuanbutton.setTextColor(getResources().getColor(R.color.white));
+                    zhuanbutton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivityForResult(new Intent(ProcessTaskFormActivity.this, RadioSelectUserActivity.class), 5);
+                        }
+                    });
+                    lineAll.addView(zhuanbutton);
+                } else if (state.equals("103")) {
+                    Button button = new Button(this);
+                    button.setLayoutParams(layoutParams);
+                    button.setText("提交");
+                    button.setBackgroundResource(R.drawable.btn_anpai_work);
+                    button.setTextColor(getResources().getColor(R.color.white));
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            myHandler.sendEmptyMessage(0);
+                        }
+                    });
+                    lineAll.addView(button);
                 }
-            });
-            lineAll.addView(button);
-            if (selectUserId==userid){
-                Button zhuanbutton = new Button(this);
-                zhuanbutton.setLayoutParams(layoutParams);
-                zhuanbutton.setText("转办");
-                zhuanbutton.setBackgroundResource(R.drawable.btn_anpai_work);
-                zhuanbutton.setTextColor(getResources().getColor(R.color.white));
-                zhuanbutton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivityForResult(new Intent(ProcessTaskFormActivity.this,RadioSelectUserActivity.class),5);
-                    }
-                });
-                lineAll.addView(zhuanbutton);
             }
-        }
+
     }
 
     class MyHandler extends Handler {
@@ -328,10 +359,10 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==1){
+        if (resultCode == 1) {
             selectUserId1 = data.getIntExtra("selectUserId", 0);
             selectUserName = data.getStringExtra("selectUserName");
-            getP().zhuanProcessTaskForm(selectFormId,selectUserId1);
+            getP().zhuanProcessTaskForm(selectFormId, selectUserId1);
         }
     }
 }
