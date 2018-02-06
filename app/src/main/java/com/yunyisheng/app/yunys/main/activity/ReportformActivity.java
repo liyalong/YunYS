@@ -92,7 +92,6 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ReportFormBean.ListBean listBean = list.get(position);
                 addedlist.add(listBean);
-//                calGridViewWidthAndHeigh(2,gvadded);
                 adapter = new AddedReportformListAdapter(ReportformActivity.this, addedlist);
                 gvadded.setAdapter(adapter);
             }
