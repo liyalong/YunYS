@@ -116,10 +116,6 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
             @Override
             public void onClick(View v) {
                 createSelectTaskDialog(MainActivity.this);
-                rbShouye.setChecked(false);
-                rbTask.setChecked(false);
-                rbXiangmu.setChecked(false);
-                rbMine.setChecked(false);
             }
         });
     }

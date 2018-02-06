@@ -24,7 +24,7 @@ public class MySchedulePresent extends XPresent<OurProjeceScheduleFragement> {
      * @time 2018/1/29  19:21
      * @describe 14.1    获取指定日期的当前登录员工的日程列表
      */
-    public void getMySchedulrList(int pageNum, long startTime, long endTim) {
+    public void getMySchedulrList(int pageNum, String startTime, String endTim) {
         LoadingDialog.show(getV().getContext());
         Api.scheduleService().getMyschedulelist(pageNum, 10, startTime, endTim)
                 .compose(XApi.<MyScheduleBean>getApiTransformer()) //统一异常处理
@@ -54,7 +54,7 @@ public class MySchedulePresent extends XPresent<OurProjeceScheduleFragement> {
      * @time 2018/1/29  19:21
      * @describe 14.1    获取指定日期的当前登录员工的项目日程列表
      */
-    public void getMyProjectSchedulrList(int pageNum,String projectid, long startTime, long endTim) {
+    public void getMyProjectSchedulrList(int pageNum,String projectid, String startTime, String endTim) {
         LoadingDialog.show(getV().getContext());
         Api.scheduleService().getProjectschedulelist(pageNum, 10,projectid, startTime, endTim)
                 .compose(XApi.<MyScheduleBean>getApiTransformer()) //统一异常处理

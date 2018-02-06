@@ -274,8 +274,8 @@ public interface HomeService {
     Flowable<MyScheduleBean> getOtherSchedulelist(@Field("pageNum") int pageNum,
                                                   @Field("pageSize") int pageSize,
                                                   @Field("userId") int userId,
-                                                  @Field("startTime") long startTime,
-                                                  @Field("endTime") long endTime);
+                                                  @Field("startTime") String startTime,
+                                                  @Field("endTime") String endTime);
 
     /**
      * @author fuduo

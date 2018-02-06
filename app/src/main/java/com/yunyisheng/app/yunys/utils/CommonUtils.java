@@ -315,7 +315,7 @@ public class CommonUtils {
      * @time 2018/1/29  19:04
      * @describe 获取一天的开始时间
      */
-    public static long getDayStartTime(){
+    public static String getDayStartTime(){
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
@@ -323,9 +323,9 @@ public class CommonUtils {
         calendar.set(Calendar.MILLISECOND, 0);
         Date date=calendar.getTime();
         String s = ConverToStringminute(date);
-        long stringToDate = getStringToDate(s, "yyyy-MM-dd HH:mm:ss");
+//        long stringToDate = getStringToDate(s, "yyyy-MM-dd HH:mm:ss");
         System.out.println("开始时间："+s);
-        return stringToDate;
+        return s;
     }
 
     /**
@@ -333,7 +333,7 @@ public class CommonUtils {
      * @time 2018/1/29  19:04
      * @describe 获取一天的结束时间
      */
-    public static long getDayEndTime(){
+    public static String getDayEndTime(){
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
@@ -341,17 +341,18 @@ public class CommonUtils {
         calendar.set(Calendar.MILLISECOND, 999);
         Date date=calendar.getTime();
         String s = ConverToStringminute(date);
-        long stringToDate = getStringToDate(s, "yyyy-MM-dd HH:mm:ss");
+//        long stringToDate = getStringToDate(s, "yyyy-MM-dd HH:mm:ss");
         System.out.println("结束时间："+s);
-        return stringToDate;
+        return s;
     }
+
 
     /**
      *  @author fuduo
      *  @time 2018/1/29  20:07
-     *  @describe 获取某天的开始时间
+     *  @describe 获取某天的结束时间
      */
-    public static long getOtherStarttime(Date date){
+    public static String getOtherEndtime(Date date){
         date.getTime();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -361,17 +362,17 @@ public class CommonUtils {
         calendar.set(Calendar.MILLISECOND, 999);
         Date time = calendar.getTime();
         String s = ConverToStringminute(time);
-        long stringToDate = getStringToDate(s, "yyyy-MM-dd HH:mm:ss");
+//        long stringToDate = getStringToDate(s, "yyyy-MM-dd HH:mm:ss");
         System.out.println("结束时间："+s);
-        return stringToDate;
+        return s;
     }
 
     /**
      *  @author fuduo
      *  @time 2018/1/29  20:07
-     *  @describe 获取某天的结束时间
+     *  @describe 获取某天的开始时间
      */
-    public static long getOtherEndtime(Date date){
+    public static String getOtherStarttime(Date date){
         date.getTime();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -381,9 +382,9 @@ public class CommonUtils {
         calendar.set(Calendar.MILLISECOND, 0);
         Date time = calendar.getTime();
         String s = ConverToStringminute(time);
-        long stringToDate = getStringToDate(s, "yyyy-MM-dd HH:mm:ss");
+//        long stringToDate = getStringToDate(s, "yyyy-MM-dd HH:mm:ss");
         System.out.println("开始时间："+s);
-        return stringToDate;
+        return s;
     }
 
 

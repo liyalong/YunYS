@@ -41,8 +41,8 @@ public class ScheduleFragement extends BaseFragement<WorkerSchedulePresent> {
     @BindView(R.id.pull_to_list_schudle)
     PullToRefreshListView pullToListSchudle;
     private int userid;
-    private long dayStartTime;
-    private long dayEndTime;
+    private String dayStartTime;
+    private String dayEndTime;
     private int pageindex = 1;
     private List<MyScheduleBean.RespBodyBean.DataListBean> dataListBeans = new ArrayList<>();
     private HomeScheduleAdapter adapter;

@@ -24,7 +24,7 @@ public class WorkerSchedulePresent extends XPresent<ScheduleFragement> {
      *  @time 2018/1/28  14:17
      *  @describe 员工日程
      */
-    public void getWorkerScheduleList(int pageNum,int userid,long startTime,long endTime){
+    public void getWorkerScheduleList(int pageNum,int userid,String startTime,String endTime){
         LoadingDialog.show(getV().getContext());
         Api.homeService().getOtherSchedulelist(pageNum,10,userid,startTime,endTime)
                 .compose(XApi.<MyScheduleBean>getApiTransformer()) //统一异常处理

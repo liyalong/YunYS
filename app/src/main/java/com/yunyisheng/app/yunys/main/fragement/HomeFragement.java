@@ -82,8 +82,8 @@ public class HomeFragement extends BaseFragement<HomePresent> {
     int i;
     private HomeScheduleAdapter adapter;
     private int pageindex = 1;
-    private long dayStartTime;
-    private long dayEndTime;
+    private String dayStartTime;
+    private String dayEndTime;
     private boolean isfirst = true;
     private boolean isonce = true;
 

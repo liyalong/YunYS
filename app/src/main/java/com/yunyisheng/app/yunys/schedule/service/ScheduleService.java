@@ -35,8 +35,8 @@ public interface ScheduleService {
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     Flowable<MyScheduleBean> getMyschedulelist(@Field("pageNum") int pageNum,
                                                @Field("pageSize") int pageSize,
-                                               @Field("startTime") long startTime,
-                                               @Field("endTime") long endTime);
+                                               @Field("startTime") String startTime,
+                                               @Field("endTime") String endTime);
 
     /**
      * 根据项目id获取项目日程
@@ -49,8 +49,8 @@ public interface ScheduleService {
     Flowable<MyScheduleBean> getProjectschedulelist(@Field("pageNum") int pageNum,
                                                     @Field("pageSize") int pageSize,
                                                     @Field("projectId") String projectId,
-                                                    @Field("startTime") long startTime,
-                                                    @Field("endTime") long endTime);
+                                                    @Field("startTime") String startTime,
+                                                    @Field("endTime") String endTime);
 
     /**
      * @author fuduo

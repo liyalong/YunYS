@@ -90,10 +90,11 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
     private int tabindex;
     private WindowsReceiver mWindowsReceiver = new WindowsReceiver();
     private List<MyScheduleBean.RespBodyBean.DataListBean> list = new ArrayList<>();
-    private TaskAdapter adapter;
+    private TaskAdapter mineadapter;
+    private TaskAdapter projectadapter;
     private int pageindex = 1;
-    private long dayStartTime;
-    private long dayEndTime;
+    private String dayStartTime;
+    private String dayEndTime;
     private String projectid;
     private boolean nomore;
 
@@ -125,8 +126,14 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         rvToDoList.setHasFixedSize(true);
         //这里用线性显示 类似于listview
         rvToDoList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new TaskAdapter(mContext, list);
-        rvToDoList.setAdapter(adapter);
+        if (tabindex==0){
+            mineadapter = new TaskAdapter(mContext, list);
+            rvToDoList.setAdapter(mineadapter);
+        }else {
+            projectadapter = new TaskAdapter(mContext, list);
+            rvToDoList.setAdapter(projectadapter);
+        }
+
         rvToDoList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -200,8 +207,8 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         }
         if (myScheduleBean.getRespBody().getDataList() != null && myScheduleBean.getRespBody().getDataList().size() > 0) {
             list.addAll(myScheduleBean.getRespBody().getDataList());
-            adapter.setData(list);
-            adapter.setType(4);
+            mineadapter.setData(list);
+            mineadapter.setType(4);
         } else {
             if (pageindex == 1) {
                 ToastUtils.showToast("当前日期暂无日程");
@@ -230,8 +237,8 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         }
         if (myScheduleBean.getRespBody().getDataList() != null && myScheduleBean.getRespBody().getDataList().size() > 0) {
             list.addAll(myScheduleBean.getRespBody().getDataList());
-            adapter.setData(list);
-            adapter.setType(6);
+            projectadapter.setData(list);
+            projectadapter.setType(6);
         } else {
             if (pageindex == 1) {
             } else {
