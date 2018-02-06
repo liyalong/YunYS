@@ -49,7 +49,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -126,14 +125,6 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         rvToDoList.setHasFixedSize(true);
         //这里用线性显示 类似于listview
         rvToDoList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        if (tabindex==0){
-            mineadapter = new TaskAdapter(mContext, list);
-            rvToDoList.setAdapter(mineadapter);
-        }else {
-            projectadapter = new TaskAdapter(mContext, list);
-            rvToDoList.setAdapter(projectadapter);
-        }
-
         rvToDoList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -207,7 +198,12 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         }
         if (myScheduleBean.getRespBody().getDataList() != null && myScheduleBean.getRespBody().getDataList().size() > 0) {
             list.addAll(myScheduleBean.getRespBody().getDataList());
-            mineadapter.setData(list);
+            if (pageindex == 1) {
+                mineadapter = new TaskAdapter(mContext, list);
+                rvToDoList.setAdapter(mineadapter);
+            }else {
+                mineadapter.setData(list);
+            }
             mineadapter.setType(4);
         } else {
             if (pageindex == 1) {
@@ -237,7 +233,12 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         }
         if (myScheduleBean.getRespBody().getDataList() != null && myScheduleBean.getRespBody().getDataList().size() > 0) {
             list.addAll(myScheduleBean.getRespBody().getDataList());
-            projectadapter.setData(list);
+            if (pageindex == 1) {
+                projectadapter = new TaskAdapter(mContext, list);
+                rvToDoList.setAdapter(projectadapter);
+            }else {
+                projectadapter.setData(list);
+            }
             projectadapter.setType(6);
         } else {
             if (pageindex == 1) {
@@ -433,12 +434,12 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
      * 如果存在异步的话，在使用setMarkData之后调用 calendarAdapter.notifyDataChanged();
      */
     private void initMarkData() {
-        HashMap<String, String> markData = new HashMap<>();
-        markData.put("2017-8-9", "1");
-        markData.put("2017-7-9", "0");
-        markData.put("2017-6-9", "1");
-        markData.put("2017-6-10", "0");
-        calendarAdapter.setMarkData(markData);
+//        HashMap<String, String> markData = new HashMap<>();
+//        markData.put("2017-8-9", "1");
+//        markData.put("2017-7-9", "0");
+//        markData.put("2017-6-9", "1");
+//        markData.put("2017-6-10", "0");
+//        calendarAdapter.setMarkData(markData);
     }
 
     private void initListener() {
@@ -473,7 +474,6 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
             }
         };
     }
-
 
     private void refreshClickDate(CalendarDate date) {
         currentDate = date;
