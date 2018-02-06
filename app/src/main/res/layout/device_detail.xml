@@ -50,80 +50,24 @@
                 android:layout_marginTop="@dimen/distance_10"
                 android:background="@color/baseBackgroundColor"
                 android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/distance_42"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/distance_10"
-                        android:layout_marginRight="@dimen/distance_5"
-                        android:gravity="center"
-                        android:src="@mipmap/icon_project_list_title_left" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center|left"
-                        android:text="@string/deviceinfo_bjxx"
-                        android:textColor="@color/color_333"
-                        android:textSize="@dimen/distance_14" />
-
-                    <ImageView
-                        android:id="@+id/jbxx_drop_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:src="@mipmap/icon_device_down" />
-                </LinearLayout>
-                <ListView
+                <com.yunyisheng.app.yunys.utils.SuperExpandableListView
                     android:id="@+id/device_detail_bjxx_list"
                     android:layout_width="match_parent"
+                    android:divider="@null"
                     android:layout_height="match_parent">
-                </ListView>
+                </com.yunyisheng.app.yunys.utils.SuperExpandableListView>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/distance_10"
                 android:background="@color/baseBackgroundColor"
                 android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/distance_42"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/distance_10"
-                        android:layout_marginRight="@dimen/distance_5"
-                        android:gravity="center"
-                        android:src="@mipmap/icon_project_list_title_left" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center|left"
-                        android:text="@string/deviceinfo_sszb"
-                        android:textColor="@color/color_333"
-                        android:textSize="@dimen/distance_14" />
-
-                    <ImageView
-                        android:id="@+id/sszb_drop_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:src="@mipmap/icon_device_down" />
-                </LinearLayout>
                 <com.yunyisheng.app.yunys.utils.SuperExpandableListView
                     android:id="@+id/device_detail_sszb_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:divider="@null"
+                    android:layout_height="match_parent">
 
                 </com.yunyisheng.app.yunys.utils.SuperExpandableListView>
             </LinearLayout>

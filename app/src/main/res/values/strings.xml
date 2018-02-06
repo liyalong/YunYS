@@ -148,6 +148,7 @@
     <string name="deviceinfo_isPLC">是否绑定plc</string>
     <string name="baojing_status">报错</string>
     <string name="device_info">设备运行详情</string>
+    <string name="plc_info_detal">plc近10分钟指标详情</string>
     <string name="fuwei">复位</string>
     <string name="beijian_code">编号：</string>
     <string name="beijian_ghzq">更换周期：</string>
@@ -306,4 +307,5 @@
     <!-- 查看我发布的任务详情 -->
     <string name="my_push_task_child_title">任务执行详情</string>
     <string name="my_push_task_child_list">任务详情列表</string>
+    <string name="title_activity_plcdetail">PLCdetailActivity</string>
 </resources>

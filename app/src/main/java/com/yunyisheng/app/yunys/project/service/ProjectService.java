@@ -12,6 +12,7 @@ import com.yunyisheng.app.yunys.project.model.KnowledgeListModel;
 import com.yunyisheng.app.yunys.project.model.ModelAlarmRulesListModel;
 import com.yunyisheng.app.yunys.project.model.ModelDetailModel;
 import com.yunyisheng.app.yunys.project.model.ModelListModel;
+import com.yunyisheng.app.yunys.project.model.PLCListModel;
 import com.yunyisheng.app.yunys.project.model.PeriodicTaskListModel;
 import com.yunyisheng.app.yunys.project.model.ProcessTaskFormDetailBean;
 import com.yunyisheng.app.yunys.project.model.ProjectListModel;
@@ -300,6 +301,26 @@ public interface ProjectService {
     @POST("property/selectProperty/{projectId}")
     Flowable<DevicePLCValueListModel> getDevicePLCValueList(@Path("projectId") String projectId,
                                                             @Field("deviceId") String deviceId);
+
+    /**
+     * 报警重置
+     * @param alarmLoggingId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("alarmLogging/reset")
+    Flowable<BaseModel> warningReset(@Field("alarmId") Integer alarmLoggingId);
+
+    /**
+     * 获取单个plc指定时间的数据
+     * @param propertyId
+     * @param interval
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("equip/select/propertyPlc")
+    Flowable<PLCListModel> getPLCList(@Field("propertyId") String propertyId,
+                                      @Field("interval") int interval);
 
 
 }
