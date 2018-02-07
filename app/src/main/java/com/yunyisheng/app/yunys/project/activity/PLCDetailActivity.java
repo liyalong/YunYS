@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +24,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
+/**
+ * plc详情页面
+ */
 public class PLCDetailActivity extends BaseActivity<PLCDetailPresent> {
 
     @BindView(R.id.img_back)
@@ -43,19 +47,32 @@ public class PLCDetailActivity extends BaseActivity<PLCDetailPresent> {
         plcUnits = getIntent().getStringExtra("plcUnits");
         plcDesc = getIntent().getStringExtra("plcDesc");
         deviceDetailTitle.setText(plcDesc+" 最新10分钟数据");
+        plcDetail.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
         WebSettings plcDetailSettings = plcDetail.getSettings();
         plcDetailSettings.setJavaScriptEnabled(true);
+
         plcDetail.loadUrl("file:///android_asset/plcDetail.html");
 
 
-
-        timer = new Timer();
-        timer.schedule(new TimerTask() {
+        plcDetail.setWebViewClient(new WebViewClient(){
             @Override
-            public void run() {
-                getP().getPlcDetail(plcName);
+            public void onPageFinished(WebView view, String url) {
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        getP().getPlcDetail(plcName);
+                    }
+                },0,10000);
             }
-        },0,10000);
+        });
+
     }
 
     @Override
@@ -90,7 +107,13 @@ public class PLCDetailActivity extends BaseActivity<PLCDetailPresent> {
     public void setPLCData(PLCListModel plcListModel) {
         if (plcListModel.getRespBody().size() > 0){
             dataList = plcListModel.getRespBody();
-            plcDetail.loadUrl("javascript:createCharts("+ JSON.toJSONString(dataList)+","+plcUnits+")");
+            plcDetail.post(new Runnable() {
+                @Override
+                public void run() {
+                    plcDetail.loadUrl("javascript:createCharts('"+ JSON.toJSONString(dataList)+"','"+plcUnits+"')");
+                }
+            });
+
         }else {
             ToastUtils.showToast("暂无数据！");
         }

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta content="always" name="referrer">
     <link href="bootstrap/css/bootstrap.min.css" />
-    <script src="jqueyr.min.js"></script>
+    <script src="jquery.min.js"></script>
     <script type="bootstrap/js/bootstrap.min.js"></script>
     <script src="echarts.min.js"></script>
 
@@ -14,16 +14,24 @@
 <body >
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xs-12" id="pcldetail" style="height:100%;"></div>
+        <div class="col-xs-12" id="pcldetail" style="height:500px;"></div>
     </div>
 
 </div>
-<script>
+<script type="text/javascript">
 
-    var myChart = echarts.init(document.getElementById("pcldetail"));
-
-function createCharts(data,units){
-
+var myChart = echarts.init(document.getElementById("pcldetail"));
+function createCharts(result,units){
+    if(result == "" && result.length == 0){
+            myChart.showLoading({
+                      text: '暂无数据！',
+                      color: '#c23531',
+                      textColor: '#000',
+                      maskColor: 'rgba(255, 255, 255, 0.8)',
+                      zlevel: 0
+                    });
+    }
+var data = JSON.parse(result);
 var option = {
         tooltip: {
                 trigger: 'axis',
@@ -32,13 +40,13 @@ var option = {
                     animation: false
                 }
             },
-        xAxis: {
+        xAxis: [{
             type: 'category',
             data: [],
             splitLine: {
                         show: false
                     }
-        },
+        }],
         yAxis: {
             type: 'value'
         },
@@ -58,10 +66,10 @@ var option = {
             seriesData.push(data[i].value);
         }
     }else{
-     hasData = false;
+        hasData = false;
     }
     option.xAxis[0].data = xAxisData;
-    option.series[0] = seriesData;
+    option.series[0].data = seriesData;
     myChart.setOption(option);
     if(!hasData){
             myChart.showLoading({
