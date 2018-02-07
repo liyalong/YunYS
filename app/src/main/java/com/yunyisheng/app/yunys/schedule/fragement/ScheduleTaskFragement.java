@@ -87,10 +87,10 @@ public class ScheduleTaskFragement extends BaseFragement<SchedulrTaskPresent> {
             @Override
             public void onPageSelected(int position) {
                 if (position == 0) {
-                    imgSet.setVisibility(View.VISIBLE);
+//                    imgSet.setVisibility(View.VISIBLE);
                     teShaixuan.setVisibility(View.GONE);
                 } else {
-                    imgSet.setVisibility(View.GONE);
+//                    imgSet.setVisibility(View.GONE);
                     teShaixuan.setVisibility(View.VISIBLE);
                 }
             }
@@ -169,6 +169,7 @@ public class ScheduleTaskFragement extends BaseFragement<SchedulrTaskPresent> {
                 ProjectBean projectBean = projectBeanList.get(position);
                 String projectId = projectBean.getProjectId();
                 EventBus.getDefault().post(new PositionMessageEvent(projectId));
+                screenPopupWindow.dismiss();
             }
         });
 
