@@ -38,7 +38,6 @@
                 android:layout_toRightOf="@+id/img"
                 android:background="@null"
                 android:hint="@string/puteamil"
-                android:inputType="number"
                 android:textColor="@color/color_333"
                 android:textColorHint="@color/color_999"
                 android:textSize="@dimen/distance_14" />

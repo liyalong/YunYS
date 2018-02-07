@@ -1,11 +1,16 @@
 package com.yunyisheng.app.yunys.userset.fragement;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +18,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.yunyisheng.app.yunys.MainActivity;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.base.PressionListener;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.login.model.UserModel;
 import com.yunyisheng.app.yunys.userset.activity.AboutOurActivity;
@@ -29,6 +36,8 @@ import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.DialogManager;
 import com.yunyisheng.app.yunys.utils.getapp.AppApplicationMgr;
 import com.yunyisheng.app.yunys.utils.glide.GlideDownLoadImage;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -153,6 +162,40 @@ public class MineFragement extends BaseFragement<MinePresent> {
         //LogUtils.i("userinfo",userModel.getRespBody().toString());
     }
 
+    /**
+     * 请求权限
+     */
+    private void requestPermission() {
+        ((MainActivity)getActivity()).requestRunTimePression(getActivity(), new String[]{Manifest.permission.CAMERA}, new PressionListener() {
+            @Override
+            public void onGranted() {
+
+            }
+
+            @Override
+            public void onFailure(List<String> failurePression) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setMessage("提示")
+                        .setMessage("请您去设置中授予拍照的权限")
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                getActivity().finish();
+                            }
+                        })
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
+                                ComponentName cName = new ComponentName("com.android.phone", "com.android.phone.Settings");
+                                intent.setComponent(cName);
+                                startActivity(intent);
+                            }
+                        });
+            }
+        });
+    }
+
     class MyReceiver extends BroadcastReceiver {
         public MyReceiver() {
         }
@@ -177,6 +220,7 @@ public class MineFragement extends BaseFragement<MinePresent> {
     public void widgetClick(View v) {
         switch (v.getId()) {
             case R.id.img_carm:
+                requestPermission();
                 DialogManager.createPickImageDialog(getActivity());
                 break;
             case R.id.my_info:

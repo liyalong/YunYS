@@ -166,6 +166,7 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
         web.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
+                getBendiList();
                 getP().getBaobiaoList(1, 0);
             }
         });
@@ -174,6 +175,9 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
     @Override
     public void initAfter() {
         setWeb();
+    }
+
+    private void getBendiList(){
         addedReformString = SharedPref.getInstance(ReportformActivity.this).getString("AddedReformString", "");
         if (addedReformString != null && !addedReformString.equals("")) {
             ReportFormBean bean = JSON.parseObject(addedReformString, ReportFormBean.class);
@@ -183,11 +187,10 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
                 public void run() {
                     // 注意调用的JS方法名要对应上
                     // 调用javascript的callJS()方法
-                    web.loadUrl("javascript:createTableDiv(" + addedReformString + ")");
+                    web.loadUrl("javascript:createTableDiv('" + addedReformString +""+"')");
                 }
             });
         }
-
     }
 
     @Override
@@ -210,10 +213,8 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
 
     public void setAddedlist(ReportFormBean bean) {
         addedlist.addAll(bean.getList());
-//        calGridViewWidthAndHeigh(2,gvadded);
         adapter = new AddedReportformListAdapter(ReportformActivity.this, addedlist);
         gvadded.setAdapter(adapter);
-
     }
 
     public void getResultList(ReportFormBean reportFormBean) {
@@ -252,13 +253,23 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
                 addedlist.clear();
                 adapter = new AddedReportformListAdapter(ReportformActivity.this, addedlist);
                 gvadded.setAdapter(adapter);
-                SharedPref.getInstance(ReportformActivity.this).putString("AddedReformString", "");
                 break;
             case R.id.btn_queren:
                 if (addedlist != null && addedlist.size() > 0) {
                     json = JSON.toJSONString(addedlist);
                     SharedPref.getInstance(ReportformActivity.this).putString("AddedReformString", json);
                     LogUtils.i("string", json);
+                    getBendiList();
+                }else {
+                    SharedPref.getInstance(ReportformActivity.this).putString("AddedReformString", "");
+                    web.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            // 注意调用的JS方法名要对应上
+                            // 调用javascript的callJS()方法
+                            web.loadUrl("javascript:createTableDiv('[]')");
+                        }
+                    });
                 }
                 menu.toggle();
                 break;
