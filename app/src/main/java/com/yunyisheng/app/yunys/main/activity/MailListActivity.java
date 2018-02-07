@@ -1,6 +1,11 @@
 package com.yunyisheng.app.yunys.main.activity;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -16,6 +21,7 @@ import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.base.PressionListener;
 import com.yunyisheng.app.yunys.main.adapter.FindWorkerListAdapter;
 import com.yunyisheng.app.yunys.main.adapter.MaillistExpenableAdapter;
 import com.yunyisheng.app.yunys.main.model.FindWorkerBean;
@@ -67,6 +73,7 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
 
     @Override
     public void initView() {
+        requestPermission();
         ButterKnife.bind(this);
         teTitle.setText(R.string.tongxunlu);
         edSearch.addTextChangedListener(mTextWatcher);
@@ -123,6 +130,40 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
 
         }
     };
+
+    /**
+     * 请求权限
+     */
+    private void requestPermission() {
+       requestRunTimePression(this, new String[]{Manifest.permission.CALL_PHONE}, new PressionListener() {
+            @Override
+            public void onGranted() {
+
+            }
+
+            @Override
+            public void onFailure(List<String> failurePression) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setMessage("提示")
+                        .setMessage("请您去设置中授予通话的权限")
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                               finish();
+                            }
+                        })
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
+                                ComponentName cName = new ComponentName("com.android.phone", "com.android.phone.Settings");
+                                intent.setComponent(cName);
+                                startActivity(intent);
+                            }
+                        });
+            }
+        });
+    }
 
     @Override
     public void initAfter() {
