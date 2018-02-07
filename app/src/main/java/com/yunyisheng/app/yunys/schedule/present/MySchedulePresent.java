@@ -26,7 +26,7 @@ public class MySchedulePresent extends XPresent<OurProjeceScheduleFragement> {
      */
     public void getMySchedulrList(int pageNum, String startTime, String endTim) {
         LoadingDialog.show(getV().getContext());
-        Api.scheduleService().getMyschedulelist(pageNum, 10, startTime, endTim)
+        Api.scheduleService().getMyschedulelist(pageNum, 100, startTime, endTim)
                 .compose(XApi.<MyScheduleBean>getApiTransformer()) //统一异常处理
                 .compose(XApi.<MyScheduleBean>getScheduler()) //线程调度
                 .compose(getV().<MyScheduleBean>bindToLifecycle()) //内存泄漏处理
@@ -56,7 +56,7 @@ public class MySchedulePresent extends XPresent<OurProjeceScheduleFragement> {
      */
     public void getMyProjectSchedulrList(int pageNum,String projectid, String startTime, String endTim) {
         LoadingDialog.show(getV().getContext());
-        Api.scheduleService().getProjectschedulelist(pageNum, 10,projectid, startTime, endTim)
+        Api.scheduleService().getProjectschedulelist(pageNum, 100,projectid, startTime, endTim)
                 .compose(XApi.<MyScheduleBean>getApiTransformer()) //统一异常处理
                 .compose(XApi.<MyScheduleBean>getScheduler()) //线程调度
                 .compose(getV().<MyScheduleBean>bindToLifecycle()) //内存泄漏处理

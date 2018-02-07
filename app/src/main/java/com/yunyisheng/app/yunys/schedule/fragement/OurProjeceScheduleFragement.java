@@ -125,23 +125,23 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         rvToDoList.setHasFixedSize(true);
         //这里用线性显示 类似于listview
         rvToDoList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvToDoList.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                LinearLayoutManager lm = (LinearLayoutManager) recyclerView.getLayoutManager();
-                int totalItemCount = recyclerView.getAdapter().getItemCount();
-                int lastVisibleItemPosition = lm.findLastVisibleItemPosition();
-                int visibleItemCount = recyclerView.getChildCount();
-
-                if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && lastVisibleItemPosition == totalItemCount - 1
-                        && visibleItemCount > 0) {
-                    if (fastClick()) {
-                        loadMore();
-                    }
-                }
-            }
-        });
+//        rvToDoList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                LinearLayoutManager lm = (LinearLayoutManager) recyclerView.getLayoutManager();
+//                int totalItemCount = recyclerView.getAdapter().getItemCount();
+//                int lastVisibleItemPosition = lm.findLastVisibleItemPosition();
+//                int visibleItemCount = recyclerView.getChildCount();
+//
+//                if (newState == RecyclerView.SCROLL_STATE_IDLE
+//                        && lastVisibleItemPosition == totalItemCount - 1
+//                        && visibleItemCount > 0) {
+//                    if (fastClick()) {
+//                        loadMore();
+//                    }
+//                }
+//            }
+//        });
     }
 
     /**
