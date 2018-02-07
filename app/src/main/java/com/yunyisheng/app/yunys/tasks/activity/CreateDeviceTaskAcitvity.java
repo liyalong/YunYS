@@ -163,7 +163,7 @@ public class CreateDeviceTaskAcitvity extends BaseActivity<CreateDeviceTaskPrese
         if (taskValue.getReleaseId() == null){
             getP().updateDeviceTemporaryTask(taskValue);
         }else {
-
+            getP().updateTemporaryTask(taskValue);
         }
 
     }

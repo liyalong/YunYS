@@ -17,6 +17,7 @@ import com.yunyisheng.app.yunys.tasks.activity.SelectProjectDeviceActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectUserListActivity;
 import com.yunyisheng.app.yunys.tasks.bean.ProjectUserBean;
 import com.yunyisheng.app.yunys.tasks.bean.UpdateTemporaryTaskBean;
+import com.yunyisheng.app.yunys.tasks.model.ReleaseTaskDetailModel;
 import com.yunyisheng.app.yunys.tasks.present.DeviceTemporaryTaskPresent;
 import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
@@ -72,10 +73,10 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
     private UpdateTemporaryTaskBean taskForm;
 
     private String feedbackJSON;
-    private String taskId;
+    private String releaseTaskId;
     private String projectId;
 
-
+    private String feedbackBacknum;
 
     @Override
     public void initView() {
@@ -84,7 +85,7 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
         initDatePicker();
 
         CreateDeviceTaskAcitvity createDeviceTaskAcitvity = (CreateDeviceTaskAcitvity) getActivity();
-        this.taskId = String.valueOf(createDeviceTaskAcitvity.getTaskEditId());
+        this.releaseTaskId = String.valueOf(createDeviceTaskAcitvity.getTaskEditId());
         this.projectId = createDeviceTaskAcitvity.getProjectId();
 
         List<WorkerBean> selectUsersFromWork = createDeviceTaskAcitvity.getSelectWorkList();
@@ -100,8 +101,8 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
             }
             selectAssignUsers.setText(selectUserStr);
         }
-        if (taskId != null){
-            getP().getTexporaryTaskInfo(projectId,taskId);
+        if (releaseTaskId != null){
+            getP().getReleaseTaskDetail(projectId,releaseTaskId);
         }
     }
     //初始化日期时间选择插件
@@ -281,13 +282,22 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
                 listStr.add(user);
             }
             taskForm.setListStr(JSON.toJSONString(listStr));
+            if (releaseTaskId != null){
+                taskForm.setUserlist(JSON.toJSONString(listStr));
+            }
         }
-        if (feedbackJSON == null){
-            checkStatus.put("status","error");
-            checkStatus.put("msg","任务反馈项不能为空！");
-            return checkStatus;
+        if (releaseTaskId == null){
+            if (feedbackJSON == null){
+                checkStatus.put("status","error");
+                checkStatus.put("msg","任务反馈项不能为空！");
+                return checkStatus;
+            }
+            taskForm.setFeedbackJSON(feedbackJSON);
+        }else {
+            taskForm.setFeedbackBacknum(feedbackBacknum);
+            taskForm.setReleaseId(releaseTaskId);
         }
-        taskForm.setFeedbackJSON(feedbackJSON);
+
         taskForm.setReleaseTaskType(1);
         checkStatus.put("status","success");
         checkStatus.put("msg","完成验证！");
@@ -298,17 +308,18 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
     }
 
 
-    public void setDetail(ScheduleDetailBean.RespBodyBean.TaskBean task,
-                          List<ScheduleDetailBean.RespBodyBean.TaskBackBean> taskback,
-                          ScheduleDetailBean.RespBodyBean.FormBean form) {
-        XLog.d(task.toString());
+    public void setDetail(ReleaseTaskDetailModel releaseTaskDetailModel) {
+        ReleaseTaskDetailModel.ReleaseTask task = releaseTaskDetailModel.getRespBody();
+
         selectProjectId = task.getProjectId();
 
         selectDeviceId = String.valueOf(task.getEquipmentId());
 
-        selectProject.setText(task.getProjectName());
+        feedbackBacknum = task.getFeedbackBacknum();
+
+        selectProject.setText(task.getProjectName()+"(不可编辑)");
         selectProject.setClickable(false);
-        selectProjectDevice.setText(task.getEquipmentName());
+        selectProjectDevice.setText(task.getEquipmentName()+"(不可编辑)");
         selectProjectDevice.setClickable(false);
         taskName.setText(task.getReleaseName());
         taskStartTime.setText(task.getReleaseBegint().substring(0,16));
@@ -316,8 +327,8 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
         if (task.getReleaseRemark() != null){
             taskDesc.setText(task.getReleaseRemark().toString());
         }
+        taskTemplates.setText("任务反馈项（不可编辑）");
         taskTemplates.setClickable(false);
-        selectAssignUsers.setClickable(false);
 
 
     }

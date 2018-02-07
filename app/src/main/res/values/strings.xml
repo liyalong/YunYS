@@ -141,6 +141,7 @@
     <string name="knowledge">相关知识</string>
     <string name="device_parts">设备备件</string>
     <string name="periodic_tasks">周期任务</string>
+    <string name="process_task_detail">流程任务详情</string>
     <string name="deviceinfo_bjxx">报警信息</string>
     <string name="deviceinfo_sszb">实时指标</string>
     <string name="deviceinfo_jbxx">基本信息</string>

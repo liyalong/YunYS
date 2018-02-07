@@ -17,6 +17,16 @@ public class UpdateTemporaryTaskBean {
     private String feedbackJSON;     //任务反馈项
     private String projectId;
     private String feedbackBacknum; //反馈项id
+    private String userlist;
+
+    public void setUserlist(String userlist) {
+        this.userlist = userlist;
+    }
+
+    public String getUserlist() {
+
+        return userlist;
+    }
 
     public void setProjectId(String projectId) {
         this.projectId = projectId;

@@ -226,7 +226,7 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
                     public void run() {
                         // 注意调用的JS方法名要对应上
                         // 调用javascript的callJS()方法
-                        web.loadUrl("javascript:createTableDiv("+ netstring +")");
+                        web.loadUrl("javascript:createTableDiv('"+ netstring+""+"')");
                     }
                 });
             }
@@ -287,7 +287,7 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
                 public void run() {
                     // 注意调用的JS方法名要对应上
                     // 调用javascript的createChart(instanceId,data)方法
-                    web.loadUrl("javascript:createChart(" + instanceid + "," + string + ")");
+                    web.loadUrl("javascript:createChart(" + instanceid + ",'" + string + "')");
                 }
             });
         }

@@ -2,6 +2,7 @@ package com.yunyisheng.app.yunys.tasks.present;
 
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.tasks.fragment.DeviceTemporaryTaskFargment;
+import com.yunyisheng.app.yunys.tasks.model.ReleaseTaskDetailModel;
 import com.yunyisheng.app.yunys.tasks.model.TaskDetailModel;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
@@ -15,26 +16,24 @@ import cn.droidlover.xdroidmvp.net.XApi;
  */
 
 public class DeviceTemporaryTaskPresent extends XPresent<DeviceTemporaryTaskFargment> {
-    public void getTexporaryTaskInfo(String projectId,String taskId){
-        Api.taskService().getTaskDetail(projectId,taskId)
-                .compose(XApi.<TaskDetailModel>getApiTransformer())
-                .compose(XApi.<TaskDetailModel>getScheduler())
-                .compose(getV().<TaskDetailModel>bindToLifecycle())
-                .subscribe(new ApiSubscriber<TaskDetailModel>() {
+    public void getReleaseTaskDetail(String projectId,String taskId){
+        Api.taskService().getReleaseTaskDetail(projectId,taskId)
+                .compose(XApi.<ReleaseTaskDetailModel>getApiTransformer())
+                .compose(XApi.<ReleaseTaskDetailModel>getScheduler())
+                .compose(getV().<ReleaseTaskDetailModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<ReleaseTaskDetailModel>() {
                     @Override
                     protected void onFail(NetError error) {
                         ToastUtils.showToast("网络请求错误！");
                     }
 
                     @Override
-                    public void onNext(TaskDetailModel taskDetailModel) {
-                        if (taskDetailModel.getRespCode() == 1){
-                            ToastUtils.showToast(taskDetailModel.getRespMsg());
+                    public void onNext(ReleaseTaskDetailModel releaseTaskDetail) {
+                        if (releaseTaskDetail.getRespCode() == 1){
+                            ToastUtils.showToast(releaseTaskDetail.getRespMsg());
                             return;
                         }
-                        getV().setDetail(taskDetailModel.getRespBody().getTask(),
-                                taskDetailModel.getRespBody().getTaskback(),
-                                taskDetailModel.getRespBody().getForm());
+                        getV().setDetail(releaseTaskDetail );
                     }
                 });
     }

@@ -48,6 +48,7 @@ public class PLCDetailActivity extends BaseActivity<PLCDetailPresent> {
         plcDetail.loadUrl("file:///android_asset/plcDetail.html");
 
 
+
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override

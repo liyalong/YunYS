@@ -45,7 +45,7 @@ public class CreateDeviceTaskPresent extends XPresent<CreateDeviceTaskAcitvity> 
     public void updateTemporaryTask(UpdateTemporaryTaskBean task){
         Api.taskService().updateReleaseTask(task.getProjectId(),task.getReleaseId(), String.valueOf(task.getReleaseTaskType()),
                 task.getReleaseName(),task.getReleaseRemark(),task.getReleaseBegint(),task.getReleaseEndt(),
-                task.getListStr(),task.getReleaseBaseformId(),task.getEquipmentId(),task.getFeedbackBacknum())
+                task.getListStr(),task.getReleaseBaseformId(),task.getEquipmentId(),task.getFeedbackBacknum(),task.getUserlist())
                 .compose(XApi.<BaseModel>getApiTransformer())
                 .compose(XApi.<BaseModel>getScheduler())
                 .compose(getV().<BaseModel>bindToLifecycle())

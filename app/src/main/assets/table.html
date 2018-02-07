@@ -3,9 +3,10 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta content="always" name="referrer">
-    <link href="bootstrap/css/bootstrap.min.css" />
+    <link href="bootstrap/css/bootstrap.min.css"/>
     <script src="jquery.min.js"></script>
     <script type="bootstrap/js/bootstrap.min.js"></script>
     <script src="echarts.min.js"></script>
@@ -16,10 +17,12 @@
         <div class="col-xs-12" id="tabList" style="height:100%;">
 
         </div>
+        <div class="col-xs-12" id="log"></div>
     </div>
 
 </div>
 <script type="text/javascript">
+    var chartArray = {};
     function getChartData(instanceId){
         reportDetail.getReportDeatil(instanceId);
     }
@@ -39,7 +42,6 @@
         for(var i=0;i<nums;i++){
             getChartData(data[i].instanceId);
         }
-
     }
 
 }
@@ -47,7 +49,6 @@ function createChart(instanceId,result){
     var data = JSON.parse(result);
     var myChart = echarts.init(document.getElementById("chart_"+instanceId));
     var chartType= $('#chart_'+instanceId).attr('chartType');
-
     var tableName = $('#chart_'+instanceId).attr('tableName');
         var option = {
                 title: {
@@ -68,7 +69,7 @@ function createChart(instanceId,result){
                     containLabel: true
                 },
                 xAxis: {
-                    type: 'time',
+                    type: 'category',
                     boundaryGap: false,
                     data: []
                 },
@@ -140,6 +141,8 @@ function noData(chart){
                       zlevel: 0
                     });
 }
+
+
 </script>
 </body>
 </html>

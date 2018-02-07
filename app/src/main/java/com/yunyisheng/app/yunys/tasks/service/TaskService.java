@@ -7,6 +7,7 @@ import com.yunyisheng.app.yunys.tasks.bean.ProcessDetailBean;
 import com.yunyisheng.app.yunys.tasks.model.ProcessFormListModel;
 import com.yunyisheng.app.yunys.tasks.model.ProjectFormListModel;
 import com.yunyisheng.app.yunys.tasks.model.ProjectUserListModel;
+import com.yunyisheng.app.yunys.tasks.model.ReleaseTaskDetailModel;
 import com.yunyisheng.app.yunys.tasks.model.TaskDetailModel;
 
 import io.reactivex.Flowable;
@@ -94,6 +95,16 @@ public interface TaskService {
     @POST("task/getTaskInfo/{projectId}")
     Flowable<TaskDetailModel> getTaskDetail(@Path("projectId") String projectId,
                                             @Field("taskId") String taskId);
+    /**
+     * 获取任务详情
+     * @param projectId
+     * @param releaseId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("task/getReleaseTaskInfo/{projectId}")
+    Flowable<ReleaseTaskDetailModel> getReleaseTaskDetail(@Path("projectId") String projectId,
+                                                          @Field("releaseId") String releaseId);
 
     /**
      *  @author fuduo
@@ -229,7 +240,8 @@ public interface TaskService {
                                           @Field("listStr") String listStr,
                                           @Field("releaseBaseformId") String releaseBaseformId,
                                           @Field("equipmentId") String equipmentId,
-                                          @Field("feedbackBacknum") String feedbackBacknum);
+                                          @Field("feedbackBacknum") String feedbackBacknum,
+                                          @Field("userList") String userlist);
     /**
      * 保存周期任务
      * @param projectId
