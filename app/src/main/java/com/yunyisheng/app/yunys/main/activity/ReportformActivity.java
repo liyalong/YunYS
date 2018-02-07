@@ -107,20 +107,20 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ReportFormBean.ListBean listBean = list.get(position);
                 int instanceId = listBean.getInstanceId();
-                if (addedlist!=null&&addedlist.size()>0){
-                    for (int i=0;i<addedlist.size();i++){
+                if (addedlist != null && addedlist.size() > 0) {
+                    for (int i = 0; i < addedlist.size(); i++) {
                         int instanceId1 = addedlist.get(i).getInstanceId();
-                        if (instanceId==instanceId1){
+                        if (instanceId == instanceId1) {
                             return;
-                        }else {
-                            if (i==addedlist.size()-1){
+                        } else {
+                            if (i == addedlist.size() - 1) {
                                 addedlist.add(listBean);
                                 adapter = new AddedReportformListAdapter(ReportformActivity.this, addedlist);
                                 gvadded.setAdapter(adapter);
                             }
                         }
                     }
-                }else {
+                } else {
                     addedlist.add(listBean);
                     adapter = new AddedReportformListAdapter(ReportformActivity.this, addedlist);
                     gvadded.setAdapter(adapter);
@@ -139,7 +139,7 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
 
     }
 
-    private void setWeb(){
+    private void setWeb() {
         web.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -156,14 +156,14 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
         loadJs();
     }
 
-    private void loadJs(){
+    private void loadJs() {
         // 先载入JS代码
         // 格式规定为:file:///android_asset/文件名.html
         web.loadUrl("file:///android_asset/table.html");
-        web.addJavascriptInterface(this,"reportDetail");
+        web.addJavascriptInterface(this, "reportDetail");
         // 必须另开线程进行JS方法调用(否则无法调用)
 
-        web.setWebViewClient(new WebViewClient(){
+        web.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 getP().getBaobiaoList(1, 0);
@@ -183,7 +183,7 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
                 public void run() {
                     // 注意调用的JS方法名要对应上
                     // 调用javascript的callJS()方法
-                    web.loadUrl("javascript:createTableDiv("+ addedReformString +")");
+                    web.loadUrl("javascript:createTableDiv(" + addedReformString + ")");
                 }
             });
         }
@@ -226,7 +226,7 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
                     public void run() {
                         // 注意调用的JS方法名要对应上
                         // 调用javascript的callJS()方法
-                        web.loadUrl("javascript:createTableDiv('"+ netstring+""+"')");
+                        web.loadUrl("javascript:createTableDiv('" + netstring + "" + "')");
                     }
                 });
             }
@@ -257,7 +257,7 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
             case R.id.btn_queren:
                 if (addedlist != null && addedlist.size() > 0) {
                     json = JSON.toJSONString(addedlist);
-                    SharedPref.getInstance(ReportformActivity.this).putString("AddedReformString",json);
+                    SharedPref.getInstance(ReportformActivity.this).putString("AddedReformString", json);
                     LogUtils.i("string", json);
                 }
                 menu.toggle();
@@ -266,7 +266,7 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
     }
 
     @JavascriptInterface
-    public void getReportDeatil(int instanceId){
+    public void getReportDeatil(int instanceId) {
         instanceid = instanceId;
         runOnUiThread(new Runnable() {
             @Override
@@ -274,12 +274,11 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
                 getP().getBaobiaoDetail(instanceid);
             }
         });
-
     }
 
     public void getReportResultList(ReportListBean reportListBean) {
         List<ReportListBean.RespBodyBean> respBody = reportListBean.getRespBody();
-        if (respBody!=null) {
+        if (respBody != null) {
             final String string = JSON.toJSONString(respBody);
             // 必须另开线程进行JS方法调用(否则无法调用)
             web.post(new Runnable() {
@@ -292,4 +291,15 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
             });
         }
     }
+
+    //在页面销毁的时候将webView移除
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        web.stopLoading();
+        web.removeAllViews();
+        web.destroy();
+        web = null;
+    }
+
 }
