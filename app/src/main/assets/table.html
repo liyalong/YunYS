@@ -23,7 +23,8 @@
     function getChartData(instanceId){
         reportDetail.getReportDeatil(instanceId);
     }
-    function createTableDiv(data){
+    function createTableDiv(result){
+    var data = JSON.parse(result);
     var divHtml = "";
     var nums = count(data);
     if(nums > 0){
