@@ -218,6 +218,8 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
                     selectProjectId = data.getStringExtra("selectProjectId");
                     selectProjectName = data.getStringExtra("selectProjectName");
                     selectProject.setText(selectProjectName.toString());
+                    selectDeviceId = null;
+                    selectProjectDevice.setText("*选择设备");
                 }
                 break;
             case DEVICEEQUESTCODE:

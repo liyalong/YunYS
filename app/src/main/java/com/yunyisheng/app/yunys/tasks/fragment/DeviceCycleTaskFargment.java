@@ -201,6 +201,8 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
                     cycleSelectProjectId = data.getStringExtra("selectProjectId");
                     cycleSelectProjectName = data.getStringExtra("selectProjectName");
                     cycleSelectProject.setText(cycleSelectProjectName.toString());
+                    cycleSelectDeviceId = null;
+                    cycleSelectProjectDevice.setText("*选择设备");
                 }
                 break;
             case DEVICEEQUESTCODE:

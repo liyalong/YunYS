@@ -54,9 +54,11 @@
             android:layout_height="match_parent"
             android:hint="@string/search_device"
             android:background="@null"
+            android:singleLine="true"
             android:textColorHint="@color/color_666"
             android:textSize="@dimen/distance_12"
-            android:textColor="@color/color_333"/>
+            android:textColor="@color/color_333"
+            android:imeOptions="actionSearch"/>
     </LinearLayout>
     <ListView
         android:id="@+id/select_project_device_list"

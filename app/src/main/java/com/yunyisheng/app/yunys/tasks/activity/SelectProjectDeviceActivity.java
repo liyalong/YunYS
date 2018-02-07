@@ -1,8 +1,12 @@
 package com.yunyisheng.app.yunys.tasks.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -70,7 +74,23 @@ public class SelectProjectDeviceActivity extends BaseActivity<SelectProjectDevic
     public void setListener() {
         imgBack.setOnClickListener(this);
         submit.setOnClickListener(this);
-        searchText.setOnClickListener(this);
+        searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                    // 先隐藏键盘
+                    ((InputMethodManager) searchText.getContext()
+                            .getSystemService(Context.INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(context.getCurrentFocus().getWindowToken(),
+                                    InputMethodManager.HIDE_NOT_ALWAYS);
+                    // 搜索，进行自己要的操作...
+                    String searchValue = searchText.getText().toString();
+                    getP().getProjectDeviceList(projectId,PAGE_NUM,PAGE_SIZE,searchValue);//这里是我要做的操作！
+                    return true;
+                }
+                return false;
+            }
+        });
 
     }
 
