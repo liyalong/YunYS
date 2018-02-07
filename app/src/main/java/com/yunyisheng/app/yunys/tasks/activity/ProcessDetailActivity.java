@@ -9,6 +9,8 @@ import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.tasks.bean.ProcessDetailBean;
 import com.yunyisheng.app.yunys.tasks.present.ProcessDetailPresent;
 
+import cn.droidlover.xdroidbase.cache.SharedPref;
+
 public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
 
     private String processDefinitionId;
@@ -31,8 +33,9 @@ public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               if (userId ==0){
-                   getP().getProcessTaskDetailByUser(taskId,taskType,null);
+                if (userId ==0){
+                   int userid = SharedPref.getInstance(ProcessDetailActivity.this).getInt("userid",0);
+                   getP().getProcessTaskDetailByUser(taskId,taskType,userid+"");
                }else {
                    getP().getProcessTaskDetailByUser(taskId,taskType,userId+"");
                }
