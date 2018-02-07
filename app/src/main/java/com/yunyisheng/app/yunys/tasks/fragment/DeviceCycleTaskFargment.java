@@ -78,7 +78,7 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
     private String cycleFeedbackJSON;
 
     UpdateCycleTaskBean cycleTaskForm;
-    private String cycleTaskId;
+    private String cycleReleaseTaskId;
     private String cycleProjectId;
 
     @Override
@@ -86,7 +86,7 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
         ButterKnife.bind(this, context);
         initDatePicker();
         CreateDeviceTaskAcitvity DeviceTaskAcitvity = (CreateDeviceTaskAcitvity) getActivity();
-        this.cycleTaskId = String.valueOf(DeviceTaskAcitvity.getTaskEditId());
+        this.cycleReleaseTaskId = String.valueOf(DeviceTaskAcitvity.getTaskEditId());
         this.cycleProjectId = DeviceTaskAcitvity.getProjectId();
         //从通讯录安排工作跳转来的人员
         List<WorkerBean> selectUsersFromWork = DeviceTaskAcitvity.getSelectWorkList();
@@ -103,8 +103,8 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
             selectCycleAssignUsers.setText(selectCycleUserStr);
         }
 
-        if (cycleTaskId != null){
-            getP().getCycleTaskInfo(cycleProjectId,cycleTaskId);
+        if (cycleReleaseTaskId != null && cycleReleaseTaskId != "null"){
+            getP().getCycleTaskInfo(cycleProjectId,cycleReleaseTaskId);
         }
     }
 

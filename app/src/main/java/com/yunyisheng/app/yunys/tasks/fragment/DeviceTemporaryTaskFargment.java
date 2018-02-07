@@ -101,7 +101,7 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
             }
             selectAssignUsers.setText(selectUserStr);
         }
-        if (releaseTaskId != null){
+        if (releaseTaskId != null && releaseTaskId != "null"){
             getP().getReleaseTaskDetail(projectId,releaseTaskId);
         }
     }

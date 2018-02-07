@@ -85,7 +85,7 @@ public class NoneDeviceCycleTaskFargment extends BaseFragement {
         CreateNoneDeviceTaskAcitvity NoneDeviceTaskAcitvity = (CreateNoneDeviceTaskAcitvity) getActivity();
 
         List<WorkerBean> selectUsersFromWork = NoneDeviceTaskAcitvity.getSelectWorkList();
-        if (selectUsersFromWork.size() > 0){
+        if (selectUsersFromWork != null && selectUsersFromWork.size() > 0){
             String selectUserStr = "";
             for (int i=0;i<selectUsersFromWork.size();i++){
                 selectUserStr += selectUsersFromWork.get(i).getName()+" ";
