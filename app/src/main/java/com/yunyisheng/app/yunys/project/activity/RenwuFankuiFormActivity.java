@@ -139,6 +139,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                     LinearLayout.LayoutParams.WRAP_CONTENT);
             LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                     1);
+            lpview.setMargins(0, 10, 0, 0);
             LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(170,
                     170);
             if (type == 1) {
@@ -168,7 +169,6 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
-
                 lineAll.addView(view);
             } else if (type == 2) {
                 TextView name = new TextView(this);
@@ -293,7 +293,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
         }
 
         if (seetype == 1) {
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.setMargins(0, 20, 0, 0);
             Button button = new Button(this);
             button.setLayoutParams(layoutParams);

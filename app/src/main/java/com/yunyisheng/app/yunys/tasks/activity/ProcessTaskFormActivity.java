@@ -137,8 +137,8 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                     LinearLayout.LayoutParams.WRAP_CONTENT);
             LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                     1);
+            lpview.setMargins(0, 10, 0, 0);
             if (leipiplugins.equals("text") || leipiplugins.equals("textarea")) {
-
                 if (seetype == 2) {
                     TextView namevalue = new TextView(this);
                     namevalue.setPadding(0, 10, 0, 0);
@@ -227,7 +227,7 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                 lineAll.addView(view);
             }
         }
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.setMargins(0, 20, 0, 0);
             if (state != null && !state.equals("")) {
                 if (state.equals("101")) {

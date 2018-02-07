@@ -123,6 +123,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                     LinearLayout.LayoutParams.WRAP_CONTENT);
             LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                     1);
+            lpview.setMargins(0, 10, 0, 0);
             if (leipiplugins.equals("text") || leipiplugins.equals("textarea")) {
 
                 if (seetype == 2) {
@@ -214,7 +215,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
             }
         }
         if (seetype == 1) {
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             Button button = new Button(this);
             button.setLayoutParams(layoutParams);
             button.setText("提交");

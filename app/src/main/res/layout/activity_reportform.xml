@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_f4f4f4"
+    android:orientation="vertical"
     tools:context="com.yunyisheng.app.yunys.main.activity.ReportformActivity">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -34,6 +35,9 @@
             android:background="@mipmap/addimg"
             />
     </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
 
     <WebView
         android:id="@+id/web"

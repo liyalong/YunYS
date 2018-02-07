@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.main.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -58,7 +60,7 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
     private int instanceid;
     private String addedReformString;
 
-    @JavascriptInterface
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
@@ -138,6 +140,13 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
     }
 
     private void setWeb(){
+        web.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
         WebSettings webSettings = web.getSettings();
         // 设置与Js交互的权限
         webSettings.setJavaScriptEnabled(true);
@@ -153,6 +162,13 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
         web.loadUrl("file:///android_asset/table.html");
         web.addJavascriptInterface(this,"reportDetail");
         // 必须另开线程进行JS方法调用(否则无法调用)
+
+        web.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                getP().getBaobiaoList(1, 0);
+            }
+        });
     }
 
     @Override
@@ -171,7 +187,7 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
                 }
             });
         }
-        getP().getBaobiaoList(1, 0);
+
     }
 
     @Override
@@ -252,7 +268,13 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
     @JavascriptInterface
     public void getReportDeatil(int instanceId){
         instanceid = instanceId;
-        getP().getBaobiaoDetail(instanceId);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                getP().getBaobiaoDetail(instanceid);
+            }
+        });
+
     }
 
     public void getReportResultList(ReportListBean reportListBean) {
