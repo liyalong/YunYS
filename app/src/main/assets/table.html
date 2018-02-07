@@ -22,12 +22,12 @@
 
 </div>
 <script type="text/javascript">
-    var chartArray = {};
     function getChartData(instanceId){
         reportDetail.getReportDeatil(instanceId);
     }
     function createTableDiv(result){
     var data = JSON.parse(result);
+    var intervalIds = [];
     var divHtml = "";
     var nums = count(data);
     if(nums > 0){
@@ -36,12 +36,24 @@
         }
     }else{
         divHtml = '暂无自定义报表！';
+        for(var i=0;i<intervalIds.length;i++){
+            clearInteval(intervalIds[i]);
+        }
     }
     $('#tabList').html(divHtml);
+
     if(nums > 0){
         for(var i=0;i<nums;i++){
             getChartData(data[i].instanceId);
+            if(data[i].refreshFrequency != "" && data[i].refreshFrequency != null){
+                setIntervalById(data[i].instanceId,intervalIds,data[i].refreshFrequency);
+            }
         }
+    }
+    function setIntervalById(instanceId,arrays,type){
+        var interArr = [30000,60000,300000];
+        var interId = setInterval('getChartData('+instanceId+')',interArr[type]);
+        arrays.push(interId);
     }
 
 }
