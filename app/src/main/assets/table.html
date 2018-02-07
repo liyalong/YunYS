@@ -14,10 +14,11 @@
 <body>
 <div class="container-fluid">
     <div class="row">
+        <div class="col-xs-12" id="log"></div>
         <div class="col-xs-12" id="tabList" style="height:100%;">
 
         </div>
-        <div class="col-xs-12" id="log"></div>
+
     </div>
 
 </div>
@@ -45,14 +46,17 @@
     if(nums > 0){
         for(var i=0;i<nums;i++){
             getChartData(data[i].instanceId);
+            //$('#log').append(data[i].instanceId+"<br/>");
             if(data[i].refreshFrequency != "" && data[i].refreshFrequency != null){
                 setIntervalById(data[i].instanceId,intervalIds,data[i].refreshFrequency);
+                $('#log').append(data[i].refreshFrequency);
+                $('#log').append(JSON.stringify(intervalIds));
             }
         }
     }
     function setIntervalById(instanceId,arrays,type){
         var interArr = [30000,60000,300000];
-        var interId = setInterval('getChartData('+instanceId+')',interArr[type]);
+        //var interId = setInterval('getChartData('+instanceId+')',interArr[type]);
         arrays.push(interId);
     }
 
