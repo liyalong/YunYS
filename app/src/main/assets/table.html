@@ -43,7 +43,8 @@
     }
 
 }
-function createChart(instanceId,data){
+function createChart(instanceId,result){
+    var data = JSON.parse(result);
     var myChart = echarts.init(document.getElementById("chart_"+instanceId));
     var chartType= $('#chart_'+instanceId).attr('chartType');
 
