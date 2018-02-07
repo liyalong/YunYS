@@ -35,9 +35,9 @@ public class ModelListPresent extends XPresent<ModelListFragment> {
 
                     @Override
                     public void onNext(ModelListModel modelListModel) {
+                        LoadingDialog.dismiss(getV().getContext());
                         if(modelListModel.getRespCode() == 1){
                             ToastUtils.showToast(modelListModel.getRespMsg());
-                            LoadingDialog.show(getV().getContext());
                             getV().initRefresh();
                             return;
                         }

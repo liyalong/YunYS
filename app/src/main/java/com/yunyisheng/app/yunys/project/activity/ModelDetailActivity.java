@@ -100,7 +100,7 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                getP().getModelWarningList(projectId, 1, 999, modelId);
+                getP().getModelWarningList(projectId, 1, 10, modelId);
                 getP().getModelPlcValueList(projectId, modelId);
 
             }
@@ -109,7 +109,6 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
                 DevicePLCValueBean clickPlc = devicePLCValueList.get(i1);
-                XLog.d(String.valueOf(clickPlc.getPropertyId()));
                 Router.newIntent(context)
                         .to(PLCDetailActivity.class)
                         .putString("plcName", String.valueOf(clickPlc.getPropertyId()))

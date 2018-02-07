@@ -6,6 +6,7 @@ import com.yunyisheng.app.yunys.project.activity.DeviceDetailActivity;
 import com.yunyisheng.app.yunys.project.model.DeviceInfoModel;
 import com.yunyisheng.app.yunys.project.model.DevicePLCValueListModel;
 import com.yunyisheng.app.yunys.project.model.DeviceWarningListModel;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import cn.droidlover.xdroidmvp.log.XLog;
@@ -105,6 +106,7 @@ public class DeviceDetailPresent extends XPresent<DeviceDetailActivity> {
     }
 
     public void warningReset(int warningId){
+        LoadingDialog.show(getV());
         Api.projectService().warningReset(warningId)
                 .compose(XApi.<BaseModel>getApiTransformer())
                 .compose(XApi.<BaseModel>getScheduler())
@@ -112,11 +114,13 @@ public class DeviceDetailPresent extends XPresent<DeviceDetailActivity> {
                 .subscribe(new ApiSubscriber<BaseModel>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
                         ToastUtils.showToast("网络请求错误！");
                     }
 
                     @Override
                     public void onNext(BaseModel baseModel) {
+                        LoadingDialog.dismiss(getV());
                         if (baseModel.getRespCode() == 1){
                             ToastUtils.showToast(baseModel.getRespMsg());
                             return;

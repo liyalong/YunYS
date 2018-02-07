@@ -34,6 +34,16 @@ public class TaskBean implements Serializable{
     private String projectId;
     private String companyId;
     private String terraceId;
+    private int taskLook;
+
+    public void setTaskLook(int taskLook) {
+        this.taskLook = taskLook;
+    }
+
+    public int getTaskLook() {
+
+        return taskLook;
+    }
 
     public void setReleaseStatFinish(int releaseStatFinish) {
         this.releaseStatFinish = releaseStatFinish;

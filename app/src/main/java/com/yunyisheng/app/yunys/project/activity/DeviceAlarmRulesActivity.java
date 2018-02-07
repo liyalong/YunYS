@@ -120,6 +120,9 @@ public class DeviceAlarmRulesActivity extends BaseActivity<DeviceAlarmRulesPrese
                 ToastUtils.showToast("暂无更多数据");
             }
         }
+        initRefresh();
+    }
+    public void initRefresh(){
         alarmRulesList.onRefreshComplete();
         alarmRulesList.computeScroll();
     }

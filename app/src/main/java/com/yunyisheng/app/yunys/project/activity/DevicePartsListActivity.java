@@ -115,8 +115,10 @@ public class DevicePartsListActivity extends BaseActivity<DevicePartsListPresent
                 ToastUtils.showToast("暂无更多数据！");
             }
         }
+        initRefresh();
+    }
+    public void initRefresh(){
         devicePartsListView.onRefreshComplete();
         devicePartsListView.computeScroll();
     }
-
 }

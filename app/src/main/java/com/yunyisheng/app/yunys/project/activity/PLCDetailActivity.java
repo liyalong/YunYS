@@ -14,6 +14,7 @@ import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.project.bean.PLCValueBean;
 import com.yunyisheng.app.yunys.project.model.PLCListModel;
 import com.yunyisheng.app.yunys.project.present.PLCDetailPresent;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import java.util.List;
@@ -43,6 +44,7 @@ public class PLCDetailActivity extends BaseActivity<PLCDetailPresent> {
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        LoadingDialog.show(context);
         plcName = getIntent().getStringExtra("plcName");
         plcUnits = getIntent().getStringExtra("plcUnits");
         plcDesc = getIntent().getStringExtra("plcDesc");

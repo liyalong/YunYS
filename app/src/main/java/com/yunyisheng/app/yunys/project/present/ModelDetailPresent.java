@@ -8,6 +8,7 @@ import com.yunyisheng.app.yunys.project.model.DeviceInfoModel;
 import com.yunyisheng.app.yunys.project.model.DevicePLCValueListModel;
 import com.yunyisheng.app.yunys.project.model.DeviceWarningListModel;
 import com.yunyisheng.app.yunys.project.model.ModelDetailModel;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import cn.droidlover.xdroidmvp.mvp.XPresent;
@@ -26,6 +27,7 @@ public class ModelDetailPresent extends XPresent<ModelDetailActivity> {
      * @param modelId
      */
     public void getModelDetail(String projectId,String modelId){
+        LoadingDialog.show(getV());
         Api.projectService().getModelDetail(projectId,modelId)
                 .compose(XApi.<ModelDetailModel>getApiTransformer())
                 .compose(XApi.<ModelDetailModel>getScheduler())
@@ -33,11 +35,13 @@ public class ModelDetailPresent extends XPresent<ModelDetailActivity> {
                 .subscribe(new ApiSubscriber<ModelDetailModel>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
                         ToastUtils.showToast("网络请求错误！");
                     }
 
                     @Override
                     public void onNext(ModelDetailModel modelDetailModel) {
+                        LoadingDialog.dismiss(getV());
                         if (modelDetailModel.getRespCode() == 1){
                             ToastUtils.showToast(modelDetailModel.getRespMsg());
                             return;

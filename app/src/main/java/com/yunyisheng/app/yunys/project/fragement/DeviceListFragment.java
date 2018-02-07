@@ -25,6 +25,7 @@ import com.yunyisheng.app.yunys.project.adapter.DeviceListAdapter;
 import com.yunyisheng.app.yunys.project.bean.DeviceBean;
 import com.yunyisheng.app.yunys.project.model.DeviceListModel;
 import com.yunyisheng.app.yunys.project.present.DeviceListPresent;
+import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.utils.ScrowUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
@@ -46,6 +47,7 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
 
     private List<DeviceBean> deviceBeanList = new ArrayList<>();
     private String projectId;
+    private String projectName;
     private int PAGE_NUM = 1;
     private int PAGE_SIZE = 10;
     DeviceListAdapter adapter;
@@ -56,6 +58,7 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
         ButterKnife.bind(this, context);
         ProjectDetailsActivity projectDetailsActivity = (ProjectDetailsActivity) getActivity();
         projectId = projectDetailsActivity.getProjectId();
+        projectName = projectDetailsActivity.getProjectName();
         getP().getProjectDeviceList(projectId,PAGE_NUM,PAGE_SIZE,"");
         ScrowUtil.listViewConfig(deviceListView);
         deviceListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
@@ -165,6 +168,7 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
         TextView toKnowledge = v.findViewById(R.id.to_knowledge);
         TextView toDeviceParts = v.findViewById(R.id.to_device_parts);
         TextView toPeriodicTasks = v.findViewById(R.id.to_periodic_tasks);
+        TextView toCreateTask = v.findViewById(R.id.to_create_task);
         ImageView btnCZClose = v.findViewById(R.id.btn_cz_close);
         //报警规则列表
         toAlarmRules.setOnClickListener(new View.OnClickListener() {
@@ -211,6 +215,19 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
                         .putString("deviceId",clickedDevice.getEquipmentId())
                         .putString("projectId",projectId)
                         .putString("deviceName",clickedDevice.getEquipmentName())
+                        .launch();
+            }
+        });
+        toCreateTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Router.newIntent(context)
+                        .to(CreateDeviceTaskAcitvity.class)
+                        .putString("projectName",projectName)
+                        .putString("projectId",projectId)
+                        .putInt("fromPageType",3)
+                        .putString("deviceName",clickedDevice.getEquipmentName())
+                        .putString("deviceId",clickedDevice.getEquipmentId())
                         .launch();
             }
         });

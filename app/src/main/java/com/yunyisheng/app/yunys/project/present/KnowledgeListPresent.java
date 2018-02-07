@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys.project.present;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.activity.KnowledgeListActivity;
 import com.yunyisheng.app.yunys.project.model.KnowledgeListModel;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import cn.droidlover.xdroidmvp.mvp.XPresent;
@@ -23,6 +24,7 @@ public class KnowledgeListPresent extends XPresent<KnowledgeListActivity> {
      * @param pageSize
      */
     public void  getKnowledgeList(String projectId,String deviceId,int pageNum,int pageSize){
+        LoadingDialog.show(getV());
         Api.projectService().getKnowledgeList(projectId,deviceId,pageNum,pageSize)
                 .compose(XApi.<KnowledgeListModel>getApiTransformer())
                 .compose(XApi.<KnowledgeListModel>getScheduler())
@@ -30,12 +32,15 @@ public class KnowledgeListPresent extends XPresent<KnowledgeListActivity> {
                 .subscribe(new ApiSubscriber<KnowledgeListModel>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
                         ToastUtils.showToast("网络请求错误！");
+                        getV().initRefresh();
                         return;
                     }
 
                     @Override
                     public void onNext(KnowledgeListModel knowledgeListModel) {
+                        LoadingDialog.dismiss(getV());
                         if (knowledgeListModel.getRespCode() == 1){
                             ToastUtils.showToast(knowledgeListModel.getErrorMsg());
                             getV().initRefresh();
@@ -54,6 +59,7 @@ public class KnowledgeListPresent extends XPresent<KnowledgeListActivity> {
      * @param pageSize
      */
     public void getModelKnowledgeList(String projectId,String modelId,int pageNum,int pageSize){
+        LoadingDialog.show(getV());
         Api.projectService().getKnowledgeList(projectId,modelId,pageNum,pageSize)
                 .compose(XApi.<KnowledgeListModel>getApiTransformer())
                 .compose(XApi.<KnowledgeListModel>getScheduler())
@@ -61,12 +67,15 @@ public class KnowledgeListPresent extends XPresent<KnowledgeListActivity> {
                 .subscribe(new ApiSubscriber<KnowledgeListModel>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
                         ToastUtils.showToast("网络请求错误！");
+                        getV().initRefresh();
                         return;
                     }
 
                     @Override
                     public void onNext(KnowledgeListModel knowledgeListModel) {
+                        LoadingDialog.dismiss(getV());
                         if (knowledgeListModel.getRespCode() == 1){
                             ToastUtils.showToast(knowledgeListModel.getErrorMsg());
                             getV().initRefresh();

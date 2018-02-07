@@ -23,6 +23,7 @@ import com.yunyisheng.app.yunys.project.present.KnowledgeDetailPresent;
 import com.yunyisheng.app.yunys.utils.CallOtherOpeanFile;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.FileCache;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class KnowledgeDetailActivity extends BaseActivity<KnowledgeDetailPresent
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        LoadingDialog.show(context);
         this.projectId = getIntent().getStringExtra("projectId");
         this.knowledgeId = getIntent().getStringExtra("knowledgeId");
         getP().getKnowledgeDetail(projectId,knowledgeId);
@@ -95,6 +97,7 @@ public class KnowledgeDetailActivity extends BaseActivity<KnowledgeDetailPresent
     }
 
     public void setAdapter(KnowledgDetailModel knowledgDetailModel) {
+        LoadingDialog.dismiss(context);
         this.knowledgeBean = knowledgDetailModel.getRespBody();
         knowledgeTitle.setText(knowledgeBean.getKnowledgeName().toString());
         knowledgeDetail.loadDataWithBaseURL(null,knowledgeBean.getKnowledgeBase(),"text/html","utf-8",null);

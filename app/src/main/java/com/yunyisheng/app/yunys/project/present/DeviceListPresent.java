@@ -34,9 +34,9 @@ public class DeviceListPresent extends XPresent<DeviceListFragment> {
 
                     @Override
                     public void onNext(DeviceListModel deviceListModel) {
+                        LoadingDialog.dismiss(getV().getContext());
                         if (deviceListModel.getRespCode() == 1){
                             ToastUtils.showToast(deviceListModel.getRespMsg());
-                            LoadingDialog.dismiss(getV().getContext());
                             getV().initRefresh();
                             return;
                         }

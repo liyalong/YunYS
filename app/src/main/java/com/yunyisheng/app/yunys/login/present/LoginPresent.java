@@ -6,6 +6,7 @@ import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.login.model.LoginModel;
 import com.yunyisheng.app.yunys.net.Api;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import cn.droidlover.xdroidmvp.log.XLog;
@@ -27,7 +28,7 @@ public class LoginPresent extends XPresent<LoginActivity> {
      * @param yzm
      */
     public void  Login(String userPhone ,String password,String uuid,String yzm){
-        XLog.d(userPhone+"----"+password);
+        LoadingDialog.show(getV());
         Api.userService().login(userPhone,password,uuid,yzm)
                 .compose(XApi.<LoginModel>getApiTransformer()) //统一异常处理
                 .compose(XApi.<LoginModel>getScheduler()) //线程调度
@@ -35,6 +36,7 @@ public class LoginPresent extends XPresent<LoginActivity> {
                 .subscribe(new ApiSubscriber<LoginModel>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
                         Log.i("ERROR", error.toString());
                         ToastUtils.showToast("请求数据失败！");
                     }
@@ -42,6 +44,7 @@ public class LoginPresent extends XPresent<LoginActivity> {
                     @Override
                     public void onNext(LoginModel loginModel) {
                         Log.i("LOGIN",loginModel.toString());
+                        LoadingDialog.dismiss(getV());
                         getV().checkLogin(loginModel);
                     }
                 });

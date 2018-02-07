@@ -81,11 +81,13 @@ public class MineFragement extends BaseFragement<MinePresent> {
     ImageView imgCarm;
     @BindView(R.id.te_versioncode)
     TextView teVersioncode;
+    private MyReceiver receiver;
 
     @Override
     public void initView() {
         teVersioncode.setText(AppApplicationMgr.getVersionCode(mContext));
-        MyReceiver receiver = new MyReceiver();//广播接受者实例
+        //广播接受者实例
+        receiver = new MyReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("action");
         mContext.registerReceiver(receiver, intentFilter);
@@ -269,6 +271,7 @@ public class MineFragement extends BaseFragement<MinePresent> {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        getActivity().unregisterReceiver(receiver);
     }
 
 }

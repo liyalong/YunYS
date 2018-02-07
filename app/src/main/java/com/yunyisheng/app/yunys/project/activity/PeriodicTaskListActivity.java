@@ -13,6 +13,7 @@ import com.yunyisheng.app.yunys.project.adapter.PeriodicTaskListAdapter;
 import com.yunyisheng.app.yunys.project.bean.PeriodicTaskBean;
 import com.yunyisheng.app.yunys.project.model.PeriodicTaskListModel;
 import com.yunyisheng.app.yunys.project.present.PeriodicTaskPresent;
+import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.utils.ScrowUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
@@ -22,12 +23,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
+import cn.droidlover.xdroidmvp.router.Router;
 
 /**
  * Created by liyalong on 2018/1/22.
  */
 
-public class PeriodicTaskListActivity extends BaseActivity<PeriodicTaskPresent> {
+public class PeriodicTaskListActivity extends BaseActivity<PeriodicTaskPresent> implements PeriodicTaskListAdapter.Callback{
     @BindView(R.id.img_back)
     ImageView imgBack;
     @BindView(R.id.periodic_task_list_view)
@@ -101,7 +103,7 @@ public class PeriodicTaskListActivity extends BaseActivity<PeriodicTaskPresent> 
             if (PAGE_NUM == 1){
                 dataList.clear();
                 dataList.addAll(periodicTaskListModel.getRespBody());
-                adapter = new PeriodicTaskListAdapter(context,dataList);
+                adapter = new PeriodicTaskListAdapter(context,dataList,this);
                 periodicTaskListView.setAdapter(adapter);
             }else {
                 dataList.addAll(periodicTaskListModel.getRespBody());
@@ -114,8 +116,23 @@ public class PeriodicTaskListActivity extends BaseActivity<PeriodicTaskPresent> 
                 ToastUtils.showToast("暂无更多数据！");
             }
         }
+        initRefresh();
+
+    }
+    public void initRefresh(){
         periodicTaskListView.onRefreshComplete();
         periodicTaskListView.computeScroll();
+    }
 
+    @Override
+    public void click(View v) {
+        int tag = (int) v.getTag();
+        PeriodicTaskBean clickTask = dataList.get(tag);
+        Router.newIntent(context)
+                .to(CreateDeviceTaskAcitvity.class)
+                .putInt("fromPageType",2)
+                .putString("taskId", String.valueOf(clickTask.getCycletaskId()))
+                .putString("projectId",clickTask.getProjectId())
+                .launch();
     }
 }

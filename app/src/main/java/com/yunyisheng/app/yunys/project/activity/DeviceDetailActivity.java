@@ -227,7 +227,7 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
         if (deviceWarningListModel.getRespBody() != null) {
             warningDataList.clear();
             warningDataList.addAll(deviceWarningListModel.getRespBody());
-            warningAdapter = new DeviceOrPCMAlarmListAdapter(context,PLCGroupList, warningDataList);
+            warningAdapter = new DeviceOrPCMAlarmListAdapter(context,warningGrouptList, warningDataList);
             deviceDetailBjxxList.setAdapter(warningAdapter);
             deviceDetailBjxxList.expandGroup(0);
         }

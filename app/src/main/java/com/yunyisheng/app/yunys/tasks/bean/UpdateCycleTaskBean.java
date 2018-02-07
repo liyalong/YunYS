@@ -2,6 +2,8 @@ package com.yunyisheng.app.yunys.tasks.bean;
 
 import android.content.Intent;
 
+import java.util.List;
+
 /**
  * Created by liyalong on 2018/2/4.
  */
@@ -22,6 +24,55 @@ public class UpdateCycleTaskBean {
     private String userIds;
     private String feedbackJSON;
     private String userIdStr;
+    private String equipmentName;
+    private String projectName;
+    private String feedbackBacknum;
+    private String feedbackItemList;
+    private List<SelectUser> cycleTaskUserList;
+
+    public void setCycleTaskUserList(List<SelectUser> cycleTaskUserList) {
+        this.cycleTaskUserList = cycleTaskUserList;
+    }
+
+    public List<SelectUser> getCycleTaskUserList() {
+
+        return cycleTaskUserList;
+    }
+
+    public void setFeedbackItemList(String feedbackItemList) {
+        this.feedbackItemList = feedbackItemList;
+    }
+
+    public String getFeedbackItemList() {
+
+        return feedbackItemList;
+    }
+
+    public void setEquipmentName(String equipmentName) {
+        this.equipmentName = equipmentName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public void setFeedbackBacknum(String feedbackBacknum) {
+        this.feedbackBacknum = feedbackBacknum;
+    }
+
+    public String getProjectName() {
+
+        return projectName;
+    }
+
+    public String getFeedbackBacknum() {
+        return feedbackBacknum;
+    }
+
+    public String getEquipmentName() {
+
+        return equipmentName;
+    }
 
     public void setUserIdStr(String userIdStr) {
         this.userIdStr = userIdStr;
@@ -143,5 +194,28 @@ public class UpdateCycleTaskBean {
 
     public void setFeedbackJSON(String feedbackJSON) {
         this.feedbackJSON = feedbackJSON;
+    }
+
+    public class SelectUser{
+        private String userName;
+        private Integer userId;
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public void setUserId(Integer userId) {
+            this.userId = userId;
+        }
+
+        public Integer getUserId() {
+
+            return userId;
+        }
+
+        public String getUserName() {
+
+            return userName;
+        }
     }
 }

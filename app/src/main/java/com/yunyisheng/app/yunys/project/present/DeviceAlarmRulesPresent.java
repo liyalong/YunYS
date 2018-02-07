@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys.project.present;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.activity.DeviceAlarmRulesActivity;
 import com.yunyisheng.app.yunys.project.model.DeviceAlarmRulesModel;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import cn.droidlover.xdroidmvp.mvp.XPresent;
@@ -23,6 +24,7 @@ public class DeviceAlarmRulesPresent extends XPresent<DeviceAlarmRulesActivity> 
      * @param pageSize
      */
     public void getDeviceAlarmRulesList(String projectId,String deviceId,int pageNum,int pageSize){
+        LoadingDialog.show(getV());
         Api.projectService().getDeviceAlarmRulesList(projectId,deviceId,pageNum,pageSize)
                 .compose(XApi.<DeviceAlarmRulesModel>getApiTransformer())
                 .compose(XApi.<DeviceAlarmRulesModel>getScheduler())
@@ -30,13 +32,17 @@ public class DeviceAlarmRulesPresent extends XPresent<DeviceAlarmRulesActivity> 
                 .subscribe(new ApiSubscriber<DeviceAlarmRulesModel>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
+                        getV().initRefresh();
                         ToastUtils.showToast("网络请求错误");
                         return;
                     }
 
                     @Override
                     public void onNext(DeviceAlarmRulesModel deviceAlarmRulesModel) {
+                        LoadingDialog.dismiss(getV());
                         if (deviceAlarmRulesModel.getRespCode() == 1){
+                            getV().initRefresh();
                             ToastUtils.showToast(deviceAlarmRulesModel.getErrorMsg());
                             return;
                         }

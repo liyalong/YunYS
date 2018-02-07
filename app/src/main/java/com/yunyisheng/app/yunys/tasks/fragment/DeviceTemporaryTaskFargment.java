@@ -101,6 +101,13 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
             }
             selectAssignUsers.setText(selectUserStr);
         }
+        //从设备页面过来的创建任务
+        if (createDeviceTaskAcitvity.getFromPageType() == 3){
+            selectProjectId = createDeviceTaskAcitvity.getProjectId();
+            selectDeviceId = createDeviceTaskAcitvity.getDeviceId();
+            selectProject.setText(createDeviceTaskAcitvity.getProjectName());
+            selectProjectDevice.setText(createDeviceTaskAcitvity.getDeviceName());
+        }
         if (releaseTaskId != null && releaseTaskId != "null"){
             getP().getReleaseTaskDetail(projectId,releaseTaskId);
         }

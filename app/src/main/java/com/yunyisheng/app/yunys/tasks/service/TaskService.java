@@ -4,6 +4,8 @@ import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.project.model.TaskListModel;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
 import com.yunyisheng.app.yunys.tasks.bean.ProcessDetailBean;
+import com.yunyisheng.app.yunys.tasks.bean.UpdateCycleTaskBean;
+import com.yunyisheng.app.yunys.tasks.model.CycleTaskDetailModel;
 import com.yunyisheng.app.yunys.tasks.model.ProcessFormListModel;
 import com.yunyisheng.app.yunys.tasks.model.ProjectFormListModel;
 import com.yunyisheng.app.yunys.tasks.model.ProjectUserListModel;
@@ -105,6 +107,10 @@ public interface TaskService {
     @POST("task/getReleaseTaskInfo/{projectId}")
     Flowable<ReleaseTaskDetailModel> getReleaseTaskDetail(@Path("projectId") String projectId,
                                                           @Field("releaseId") String releaseId);
+    @FormUrlEncoded
+    @POST("device/cycletask/getCycletaskInfo/{projectId}")
+    Flowable<CycleTaskDetailModel> getCycleTaskDetail(@Path("projectId") String projectId,
+                                                      @Field("cycletaskId") String cycletaskId);
 
     /**
      *  @author fuduo

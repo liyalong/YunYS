@@ -80,6 +80,7 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
      * @param pageSize
      */
     public void getMyTaskList(String projectId,int pageNum,int pageSize){
+        LoadingDialog.show(getV().getContext());
         Api.taskService().getMyTaskList(projectId,pageNum,pageSize)
                 .compose(XApi.<TaskListModel>getApiTransformer())
                 .compose(XApi.<TaskListModel>getScheduler())
@@ -87,13 +88,17 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
                 .subscribe(new ApiSubscriber<TaskListModel>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV().getContext());
                         ToastUtils.showToast("网络链接错误！");
+                        getV().initRefresh();
                     }
 
                     @Override
                     public void onNext(TaskListModel taskListModel) {
+                        LoadingDialog.dismiss(getV().getContext());
                         if (taskListModel.getRespCode() == 1){
                             ToastUtils.showToast(taskListModel.getRespMsg());
+                            getV().initRefresh();
                             return;
                         }
                         XLog.d(taskListModel.toString());
@@ -109,6 +114,7 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
      * @param pageSize
      */
     public void getClaimTaskList(String projectId,int pageNum,int pageSize){
+        LoadingDialog.show(getV().getContext());
         Api.taskService().getClaimTaskList(projectId,pageNum,pageSize)
                 .compose(XApi.<TaskListModel>getApiTransformer())
                 .compose(XApi.<TaskListModel>getScheduler())
@@ -116,11 +122,14 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
                 .subscribe(new ApiSubscriber<TaskListModel>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV().getContext());
                         ToastUtils.showToast("网络链接错误！");
+                        getV().initRefresh();
                     }
 
                     @Override
                     public void onNext(TaskListModel taskListModel) {
+                        LoadingDialog.dismiss(getV().getContext());
                         if (taskListModel.getRespCode() == 1){
                             ToastUtils.showToast(taskListModel.getRespMsg());
                             return;
@@ -138,6 +147,7 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
      * @param pageSize
      */
     public void getUnClaimTaskList(String projectId,int pageNum,int pageSize){
+        LoadingDialog.show(getV().getContext());
         Api.taskService().getUnClaimTaskList(projectId,pageNum,pageSize)
                 .compose(XApi.<TaskListModel>getApiTransformer())
                 .compose(XApi.<TaskListModel>getScheduler())
@@ -145,13 +155,17 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
                 .subscribe(new ApiSubscriber<TaskListModel>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV().getContext());
                         ToastUtils.showToast("网络链接错误！");
+                        getV().initRefresh();
                     }
 
                     @Override
                     public void onNext(TaskListModel taskListModel) {
+                        LoadingDialog.dismiss(getV().getContext());
                         if (taskListModel.getRespCode() == 1){
                             ToastUtils.showToast(taskListModel.getRespMsg());
+                            getV().initRefresh();
                             return;
                         }
                         XLog.d(taskListModel.toString());
@@ -165,6 +179,7 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
      * @param taskId
      */
     public void claimTask(String taskId){
+        LoadingDialog.show(getV().getContext());
         Api.taskService().claimTask(taskId)
                 .compose(XApi.<BaseModel>getApiTransformer())
                 .compose(XApi.<BaseModel>getScheduler())
@@ -172,11 +187,13 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
                 .subscribe(new ApiSubscriber<BaseModel>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV().getContext());
                         ToastUtils.showToast("网络请求错误！");
                     }
 
                     @Override
                     public void onNext(BaseModel baseModel) {
+                        LoadingDialog.dismiss(getV().getContext());
                         if (baseModel.getRespCode() == 1){
                             ToastUtils.showToast(baseModel.getRespMsg());
                             return;
@@ -186,6 +203,7 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
                 });
     }
     public void backTask(String taskId,String backText){
+        LoadingDialog.show(getV().getContext());
         Api.taskService().backTask(taskId,backText)
                 .compose(XApi.<BaseModel>getApiTransformer())
                 .compose(XApi.<BaseModel>getScheduler())
@@ -193,11 +211,13 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
                 .subscribe(new ApiSubscriber<BaseModel>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV().getContext());
                         ToastUtils.showToast("网络链接错误！");
                     }
 
                     @Override
                     public void onNext(BaseModel baseModel) {
+                        LoadingDialog.dismiss(getV().getContext());
                         if (baseModel.getRespCode() == 1){
                             ToastUtils.showToast(baseModel.getRespMsg());
                             return;
@@ -208,6 +228,7 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
 
     }
     public void repealTask(String projectId,String releaseId){
+        LoadingDialog.show(getV().getContext());
         Api.taskService().repealTask(projectId,releaseId)
                 .compose(XApi.<BaseModel>getApiTransformer())
                 .compose(XApi.<BaseModel>getScheduler())
@@ -215,11 +236,13 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
                 .subscribe(new ApiSubscriber<BaseModel>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV().getContext());
                         ToastUtils.showToast("网络链接错误！");
                     }
 
                     @Override
                     public void onNext(BaseModel baseModel) {
+                        LoadingDialog.dismiss(getV().getContext());
                         if (baseModel.getRespCode() == 1){
                             ToastUtils.showToast(baseModel.getRespMsg());
                             return;

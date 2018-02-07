@@ -58,6 +58,11 @@ public class TaskAdapter extends SimpleListAdapter<TaskBean, TaskAdapter.ViewHol
             holder.taskDoUserInfo.setVisibility(View.GONE);
             holder.takeDoUser.setVisibility(View.GONE);
             holder.taskStatusBox.setVisibility(View.GONE);
+            if (item.getTaskLook() == 0){
+                holder.taskName.getPaint().setFakeBoldText(true);
+            }else {
+                holder.taskName.getPaint().setFakeBoldText(false);
+            }
 
         }else if(SELECT_TYPE == 3){
             //已发布任务

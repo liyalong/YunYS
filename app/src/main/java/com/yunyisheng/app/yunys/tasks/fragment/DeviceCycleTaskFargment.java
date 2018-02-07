@@ -18,6 +18,7 @@ import com.yunyisheng.app.yunys.tasks.activity.SelectProjectDeviceActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectUserListActivity;
 import com.yunyisheng.app.yunys.tasks.bean.ProjectUserBean;
 import com.yunyisheng.app.yunys.tasks.bean.UpdateCycleTaskBean;
+import com.yunyisheng.app.yunys.tasks.model.CycleTaskDetailModel;
 import com.yunyisheng.app.yunys.tasks.model.TaskDetailModel;
 import com.yunyisheng.app.yunys.tasks.present.DeviceCycleTaskPresent;
 import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
@@ -81,6 +82,8 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
     private String cycleReleaseTaskId;
     private String cycleProjectId;
 
+    private String feedbackBacknum;
+
     @Override
     public void initView() {
         ButterKnife.bind(this, context);
@@ -102,7 +105,13 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
             }
             selectCycleAssignUsers.setText(selectCycleUserStr);
         }
-
+        //从设备页面过来的创建任务
+        if (DeviceTaskAcitvity.getFromPageType() == 3){
+            cycleSelectProjectId = DeviceTaskAcitvity.getProjectId();
+            cycleSelectDeviceId = DeviceTaskAcitvity.getDeviceId();
+            cycleSelectProject.setText(DeviceTaskAcitvity.getProjectName());
+            cycleSelectProjectDevice.setText(DeviceTaskAcitvity.getDeviceName());
+        }
         if (cycleReleaseTaskId != null && cycleReleaseTaskId != "null"){
             getP().getCycleTaskInfo(cycleProjectId,cycleReleaseTaskId);
         }
@@ -312,6 +321,9 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
         }
         cycleTaskForm.setFeedbackJSON(cycleFeedbackJSON.toString());
         cycleTaskForm.setCycletaskType("1");
+        if (cycleReleaseTaskId != null){
+            cycleTaskForm.setCycletaskId(Integer.valueOf(cycleReleaseTaskId));
+        }
         checkStatus.put("status","success");
         checkStatus.put("msg","验证通过！");
         return checkStatus;
@@ -319,8 +331,44 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
     public UpdateCycleTaskBean getTaskFormData() {
         return cycleTaskForm;
     }
+    //编辑任务回填
+    public void setDetailData(CycleTaskDetailModel taskDetailModel) {
+        CycleTaskDetailModel.taskDetail cycleTask = taskDetailModel.getRespBody();
+        cycleSelectProjectId = String.valueOf(cycleTask.getProjectId());
+        cycleSelectDeviceId = cycleTask.getEquipmentId();
 
-    public void setDetailData(TaskDetailModel taskDetailModel) {
+        cycleSelectProject.setText(cycleTask.getCycletaskName());
+        cycleSelectProjectDevice.setText(cycleTask.getEquipmentName());
+        cycleTaskName.setText(cycleTask.getCycletaskName());
+        cycleTaskStartTime.setText(cycleTask.getCycletaskBegint().substring(0,16));
+        cycleTaskEndTime.setText(cycleTask.getCycletaskEndt().substring(0,16));
+        cycleSelectCron.setText(cycleTask.getCorn());
+        cycleTaskUsedTime.setText(cycleTask.getTimeLength().toString());
+
+        if (cycleTask.getCycletaskStat().equals("1")){
+            cycleTasksType.setChecked(true);
+        }else {
+            cycleTasksType.setChecked(false);
+        }
+        List<CycleTaskDetailModel.taskDetail.SelectUser> selectUsers = cycleTask.getCycleTaskUserList();
+        if (selectUsers.size() > 0){
+            String selectUserNames = "";
+            for (int i=0;i<selectUsers.size();i++){
+                selectUserNames += selectUsers.get(i).getUserName()+" ";
+                ProjectUserBean selectUser = new ProjectUserBean();
+                selectUser.setUserId(selectUsers.get(i).getUserId());
+                selectUser.setUserName(selectUsers.get(i).getUserName());
+                cycleSelectUsers.add(selectUser);
+            }
+            selectCycleAssignUsers.setText(selectUserNames);
+        }
+        cycleTaskDesc.setText(cycleTask.getCycletaskRemark());
+        cycleTaskTemplates.setText("任务反馈项(暂不支持编辑)");
+        cycleTaskTemplates.setClickable(false);
+
+        feedbackBacknum = cycleTask.getFeedbackBacknum();
+
+        cycleFeedbackJSON = JSON.toJSONString(cycleTask.getFeedbackItemList());
 
     }
 }

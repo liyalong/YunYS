@@ -52,8 +52,11 @@ public class CreateDeviceTaskAcitvity extends BaseActivity<CreateDeviceTaskPrese
     DeviceCycleTaskFargment deviceCycleTaskFargment;
 
     private String editTaskId;
-    private int fromPageType;   //1、临时任务、2周期任务
+    private int fromPageType;   //1、临时任务、2周期任务  3从设备进来的快速创建任务
     private String projectId;
+    private String projectName;
+    private String deviceName;
+    private String deviceId;
 
 
 
@@ -68,16 +71,21 @@ public class CreateDeviceTaskAcitvity extends BaseActivity<CreateDeviceTaskPrese
         this.editTaskId = getIntent().getStringExtra("taskId");
         this.fromPageType = getIntent().getIntExtra("fromPageType",0);
         this.projectId = getIntent().getStringExtra("projectId");
+        this.projectName = getIntent().getStringExtra("projectName");
+        this.deviceName = getIntent().getStringExtra("deviceName");
+        this.deviceId = getIntent().getStringExtra("deviceId");
 
         this.selectWorkList = (List<WorkerBean>) getIntent().getSerializableExtra("selectlist");
 
-        if (fromPageType == 0){
+        if (fromPageType == 0 || fromPageType == 3){
             mtitle.add("临时任务");
             mtitle.add("周期任务");
             deviceTemporaryTaskFargment = new DeviceTemporaryTaskFargment();
             deviceCycleTaskFargment = new DeviceCycleTaskFargment();
             fragments.add(deviceTemporaryTaskFargment);
             fragments.add(deviceCycleTaskFargment);
+
+
 
         }else if (fromPageType == 1){
             mtitle.add("临时任务");
@@ -199,5 +207,38 @@ public class CreateDeviceTaskAcitvity extends BaseActivity<CreateDeviceTaskPrese
 
     public List<WorkerBean> getSelectWorkList() {
         return selectWorkList;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
+
+    public void setFromPageType(int fromPageType) {
+        this.fromPageType = fromPageType;
+    }
+
+    public int getFromPageType() {
+
+        return fromPageType;
     }
 }
