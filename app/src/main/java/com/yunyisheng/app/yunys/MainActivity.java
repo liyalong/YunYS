@@ -391,7 +391,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
             public void onResponse(Call<BaseModel> call, Response<BaseModel> response) {
                 String msg = response.body().getRespMsg();
                 int code = response.body().getRespCode();
-                if (code == 200) {
+                if (code == 0) {
                     if (myFragment != null) {
                         myFragment.setNewHead();
                     }
