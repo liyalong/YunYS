@@ -118,10 +118,6 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
     }
 
     public void setAdapterData(DeviceListModel deviceListModel) {
-        if (deviceListModel.getRespCode() == 1){
-            ToastUtils.showToast(deviceListModel.getRespMsg());
-            return;
-        }
         if (deviceListModel.getList().size() > 0){
             if (PAGE_NUM == 1){
                 deviceBeanList.clear();
@@ -135,15 +131,12 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
         }else {
             if (PAGE_NUM == 1){
                 ToastUtils.showToast("暂无数据！");
-                return;
             }else {
                 PAGE_NUM -= 1;
                 ToastUtils.showToast("暂无更多数据");
             }
         }
-        deviceListView.onRefreshComplete();
-        deviceListView.computeScroll();
-
+        initRefresh();
     }
 
     public void setProjectId(String projectId) {
@@ -239,5 +232,9 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
     public void click(View v) {
         int position = (Integer) v.getTag();
         createDeviceListBtnDialog(context,position);
+    }
+    public void initRefresh(){
+        deviceListView.onRefreshComplete();
+        deviceListView.computeScroll();
     }
 }

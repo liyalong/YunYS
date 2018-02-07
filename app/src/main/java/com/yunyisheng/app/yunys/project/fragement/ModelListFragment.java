@@ -123,6 +123,9 @@ public class ModelListFragment extends BaseFragement<ModelListPresent> {
                 ToastUtils.showToast("暂无更多数据！");
             }
         }
+        initRefresh();
+    }
+    public void initRefresh(){
         modelListView.onRefreshComplete();
         modelListView.computeScroll();
     }

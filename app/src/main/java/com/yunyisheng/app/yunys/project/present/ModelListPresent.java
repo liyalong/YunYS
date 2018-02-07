@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys.project.present;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.fragement.ModelListFragment;
 import com.yunyisheng.app.yunys.project.model.ModelListModel;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import cn.droidlover.xdroidmvp.log.XLog;
@@ -17,6 +18,7 @@ import cn.droidlover.xdroidmvp.net.XApi;
 
 public class ModelListPresent extends XPresent<ModelListFragment> {
     public void getModelList(String projectId,int pageNum,int pageSize){
+        LoadingDialog.show(getV().getContext());
         Api.projectService().getPrjectModelList(projectId,pageNum,pageSize)
                 .compose(XApi.<ModelListModel>getApiTransformer())
                 .compose(XApi.<ModelListModel>getScheduler())
@@ -26,6 +28,8 @@ public class ModelListPresent extends XPresent<ModelListFragment> {
                     protected void onFail(NetError error) {
                         XLog.d(error.getMessage());
                         ToastUtils.showToast("网络请求错误！");
+                        LoadingDialog.dismiss(getV().getContext());
+                        getV().initRefresh();
                         return;
                     }
 
@@ -33,6 +37,8 @@ public class ModelListPresent extends XPresent<ModelListFragment> {
                     public void onNext(ModelListModel modelListModel) {
                         if(modelListModel.getRespCode() == 1){
                             ToastUtils.showToast(modelListModel.getRespMsg());
+                            LoadingDialog.show(getV().getContext());
+                            getV().initRefresh();
                             return;
                         }
                         getV().setAdapter(modelListModel);

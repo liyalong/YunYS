@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys.project.present;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.fragement.DeviceListFragment;
 import com.yunyisheng.app.yunys.project.model.DeviceListModel;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import cn.droidlover.xdroidmvp.log.XLog;
@@ -17,6 +18,7 @@ import cn.droidlover.xdroidmvp.net.XApi;
 
 public class DeviceListPresent extends XPresent<DeviceListFragment> {
     public void getProjectDeviceList(String projectId,int pageNum,int pageSize,String deviceName){
+        LoadingDialog.show(getV().getContext());
         Api.projectService().getProjectDeviceList(projectId,pageNum,pageSize,deviceName)
                 .compose(XApi.<DeviceListModel>getApiTransformer())
                 .compose(XApi.<DeviceListModel>getScheduler())
@@ -24,7 +26,9 @@ public class DeviceListPresent extends XPresent<DeviceListFragment> {
                 .subscribe(new ApiSubscriber<DeviceListModel>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV().getContext());
                         ToastUtils.showToast("网络请求失败！");
+                        getV().initRefresh();
                         return;
                     }
 
@@ -32,6 +36,8 @@ public class DeviceListPresent extends XPresent<DeviceListFragment> {
                     public void onNext(DeviceListModel deviceListModel) {
                         if (deviceListModel.getRespCode() == 1){
                             ToastUtils.showToast(deviceListModel.getRespMsg());
+                            LoadingDialog.dismiss(getV().getContext());
+                            getV().initRefresh();
                             return;
                         }
                         getV().setAdapterData(deviceListModel);

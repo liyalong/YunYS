@@ -195,8 +195,7 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
                 ToastUtils.showToast("暂无更多数据");
             }
         }
-        taskListView.onRefreshComplete();
-        taskListView.computeScroll();
+        initRefresh();
 
     }
 
@@ -492,5 +491,9 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
             taskListBtnDialog.hide();
             getP().getTaskList(SELECT_TYPE,projectId,PAGE_NUM,PAGE_SIZE);
         }
+    }
+    public void initRefresh(){
+        taskListView.onRefreshComplete();
+        taskListView.computeScroll();
     }
 }

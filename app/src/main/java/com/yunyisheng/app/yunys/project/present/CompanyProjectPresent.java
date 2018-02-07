@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys.project.present;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.fragement.CompanyProjectFragment;
 import com.yunyisheng.app.yunys.project.model.ProjectListModel;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import cn.droidlover.xdroidmvp.log.XLog;
@@ -22,6 +23,7 @@ public class CompanyProjectPresent extends XPresent<CompanyProjectFragment> {
      * @param pageSize
      */
     public void getCompanyProjectList(final int pageNum, int pageSize){
+        LoadingDialog.show(getV().getContext());
         Api.projectService().getCompanyProjectList(pageNum,pageSize)
                 .compose(XApi.<ProjectListModel>getApiTransformer())
                 .compose(XApi.<ProjectListModel>getScheduler())
@@ -29,13 +31,16 @@ public class CompanyProjectPresent extends XPresent<CompanyProjectFragment> {
                 .subscribe(new ApiSubscriber<ProjectListModel>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV().getContext());
                         XLog.d("NET ERROR :"+error.toString());
                         ToastUtils.showToast("网络请求错误！");
+                        getV().initRefresh();
                         return;
                     }
 
                     @Override
                     public void onNext(ProjectListModel projectListModel) {
+                        LoadingDialog.dismiss(getV().getContext());
                         try {
                             if (projectListModel.getRespCode() == 1){
                                 ToastUtils.showToast(projectListModel.getRespMsg());

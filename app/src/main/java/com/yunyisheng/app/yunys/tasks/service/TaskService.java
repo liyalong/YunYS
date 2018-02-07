@@ -295,5 +295,5 @@ public interface TaskService {
      * @return
      */
     @POST("enterpriseUser/enterprises/list")
-    Flowable<ProjectUserListModel> getAllUserLists();
+    Flowable<ProjectUserListModel> getAllUserLists(@Field("activiti") String activiti);
 }

@@ -126,8 +126,10 @@ public class CompanyProjectFragment extends BaseFragement<CompanyProjectPresent>
             }
 
         }
+        initRefresh();
+    }
+    public void initRefresh(){
         companyProjectList.onRefreshComplete();
         companyProjectList.computeScroll();
     }
-
 }

@@ -127,6 +127,9 @@ public class MyProjectFargment extends BaseFragement<MyProjectPresent> {
             PAGE_NUM -= 1;
             ToastUtils.showToast("暂无数据");
         }
+        initRefresh();
+    }
+    public void initRefresh(){
         myProjectList.onRefreshComplete();
         myProjectList.computeScroll();
     }

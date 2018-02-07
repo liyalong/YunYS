@@ -5,6 +5,7 @@ import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.fragement.TaskPoolFragment;
 import com.yunyisheng.app.yunys.project.model.TaskListModel;
 import com.yunyisheng.app.yunys.tasks.bean.ProjectUserBean;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import java.util.List;
@@ -45,6 +46,7 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
     }
 
     private void getFinishTaskList(String projectId, int pageNum, int pageSize) {
+        LoadingDialog.show(getV().getContext());
         Api.taskService().getFinishTaskList(projectId,pageNum,pageSize)
                 .compose(XApi.<TaskListModel>getApiTransformer())
                 .compose(XApi.<TaskListModel>getScheduler())
@@ -52,13 +54,17 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
                 .subscribe(new ApiSubscriber<TaskListModel>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV().getContext());
+                        getV().initRefresh();
                         ToastUtils.showToast("网络链接错误！");
                     }
 
                     @Override
                     public void onNext(TaskListModel taskListModel) {
+                        LoadingDialog.dismiss(getV().getContext());
                         if (taskListModel.getRespCode() == 1){
                             ToastUtils.showToast(taskListModel.getRespMsg());
+                            getV().initRefresh();
                             return;
                         }
                         XLog.d(taskListModel.toString());
