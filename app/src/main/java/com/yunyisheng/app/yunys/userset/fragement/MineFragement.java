@@ -207,6 +207,8 @@ public class MineFragement extends BaseFragement<MinePresent> {
                 String username = SharedPref.getInstance(mContext).getString("username", "");
                 String userjob = SharedPref.getInstance(mContext).getString("userjob", "");
                 teNameZhize.setText(username + " | " + userjob);
+            }else if ("changehead".equals(data)){
+                setNewHead();
             }
         }
 

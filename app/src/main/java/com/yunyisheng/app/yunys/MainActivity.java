@@ -11,7 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -297,8 +296,8 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                                     Intent intent) {
         try {
             if (requestCode == 1 && resultCode == RESULT_OK) {
-                Uri contentUri = FileProvider.getUriForFile(MainActivity.this, "com.yunyisheng.app.yunys.fileprovider", DialogManager.tempFile);
-                startPhotoZoom(contentUri, 150);
+//                Uri contentUri = FileProvider.getUriForFile(MainActivity.this, "com.yunyisheng.app.yunys.fileprovider", DialogManager.tempFile);
+                startPhotoCamarm(DialogManager.tempFile, 150);
             } else if (requestCode == 2) {// 相册
                 if (intent != null) {
                     Log.i("xiaoqiang", "smdongxi==" + intent.getData());
@@ -327,6 +326,27 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         }
         intent.setDataAndType(uri, "image/*");
+        Log.i("xiaoqiang", "裁剪");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", size);
+        intent.putExtra("outputY", size);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, 3);
+    }
+
+    /**
+     * 裁剪图片方法实现
+     *
+     * @param file
+     */
+    private void startPhotoCamarm(File file, int size) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
+        intent.setDataAndType(Uri.fromFile(file), "image/*");
         Log.i("xiaoqiang", "裁剪");
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);
@@ -392,9 +412,10 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 String msg = response.body().getRespMsg();
                 int code = response.body().getRespCode();
                 if (code == 0) {
-                    if (myFragment != null) {
-                        myFragment.setNewHead();
-                    }
+                    Intent intent = new Intent();
+                    intent.setAction("action");
+                    intent.putExtra("data", "changehead");
+                    sendBroadcast(intent);//发送普通广播
                 }
                 ToastUtils.showToast(msg);
                 LogUtils.i("fjdlkf", msg + code);
