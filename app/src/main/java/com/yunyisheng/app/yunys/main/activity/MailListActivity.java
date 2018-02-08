@@ -100,6 +100,7 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 WorkerBean workerBean = workerbeanlist.get(groupPosition).getWorkerBeanList().get(childPosition);
                 Intent intent = new Intent(MailListActivity.this, WorkerDataActivity.class);
+                intent.putExtra("workerhead",workerBean.getIcon());
                 intent.putExtra("userid", workerBean.getUserId());
                 startActivity(intent);
                 return true;

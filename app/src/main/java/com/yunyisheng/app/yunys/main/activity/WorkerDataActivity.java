@@ -72,6 +72,7 @@ public class WorkerDataActivity extends BaseActivity<WorkerDataPresent> {
     private BasicDataFragement basicDataFragement;
     private boolean canArrangeWork;
     private String workername;
+    private String workerhead;
 
     @Override
     public void initView() {
@@ -125,6 +126,16 @@ public class WorkerDataActivity extends BaseActivity<WorkerDataPresent> {
     public void initAfter() {
         Intent intent = getIntent();
         userid = intent.getIntExtra("userid", 0);
+        workerhead = intent.getStringExtra("workerhead");
+
+        if (workerhead != null && !workerhead.equals("")
+                && !workerhead.equals("null")) {
+            Bitmap bitmap = CommonUtils.stringtoBitmap(workerhead);
+            GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(context, imgWorkerHead, bitmap);
+        } else {
+            imgWorkerHead.setBackgroundResource(R.mipmap.maillist_man);
+        }
+
         basicDataFragement = new BasicDataFragement();
         Bundle bundle = new Bundle();
         bundle.putInt("userid", userid);
@@ -233,23 +244,6 @@ public class WorkerDataActivity extends BaseActivity<WorkerDataPresent> {
     }
 
     public void setInfodetail(GetOtherinfoBean getOtherinfoBean) {
-        if (getOtherinfoBean.getRespBody().getEnterpriseUser().getUserPicture() != null && !getOtherinfoBean.getRespBody().getEnterpriseUser().getUserPicture().equals("")
-                && !getOtherinfoBean.getRespBody().getEnterpriseUser().getUserPicture().equals("null")) {
-            Bitmap bitmap = CommonUtils.stringtoBitmap(getOtherinfoBean.getRespBody().getEnterpriseUser().getUserPicture());
-            GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(context, imgWorkerHead, bitmap);
-        } else {
-            String sex = getOtherinfoBean.getRespBody().getEnterpriseUser().getUserSex();
-            if (sex != null && !sex.equals("") && !sex.equals("null")) {
-                if (sex.equals("男")) {
-                    imgWorkerHead.setBackgroundResource(R.mipmap.maillist_man);
-                } else {
-                    imgWorkerHead.setBackgroundResource(R.mipmap.maillist_woman);
-                }
-
-            } else {
-                imgWorkerHead.setBackgroundResource(R.mipmap.maillist_man);
-            }
-        }
         workername = getOtherinfoBean.getRespBody().getEnterpriseUser().getUserName();
         teNameZhize.setText(getOtherinfoBean.getRespBody().getEnterpriseUser().getUserName() + " | " + getOtherinfoBean.getRespBody().getEnterpriseUser().getUserJobTitle());
     }

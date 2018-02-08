@@ -88,6 +88,7 @@ public class ProjectFromWorkActivity extends BaseActivity<ProjectFromworkPresent
                 FindProjectWorkerBean.RespBodyBean respBodyBean = findWorkerProjectBeanList.get(position);
                 Intent intent = new Intent(ProjectFromWorkActivity.this, WorkerDataActivity.class);
                 intent.putExtra("userid", respBodyBean.getUserId());
+                intent.putExtra("workerhead",respBodyBean.getUserPicture());
                 startActivity(intent);
             }
         });
@@ -98,6 +99,7 @@ public class ProjectFromWorkActivity extends BaseActivity<ProjectFromworkPresent
                 ProjectFromWorkBean.ListBean.UserListBean userListBean = projectFromWorkBeans.get(groupPosition).getUserList().get(childPosition);
                 Intent intent = new Intent(ProjectFromWorkActivity.this, WorkerDataActivity.class);
                 intent.putExtra("userid", userListBean.getUserId());
+                intent.putExtra("workerhead",userListBean.getUserPicture());
                 startActivity(intent);
                 return true;
             }

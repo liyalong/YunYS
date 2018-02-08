@@ -363,7 +363,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 // 长宽比
                 .withAspectRatio(1, 1)
                 // 图片大小
-                .withMaxResultSize(200, 200)
+                .withMaxResultSize(150, 150)
                 // 配置参数
                 .withOptions(options)
                 .start(this);
