@@ -1,7 +1,12 @@
 package com.yunyisheng.app.yunys.main.activity;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -12,6 +17,7 @@ import android.widget.Toast;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseModel;
+import com.yunyisheng.app.yunys.base.PressionListener;
 import com.yunyisheng.app.yunys.main.service.HomeService;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.schedule.model.PositionMessageEvent;
@@ -122,6 +128,7 @@ public class SendNoticeActivity extends BaseActivity {
                 }
                 break;
             case R.id.rl_fujian:
+                requestPermission();
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("*/*");
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -178,7 +185,7 @@ public class SendNoticeActivity extends BaseActivity {
                 if (code == 0) {
                     ToastUtils.showToast("发布成功!");
                     EventBus.getDefault().post(new PositionMessageEvent("updatenotice"));
-                }else {
+                } else {
                     ToastUtils.showToast("发布失败!");
                 }
                 LogUtils.i("fjdlkf", msg + code);
@@ -190,6 +197,40 @@ public class SendNoticeActivity extends BaseActivity {
                 ToastUtils.showToast("请检查网络设置");
                 LogUtils.i("fjdlkf", t.toString());
                 LoadingDialog.dismiss(SendNoticeActivity.this);
+            }
+        });
+    }
+
+    /**
+     * 请求权限
+     */
+    private void requestPermission() {
+        requestRunTimePression(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PressionListener() {
+            @Override
+            public void onGranted() {
+
+            }
+
+            @Override
+            public void onFailure(List<String> failurePression) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setMessage("提示")
+                        .setMessage("请您去设置中授予内部存储的权限")
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        })
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
+                                ComponentName cName = new ComponentName("com.android.phone", "com.android.phone.Settings");
+                                intent.setComponent(cName);
+                                startActivity(intent);
+                            }
+                        });
             }
         });
     }

@@ -1,6 +1,11 @@
 package com.yunyisheng.app.yunys.main.activity;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -10,6 +15,7 @@ import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.base.PressionListener;
 import com.yunyisheng.app.yunys.main.adapter.ViewPagerAdapter;
 import com.yunyisheng.app.yunys.main.fragement.NoticeFragement;
 
@@ -57,7 +63,41 @@ public class NoticeActivity extends BaseActivity {
 
     @Override
     public void initAfter() {
+        requestPermission();
+    }
 
+    /**
+     * 请求权限
+     */
+    private void requestPermission() {
+        requestRunTimePression(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PressionListener() {
+            @Override
+            public void onGranted() {
+
+            }
+
+            @Override
+            public void onFailure(List<String> failurePression) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setMessage("提示")
+                        .setMessage("请您去设置中授予内部存储的权限")
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        })
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
+                                ComponentName cName = new ComponentName("com.android.phone", "com.android.phone.Settings");
+                                intent.setComponent(cName);
+                                startActivity(intent);
+                            }
+                        });
+            }
+        });
     }
 
     @Override
