@@ -39,6 +39,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.droidlover.xdroidbase.cache.SharedPref;
 import cn.droidlover.xdroidmvp.router.Router;
 
 /**
@@ -305,6 +306,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
      * @param task
      */
     public void initTaskBtn(ScheduleDetailBean.RespBodyBean.TaskBean task ,int fromPage) {
+        Integer thisUserid = SharedPref.getInstance(context).getInt("userid",0);
         switch (fromPage){
             case 1:
                 taskStatus.setText(R.string.task_status_1);
