@@ -39,6 +39,7 @@ public class NoticePresent extends XPresent<NoticeFragement> {
                             getV().getPublishList(sendNoticeBean);
                         }else {
                             ToastUtils.showToast(sendNoticeBean.getRespMsg());
+                            getV().stopRefresh();
                         }
                     }
 
@@ -68,6 +69,7 @@ public class NoticePresent extends XPresent<NoticeFragement> {
                             getV().getRecelveList(receiveMeMessageBean);
                         }else {
                             ToastUtils.showToast(receiveMeMessageBean.getRespMsg());
+                            getV().stopRefresh();
                         }
                     }
 

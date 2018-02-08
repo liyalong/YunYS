@@ -66,11 +66,10 @@ public class UpdateMempPresent extends XPresent<AddMemorandumActivity> {
                 .subscribe(new ApiSubscriber<BaseModel>() {
                     @Override
                     public void onNext(BaseModel baseModel) {
-                        //getV().getDeleteResult(baseModel);
                         if (baseModel.getRespCode()==0){
                             ToastUtils.showToast("修改成功");
+                            EventBus.getDefault().post(new PositionMessageEvent("updatebeiwanglu"));
                         }
-                        //ToastUtils.showToast(baseModel.getRespMsg());
                     }
 
                     @Override

@@ -38,6 +38,7 @@ public class WorkerSchedulePresent extends XPresent<ScheduleFragement> {
                             getV().getWorkerSchedule(myScheduleBean);
                         }else {
                             ToastUtils.showToast(myScheduleBean.getRespMsg());
+                            getV().stopRefresh();
                         }
                     }
 

@@ -36,6 +36,7 @@ public class MemorandumPresent extends XPresent<MemorandumActivity> {
                             getV().getResult(memorandumBean);
                         } else {
                             ToastUtils.showToast(memorandumBean.getRespMsg());
+                            getV().stopRefresh();
                         }
                     }
 
@@ -64,6 +65,7 @@ public class MemorandumPresent extends XPresent<MemorandumActivity> {
                             getV().getSelectResult(memorandumBean);
                         } else {
                             ToastUtils.showToast(memorandumBean.getRespMsg());
+                            getV().stopRefresh();
                         }
                     }
 

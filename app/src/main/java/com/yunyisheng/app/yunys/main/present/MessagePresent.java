@@ -71,6 +71,7 @@ public class MessagePresent extends XPresent<MessageActivity> {
                             getV().getMessageList(messageBean);
                         } else {
                             ToastUtils.showToast(messageBean.getRespMsg());
+                            getV().stopRefresh();
                         }
                     }
 

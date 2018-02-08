@@ -188,6 +188,7 @@ public class SendNoticeActivity extends BaseActivity {
             @Override
             public void onFailure(Call<BaseModel> call, Throwable t) {
                 ToastUtils.showToast("请检查网络设置");
+                LogUtils.i("fjdlkf", t.toString());
                 LoadingDialog.dismiss(SendNoticeActivity.this);
             }
         });

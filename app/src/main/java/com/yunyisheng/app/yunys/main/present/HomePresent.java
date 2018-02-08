@@ -69,6 +69,7 @@ public class HomePresent extends XPresent<HomeFragement> {
                             getV().getResultList(myScheduleBean);
                         } else {
                             ToastUtils.showToast(myScheduleBean.getRespMsg());
+                            getV().stopRefresh();
                         }
                     }
 
