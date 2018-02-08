@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -46,9 +46,9 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/distance_10"
                     android:text="@string/edit"
-                    android:visibility="gone"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/distance_14" />
+                    android:textSize="@dimen/distance_14"
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <ImageView
@@ -87,11 +87,24 @@
                     app:tabTextColor="@color/color_333" />
             </RelativeLayout>
         </RelativeLayout>
+
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_information"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         </android.support.v4.view.ViewPager>
+
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btn_anpai_work"
+        android:layout_width="@dimen/distance_213"
+        android:layout_height="@dimen/distance_41"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/distance_38"
+        android:background="@drawable/btn_anpai_work"
+        android:text="@string/anpaiwork"
+        android:visibility="gone" />
+</RelativeLayout>

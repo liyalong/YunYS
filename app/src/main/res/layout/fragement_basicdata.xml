@@ -124,15 +124,5 @@
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_14" />
         </RelativeLayout>
-
-        <Button
-            android:id="@+id/btn_anpai_work"
-            android:layout_width="@dimen/distance_213"
-            android:layout_height="@dimen/distance_41"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/distance_118"
-            android:visibility="gone"
-            android:background="@drawable/btn_anpai_work"
-            android:text="@string/anpaiwork" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
