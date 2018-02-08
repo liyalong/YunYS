@@ -67,18 +67,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/img1"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/distance_32"
                 android:text="@string/putname"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_14" />
 
-            <ImageView
-                android:id="@+id/img1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@mipmap/blackback_r" />
+            <!--<ImageView-->
+                <!--android:id="@+id/img1"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:background="@mipmap/blackback_r" />-->
         </RelativeLayout>
 
         <RelativeLayout
@@ -171,18 +172,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/img4"
-                android:text="1.0"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/distance_32"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_14" />
 
-            <ImageView
-                android:id="@+id/img4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@mipmap/blackback_r" />
+            <!--<ImageView-->
+                <!--android:id="@+id/img4"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:background="@mipmap/blackback_r" />-->
         </RelativeLayout>
 
         <RelativeLayout
@@ -205,18 +206,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/img5"
-                android:text="1.0"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/distance_32"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_14" />
 
-            <ImageView
-                android:id="@+id/img5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@mipmap/blackback_r" />
+            <!--<ImageView-->
+                <!--android:id="@+id/img5"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:background="@mipmap/blackback_r" />-->
         </RelativeLayout>
 
         <RelativeLayout
@@ -239,18 +240,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/img6"
-                android:text="1.0"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/distance_32"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_14" />
 
-            <ImageView
-                android:id="@+id/img6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@mipmap/blackback_r" />
+            <!--<ImageView-->
+                <!--android:id="@+id/img6"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:background="@mipmap/blackback_r" />-->
         </RelativeLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

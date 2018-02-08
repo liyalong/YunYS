@@ -10,6 +10,8 @@ import android.os.Vibrator;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.yunyisheng.app.yunys.main.model.NoReadMessage;
+import com.yunyisheng.app.yunys.main.model.NoReadMessageEvent;
 import com.yunyisheng.app.yunys.main.model.WarningMessageEvent;
 import com.yunyisheng.app.yunys.main.model.WarnningMessageBean;
 import com.yunyisheng.app.yunys.net.Api;
@@ -41,6 +43,8 @@ public class MessageService extends Service {
 	private static final String TAG = "MessageService";
 	
 	private boolean isRun;
+
+	private int allsize;
 	
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -127,25 +131,56 @@ public class MessageService extends Service {
 	 */
 	private void readMessage() {
 		Log.e(TAG, "start read");
-
 		if (null == getActiveNetworkInfo(this)) {
 			Toast.makeText(this, "连接已断开", Toast.LENGTH_SHORT).show();
 			stopSelf();
 			return;
 		}
+		readWarning();
+		//readNoRead();
+	}
 
+	private void readNoRead(){
 		//步骤4:创建Retrofit对象
 		Retrofit retrofit = new Retrofit.Builder()
 				.baseUrl(Api.BASE_PATH) // 设置 网络请求 Url
 				.addConverterFactory(GsonConverterFactory.create()) //设置使用Gson解析(记得加入依赖)
 				.build();
+		HomeService request = retrofit.create(HomeService.class);
+		//对 发送请求 进行封装
+		Call<NoReadMessage> call = request.getServiceNoReadMessage();
+		call.enqueue(new Callback<NoReadMessage>() {
+			@Override
+			public void onResponse(Call<NoReadMessage> call, Response<NoReadMessage> response) {
+				NoReadMessage body = response.body();
+				NoReadMessage.RespBodyBean respBody =body.getRespBody();
+				LogUtils.i("servicehflkdh", body.getRespBody() + "");
+				int size = respBody.getMids().size();
+				if (allsize==size){
+				}else {
+					allsize = size;
+					EventBus.getDefault().post(new NoReadMessageEvent(size));
+				}
+			}
 
+			@Override
+			public void onFailure(Call<NoReadMessage> call, Throwable t) {
 
+			}
+		});
+	}
+
+	private void readWarning(){
+		//步骤4:创建Retrofit对象
+		Retrofit retrofit = new Retrofit.Builder()
+				.baseUrl(Api.BASE_PATH) // 设置 网络请求 Url
+				.addConverterFactory(GsonConverterFactory.create()) //设置使用Gson解析(记得加入依赖)
+				.build();
 		HomeService request = retrofit.create(HomeService.class);
 		int userid = SharedPref.getInstance(this).getInt("userid", 0);
 		//对 发送请求 进行封装
 		Call<WarnningMessageBean> call = request.getWarningSize(userid+"");
-        call.enqueue(new Callback<WarnningMessageBean>() {
+		call.enqueue(new Callback<WarnningMessageBean>() {
 			@Override
 			public void onResponse(Call<WarnningMessageBean> call, Response<WarnningMessageBean> response) {
 				WarnningMessageBean body = response.body();

@@ -3,8 +3,6 @@ package com.yunyisheng.app.yunys.tasks.adapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
