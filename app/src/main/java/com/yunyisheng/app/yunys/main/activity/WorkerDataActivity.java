@@ -65,7 +65,7 @@ public class WorkerDataActivity extends BaseActivity<WorkerDataPresent> {
     private List<String> mTitleList = new ArrayList<>();
     private List<WorkerBean> selectlist = new ArrayList<>();//选中的人员
     private int tabindex;
-    public  int userid;
+    public int userid;
     private BasicDataFragement basicDataFragement;
     private boolean canArrangeWork;
     private String workername;
@@ -85,11 +85,11 @@ public class WorkerDataActivity extends BaseActivity<WorkerDataPresent> {
             @Override
             public void onPageSelected(int position) {
                 tabindex = position;
-                if (tabindex==0){
-                    if (canArrangeWork){
+                if (tabindex == 0) {
+                    if (canArrangeWork) {
                         btnAnpaiWork.setVisibility(View.VISIBLE);
                     }
-                }else {
+                } else {
                     btnAnpaiWork.setVisibility(View.GONE);
                 }
             }
@@ -102,13 +102,13 @@ public class WorkerDataActivity extends BaseActivity<WorkerDataPresent> {
         btnAnpaiWork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (workername!=null&&!workername.equals("")){
-                    WorkerBean workerBean=new WorkerBean();
+                if (workername != null && !workername.equals("")) {
+                    WorkerBean workerBean = new WorkerBean();
                     workerBean.setName(workername);
                     workerBean.setUserId(userid);
                     selectlist.add(workerBean);
                     createSelectTaskDialog(WorkerDataActivity.this);
-                }else {
+                } else {
                     ToastUtils.showToast("获取员工信息失败");
                 }
 
@@ -164,8 +164,8 @@ public class WorkerDataActivity extends BaseActivity<WorkerDataPresent> {
 
             @Override
             public void onClick(View arg0) {
-                Intent intent=new Intent(mContext, CreateDeviceTaskAcitvity.class);
-                intent.putExtra("selectlist",(Serializable)selectlist);
+                Intent intent = new Intent(mContext, CreateDeviceTaskAcitvity.class);
+                intent.putExtra("selectlist", (Serializable) selectlist);
                 startActivity(intent);
             }
         });
@@ -173,16 +173,16 @@ public class WorkerDataActivity extends BaseActivity<WorkerDataPresent> {
 
             @Override
             public void onClick(View arg0) {
-                Intent intent=new Intent(mContext, CreateNoneDeviceTaskAcitvity.class);
-                intent.putExtra("selectlist",(Serializable)selectlist);
+                Intent intent = new Intent(mContext, CreateNoneDeviceTaskAcitvity.class);
+                intent.putExtra("selectlist", (Serializable) selectlist);
                 startActivity(intent);
             }
         });
         rl_liucheng_task.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(mContext, CreateProcessTaskAcitvity.class);
-                intent.putExtra("selectlist",(Serializable)selectlist);
+                Intent intent = new Intent(mContext, CreateProcessTaskAcitvity.class);
+                intent.putExtra("selectlist", (Serializable) selectlist);
                 startActivity(intent);
             }
         });
@@ -219,17 +219,17 @@ public class WorkerDataActivity extends BaseActivity<WorkerDataPresent> {
         QuanxianBean.RespBodyBean respBody = quanxianBean.getRespBody();
         canArrangeWork = respBody.isCanArrangeWork();
         boolean canEditInfo = respBody.isCanEditInfo();
-        if (canEditInfo){
+        if (canEditInfo) {
             teEdit.setVisibility(View.VISIBLE);
         }
-        if (tabindex==0){
-            if (canArrangeWork){
+        if (tabindex == 0) {
+            if (canArrangeWork) {
                 btnAnpaiWork.setVisibility(View.VISIBLE);
             }
         }
     }
 
-    public void setInfodetail(GetOtherinfoBean getOtherinfoBean){
+    public void setInfodetail(GetOtherinfoBean getOtherinfoBean) {
         if (getOtherinfoBean.getRespBody().getEnterpriseUser().getUserPicture() != null && !getOtherinfoBean.getRespBody().getEnterpriseUser().getUserPicture().equals("")
                 && !getOtherinfoBean.getRespBody().getEnterpriseUser().getUserPicture().equals("null")) {
 //            Bitmap bitmap = CommonUtils.stringtoBitmap(getOtherinfoBean.getRespBody().getUserPicture());
@@ -248,7 +248,7 @@ public class WorkerDataActivity extends BaseActivity<WorkerDataPresent> {
             }
         }
         workername = getOtherinfoBean.getRespBody().getEnterpriseUser().getUserName();
-        teNameZhize.setText(getOtherinfoBean.getRespBody().getEnterpriseUser().getUserName()+" | "+getOtherinfoBean.getRespBody().getEnterpriseUser().getUserJobTitle());
+        teNameZhize.setText(getOtherinfoBean.getRespBody().getEnterpriseUser().getUserName() + " | " + getOtherinfoBean.getRespBody().getEnterpriseUser().getUserJobTitle());
     }
 
     @Override
