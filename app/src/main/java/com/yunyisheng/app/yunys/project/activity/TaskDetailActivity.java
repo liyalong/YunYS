@@ -101,16 +101,18 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
     private String projectId;
     private ScheduleDetailBean.RespBodyBean.TaskBean task;
 
-    private int fromPage = 1;  //从哪个页面跳转过来的，1。任务池待认领列表，2任务池待完成列表，3我发布任务的子列表,4我的日程，5项目日程，6通讯录日程
+    private int fromPage;  //从哪个页面跳转过来的，1。任务池待认领列表，2任务池待完成列表，3我发布任务的子列表,4我的日程，5项目日程，6通讯录日程
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        this.taskId = getIntent().getStringExtra("taskId");
-        this.userId = getIntent().getIntExtra("userId",0);
-        this.taskType = getIntent().getStringExtra("taskType");
-        this.fromPage = getIntent().getIntExtra("fromPage",1);
-        this.projectId = getIntent().getStringExtra("projectId");
+        Intent intent=getIntent();
+        taskId = intent.getStringExtra("taskId");
+        userId = intent.getIntExtra("userId",0);
+        taskType = intent.getStringExtra("taskType");
+        int fromPage = intent.getIntExtra("fromPage",1);
+        this.fromPage=fromPage;
+        projectId = intent.getStringExtra("projectId");
         getP().getTask(projectId,taskId,taskType,userId);
     }
 
@@ -296,6 +298,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                 claimTask.setVisibility(View.VISIBLE);
                 break;
             case 2:
+            case 4:
                 if (task.getTaskStat() == 0) {
                     taskStatus.setText(R.string.task_status_1);
                     doUserLayout.setVisibility(View.GONE);
@@ -332,12 +335,12 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                     caozuoBox.setVisibility(View.GONE);
                 }
                 break;
-            case 4:
-                taskStatus.setText(R.string.task_status_2);
-                doUser.setText(task.getTaskUserName().toString());
-                doTask.setVisibility(View.VISIBLE);
-                backTask.setVisibility(View.VISIBLE);
-                break;
+//            case 4:
+//                taskStatus.setText(R.string.task_status_2);
+//                doUser.setText(task.getTaskUserName().toString());
+//                doTask.setVisibility(View.VISIBLE);
+//                backTask.setVisibility(View.VISIBLE);
+//                break;
             case 5:
                 if (task.getTaskStat() == 0) {
                     taskStatus.setText(R.string.task_status_1);
