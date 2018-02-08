@@ -170,7 +170,7 @@ public class CreateDeviceTaskAcitvity extends BaseActivity<CreateDeviceTaskPrese
             return;
         }
         UpdateTemporaryTaskBean taskValue = deviceTemporaryTaskFargment.getFormData();
-        if (taskValue.getReleaseId() == null){
+        if (taskValue.getReleaseId() == null || taskValue.getReleaseId() == "null"){
             getP().updateDeviceTemporaryTask(taskValue);
         }else {
             getP().updateTemporaryTask(taskValue);
