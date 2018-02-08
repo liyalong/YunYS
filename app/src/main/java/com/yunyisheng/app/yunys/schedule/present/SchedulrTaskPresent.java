@@ -23,7 +23,7 @@ public class SchedulrTaskPresent extends XPresent<ScheduleTaskFragement> {
      * 获取我参与的项目列表
      */
     public void getMyProjectList(){
-        Api.projectService().getMyProjectList(1,0,"")
+        Api.projectService().getMyProjectList(1,0,"",null)
                 .compose(XApi.<ProjectListModel>getApiTransformer())
                 .compose(XApi.<ProjectListModel>getScheduler())
                 .compose(getV().<ProjectListModel>bindToLifecycle())

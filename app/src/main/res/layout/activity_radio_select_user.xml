@@ -18,6 +18,7 @@
             android:src="@mipmap/icon_back"
             android:layout_gravity="center"/>
         <TextView
+            android:id="@+id/page_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"

@@ -43,11 +43,18 @@ public class SelectProjectActivity extends BaseActivity<SelectProjectPresen> {
     private int PAGE_SIZE = 999;
     private List<ProjectBean> dataList = new ArrayList<>();
     private SelectProjectAdapter adapter;
+    private String selectUserIdFromTXL;
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        getP().getMyProjectList(PAGE_NUM,PAGE_SIZE,"");
+        selectUserIdFromTXL = getIntent().getStringExtra("selectUserIdFromTXL");
+        if (selectUserIdFromTXL != null){
+            getP().getMyProjectList(PAGE_NUM,PAGE_SIZE,"",selectUserIdFromTXL);
+        }else {
+            getP().getMyProjectList(PAGE_NUM,PAGE_SIZE,"",selectUserIdFromTXL);
+        }
+
     }
 
     @Override
@@ -80,7 +87,7 @@ public class SelectProjectActivity extends BaseActivity<SelectProjectPresen> {
                                     InputMethodManager.HIDE_NOT_ALWAYS);
                     // 搜索，进行自己要的操作...
                     String searchValue = searchText.getText().toString();
-                    getP().getMyProjectList(PAGE_NUM,PAGE_SIZE,searchValue);//这里是我要做的操作！
+                    getP().getMyProjectList(PAGE_NUM,PAGE_SIZE,searchValue,selectUserIdFromTXL);//这里是我要做的操作！
                     return true;
                 }
                 return false;

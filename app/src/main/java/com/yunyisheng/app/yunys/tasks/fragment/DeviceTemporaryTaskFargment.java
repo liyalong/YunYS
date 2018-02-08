@@ -12,6 +12,7 @@ import com.yunyisheng.app.yunys.main.model.WorkerBean;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
 import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.ProjectTemplateActivity;
+import com.yunyisheng.app.yunys.tasks.activity.RadioSelectUserActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectDeviceActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectUserListActivity;
@@ -68,7 +69,8 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
 
     private String selectDeviceId;
     private String selectDeviceName;
-    private List<ProjectUserBean> selectUsers = new ArrayList<>();
+    private String selectUserId;
+    private String selectUserName;
 
     private UpdateTemporaryTaskBean taskForm;
 
@@ -90,16 +92,11 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
 
         List<WorkerBean> selectUsersFromWork = createDeviceTaskAcitvity.getSelectWorkList();
         if (selectUsersFromWork!=null&&selectUsersFromWork.size() > 0){
-            String selectUserStr = "";
-            for (int i=0;i<selectUsersFromWork.size();i++){
-                selectUserStr += selectUsersFromWork.get(i).getName()+" ";
-                ProjectUserBean projeceUser = new ProjectUserBean();
-                projeceUser.setUserId(selectUsersFromWork.get(i).getUserId());
-                projeceUser.setUserName(selectUsersFromWork.get(i).getName());
-                projeceUser.setUserSex(selectUsersFromWork.get(i).getSex());
-                selectUsers.add(projeceUser);
-            }
-            selectAssignUsers.setText(selectUserStr);
+
+            selectUserId = String.valueOf(selectUsersFromWork.get(0).getUserId());
+            selectUserName = selectUsersFromWork.get(0).getName();
+
+            selectAssignUsers.setText(selectUserName);
         }
         //从设备页面过来的创建任务
         if (createDeviceTaskAcitvity.getFromPageType() == 3){
@@ -170,8 +167,9 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
     public void widgetClick(View v) {
         switch (v.getId()){
             case R.id.select_project:
-                //选择项目
+
                 Intent intent1 = new Intent(context, SelectProjectActivity.class);
+                intent1.putExtra("selectUserIdFromTXL",selectUserId);
                 startActivityForResult(intent1,PROJECTREQUESTCODE);
                 break;
             case R.id.select_project_device:
@@ -199,8 +197,10 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
                     ToastUtils.showToast("请先选择项目！");
                     return;
                 }
-                Intent intent5 = new Intent(context, SelectProjectUserListActivity.class);
+                Intent intent5 = new Intent(context, RadioSelectUserActivity.class);
                 intent5.putExtra("projectId",selectProjectId);
+                intent5.putExtra("fromPageTitle","选择分派人员");
+                intent5.putExtra("selectUserId",selectUserId);
                 startActivityForResult(intent5,PROJECTUSERREQUESTCODE);
                 break;
         }
@@ -237,13 +237,10 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
                 break;
             case PROJECTUSERREQUESTCODE:
                 if (resultCode == 1){
-                    selectUsers.clear();
-                    selectUsers =(List<ProjectUserBean>) data.getSerializableExtra("selectlist");
-                    String selectUserNames = "";
-                    for (int i=0;i<selectUsers.size();i++){
-                        selectUserNames += selectUsers.get(i).getUserName() + " ";
-                    }
-                    selectAssignUsers.setText(selectUserNames);
+
+                    selectUserId = data.getStringExtra("selectUserId");
+                    selectUserName = data.getStringExtra("selectUserName");
+                    selectAssignUsers.setText(selectUserName);
                 }
                 break;
         }
@@ -283,13 +280,11 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
         }
         taskForm.setReleaseRemark(releaseRemark);
 
-        if (selectUsers.size() > 0){
+        if (selectUserId != null){
             List<Map<String,String>> listStr = new ArrayList<>();
-            for (int i=0;i<selectUsers.size();i++){
-                Map<String,String> user = new HashMap<>();
-                user.put("userId", String.valueOf(selectUsers.get(i).getUserId()));
-                listStr.add(user);
-            }
+            Map<String,String> user = new HashMap<>();
+            user.put("userId", selectUserId);
+            listStr.add(user);
             taskForm.setListStr(JSON.toJSONString(listStr));
             if (releaseTaskId != null){
                 taskForm.setUserlist(JSON.toJSONString(listStr));

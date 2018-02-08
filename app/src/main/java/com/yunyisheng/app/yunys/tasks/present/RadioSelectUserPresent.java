@@ -40,5 +40,26 @@ public class RadioSelectUserPresent extends XPresent<RadioSelectUserActivity> {
                     }
                 });
     }
+    public void getProjectUserList(String projectId){
+        Api.taskService().getProjectUserList(projectId,"1")
+                .compose(XApi.<ProjectUserListModel>getApiTransformer())
+                .compose(XApi.<ProjectUserListModel>getScheduler())
+                .compose(getV().<ProjectUserListModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<ProjectUserListModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        ToastUtils.showToast("网络请求错误！");
+                    }
+
+                    @Override
+                    public void onNext(ProjectUserListModel projectUserListModel) {
+                        if (projectUserListModel.getRespCode() == 1){
+                            ToastUtils.showToast(projectUserListModel.getRespMsg());
+                            return;
+                        }
+                        getV().setAdapterData(projectUserListModel);
+                    }
+                });
+    }
 
 }

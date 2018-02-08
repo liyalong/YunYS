@@ -49,9 +49,9 @@ public class MyProjectListAdapter extends SimpleListAdapter<ProjectBean, MyProje
             }else {
                 holder.projectNewtaskLayout.setVisibility(View.GONE);
             }
-            if (item.getWaringNum() != null && item.getWaringNum() > 0){
+            if (item.getWarningNum() != null && item.getWarningNum() > 0){
                 holder.projectErrorLayout.setVisibility(View.VISIBLE);
-                holder.projectErrorNums.setText(item.getWaringNum().toString());
+                holder.projectErrorNums.setText(item.getWarningNum().toString());
             }else {
                 holder.projectErrorLayout.setVisibility(View.GONE);
             }

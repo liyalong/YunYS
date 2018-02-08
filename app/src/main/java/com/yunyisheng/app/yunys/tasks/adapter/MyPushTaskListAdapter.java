@@ -58,12 +58,23 @@ public class MyPushTaskListAdapter extends SimpleListAdapter<TaskBean, MyPushTas
         holder.taskStat.setTextColor(context.getResources().getColor(R.color.white));
         if (item.getTaskStat() == 0){
             holder.taskStat.setText(R.string.task_status_1);
+            holder.taskDoUserInfo.setVisibility(View.GONE);
+            holder.takeDoUser.setVisibility(View.GONE);
         }else if (item.getTaskStat() == 1){
             holder.taskStat.setText(R.string.task_status_2);
+            holder.taskDoUserInfo.setVisibility(View.VISIBLE);
+            holder.takeDoUser.setVisibility(View.VISIBLE);
+            holder.takeDoUser.setText(item.getTaskUserName());
         }else if (item.getTaskStat() == 2){
             holder.taskStat.setText(R.string.task_status_3);
+            holder.taskDoUserInfo.setVisibility(View.VISIBLE);
+            holder.takeDoUser.setVisibility(View.VISIBLE);
+            holder.takeDoUser.setText(item.getTaskUserName());
         }else if (item.getTaskStat() == 3){
             holder.taskStat.setText(R.string.task_status_6);
+            holder.taskDoUserInfo.setVisibility(View.VISIBLE);
+            holder.takeDoUser.setVisibility(View.VISIBLE);
+            holder.takeDoUser.setText(item.getTaskUserName());
 //            holder.taskStat.setTextColor(context.getResources().getColor(R.color.color_2F));
 //            holder.taskStat.setBackgroundColor(context.getResources().getColor(R.color.color_green_main_disabled));
         }

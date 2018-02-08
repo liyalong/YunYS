@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
@@ -52,14 +53,19 @@ public class DeviceListAdapter extends SimpleListAdapter<DeviceBean, DeviceListA
         holder.deviceCreateTime.setText(deviceBean.getEquipmentCreate());
         if (deviceBean.getEquipmentStat() == 1){
             holder.deviceStatus.setBackgroundColor(context.getResources().getColor(R.color.device_status_success));
-            holder.deviceStatus.setText(context.getResources().getString(R.string.device_status_success));
+            holder.deviceStatus.setText(context.getResources().getString(R.string.device_status_1));
 
         }else if (deviceBean.getEquipmentStat() == 2){
             holder.deviceStatus.setBackgroundColor(context.getResources().getColor(R.color.device_status_error));
             holder.deviceStatus.setText(context.getResources().getString(R.string.device_status_error));
         }else if (deviceBean.getEquipmentStat() == 3){
             holder.deviceStatus.setBackgroundColor(context.getResources().getColor(R.color.black_overlay));
-            holder.deviceStatus.setText(context.getResources().getString(R.string.disable));
+            holder.deviceStatus.setText(context.getResources().getString(R.string.device_status_1));
+        }
+        if (deviceBean.getIsWarning() != null && deviceBean.getIsWarning() == 1){
+            holder.deviceWarningStatus.setVisibility(View.VISIBLE);
+        }else {
+            holder.deviceWarningStatus.setVisibility(View.GONE);
         }
         holder.itemButton.setTag(position);
         holder.itemButton.setOnClickListener(this);
@@ -80,6 +86,8 @@ public class DeviceListAdapter extends SimpleListAdapter<DeviceBean, DeviceListA
         TextView itemButton;
         @BindView(R.id.device_create_time)
         TextView deviceCreateTime;
+        @BindView(R.id.device_warning_status)
+        LinearLayout deviceWarningStatus;
         public ViewHolder(View itemView) {
             KnifeKit.bind(this, itemView);
         }

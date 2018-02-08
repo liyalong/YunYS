@@ -30,8 +30,8 @@
                 android:layout_marginLeft="@dimen/distance_5"
                 android:paddingHorizontal="@dimen/distance_3">
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:src="@mipmap/icon_project_list_errors"
                     android:layout_gravity="center"/>
                 <TextView

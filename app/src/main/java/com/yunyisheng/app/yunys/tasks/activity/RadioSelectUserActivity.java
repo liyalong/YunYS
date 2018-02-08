@@ -15,6 +15,7 @@ import com.yunyisheng.app.yunys.tasks.model.ProjectUserListModel;
 import com.yunyisheng.app.yunys.tasks.present.RadioSelectUserPresent;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,18 +30,36 @@ public class RadioSelectUserActivity extends BaseActivity<RadioSelectUserPresent
     TextView submit;
     @BindView(R.id.select_check_user_list)
     ListView selectCheckUserList;
+    @BindView(R.id.page_title)
+    TextView pageTitle;
 
     RadioSelectUserAdapter adapter;
     List<ProjectUserBean> dataList = new ArrayList<>();
 
+    private String projectId;
+    private String fromPageTitle;
+    private String selectUserId;
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        projectId = getIntent().getStringExtra("projectId");
+        fromPageTitle = getIntent().getStringExtra("fromPageTitle");
+        selectUserId = getIntent().getStringExtra("selectUserId");
+        if (fromPageTitle != null){
+            pageTitle.setText(fromPageTitle);
+        }else {
+            pageTitle.setText("请选择审批人员");
+        }
     }
 
     @Override
     public void initAfter() {
-        getP().getAllUserLists();
+        if (projectId != null){
+            getP().getProjectUserList(projectId);
+        }else {
+            getP().getAllUserLists();
+        }
+
     }
 
     @Override
@@ -85,7 +104,7 @@ public class RadioSelectUserActivity extends BaseActivity<RadioSelectUserPresent
         if (projectUserListModel.getRespBody().size() > 0){
             dataList.clear();
             dataList.addAll(projectUserListModel.getRespBody());
-            adapter = new RadioSelectUserAdapter(context,dataList);
+            adapter = new RadioSelectUserAdapter(context,dataList,selectUserId);
             selectCheckUserList.setAdapter(adapter);
         }else {
             ToastUtils.showToast("暂无人员！");

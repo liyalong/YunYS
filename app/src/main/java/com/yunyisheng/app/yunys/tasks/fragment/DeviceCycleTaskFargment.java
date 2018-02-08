@@ -13,6 +13,7 @@ import com.yunyisheng.app.yunys.main.model.WorkerBean;
 import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.CronResultActivity;
 import com.yunyisheng.app.yunys.tasks.activity.ProjectTemplateActivity;
+import com.yunyisheng.app.yunys.tasks.activity.RadioSelectUserActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectDeviceActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectUserListActivity;
@@ -74,7 +75,6 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
 
     private String cycleSelectDeviceId;
     private String cycleSelectDeviceName;
-    private List<ProjectUserBean> cycleSelectUsers = new ArrayList<>();
 
     private String cycleFeedbackJSON;
 
@@ -83,6 +83,9 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
     private String cycleProjectId;
 
     private String feedbackBacknum;
+
+    private String cycleSelectUserId;
+    private String cycleSelectUserName;
 
     @Override
     public void initView() {
@@ -94,16 +97,9 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
         //从通讯录安排工作跳转来的人员
         List<WorkerBean> selectUsersFromWork = DeviceTaskAcitvity.getSelectWorkList();
         if (selectUsersFromWork!=null&&selectUsersFromWork.size() > 0){
-            String selectCycleUserStr = "";
-            for (int i=0;i<selectUsersFromWork.size();i++){
-                selectCycleUserStr += selectUsersFromWork.get(i).getName()+" ";
-                ProjectUserBean projeceUser = new ProjectUserBean();
-                projeceUser.setUserId(selectUsersFromWork.get(i).getUserId());
-                projeceUser.setUserName(selectUsersFromWork.get(i).getName());
-                projeceUser.setUserSex(selectUsersFromWork.get(i).getSex());
-                cycleSelectUsers.add(projeceUser);
-            }
-            selectCycleAssignUsers.setText(selectCycleUserStr);
+            cycleSelectUserId = String.valueOf(selectUsersFromWork.get(0).getUserId());
+            cycleSelectUserName = selectUsersFromWork.get(0).getName();
+            selectCycleAssignUsers.setText(cycleSelectUserName);
         }
         //从设备页面过来的创建任务
         if (DeviceTaskAcitvity.getFromPageType() == 3){
@@ -149,6 +145,7 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
         switch (v.getId()) {
             case R.id.cycle_select_project:
                 Intent intent1 = new Intent(context, SelectProjectActivity.class);
+                intent1.putExtra("selectUserIdFromTXL",cycleSelectUserId);
                 startActivityForResult(intent1,PROJECTREQUESTCODE);
                 break;
             case R.id.cycle_select_project_device:
@@ -180,7 +177,11 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
                     ToastUtils.showToast("请先选择项目！");
                     return;
                 }
-                Intent intent5 = new Intent(context, SelectProjectUserListActivity.class);
+
+                Intent intent5 = new Intent(context, RadioSelectUserActivity.class);
+                intent5.putExtra("projectId",cycleSelectProjectId);
+                intent5.putExtra("fromPageTitle","选择分派人员");
+                intent5.putExtra("selectUserId",cycleSelectUserId);
                 intent5.putExtra("projectId",cycleSelectProjectId);
                 startActivityForResult(intent5,PROJECTUSERCODE);
                 break;
@@ -220,13 +221,9 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
                 break;
             case PROJECTUSERCODE:
                 if (resultCode == 1){
-                    cycleSelectUsers.clear();
-                    cycleSelectUsers =(List<ProjectUserBean>) data.getSerializableExtra("selectlist");
-                    String selectUserNames = "";
-                    for (int i=0;i<cycleSelectUsers.size();i++){
-                        selectUserNames += cycleSelectUsers.get(i).getUserName() + " ";
-                    }
-                    selectCycleAssignUsers.setText(selectUserNames);
+                    cycleSelectUserId = data.getStringExtra("selectUserId");
+                    cycleSelectUserName = data.getStringExtra("selectUserName");
+                    selectCycleAssignUsers.setText(cycleSelectUserName);
                 }
                 break;
         }
@@ -304,15 +301,16 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
             return checkStatus;
         }
         cycleTaskForm.setCycletaskRemark(cycletaskRemark);
-        if (cycleSelectUsers.size() > 0){
+        if (cycleSelectUserId != null){
             List<Integer> listStr = new ArrayList<>();
+            listStr.add(Integer.valueOf(cycleSelectUserId));
             //List<Map<String,String>> listStr = new ArrayList<>();
-            for (int i=0;i<cycleSelectUsers.size();i++){
-                listStr.add(cycleSelectUsers.get(i).getUserId());
-//                Map<String,String> user = new HashMap<>();
-//                user.put("userId", String.valueOf(cycleSelectUsers.get(i).getUserId()));
-//                listStr.add(user);
-            }
+//            for (int i=0;i<cycleSelectUsers.size();i++){
+//                listStr.add(cycleSelectUsers.get(i).getUserId());
+////                Map<String,String> user = new HashMap<>();
+////                user.put("userId", String.valueOf(cycleSelectUsers.get(i).getUserId()));
+////                listStr.add(user);
+//            }
             cycleTaskForm.setUserIdStr(JSON.toJSONString(listStr));
         }
 
@@ -339,6 +337,7 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
         cycleSelectProjectId = String.valueOf(cycleTask.getProjectId());
         cycleSelectDeviceId = cycleTask.getEquipmentId();
 
+
         cycleSelectProject.setText(cycleTask.getCycletaskName());
         cycleSelectProjectDevice.setText(cycleTask.getEquipmentName());
         cycleTaskName.setText(cycleTask.getCycletaskName());
@@ -354,15 +353,9 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
         }
         List<CycleTaskDetailModel.taskDetail.SelectUser> selectUsers = cycleTask.getCycleTaskUserList();
         if (selectUsers.size() > 0){
-            String selectUserNames = "";
-            for (int i=0;i<selectUsers.size();i++){
-                selectUserNames += selectUsers.get(i).getUserName()+" ";
-                ProjectUserBean selectUser = new ProjectUserBean();
-                selectUser.setUserId(selectUsers.get(i).getUserId());
-                selectUser.setUserName(selectUsers.get(i).getUserName());
-                cycleSelectUsers.add(selectUser);
-            }
-            selectCycleAssignUsers.setText(selectUserNames);
+            cycleSelectUserName = selectUsers.get(0).getUserName();
+            cycleSelectUserId = String.valueOf(selectUsers.get(0).getUserId());
+            selectCycleAssignUsers.setText(cycleSelectUserName);
         }
         cycleTaskDesc.setText(cycleTask.getCycletaskRemark());
         cycleTaskTemplates.setText("任务反馈项(暂不支持编辑)");

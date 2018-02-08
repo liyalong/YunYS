@@ -25,7 +25,7 @@ public class MyProjectPresent extends XPresent<MyProjectFargment> {
      */
     public void getMyProjectList(int pageNum,int pageSize,String projectName){
         LoadingDialog.show(getV().getContext());
-        Api.projectService().getMyProjectList(pageNum,pageSize,projectName)
+        Api.projectService().getMyProjectList(pageNum,pageSize,projectName,null)
                 .compose(XApi.<ProjectListModel>getApiTransformer())
                 .compose(XApi.<ProjectListModel>getScheduler())
                 .compose(getV().<ProjectListModel>bindToLifecycle())

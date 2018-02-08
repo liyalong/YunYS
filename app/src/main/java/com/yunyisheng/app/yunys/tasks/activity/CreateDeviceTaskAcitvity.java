@@ -30,6 +30,8 @@ import butterknife.ButterKnife;
 import cn.droidlover.xdroidmvp.log.XLog;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
+import static com.yunyisheng.app.yunys.utils.ScreenUtils.setIndicator;
+
 /**
  * Created by liyalong on 2018/1/13.
  */
@@ -118,7 +120,7 @@ public class CreateDeviceTaskAcitvity extends BaseActivity<CreateDeviceTaskPrese
 
             }
         });
-
+        setIndicator(context, tablayout, 12, 12);
 
     }
 

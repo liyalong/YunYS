@@ -21,13 +21,15 @@ import cn.droidlover.xdroidmvp.kit.KnifeKit;
 public class RadioSelectUserAdapter extends SimpleListAdapter<ProjectUserBean, RadioSelectUserAdapter.ViewHolder> {
 
     private int selectPosition = -1;
+    private String selectUserId;
 
     public int getSelectPosition() {
         return selectPosition;
     }
 
-    public RadioSelectUserAdapter(Context context, List<ProjectUserBean> data) {
+    public RadioSelectUserAdapter(Context context, List<ProjectUserBean> data,String userId) {
         super(context, data);
+        selectUserId = userId;
     }
 
     @Override
@@ -42,9 +44,13 @@ public class RadioSelectUserAdapter extends SimpleListAdapter<ProjectUserBean, R
 
     @Override
     protected void convert(ViewHolder holder, ProjectUserBean item, final int position) {
-        if (item.getName() != null){
+        if (item.getName() != null && item.getUserName() == null){
             holder.projectTitle.setText(item.getName().toString());
         }
+        if (item.getUserName() != null && item.getName() == null){
+            holder.projectTitle.setText(item.getUserName().toString());
+        }
+
         holder.mRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,10 +58,18 @@ public class RadioSelectUserAdapter extends SimpleListAdapter<ProjectUserBean, R
                 notifyDataSetChanged();
             }
         });
-        if (selectPosition == position){
+
+        if (selectPosition == position && selectPosition != -1){
             holder.mRadioButton.setBackgroundResource(R.mipmap.icon_radio_checked);
         }else {
             holder.mRadioButton.setBackgroundResource(R.mipmap.icon_radio);
+//            if (selectUserId != null){
+//                if (Integer.valueOf(selectUserId) == item.getUserId()){
+//                    holder.mRadioButton.setBackgroundResource(R.mipmap.icon_radio_checked);
+//                }else {
+//                    holder.mRadioButton.setBackgroundResource(R.mipmap.icon_radio);
+//                }
+//            }
         }
     }
 

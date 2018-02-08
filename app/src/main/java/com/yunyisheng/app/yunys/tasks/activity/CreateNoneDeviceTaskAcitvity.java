@@ -27,6 +27,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 
+import static com.yunyisheng.app.yunys.utils.ScreenUtils.setIndicator;
+
 /**
  * Created by liyalong on 2018/1/13.
  */
@@ -66,6 +68,7 @@ public class CreateNoneDeviceTaskAcitvity extends BaseActivity<NoneDeviceTaskPre
             noneDeviceCycleTaskFargment = new NoneDeviceCycleTaskFargment();
             fragmentLists.add(noneDeviceTemporaryTaskFargment);
             fragmentLists.add(noneDeviceCycleTaskFargment);
+
         }else if (fromPageType == 1){
             mTitles.add("临时任务");
             noneDeviceTemporaryTaskFargment = new NoneDeviceTemporaryTaskFargment();
@@ -97,6 +100,7 @@ public class CreateNoneDeviceTaskAcitvity extends BaseActivity<NoneDeviceTaskPre
 
             }
         });
+        setIndicator(context, noneDeviceTablayout, 12, 12);
     }
 
     @Override

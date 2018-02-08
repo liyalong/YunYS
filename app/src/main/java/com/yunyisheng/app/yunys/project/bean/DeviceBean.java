@@ -12,7 +12,7 @@ public class DeviceBean implements Serializable{
     private String equipmentCreate;
     private String equipmentId;
     private String equipmentCode;
-    private int isWarning;
+    private Integer isWarning;
     private int bindPlcNum;
 
     public void setBindPlcNum(int bindPlcNum) {
@@ -44,7 +44,7 @@ public class DeviceBean implements Serializable{
         this.equipmentCode = equipmentCode;
     }
 
-    public void setIsWarning(int isWarning) {
+    public void setIsWarning(Integer isWarning) {
         this.isWarning = isWarning;
     }
 
@@ -69,7 +69,7 @@ public class DeviceBean implements Serializable{
         return equipmentCode;
     }
 
-    public int getIsWarning() {
+    public Integer getIsWarning() {
         return isWarning;
     }
 

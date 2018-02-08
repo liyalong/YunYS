@@ -318,5 +318,8 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
         unbinder.unbind();
         EventBus.getDefault().unregister(this);
         getActivity().unregisterReceiver(receiver);
+
+        //EventBus.getDefault().post(new );
+
     }
 }

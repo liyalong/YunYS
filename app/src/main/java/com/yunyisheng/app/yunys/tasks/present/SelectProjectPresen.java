@@ -22,8 +22,8 @@ public class SelectProjectPresen extends XPresent<SelectProjectActivity> {
      * @param pageSize
      * @param projectName
      */
-    public void getMyProjectList(int pageNum,int pageSize,String projectName){
-        Api.projectService().getMyProjectList(pageNum,pageSize,projectName)
+    public void getMyProjectList(int pageNum,int pageSize,String projectName,String userId){
+        Api.projectService().getMyProjectList(pageNum,pageSize,projectName,userId)
                 .compose(XApi.<ProjectListModel>getApiTransformer())
                 .compose(XApi.<ProjectListModel>getScheduler())
                 .compose(getV().<ProjectListModel>bindToLifecycle())

@@ -1,5 +1,7 @@
 package com.yunyisheng.app.yunys.project.bean;
 
+import android.content.Intent;
+
 import java.io.Serializable;
 
 /**
@@ -29,13 +31,19 @@ public class ProjectBean implements Serializable {
     private String projectLeader;
     private ProType proType;
     private Integer unSeeTaskNum;
+    private Integer warningNum;
+
+    public void setWarningNum(Integer warningNum) {
+        this.warningNum = warningNum;
+    }
+
+    public Integer getWarningNum() {
+
+        return warningNum;
+    }
 
     public void setUnSeeTaskNum(Integer unSeeTaskNum) {
         this.unSeeTaskNum = unSeeTaskNum;
-    }
-
-    public void setWaringNum(Integer waringNum) {
-        this.waringNum = waringNum;
     }
 
     public Integer getUnSeeTaskNum() {
@@ -43,11 +51,8 @@ public class ProjectBean implements Serializable {
         return unSeeTaskNum;
     }
 
-    public Integer getWaringNum() {
-        return waringNum;
-    }
 
-    private Integer waringNum;
+
     public void setProType(ProType proType) {
         this.proType = proType;
     }

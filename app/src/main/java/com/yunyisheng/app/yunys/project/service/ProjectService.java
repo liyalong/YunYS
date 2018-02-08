@@ -41,7 +41,7 @@ public interface ProjectService {
                                                      @Field("pageSize") int pageSize);
 
     /**
-     * 获取我参与的项目列表
+     * 获取我参与的项目列表,传userID时获取指定人员参与的项目列表
      * @param pageNum
      * @param pageSize
      * @param projectName
@@ -51,7 +51,8 @@ public interface ProjectService {
     @POST("project/list/myJoin")
     Flowable<ProjectListModel> getMyProjectList(@Field("pageNum") int pageNum,
                                                 @Field("pageSize") int pageSize,
-                                                @Field("projectName") String projectName);
+                                                @Field("projectName") String projectName,
+                                                @Field("userId") String userId);
 
     /**
      * 获取项目下的设备列表
