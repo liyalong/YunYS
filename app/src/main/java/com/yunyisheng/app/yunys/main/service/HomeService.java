@@ -10,6 +10,7 @@ import com.yunyisheng.app.yunys.main.model.GetOtherinfoBean;
 import com.yunyisheng.app.yunys.main.model.MemorandumBean;
 import com.yunyisheng.app.yunys.main.model.MessageBean;
 import com.yunyisheng.app.yunys.main.model.MessageTypeBean;
+import com.yunyisheng.app.yunys.main.model.NoReadMessage;
 import com.yunyisheng.app.yunys.main.model.NoticeDetailBean;
 import com.yunyisheng.app.yunys.main.model.ProjectFromWorkBean;
 import com.yunyisheng.app.yunys.main.model.QuanxianBean;
@@ -261,6 +262,22 @@ public interface HomeService {
     @POST("look/addressBook/user/search")
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     Flowable<FindWorkerBean> getfindworkerlist(@Field("parameter") String parameter);
+
+    /**
+     *  @author fuduo
+     *  @time 2018/2/8  20:24
+     *  @describe 消息未读数
+     */
+    @POST("message/selectMessageCountByType")
+    Flowable<NoReadMessage> getNoReadMessage();
+
+    /**
+     *  @author fuduo
+     *  @time 2018/2/8  20:24
+     *  @describe 消息未读数
+     */
+    @POST("message/selectMessageCountByType")
+    Call<NoReadMessage> getServiceNoReadMessage();
 
     /**
      * 项目检索

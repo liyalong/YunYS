@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys.main.fragement;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,12 +28,18 @@ import com.yunyisheng.app.yunys.main.activity.NoticeActivity;
 import com.yunyisheng.app.yunys.main.activity.ReportformActivity;
 import com.yunyisheng.app.yunys.main.adapter.HomeScheduleAdapter;
 import com.yunyisheng.app.yunys.main.model.BannerBean;
+import com.yunyisheng.app.yunys.main.model.NoReadMessage;
+import com.yunyisheng.app.yunys.main.model.NoReadMessageEvent;
 import com.yunyisheng.app.yunys.main.present.HomePresent;
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.RecyclerBanner;
 import com.yunyisheng.app.yunys.utils.ScrowUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +49,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.droidlover.xdroidbase.cache.SharedPref;
 
+import static android.content.Context.VIBRATOR_SERVICE;
 import static com.yunyisheng.app.yunys.utils.CommonUtils.getDayEndTime;
 import static com.yunyisheng.app.yunys.utils.CommonUtils.getDayStartTime;
 
@@ -89,6 +97,7 @@ public class HomeFragement extends BaseFragement<HomePresent> {
 
     @Override
     public void initView() {
+        EventBus.getDefault().register(this);
         rcyBanner.setContext((Activity) mContext);
         ScrowUtil.listViewConfig(pullToRefreshListview);
         dayStartTime = getDayStartTime();
@@ -157,6 +166,19 @@ public class HomeFragement extends BaseFragement<HomePresent> {
         lineBeiwanglu.setOnClickListener(this);
     }
 
+    //订阅方法，当接收到事件的时候，会调用该方法
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(NoReadMessageEvent messageEvent) {
+        int size = messageEvent.getSize();
+        if (size > 0) {
+            imgMessage.setBackgroundResource(R.mipmap.red_msg);
+            doVibrator();
+        } else {
+            imgMessage.setBackgroundResource(R.mipmap.message);
+        }
+
+    }
+
     public void getUserinfo() {
         getP().getUserInfo();
     }
@@ -223,6 +245,7 @@ public class HomeFragement extends BaseFragement<HomePresent> {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
 
     public void getResultList(MyScheduleBean myScheduleBean) {
@@ -257,4 +280,19 @@ public class HomeFragement extends BaseFragement<HomePresent> {
             SharedPref.getInstance(mContext).putString("companyimg", companyimg);
         }
     }
+
+    public void getNoreadmessage(NoReadMessage noReadMessage) {
+        NoReadMessage.RespBodyBean respBody = noReadMessage.getRespBody();
+        int size = respBody.getMids().size();
+        if (size>0){
+            imgMessage.setBackgroundResource(R.mipmap.red_msg);
+            doVibrator();
+        }
+    }
+
+    private void doVibrator(){
+        Vibrator vibrator = (Vibrator) mContext.getSystemService(VIBRATOR_SERVICE);
+        vibrator.vibrate(1500);//振动两秒
+    }
+
 }

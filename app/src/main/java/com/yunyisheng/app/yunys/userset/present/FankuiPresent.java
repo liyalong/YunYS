@@ -45,6 +45,7 @@ public class FankuiPresent extends XPresent<FanKuiActivity> {
                         LoadingDialog.dismiss(getV());
                         if (baseModel.getRespCode()==0){
                             ToastUtils.showToast("反馈成功");
+                            getV().finish();
                         }else {
                             ToastUtils.showToast(baseModel.getRespMsg());
                         }

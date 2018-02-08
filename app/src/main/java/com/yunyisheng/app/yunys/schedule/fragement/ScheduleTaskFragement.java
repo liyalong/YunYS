@@ -1,8 +1,7 @@
 package com.yunyisheng.app.yunys.schedule.fragement;
 
+import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -11,10 +10,11 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
@@ -57,8 +57,7 @@ public class ScheduleTaskFragement extends BaseFragement<SchedulrTaskPresent> {
     TextView teShaixuan;
     private List<Fragment> fragmentList = new ArrayList<>();
     private List<String> mTitleList = new ArrayList<>();
-    private List<ProjectBean> projectBeanList=new ArrayList<>();
-    private PopupWindow screenPopupWindow;
+    private List<ProjectBean> projectBeanList = new ArrayList<>();
     private ListView mScreenListView;
 
     @Override
@@ -130,38 +129,26 @@ public class ScheduleTaskFragement extends BaseFragement<SchedulrTaskPresent> {
                 startActivity(new Intent(mContext, ScheduleSetActivity.class));
                 break;
             case R.id.te_shaixuan:
-                showPop();
-                if (screenPopupWindow.isShowing()){
-                    screenPopupWindow.dismiss();
-                }else {
-                    showPpw(screenPopupWindow,v);
+                if (projectBeanList.size() > 0) {
+                    showPop();
+                } else {
+                    ToastUtils.showToast("暂无参与项目");
                 }
                 break;
         }
     }
 
-    private void showPop(){
-        View screenPopView = LayoutInflater.from(getActivity()).inflate(R.layout.pop_project_list, null);
-        screenPopupWindow = new PopupWindow(getActivity());
-        screenPopupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-        screenPopupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
-        screenPopupWindow.setFocusable(true);
-        screenPopupWindow.setTouchable(true);
-        screenPopupWindow.setContentView(screenPopView);
-        screenPopupWindow.setOutsideTouchable(false);
-        screenPopupWindow.setBackgroundDrawable(new BitmapDrawable());
-        screenPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-            }
-        });
+    private void showPop() {
+        final Dialog mShareDialog = new Dialog(getActivity(), R.style.dialog_bottom_full);
+        mShareDialog.setCanceledOnTouchOutside(true);
+        mShareDialog.setCancelable(true);
+        Window window = mShareDialog.getWindow();
+        window.setGravity(Gravity.CENTER);
+        View screenPopView = View.inflate(getActivity(), R.layout.pop_project_list, null);
         mScreenListView = (ListView) screenPopView.findViewById(R.id.lv_projectlist);
-        if (projectBeanList.size()>0){
-            ProjectListAdapter adapter=new ProjectListAdapter(mContext,projectBeanList);
-            mScreenListView.setAdapter(adapter);
-        }else {
-            ToastUtils.showToast("暂无参与项目");
-        }
+
+        ProjectListAdapter adapter = new ProjectListAdapter(mContext, projectBeanList);
+        mScreenListView.setAdapter(adapter);
 
         mScreenListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -169,20 +156,12 @@ public class ScheduleTaskFragement extends BaseFragement<SchedulrTaskPresent> {
                 ProjectBean projectBean = projectBeanList.get(position);
                 String projectId = projectBean.getProjectId();
                 EventBus.getDefault().post(new PositionMessageEvent(projectId));
-                screenPopupWindow.dismiss();
+                mShareDialog.dismiss();
             }
         });
-
-    }
-
-    private void showPpw(PopupWindow popupWindow, View view) {
-        if (Build.VERSION.SDK_INT < 24) {
-            popupWindow.showAsDropDown(view);
-        } else {
-            int[] location = new int[2];
-            view.getLocationOnScreen(location);
-            popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, location[0], location[1] + view.getHeight());
-        }
+        window.setContentView(screenPopView);
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);//设置横向全屏
+        mShareDialog.show();
     }
 
     @Override
@@ -200,7 +179,7 @@ public class ScheduleTaskFragement extends BaseFragement<SchedulrTaskPresent> {
 
     public void setProjectListModel(ProjectListModel projectListModel) {
         List<ProjectBean> respBody = projectListModel.getRespBody();
-        if (respBody.size()>0){
+        if (respBody.size() > 0) {
             projectBeanList.clear();
             projectBeanList.addAll(respBody);
             String projectId = respBody.get(0).getProjectId();

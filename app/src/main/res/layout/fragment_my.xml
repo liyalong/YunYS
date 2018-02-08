@@ -168,30 +168,6 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/about_us"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/distance_48"
-                android:layout_marginTop="@dimen/distance_10"
-                android:background="@color/white">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/distance_10"
-                    android:text="@string/about_us"
-                    android:textColor="@color/color_333"
-                    android:textSize="@dimen/distance_14" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@mipmap/blackback_r" />
-            </RelativeLayout>
-
-            <RelativeLayout
                 android:id="@+id/company_info"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/distance_48"
@@ -204,6 +180,30 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/distance_10"
                     android:text="@string/company_info"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/distance_14" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/blackback_r" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/about_us"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/distance_48"
+                android:layout_marginTop="@dimen/distance_10"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/distance_10"
+                    android:text="@string/about_us"
                     android:textColor="@color/color_333"
                     android:textSize="@dimen/distance_14" />
 

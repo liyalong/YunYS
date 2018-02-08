@@ -58,6 +58,7 @@ public class NoticeDetaiPresent extends XPresent<NoticeDeatilActivity> {
                             getV().getResultDetail(noticeDetailBean);
                         }else {
                             ToastUtils.showToast(noticeDetailBean.getRespMsg());
+                            getV().finish();
                         }
                     }
 
@@ -85,6 +86,7 @@ public class NoticeDetaiPresent extends XPresent<NoticeDeatilActivity> {
                             getV().getResultDetail(noticeDetailBean);
                         }else {
                             ToastUtils.showToast(noticeDetailBean.getRespMsg());
+                            getV().finish();
                         }
                     }
 

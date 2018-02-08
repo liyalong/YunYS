@@ -58,7 +58,7 @@ public class WelcomeActivity extends BaseActivity<WelcomePagePresent> {
                     try {
                         Bitmap bitmap = CommonUtils.stringtoBitmap(enterpriseimg);
                         welcomeView.setImageBitmap(bitmap);
-                        handler.sendEmptyMessageDelayed(0, 2000);
+                        handler.sendEmptyMessageDelayed(0, 1000);
                     } catch (Exception e) {
                         e.printStackTrace();
                         netError();
@@ -89,7 +89,7 @@ public class WelcomeActivity extends BaseActivity<WelcomePagePresent> {
                     if (companyimg != null && !companyimg.equals("")) {
                         Bitmap bitmap = CommonUtils.stringtoBitmap(companyimg);
                         welcomeView.setImageBitmap(bitmap);
-                        handler.sendEmptyMessageDelayed(1, 2000);
+                        handler.sendEmptyMessageDelayed(1, 1000);
                     } else {
                         netError();
                     }
@@ -120,7 +120,7 @@ public class WelcomeActivity extends BaseActivity<WelcomePagePresent> {
 //            if (enterpriseimg != null && !enterpriseimg.equals("")) {
 //                Bitmap bitmap = CommonUtils.stringtoBitmap(enterpriseimg);
 //                welcomeView.setImageBitmap(bitmap);
-//                handler.sendEmptyMessageDelayed(0, 2000);
+//                handler.sendEmptyMessageDelayed(0, 1000);
 //            } else {
 //                netError();
 //            }
@@ -131,7 +131,7 @@ public class WelcomeActivity extends BaseActivity<WelcomePagePresent> {
     }
 
     public void netError() {
-        handler.sendEmptyMessageDelayed(2, 2000);
+        handler.sendEmptyMessageDelayed(2, 1000);
     }
 
     @Override
