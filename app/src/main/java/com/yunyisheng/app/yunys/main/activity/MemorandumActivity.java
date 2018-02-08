@@ -62,9 +62,11 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
     private int pageindex = 1;
     private int userid;
     private List<MemorandumBean.ListBean> beanList = new ArrayList<>();
+    private List<MemorandumBean.ListBean> selectbeanList = new ArrayList<>();
     private MemoListAdapter adapter;
     private String sousuo_neirong;
     int position;
+    private MemoListAdapter selectadapter;
 
     @Override
     public void initView() {
@@ -74,15 +76,27 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
         pullToRefreshScrollview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
-                beanList.clear();
                 pageindex = 1;
-                getP().getMemoList(pageindex, 10);
+                String sousuo_neirong = edSearch.getText().toString();
+                if (sousuo_neirong != null && !sousuo_neirong.equals("")) {
+                    selectbeanList.clear();
+                    getP().selectMemoList(userid, pageindex, 10, sousuo_neirong);
+                } else {
+                    beanList.clear();
+                    getP().getMemoList(pageindex, 10);
+                }
+
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
                 pageindex++;
-                getP().getMemoList(pageindex, 10);
+                String sousuo_neirong = edSearch.getText().toString();
+                if (sousuo_neirong != null && !sousuo_neirong.equals("")) {
+                    getP().selectMemoList(userid, pageindex, 10, sousuo_neirong);
+                } else {
+                    getP().getMemoList(pageindex, 10);
+                }
             }
         });
         edSearch.addTextChangedListener(mTextWatcher);
@@ -90,14 +104,16 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 sousuo_neirong = edSearch.getText().toString();
-                if(actionId == EditorInfo.IME_ACTION_SEARCH){
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
                             .hideSoftInputFromWindow(MemorandumActivity.this.getCurrentFocus()
                                     .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     if (sousuo_neirong == null || sousuo_neirong.equals("")) {
-                       ToastUtils.showToast("搜索内容不能为空");
+                        ToastUtils.showToast("搜索内容不能为空");
                     } else {
-
+                        selectbeanList.clear();
+                        pageindex = 1;
+                        getP().selectMemoList(userid, pageindex, 10, sousuo_neirong);
                     }
                 }
                 return false;
@@ -107,9 +123,9 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MemorandumBean.ListBean listBean = beanList.get(position);
-                Intent intent=new Intent(MemorandumActivity.this,AddMemorandumActivity.class);
-                intent.putExtra("memid",listBean.getMemoId());
-                intent.putExtra("memovlue",listBean.getMemoVal());
+                Intent intent = new Intent(MemorandumActivity.this, AddMemorandumActivity.class);
+                intent.putExtra("memid", listBean.getMemoId());
+                intent.putExtra("memovlue", listBean.getMemoVal());
                 startActivity(intent);
             }
         });
@@ -117,9 +133,9 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
 
     //订阅方法，当接收到事件的时候，会调用该方法
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(PositionMessageEvent messageEvent){
+    public void onEvent(PositionMessageEvent messageEvent) {
         String position = messageEvent.getPosition();
-        if (position.equals("updatebeiwanglu")){
+        if (position.equals("updatebeiwanglu")) {
             beanList.clear();
             pageindex = 1;
             getP().getMemoList(pageindex, 10);
@@ -129,7 +145,7 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
     @Override
     public void initAfter() {
         userid = SharedPref.getInstance(MemorandumActivity.this).getInt("userid", 0);
-       getP().getMemoList(pageindex, 10);
+        getP().getMemoList(pageindex, 10);
     }
 
     @Override
@@ -155,6 +171,9 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
                 imgClear.setVisibility(View.VISIBLE);
             } else {
                 imgClear.setVisibility(View.GONE);
+                beanList.clear();
+                pageindex = 1;
+                getP().getMemoList(pageindex, 10);
             }
         }
 
@@ -174,6 +193,7 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
     public void getResult(MemorandumBean bean) {
         if (bean.getList().size() > 0) {
             if (pageindex == 1) {
+                beanList.clear();
                 beanList.addAll(bean.getList());
                 adapter = new MemoListAdapter(MemorandumActivity.this, beanList);
                 lvMemarand.setAdapter(adapter);
@@ -192,19 +212,48 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
         stopRefresh();
     }
 
-    public void stopRefresh(){
+    public void getSelectResult(MemorandumBean memorandumBean) {
+        if (memorandumBean.getList().size() > 0) {
+            if (pageindex == 1) {
+                beanList.clear();
+                selectbeanList.clear();
+                selectbeanList.addAll(memorandumBean.getList());
+                selectadapter = new MemoListAdapter(MemorandumActivity.this, selectbeanList);
+                lvMemarand.setAdapter(selectadapter);
+            } else {
+                selectbeanList.addAll(memorandumBean.getList());
+                selectadapter.notifyDataSetChanged();
+            }
+        } else {
+            if (pageindex == 1) {
+                ToastUtils.showToast("暂无数据");
+            } else {
+                ToastUtils.showToast("暂无更多数据");
+            }
+        }
+        setListViewHeightBasedOnChildren(lvMemarand);
+        stopRefresh();
+    }
+
+    public void stopRefresh() {
         pullToRefreshScrollview.onRefreshComplete();
     }
 
     public void deleteMemo(int position, int ids) {
-        this.position=position;
+        this.position = position;
         getP().deleteMemo(ids);
     }
 
     public void getDelete(BaseModel baseModel) {
         if (baseModel.getRespCode() == 0) {
-            beanList.remove(position);
-            adapter.notifyDataSetChanged();
+            String trim = edSearch.getText().toString().trim();
+            if (trim!=null&&!trim.equals("")){
+                selectbeanList.remove(position);
+                selectadapter.notifyDataSetChanged();
+            }else {
+                beanList.remove(position);
+                adapter.notifyDataSetChanged();
+            }
         }
     }
 
@@ -243,6 +292,7 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
                 break;
             case R.id.img_clear:
                 edSearch.setText("");
+                break;
             case R.id.te_add:
                 startActivity(new Intent(MemorandumActivity.this, AddMemorandumActivity.class));
                 break;
