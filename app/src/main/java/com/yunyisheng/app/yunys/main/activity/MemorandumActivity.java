@@ -1,6 +1,8 @@
 package com.yunyisheng.app.yunys.main.activity;
 
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,6 +85,7 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
                 getP().getMemoList(pageindex, 10);
             }
         });
+        edSearch.addTextChangedListener(mTextWatcher);
         edSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -138,6 +141,28 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
     public MemorandumPresent bindPresent() {
         return new MemorandumPresent();
     }
+
+    //监听是否输入
+    TextWatcher mTextWatcher = new TextWatcher() {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int arg1, int arg2, int arg3) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int arg1, int arg2, int arg3) {
+            if (s.length() > 0) {
+                imgClear.setVisibility(View.VISIBLE);
+            } else {
+                imgClear.setVisibility(View.GONE);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
     @Override
     public void setListener() {

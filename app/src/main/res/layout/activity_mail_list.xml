@@ -41,6 +41,7 @@
                 android:layout_marginRight="@dimen/distance_10"
                 android:background="@null"
                 android:hint="搜索员工"
+                android:singleLine="true"
                 android:imeOptions="actionSearch"
                 android:textColor="@color/color_333"
                 android:textColorHint="@color/color_666"

@@ -79,6 +79,7 @@ public class TaskAdapter extends RecyclerAdapter<MyScheduleBean.RespBodyBean.Dat
                     Intent intent = new Intent(context, TaskDetailActivity.class);
                     intent.putExtra("taskType", type);
                     intent.putExtra("taskId", bean.getTaskId());
+                    intent.putExtra("projectId",bean.getProjectsId());
                     if (scheduletype==5){
                         intent.putExtra("fromPage ",4);
                     }else if (scheduletype==6){

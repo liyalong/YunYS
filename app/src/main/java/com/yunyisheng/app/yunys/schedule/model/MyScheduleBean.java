@@ -73,6 +73,15 @@ public class MyScheduleBean extends BaseModel {
             private String endTime;
             private String initiator;
             private String theme;
+            private String projectsId;
+
+            public String getProjectsId() {
+                return projectsId;
+            }
+
+            public void setProjectsId(String projectsId) {
+                this.projectsId = projectsId;
+            }
 
             public String getState() {
                 return state;

@@ -55,7 +55,6 @@ public class MySchedulePresent extends XPresent<OurProjeceScheduleFragement> {
      * @describe 14.1    获取指定日期的当前登录员工的项目日程列表
      */
     public void getMyProjectSchedulrList(int pageNum,String projectid, String startTime, String endTim) {
-        LoadingDialog.show(getV().getContext());
         Api.scheduleService().getProjectschedulelist(pageNum, 100,projectid, startTime, endTim)
                 .compose(XApi.<MyScheduleBean>getApiTransformer()) //统一异常处理
                 .compose(XApi.<MyScheduleBean>getScheduler()) //线程调度
@@ -63,7 +62,6 @@ public class MySchedulePresent extends XPresent<OurProjeceScheduleFragement> {
                 .subscribe(new ApiSubscriber<MyScheduleBean>() {
                     @Override
                     public void onNext(MyScheduleBean myScheduleBean) {
-                        LoadingDialog.dismiss(getV().getContext());
                         if (myScheduleBean.getRespCode() == 0) {
                             getV().getProjectResultList(myScheduleBean);
                         } else {
@@ -73,7 +71,6 @@ public class MySchedulePresent extends XPresent<OurProjeceScheduleFragement> {
 
                     @Override
                     protected void onFail(NetError error) {
-                        LoadingDialog.dismiss(getV().getContext());
                         ToastUtils.showToast("获取数据失败");
                     }
                 });

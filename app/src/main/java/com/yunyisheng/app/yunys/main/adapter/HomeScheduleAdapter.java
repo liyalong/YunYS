@@ -86,6 +86,7 @@ public class HomeScheduleAdapter extends SimpleListAdapter<MyScheduleBean.RespBo
                     }else {
                         intent.putExtra("fromPage ", 4);
                     }
+                    intent.putExtra("projectId",bean.getProjectsId());
                     intent.putExtra("taskType", type);
                     intent.putExtra("taskId", bean.getTaskId());
                     context.startActivity(intent);
