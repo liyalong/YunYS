@@ -137,7 +137,7 @@ public class MessageService extends Service {
 			return;
 		}
 		readWarning();
-		//readNoRead();
+		readNoRead();
 	}
 
 	private void readNoRead(){
@@ -155,11 +155,17 @@ public class MessageService extends Service {
 				NoReadMessage body = response.body();
 				NoReadMessage.RespBodyBean respBody =body.getRespBody();
 				LogUtils.i("servicehflkdh", body.getRespBody() + "");
-				int size = respBody.getMids().size();
-				if (allsize==size){
-				}else {
-					allsize = size;
-					EventBus.getDefault().post(new NoReadMessageEvent(size));
+				try {
+					if (respBody.getMids() != null && respBody.getMids().size() > 0) {
+						int size = respBody.getMids().size();
+						if (allsize == size) {
+						} else {
+							allsize = size;
+							EventBus.getDefault().post(new NoReadMessageEvent(size));
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 

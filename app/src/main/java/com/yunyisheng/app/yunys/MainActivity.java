@@ -303,10 +303,12 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 Uri contentUri;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     contentUri = FileProvider.getUriForFile(MainActivity.this, "com.yunyisheng.app.yunys.fileprovider", DialogManager.tempFile);
+                    startPhotoZoom(contentUri, 150);
                 }else {
                     contentUri=Uri.fromFile(DialogManager.tempFile);
+                    cropRawPhoto(contentUri);
                 }
-                cropRawPhoto(contentUri);
+
             } else if (requestCode == 2) {// 相册
                 if (intent != null) {
                     Log.i("xiaoqiang", "smdongxi==" + intent.getData());
@@ -319,12 +321,12 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }else if (requestCode == 3) {
+                if (intent != null) {
+                    setPicToView(intent);
+                }
             }
-//            else if (requestCode == 3) {
-//                if (intent != null) {
-//                    setPicToView(intent);
-//                }
-//            }
+
 
         } catch (Exception e) {
             e.printStackTrace();

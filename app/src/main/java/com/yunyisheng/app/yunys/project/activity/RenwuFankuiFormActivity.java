@@ -3,8 +3,10 @@ package com.yunyisheng.app.yunys.project.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -382,10 +384,15 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                                     Intent intent) {
         try {
             if (requestCode == 1 && resultCode == RESULT_OK) {
-                Uri uri = intent.getData();
-                String realPathFromURI = Util.getFileAbsolutePath(this, uri);
+                Uri contentUri;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    contentUri = FileProvider.getUriForFile(RenwuFankuiFormActivity.this, "com.yunyisheng.app.yunys.fileprovider", DialogManager.tempFile);
+                }else {
+                    contentUri=Uri.fromFile(DialogManager.tempFile);
+                }
+                String realPathFromURI = Util.getFileAbsolutePath(this, contentUri);
                 File file = new File(realPathFromURI);
-                putPic(file,uri);
+                putPic(file,contentUri);
             } else if (requestCode == 2) {// 相册
                 if (intent != null) {
                     Log.i("xiaoqiang", "smdongxi==" + intent.getData());

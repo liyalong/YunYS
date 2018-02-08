@@ -18,6 +18,7 @@ import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.PressionListener;
 import com.yunyisheng.app.yunys.main.adapter.ViewPagerAdapter;
 import com.yunyisheng.app.yunys.main.fragement.NoticeFragement;
+import com.yunyisheng.app.yunys.main.model.NoticeBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,7 @@ public class NoticeActivity extends BaseActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList, stringList);
         vpNotice.setAdapter(adapter);
         tablayoutNotice.setupWithViewPager(vpNotice);
-        setIndicator(this, tablayoutNotice, 6, 6);
+        setIndicator(this, tablayoutNotice, 3, 3);
     }
 
     @Override
@@ -127,5 +128,16 @@ public class NoticeActivity extends BaseActivity {
                 startActivity(new Intent(this, SendNoticeActivity.class));
                 break;
         }
+    }
+
+    public void getQuanResultInfo(NoticeBean noticeBean) {
+
+        boolean respBody = noticeBean.isRespBody();
+        if (respBody){
+            teSendnotice.setVisibility(View.VISIBLE);
+        }else {
+            teSendnotice.setVisibility(View.GONE);
+        }
+
     }
 }

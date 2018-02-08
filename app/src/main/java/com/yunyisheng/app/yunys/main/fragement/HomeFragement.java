@@ -134,7 +134,7 @@ public class HomeFragement extends BaseFragement<HomePresent> {
         }
         getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
         getP().getBannerList();
-
+        getP().getNoMessage();
     }
 
     public void getBannerList(BannerBean bannerBean) {
@@ -283,10 +283,12 @@ public class HomeFragement extends BaseFragement<HomePresent> {
 
     public void getNoreadmessage(NoReadMessage noReadMessage) {
         NoReadMessage.RespBodyBean respBody = noReadMessage.getRespBody();
-        int size = respBody.getMids().size();
-        if (size>0){
-            imgMessage.setBackgroundResource(R.mipmap.red_msg);
-            doVibrator();
+        if (respBody.getMids()!=null&&respBody.getMids().size()>0) {
+            int size = respBody.getMids().size();
+            if (size > 0) {
+                imgMessage.setBackgroundResource(R.mipmap.red_msg);
+                doVibrator();
+            }
         }
     }
 

@@ -11,6 +11,7 @@ import com.yunyisheng.app.yunys.main.model.MemorandumBean;
 import com.yunyisheng.app.yunys.main.model.MessageBean;
 import com.yunyisheng.app.yunys.main.model.MessageTypeBean;
 import com.yunyisheng.app.yunys.main.model.NoReadMessage;
+import com.yunyisheng.app.yunys.main.model.NoticeBean;
 import com.yunyisheng.app.yunys.main.model.NoticeDetailBean;
 import com.yunyisheng.app.yunys.main.model.ProjectFromWorkBean;
 import com.yunyisheng.app.yunys.main.model.QuanxianBean;
@@ -225,6 +226,14 @@ public interface HomeService {
     @FormUrlEncoded
     @POST("privilege/selectYesOrNoPrivilege")
     Flowable<QuanxianBean> getUserQuanxian(@Field("userId") int userId);
+
+    /**
+     * @author fuduo
+     * @time 2018/1/21  10:38
+     * @describe 10.3    判断用户是否可以发布公告权限
+     */
+    @POST("privilege/canISendAnno")
+    Flowable<NoticeBean> getisSendNotice();
 
     /**
      * 获取报表名字列表

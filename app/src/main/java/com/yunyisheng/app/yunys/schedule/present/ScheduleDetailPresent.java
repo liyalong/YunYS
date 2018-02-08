@@ -3,8 +3,11 @@ package com.yunyisheng.app.yunys.schedule.present;
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.activity.DynamicFormActivity;
+import com.yunyisheng.app.yunys.project.model.TaskMessageEvent;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import cn.droidlover.xdroidmvp.log.XLog;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
@@ -107,6 +110,7 @@ public class ScheduleDetailPresent extends XPresent<DynamicFormActivity> {
                                 ToastUtils.showToast(baseModel.getRespMsg());
                                 return;
                             }
+                            EventBus.getDefault().post(new TaskMessageEvent("updateOK"));
                             ToastUtils.showToast("提交成功");
                             getV().finish();
                         }catch (Exception e){
