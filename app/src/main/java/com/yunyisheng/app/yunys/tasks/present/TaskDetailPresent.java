@@ -18,7 +18,7 @@ import cn.droidlover.xdroidmvp.net.XApi;
 
 public class TaskDetailPresent extends XPresent<TaskDetailActivity> {
     public void getTask(String projectId,String taskId,String taskType,int userId){
-        if (projectId != null){
+        if (userId == 0){
             getMyTaskDetail(projectId,taskId);
         }else {
             getTaskDetailByUserId(taskId,taskType,userId);

@@ -38,7 +38,7 @@ import cn.droidlover.xdroidmvp.router.Router;
  * 设备详情页面
  */
 
-public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
+public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> implements DeviceOrPCMAlarmListAdapter.Callback {
     @BindView(R.id.img_back)
     ImageView imgBack;
     @BindView(R.id.device_detail_title)
@@ -227,7 +227,7 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
         if (deviceWarningListModel.getRespBody() != null) {
             warningDataList.clear();
             warningDataList.addAll(deviceWarningListModel.getRespBody());
-            warningAdapter = new DeviceOrPCMAlarmListAdapter(context,warningGrouptList, warningDataList);
+            warningAdapter = new DeviceOrPCMAlarmListAdapter(context,warningGrouptList, warningDataList,this);
             deviceDetailBjxxList.setAdapter(warningAdapter);
             deviceDetailBjxxList.expandGroup(0);
         }
@@ -263,5 +263,11 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> {
             ToastUtils.showToast(baseModel.getRespMsg());
             getP().getDeviceWarningList(projectId, 1, 999, deviceId);
         }
+    }
+
+    @Override
+    public void click(View v) {
+        int clickPosition = (int) v.getTag();
+        warningReset(Integer.valueOf(warningDataList.get(clickPosition).getAlarmId()));
     }
 }

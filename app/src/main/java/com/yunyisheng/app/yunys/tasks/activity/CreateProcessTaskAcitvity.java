@@ -55,13 +55,14 @@ public class CreateProcessTaskAcitvity extends BaseActivity {
         String startDate = "2010-01-01 00:00";
         String pattern = "yyyy-MM-dd HH:mm";
         String startTime = DateTimeDialogUtils.getNewData(pattern, 1);
+        String closeTime = DateTimeDialogUtils.getNewData(pattern, 999);
         processTaskEndTime.setText(startTime);
         startCustomDatePicker = new CustomDatePicker(context, new CustomDatePicker.ResultHandler() {
             @Override
             public void handle(String time) { // 回调接口，获得选中的时间
                 processTaskEndTime.setText(time);
             }
-        }, startDate, startTime);
+        }, startDate, closeTime);
     }
     @Override
     public int bindLayout() {
@@ -92,12 +93,10 @@ public class CreateProcessTaskAcitvity extends BaseActivity {
                 NextProcessInfo();
                 break;
             case R.id.select_process_task_form_list:
-                ToastUtils.showToast("选择表单");
                 Intent intent = new Intent(context,SelectProcessFormActivity.class);
                 startActivityForResult(intent,FORMREQUESTCODE);
                 break;
             case R.id.select_process_task_to_user:
-                ToastUtils.showToast("选择审批人");
                 Intent intent1 = new Intent(context,RadioSelectUserActivity.class);
                 startActivityForResult(intent1,USERREQUESTCODE);
                 break;

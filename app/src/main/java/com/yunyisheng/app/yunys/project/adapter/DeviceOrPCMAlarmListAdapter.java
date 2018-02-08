@@ -19,16 +19,22 @@ import java.util.List;
  * Created by liyalong on 2018/2/5.
  */
 
-public class DeviceOrPCMAlarmListAdapter extends BaseExpandableListAdapter {
+public class DeviceOrPCMAlarmListAdapter extends BaseExpandableListAdapter implements View.OnClickListener {
     private Context context;
     private List<String> groupList;
     private List<DeviceWarningBean> childList;
     DeviceDetailActivity deviceDetailActivity;
 
-    public DeviceOrPCMAlarmListAdapter(Activity context, List<String> groupList, List<DeviceWarningBean> childList) {
+    private Callback mCallback;
+    public interface Callback{
+        public void click(View v);
+    }
+
+    public DeviceOrPCMAlarmListAdapter(Activity context, List<String> groupList, List<DeviceWarningBean> childList,Callback callback) {
         this.context = context;
         this.groupList = groupList;
         this.childList = childList;
+        this.mCallback = callback;
     }
 
     @Override
@@ -109,14 +115,16 @@ public class DeviceOrPCMAlarmListAdapter extends BaseExpandableListAdapter {
                 warningLeveal.setBackgroundColor(context.getResources().getColor(R.color.alarmrules_level_4));
                 break;
         }
-        fuwei.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DeviceWarningBean clickWarning = childList.get(i1);
-                deviceDetailActivity = (DeviceDetailActivity) context;
-                deviceDetailActivity.warningReset(Integer.valueOf(clickWarning.getAlarmId()));
-            }
-        });
+        fuwei.setTag(i1);
+        fuwei.setOnClickListener(this);
+//        fuwei.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                DeviceWarningBean clickWarning = childList.get(i1);
+//                deviceDetailActivity = (DeviceDetailActivity) context;
+//                deviceDetailActivity.warningReset(Integer.valueOf(clickWarning.getAlarmId()));
+//            }
+//        });
         return view;
     }
 
@@ -127,5 +135,10 @@ public class DeviceOrPCMAlarmListAdapter extends BaseExpandableListAdapter {
 
     public String warningReset(String warningId){
         return warningId;
+    }
+
+    @Override
+    public void onClick(View view) {
+        mCallback.click(view);
     }
 }

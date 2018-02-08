@@ -40,7 +40,7 @@ import cn.droidlover.xdroidmvp.router.Router;
  * Created by liyalong on 2018/1/25.
  */
 
-public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> {
+public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> implements DeviceOrPCMAlarmListAdapter.Callback {
     @BindView(R.id.img_back)
     ImageView imgBack;
     @BindView(R.id.model_detail_title)
@@ -215,7 +215,7 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> {
         if (deviceWarningListModel.getRespBody() != null) {
             warningDataList.clear();
             warningDataList.addAll(deviceWarningListModel.getRespBody());
-            warningAdapter = new DeviceOrPCMAlarmListAdapter(context,warningGrouptList, warningDataList);
+            warningAdapter = new DeviceOrPCMAlarmListAdapter(context,warningGrouptList, warningDataList,this);
             bjxxList.setAdapter(warningAdapter);
             bjxxList.expandGroup(0);
         }
@@ -246,5 +246,11 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> {
             timer.cancel();
             timer = null;
         }
+    }
+
+    @Override
+    public void click(View v) {
+        Integer clickPostion = (Integer) v.getTag();
+        warningReset(Integer.valueOf(warningDataList.get(clickPostion).getAlarmId()));
     }
 }

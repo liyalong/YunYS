@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys.tasks.present;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.tasks.activity.RadioSelectUserActivity;
 import com.yunyisheng.app.yunys.tasks.model.ProjectUserListModel;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import cn.droidlover.xdroidmvp.mvp.XPresent;
@@ -16,6 +17,7 @@ import cn.droidlover.xdroidmvp.net.XApi;
 
 public class RadioSelectUserPresent extends XPresent<RadioSelectUserActivity> {
     public void getAllUserLists(){
+        LoadingDialog.show(getV());
         Api.taskService().getAllUserLists("activiti")
                 .compose(XApi.<ProjectUserListModel>getApiTransformer())
                 .compose(XApi.<ProjectUserListModel>getScheduler())
@@ -23,11 +25,13 @@ public class RadioSelectUserPresent extends XPresent<RadioSelectUserActivity> {
                 .subscribe(new ApiSubscriber<ProjectUserListModel>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
                         ToastUtils.showToast("网络链接错误！");
                     }
 
                     @Override
                     public void onNext(ProjectUserListModel projectUserListModel) {
+                        LoadingDialog.dismiss(getV());
                         if (projectUserListModel.getRespCode() == 1){
                             ToastUtils.showToast(projectUserListModel.getRespMsg());
                             return;

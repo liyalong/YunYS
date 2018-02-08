@@ -74,7 +74,6 @@ public class SelectProcessFormActivity extends BaseActivity<ProcessFormListPrese
                 this.finish();
                 break;
             case R.id.submit:
-                ToastUtils.showToast("确定");
                 Intent intent = new Intent();
                 int selectPosition = adapter.getSelectPosition();
                 if (selectPosition == -1){
