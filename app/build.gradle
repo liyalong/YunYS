@@ -39,6 +39,7 @@ dependencies {
     compile 'com.alibaba:fastjson:1.2.36'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.airsaid.library:pickerview:1.0.3'
+    compile 'com.github.yalantis:ucrop:2.2.1'
 }
 
 

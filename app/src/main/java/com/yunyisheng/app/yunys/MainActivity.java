@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 
+import com.yalantis.ucrop.UCrop;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
@@ -63,6 +64,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.yunyisheng.app.yunys.utils.DialogManager.tempFile;
 
 @SuppressLint("SetTextI18n")
 public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedChangeListener {
@@ -297,23 +300,73 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                                     Intent intent) {
         try {
             if (requestCode == 1 && resultCode == RESULT_OK) {
-               Uri contentUri = FileProvider.getUriForFile(MainActivity.this, "com.yunyisheng.app.yunys.fileprovider", DialogManager.tempFile);
-                startPhotoZoom(contentUri, 150);
+                Uri contentUri;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    contentUri = FileProvider.getUriForFile(MainActivity.this, "com.yunyisheng.app.yunys.fileprovider", DialogManager.tempFile);
+                }else {
+                    contentUri=Uri.fromFile(DialogManager.tempFile);
+                }
+                cropRawPhoto(contentUri);
             } else if (requestCode == 2) {// 相册
                 if (intent != null) {
                     Log.i("xiaoqiang", "smdongxi==" + intent.getData());
-                    startPhotoZoom(intent.getData(), 150);
+                    cropRawPhoto(intent.getData());
                 }// 去裁剪
-            } else if (requestCode == 3) {
-                if (intent != null) {
-                    setPicToView(intent);
+            }else if (requestCode==UCrop.REQUEST_CROP){
+                try {
+                    setHeadImage(Environment
+                            .getExternalStorageDirectory() + "/yunys/123.png");
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
+//            else if (requestCode == 3) {
+//                if (intent != null) {
+//                    setPicToView(intent);
+//                }
+//            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         super.onActivityResult(requestCode, resultCode, intent);
+    }
+
+    /**
+     * 使用UCrop进行图片剪裁
+     *
+     * @param uri
+     */
+    public void cropRawPhoto(Uri uri) {
+
+        UCrop.Options options = new UCrop.Options();
+        // 修改标题栏颜色
+        options.setToolbarColor(getResources().getColor(R.color.logoutColor));
+        // 隐藏底部工具
+        options.setHideBottomControls(true);
+        // 图片格式
+        options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
+        // 设置图片压缩质量
+        options.setCompressionQuality(100);
+        // 是否让用户调整范围(默认false)，如果开启，可能会造成剪切的图片的长宽比不是设定的
+        // 如果不开启，用户不能拖动选框，只能缩放图片
+        options.setFreeStyleCropEnabled(true);
+        // 设置图片压缩质量
+        options.setCompressionQuality(100);
+        // 圆
+        options.setCircleDimmedLayer(true);
+        // 不显示网格线
+        options.setShowCropGrid(false);
+
+        // 设置源uri及目标uri
+        UCrop.of(uri, Uri.fromFile(tempFile))
+                // 长宽比
+                .withAspectRatio(1, 1)
+                // 图片大小
+                .withMaxResultSize(200, 200)
+                // 配置参数
+                .withOptions(options)
+                .start(this);
     }
 
     /**
@@ -347,7 +400,6 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
             Bitmap photo = extras.getParcelable("data");
             Log.i("xiaoqiang", "保存==" + photo);
             if (photo != null) {
-
                 try {
                     FileCache.saveMyBitmap(123 + ".png", photo);
                 } catch (Exception e) {
