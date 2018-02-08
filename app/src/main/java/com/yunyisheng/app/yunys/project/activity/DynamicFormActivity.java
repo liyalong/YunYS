@@ -1,6 +1,7 @@
 package com.yunyisheng.app.yunys.project.activity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -161,16 +162,26 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                     radioGroup.setId(id);
                     radioGroup.setPadding(0, 10, 0, 0);
                     radioGroup.setOrientation(LinearLayout.VERTICAL);
-                    List<ScheduleDetailBean.RespBodyBean.FormBean.VelueBean> options = dataBean.getOptions();
-                    if (options.size() < 1) return;
-                    for (int j = 0; j < options.size(); j++) {
-                        String valuetext = options.get(j).getValue();
-                        RadioButton radioButton = new RadioButton(this);
-                        radioButton.setTextColor(getResources().getColor(R.color.color_666));
-                        radioButton.setTextSize(14);
-                        radioButton.setId(Integer.parseInt(id + "1" + j));
-                        radioButton.setText(valuetext);
-                        radioGroup.addView(radioButton);
+                    String valuestring=dataBean.getValue();
+                    try {
+                        if (valuestring!=null&&!valuestring.equals("")){
+                            String[] values=null;
+                            values=valuestring.split(",");
+                            if (values.length < 1) return;
+                            for (int j = 0; j < values.length; j++) {
+                                String valuetext = values[j];
+                                RadioButton radioButton = new RadioButton(this);
+                                radioButton.setTextColor(getResources().getColor(R.color.color_666));
+                                radioButton.setTextSize(14);
+                                radioButton.setId(Integer.parseInt(id + "1" + j));
+                                radioButton.setText(valuetext);
+                                radioGroup.addView(radioButton);
+                            }
+                        }
+                    } catch (Resources.NotFoundException e) {
+                        e.printStackTrace();
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
                     }
                     lineAll.addView(radioGroup);
                 }
@@ -188,23 +199,30 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                     lineAll.addView(namevalue);
                 } else {
                     LinearLayout l = new LinearLayout(this);
-//                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                     l.setId(id);
                     l.setOrientation(LinearLayout.VERTICAL);
-                    List<ScheduleDetailBean.RespBodyBean.FormBean.VelueBean> options = dataBean.getOptions();
-                    if (options.size() < 1) return;
-                    for (int j = 0; j < options.size(); j++) {
-                        String valuetext = options.get(j).getValue();
-                        CheckBox checkBox = new CheckBox(this);
-                        checkBox.setTextColor(getResources().getColor(R.color.color_666));
-                        checkBox.setTextSize(14);
-                        checkBox.setId(Integer.parseInt(id + "2" + j));
-                        // checkBox.setButtonDrawable(getResources().getDrawable(R.drawable.checkbox_selector));
-                        checkBox.setText(valuetext);
-                        if (seetype == 2) {
-                            checkBox.setClickable(false);
+                    String valuestring=dataBean.getValue();
+                    try {
+                        if (valuestring != null && !valuestring.equals("")) {
+                            String[] values = null;
+                            values = valuestring.split(",");
+                            if (values.length < 1) return;
+                            for (int j = 0; j < values.length; j++) {
+                                String valuetext = values[j];
+                                CheckBox checkBox = new CheckBox(this);
+                                checkBox.setTextColor(getResources().getColor(R.color.color_666));
+                                checkBox.setTextSize(14);
+                                checkBox.setId(Integer.parseInt(id + "2" + j));
+                                // checkBox.setButtonDrawable(getResources().getDrawable(R.drawable.checkbox_selector));
+                                checkBox.setText(valuetext);
+                                if (seetype == 2) {
+                                    checkBox.setClickable(false);
+                                }
+                                l.addView(checkBox);
+                            }
                         }
-                        l.addView(checkBox);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                     lineAll.addView(l);
                 }

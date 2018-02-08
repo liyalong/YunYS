@@ -7,26 +7,27 @@
     android:background="@color/baseBackgroundColor">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/distance_49"
         android:orientation="vertical"
         android:background="@color/white"
-        android:paddingBottom="@dimen/distance_9"
-        android:layout_marginBottom="@dimen/distance_10">
+       >
         <android.support.design.widget.TabLayout
             android:id="@+id/project_tablayout"
-            android:layout_width="@dimen/distance_200"
-            android:layout_height="@dimen/distance_40"
-            android:layout_gravity="center"
-            android:layout_centerHorizontal="true"
-            app:tabGravity="center"
+            android:layout_width="@dimen/distance_150"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/distance_10"
+            android:layout_marginTop="@dimen/distance_10"
+            app:tabIndicatorColor="@color/color_44A7FD"
             app:tabMode="fixed"
-            app:tabTextColor="@color/color_666"
-            app:tabTextAppearance="@style/TabLayoutTextStyle"
             app:tabSelectedTextColor="@color/color_333"
-            app:tabIndicatorColor="@color/color_tab_selected">
-
-        </android.support.design.widget.TabLayout>
+            app:tabTextAppearance="@style/TabLayoutTextStyle"
+            app:tabTextColor="@color/color_333" />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/color_e7"
+        android:layout_height="0.5dp"/>
     <android.support.v4.view.ViewPager
         android:id="@+id/project_list_viewpage"
         android:layout_width="match_parent"

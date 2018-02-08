@@ -4,7 +4,6 @@ import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.project.model.TaskListModel;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
 import com.yunyisheng.app.yunys.tasks.bean.ProcessDetailBean;
-import com.yunyisheng.app.yunys.tasks.bean.UpdateCycleTaskBean;
 import com.yunyisheng.app.yunys.tasks.model.CycleTaskDetailModel;
 import com.yunyisheng.app.yunys.tasks.model.ProcessFormListModel;
 import com.yunyisheng.app.yunys.tasks.model.ProjectFormListModel;
@@ -300,6 +299,7 @@ public interface TaskService {
      * 获取企业所有用户列表
      * @return
      */
+    @FormUrlEncoded
     @POST("enterpriseUser/enterprises/list")
     Flowable<ProjectUserListModel> getAllUserLists(@Field("activiti") String activiti);
 }
