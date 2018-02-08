@@ -147,6 +147,7 @@ public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
 
 
     public void getResultDetail(NoticeDetailBean noticeDetailBean) {
+
         teNoticetitle.setText(noticeDetailBean.getRespBody().getTitle());
         teNoticedeatils.setText(noticeDetailBean.getRespBody().getContent());
         if (noticeDetailBean.getRespBody().getCreateUserName() != null &&

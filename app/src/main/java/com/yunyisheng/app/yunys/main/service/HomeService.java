@@ -12,6 +12,7 @@ import com.yunyisheng.app.yunys.main.model.MessageBean;
 import com.yunyisheng.app.yunys.main.model.MessageTypeBean;
 import com.yunyisheng.app.yunys.main.model.NoticeDetailBean;
 import com.yunyisheng.app.yunys.main.model.ProjectFromWorkBean;
+import com.yunyisheng.app.yunys.main.model.QuanxianBean;
 import com.yunyisheng.app.yunys.main.model.ReceiveMeMessageBean;
 import com.yunyisheng.app.yunys.main.model.ReportFormBean;
 import com.yunyisheng.app.yunys.main.model.ReportListBean;
@@ -201,6 +202,15 @@ public interface HomeService {
     @FormUrlEncoded
     @POST("android/enterprise/user/info")
     Flowable<GetOtherinfoBean> getOtherinfo(@Field("userId") int userId);
+
+    /**
+     * @author fuduo
+     * @time 2018/1/21  10:38
+     * @describe 10.3    判断用户权限
+     */
+    @FormUrlEncoded
+    @POST("privilege/selectYesOrNoPrivilege")
+    Flowable<QuanxianBean> getUserQuanxian(@Field("userId") int userId);
 
     /**
      * 获取报表名字列表

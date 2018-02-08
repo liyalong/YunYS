@@ -16,13 +16,14 @@ import com.yunyisheng.app.yunys.main.fragement.BasicDataFragement;
 import com.yunyisheng.app.yunys.main.fragement.ParticipateinFragement;
 import com.yunyisheng.app.yunys.main.fragement.ScheduleFragement;
 import com.yunyisheng.app.yunys.main.model.GetOtherinfoBean;
+import com.yunyisheng.app.yunys.main.model.QuanxianBean;
+import com.yunyisheng.app.yunys.main.present.WorkerDataPresent;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 import static com.yunyisheng.app.yunys.utils.ScreenUtils.setIndicator;
 
@@ -31,7 +32,7 @@ import static com.yunyisheng.app.yunys.utils.ScreenUtils.setIndicator;
  * @time 2018/1/16  21:26
  * @describe 员工详情
  */
-public class WorkerDataActivity extends BaseActivity {
+public class WorkerDataActivity extends BaseActivity<WorkerDataPresent> {
 
     @BindView(R.id.img_back)
     ImageView imgBack;
@@ -50,6 +51,8 @@ public class WorkerDataActivity extends BaseActivity {
     private int tabindex;
     public  int userid;
     private BasicDataFragement basicDataFragement;
+    public boolean canArrangeWork;
+    public String workername;
 
     @Override
     public void initView() {
@@ -57,7 +60,6 @@ public class WorkerDataActivity extends BaseActivity {
         mTitleList.add("基本资料");
         mTitleList.add("日程安排");
         mTitleList.add("参与项目");
-
         vpInformation.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -93,6 +95,7 @@ public class WorkerDataActivity extends BaseActivity {
         vpInformation.setAdapter(adapter);
         tablayoutInformation.setupWithViewPager(vpInformation);
         setIndicator(this, tablayoutInformation, 35, 35);
+        getP().getQuanxian(userid);
     }
 
     @Override
@@ -101,14 +104,24 @@ public class WorkerDataActivity extends BaseActivity {
     }
 
     @Override
-    public XPresent bindPresent() {
-        return null;
+    public WorkerDataPresent bindPresent() {
+        return new WorkerDataPresent();
     }
 
     @Override
     public void setListener() {
         imgBack.setOnClickListener(this);
         teEdit.setOnClickListener(this);
+    }
+
+    public void getQuanResultInfo(QuanxianBean quanxianBean) {
+        QuanxianBean.RespBodyBean respBody = quanxianBean.getRespBody();
+        canArrangeWork = respBody.isCanArrangeWork();
+        boolean canEditInfo = respBody.isCanEditInfo();
+        if (canEditInfo){
+            teEdit.setVisibility(View.VISIBLE);
+        }
+
     }
 
     public void setInfodetail(GetOtherinfoBean getOtherinfoBean){
@@ -129,6 +142,7 @@ public class WorkerDataActivity extends BaseActivity {
                 imgWorkerHead.setBackgroundResource(R.mipmap.maillist_man);
             }
         }
+        workername = getOtherinfoBean.getRespBody().getEnterpriseUser().getUserName();
         teNameZhize.setText(getOtherinfoBean.getRespBody().getEnterpriseUser().getUserName()+" | "+getOtherinfoBean.getRespBody().getEnterpriseUser().getUserJobTitle());
     }
 

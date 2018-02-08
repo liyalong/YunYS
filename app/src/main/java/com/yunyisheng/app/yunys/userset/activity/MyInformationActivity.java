@@ -91,9 +91,9 @@ public class MyInformationActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.rl_ed_username:
-                Intent intent = new Intent(this, ChangeInformationActivity.class);
-                intent.putExtra("type", 2);
-                startActivityForResult(intent, 2);
+//                Intent intent = new Intent(this, ChangeInformationActivity.class);
+//                intent.putExtra("type", 2);
+//                startActivityForResult(intent, 2);
                 break;
             case R.id.rl_ed_userphone:
                 startActivityForResult(new Intent(this, AccountSetActivity.class), 1);

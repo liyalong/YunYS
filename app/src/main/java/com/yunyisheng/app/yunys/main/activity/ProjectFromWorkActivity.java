@@ -1,11 +1,13 @@
 package com.yunyisheng.app.yunys.main.activity;
 
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -58,13 +60,7 @@ public class ProjectFromWorkActivity extends BaseActivity<ProjectFromworkPresent
         imgClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //edSearch.setText("");
-                sousuo_neirong = edSearch.getText().toString();
-                if (sousuo_neirong == null || sousuo_neirong.equals("")) {
-                    ToastUtils.showToast("搜索内容不能为空");
-                } else {
-                    getP().getFindProjectList(sousuo_neirong);
-                }
+                edSearch.setText("");
             }
         });
         edSearch.addTextChangedListener(mTextWatcher);
@@ -85,6 +81,28 @@ public class ProjectFromWorkActivity extends BaseActivity<ProjectFromworkPresent
                 return false;
             }
         });
+
+        lvSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                FindProjectWorkerBean.RespBodyBean respBodyBean = findWorkerProjectBeanList.get(position);
+                Intent intent = new Intent(ProjectFromWorkActivity.this, WorkerDataActivity.class);
+                intent.putExtra("userid", respBodyBean.getUserId());
+                startActivity(intent);
+            }
+        });
+
+        elvOrganizationframe.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                ProjectFromWorkBean.ListBean.UserListBean userListBean = projectFromWorkBeans.get(groupPosition).getUserList().get(childPosition);
+                Intent intent = new Intent(ProjectFromWorkActivity.this, WorkerDataActivity.class);
+                intent.putExtra("userid", userListBean.getUserId());
+                startActivity(intent);
+                return true;
+            }
+        });
+
     }
 
     @Override

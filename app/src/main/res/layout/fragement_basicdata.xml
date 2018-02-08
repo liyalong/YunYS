@@ -131,6 +131,7 @@
             android:layout_height="@dimen/distance_41"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/distance_118"
+            android:visibility="gone"
             android:background="@drawable/btn_anpai_work"
             android:text="@string/anpaiwork" />
     </LinearLayout>

@@ -129,7 +129,12 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
                 return;
             }
         }
-        getP().Login(userPhone, userPassword, uuid, yzmValue);
+        if (yzmValue!=null&&!yzmValue.equals("")){
+            getP().Login(userPhone, userPassword, uuid, yzmValue);
+        }else {
+            getP().Login(userPhone, userPassword, uuid, null);
+        }
+
     }
 
     /**

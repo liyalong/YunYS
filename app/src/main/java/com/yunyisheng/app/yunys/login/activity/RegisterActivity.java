@@ -1,6 +1,5 @@
 package com.yunyisheng.app.yunys.login.activity;
 
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -205,15 +204,9 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
             ToastUtils.showToast(baseStatusModel.getRespMsg());
             return;
         } else {
-            ToastUtils.showToast("注册成功！");
+            ToastUtils.showToast("注册成功,请耐心等待审核！");
             toLoginView();
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

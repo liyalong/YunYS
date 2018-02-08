@@ -48,5 +48,5 @@ public class BasicDataPresent extends XPresent<BasicDataFragement> {
                     }
                 });
     }
-    
+
 }

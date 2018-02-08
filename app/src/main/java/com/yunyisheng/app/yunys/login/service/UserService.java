@@ -25,7 +25,7 @@ public interface UserService {
     Flowable<LoginModel> login(@Field("userName") String userPhone,
                                @Field("password") String userPassword,
                                @Field("androidID") String uuid,
-                               @Field("yzm") String yzm);
+                               @Field("authCode") String yzm);
 
     /**
      * 找回密码

@@ -48,6 +48,7 @@ public interface UserSetService {
      * @describe 修改邮箱
      */
     @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     @POST("system/update/enterprirUser/userMailbox")
     Flowable<BaseModel> upDateemail(@Field("userMailbox") String userMailbox);
 

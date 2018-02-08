@@ -68,6 +68,7 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
     private List<ReceiveMeMessageBean.ListBean> receivemelist=new ArrayList<>();
     private PublishNoticeListAdapter adapter;
     private ReceiveNoticeListAdapter adapter1;
+    private MyReceiver receiver;
 
     public static NoticeFragement getInstance(int index) {
         NoticeFragement fragement = new NoticeFragement();
@@ -101,7 +102,7 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
                     sendlist.clear();
                     getP().getSendNoticelist(pageindex, 10, null);
                 } else {
-                    sendlist.clear();
+                    receivemelist.clear();
                     getP().getReceiveNoticelist(pageindex, 10, null);
                 }
             }
@@ -133,7 +134,7 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
                             pageindex = 1;
                             getP().getSendNoticelist(pageindex, 10, sousuo_neirong);
                         } else {
-                            sendlist.clear();
+                            receivemelist.clear();
                             pageindex = 1;
                             getP().getReceiveNoticelist(pageindex, 10, sousuo_neirong);
                         }
@@ -145,19 +146,27 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
         pullToRefreshListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SendNoticeBean.ListBean listBean = sendlist.get(position - 1);
-                Intent intent = new Intent(mContext, NoticeDeatilActivity.class);
-                intent.putExtra("type", tabindex);
-                intent.putExtra("noticeid", listBean.getAnnouncementId());
-                startActivityForResult(intent, 2);
-                sousuo_neirong = edSearch.getText().toString();
+                if (tabindex==0) {
+                    SendNoticeBean.ListBean listBean = sendlist.get(position - 1);
+                    Intent intent = new Intent(mContext, NoticeDeatilActivity.class);
+                    intent.putExtra("type", tabindex);
+                    intent.putExtra("noticeid", listBean.getAnnouncementId());
+                    startActivityForResult(intent, 2);
+                }else {
+                    ReceiveMeMessageBean.ListBean listBean = receivemelist.get(position - 1);
+                    Intent intent = new Intent(mContext, NoticeDeatilActivity.class);
+                    intent.putExtra("type", tabindex);
+                    intent.putExtra("noticeid", listBean.getAnnouncementId());
+                    startActivityForResult(intent, 2);
+                }
             }
         });
     }
 
     @Override
     public void initAfter() {
-        MyReceiver receiver = new MyReceiver();//广播接受者实例
+        //广播接受者实例
+        receiver = new MyReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("action");
         getActivity().registerReceiver(receiver, intentFilter);
@@ -170,7 +179,7 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
         if (position.equals("updatenotice")){
             sendlist.clear();
             pageindex = 1;
-            getP().getSendNoticelist(pageindex, 10, sousuo_neirong);
+            getP().getSendNoticelist(pageindex, 10, null);
         }
 
     }
@@ -191,14 +200,13 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
                     sendlist.clear();
                     getP().getSendNoticelist(pageindex, 10, null);
                 }
-
             } else if ("deletesendme".equals(data)) {
-                if (sendlist.size() == 1) {
-                    sendlist.clear();
-                    adapter = new PublishNoticeListAdapter(mContext, sendlist);
-                    pullToRefreshListview.setAdapter(adapter);
+                if (receivemelist.size() == 1) {
+                    receivemelist.clear();
+                    adapter1 = new ReceiveNoticeListAdapter(mContext, receivemelist);
+                    pullToRefreshListview.setAdapter(adapter1);
                 } else {
-                    sendlist.clear();
+                    receivemelist.clear();
                     getP().getReceiveNoticelist(pageindex, 10, null);
                 }
 
@@ -239,7 +247,7 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
                 pullToRefreshListview.setAdapter(adapter1);
             } else {
                 receivemelist.addAll(receiveMeMessageBean.getList());
-                adapter.notifyDataSetChanged();
+                adapter1.notifyDataSetChanged();
             }
         } else {
             if (pageindex == 1) {
@@ -309,5 +317,6 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
         super.onDestroyView();
         unbinder.unbind();
         EventBus.getDefault().unregister(this);
+        getActivity().unregisterReceiver(receiver);
     }
 }
