@@ -50,6 +50,34 @@ public class MemorandumPresent extends XPresent<MemorandumActivity> {
     /**
      * @author fuduo
      * @time 2018/1/23  14:13
+     * @describe 模糊查询备忘录
+     */
+    public void selectMemoList(int userid,int pagenum, int pagerows,String string) {
+        Api.homeService().selectMemorandumList(userid,pagenum, pagerows,string)
+                .compose(XApi.<MemorandumBean>getApiTransformer()) //统一异常处理
+                .compose(XApi.<MemorandumBean>getScheduler()) //线程调度
+                .compose(getV().<MemorandumBean>bindToLifecycle()) //内存泄漏处理
+                .subscribe(new ApiSubscriber<MemorandumBean>() {
+                    @Override
+                    public void onNext(MemorandumBean memorandumBean) {
+                        if (memorandumBean.getRespCode() == 0) {
+                            getV().getSelectResult(memorandumBean);
+                        } else {
+                            ToastUtils.showToast(memorandumBean.getRespMsg());
+                        }
+                    }
+
+                    @Override
+                    protected void onFail(NetError error) {
+                        ToastUtils.showToast("请求数据失败！");
+                        getV().stopRefresh();
+                    }
+                });
+    }
+
+    /**
+     * @author fuduo
+     * @time 2018/1/23  14:13
      * @describe 删除备忘录
      */
     public void deleteMemo(int ids) {

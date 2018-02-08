@@ -159,6 +159,19 @@ public interface HomeService {
 
     /**
      * @author fuduo
+     * @time 2018/1/23  14:02
+     * @describe 模糊查询备忘录
+     */
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    @POST("memo/selectmemo")
+    Flowable<MemorandumBean> selectMemorandumList(@Field("memoUserId") int memoUserId,
+                                                  @Field("pagenum") int pagenum,
+                                                  @Field("pagerows") int pagerows,
+                                                  @Field("searchC") String searchC);
+
+    /**
+     * @author fuduo
      * @time 2018/1/21  10:38
      * @describe 创建备忘录
      */

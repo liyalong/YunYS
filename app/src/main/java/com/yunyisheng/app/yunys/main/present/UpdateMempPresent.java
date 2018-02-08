@@ -4,6 +4,7 @@ import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.main.activity.AddMemorandumActivity;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.schedule.model.PositionMessageEvent;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -27,6 +28,7 @@ public class UpdateMempPresent extends XPresent<AddMemorandumActivity> {
      *  @describe 添加备忘录
      */
     public void addMemo(String memoVal){
+        LoadingDialog.show(getV());
         Api.homeService().createMemo(memoVal)
                 .compose(XApi.<BaseModel>getApiTransformer()) //统一异常处理
                 .compose(XApi.<BaseModel>getScheduler()) //线程调度
@@ -34,6 +36,7 @@ public class UpdateMempPresent extends XPresent<AddMemorandumActivity> {
                 .subscribe(new ApiSubscriber<BaseModel>() {
                     @Override
                     public void onNext(BaseModel baseModel) {
+                        LoadingDialog.dismiss(getV());
                         if (baseModel.getRespCode()==0){
                             ToastUtils.showToast("添加成功");
                             EventBus.getDefault().post(new PositionMessageEvent("updatebeiwanglu"));
@@ -44,6 +47,7 @@ public class UpdateMempPresent extends XPresent<AddMemorandumActivity> {
 
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
                         ToastUtils.showToast("添加失败！");
                     }
                 });
