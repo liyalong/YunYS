@@ -286,7 +286,7 @@ public interface HomeService {
      *  @describe 消息未读数
      */
     @POST("message/selectMessageCountByType")
-    Call<NoReadMessage> getServiceNoReadMessage();
+    Call<NoReadMessage> getServiceNoReadMessage(@Header("token") String token);
 
     /**
      * 项目检索

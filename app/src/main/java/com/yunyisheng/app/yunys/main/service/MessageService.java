@@ -147,8 +147,9 @@ public class MessageService extends Service {
 				.addConverterFactory(GsonConverterFactory.create()) //设置使用Gson解析(记得加入依赖)
 				.build();
 		HomeService request = retrofit.create(HomeService.class);
+		String token = SharedPref.getInstance(MessageService.this).getString("TOKEN", null);
 		//对 发送请求 进行封装
-		Call<NoReadMessage> call = request.getServiceNoReadMessage();
+		Call<NoReadMessage> call = request.getServiceNoReadMessage(token);
 		call.enqueue(new Callback<NoReadMessage>() {
 			@Override
 			public void onResponse(Call<NoReadMessage> call, Response<NoReadMessage> response) {
@@ -219,7 +220,4 @@ public class MessageService extends Service {
 		Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 		vibrator.vibrate(1500);//振动两秒
 	}
-
-
-
 }
