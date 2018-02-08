@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import com.yunyisheng.app.yunys.R;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by zhangjinqi on 2017/8/9.
@@ -79,6 +80,14 @@ public class DialogManager {
             @Override
             public void onClick(View arg0) {
                 Uri uri;
+                try {
+                    if (tempFile.exists()) {
+                        tempFile.delete();
+                    }
+                    tempFile.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     uri = FileProvider.getUriForFile(activity,"com.yunyisheng.app.yunys.fileprovider",tempFile);
