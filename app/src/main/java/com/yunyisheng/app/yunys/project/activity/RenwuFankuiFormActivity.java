@@ -431,9 +431,9 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 }else {
                     contentUri=Uri.fromFile(DialogManager.tempFile);
                 }
-                String realPathFromURI = Util.getFileAbsolutePath(this, contentUri);
-                File file = new File(realPathFromURI);
-                putPic(file,contentUri);
+//                String realPathFromURI = Util.getFileAbsolutePath(this, contentUri);
+//                File file = new File(realPathFromURI);
+                putPic(DialogManager.tempFile,contentUri);
             } else if (requestCode == 2) {// 相册
                 if (intent != null) {
                     Log.i("xiaoqiang", "smdongxi==" + intent.getData());

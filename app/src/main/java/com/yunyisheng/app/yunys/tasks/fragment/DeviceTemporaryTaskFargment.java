@@ -9,14 +9,11 @@ import com.alibaba.fastjson.JSON;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.main.model.WorkerBean;
-import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
 import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.ProjectTemplateActivity;
 import com.yunyisheng.app.yunys.tasks.activity.RadioSelectUserActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectDeviceActivity;
-import com.yunyisheng.app.yunys.tasks.activity.SelectProjectUserListActivity;
-import com.yunyisheng.app.yunys.tasks.bean.ProjectUserBean;
 import com.yunyisheng.app.yunys.tasks.bean.UpdateTemporaryTaskBean;
 import com.yunyisheng.app.yunys.tasks.model.ReleaseTaskDetailModel;
 import com.yunyisheng.app.yunys.tasks.present.DeviceTemporaryTaskPresent;
@@ -31,7 +28,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.droidlover.xdroidmvp.log.XLog;
 
 /**
  * Created by liyalong on 2018/1/13.
@@ -87,7 +83,7 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
         initDatePicker();
 
         CreateDeviceTaskAcitvity createDeviceTaskAcitvity = (CreateDeviceTaskAcitvity) getActivity();
-        this.releaseTaskId = String.valueOf(createDeviceTaskAcitvity.getTaskEditId());
+        this.releaseTaskId = createDeviceTaskAcitvity.getTaskEditId();
         this.projectId = createDeviceTaskAcitvity.getProjectId();
 
         List<WorkerBean> selectUsersFromWork = createDeviceTaskAcitvity.getSelectWorkList();

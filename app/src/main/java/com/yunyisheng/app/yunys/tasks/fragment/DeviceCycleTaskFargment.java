@@ -16,11 +16,8 @@ import com.yunyisheng.app.yunys.tasks.activity.ProjectTemplateActivity;
 import com.yunyisheng.app.yunys.tasks.activity.RadioSelectUserActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectDeviceActivity;
-import com.yunyisheng.app.yunys.tasks.activity.SelectProjectUserListActivity;
-import com.yunyisheng.app.yunys.tasks.bean.ProjectUserBean;
 import com.yunyisheng.app.yunys.tasks.bean.UpdateCycleTaskBean;
 import com.yunyisheng.app.yunys.tasks.model.CycleTaskDetailModel;
-import com.yunyisheng.app.yunys.tasks.model.TaskDetailModel;
 import com.yunyisheng.app.yunys.tasks.present.DeviceCycleTaskPresent;
 import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
@@ -92,7 +89,7 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
         ButterKnife.bind(this, context);
         initDatePicker();
         CreateDeviceTaskAcitvity DeviceTaskAcitvity = (CreateDeviceTaskAcitvity) getActivity();
-        this.cycleReleaseTaskId = String.valueOf(DeviceTaskAcitvity.getTaskEditId());
+        this.cycleReleaseTaskId = DeviceTaskAcitvity.getTaskEditId();
         this.cycleProjectId = DeviceTaskAcitvity.getProjectId();
         //从通讯录安排工作跳转来的人员
         List<WorkerBean> selectUsersFromWork = DeviceTaskAcitvity.getSelectWorkList();
