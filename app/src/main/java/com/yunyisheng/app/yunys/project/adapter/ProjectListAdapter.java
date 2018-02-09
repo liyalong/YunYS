@@ -43,7 +43,7 @@ public class ProjectListAdapter extends SimpleListAdapter<ProjectBean, ProjectLi
     protected void convert(ViewHolder holder, ProjectBean item, int position) {
             final ProjectBean projectBean = data.get(position);
             holder.projectName.setText(projectBean.getProjectName());
-            holder.projectCreateUser.setText(projectBean.getProjectLeader());
+            holder.projectCreateUser.setText(projectBean.getProjectLeaderName());
             holder.projectErrorLayout.setVisibility(View.GONE);
             holder.projectNewtaskLayout.setVisibility(View.GONE);
             holder.projectCreateTime.setText(projectBean.getProjectCreate());

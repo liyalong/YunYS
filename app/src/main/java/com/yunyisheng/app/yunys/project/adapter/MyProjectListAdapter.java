@@ -42,7 +42,7 @@ public class MyProjectListAdapter extends SimpleListAdapter<ProjectBean, MyProje
     protected void convert(ViewHolder holder, ProjectBean item, int position) {
             final ProjectBean projectBean = data.get(position);
             holder.projectName.setText(projectBean.getProjectName());
-            holder.projectCreateUser.setText(projectBean.getProjectLeader());
+            holder.projectCreateUser.setText(projectBean.getProjectLeaderName());
             if (item.getUnSeeTaskNum() != null && item.getUnSeeTaskNum() > 0){
                 holder.projectNewtaskLayout.setVisibility(View.VISIBLE);
                 holder.projectNewtaskNums.setText(item.getUnSeeTaskNum().toString());

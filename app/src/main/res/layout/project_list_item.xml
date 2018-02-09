@@ -105,7 +105,7 @@
                 android:id="@+id/project_create_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="张三"
+
                 android:textColor="@color/color_666"/>
         </LinearLayout>
     </LinearLayout>

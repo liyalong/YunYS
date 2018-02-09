@@ -29,9 +29,19 @@ public class ProjectBean implements Serializable {
     private String projectStopIndicators;
     private String isFocus;
     private String projectLeader;
+    private String projectLeaderName;
     private ProType proType;
     private Integer unSeeTaskNum;
     private Integer warningNum;
+
+    public void setProjectLeaderName(String projectLeaderName) {
+        this.projectLeaderName = projectLeaderName;
+    }
+
+    public String getProjectLeaderName() {
+
+        return projectLeaderName;
+    }
 
     public void setWarningNum(Integer warningNum) {
         this.warningNum = warningNum;
