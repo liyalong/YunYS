@@ -183,8 +183,10 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
             LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                     1);
             lpview.setMargins(0, 10, 0, 0);
-            LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(170,
-                    170);
+            LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(200,
+                    200);
+            LinearLayout.LayoutParams bigimgview = new LinearLayout.LayoutParams(500,
+                    600);
             if (type == 1) {
                 TextView name = new TextView(this);
                 name.setPadding(0, 10, 0, 0);
@@ -296,7 +298,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 try {
                     if (seetype==2){
                         ImageView imageView = new ImageView(this);
-                        imageView.setLayoutParams(imgview);
+                        imageView.setLayoutParams(bigimgview);
                         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                         if (feedbackVal!=null&&!feedbackVal.equals("")){
                             Bitmap bitmap = stringtoBitmap(feedbackVal);

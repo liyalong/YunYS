@@ -5,6 +5,7 @@ import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.activity.RenwuFankuiFormActivity;
 import com.yunyisheng.app.yunys.project.model.TaskMessageEvent;
 import com.yunyisheng.app.yunys.schedule.model.RenWuFanKuiDetailBean;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -27,6 +28,7 @@ public class RenwuFankuiDetailPresent extends XPresent<RenwuFankuiFormActivity> 
      * 14.2	查看任务反馈项
      */
     public void getScheduleDetail(String projectid,int taskid) {
+        LoadingDialog.show(getV());
         Api.scheduleService().getTaskInfo(projectid,taskid)
                 .compose(XApi.<RenWuFanKuiDetailBean>getApiTransformer())
                 .compose(XApi.<RenWuFanKuiDetailBean>getScheduler())
@@ -34,6 +36,7 @@ public class RenwuFankuiDetailPresent extends XPresent<RenwuFankuiFormActivity> 
                 .subscribe(new ApiSubscriber<RenWuFanKuiDetailBean>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
                         XLog.d("NET ERROR :" + error.toString());
                         ToastUtils.showToast("网络请求错误！");
                         return;
@@ -41,6 +44,7 @@ public class RenwuFankuiDetailPresent extends XPresent<RenwuFankuiFormActivity> 
 
                     @Override
                     public void onNext(RenWuFanKuiDetailBean renWuFanKuiDetailBean) {
+                        LoadingDialog.dismiss(getV());
                         try {
                             if (renWuFanKuiDetailBean.getRespCode() == 1) {
                                 ToastUtils.showToast(renWuFanKuiDetailBean.getRespMsg());

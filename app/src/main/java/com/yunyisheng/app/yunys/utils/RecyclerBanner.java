@@ -241,13 +241,13 @@ public class RecyclerBanner extends FrameLayout {
                 for (int i = 0; i < personalLabelList.size(); i++) {
                     BannerBean.RespBodyBean.PersonalLabelListBean personalLabelListBean = personalLabelList.get(i);
                     if (i == 0) {
-                        holder.allnumbertitle.setText(personalLabelListBean.getStatusName());
+                        holder.allnumbertitle.setText(personalLabelListBean.getTypeName()+" - "+personalLabelListBean.getStatusName());
                         holder.allnumber.setText(personalLabelListBean.getLabelValue());
                     } else if (i == 1) {
-                        holder.todaywaringtitle.setText(personalLabelListBean.getStatusName());
+                        holder.todaywaringtitle.setText(personalLabelListBean.getTypeName()+" - "+personalLabelListBean.getStatusName());
                         holder.todaywaringnumber.setText(personalLabelListBean.getLabelValue());
                     } else {
-                        holder.waringalltitle.setText(personalLabelListBean.getStatusName());
+                        holder.waringalltitle.setText(personalLabelListBean.getTypeName()+" - "+personalLabelListBean.getStatusName());
                         holder.waringallnumber.setText(personalLabelListBean.getLabelValue());
                     }
                 }
@@ -255,16 +255,16 @@ public class RecyclerBanner extends FrameLayout {
                 for (int i = 0; i < personalLabelList.size(); i++) {
                     BannerBean.RespBodyBean.PersonalLabelListBean personalLabelListBean = personalLabelList.get(i);
                     if (i == 0) {
-                        holder.allnumbertitle.setText(personalLabelListBean.getStatusName());
+                        holder.allnumbertitle.setText(personalLabelListBean.getTypeName()+" - "+personalLabelListBean.getStatusName());
                         holder.allnumber.setText(personalLabelListBean.getLabelValue());
                     } else if (i == 1) {
-                        holder.todaywaringtitle.setText(personalLabelListBean.getStatusName());
+                        holder.todaywaringtitle.setText(personalLabelListBean.getTypeName()+" - "+personalLabelListBean.getStatusName());
                         holder.todaywaringnumber.setText(personalLabelListBean.getLabelValue());
                     }
                 }
             } else if (personalLabelList.size() == 1) {
                 BannerBean.RespBodyBean.PersonalLabelListBean personalLabelListBean = personalLabelList.get(0);
-                holder.allnumbertitle.setText(personalLabelListBean.getStatusName());
+                holder.allnumbertitle.setText(personalLabelListBean.getTypeName()+" - "+personalLabelListBean.getStatusName());
                 holder.allnumber.setText(personalLabelListBean.getLabelValue());
             }
         }

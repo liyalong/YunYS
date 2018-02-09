@@ -5,6 +5,7 @@ import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.activity.DynamicFormActivity;
 import com.yunyisheng.app.yunys.project.model.TaskMessageEvent;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -27,6 +28,7 @@ public class ScheduleDetailPresent extends XPresent<DynamicFormActivity> {
      * 14.2	查看别人任务表单
      */
     public void getOtherScheduleDetail(int userid,String taskid,int type){
+        LoadingDialog.show(getV());
         Api.scheduleService().getOtherScheduleDetail(userid,taskid,type)
                 .compose(XApi.<ScheduleDetailBean>getApiTransformer())
                 .compose(XApi.<ScheduleDetailBean>getScheduler())
@@ -34,6 +36,7 @@ public class ScheduleDetailPresent extends XPresent<DynamicFormActivity> {
                 .subscribe(new ApiSubscriber<ScheduleDetailBean>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
                         XLog.d("NET ERROR :"+error.toString());
                         ToastUtils.showToast("网络请求错误！");
                         return;
@@ -41,6 +44,7 @@ public class ScheduleDetailPresent extends XPresent<DynamicFormActivity> {
 
                     @Override
                     public void onNext(ScheduleDetailBean scheduleDetailBean) {
+                        LoadingDialog.dismiss(getV());
                         try {
                             if (scheduleDetailBean.getRespCode() == 1){
                                 ToastUtils.showToast(scheduleDetailBean.getRespMsg());
@@ -59,6 +63,7 @@ public class ScheduleDetailPresent extends XPresent<DynamicFormActivity> {
      * 14.2	查看自己任务表单
      */
     public void getMineScheduleDetail(String taskid,int type){
+        LoadingDialog.show(getV());
         Api.scheduleService().getMineScheduleDetail(taskid,type)
                 .compose(XApi.<ScheduleDetailBean>getApiTransformer())
                 .compose(XApi.<ScheduleDetailBean>getScheduler())
@@ -66,6 +71,7 @@ public class ScheduleDetailPresent extends XPresent<DynamicFormActivity> {
                 .subscribe(new ApiSubscriber<ScheduleDetailBean>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
                         XLog.d("NET ERROR :"+error.toString());
                         ToastUtils.showToast("网络请求错误！");
                         return;
@@ -73,6 +79,7 @@ public class ScheduleDetailPresent extends XPresent<DynamicFormActivity> {
 
                     @Override
                     public void onNext(ScheduleDetailBean scheduleDetailBean) {
+                        LoadingDialog.dismiss(getV());
                         try {
                             if (scheduleDetailBean.getRespCode() == 1){
                                 ToastUtils.showToast(scheduleDetailBean.getRespMsg());
