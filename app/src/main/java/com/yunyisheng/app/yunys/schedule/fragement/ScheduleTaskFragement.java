@@ -76,7 +76,7 @@ public class ScheduleTaskFragement extends BaseFragement<SchedulrTaskPresent> {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(), fragmentList, mTitleList);
         vpTask.setAdapter(adapter);
         tablayoutTask.setupWithViewPager(vpTask);
-        setIndicator(getActivity(), tablayoutTask, 10, 10);
+        setIndicator(getActivity(), tablayoutTask, 5, 5);
         vpTask.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
