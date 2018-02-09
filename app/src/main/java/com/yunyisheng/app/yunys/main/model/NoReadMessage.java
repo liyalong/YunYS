@@ -28,6 +28,21 @@ public class NoReadMessage extends BaseModel {
     }
 
     public static class RespBodyBean {
+        @Override
+        public String toString() {
+            return "RespBodyBean{" +
+                    "warnnum=" + warnnum +
+                    ", projectnum=" + projectnum +
+                    ", annonum=" + annonum +
+                    ", tasknum=" + tasknum +
+                    ", warn=" + warn +
+                    ", task=" + task +
+                    ", anno=" + anno +
+                    ", project=" + project +
+                    ", Mids=" + Mids +
+                    '}';
+        }
+
         /**
          * warn : [{"messageId":28056,"messageType":"2","messageInfoId":"1619","messageStat":"1","messageRemark":"在项目 [一轻大厦环境监测] 设备 [类加载器]中触发报警，具体报警位置: 报警规则 [类名找不到] PLC [Y003_TIC2102B2]","messageCreateTime":"2018-02-08 06:09:10","messageUpdateTime":null,"messageReceiveUserId":469,"messageReleaseUserId":1,"applicationId":null,"companyId":"9d853bbaabe94a29a2d06aa49d68194f","messageReleaseUserName":null}]
          * task : [{"messageId":28105,"messageType":"1","messageInfoId":"786","messageStat":"1","messageRemark":"✧<font color=\"orange\">hhhh<\/font>✧<br/>任务已经下发给你<font color=\"orange\">(๑\u2022̀ㅂ\u2022́)و✧<\/font>","messageCreateTime":"2018-02-08 06:59:49","messageUpdateTime":"2018-02-08 09:03:51","messageReceiveUserId":469,"messageReleaseUserId":428,"applicationId":null,"companyId":"9d853bbaabe94a29a2d06aa49d68194f","messageReleaseUserName":null}]

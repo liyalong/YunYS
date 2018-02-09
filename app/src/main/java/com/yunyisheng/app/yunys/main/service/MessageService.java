@@ -3,6 +3,8 @@ package com.yunyisheng.app.yunys.main.service;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.IBinder;
@@ -10,6 +12,7 @@ import android.os.Vibrator;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.main.model.NoReadMessage;
 import com.yunyisheng.app.yunys.main.model.NoReadMessageEvent;
 import com.yunyisheng.app.yunys.main.model.WarningMessageEvent;
@@ -45,6 +48,8 @@ public class MessageService extends Service {
 	private boolean isRun;
 
 	private int allsize;
+
+	MediaPlayer mMediaPlayer;
 	
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -155,8 +160,8 @@ public class MessageService extends Service {
 			public void onResponse(Call<NoReadMessage> call, Response<NoReadMessage> response) {
 				NoReadMessage body = response.body();
 				NoReadMessage.RespBodyBean respBody =body.getRespBody();
-				LogUtils.i("servicehflkdh", body.getRespBody() + "");
 				try {
+					LogUtils.i("servicehflkdh", respBody.toString());
 					if (respBody.getMids() != null && respBody.getMids().size() > 0) {
 						int size = respBody.getMids().size();
 						if (allsize == size) {
@@ -195,6 +200,7 @@ public class MessageService extends Service {
 				LogUtils.i("servicehflkdh",body.getRespBody()+"");
 				if (respBody>0){
 					doVibrator();
+					playAudio();
 				}
 				EventBus.getDefault().post(new WarningMessageEvent(respBody));
 			}
@@ -215,6 +221,24 @@ public class MessageService extends Service {
 		}
 	}
 
+	private  void  playAudio(){
+		try {
+			mMediaPlayer = MediaPlayer.create(this, R.raw.msg);
+			mMediaPlayer.setLooping(false);
+			mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+			mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+				@Override
+				public void onCompletion(MediaPlayer mp) {
+					mMediaPlayer.release();
+					mMediaPlayer = null;
+				}
+			});
+			mMediaPlayer.start();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	private void doVibrator(){
 		Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);

@@ -24,6 +24,7 @@ import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.base.PressionListener;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.login.model.UserModel;
+import com.yunyisheng.app.yunys.main.service.MessageService;
 import com.yunyisheng.app.yunys.userset.activity.AboutOurActivity;
 import com.yunyisheng.app.yunys.userset.activity.AccountSetActivity;
 import com.yunyisheng.app.yunys.userset.activity.ClearCatchActivity;
@@ -198,6 +199,40 @@ public class MineFragement extends BaseFragement<MinePresent> {
         });
     }
 
+    /**
+     * 请求权限
+     */
+    private void requestFilePermission() {
+        ((MainActivity)getActivity()).requestRunTimePression(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PressionListener() {
+            @Override
+            public void onGranted() {
+
+            }
+
+            @Override
+            public void onFailure(List<String> failurePression) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setMessage("提示")
+                        .setMessage("请您去设置中授予内部存储的权限")
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                getActivity().finish();
+                            }
+                        })
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
+                                ComponentName cName = new ComponentName("com.android.phone", "com.android.phone.Settings");
+                                intent.setComponent(cName);
+                                startActivity(intent);
+                            }
+                        });
+            }
+        });
+    }
+
     class MyReceiver extends BroadcastReceiver {
         public MyReceiver() {
         }
@@ -225,6 +260,7 @@ public class MineFragement extends BaseFragement<MinePresent> {
         switch (v.getId()) {
             case R.id.img_carm:
                 requestPermission();
+                requestFilePermission();
                 DialogManager.createPickImageDialog(getActivity());
                 break;
             case R.id.my_info:
@@ -255,6 +291,7 @@ public class MineFragement extends BaseFragement<MinePresent> {
                 Router.newIntent(context)
                         .to(LoginActivity.class)
                         .launch();
+                mContext.stopService(new Intent(mContext, MessageService.class));
                 context.finish();
                 break;
         }

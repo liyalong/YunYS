@@ -2,6 +2,8 @@ package com.yunyisheng.app.yunys.main.fragement;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
@@ -94,6 +96,7 @@ public class HomeFragement extends BaseFragement<HomePresent> {
     private String dayEndTime;
     private boolean isfirst = true;
     private boolean isonce = true;
+    private MediaPlayer mMediaPlayer;
 
     @Override
     public void initView() {
@@ -172,6 +175,7 @@ public class HomeFragement extends BaseFragement<HomePresent> {
         int size = messageEvent.getSize();
         if (size > 0) {
             imgMessage.setBackgroundResource(R.mipmap.red_msg);
+            playAudio();
             doVibrator();
         } else {
             imgMessage.setBackgroundResource(R.mipmap.message);
@@ -287,8 +291,28 @@ public class HomeFragement extends BaseFragement<HomePresent> {
             int size = respBody.getMids().size();
             if (size > 0) {
                 imgMessage.setBackgroundResource(R.mipmap.red_msg);
+                playAudio();
                 doVibrator();
             }
+        }
+    }
+
+    private  void  playAudio(){
+        try {
+            mMediaPlayer = MediaPlayer.create(mContext, R.raw.msg);
+            mMediaPlayer.setLooping(false);
+            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    mMediaPlayer.release();
+                    mMediaPlayer = null;
+                }
+            });
+            mMediaPlayer.start();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
