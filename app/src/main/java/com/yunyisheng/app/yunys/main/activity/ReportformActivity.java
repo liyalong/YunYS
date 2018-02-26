@@ -167,7 +167,6 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
             @Override
             public void onPageFinished(WebView view, String url) {
                 getBendiList();
-                getP().getBaobiaoList(1, 0);
             }
         });
     }
@@ -177,7 +176,7 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
         setWeb();
     }
 
-    private void getBendiList(){
+    private void getBendiList() {
         addedReformString = SharedPref.getInstance(ReportformActivity.this).getString("AddedReformString", "");
         if (addedReformString != null && !addedReformString.equals("")) {
             List<ReportFormBean.ListBean> list = JSONArray.parseArray(addedReformString, ReportFormBean.ListBean.class);
@@ -187,11 +186,11 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
                 public void run() {
                     // 注意调用的JS方法名要对应上
                     // 调用javascript的callJS()方法
-                    web.loadUrl("javascript:createTableDiv('" + addedReformString +""+"')");
+                    web.loadUrl("javascript:createTableDiv('" + addedReformString + "" + "')");
                 }
             });
-        }else {
-
+        } else {
+            getP().getBaobiaoList(1, 0);
         }
     }
 
@@ -221,19 +220,18 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
     }
 
     public void getResultList(ReportFormBean reportFormBean) {
+        list.clear();
         if (reportFormBean.getList().size() > 0) {
             list.addAll(reportFormBean.getList());
-            if (addedReformString == null || addedReformString.equals("")) {
-                netstring = JSON.toJSONString(list);
-                web.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        // 注意调用的JS方法名要对应上
-                        // 调用javascript的callJS()方法
-                        web.loadUrl("javascript:createTableDiv('" + netstring + "" + "')");
-                    }
-                });
-            }
+            netstring = JSON.toJSONString(list);
+            web.post(new Runnable() {
+                @Override
+                public void run() {
+                    // 注意调用的JS方法名要对应上
+                    // 调用javascript的callJS()方法
+                    web.loadUrl("javascript:createTableDiv('" + netstring + "" + "')");
+                }
+            });
             CanAddReportformListAdapter addReportformListAdapter = new CanAddReportformListAdapter(ReportformActivity.this, list);
             gvadd.setAdapter(addReportformListAdapter);
         }
@@ -263,7 +261,7 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
                     SharedPref.getInstance(ReportformActivity.this).putString("AddedReformString", json);
                     LogUtils.i("string", json);
                     getBendiList();
-                }else {
+                } else {
                     SharedPref.getInstance(ReportformActivity.this).putString("AddedReformString", "");
 //                    web.post(new Runnable() {
 //                        @Override
