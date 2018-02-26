@@ -212,6 +212,7 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
     }
 
     public void setAddedlist(List<ReportFormBean.ListBean> list) {
+        addedlist.clear();
         addedlist.addAll(list);
         adapter = new AddedReportformListAdapter(ReportformActivity.this, addedlist);
         gvadded.setAdapter(adapter);
