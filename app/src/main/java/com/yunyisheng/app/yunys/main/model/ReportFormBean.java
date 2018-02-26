@@ -91,12 +91,12 @@ public class ReportFormBean implements IModel {
         private int reportUserId;
         private String reportUserName;
         private int reportId;
-        private Object refreshFrequency;
+        private String refreshFrequency;
         private String reportCalculate;
-        private Object recentTime;
+        private String recentTime;
         private String openTime;
         private String endTime;
-        private Object reportNumber;
+        private String reportNumber;
         private String createTime;
         private String updateTime;
         private String isDisabled;
@@ -152,11 +152,11 @@ public class ReportFormBean implements IModel {
             this.reportId = reportId;
         }
 
-        public Object getRefreshFrequency() {
+        public String getRefreshFrequency() {
             return refreshFrequency;
         }
 
-        public void setRefreshFrequency(Object refreshFrequency) {
+        public void setRefreshFrequency(String refreshFrequency) {
             this.refreshFrequency = refreshFrequency;
         }
 
@@ -168,11 +168,11 @@ public class ReportFormBean implements IModel {
             this.reportCalculate = reportCalculate;
         }
 
-        public Object getRecentTime() {
+        public String getRecentTime() {
             return recentTime;
         }
 
-        public void setRecentTime(Object recentTime) {
+        public void setRecentTime(String recentTime) {
             this.recentTime = recentTime;
         }
 
@@ -192,11 +192,11 @@ public class ReportFormBean implements IModel {
             this.endTime = endTime;
         }
 
-        public Object getReportNumber() {
+        public String getReportNumber() {
             return reportNumber;
         }
 
-        public void setReportNumber(Object reportNumber) {
+        public void setReportNumber(String reportNumber) {
             this.reportNumber = reportNumber;
         }
 

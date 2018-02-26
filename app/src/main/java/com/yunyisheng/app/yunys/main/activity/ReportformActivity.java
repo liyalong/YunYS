@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
@@ -179,8 +180,8 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
     private void getBendiList(){
         addedReformString = SharedPref.getInstance(ReportformActivity.this).getString("AddedReformString", "");
         if (addedReformString != null && !addedReformString.equals("")) {
-            ReportFormBean.ListBean bean = JSON.parseObject(addedReformString, ReportFormBean.ListBean.class);
-            setAddedlist(bean);
+            List<ReportFormBean.ListBean> list = JSONArray.parseArray(addedReformString, ReportFormBean.ListBean.class);
+            setAddedlist(list);
             web.post(new Runnable() {
                 @Override
                 public void run() {
@@ -210,8 +211,8 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
         btn_queren.setOnClickListener(this);
     }
 
-    public void setAddedlist(ReportFormBean.ListBean bean) {
-        addedlist.add(bean);
+    public void setAddedlist(List<ReportFormBean.ListBean> list) {
+        addedlist.addAll(list);
         adapter = new AddedReportformListAdapter(ReportformActivity.this, addedlist);
         gvadded.setAdapter(adapter);
     }
