@@ -190,6 +190,8 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
                     web.loadUrl("javascript:createTableDiv('" + addedReformString +""+"')");
                 }
             });
+        }else {
+
         }
     }
 
@@ -263,14 +265,15 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
                     getBendiList();
                 }else {
                     SharedPref.getInstance(ReportformActivity.this).putString("AddedReformString", "");
-                    web.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            // 注意调用的JS方法名要对应上
-                            // 调用javascript的callJS()方法
-                            web.loadUrl("javascript:createTableDiv('[]')");
-                        }
-                    });
+//                    web.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            // 注意调用的JS方法名要对应上
+//                            // 调用javascript的callJS()方法
+//                            web.loadUrl("javascript:createTableDiv('[]')");
+//                        }
+//                    });
+                    getP().getBaobiaoList(1, 0);
                 }
                 menu.toggle();
                 break;
