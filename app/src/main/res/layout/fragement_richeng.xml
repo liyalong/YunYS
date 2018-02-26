@@ -80,7 +80,26 @@
             <!-- paddingBottom或者magin距离必须是MonthPager高度的1/6-->
             <!-- RecyclerView的高度必须是MatchParent-->
             <!-- RecyclerView的background必须是非透明-->
+            <ImageView
+                android:id="@+id/img_quesheng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/no_index_task"
+                android:layout_marginBottom="105dp"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal|bottom"
+                />
+            <ImageView
+                android:id="@+id/img_quesheng2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/no_task"
+                android:layout_marginBottom="105dp"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal|bottom"
+                />
         </android.support.design.widget.CoordinatorLayout>
+
     </LinearLayout>
 
     <ImageView

@@ -51,7 +51,7 @@ public class ReportFormPresent extends XPresent<ReportformActivity> {
      * @time 2018/1/26  18:44
      * @describe 获取报表列表
      */
-    public void getBaobiaoDetail(int instanceId) {
+    public void getBaobiaoDetail(final int instanceId) {
         Api.homeService().getBaobiaoDetail(instanceId)
                 .compose(XApi.<ReportListBean>getApiTransformer()) //统一异常处理
                 .compose(XApi.<ReportListBean>getScheduler()) //线程调度
@@ -60,7 +60,7 @@ public class ReportFormPresent extends XPresent<ReportformActivity> {
                     @Override
                     public void onNext(ReportListBean reportListBean) {
                         if (reportListBean.getRespCode() == 0) {
-                            getV().getReportResultList(reportListBean);
+                            getV().getReportResultList(reportListBean,instanceId);
                         } else {
                             ToastUtils.showToast(reportListBean.getRespMsg());
                         }

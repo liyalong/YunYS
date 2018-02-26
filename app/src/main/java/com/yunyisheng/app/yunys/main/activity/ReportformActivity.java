@@ -57,7 +57,6 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
     private AddedReportformListAdapter adapter;
     private String netstring;
     private String json;
-    private int instanceid;
     private String addedReformString;
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -277,17 +276,17 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
     }
 
     @JavascriptInterface
-    public void getReportDeatil(int instanceId) {
-        instanceid = instanceId;
+    public void getReportDeatil(final int instanceId) {
+//        instanceid = instanceId;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                getP().getBaobiaoDetail(instanceid);
+                getP().getBaobiaoDetail(instanceId);
             }
         });
     }
 
-    public void getReportResultList(ReportListBean reportListBean) {
+    public void getReportResultList(ReportListBean reportListBean, final int instanceId) {
         List<ReportListBean.RespBodyBean> respBody = reportListBean.getRespBody();
         if (respBody != null) {
             final String string = JSON.toJSONString(respBody);
@@ -297,7 +296,7 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
                 public void run() {
                     // 注意调用的JS方法名要对应上
                     // 调用javascript的createChart(instanceId,data)方法
-                    web.loadUrl("javascript:createChart(" + instanceid + ",'" + string + "')");
+                    web.loadUrl("javascript:createChart(" + instanceId + ",'" + string + "')");
                 }
             });
         }

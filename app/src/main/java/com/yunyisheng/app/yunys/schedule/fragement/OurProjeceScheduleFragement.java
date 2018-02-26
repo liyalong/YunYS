@@ -80,6 +80,10 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
     CoordinatorLayout content;
     @BindView(R.id.img_addtask)
     ImageView imgAddtask;
+    @BindView(R.id.img_quesheng)
+    ImageView imgQuesheng;
+    @BindView(R.id.img_quesheng2)
+    ImageView imgQuesheng2;
 
     private ArrayList<Calendar> currentCalendars = new ArrayList<>();
     private CalendarViewAdapter calendarAdapter;
@@ -201,12 +205,16 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
             if (pageindex == 1) {
                 mineadapter = new TaskAdapter(mContext, list);
                 rvToDoList.setAdapter(mineadapter);
-            }else {
+            } else {
                 mineadapter.setData(list);
             }
             mineadapter.setType(4);
+            rvToDoList.setVisibility(View.VISIBLE);
+            imgQuesheng.setVisibility(View.GONE);
         } else {
             if (pageindex == 1) {
+                rvToDoList.setVisibility(View.GONE);
+                imgQuesheng.setVisibility(View.VISIBLE);
                 ToastUtils.showToast("当前日期暂无日程");
             } else {
                 ToastUtils.showToast("没有更多了");
@@ -236,12 +244,16 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
             if (pageindex == 1) {
                 projectadapter = new TaskAdapter(mContext, list);
                 rvToDoList.setAdapter(projectadapter);
-            }else {
+            } else {
                 projectadapter.setData(list);
             }
             projectadapter.setType(6);
+            rvToDoList.setVisibility(View.VISIBLE);
+            imgQuesheng2.setVisibility(View.GONE);
         } else {
             if (pageindex == 1) {
+                rvToDoList.setVisibility(View.GONE);
+                imgQuesheng2.setVisibility(View.VISIBLE);
             } else {
                 ToastUtils.showToast("没有更多了");
                 nomore = true;
