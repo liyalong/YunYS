@@ -14,7 +14,7 @@
 <body>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xs-12" id="log"></div>
+        <div class="col-xs-12" id="log" style="border:1px solid red;display:none;"></div>
         <div class="col-xs-12" id="tabList" style="height:100%;">
 
         </div>
@@ -24,16 +24,18 @@
 </div>
 <script type="text/javascript">
     function getChartData(instanceId){
+        $('#log').append("<br/>"+instanceId+"<br/>");
         reportDetail.getReportDeatil(instanceId);
     }
     function createTableDiv(result){
     var data = JSON.parse(result);
     var intervalIds = [];
     var divHtml = "";
+    $('#tabList').html(divHtml);
     var nums = count(data);
     if(nums > 0){
         for(var i=0;i<nums;i++){
-            divHtml += '<div id="chart_'+data[i].instanceId+'" instanceId="'+data[i].instanceId+'" chartType="'+data[i].chartType+'" tableName="'+data[i].instanceName+'" class="col-xs-12" style="height:300px;"></div>';
+            divHtml += '<div id="chart_'+data[i].instanceId+'" instanceId="'+data[i].instanceId+'" chartType="'+data[i].chartType+'" tableName="'+data[i].instanceName+'" class="col-xs-12" style="height:300px;border:1px solid yellow;"></div>';
         }
     }else{
         divHtml = '暂无自定义报表！';
@@ -46,7 +48,10 @@
     if(nums > 0){
         for(var i=0;i<nums;i++){
             getChartData(data[i].instanceId);
-            //$('#log').append(data[i].instanceId+"<br/>");
+            var chartname = "chart_"+data[i].instanceId;
+            window[chartname] = echarts.init(document.getElementById("chart_"+data[i].instanceId));
+
+            $('#log').append(data[i].instanceId+"<br/>");
             if(data[i].refreshFrequency != "" && data[i].refreshFrequency != null){
                 setIntervalById(data[i].instanceId,intervalIds,data[i].refreshFrequency);
                 $('#log').append(data[i].refreshFrequency);
@@ -56,14 +61,17 @@
     }
     function setIntervalById(instanceId,arrays,type){
         var interArr = [30000,60000,300000];
-        //var interId = setInterval('getChartData('+instanceId+')',interArr[type]);
+        var interId = setInterval('getChartData('+instanceId+')',interArr[type]);
         arrays.push(interId);
     }
 
 }
 function createChart(instanceId,result){
+
     var data = JSON.parse(result);
-    var myChart = echarts.init(document.getElementById("chart_"+instanceId));
+    //var myChart = echarts.init(document.getElementById("chart_"+instanceId));
+    //var myChart = eval("chart_"+instanceId);
+
     var chartType= $('#chart_'+instanceId).attr('chartType');
     var tableName = $('#chart_'+instanceId).attr('tableName');
         var option = {
@@ -125,10 +133,11 @@ function createChart(instanceId,result){
                 option.legend.data = legendData;
                 option.xAxis.data = xAxisData;
                 option.series = seriesData;
-                myChart.setOption(option);
-                myChart.hideLoading();
+                $('#log').append("<br/>"+instanceId+"<br/>");
+                eval("chart_"+instanceId).setOption(option);
+                eval("chart_"+instanceId).hideLoading();
             }else{
-                noData(myChart);
+                noData(eval("chart_"+instanceId));
             }
 
 }
