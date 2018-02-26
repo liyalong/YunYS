@@ -179,7 +179,7 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
     private void getBendiList(){
         addedReformString = SharedPref.getInstance(ReportformActivity.this).getString("AddedReformString", "");
         if (addedReformString != null && !addedReformString.equals("")) {
-            ReportFormBean bean = JSON.parseObject(addedReformString, ReportFormBean.class);
+            ReportFormBean.ListBean bean = JSON.parseObject(addedReformString, ReportFormBean.ListBean.class);
             setAddedlist(bean);
             web.post(new Runnable() {
                 @Override
@@ -210,8 +210,8 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
         btn_queren.setOnClickListener(this);
     }
 
-    public void setAddedlist(ReportFormBean bean) {
-        addedlist.addAll(bean.getList());
+    public void setAddedlist(ReportFormBean.ListBean bean) {
+        addedlist.add(bean);
         adapter = new AddedReportformListAdapter(ReportformActivity.this, addedlist);
         gvadded.setAdapter(adapter);
     }
