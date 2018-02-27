@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yunyisheng.app.yunys">
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 网络状态 -->
@@ -74,6 +72,8 @@
         </provider>
 
         <service android:name=".main.service.MessageService" />
+        <service android:name=".mqtt.MQTTService"/>
+        <service android:name="org.eclipse.paho.android.service.MqttService" />
 
         <activity
             android:name=".login.activity.WelcomeActivity"

@@ -29,6 +29,8 @@ import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.main.fragement.HomeFragement;
 import com.yunyisheng.app.yunys.main.model.WarningMessageEvent;
 import com.yunyisheng.app.yunys.main.service.MessageService;
+import com.yunyisheng.app.yunys.mqtt.MQTTMessage;
+import com.yunyisheng.app.yunys.mqtt.MQTTService;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.fragement.ProjectFragement;
 import com.yunyisheng.app.yunys.schedule.fragement.ScheduleTaskFragement;
@@ -135,10 +137,17 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 
     }
 
+    //订阅方法，当接收到事件的时候，会调用该方法
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMqttEvent(MQTTMessage mqttMessage) {
+       LogUtils.i("mqttmessage",mqttMessage.getMessage());
+    }
+
     @Override
     public void initAfter() {
         Intent intent=new Intent(MainActivity.this, MessageService.class);
         startService(intent);
+        startService(new Intent(this, MQTTService.class));
     }
 
     public void changerTask() {
