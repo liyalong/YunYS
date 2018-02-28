@@ -3,14 +3,19 @@ package com.yunyisheng.app.yunys;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.Gravity;
@@ -28,6 +33,7 @@ import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.main.fragement.HomeFragement;
 import com.yunyisheng.app.yunys.main.model.WarningMessageEvent;
+import com.yunyisheng.app.yunys.main.roadcastReceiver.NotificationReceiver;
 import com.yunyisheng.app.yunys.main.service.MessageService;
 import com.yunyisheng.app.yunys.mqtt.MQTTMessage;
 import com.yunyisheng.app.yunys.mqtt.MQTTService;
@@ -52,6 +58,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -91,6 +99,8 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     ImageView imgOval;
     private boolean initiated = false;
     private long exitTime = 0;
+    private NotificationManager notificationManager;
+    private PendingIntent pIntent;
 
     private void checkToken() {
         String token = SharedPref.getInstance(context).getString("TOKEN", "");
@@ -113,6 +123,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 
     @Override
     public void initView() {
+        notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
         EventBus.getDefault().register(this);
         ButterKnife.bind(this);
         checkToken();
@@ -140,12 +151,65 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     //订阅方法，当接收到事件的时候，会调用该方法
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMqttEvent(MQTTMessage mqttMessage) {
-       LogUtils.i("mqttmessage",mqttMessage.getMessage());
+        LogUtils.i("mqttmessage", mqttMessage.getMessage());
+        setNotification(mqttMessage.getMessage());
+    }
+
+    private void setNotification(String string) {
+        //此类通知在Android 5.0以上版本才会有横幅有效！
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {//小于5.0
+                Intent broadcastIntent = new Intent(context, NotificationReceiver.class);
+                broadcastIntent.putExtra("str",string);
+                PendingIntent pendingIntent = PendingIntent. getBroadcast(context, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                NotificationManager notificationManager = (NotificationManager) MainActivity.this.getSystemService(NOTIFICATION_SERVICE);
+                Notification.Builder builder = new Notification.Builder(MainActivity.this);
+                builder.setSmallIcon(R.mipmap.tubiao);
+                builder.setContentTitle(string);
+                builder.setContentText("我是默认显示的消息，我进来了");
+                builder.setWhen(System.currentTimeMillis());
+                builder.setTicker("接受到一条信息");
+                builder.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+                builder.setAutoCancel(true);
+                builder.setContentIntent(pendingIntent);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    Notification notification = builder.build();
+                    notificationManager.notify(1, notification);
+                }
+        } else {
+            //为了版本兼容  选择V7包下的NotificationCompat进行构造
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+            builder.setContentTitle("横幅通知");
+            builder.setContentText("请在设置通知管理中开启消息横幅提醒权限");
+            builder.setDefaults(NotificationCompat.DEFAULT_ALL);
+
+            builder.setSmallIcon(R.mipmap.tubiao);
+            builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.tubiao));
+            Intent broadcastIntent = new Intent(context, NotificationReceiver.class);
+            broadcastIntent.putExtra("str",string);
+            pIntent = PendingIntent.getActivity(context, 1, broadcastIntent, 0);
+            builder.setContentIntent(pIntent);
+            builder.setFullScreenIntent(pIntent, true);
+            builder.setAutoCancel(true);
+            Notification notification = builder.build();
+            notificationManager.notify(1, notification);//注意这里 1 为当前通知栏的 Id 号，和 Fragment 设置 Id 是一样的
+
+            // 设置 heads-up 消失任务
+            TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    System.out.println("start the cancel task....");
+                    notificationManager.cancel(1); // 根据之前设置的通知栏 Id 号，让相关通知栏消失掉
+                }
+            };
+            Timer timer = new Timer();
+            timer.schedule(task, 2000);
+        }
+
     }
 
     @Override
     public void initAfter() {
-        Intent intent=new Intent(MainActivity.this, MessageService.class);
+        Intent intent = new Intent(MainActivity.this, MessageService.class);
         startService(intent);
         startService(new Intent(this, MQTTService.class));
     }
@@ -313,8 +377,8 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     contentUri = FileProvider.getUriForFile(MainActivity.this, "com.yunyisheng.app.yunys.fileprovider", DialogManager.tempFile);
                     startPhotoZoom(contentUri, 150);
-                }else {
-                    contentUri=Uri.fromFile(DialogManager.tempFile);
+                } else {
+                    contentUri = Uri.fromFile(DialogManager.tempFile);
                     cropRawPhoto(contentUri);
                 }
 
@@ -323,14 +387,14 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                     Log.i("xiaoqiang", "smdongxi==" + intent.getData());
                     cropRawPhoto(intent.getData());
                 }// 去裁剪
-            }else if (requestCode==UCrop.REQUEST_CROP){
+            } else if (requestCode == UCrop.REQUEST_CROP) {
                 try {
                     setHeadImage(Environment
                             .getExternalStorageDirectory() + "/yunys/123.png");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }else if (requestCode == 3) {
+            } else if (requestCode == 3) {
                 if (intent != null) {
                     setPicToView(intent);
                 }

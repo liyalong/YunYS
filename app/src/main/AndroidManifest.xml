@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- 调整多媒体音量 -->
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.GET_TASKS"/>
 
     <!-- ************************************************ SD卡权限 *********************************************** -->
     <!-- 在sdcard中创建/删除文件的权限 -->
@@ -74,6 +75,7 @@
         <service android:name=".main.service.MessageService" />
         <service android:name=".mqtt.MQTTService"/>
         <service android:name="org.eclipse.paho.android.service.MqttService" />
+        <receiver android:name=".main.roadcastReceiver.NotificationReceiver"/>
 
         <activity
             android:name=".login.activity.WelcomeActivity"
