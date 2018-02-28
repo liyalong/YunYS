@@ -65,7 +65,7 @@ public class MQTTService extends Service {
 
         conOpt = new MqttConnectOptions();
         // 清除缓存
-        conOpt.setCleanSession(true);
+        conOpt.setCleanSession(false);
         // 设置超时时间，单位：秒
         conOpt.setConnectionTimeout(10);
         // 心跳包发送间隔，单位：秒
