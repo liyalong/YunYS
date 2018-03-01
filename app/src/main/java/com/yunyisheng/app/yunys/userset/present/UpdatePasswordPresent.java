@@ -24,7 +24,7 @@ public class UpdatePasswordPresent extends XPresent<MimaManagerActivity> {
     /**
      * @author fuduo
      * @time 2018/2/2  16:07
-     * @describe 修改手机号
+     * @describe 修改密码
      */
     public void updatePassword(String oldpassword, String newpassword) {
         LoadingDialog.show(getV());

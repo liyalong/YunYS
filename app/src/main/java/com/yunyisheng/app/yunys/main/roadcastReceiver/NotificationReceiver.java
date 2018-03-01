@@ -19,8 +19,8 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        String data = intent.getStringExtra("data");
-        if (data.equals("noticeMessage")) {
+//        String data = intent.getStringExtra("data");
+//        if (data.equals("noticeMessage")) {
             String str = intent.getStringExtra("str");
             LogUtils.i("strtr", str);
             //判断app进程是否存活
@@ -35,6 +35,6 @@ public class NotificationReceiver extends BroadcastReceiver {
                 launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
                 context.startActivity(launchIntent);
             }
-        }
+//        }
     }
 }
