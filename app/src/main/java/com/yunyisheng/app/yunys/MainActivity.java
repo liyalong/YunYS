@@ -9,6 +9,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -102,6 +103,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     private long exitTime = 0;
     private NotificationManager notificationManager;
     private PendingIntent pIntent;
+    private NotificationReceiver receiver;
 
     private void checkToken() {
         String token = SharedPref.getInstance(context).getString("TOKEN", "");
@@ -129,6 +131,11 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         ButterKnife.bind(this);
         checkToken();
         initTab();
+        //广播接受者实例
+        receiver = new NotificationReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("action");
+        mContext.registerReceiver(receiver, intentFilter);
         rbCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,9 +184,12 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     private void setNotification(String string) {
         //此类通知在Android 5.0以上版本才会有横幅有效！
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {//小于5.0
-                Intent broadcastIntent = new Intent("com.yunyisheng.app.yunys.receiver");
+//                Intent broadcastIntent = new Intent("com.yunyisheng.app.yunys.receiver");
+            Intent broadcastIntent = new Intent();
+            broadcastIntent.setAction("action");
+            broadcastIntent.putExtra("data", "noticeMessage");
                 broadcastIntent.putExtra("str",string);
-                PendingIntent pendingIntent = PendingIntent. getBroadcast(context, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 NotificationManager notificationManager = (NotificationManager) MainActivity.this.getSystemService(NOTIFICATION_SERVICE);
                 Notification.Builder builder = new Notification.Builder(MainActivity.this);
                 builder.setSmallIcon(R.mipmap.tubiao);
