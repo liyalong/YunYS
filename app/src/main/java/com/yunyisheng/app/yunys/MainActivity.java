@@ -561,6 +561,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        unregisterReceiver(receiver);
     }
 
     @Override
