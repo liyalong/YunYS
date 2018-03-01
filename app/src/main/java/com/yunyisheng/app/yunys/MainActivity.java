@@ -2,6 +2,7 @@ package com.yunyisheng.app.yunys;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -14,6 +15,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
@@ -133,8 +135,23 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 createSelectTaskDialog(MainActivity.this);
             }
         });
-        if (CommonUtils.isNotificationEnabled(context)){
-
+        if (!CommonUtils.isNotificationEnabled(context)){
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            builder.setMessage("提示")
+                    .setMessage("请您去设置中授予消息横幅提醒权限")
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                            startActivity(intent);
+                        }
+                    });
         }
     }
 
