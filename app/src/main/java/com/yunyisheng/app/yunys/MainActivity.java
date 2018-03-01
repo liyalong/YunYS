@@ -135,7 +135,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         receiver = new NotificationReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("action");
-        mContext.registerReceiver(receiver, intentFilter,"com.yunyisheng.app.yunys.permission",null);
+        registerReceiver(receiver, intentFilter,"com.yunyisheng.app.yunys.permission",null);
         rbCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -216,6 +216,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
             broadcastIntent.setAction("action");
             broadcastIntent.putExtra("data", "noticeMessage");
             broadcastIntent.putExtra("str",string);
+            sendBroadcast(broadcastIntent);
             pIntent = PendingIntent.getActivity(context, 1, broadcastIntent, 0);
             builder.setContentIntent(pIntent);
             builder.setFullScreenIntent(pIntent, true);
