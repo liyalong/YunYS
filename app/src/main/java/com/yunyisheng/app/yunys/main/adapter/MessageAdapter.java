@@ -1,6 +1,7 @@
 package com.yunyisheng.app.yunys.main.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,7 +41,7 @@ public class MessageAdapter extends SimpleListAdapter<MessageBean.RespBodyBean, 
     protected void convert(ViewHolder holder, MessageBean.RespBodyBean item, int position) {
         MessageBean.RespBodyBean respBodyBean = data.get(position);
 
-        holder.teMsgdetail.setText(respBodyBean.getMessageRemark());
+        holder.teMsgdetail.setText(Html.fromHtml(respBodyBean.getMessageRemark()));
         holder.teMsgtime.setText(respBodyBean.getMessageCreateTime()+" - "+respBodyBean.getMessageUpdateTime());
         String messageType = respBodyBean.getMessageType();
         if (messageType.equals("3")){

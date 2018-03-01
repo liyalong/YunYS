@@ -68,6 +68,8 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
     private String taskid;
     private String state;
     private List<ProcessDetailBean.SelectByIdAndUuid.DataListBean> dataList;
+    private ProcessDetailBean.SelectByIdAndUuid.DataListBean dataListBean;
+    private String value;
 
     @Override
     public void initView() {
@@ -128,10 +130,12 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
     private void initUi() {
         for (int i = 0; i < dataBeanList.size(); i++) {
             ProcessTaskFormDetailBean.RespBodyBean.DataBean dataBean = dataBeanList.get(i);
-            ProcessDetailBean.SelectByIdAndUuid.DataListBean dataListBean = dataList.get(i);
+            if (seetype==2) {
+                dataListBean = dataList.get(i);
+                value = dataListBean.getValue();
+            }
             String leipiplugins = dataBean.getLeipiplugins();
             int id = dataBean.getId();
-            String value = dataListBean.getValue();
             TextView name = new TextView(this);
             name.setPadding(0, 10, 0, 0);
             name.setText(dataBean.getTitle());
