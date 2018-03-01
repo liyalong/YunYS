@@ -2,12 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yunyisheng.app.yunys">
 
-    <uses-permission android:name="com.yunyisheng.app.yunys.permission" />
 
     <permission
         android:name="com.yunyisheng.app.yunys.permission"
         android:protectionLevel="normal" />
-
+    <uses-permission android:name="com.yunyisheng.app.yunys.permission" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 网络状态 -->
