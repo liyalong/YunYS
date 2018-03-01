@@ -8,6 +8,10 @@ import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.tasks.bean.ProcessDetailBean;
 import com.yunyisheng.app.yunys.tasks.present.ProcessDetailPresent;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
+
+import java.io.Serializable;
+import java.util.List;
 
 import cn.droidlover.xdroidbase.cache.SharedPref;
 
@@ -74,11 +78,17 @@ public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
         state = processDetailBean.getRespBody().getTask().getState();
         taskid = processDetailBean.getRespBody().getTask().getId();
         type = 2;
-        Intent intent=new Intent(ProcessDetailActivity.this,ProcessTaskFormActivity.class);
-        intent.putExtra("type",type);
-        intent.putExtra("selectFormId",processDefinitionId);
-        intent.putExtra("taskid",taskid);
-        intent.putExtra("state",state);
-        startActivity(intent);
+        List<ProcessDetailBean.SelectByIdAndUuid.DataListBean> dataList = processDetailBean.getRespBody().getSelectByIdAndUuid().getDataList();
+        if (dataList.size()>0) {
+            Intent intent = new Intent(ProcessDetailActivity.this, ProcessTaskFormActivity.class);
+            intent.putExtra("type", type);
+            intent.putExtra("selectFormId", processDefinitionId);
+            intent.putExtra("taskid", taskid);
+            intent.putExtra("state", state);
+            intent.putExtra("datalist", (Serializable) dataList);
+            startActivity(intent);
+        }else {
+            ToastUtils.showToast("数据错误");
+        }
     }
 }

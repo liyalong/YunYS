@@ -1,11 +1,14 @@
 package com.yunyisheng.app.yunys.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AppOpsManager;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.ApplicationInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -31,6 +34,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.text.DateFormat;
@@ -54,8 +60,8 @@ import java.util.regex.Pattern;
 public class CommonUtils {
 
     public static ConnectivityManager manager;
-    static String ss[] = new String[] { "个", "十", "百", "千", "万", "十", "百", "千", "亿" };
-    static char[] numArray = {'零','一','二','三','四','五','六','七','八','九'};
+    static String ss[] = new String[]{"个", "十", "百", "千", "万", "十", "百", "千", "亿"};
+    static char[] numArray = {'零', '一', '二', '三', '四', '五', '六', '七', '八', '九'};
 
 //    public static HttpHandler<File> handler = null;
 //    public static FinalHttp fh = new FinalHttp();
@@ -73,6 +79,9 @@ public class CommonUtils {
      */
     public static final int NETWORKTYPE_WIFI = 4;
     private static int mNetWorkType;
+
+    private static final String CHECK_OP_NO_THROW = "checkOpNoThrow";
+    private static final String OP_POST_NOTIFICATION = "OP_POST_NOTIFICATION";
 
 
     /**
@@ -99,6 +108,7 @@ public class CommonUtils {
 
     /**
      * 将整数转换成汉字数字
+     *
      * @param num 需要转换的数字
      * @return 转换后的汉字
      */
@@ -263,8 +273,44 @@ public class CommonUtils {
     }
 
     /**
+     * 获取通知栏权限是否开启
+     */
+    @SuppressLint("NewApi")
+    public static boolean isNotificationEnabled(Context context) {
+        AppOpsManager mAppOps = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
+        ApplicationInfo appInfo = context.getApplicationInfo();
+        String pkg = context.getApplicationContext().getPackageName();
+        int uid = appInfo.uid;
+
+        Class appOpsClass = null;
+      /* Context.APP_OPS_MANAGER */
+        try {
+            appOpsClass = Class.forName(AppOpsManager.class.getName());
+            Method checkOpNoThrowMethod = appOpsClass.getMethod(CHECK_OP_NO_THROW, Integer.TYPE, Integer.TYPE,
+                    String.class);
+            Field opPostNotificationValue = appOpsClass.getDeclaredField(OP_POST_NOTIFICATION);
+
+            int value = (Integer) opPostNotificationValue.get(Integer.class);
+            return ((Integer) checkOpNoThrowMethod.invoke(mAppOps, value, uid, pkg) == AppOpsManager.MODE_ALLOWED);
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
      * 方法描述：判断某一应用是否正在运行
      * Created by cafeting on 2017/2/4.
+     *
      * @param context     上下文
      * @param packageName 应用的包名
      * @return true 表示正在运行，false 表示没有运行
@@ -336,16 +382,16 @@ public class CommonUtils {
      * @time 2018/1/29  19:04
      * @describe 获取一天的开始时间
      */
-    public static String getDayStartTime(){
+    public static String getDayStartTime() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
-        Date date=calendar.getTime();
+        Date date = calendar.getTime();
         String s = ConverToStringminute(date);
 //        long stringToDate = getStringToDate(s, "yyyy-MM-dd HH:mm:ss");
-        System.out.println("开始时间："+s);
+        System.out.println("开始时间：" + s);
         return s;
     }
 
@@ -354,26 +400,26 @@ public class CommonUtils {
      * @time 2018/1/29  19:04
      * @describe 获取一天的结束时间
      */
-    public static String getDayEndTime(){
+    public static String getDayEndTime() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
         calendar.set(Calendar.MILLISECOND, 999);
-        Date date=calendar.getTime();
+        Date date = calendar.getTime();
         String s = ConverToStringminute(date);
 //        long stringToDate = getStringToDate(s, "yyyy-MM-dd HH:mm:ss");
-        System.out.println("结束时间："+s);
+        System.out.println("结束时间：" + s);
         return s;
     }
 
 
     /**
-     *  @author fuduo
-     *  @time 2018/1/29  20:07
-     *  @describe 获取某天的结束时间
+     * @author fuduo
+     * @time 2018/1/29  20:07
+     * @describe 获取某天的结束时间
      */
-    public static String getOtherEndtime(Date date){
+    public static String getOtherEndtime(Date date) {
         date.getTime();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -384,16 +430,16 @@ public class CommonUtils {
         Date time = calendar.getTime();
         String s = ConverToStringminute(time);
 //        long stringToDate = getStringToDate(s, "yyyy-MM-dd HH:mm:ss");
-        System.out.println("结束时间："+s);
+        System.out.println("结束时间：" + s);
         return s;
     }
 
     /**
-     *  @author fuduo
-     *  @time 2018/1/29  20:07
-     *  @describe 获取某天的开始时间
+     * @author fuduo
+     * @time 2018/1/29  20:07
+     * @describe 获取某天的开始时间
      */
-    public static String getOtherStarttime(Date date){
+    public static String getOtherStarttime(Date date) {
         date.getTime();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -404,7 +450,7 @@ public class CommonUtils {
         Date time = calendar.getTime();
         String s = ConverToStringminute(time);
 //        long stringToDate = getStringToDate(s, "yyyy-MM-dd HH:mm:ss");
-        System.out.println("开始时间："+s);
+        System.out.println("开始时间：" + s);
         return s;
     }
 
@@ -484,13 +530,13 @@ public class CommonUtils {
      * @time 2018/2/5  22:08
      * @describe 保存字符串为文件
      */
-    public static void saveFile(String str,String name) {
+    public static void saveFile(String str, String name) {
         String filePath = null;
         boolean hasSDCard = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
         if (hasSDCard) { // SD卡根目录的hello.text
-            filePath = FileCache.path + name+".txt";
+            filePath = FileCache.path + name + ".txt";
         } else {  // 系统下载缓存根目录的hello.text
-            filePath =  FileCache.path + name+ ".txt";
+            filePath = FileCache.path + name + ".txt";
         }
         try {
             File file = new File(filePath);
@@ -506,12 +552,12 @@ public class CommonUtils {
             e.printStackTrace();
         }
     }
-        /**
-         * 根据byte数组生成文件
-         *
-         * @param bytes
-         *            生成文件用到的byte数组
-         */
+
+    /**
+     * 根据byte数组生成文件
+     *
+     * @param bytes 生成文件用到的byte数组
+     */
     private void createFileWithByte(byte[] bytes) {
         /**
          * 创建File对象，其中包含文件所在的目录以及文件的命名
@@ -722,6 +768,7 @@ public class CommonUtils {
 
     /**
      * 获取文件选择器选中的文件路径
+     *
      * @param context
      * @param uri
      * @return
@@ -729,11 +776,11 @@ public class CommonUtils {
     public static String getPath(Context context, Uri uri) {
 
         if ("content".equalsIgnoreCase(uri.getScheme())) {
-            String[] projection = { "_data" };
+            String[] projection = {"_data"};
             Cursor cursor = null;
 
             try {
-                cursor = context.getContentResolver().query(uri, projection,null, null, null);
+                cursor = context.getContentResolver().query(uri, projection, null, null, null);
                 int column_index = cursor.getColumnIndexOrThrow("_data");
                 if (cursor.moveToFirst()) {
                     return cursor.getString(column_index);
@@ -741,9 +788,7 @@ public class CommonUtils {
             } catch (Exception e) {
                 // Eat it
             }
-        }
-
-        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
             return uri.getPath();
         }
 
@@ -787,31 +832,32 @@ public class CommonUtils {
         return MD5.getMessageDigest(String.valueOf(random.nextInt(10000)).getBytes());
     }
 
-    public static long getTotalInternalMemorySize(){
+    public static long getTotalInternalMemorySize() {
         File path = Environment.getDataDirectory();
         StatFs stat = new StatFs(path.getPath());
         long blockSize = stat.getBlockSize();
         long totalBlocks = stat.getBlockCount();
-        return totalBlocks*blockSize;
+        return totalBlocks * blockSize;
     }
 
     /**
      * 得到内置存储空间的总容量
+     *
      * @param context
      * @return
      */
-    public static String getInternalToatalSpace(Context context){
+    public static String getInternalToatalSpace(Context context) {
         String path = Environment.getDataDirectory().getPath();
-        Log.d("rongliang","root path is "+path);
+        Log.d("rongliang", "root path is " + path);
         StatFs statFs = new StatFs(path);
         long blockSize = statFs.getBlockSize();
         long totalBlocks = statFs.getBlockCount();
         long availableBlocks = statFs.getAvailableBlocks();
-        long useBlocks  = totalBlocks - availableBlocks;
+        long useBlocks = totalBlocks - availableBlocks;
 
-        long rom_length = totalBlocks*blockSize;
+        long rom_length = totalBlocks * blockSize;
 
-        return Formatter.formatFileSize(context,rom_length);
+        return Formatter.formatFileSize(context, rom_length);
     }
 
     /**

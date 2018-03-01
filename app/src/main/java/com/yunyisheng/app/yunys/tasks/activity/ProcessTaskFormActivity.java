@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.project.model.ProcessTaskFormDetailBean;
+import com.yunyisheng.app.yunys.tasks.bean.ProcessDetailBean;
 import com.yunyisheng.app.yunys.tasks.present.ProcessTaskPresent;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
@@ -66,6 +67,7 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
     private int userid;
     private String taskid;
     private String state;
+    private List<ProcessDetailBean.SelectByIdAndUuid.DataListBean> dataList;
 
     @Override
     public void initView() {
@@ -88,6 +90,7 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
         endTime = intent.getStringExtra("endTime");
         taskid = intent.getStringExtra("taskid");
         state = intent.getStringExtra("state");
+        dataList = (List<ProcessDetailBean.SelectByIdAndUuid.DataListBean>) intent.getSerializableExtra("datalist");
         getP().getProcessTaskDetail(selectFormId);
     }
 
@@ -125,9 +128,10 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
     private void initUi() {
         for (int i = 0; i < dataBeanList.size(); i++) {
             ProcessTaskFormDetailBean.RespBodyBean.DataBean dataBean = dataBeanList.get(i);
+            ProcessDetailBean.SelectByIdAndUuid.DataListBean dataListBean = dataList.get(i);
             String leipiplugins = dataBean.getLeipiplugins();
             int id = dataBean.getId();
-            String value = dataBean.getValue();
+            String value = dataListBean.getValue();
             TextView name = new TextView(this);
             name.setPadding(0, 10, 0, 0);
             name.setText(dataBean.getTitle());

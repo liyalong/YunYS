@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
+import com.yunyisheng.app.yunys.schedule.model.SeeScheduleDetailBean;
 import com.yunyisheng.app.yunys.schedule.present.ScheduleDetailPresent;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
@@ -45,6 +46,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
     private String kongjianid = "fieldId";
     private String valuestr = "value";
     private List<ScheduleDetailBean.RespBodyBean.FormBean.DataBean> alldataBeanList = new ArrayList<>();
+    private List<SeeScheduleDetailBean.RespBodyBean.ForminstanceBean.FormBean.DataBean> formalldataBeanList = new ArrayList<>();
     private MyHandler handler = new MyHandler(this);
     private int taskId;
     private String releaseFormId;
@@ -69,9 +71,17 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
     @Override
     public void initAfter() {
         if (userId == 0) {
-            getP().getMineScheduleDetail(scheduleid, type);
+            if (seetype == 2) {
+                getP().getMineScheduleFormDetail(scheduleid, type);
+            } else {
+                getP().getMineScheduleDetail(scheduleid, type);
+            }
         } else {
-            getP().getOtherScheduleDetail(userId, scheduleid, type);
+            if (seetype == 2) {
+                getP().getOtherScheduleFormDetail(userId, scheduleid, type);
+            } else {
+                getP().getOtherScheduleDetail(userId, scheduleid, type);
+            }
         }
     }
 
@@ -108,12 +118,141 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
         }
     }
 
+    public void setScheduleFormDetail(SeeScheduleDetailBean scheduleFormDetail) {
+        SeeScheduleDetailBean.RespBodyBean respBody = scheduleFormDetail.getRespBody();
+        SeeScheduleDetailBean.RespBodyBean.TaskBean task = respBody.getTask();
+        teTitle.setText(task.getReleaseName());
+        taskId = task.getTaskId();
+        releaseFormId = task.getReleaseFormId();
+        SeeScheduleDetailBean.RespBodyBean.ForminstanceBean forminstance = respBody.getForminstance();
+        List<SeeScheduleDetailBean.RespBodyBean.ForminstanceBean.FormBean.DataBean> data = forminstance.getForm().getData();
+        if (data.size() > 0) {
+            List<SeeScheduleDetailBean.RespBodyBean.ForminstanceBean.DataListBean> dataList = forminstance.getDataList();
+            formalldataBeanList.addAll(data);
+            if (dataList.size() > 0) {
+                initFormUi(dataList);
+            }
+        }
+    }
+
+    private void initFormUi(List<SeeScheduleDetailBean.RespBodyBean.ForminstanceBean.DataListBean> dataList) {
+        for (int i = 0; i < formalldataBeanList.size(); i++) {
+            SeeScheduleDetailBean.RespBodyBean.ForminstanceBean.FormBean.DataBean dataBean = formalldataBeanList.get(i);
+            SeeScheduleDetailBean.RespBodyBean.ForminstanceBean.DataListBean dataListBean = dataList.get(i);
+            String leipiplugins = dataBean.getLeipiplugins();
+            int id = dataBean.getId();
+            String value = dataListBean.getValue();
+
+            TextView name = new TextView(this);
+            name.setPadding(0, 10, 0, 0);
+            name.setText(dataBean.getTitle());
+            name.setTextColor(getResources().getColor(R.color.color_333));
+            name.setTextSize(15);
+            lineAll.addView(name);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    1);
+            lpview.setMargins(0, 10, 0, 0);
+            if (leipiplugins.equals("text") || leipiplugins.equals("textarea")) {
+                TextView namevalue = new TextView(this);
+                namevalue.setPadding(0, 10, 0, 0);
+                namevalue.setTextColor(getResources().getColor(R.color.color_333));
+                namevalue.setTextSize(13);
+                namevalue.setText(value);
+                lineAll.addView(namevalue);
+
+                View view = new View(this);
+                view.setLayoutParams(lpview);
+                view.setBackgroundColor(getResources().getColor(R.color.color_e7));
+                lineAll.addView(view);
+            } else if (leipiplugins.equals("radios")) {
+                RadioGroup radioGroup = new RadioGroup(this);
+                radioGroup.setLayoutParams(lp);
+                radioGroup.setId(id);
+                radioGroup.setPadding(0, 10, 0, 0);
+                radioGroup.setOrientation(LinearLayout.VERTICAL);
+                String valuestring = dataBean.getValue();
+                try {
+                    if (valuestring != null && !valuestring.equals("")) {
+                        String[] values = null;
+                        values = valuestring.split(",");
+                        if (values.length < 1) return;
+                        for (int j = 0; j < values.length; j++) {
+                            String valuetext = values[j];
+                            RadioButton radioButton = new RadioButton(this);
+                            radioButton.setTextColor(getResources().getColor(R.color.color_666));
+                            radioButton.setTextSize(14);
+                            radioButton.setId(Integer.parseInt(id + "1" + j));
+                            radioButton.setText(valuetext);
+                            if (valuetext.equals(value)) {
+                                radioButton.setChecked(true);
+                            }
+                            radioButton.setClickable(false);
+                            radioButton.setFocusable(false);
+                            radioGroup.setClickable(false);
+                            radioGroup.setFocusable(false);
+                            radioGroup.addView(radioButton);
+                        }
+                    }
+                } catch (Resources.NotFoundException e) {
+                    e.printStackTrace();
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+                lineAll.addView(radioGroup);
+
+                View view = new View(this);
+                view.setLayoutParams(lpview);
+                view.setBackgroundColor(getResources().getColor(R.color.color_e7));
+                lineAll.addView(view);
+            } else if (leipiplugins.equals("checkboxs")) {
+                LinearLayout l = new LinearLayout(this);
+                l.setId(id);
+                l.setOrientation(LinearLayout.VERTICAL);
+                String valuestring = dataBean.getValue();
+                try {
+                    if (valuestring != null && !valuestring.equals("")) {
+                        String[] selectvalue = null;
+                        selectvalue = value.split(",");
+                        String[] values = null;
+                        values = valuestring.split(",");
+                        if (values.length < 1) return;
+                        for (int j = 0; j < values.length; j++) {
+                            String valuetext = values[j];
+                            CheckBox checkBox = new CheckBox(this);
+                            checkBox.setTextColor(getResources().getColor(R.color.color_666));
+                            checkBox.setTextSize(14);
+                            checkBox.setId(Integer.parseInt(id + "2" + j));
+                            checkBox.setText(valuetext);
+                            for (int m = 0; m < selectvalue.length; m++) {
+                                if (valuetext.equals(selectvalue[m])) {
+                                    checkBox.setChecked(true);
+                                }
+                            }
+                            checkBox.setClickable(false);
+                            checkBox.setFocusable(false);
+                            l.addView(checkBox);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                lineAll.addView(l);
+
+                View view = new View(this);
+                view.setLayoutParams(lpview);
+                view.setBackgroundColor(getResources().getColor(R.color.color_e7));
+                lineAll.addView(view);
+            }
+        }
+    }
+
     private void initUi() {
         for (int i = 0; i < alldataBeanList.size(); i++) {
             ScheduleDetailBean.RespBodyBean.FormBean.DataBean dataBean = alldataBeanList.get(i);
             String leipiplugins = dataBean.getLeipiplugins();
             int id = dataBean.getId();
-            String value = dataBean.getValue();
             TextView name = new TextView(this);
             name.setPadding(0, 10, 0, 0);
             name.setText(dataBean.getTitle());
@@ -127,105 +266,77 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
             lpview.setMargins(0, 10, 0, 0);
             if (leipiplugins.equals("text") || leipiplugins.equals("textarea")) {
 
-                if (seetype == 2) {
-                    TextView namevalue = new TextView(this);
-                    namevalue.setPadding(0, 10, 0, 0);
-                    namevalue.setTextColor(getResources().getColor(R.color.color_333));
-                    namevalue.setTextSize(13);
-                    namevalue.setText(value);
-                    lineAll.addView(namevalue);
-                } else {
-                    EditText editText = new EditText(this);
-                    editText.setId(id);
-                    editText.setTextColor(getResources().getColor(R.color.color_666));
-                    editText.setTextSize(14);
-                    editText.setBackground(null);
-                    editText.setLayoutParams(lp);
-                    lineAll.addView(editText);
-                }
-
+                EditText editText = new EditText(this);
+                editText.setId(id);
+                editText.setTextColor(getResources().getColor(R.color.color_666));
+                editText.setTextSize(14);
+                editText.setBackground(null);
+                editText.setLayoutParams(lp);
+                lineAll.addView(editText);
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
                 lineAll.addView(view);
             } else if (leipiplugins.equals("radios")) {
-                if (seetype == 2) {
-                    TextView namevalue = new TextView(this);
-                    namevalue.setPadding(0, 10, 0, 0);
-                    namevalue.setTextColor(getResources().getColor(R.color.color_333));
-                    namevalue.setTextSize(13);
-                    namevalue.setText(value);
-                    lineAll.addView(namevalue);
-                } else {
-                    RadioGroup radioGroup = new RadioGroup(this);
-                    radioGroup.setLayoutParams(lp);
-                    radioGroup.setId(id);
-                    radioGroup.setPadding(0, 10, 0, 0);
-                    radioGroup.setOrientation(LinearLayout.VERTICAL);
-                    String valuestring=dataBean.getValue();
-                    try {
-                        if (valuestring!=null&&!valuestring.equals("")){
-                            String[] values=null;
-                            values=valuestring.split(",");
-                            if (values.length < 1) return;
-                            for (int j = 0; j < values.length; j++) {
-                                String valuetext = values[j];
-                                RadioButton radioButton = new RadioButton(this);
-                                radioButton.setTextColor(getResources().getColor(R.color.color_666));
-                                radioButton.setTextSize(14);
-                                radioButton.setId(Integer.parseInt(id + "1" + j));
-                                radioButton.setText(valuetext);
-                                radioGroup.addView(radioButton);
-                            }
+                RadioGroup radioGroup = new RadioGroup(this);
+                radioGroup.setLayoutParams(lp);
+                radioGroup.setId(id);
+                radioGroup.setPadding(0, 10, 0, 0);
+                radioGroup.setOrientation(LinearLayout.VERTICAL);
+                String valuestring = dataBean.getValue();
+                try {
+                    if (valuestring != null && !valuestring.equals("")) {
+                        String[] values = null;
+                        values = valuestring.split(",");
+                        if (values.length < 1) return;
+                        for (int j = 0; j < values.length; j++) {
+                            String valuetext = values[j];
+                            RadioButton radioButton = new RadioButton(this);
+                            radioButton.setTextColor(getResources().getColor(R.color.color_666));
+                            radioButton.setTextSize(14);
+                            radioButton.setId(Integer.parseInt(id + "1" + j));
+                            radioButton.setText(valuetext);
+                            radioGroup.addView(radioButton);
                         }
-                    } catch (Resources.NotFoundException e) {
-                        e.printStackTrace();
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
                     }
-                    lineAll.addView(radioGroup);
+                } catch (Resources.NotFoundException e) {
+                    e.printStackTrace();
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
                 }
+                lineAll.addView(radioGroup);
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
                 lineAll.addView(view);
             } else if (leipiplugins.equals("checkboxs")) {
-                if (seetype == 2) {
-                    TextView namevalue = new TextView(this);
-                    namevalue.setPadding(0, 10, 0, 0);
-                    namevalue.setTextColor(getResources().getColor(R.color.color_333));
-                    namevalue.setTextSize(13);
-                    namevalue.setText(value);
-                    lineAll.addView(namevalue);
-                } else {
-                    LinearLayout l = new LinearLayout(this);
-                    l.setId(id);
-                    l.setOrientation(LinearLayout.VERTICAL);
-                    String valuestring=dataBean.getValue();
-                    try {
-                        if (valuestring != null && !valuestring.equals("")) {
-                            String[] values = null;
-                            values = valuestring.split(",");
-                            if (values.length < 1) return;
-                            for (int j = 0; j < values.length; j++) {
-                                String valuetext = values[j];
-                                CheckBox checkBox = new CheckBox(this);
-                                checkBox.setTextColor(getResources().getColor(R.color.color_666));
-                                checkBox.setTextSize(14);
-                                checkBox.setId(Integer.parseInt(id + "2" + j));
-                                // checkBox.setButtonDrawable(getResources().getDrawable(R.drawable.checkbox_selector));
-                                checkBox.setText(valuetext);
-                                if (seetype == 2) {
-                                    checkBox.setClickable(false);
-                                }
-                                l.addView(checkBox);
+                LinearLayout l = new LinearLayout(this);
+                l.setId(id);
+                l.setOrientation(LinearLayout.VERTICAL);
+                String valuestring = dataBean.getValue();
+                try {
+                    if (valuestring != null && !valuestring.equals("")) {
+                        String[] values = null;
+                        values = valuestring.split(",");
+                        if (values.length < 1) return;
+                        for (int j = 0; j < values.length; j++) {
+                            String valuetext = values[j];
+                            CheckBox checkBox = new CheckBox(this);
+                            checkBox.setTextColor(getResources().getColor(R.color.color_666));
+                            checkBox.setTextSize(14);
+                            checkBox.setId(Integer.parseInt(id + "2" + j));
+                            // checkBox.setButtonDrawable(getResources().getDrawable(R.drawable.checkbox_selector));
+                            checkBox.setText(valuetext);
+                            if (seetype == 2) {
+                                checkBox.setClickable(false);
                             }
+                            l.addView(checkBox);
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
-                    lineAll.addView(l);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+                lineAll.addView(l);
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
@@ -289,16 +400,8 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                             }
                         } else if (leipiplugins.equals("checkboxs")) {
                             JSONObject jsonObject = new JSONObject();
-                            List<ScheduleDetailBean.RespBodyBean.FormBean.VelueBean> options = dataBean.getOptions();
+                            String val = dataBean.getValue();
                             jsonObject.put(kongjianid, id + "");
-                            String val = "";
-                            if (options.size() < 1) return;
-                            for (int j = 0; j < options.size(); j++) {
-                                CheckBox cb = findViewById(Integer.parseInt(id + "2" + j));
-                                if (cb.isChecked()) {
-                                    val += cb.getText().toString() + ",";
-                                }
-                            }
                             if (!val.equals("")) {
                                 if (val.lastIndexOf(",") == val.length() - 1)
                                     val = val.substring(0, val.length() - 1);
