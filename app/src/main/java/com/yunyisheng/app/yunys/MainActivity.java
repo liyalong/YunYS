@@ -135,7 +135,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         receiver = new NotificationReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("action");
-        mContext.registerReceiver(receiver, intentFilter);
+        mContext.registerReceiver(receiver, intentFilter,"com.yunyisheng.app.yunys.permission",null);
         rbCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
