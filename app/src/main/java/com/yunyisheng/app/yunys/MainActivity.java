@@ -177,7 +177,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     private void setNotification(String string) {
         //此类通知在Android 5.0以上版本才会有横幅有效！
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {//小于5.0
-                Intent broadcastIntent = new Intent(context, NotificationReceiver.class);
+                Intent broadcastIntent = new Intent("com.yunyisheng.app.yunys.receiver");
                 broadcastIntent.putExtra("str",string);
                 PendingIntent pendingIntent = PendingIntent. getBroadcast(context, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 NotificationManager notificationManager = (NotificationManager) MainActivity.this.getSystemService(NOTIFICATION_SERVICE);
