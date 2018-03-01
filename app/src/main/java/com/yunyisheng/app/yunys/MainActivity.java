@@ -7,9 +7,9 @@ import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -36,6 +36,7 @@ import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.main.fragement.HomeFragement;
 import com.yunyisheng.app.yunys.main.model.WarningMessageEvent;
+import com.yunyisheng.app.yunys.main.roadcastReceiver.NotificationReceiver;
 import com.yunyisheng.app.yunys.main.service.MessageService;
 import com.yunyisheng.app.yunys.mqtt.MQTTMessage;
 import com.yunyisheng.app.yunys.mqtt.MQTTService;
@@ -102,6 +103,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     private long exitTime = 0;
     private NotificationManager notificationManager;
     private PendingIntent pIntent;
+    private NotificationReceiver receiver;
 
     private void checkToken() {
         String token = SharedPref.getInstance(context).getString("TOKEN", "");
@@ -129,6 +131,11 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         ButterKnife.bind(this);
         checkToken();
         initTab();
+        //广播接受者实例
+        receiver = new NotificationReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("action");
+        mContext.registerReceiver(receiver, intentFilter,"com.yunyisheng.app.yunys.permission",null);
         rbCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,9 +155,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
-                            ComponentName cName = new ComponentName("com.android.phone", "com.android.phone.Settings");
-                            intent.setComponent(cName);
+                            Intent intent = new Intent(Settings.ACTION_SETTINGS);
                             startActivity(intent);
                         }
                     });
@@ -179,7 +184,9 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     private void setNotification(String string) {
         //此类通知在Android 5.0以上版本才会有横幅有效！
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {//小于5.0
-                Intent broadcastIntent = new Intent("com.yunyisheng.app.yunys.receiver");
+                Intent broadcastIntent = new Intent();
+                broadcastIntent.setAction("action");
+                broadcastIntent.putExtra("data", "noticeMessage");
                 broadcastIntent.putExtra("str",string);
                 PendingIntent pendingIntent = PendingIntent. getBroadcast(context, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 NotificationManager notificationManager = (NotificationManager) MainActivity.this.getSystemService(NOTIFICATION_SERVICE);
@@ -205,7 +212,9 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 
             builder.setSmallIcon(R.mipmap.tubiao);
             builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.tubiao));
-            Intent broadcastIntent = new Intent("com.yunyisheng.app.yunys.receiver");
+            Intent broadcastIntent = new Intent();
+            broadcastIntent.setAction("action");
+            broadcastIntent.putExtra("data", "noticeMessage");
             broadcastIntent.putExtra("str",string);
             pIntent = PendingIntent.getActivity(context, 1, broadcastIntent, 0);
             builder.setContentIntent(pIntent);

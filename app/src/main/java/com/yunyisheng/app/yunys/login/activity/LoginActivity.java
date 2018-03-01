@@ -21,7 +21,6 @@ import com.yunyisheng.app.yunys.main.service.MessageService;
 import com.yunyisheng.app.yunys.mqtt.MQTTService;
 import com.yunyisheng.app.yunys.utils.ActivityManager;
 import com.yunyisheng.app.yunys.utils.AndroidIDUtil;
-import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.RegularUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
@@ -60,12 +59,8 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
 
     @Override
     public void initAfter() {
-       if (CommonUtils.isServiceRunning(mContext,"MQTTService")){
-           mContext.stopService(new Intent(mContext, MQTTService.class));
-       }
-        if (CommonUtils.isServiceRunning(mContext,"MessageService")){
-            mContext.stopService(new Intent(mContext, MessageService.class));
-        }
+        mContext.stopService(new Intent(mContext, MQTTService.class));
+        mContext.stopService(new Intent(mContext, MessageService.class));
     }
 
     @Override
@@ -138,9 +133,9 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
                 return;
             }
         }
-        if (yzmValue!=null&&!yzmValue.equals("")){
+        if (yzmValue != null && !yzmValue.equals("")) {
             getP().Login(userPhone, userPassword, uuid, yzmValue);
-        }else {
+        } else {
             getP().Login(userPhone, userPassword, uuid, null);
         }
 
