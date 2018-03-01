@@ -6,7 +6,6 @@
 
     <permission
         android:name="com.yunyisheng.app.yunys.permission"
-        android:label="receiver permission"
         android:protectionLevel="normal" />
 
     <uses-permission android:name="android.permission.INTERNET" />

@@ -25,6 +25,7 @@ import com.yunyisheng.app.yunys.base.PressionListener;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.login.model.UserModel;
 import com.yunyisheng.app.yunys.main.service.MessageService;
+import com.yunyisheng.app.yunys.mqtt.MQTTService;
 import com.yunyisheng.app.yunys.userset.activity.AboutOurActivity;
 import com.yunyisheng.app.yunys.userset.activity.AccountSetActivity;
 import com.yunyisheng.app.yunys.userset.activity.ClearCatchActivity;
@@ -292,6 +293,7 @@ public class MineFragement extends BaseFragement<MinePresent> {
                         .to(LoginActivity.class)
                         .launch();
                 mContext.stopService(new Intent(mContext, MessageService.class));
+                mContext.stopService(new Intent(mContext, MQTTService.class));
                 context.finish();
                 break;
         }
