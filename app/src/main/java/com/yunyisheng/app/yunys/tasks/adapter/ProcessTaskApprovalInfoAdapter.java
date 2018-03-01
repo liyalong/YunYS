@@ -40,9 +40,9 @@ public class ProcessTaskApprovalInfoAdapter extends SimpleListAdapter<ProcessDet
 
     @Override
     protected void convert(ViewHolder holder, ProcessDetailBean.HistoryCommnetsBean item, int position) {
-        holder.processTaskApprovalUser.setText(item.getUserId());
-        holder.processTaskApprovalTime.setText(item.getTime() + "");
-        holder.processApprovalInfo.setText(item.getMessage());
+        holder.processTaskApprovalUser.setText(item.getUserName());
+        holder.processTaskApprovalTime.setText(item.getTime());
+        holder.processApprovalInfo.setText(item.getFullMessage());
         if ((position+1) == countSize){
             holder.processApprovalInfoTitle.setText(R.string.process_approval_info);
             holder.processTaskApprovalTimeTitle.setText(R.string.process_approval_time);

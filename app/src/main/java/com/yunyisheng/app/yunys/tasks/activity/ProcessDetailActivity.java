@@ -88,40 +88,53 @@ public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
 
     @Override
     public void widgetClick(View v) {
-        String state = processDetail.getRespBody().getTask().getState();
-        String taskid = processDetail.getRespBody().getTask().getId();
-        Integer type = 2;
-        List<ProcessDetailBean.SelectByIdAndUuid.DataListBean> dataList = processDetail.getRespBody().getSelectByIdAndUuid().getDataList();
-        List<ProcessDetailBean.SelectByIdAndUuid.FormBean.DataBean> dataBeans = processDetail.getRespBody().getSelectByIdAndUuid().getForm().getData();
-        switch (v.getId()){
-            case R.id.img_back:
-                this.finish();
-                break;
-            case R.id.do_process_task:
-                if (dataList.size()>0 && dataBeans.size() > 0) {
-                    Intent intent = new Intent(ProcessDetailActivity.this, ProcessTaskFormActivity.class);
-                    intent.putExtra("type", type);
-                    intent.putExtra("taskid", taskid);
-                    intent.putExtra("state", state);
-                    intent.putExtra("processDetail",processDetail);
-                    startActivity(intent);
-                }else {
-                    ToastUtils.showToast("表单数据错误");
-                }
-                break;
-            case R.id.to_process_task_detail:
-                if (dataList.size()>0 && dataBeans.size() > 0) {
-                    Intent intent = new Intent(ProcessDetailActivity.this, ProcessTaskFormActivity.class);
-                    intent.putExtra("type", type);
-                    intent.putExtra("taskid", taskid);
-                    intent.putExtra("state", state);
-                    intent.putExtra("processDetail",processDetail);
-                    startActivity(intent);
-                }else {
-                    ToastUtils.showToast("表单数据错误");
-                }
-                break;
+        try{
+
+            switch (v.getId()){
+                case R.id.img_back:
+                    this.finish();
+                    break;
+                case R.id.do_process_task:
+                    String state = processDetail.getRespBody().getTask().getState();
+                    String taskid = processDetail.getRespBody().getTask().getId();
+                    Integer type = 2;
+                    List<ProcessDetailBean.SelectByIdAndUuid.DataListBean> dataList = processDetail.getRespBody().getSelectByIdAndUuid().getDataList();
+                    List<ProcessDetailBean.SelectByIdAndUuid.FormBean.DataBean> dataBeans = processDetail.getRespBody().getSelectByIdAndUuid().getForm().getData();
+                    if (dataList.size()>0 && dataBeans.size() > 0) {
+                        Intent intent = new Intent(ProcessDetailActivity.this, ProcessTaskFormActivity.class);
+                        intent.putExtra("type", type);
+                        intent.putExtra("taskid", taskid);
+                        intent.putExtra("state", state);
+                        intent.putExtra("processDetail",processDetail);
+                        startActivity(intent);
+                    }else {
+                        ToastUtils.showToast("表单数据错误");
+                    }
+                    break;
+                case R.id.to_process_task_detail:
+                    String state2 = processDetail.getRespBody().getTask().getState();
+                    String taskid2 = processDetail.getRespBody().getTask().getId();
+                    Integer type2 = 2;
+                    List<ProcessDetailBean.SelectByIdAndUuid.DataListBean> dataList2 = processDetail.getRespBody().getSelectByIdAndUuid().getDataList();
+                    List<ProcessDetailBean.SelectByIdAndUuid.FormBean.DataBean> dataBeans2 = processDetail.getRespBody().getSelectByIdAndUuid().getForm().getData();
+                    if (dataList2.size()>0 && dataBeans2.size() > 0) {
+                        Intent intent = new Intent(ProcessDetailActivity.this, ProcessTaskFormActivity.class);
+                        intent.putExtra("type", type2);
+                        intent.putExtra("taskid", taskid2);
+                        intent.putExtra("state", state2);
+                        intent.putExtra("processDetail",processDetail);
+                        startActivity(intent);
+                        //TODO startResultActivity
+                    }else {
+                        ToastUtils.showToast("表单数据错误");
+                    }
+                    break;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
+
     }
 
     public void getProcessDetailResult(ProcessDetailBean processDetailBean) {

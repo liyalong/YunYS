@@ -34,7 +34,7 @@ public class ProcessDetailBean extends BaseModel implements Serializable {
 
         private StartUserIdBean startUserId;
         private TaskBean task;
-        private YseNoEndBean yseNoEnd;
+
         private List<HistoryCommnetsBean> historyCommnets;
         private SelectByIdAndUuid selectByIdAndUuid;
 
@@ -62,13 +62,6 @@ public class ProcessDetailBean extends BaseModel implements Serializable {
             this.task = task;
         }
 
-        public YseNoEndBean getYseNoEnd() {
-            return yseNoEnd;
-        }
-
-        public void setYseNoEnd(YseNoEndBean yseNoEnd) {
-            this.yseNoEnd = yseNoEnd;
-        }
 
         public List<HistoryCommnetsBean> getHistoryCommnets() {
             return historyCommnets;
@@ -375,102 +368,7 @@ public class ProcessDetailBean extends BaseModel implements Serializable {
         }
     }
 
-    public static class YseNoEndBean implements Serializable {
 
-        /**
-         * id : null
-         * processInstanceId : 180029
-         * processDefinitionId : 未定义:18:105007
-         * startTime : null
-         * endTime : null
-         * processDefinitionName : null
-         * name : null
-         * tenantId :
-         * suspenSionState : null
-         */
-
-        private Object id;
-        private String processInstanceId;
-        private String processDefinitionId;
-        private String startTime;
-        private String endTime;
-        private String processDefinitionName;
-        private String name;
-        private String tenantId;
-        private Object suspenSionState;
-
-        public Object getId() {
-            return id;
-        }
-
-        public void setId(Object id) {
-            this.id = id;
-        }
-
-        public String getProcessInstanceId() {
-            return processInstanceId;
-        }
-
-        public void setProcessInstanceId(String processInstanceId) {
-            this.processInstanceId = processInstanceId;
-        }
-
-        public String getProcessDefinitionId() {
-            return processDefinitionId;
-        }
-
-        public void setProcessDefinitionId(String processDefinitionId) {
-            this.processDefinitionId = processDefinitionId;
-        }
-
-        public String getStartTime() {
-            return startTime;
-        }
-
-        public void setStartTime(String startTime) {
-            this.startTime = startTime;
-        }
-
-        public String getEndTime() {
-            return endTime;
-        }
-
-        public void setEndTime(String endTime) {
-            this.endTime = endTime;
-        }
-
-        public String getProcessDefinitionName() {
-            return processDefinitionName;
-        }
-
-        public void setProcessDefinitionName(String processDefinitionName) {
-            this.processDefinitionName = processDefinitionName;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getTenantId() {
-            return tenantId;
-        }
-
-        public void setTenantId(String tenantId) {
-            this.tenantId = tenantId;
-        }
-
-        public Object getSuspenSionState() {
-            return suspenSionState;
-        }
-
-        public void setSuspenSionState(Object suspenSionState) {
-            this.suspenSionState = suspenSionState;
-        }
-    }
 
     public static class HistoryCommnetsBean implements Serializable {
         /**
@@ -487,104 +385,78 @@ public class ProcessDetailBean extends BaseModel implements Serializable {
          * userId : null
          */
 
-        private String action;
         private String fullMessage;
-        private String fullMessageBytes;
         private String id;
-        private String message;
-        private String persistentState;
         private String processInstanceId;
         private String taskId;
-        private long time;
+        private String time;
         private String type;
         private String userId;
-
-        public String getAction() {
-            return action;
-        }
-
-        public void setAction(String action) {
-            this.action = action;
-        }
-
-        public String getFullMessage() {
-            return fullMessage;
-        }
+        private String userName;
 
         public void setFullMessage(String fullMessage) {
             this.fullMessage = fullMessage;
-        }
-
-        public String getFullMessageBytes() {
-            return fullMessageBytes;
-        }
-
-        public void setFullMessageBytes(String fullMessageBytes) {
-            this.fullMessageBytes = fullMessageBytes;
-        }
-
-        public String getId() {
-            return id;
         }
 
         public void setId(String id) {
             this.id = id;
         }
 
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-
-        public String getPersistentState() {
-            return persistentState;
-        }
-
-        public void setPersistentState(String persistentState) {
-            this.persistentState = persistentState;
-        }
-
-        public String getProcessInstanceId() {
-            return processInstanceId;
-        }
-
         public void setProcessInstanceId(String processInstanceId) {
             this.processInstanceId = processInstanceId;
-        }
-
-        public String getTaskId() {
-            return taskId;
         }
 
         public void setTaskId(String taskId) {
             this.taskId = taskId;
         }
 
-        public long getTime() {
-            return time;
-        }
-
-        public void setTime(long time) {
+        public void setTime(String time) {
             this.time = time;
-        }
-
-        public String getType() {
-            return type;
         }
 
         public void setType(String type) {
             this.type = type;
         }
 
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public String getFullMessage() {
+
+            return fullMessage;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public String getProcessInstanceId() {
+            return processInstanceId;
+        }
+
+        public String getTaskId() {
+            return taskId;
+        }
+
+        public String getTime() {
+            return time;
+        }
+
+        public String getType() {
+            return type;
+        }
+
         public String getUserId() {
             return userId;
         }
 
-        public void setUserId(String userId) {
-            this.userId = userId;
+        public String getUserName() {
+            return userName;
         }
     }
 
