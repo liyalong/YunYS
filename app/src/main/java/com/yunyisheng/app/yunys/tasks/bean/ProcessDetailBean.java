@@ -614,7 +614,7 @@ public class ProcessDetailBean extends BaseModel implements Serializable {
             this.dataList = dataList;
         }
 
-        public static class FormBean {
+        public static class FormBean implements Serializable {
             /**
              * version : 1
              * baseId : 168

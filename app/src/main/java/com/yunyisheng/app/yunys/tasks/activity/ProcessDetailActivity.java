@@ -138,7 +138,7 @@ public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
             taskStartUser.setText(startUser);
             taskStartTime.setText(taskStartTimeValue);
 
-            if (taskApprovalState.equals("0")){
+            if (taskApprovalState.equals("1")){
                 taskStartState.setText("待审批");
                 if (taskState.equals("101")){
                     doProcessTask.setVisibility(View.VISIBLE);
@@ -147,7 +147,7 @@ public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
                     doProcessTask.setVisibility(View.GONE);
                     toProcessTaskDetail.setVisibility(View.VISIBLE);
                 }
-            }else if (taskApprovalState.equals("1")){
+            }else if (taskApprovalState.equals("0")){
                 taskStartState.setText("已结束");
                 doProcessTask.setVisibility(View.GONE);
                 toProcessTaskDetail.setVisibility(View.VISIBLE);
