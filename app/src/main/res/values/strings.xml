@@ -305,7 +305,21 @@
     <string name="the_device">所属设备：</string>
 
     <string name="task_back_info_title">回退意见</string>
-
+    <string name="process_task_name">流程任务名称：</string>
+    <string name="process_task_user">发起人：</string>
+    <string name="process_task_start">发起时间：</string>
+    <string name="process_approval_box">审批意见</string>
+    <string name="process_approval_info">审批意见：</string>
+    <string name="process_approval_turn_info">转办意见：</string>
+    <string name="process_task_state">任务状态：</string>
+    <string name="process_task_state_1">待审批</string>
+    <string name="process_task_state_2">已结束</string>
+    <string name="process_approval_user">审批人：</string>
+    <string name="process_approval_time">审批时间：</string>
+    <string name="process_turn_user">转办人：</string>
+    <string name="process_turn_time">转办时间：</string>
+    <string name="process_turn_info">转办意见：</string>
+    <string name="process_task_do">审批</string>
     <!-- 查看我发布的任务详情 -->
     <string name="my_push_task_child_title">任务执行详情</string>
     <string name="my_push_task_child_list">任务详情列表</string>

@@ -1,50 +1,69 @@
 package com.yunyisheng.app.yunys.tasks.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.bumptech.glide.load.engine.Resource;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.tasks.adapter.ProcessTaskApprovalInfoAdapter;
 import com.yunyisheng.app.yunys.tasks.bean.ProcessDetailBean;
 import com.yunyisheng.app.yunys.tasks.present.ProcessDetailPresent;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
-import java.io.Serializable;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.droidlover.xdroidbase.cache.SharedPref;
 
 public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
 
-    private String processDefinitionId;
+    @BindView(R.id.img_back)
+    ImageView imgBack;
+    @BindView(R.id.process_task_name)
+    TextView processTaskName;
+    @BindView(R.id.task_start_user)
+    TextView taskStartUser;
+    @BindView(R.id.task_start_time)
+    TextView taskStartTime;
+    @BindView(R.id.task_start_state)
+    TextView taskStartState;
+    @BindView(R.id.process_approval_list)
+    ListView processApprovalList;
+    @BindView(R.id.approval_box)
+    LinearLayout approvalBox;
+    @BindView(R.id.do_process_task)
+    TextView doProcessTask;
+    @BindView(R.id.to_process_task_detail)
+    TextView toProcessTaskDetail;
+    @BindView(R.id.caozuo_box)
+    LinearLayout caozuoBox;
     private int userId;
     private String taskId;
     private String taskType;
-    private String state;
-    private int type;
-    private String taskid;
-    private String processDefinitionName;
+    private ProcessDetailBean processDetail;
+    private ProcessTaskApprovalInfoAdapter approvalAdapter;
 
     @Override
     public void initView() {
         Intent intent = getIntent();
+        ButterKnife.bind(this);
+
         taskId = intent.getStringExtra("taskId");
         userId = intent.getIntExtra("userId", 0);
         taskType = intent.getStringExtra("taskType");
-
-        Button button=(Button)findViewById(R.id.but_start);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (userId ==0){
-                   int userid = SharedPref.getInstance(ProcessDetailActivity.this).getInt("userid",0);
-                   getP().getProcessTaskDetailByUser(taskId,taskType,userid+"");
-               }else {
-                   getP().getProcessTaskDetailByUser(taskId,taskType,userId+"");
-               }
-            }
-        });
+        if (userId == 0) {
+            int userid = SharedPref.getInstance(ProcessDetailActivity.this).getInt("userid", 0);
+            getP().getProcessTaskDetailByUser(taskId, taskType, userid + "");
+        } else {
+            getP().getProcessTaskDetailByUser(taskId, taskType, userId + "");
+        }
     }
 
     @Override
@@ -64,31 +83,82 @@ public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
 
     @Override
     public void setListener() {
-
+        doProcessTask.setOnClickListener(this);
+        toProcessTaskDetail.setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
-
+        String state = processDetail.getRespBody().getTask().getState();
+        String taskid = processDetail.getRespBody().getTask().getId();
+        Integer type = 2;
+        List<ProcessDetailBean.SelectByIdAndUuid.DataListBean> dataList = processDetail.getRespBody().getSelectByIdAndUuid().getDataList();
+        List<ProcessDetailBean.SelectByIdAndUuid.FormBean.DataBean> dataBeans = processDetail.getRespBody().getSelectByIdAndUuid().getForm().getData();
+        switch (v.getId()){
+            case R.id.do_process_task:
+                if (dataList.size()>0 && dataBeans.size() > 0) {
+                    Intent intent = new Intent(ProcessDetailActivity.this, ProcessTaskFormActivity.class);
+                    intent.putExtra("type", type);
+                    intent.putExtra("taskid", taskid);
+                    intent.putExtra("state", state);
+                    intent.putExtra("processDetail",processDetail);
+                    startActivity(intent);
+                }else {
+                    ToastUtils.showToast("表单数据错误");
+                }
+                break;
+            case R.id.to_process_task_detail:
+                if (dataList.size()>0 && dataBeans.size() > 0) {
+                    Intent intent = new Intent(ProcessDetailActivity.this, ProcessTaskFormActivity.class);
+                    intent.putExtra("type", type);
+                    intent.putExtra("taskid", taskid);
+                    intent.putExtra("state", state);
+                    intent.putExtra("processDetail",processDetail);
+                    startActivity(intent);
+                }else {
+                    ToastUtils.showToast("表单数据错误");
+                }
+                break;
+        }
     }
 
     public void getProcessDetailResult(ProcessDetailBean processDetailBean) {
-        ProcessDetailBean.YseNoEndBean yseNoEnd = processDetailBean.getRespBody().getYseNoEnd();
-        processDefinitionId = yseNoEnd.getProcessDefinitionId();
-        state = processDetailBean.getRespBody().getTask().getState();
-        taskid = processDetailBean.getRespBody().getTask().getId();
-        type = 2;
-        List<ProcessDetailBean.SelectByIdAndUuid.DataListBean> dataList = processDetailBean.getRespBody().getSelectByIdAndUuid().getDataList();
-        if (dataList.size()>0) {
-            Intent intent = new Intent(ProcessDetailActivity.this, ProcessTaskFormActivity.class);
-            intent.putExtra("type", type);
-            intent.putExtra("selectFormId", processDefinitionId);
-            intent.putExtra("taskid", taskid);
-            intent.putExtra("state", state);
-            intent.putExtra("datalist", (Serializable) dataList);
-            startActivity(intent);
-        }else {
-            ToastUtils.showToast("数据错误");
+        this.processDetail = processDetailBean;
+        try{
+            String taskName = processDetail.getRespBody().getSelectByIdAndUuid().getForm().getName().toString();
+            String startUser = processDetail.getRespBody().getStartUserId().getUserName().toString();
+            String taskStartTimeValue = processDetail.getRespBody().getTask().getCreationTime();
+            String taskState = processDetail.getRespBody().getTask().getState();
+            String taskApprovalState = processDetail.getRespBody().getTask().getYesOrNoApproval();
+            processTaskName.setText(taskName);
+            taskStartUser.setText(startUser);
+            taskStartTime.setText(taskStartTimeValue);
+
+            if (taskApprovalState == "0"){
+                taskStartState.setText("待审批");
+                if (taskState == "101"){
+                    doProcessTask.setVisibility(View.VISIBLE);
+                    toProcessTaskDetail.setVisibility(View.GONE);
+                }else {
+                    doProcessTask.setVisibility(View.GONE);
+                    toProcessTaskDetail.setVisibility(View.VISIBLE);
+                }
+            }else if (taskApprovalState == "1"){
+                taskStartState.setText("已结束");
+                doProcessTask.setVisibility(View.GONE);
+                toProcessTaskDetail.setVisibility(View.VISIBLE);
+            }
+            //审批意见列表
+            List<ProcessDetailBean.HistoryCommnetsBean> taskApprovalDetailList = processDetail.getRespBody().getHistoryCommnets();
+            if (taskApprovalDetailList.size() == 0){
+                approvalBox.setVisibility(View.GONE);
+            }else {
+                approvalBox.setVisibility(View.VISIBLE);
+                approvalAdapter = new ProcessTaskApprovalInfoAdapter(context,taskApprovalDetailList,taskApprovalState,taskApprovalDetailList.size());
+                processApprovalList.setAdapter(approvalAdapter);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

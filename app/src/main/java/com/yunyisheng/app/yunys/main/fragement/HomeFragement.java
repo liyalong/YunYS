@@ -299,18 +299,19 @@ public class HomeFragement extends BaseFragement<HomePresent> {
 
     private  void  playAudio(){
         try {
-            mMediaPlayer = MediaPlayer.create(mContext, R.raw.msg);
-            mMediaPlayer.setLooping(false);
-            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    mMediaPlayer.release();
-                    mMediaPlayer = null;
-                }
-            });
-            mMediaPlayer.start();
-
+            if (mContext != null){
+                mMediaPlayer = MediaPlayer.create(mContext, R.raw.msg);
+                mMediaPlayer.setLooping(false);
+                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        mMediaPlayer.release();
+                        mMediaPlayer = null;
+                    }
+                });
+                mMediaPlayer.start();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

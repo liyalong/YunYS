@@ -5,6 +5,7 @@ import com.yunyisheng.app.yunys.project.model.TaskListModel;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
 import com.yunyisheng.app.yunys.tasks.bean.ProcessDetailBean;
 import com.yunyisheng.app.yunys.tasks.model.CycleTaskDetailModel;
+import com.yunyisheng.app.yunys.tasks.model.ProcessDetailModel;
 import com.yunyisheng.app.yunys.tasks.model.ProcessFormListModel;
 import com.yunyisheng.app.yunys.tasks.model.ProjectFormListModel;
 import com.yunyisheng.app.yunys.tasks.model.ProjectUserListModel;
@@ -302,4 +303,14 @@ public interface TaskService {
     @FormUrlEncoded
     @POST("enterpriseUser/enterprises/list")
     Flowable<ProjectUserListModel> getAllUserLists(@Field("activiti") String activiti);
+
+    /**
+     * 获取流程任务详情
+     * @param taskId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("selectTaskForm")
+    Flowable<ProcessDetailModel> getProcessDetailInfo(@Field("taskId") String taskId);
+
 }

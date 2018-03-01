@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys.tasks.present;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.tasks.activity.ProcessDetailActivity;
 import com.yunyisheng.app.yunys.tasks.bean.ProcessDetailBean;
+import com.yunyisheng.app.yunys.tasks.model.ProcessDetailModel;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import cn.droidlover.xdroidmvp.mvp.XPresent;

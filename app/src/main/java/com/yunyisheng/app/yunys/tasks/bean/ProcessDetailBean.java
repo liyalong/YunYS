@@ -78,7 +78,7 @@ public class ProcessDetailBean extends BaseModel implements Serializable {
             this.historyCommnets = historyCommnets;
         }
 
-        public static class StartUserIdBean {
+        public static class StartUserIdBean implements Serializable {
             /**
              * enterpriseId : 88d3c7fccd154c66861621c45ed4d75e
              * enterpriseRolesId : 1
@@ -265,33 +265,117 @@ public class ProcessDetailBean extends BaseModel implements Serializable {
         }
     }
 
-    public static class TaskBean {
+    public static class TaskBean implements Serializable {
         /**
          * id : 185004
          * state : 102
          */
 
         private String id;
+        private String theme;
+        private String initiator;
+        private String creationTime;
+        private String endTime3;
+        private String type;
         private String state;
-
-        public String getId() {
-            return id;
-        }
+        private String yesOrNoApproval;
+        private String over;
+        private String selectUserById;
+        private String assignee;
 
         public void setId(String id) {
             this.id = id;
+        }
+
+        public String getId() {
+
+            return id;
+        }
+
+        public void setTheme(String theme) {
+            this.theme = theme;
+        }
+
+        public void setInitiator(String initiator) {
+            this.initiator = initiator;
+        }
+
+        public void setCreationTime(String creationTime) {
+            this.creationTime = creationTime;
+        }
+
+        public void setEndTime3(String endTime3) {
+            this.endTime3 = endTime3;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public void setState(String state) {
+            this.state = state;
+        }
+
+        public void setYesOrNoApproval(String yesOrNoApproval) {
+            this.yesOrNoApproval = yesOrNoApproval;
+        }
+
+        public void setOver(String over) {
+            this.over = over;
+        }
+
+        public void setSelectUserById(String selectUserById) {
+            this.selectUserById = selectUserById;
+        }
+
+        public void setAssignee(String assignee) {
+            this.assignee = assignee;
+        }
+
+
+
+        public String getTheme() {
+            return theme;
+        }
+
+        public String getInitiator() {
+            return initiator;
+        }
+
+        public String getCreationTime() {
+            return creationTime;
+        }
+
+        public String getEndTime3() {
+            return endTime3;
+        }
+
+        public String getType() {
+            return type;
         }
 
         public String getState() {
             return state;
         }
 
-        public void setState(String state) {
-            this.state = state;
+        public String getYesOrNoApproval() {
+            return yesOrNoApproval;
+        }
+
+        public String getOver() {
+            return over;
+        }
+
+        public String getSelectUserById() {
+            return selectUserById;
+        }
+
+        public String getAssignee() {
+            return assignee;
         }
     }
 
-    public static class YseNoEndBean {
+    public static class YseNoEndBean implements Serializable {
 
         /**
          * id : null
@@ -388,7 +472,7 @@ public class ProcessDetailBean extends BaseModel implements Serializable {
         }
     }
 
-    public static class HistoryCommnetsBean {
+    public static class HistoryCommnetsBean implements Serializable {
         /**
          * action : AddComment
          * fullMessage : 审核通过，继续努力
@@ -815,7 +899,7 @@ public class ProcessDetailBean extends BaseModel implements Serializable {
                 this.data = data;
             }
 
-            public static class DataBean {
+            public static class DataBean implements Serializable {
                 /**
                  * id : 753
                  * uuid : c36ee8f1321d405eb7f533f6a584e582
