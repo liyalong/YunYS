@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.userset.activity;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
+import com.yunyisheng.app.yunys.main.service.MessageService;
+import com.yunyisheng.app.yunys.mqtt.MQTTService;
 import com.yunyisheng.app.yunys.userset.present.AccountSetlPresent;
 
 import butterknife.BindView;
@@ -160,6 +163,8 @@ public class AccountSetActivity extends BaseActivity<AccountSetlPresent> {
         Router.newIntent(context)
                 .to(LoginActivity.class)
                 .launch();
+        mContext.stopService(new Intent(mContext, MQTTService.class));
+        mContext.stopService(new Intent(mContext, MessageService.class));
         finish();
     }
 

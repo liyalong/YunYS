@@ -292,8 +292,8 @@ public class MineFragement extends BaseFragement<MinePresent> {
                 Router.newIntent(context)
                         .to(LoginActivity.class)
                         .launch();
-                mContext.stopService(new Intent(mContext, MessageService.class));
                 mContext.stopService(new Intent(mContext, MQTTService.class));
+                mContext.stopService(new Intent(mContext, MessageService.class));
                 context.finish();
                 break;
         }

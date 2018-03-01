@@ -195,14 +195,18 @@ public class MessageService extends Service {
 		call.enqueue(new Callback<WarnningMessageBean>() {
 			@Override
 			public void onResponse(Call<WarnningMessageBean> call, Response<WarnningMessageBean> response) {
-				WarnningMessageBean body = response.body();
-				int respBody = body.getRespBody();
-				LogUtils.i("servicehflkdh",body.getRespBody()+"");
-				if (respBody>0){
-					doVibrator();
-					playAudio();
+				try {
+					WarnningMessageBean body = response.body();
+					int respBody = body.getRespBody();
+					LogUtils.i("servicehflkdh",body.getRespBody()+"");
+					if (respBody>0){
+                        doVibrator();
+                        playAudio();
+                    }
+					EventBus.getDefault().post(new WarningMessageEvent(respBody));
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-				EventBus.getDefault().post(new WarningMessageEvent(respBody));
 			}
 
 			@Override
