@@ -161,7 +161,7 @@ public class MessageService extends Service {
 				NoReadMessage body = response.body();
 				NoReadMessage.RespBodyBean respBody =body.getRespBody();
 				try {
-					LogUtils.i("servicehflkdh", respBody.toString());
+					//LogUtils.i("servicehflkdh", respBody.toString());
 					if (respBody.getMids() != null && respBody.getMids().size() > 0) {
 						int size = respBody.getMids().size();
 						if (allsize == size) {

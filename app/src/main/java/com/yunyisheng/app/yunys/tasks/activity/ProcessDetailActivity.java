@@ -83,6 +83,7 @@ public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
 
     @Override
     public void setListener() {
+        imgBack.setOnClickListener(this);
         doProcessTask.setOnClickListener(this);
         toProcessTaskDetail.setOnClickListener(this);
     }
@@ -95,6 +96,9 @@ public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
         List<ProcessDetailBean.SelectByIdAndUuid.DataListBean> dataList = processDetail.getRespBody().getSelectByIdAndUuid().getDataList();
         List<ProcessDetailBean.SelectByIdAndUuid.FormBean.DataBean> dataBeans = processDetail.getRespBody().getSelectByIdAndUuid().getForm().getData();
         switch (v.getId()){
+            case R.id.img_back:
+                this.finish();
+                break;
             case R.id.do_process_task:
                 if (dataList.size()>0 && dataBeans.size() > 0) {
                     Intent intent = new Intent(ProcessDetailActivity.this, ProcessTaskFormActivity.class);
@@ -134,16 +138,16 @@ public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
             taskStartUser.setText(startUser);
             taskStartTime.setText(taskStartTimeValue);
 
-            if (taskApprovalState == "0"){
+            if (taskApprovalState.equals("0")){
                 taskStartState.setText("待审批");
-                if (taskState == "101"){
+                if (taskState.equals("101")){
                     doProcessTask.setVisibility(View.VISIBLE);
                     toProcessTaskDetail.setVisibility(View.GONE);
                 }else {
                     doProcessTask.setVisibility(View.GONE);
                     toProcessTaskDetail.setVisibility(View.VISIBLE);
                 }
-            }else if (taskApprovalState == "1"){
+            }else if (taskApprovalState.equals("1")){
                 taskStartState.setText("已结束");
                 doProcessTask.setVisibility(View.GONE);
                 toProcessTaskDetail.setVisibility(View.VISIBLE);
