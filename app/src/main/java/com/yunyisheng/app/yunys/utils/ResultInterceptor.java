@@ -2,13 +2,10 @@ package com.yunyisheng.app.yunys.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 
 import com.google.gson.Gson;
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
-import com.yunyisheng.app.yunys.main.service.MessageService;
-import com.yunyisheng.app.yunys.mqtt.MQTTService;
 
 import java.io.IOException;
 
@@ -53,8 +50,7 @@ public class ResultInterceptor implements Interceptor {
                         baseModel = gson.fromJson(json,BaseModel.class);
                         Integer status = baseModel.getRespCode();
                         if(status != null && status.equals(3)){
-                            context.stopService(new Intent(context, MQTTService.class));
-                            context.stopService(new Intent(context, MessageService.class));
+
                             Router.newIntent((Activity) context)
                                     .to(LoginActivity.class)
                                     .launch();

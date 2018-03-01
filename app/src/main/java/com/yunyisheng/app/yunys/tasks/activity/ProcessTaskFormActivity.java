@@ -70,6 +70,8 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
     private List<ProcessDetailBean.SelectByIdAndUuid.DataListBean> dataList;
     private ProcessDetailBean.SelectByIdAndUuid.DataListBean dataListBean;
     private String value;
+    private ProcessDetailBean processDetailBean;
+    private List<ProcessDetailBean.SelectByIdAndUuid.FormBean.DataBean> data;
 
     @Override
     public void initView() {
@@ -92,8 +94,12 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
         endTime = intent.getStringExtra("endTime");
         taskid = intent.getStringExtra("taskid");
         state = intent.getStringExtra("state");
-        dataList = (List<ProcessDetailBean.SelectByIdAndUuid.DataListBean>) intent.getSerializableExtra("datalist");
-        getP().getProcessTaskDetail(selectFormId);
+        processDetailBean = (ProcessDetailBean) intent.getSerializableExtra("processDetail");
+        if (seetype == 1) {
+            getP().getProcessTaskDetail(selectFormId);
+        } else {
+            initSeeFromUi();
+        }
     }
 
     @Override
@@ -127,13 +133,15 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
         }
     }
 
-    private void initUi() {
-        for (int i = 0; i < dataBeanList.size(); i++) {
-            ProcessTaskFormDetailBean.RespBodyBean.DataBean dataBean = dataBeanList.get(i);
-            if (seetype==2) {
-                dataListBean = dataList.get(i);
-                value = dataListBean.getValue();
-            }
+    private void initSeeFromUi() {
+        String theme = processDetailBean.getRespBody().getTask().getTheme();
+        teTitle.setText(theme);
+        dataList = processDetailBean.getRespBody().getSelectByIdAndUuid().getDataList();
+        data = processDetailBean.getRespBody().getSelectByIdAndUuid().getForm().getData();
+        for (int i = 0; i < data.size(); i++) {
+            ProcessDetailBean.SelectByIdAndUuid.FormBean.DataBean dataBean = data.get(i);
+            dataListBean = dataList.get(i);
+            value = dataListBean.getValue();
             String leipiplugins = dataBean.getLeipiplugins();
             int id = dataBean.getId();
             TextView name = new TextView(this);
@@ -148,107 +156,93 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                     1);
             lpview.setMargins(0, 10, 0, 0);
             if (leipiplugins.equals("text") || leipiplugins.equals("textarea")) {
-                if (seetype == 2) {
-                    TextView namevalue = new TextView(this);
-                    namevalue.setPadding(0, 10, 0, 0);
-                    namevalue.setTextColor(getResources().getColor(R.color.color_333));
-                    namevalue.setTextSize(13);
-                    namevalue.setText(value);
-                    lineAll.addView(namevalue);
-                } else {
-                    EditText editText = new EditText(this);
-                    editText.setId(id);
-                    editText.setTextColor(getResources().getColor(R.color.color_666));
-                    editText.setTextSize(14);
-                    editText.setBackground(null);
-                    editText.setLayoutParams(lp);
-                    lineAll.addView(editText);
-                }
+
+                TextView namevalue = new TextView(this);
+                namevalue.setPadding(0, 10, 0, 0);
+                namevalue.setTextColor(getResources().getColor(R.color.color_333));
+                namevalue.setTextSize(13);
+                namevalue.setText(value);
+                lineAll.addView(namevalue);
 
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
                 lineAll.addView(view);
             } else if (leipiplugins.equals("radios")) {
-                if (seetype == 2) {
-                    TextView namevalue = new TextView(this);
-                    namevalue.setPadding(0, 10, 0, 0);
-                    namevalue.setTextColor(getResources().getColor(R.color.color_333));
-                    namevalue.setTextSize(13);
-                    namevalue.setText(value);
-                    lineAll.addView(namevalue);
-                } else {
-                    RadioGroup radioGroup = new RadioGroup(this);
-                    radioGroup.setLayoutParams(lp);
-                    radioGroup.setId(id);
-                    radioGroup.setPadding(0, 10, 0, 0);
-                    radioGroup.setOrientation(LinearLayout.VERTICAL);
-                    String valuestring=dataBean.getValue();
-                    try {
-                        if (valuestring != null && !valuestring.equals("")) {
-                            String[] values = null;
-                            values = valuestring.split(",");
-                            if (values.length < 1) return;
-                            for (int j = 0; j < values.length; j++) {
-                                String valuetext = values[j];
-                                RadioButton radioButton = new RadioButton(this);
-                                radioButton.setTextColor(getResources().getColor(R.color.color_666));
-                                radioButton.setTextSize(14);
-                                radioButton.setId(Integer.parseInt(id + "1" + j));
-                                radioButton.setText(valuetext);
-                                radioGroup.addView(radioButton);
+                RadioGroup radioGroup = new RadioGroup(this);
+                radioGroup.setLayoutParams(lp);
+                radioGroup.setId(id);
+                radioGroup.setPadding(0, 10, 0, 0);
+                radioGroup.setOrientation(LinearLayout.VERTICAL);
+                String valuestring = dataBean.getValue();
+                try {
+                    if (valuestring != null && !valuestring.equals("")) {
+                        String[] values = null;
+                        values = valuestring.split(",");
+                        if (values.length < 1) return;
+                        for (int j = 0; j < values.length; j++) {
+                            String valuetext = values[j];
+                            RadioButton radioButton = new RadioButton(this);
+                            radioButton.setTextColor(getResources().getColor(R.color.color_666));
+                            radioButton.setTextSize(14);
+                            radioButton.setId(Integer.parseInt(id + "1" + j));
+                            radioButton.setText(valuetext);
+                            if (value.equals(valuetext)) {
+                                radioButton.setChecked(true);
                             }
+                            radioButton.setClickable(false);
+                            radioButton.setFocusable(false);
+                            radioGroup.addView(radioButton);
+                            radioGroup.setClickable(false);
+                            radioGroup.setFocusable(false);
                         }
-                    } catch (Resources.NotFoundException e) {
-                        e.printStackTrace();
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
                     }
-                    lineAll.addView(radioGroup);
+                } catch (Resources.NotFoundException e) {
+                    e.printStackTrace();
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
                 }
+                lineAll.addView(radioGroup);
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
                 lineAll.addView(view);
             } else if (leipiplugins.equals("checkboxs")) {
-                if (seetype == 2) {
-                    TextView namevalue = new TextView(this);
-                    namevalue.setPadding(0, 10, 0, 0);
-                    namevalue.setTextColor(getResources().getColor(R.color.color_333));
-                    namevalue.setTextSize(13);
-                    namevalue.setText(value);
-                    lineAll.addView(namevalue);
-                } else {
-                    LinearLayout l = new LinearLayout(this);
-                    l.setId(id);
-                    l.setOrientation(LinearLayout.VERTICAL);
-                    String valuestring=dataBean.getValue();
-                    try {
-                        if (valuestring != null && !valuestring.equals("")) {
-                            String[] values = null;
-                            values = valuestring.split(",");
-                            if (values.length < 1) return;
-                            for (int j = 0; j < values.length; j++) {
-                                String valuetext = values[j];
-                                CheckBox checkBox = new CheckBox(this);
-                                checkBox.setTextColor(getResources().getColor(R.color.color_666));
-                                checkBox.setTextSize(14);
-                                checkBox.setId(Integer.parseInt(id + "2" + j));
-                                // checkBox.setButtonDrawable(getResources().getDrawable(R.drawable.checkbox_selector));
-                                checkBox.setText(valuetext);
-                                if (seetype == 2) {
-                                    checkBox.setClickable(false);
+                LinearLayout l = new LinearLayout(this);
+                l.setId(id);
+                l.setOrientation(LinearLayout.VERTICAL);
+                String valuestring = dataBean.getValue();
+                try {
+                    if (valuestring != null && !valuestring.equals("")) {
+                        String[] selectvalue = null;
+                        selectvalue = value.split(",");
+                        String[] values = null;
+                        values = valuestring.split(",");
+                        if (values.length < 1) return;
+                        for (int j = 0; j < values.length; j++) {
+                            String valuetext = values[j];
+                            CheckBox checkBox = new CheckBox(this);
+                            checkBox.setTextColor(getResources().getColor(R.color.color_666));
+                            checkBox.setTextSize(14);
+                            checkBox.setId(Integer.parseInt(id + "2" + j));
+                            checkBox.setText(valuetext);
+                            for (int m = 0; m < selectvalue.length; m++) {
+                                if (valuetext.equals(selectvalue[m])) {
+                                    checkBox.setChecked(true);
                                 }
-                                l.addView(checkBox);
                             }
+                            checkBox.setClickable(false);
+                            checkBox.setFocusable(false);
+                            l.addView(checkBox);
                         }
-                    } catch (Resources.NotFoundException e) {
-                        e.printStackTrace();
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
                     }
-                    lineAll.addView(l);
+                } catch (Resources.NotFoundException e) {
+                    e.printStackTrace();
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
                 }
+                lineAll.addView(l);
+
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
@@ -256,62 +250,166 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
             }
         }
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(0, 20, 0, 0);
-            if (state != null && !state.equals("")) {
-                if (state.equals("101")) {
-                    Button but_ok = new Button(this);
-                    but_ok.setLayoutParams(layoutParams);
-                    but_ok.setText("同意");
-                    but_ok.setBackgroundResource(R.drawable.btn_anpai_work);
-                    but_ok.setTextColor(getResources().getColor(R.color.white));
-                    but_ok.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            createYijianDialog(1);
-                        }
-                    });
-                    lineAll.addView(but_ok);
+        layoutParams.setMargins(0, 20, 0, 0);
+        if (state != null && !state.equals("")) {
+            if (state.equals("101")) {
+                Button but_ok = new Button(this);
+                but_ok.setLayoutParams(layoutParams);
+                but_ok.setText("同意");
+                but_ok.setBackgroundResource(R.drawable.btn_anpai_work);
+                but_ok.setTextColor(getResources().getColor(R.color.white));
+                but_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        createYijianDialog(1);
+                    }
+                });
+                lineAll.addView(but_ok);
 
-                    Button but_no = new Button(this);
-                    but_no.setLayoutParams(layoutParams);
-                    but_no.setText("拒绝");
-                    but_no.setBackgroundResource(R.drawable.btn_anpai_work);
-                    but_no.setTextColor(getResources().getColor(R.color.white));
-                    but_no.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            createYijianDialog(2);
-                        }
-                    });
-                    lineAll.addView(but_no);
+                Button but_no = new Button(this);
+                but_no.setLayoutParams(layoutParams);
+                but_no.setText("拒绝");
+                but_no.setBackgroundResource(R.drawable.btn_anpai_work);
+                but_no.setTextColor(getResources().getColor(R.color.white));
+                but_no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        createYijianDialog(2);
+                    }
+                });
+                lineAll.addView(but_no);
 
-                    Button zhuanbutton = new Button(this);
-                    zhuanbutton.setLayoutParams(layoutParams);
-                    zhuanbutton.setText("转办");
-                    zhuanbutton.setBackgroundResource(R.drawable.btn_anpai_work);
-                    zhuanbutton.setTextColor(getResources().getColor(R.color.white));
-                    zhuanbutton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            startActivityForResult(new Intent(ProcessTaskFormActivity.this, RadioSelectUserActivity.class), 5);
-                        }
-                    });
-                    lineAll.addView(zhuanbutton);
-                } else if (state.equals("103")) {
-                    Button button = new Button(this);
-                    button.setLayoutParams(layoutParams);
-                    button.setText("提交");
-                    button.setBackgroundResource(R.drawable.btn_anpai_work);
-                    button.setTextColor(getResources().getColor(R.color.white));
-                    button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            myHandler.sendEmptyMessage(0);
-                        }
-                    });
-                    lineAll.addView(button);
-                }
+                Button zhuanbutton = new Button(this);
+                zhuanbutton.setLayoutParams(layoutParams);
+                zhuanbutton.setText("转办");
+                zhuanbutton.setBackgroundResource(R.drawable.btn_anpai_work);
+                zhuanbutton.setTextColor(getResources().getColor(R.color.white));
+                zhuanbutton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivityForResult(new Intent(ProcessTaskFormActivity.this, RadioSelectUserActivity.class), 5);
+                    }
+                });
+                lineAll.addView(zhuanbutton);
             }
+        }
+    }
+
+    private void initUi() {
+        for (int i = 0; i < dataBeanList.size(); i++) {
+            ProcessTaskFormDetailBean.RespBodyBean.DataBean dataBean = dataBeanList.get(i);
+            String leipiplugins = dataBean.getLeipiplugins();
+            int id = dataBean.getId();
+            TextView name = new TextView(this);
+            name.setPadding(0, 10, 0, 0);
+            name.setText(dataBean.getTitle());
+            name.setTextColor(getResources().getColor(R.color.color_333));
+            name.setTextSize(15);
+            lineAll.addView(name);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    1);
+            lpview.setMargins(0, 10, 0, 0);
+            if (leipiplugins.equals("text") || leipiplugins.equals("textarea")) {
+                EditText editText = new EditText(this);
+                editText.setId(id);
+                editText.setTextColor(getResources().getColor(R.color.color_666));
+                editText.setTextSize(14);
+                editText.setBackground(null);
+                editText.setLayoutParams(lp);
+                lineAll.addView(editText);
+
+                View view = new View(this);
+                view.setLayoutParams(lpview);
+                view.setBackgroundColor(getResources().getColor(R.color.color_e7));
+                lineAll.addView(view);
+            } else if (leipiplugins.equals("radios")) {
+
+                RadioGroup radioGroup = new RadioGroup(this);
+                radioGroup.setLayoutParams(lp);
+                radioGroup.setId(id);
+                radioGroup.setPadding(0, 10, 0, 0);
+                radioGroup.setOrientation(LinearLayout.VERTICAL);
+                String valuestring = dataBean.getValue();
+                try {
+                    if (valuestring != null && !valuestring.equals("")) {
+                        String[] values = null;
+                        values = valuestring.split(",");
+                        if (values.length < 1) return;
+                        for (int j = 0; j < values.length; j++) {
+                            String valuetext = values[j];
+                            RadioButton radioButton = new RadioButton(this);
+                            radioButton.setTextColor(getResources().getColor(R.color.color_666));
+                            radioButton.setTextSize(14);
+                            radioButton.setId(Integer.parseInt(id + "1" + j));
+                            radioButton.setText(valuetext);
+                            radioGroup.addView(radioButton);
+                        }
+                    }
+                } catch (Resources.NotFoundException e) {
+                    e.printStackTrace();
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+                lineAll.addView(radioGroup);
+
+                View view = new View(this);
+                view.setLayoutParams(lpview);
+                view.setBackgroundColor(getResources().getColor(R.color.color_e7));
+                lineAll.addView(view);
+            } else if (leipiplugins.equals("checkboxs")) {
+
+                LinearLayout l = new LinearLayout(this);
+                l.setId(id);
+                l.setOrientation(LinearLayout.VERTICAL);
+                String valuestring = dataBean.getValue();
+                try {
+                    if (valuestring != null && !valuestring.equals("")) {
+                        String[] values = null;
+                        values = valuestring.split(",");
+                        if (values.length < 1) return;
+                        for (int j = 0; j < values.length; j++) {
+                            String valuetext = values[j];
+                            CheckBox checkBox = new CheckBox(this);
+                            checkBox.setTextColor(getResources().getColor(R.color.color_666));
+                            checkBox.setTextSize(14);
+                            checkBox.setId(Integer.parseInt(id + "2" + j));
+                            checkBox.setText(valuetext);
+                            l.addView(checkBox);
+                        }
+                    }
+                } catch (Resources.NotFoundException e) {
+                    e.printStackTrace();
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+                lineAll.addView(l);
+
+                View view = new View(this);
+                view.setLayoutParams(lpview);
+                view.setBackgroundColor(getResources().getColor(R.color.color_e7));
+                lineAll.addView(view);
+            }
+        }
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(0, 20, 0, 0);
+        if (state != null && !state.equals("")) {
+            if (state.equals("103")) {
+                Button button = new Button(this);
+                button.setLayoutParams(layoutParams);
+                button.setText("提交");
+                button.setBackgroundResource(R.drawable.btn_anpai_work);
+                button.setTextColor(getResources().getColor(R.color.white));
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        myHandler.sendEmptyMessage(0);
+                    }
+                });
+                lineAll.addView(button);
+            }
+        }
 
     }
 
@@ -393,7 +491,7 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
      * @time 2018/2/6  21:26
      * @describe 反馈意见框
      */
-    private void createYijianDialog(final int type){
+    private void createYijianDialog(final int type) {
         final Dialog mShareDialog = new Dialog(this, R.style.dialog_bottom_full);
         mShareDialog.setCanceledOnTouchOutside(true);
         mShareDialog.setCancelable(true);
@@ -413,10 +511,10 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
             @Override
             public void onClick(View arg0) {
                 String trim = ed_putstr.getText().toString().trim();
-                if (type==1){
-                    getP().agreeProcessTaskForm(taskid,trim);
-                }else {
-                    getP().refuseProcessTaskForm(taskid,trim);
+                if (type == 1) {
+                    getP().agreeProcessTaskForm(taskid, trim);
+                } else {
+                    getP().refuseProcessTaskForm(taskid, trim);
                 }
                 mShareDialog.dismiss();
 
@@ -442,7 +540,7 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
         if (resultCode == 1) {
             selectUserId1 = data.getIntExtra("selectUserId", 0);
             selectUserName = data.getStringExtra("selectUserName");
-            if (taskid!=null&&!taskid.equals("")){
+            if (taskid != null && !taskid.equals("")) {
                 getP().zhuanProcessTaskForm(taskid, selectUserId1);
             }
         }
