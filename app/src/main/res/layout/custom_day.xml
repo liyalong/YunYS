@@ -34,9 +34,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/distance_2"
-        android:text="frfdfffdf"
-        android:textColor="@color/color_999"
-        android:textSize="@dimen/distance_8"
+        android:text="●"
+        android:textColor="@color/color_ec4d"
+        android:textSize="@dimen/distance_10"
         android:visibility="visible" />
 </RelativeLayout>

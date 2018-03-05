@@ -41,6 +41,7 @@ import com.yunyisheng.app.yunys.schedule.view.CustomDayView;
 import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.CreateNoneDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.CreateProcessTaskAcitvity;
+import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -49,6 +50,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -93,6 +95,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
     private int tabindex;
     private WindowsReceiver mWindowsReceiver = new WindowsReceiver();
     private List<MyScheduleBean.RespBodyBean.DataListBean> list = new ArrayList<>();
+    private List<MyScheduleBean.RespBodyBean.DataListBean> projectschedulelist = new ArrayList<>();
     private TaskAdapter mineadapter;
     private TaskAdapter projectadapter;
     private int pageindex = 1;
@@ -208,13 +211,13 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
             } else {
                 mineadapter.setData(list);
             }
+            String[] str=null;
+            String creationTime = myScheduleBean.getRespBody().getDataList().get(0).getCreationTime();
+            str=creationTime.split(" ");
+            LogUtils.i("sfdfdfdf",str[0]);
             mineadapter.setType(4);
-            rvToDoList.setVisibility(View.VISIBLE);
-            imgQuesheng.setVisibility(View.GONE);
         } else {
             if (pageindex == 1) {
-                rvToDoList.setVisibility(View.GONE);
-                imgQuesheng.setVisibility(View.VISIBLE);
                 ToastUtils.showToast("当前日期暂无日程");
             } else {
                 ToastUtils.showToast("没有更多了");
@@ -227,33 +230,31 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(PositionMessageEvent messageEvent) {
         Log.d("cylog", "receive it");
-        projectid = messageEvent.getPosition();
-        if (projectid != null && !projectid.equals("")) {
-            list.clear();
-            pageindex = 1;
-            getP().getMyProjectSchedulrList(pageindex, projectid, dayStartTime, dayEndTime);
+        if (tabindex==1) {
+            projectid = messageEvent.getPosition();
+            if (projectid != null && !projectid.equals("")) {
+                projectschedulelist.clear();
+                pageindex = 1;
+                getP().getMyProjectSchedulrList(pageindex, projectid, dayStartTime, dayEndTime);
+            }
         }
     }
 
     public void getProjectResultList(MyScheduleBean myScheduleBean) {
         if (pageindex == 1) {
-            list.clear();
+            projectschedulelist.clear();
         }
         if (myScheduleBean.getRespBody().getDataList() != null && myScheduleBean.getRespBody().getDataList().size() > 0) {
-            list.addAll(myScheduleBean.getRespBody().getDataList());
+            projectschedulelist.addAll(myScheduleBean.getRespBody().getDataList());
             if (pageindex == 1) {
-                projectadapter = new TaskAdapter(mContext, list);
+                projectadapter = new TaskAdapter(mContext, projectschedulelist);
                 rvToDoList.setAdapter(projectadapter);
             } else {
-                projectadapter.setData(list);
+                projectadapter.setData(projectschedulelist);
             }
             projectadapter.setType(6);
-            rvToDoList.setVisibility(View.VISIBLE);
-            imgQuesheng2.setVisibility(View.GONE);
         } else {
             if (pageindex == 1) {
-                rvToDoList.setVisibility(View.GONE);
-                imgQuesheng2.setVisibility(View.VISIBLE);
             } else {
                 ToastUtils.showToast("没有更多了");
                 nomore = true;
@@ -446,12 +447,12 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
      * 如果存在异步的话，在使用setMarkData之后调用 calendarAdapter.notifyDataChanged();
      */
     private void initMarkData() {
-//        HashMap<String, String> markData = new HashMap<>();
-//        markData.put("2017-8-9", "1");
-//        markData.put("2017-7-9", "0");
-//        markData.put("2017-6-9", "1");
-//        markData.put("2017-6-10", "0");
-//        calendarAdapter.setMarkData(markData);
+        HashMap<String, String> markData = new HashMap<>();
+        markData.put("2018-3-4", "1");
+        markData.put("2017-7-9", "0");
+        markData.put("2017-6-9", "1");
+        markData.put("2017-6-10", "0");
+        calendarAdapter.setMarkData(markData);
     }
 
     private void initListener() {
@@ -519,6 +520,11 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                 if (currentCalendars.get(position % currentCalendars.size()) != null) {
                     CalendarDate date = currentCalendars.get(position % currentCalendars.size()).getSeedDate();
                     currentDate = date;
+                    if (currentDate.getYear()==date.getYear()&&currentDate.getMonth()==date.getMonth()){
+                        return;
+                    }else {
+
+                    }
                     teDate.setText(date.getYear() + "年" + date.getMonth() + "月");
                 }
             }

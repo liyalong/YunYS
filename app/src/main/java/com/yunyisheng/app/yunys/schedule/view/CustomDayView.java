@@ -55,7 +55,7 @@ public class CustomDayView extends DayView {
                 marker.setVisibility(GONE);
             } else {
                 marker.setVisibility(VISIBLE);
-                marker.setText(Utils.loadMarkData().get(date.toString())+"项");
+//                marker.setText(Utils.loadMarkData().get(date.toString())+"项");
 //                if (Utils.loadMarkData().get(date.toString()).equals("0")) {
 //                    marker.setEnabled(true);
 //                } else {
