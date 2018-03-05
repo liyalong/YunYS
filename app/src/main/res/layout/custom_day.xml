@@ -36,6 +36,6 @@
         android:layout_centerHorizontal="true"
         android:text="●"
         android:textColor="@color/color_ec4d"
-        android:textSize="@dimen/distance_10"
+        android:textSize="@dimen/distance_7"
         android:visibility="visible" />
 </RelativeLayout>
