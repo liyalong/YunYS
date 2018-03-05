@@ -141,6 +141,8 @@ public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
             case 1:
                 if (resultCode == 1){
                     initAfter();
+                }else if (resultCode == 2){
+                    this.finish();
                 }
                 break;
         }
