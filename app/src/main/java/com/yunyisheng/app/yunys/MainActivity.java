@@ -102,8 +102,8 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     private boolean initiated = false;
     private long exitTime = 0;
     private NotificationManager notificationManager;
-    private PendingIntent pIntent;
     private NotificationReceiver receiver;
+    private int id;
 
     private void checkToken() {
         String token = SharedPref.getInstance(context).getString("TOKEN", "");
@@ -135,7 +135,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         receiver = new NotificationReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("action");
-        registerReceiver(receiver, intentFilter,"com.yunyisheng.app.yunys.permission",null);
+        registerReceiver(receiver, intentFilter);
         rbCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,7 +188,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 broadcastIntent.setAction("action");
                 broadcastIntent.putExtra("data", "noticeMessage");
                 broadcastIntent.putExtra("str",string);
-                PendingIntent pendingIntent = PendingIntent. getBroadcast(context, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 NotificationManager notificationManager = (NotificationManager) MainActivity.this.getSystemService(NOTIFICATION_SERVICE);
                 Notification.Builder builder = new Notification.Builder(MainActivity.this);
                 builder.setSmallIcon(R.mipmap.tubiao);
@@ -201,7 +201,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 builder.setContentIntent(pendingIntent);
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
                     Notification notification = builder.build();
-                    notificationManager.notify(1, notification);
+                    notificationManager.notify(id++, notification);
                 }
         } else {
             //为了版本兼容  选择V7包下的NotificationCompat进行构造
@@ -217,12 +217,12 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
             broadcastIntent.putExtra("data", "noticeMessage");
             broadcastIntent.putExtra("str",string);
             sendBroadcast(broadcastIntent);
-            pIntent = PendingIntent.getActivity(context, 1, broadcastIntent, 0);
+            PendingIntent pIntent = PendingIntent.getActivity(context, 1, broadcastIntent, 0);
             builder.setContentIntent(pIntent);
             builder.setFullScreenIntent(pIntent, true);
             builder.setAutoCancel(true);
             Notification notification = builder.build();
-            notificationManager.notify(6, notification);//注意这里 1 为当前通知栏的 Id 号，和 Fragment 设置 Id 是一样的
+            notificationManager.notify(id++, notification);//注意这里 1 为当前通知栏的 Id 号，和 Fragment 设置 Id 是一样的
         }
 
     }

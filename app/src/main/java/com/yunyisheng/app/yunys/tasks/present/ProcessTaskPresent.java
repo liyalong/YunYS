@@ -1,5 +1,7 @@
 package com.yunyisheng.app.yunys.tasks.present;
 
+import android.content.Intent;
+
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.model.ProcessTaskFormDetailBean;
@@ -103,6 +105,8 @@ public class ProcessTaskPresent extends XPresent<ProcessTaskFormActivity> {
                             return;
                         }
                         ToastUtils.showToast("转办成功");
+                        Intent intent=getV().getIntent();
+                        getV().setResult(2,intent);
                         getV().finish();
                     }
                 });
@@ -131,6 +135,8 @@ public class ProcessTaskPresent extends XPresent<ProcessTaskFormActivity> {
                             return;
                         }
                         ToastUtils.showToast("审批成功");
+                        Intent intent=getV().getIntent();
+                        getV().setResult(1,intent);
                         getV().finish();
                     }
                 });
@@ -159,6 +165,8 @@ public class ProcessTaskPresent extends XPresent<ProcessTaskFormActivity> {
                             return;
                         }
                         ToastUtils.showToast("审批成功");
+                        Intent intent=getV().getIntent();
+                        getV().setResult(1,intent);
                         getV().finish();
                     }
                 });
