@@ -125,7 +125,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 
     @Override
     public void initView() {
-        notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         EventBus.getDefault().register(this);
         ButterKnife.bind(this);
         checkToken();
@@ -188,7 +188,6 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 //                broadcastIntent.putExtra("data", "noticeMessage");
                 broadcastIntent.putExtra("str",string);
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                NotificationManager notificationManager = (NotificationManager) MainActivity.this.getSystemService(NOTIFICATION_SERVICE);
                 Notification.Builder builder = new Notification.Builder(MainActivity.this);
                 builder.setSmallIcon(R.mipmap.tubiao);
                 builder.setContentTitle(string);
@@ -216,7 +215,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 //            broadcastIntent.putExtra("data", "noticeMessage");
             broadcastIntent.putExtra("str",string);
             //sendBroadcast(broadcastIntent);
-            PendingIntent pIntent = PendingIntent.getActivity(context, 1, broadcastIntent, 0);
+            PendingIntent pIntent = PendingIntent.getBroadcast(context, 1, broadcastIntent, 0);
             builder.setContentIntent(pIntent);
             builder.setFullScreenIntent(pIntent, true);
             builder.setAutoCancel(true);
