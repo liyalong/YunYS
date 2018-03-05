@@ -520,10 +520,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                 if (currentCalendars.get(position % currentCalendars.size()) != null) {
                     CalendarDate date = currentCalendars.get(position % currentCalendars.size()).getSeedDate();
                     currentDate = date;
-                    if (currentDate.getYear()==date.getYear()&&currentDate.getMonth()==date.getMonth()){
-                        return;
-                    }else {
-
+                    if (currentDate.getYear()!=date.getYear()||currentDate.getMonth()!=date.getMonth()){
                     }
                     teDate.setText(date.getYear() + "年" + date.getMonth() + "月");
                 }
