@@ -56,17 +56,17 @@ public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
         taskId = intent.getStringExtra("taskId");
         userId = intent.getIntExtra("userId", 0);
         taskType = intent.getStringExtra("taskType");
+
+    }
+
+    @Override
+    public void initAfter() {
         if (userId == 0) {
             int userid = SharedPref.getInstance(ProcessDetailActivity.this).getInt("userid", 0);
             getP().getProcessTaskDetailByUser(taskId, taskType, userid + "");
         } else {
             getP().getProcessTaskDetailByUser(taskId, taskType, userId + "");
         }
-    }
-
-    @Override
-    public void initAfter() {
-
     }
 
     @Override
@@ -123,8 +123,7 @@ public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
                         intent.putExtra("taskid", taskid2);
                         intent.putExtra("state", state2);
                         intent.putExtra("processDetail",processDetail);
-                        startActivity(intent);
-                        //TODO startResultActivity
+                        startActivityForResult(intent,1);
                     }else {
                         ToastUtils.showToast("表单数据错误");
                     }
@@ -136,7 +135,16 @@ public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
 
 
     }
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        switch (requestCode) {
+            case 1:
+                if (resultCode == 1){
+                    initAfter();
+                }
+                break;
+        }
+    }
     public void getProcessDetailResult(ProcessDetailBean processDetailBean) {
         this.processDetail = processDetailBean;
         try{
