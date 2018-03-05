@@ -3,10 +3,10 @@
     package="com.yunyisheng.app.yunys">
 
 
-    <!--<permission-->
-        <!--android:name="com.yunyisheng.app.yunys.permission"-->
-        <!--android:protectionLevel="normal" />-->
-    <!--<uses-permission android:name="com.yunyisheng.app.yunys.permission" />-->
+    <permission
+        android:name="com.yunyisheng.app.yunys.permission"
+        android:protectionLevel="normal" />
+    <uses-permission android:name="com.yunyisheng.app.yunys.permission" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 网络状态 -->
@@ -81,14 +81,14 @@
         <service android:name=".mqtt.MQTTService" />
         <service android:name="org.eclipse.paho.android.service.MqttService" />
 
-        <!--<receiver-->
-            <!--android:name=".main.roadcastReceiver.NotificationReceiver"-->
-            <!--android:exported="true"-->
-            <!--android:permission="com.yunyisheng.app.yunys.permission">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.yunyisheng.app.yunys.receiver"></action>-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
+        <receiver
+            android:name=".main.roadcastReceiver.NotificationReceiver"
+            android:exported="true"
+            android:permission="com.yunyisheng.app.yunys.permission">
+            <intent-filter>
+                <action android:name="com.yunyisheng.app.yunys.receiver"></action>
+            </intent-filter>
+        </receiver>
 
 
         <activity
@@ -123,7 +123,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.MessageActivity"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.NoticeActivity"

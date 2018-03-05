@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.login.activity;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,10 +17,14 @@ import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.login.model.LoginModel;
 import com.yunyisheng.app.yunys.login.present.LoginPresent;
+import com.yunyisheng.app.yunys.main.service.MessageService;
 import com.yunyisheng.app.yunys.utils.ActivityManager;
 import com.yunyisheng.app.yunys.utils.AndroidIDUtil;
+import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.RegularUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+
+import org.eclipse.paho.android.service.MqttService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,7 +61,12 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
 
     @Override
     public void initAfter() {
-
+        if (CommonUtils.isServiceRunning(this, "com.yunyisheng.app.yunys.main.service.MessageService")) {
+            stopService(new Intent(mContext, MessageService.class));
+        }
+        if (CommonUtils.isServiceRunning(this, "org.eclipse.paho.android.service.MqttService")) {
+            stopService(new Intent(mContext, MqttService.class));
+        }
     }
 
     @Override

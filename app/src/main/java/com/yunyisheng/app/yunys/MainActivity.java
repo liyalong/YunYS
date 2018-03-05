@@ -9,7 +9,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -36,7 +35,6 @@ import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.main.fragement.HomeFragement;
 import com.yunyisheng.app.yunys.main.model.WarningMessageEvent;
-import com.yunyisheng.app.yunys.main.roadcastReceiver.NotificationReceiver;
 import com.yunyisheng.app.yunys.main.service.MessageService;
 import com.yunyisheng.app.yunys.mqtt.MQTTMessage;
 import com.yunyisheng.app.yunys.mqtt.MQTTService;
@@ -102,7 +100,6 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     private boolean initiated = false;
     private long exitTime = 0;
     private NotificationManager notificationManager;
-    private NotificationReceiver receiver;
     private int id;
 
     private void checkToken() {
@@ -132,10 +129,10 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         checkToken();
         initTab();
         //广播接受者实例
-        receiver = new NotificationReceiver();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("action");
-        registerReceiver(receiver, intentFilter);
+//        receiver = new NotificationReceiver();
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction("action");
+//        registerReceiver(receiver, intentFilter);
         rbCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -184,10 +181,9 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     private void setNotification(String string) {
         //此类通知在Android 5.0以上版本才会有横幅有效！
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {//小于5.0
-//                Intent broadcastIntent = new Intent("com.yunyisheng.app.yunys.receiver");
-                Intent broadcastIntent = new Intent();
-                broadcastIntent.setAction("action");
-                broadcastIntent.putExtra("data", "noticeMessage");
+                Intent broadcastIntent = new Intent("com.yunyisheng.app.yunys.receiver");
+//                broadcastIntent.setAction("action");
+//                broadcastIntent.putExtra("data", "noticeMessage");
                 broadcastIntent.putExtra("str",string);
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 Notification.Builder builder = new Notification.Builder(MainActivity.this);
@@ -212,11 +208,11 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 
             builder.setSmallIcon(R.mipmap.tubiao);
             builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.tubiao));
-//            Intent broadcastIntent = new Intent("com.yunyisheng.app.yunys.receiver");
-            Intent broadcastIntent = new Intent();
-            broadcastIntent.setAction("action");
-            broadcastIntent.putExtra("data", "noticeMessage");
+            Intent broadcastIntent = new Intent("com.yunyisheng.app.yunys.receiver");
+//            broadcastIntent.setAction("action");
+//            broadcastIntent.putExtra("data", "noticeMessage");
             broadcastIntent.putExtra("str",string);
+            //sendBroadcast(broadcastIntent);
             PendingIntent pIntent = PendingIntent.getBroadcast(context, 1, broadcastIntent, 0);
             builder.setContentIntent(pIntent);
             builder.setFullScreenIntent(pIntent, true);
@@ -561,7 +557,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        unregisterReceiver(receiver);
+        //unregisterReceiver(receiver);
     }
 
     @Override
