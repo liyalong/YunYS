@@ -103,6 +103,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
     private String dayEndTime;
     private String projectid;
     private boolean nomore;
+    private boolean isfirst = true;
 
     public static OurProjeceScheduleFragement getInstance(int i) {
         OurProjeceScheduleFragement ourProjeceScheduleFragement = new OurProjeceScheduleFragement();
@@ -208,29 +209,39 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
             if (pageindex == 1) {
                 mineadapter = new TaskAdapter(mContext, list);
                 rvToDoList.setAdapter(mineadapter);
+                rvToDoList.setVisibility(View.VISIBLE);
+                imgQuesheng.setVisibility(View.GONE);
             } else {
                 mineadapter.setData(list);
             }
-            String[] str=null;
+            String[] str = null;
             String creationTime = myScheduleBean.getRespBody().getDataList().get(0).getCreationTime();
-            str=creationTime.split(" ");
-            LogUtils.i("sfdfdfdf",str[0]);
+            str = creationTime.split(" ");
+            LogUtils.i("sfdfdfdf", str[0]);
             mineadapter.setType(4);
         } else {
             if (pageindex == 1) {
+                rvToDoList.setVisibility(View.GONE);
+                if (isfirst) {
+                    imgQuesheng.setVisibility(View.VISIBLE);
+                } else {
+                    imgQuesheng.setVisibility(View.GONE);
+                    imgQuesheng2.setVisibility(View.VISIBLE);
+                }
                 ToastUtils.showToast("当前日期暂无日程");
             } else {
                 ToastUtils.showToast("没有更多了");
                 nomore = true;
             }
         }
+        isfirst = false;
     }
 
     //订阅方法，当接收到事件的时候，会调用该方法
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(PositionMessageEvent messageEvent) {
         Log.d("cylog", "receive it");
-        if (tabindex==1) {
+        if (tabindex == 1) {
             projectid = messageEvent.getPosition();
             if (projectid != null && !projectid.equals("")) {
                 projectschedulelist.clear();
@@ -249,12 +260,16 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
             if (pageindex == 1) {
                 projectadapter = new TaskAdapter(mContext, projectschedulelist);
                 rvToDoList.setAdapter(projectadapter);
+                rvToDoList.setVisibility(View.VISIBLE);
+                imgQuesheng2.setVisibility(View.GONE);
             } else {
                 projectadapter.setData(projectschedulelist);
             }
             projectadapter.setType(6);
         } else {
             if (pageindex == 1) {
+                rvToDoList.setVisibility(View.GONE);
+                imgQuesheng2.setVisibility(View.VISIBLE);
             } else {
                 ToastUtils.showToast("没有更多了");
                 nomore = true;
@@ -520,7 +535,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                 if (currentCalendars.get(position % currentCalendars.size()) != null) {
                     CalendarDate date = currentCalendars.get(position % currentCalendars.size()).getSeedDate();
                     currentDate = date;
-                    if (currentDate.getYear()!=date.getYear()||currentDate.getMonth()!=date.getMonth()){
+                    if (currentDate.getYear() != date.getYear() || currentDate.getMonth() != date.getMonth()) {
                     }
                     teDate.setText(date.getYear() + "年" + date.getMonth() + "月");
                 }

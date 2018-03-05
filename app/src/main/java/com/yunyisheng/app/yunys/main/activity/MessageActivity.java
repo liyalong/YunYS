@@ -45,12 +45,14 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
     Spinner spType;
     @BindView(R.id.pull_to_list)
     PullToRefreshListView pullToList;
-    private  List<MessageTypeBean.ListBean> typelist = new ArrayList<>();
+    @BindView(R.id.img_quesheng)
+    ImageView imgQuesheng;
+    private List<MessageTypeBean.ListBean> typelist = new ArrayList<>();
     private List<MessageBean.RespBodyBean> messagelist = new ArrayList<>();
     private int pageindex = 1;
     private int userid;
     private MessageAdapter messageAdapter;
-    private String str="";
+    private String str = "";
 
     @Override
     public void initView() {
@@ -64,7 +66,7 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int pos, long id) {
                 List<String> type = typelist.get(pos).getType();
-                for (int i=0;i<type.size();i++){
+                for (int i = 0; i < type.size(); i++) {
                     if (i != type.size() - 1) {
                         str += type.get(i) + ",";
                     } else {
@@ -73,8 +75,9 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
                 }
                 pageindex = 1;
                 messagelist.clear();
-                getP().getMessageList(str,1);
-                LogUtils.i("fdfsfdsfdsf",str);
+                getP().getMessageList(str, 1);
+                LogUtils.i("fdfsfdsfdsf", str);
+                str="";
             }
 
             @Override
@@ -89,29 +92,29 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 pageindex = 1;
                 messagelist.clear();
-                getP().getMessageList(str,pageindex);
+                getP().getMessageList(str, pageindex);
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 pageindex++;
-                getP().getMessageList(str,pageindex);
+                getP().getMessageList(str, pageindex);
             }
         });
         pullToList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MessageBean.RespBodyBean respBodyBean = messagelist.get(position-1);
+                MessageBean.RespBodyBean respBodyBean = messagelist.get(position - 1);
                 String messageStat = respBodyBean.getMessageStat();
                 int messageId = respBodyBean.getMessageId();
-                if (messageStat.equals("1")){
-                    getP().updateMessage(messageId,position-1);
+                if (messageStat.equals("1")) {
+                    getP().updateMessage(messageId, position - 1);
                 }
             }
         });
     }
 
-    public void setVoalGone(int position){
+    public void setVoalGone(int position) {
         messagelist.get(position).setMessageStat("0");
         messageAdapter.notifyDataSetChanged();
     }
@@ -121,9 +124,9 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
         getP().getMessageTypeList();
     }
 
-    public void getMessageType(MessageTypeBean messageTypeBean){
+    public void getMessageType(MessageTypeBean messageTypeBean) {
         List<MessageTypeBean.ListBean> list = messageTypeBean.getList();
-        if (list!=null&&list.size()>0){
+        if (list != null && list.size() > 0) {
             typelist.addAll(list);
             MessageTypeAdapter adapter = new MessageTypeAdapter(MessageActivity.this, typelist);
             //绑定 Adapter到控件
@@ -134,10 +137,14 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
     public void getMessageList(MessageBean messageBean) {
         List<MessageBean.RespBodyBean> respBody = messageBean.getRespBody();
         if (respBody.size() > 0) {
+            imgQuesheng.setVisibility(View.GONE);
+            pullToList.setVisibility(View.VISIBLE);
             messagelist.addAll(respBody);
             messageAdapter.setData(messagelist);
         } else {
             if (pageindex == 1) {
+                imgQuesheng.setVisibility(View.VISIBLE);
+                pullToList.setVisibility(View.GONE);
                 ToastUtils.showToast("暂无消息");
             } else {
                 ToastUtils.showToast("没有更多了");
@@ -146,7 +153,7 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
         stopRefresh();
     }
 
-    public void stopRefresh(){
+    public void stopRefresh() {
         pullToList.onRefreshComplete();
     }
 
