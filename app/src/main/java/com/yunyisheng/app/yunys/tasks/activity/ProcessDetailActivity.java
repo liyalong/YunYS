@@ -106,7 +106,7 @@ public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
                         intent.putExtra("taskid", taskid);
                         intent.putExtra("state", state);
                         intent.putExtra("processDetail",processDetail);
-                        startActivity(intent);
+                        startActivityForResult(intent,1);
                     }else {
                         ToastUtils.showToast("表单数据错误");
                     }
