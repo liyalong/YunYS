@@ -41,6 +41,7 @@ import com.yunyisheng.app.yunys.schedule.view.CustomDayView;
 import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.CreateNoneDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.CreateProcessTaskAcitvity;
+import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
@@ -59,6 +60,7 @@ import butterknife.Unbinder;
 import cn.droidlover.xdroidmvp.router.Router;
 
 import static com.yunyisheng.app.yunys.utils.CommonUtils.ConverToDate;
+import static com.yunyisheng.app.yunys.utils.CommonUtils.ConverToMonthDate;
 import static com.yunyisheng.app.yunys.utils.CommonUtils.getDayEndTime;
 import static com.yunyisheng.app.yunys.utils.CommonUtils.getDayStartTime;
 import static com.yunyisheng.app.yunys.utils.CommonUtils.getOtherEndtime;
@@ -104,6 +106,8 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
     private String projectid;
     private boolean nomore;
     private boolean isfirst = true;
+    private String firstMonthDay;
+    private String lastMonthDay;
 
     public static OurProjeceScheduleFragement getInstance(int i) {
         OurProjeceScheduleFragement ourProjeceScheduleFragement = new OurProjeceScheduleFragement();
@@ -195,6 +199,11 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         });
         dayStartTime = getDayStartTime();
         dayEndTime = getDayEndTime();
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+        Date time = calendar.getTime();
+        firstMonthDay = CommonUtils.getFirstMonthDay(time);
+        lastMonthDay = CommonUtils.getTodayLastMonth();
+        LogUtils.i("MonthDay", firstMonthDay +"===="+ lastMonthDay);
         if (tabindex == 0) {
             getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
         }
@@ -237,6 +246,12 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         isfirst = false;
     }
 
+    public void setimgBac(){
+        rvToDoList.setVisibility(View.GONE);
+        imgQuesheng.setVisibility(View.VISIBLE);
+        imgQuesheng.setBackgroundResource(R.mipmap.no_network);
+    }
+
     //订阅方法，当接收到事件的时候，会调用该方法
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(PositionMessageEvent messageEvent) {
@@ -275,6 +290,12 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                 nomore = true;
             }
         }
+    }
+
+    public void setProjimgBac(){
+        rvToDoList.setVisibility(View.GONE);
+        imgQuesheng2.setVisibility(View.VISIBLE);
+        imgQuesheng2.setBackgroundResource(R.mipmap.no_network);
     }
 
     private class WindowsReceiver extends BroadcastReceiver {
@@ -532,12 +553,20 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
             public void onPageSelected(int position) {
                 mCurrentPage = position;
                 currentCalendars = calendarAdapter.getPagers();
-                if (currentCalendars.get(position % currentCalendars.size()) != null) {
-                    CalendarDate date = currentCalendars.get(position % currentCalendars.size()).getSeedDate();
-                    currentDate = date;
-                    if (currentDate.getYear() != date.getYear() || currentDate.getMonth() != date.getMonth()) {
+                try {
+                    if (currentCalendars.get(position % currentCalendars.size()) != null) {
+                        CalendarDate date = currentCalendars.get(position % currentCalendars.size()).getSeedDate();
+                        currentDate = date;
+                        Date date1 = ConverToMonthDate(date.toString());
+                        firstMonthDay = CommonUtils.getFirstMonthDay(date1);
+                        lastMonthDay = CommonUtils.getLastMonthDay(date1);
+                        LogUtils.i("MonthDay",firstMonthDay+"===="+lastMonthDay);
+                        if (currentDate.getYear() != date.getYear() || currentDate.getMonth() != date.getMonth()) {
+                        }
+                        teDate.setText(date.getYear() + "年" + date.getMonth() + "月");
                     }
-                    teDate.setText(date.getYear() + "年" + date.getMonth() + "月");
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 

@@ -13,6 +13,7 @@ import com.yunyisheng.app.yunys.tasks.model.ReleaseTaskDetailModel;
 import com.yunyisheng.app.yunys.tasks.model.TaskDetailModel;
 
 import io.reactivex.Flowable;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -311,7 +312,7 @@ public interface TaskService {
      */
     @FormUrlEncoded
     @POST("android/enterprise/section/show")
-    Flowable<ProjectUserListModel> getCheckUserList(@Field("activiti") String activiti);
+    Call<String> getCheckUserList(@Field("activiti") String activiti);
     /**
      * 获取流程任务详情
      * @param taskId

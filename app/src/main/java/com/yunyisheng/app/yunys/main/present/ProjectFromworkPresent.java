@@ -45,6 +45,9 @@ public class ProjectFromworkPresent extends XPresent<ProjectFromWorkActivity> {
                     @Override
                     protected void onFail(NetError error) {
                         LoadingDialog.dismiss(getV());
+                        if (error.getType()==5){
+                            getV().setImgQueshengng();
+                        }
                         ToastUtils.showToast("请求数据失败！");
                     }
                 });
@@ -75,6 +78,9 @@ public class ProjectFromworkPresent extends XPresent<ProjectFromWorkActivity> {
                     @Override
                     protected void onFail(NetError error) {
                         LoadingDialog.dismiss(getV());
+                        if (error.getType()==5){
+                            getV().setImgQueshengng();
+                        }
                         ToastUtils.showToast("请求数据失败！");
                     }
                 });

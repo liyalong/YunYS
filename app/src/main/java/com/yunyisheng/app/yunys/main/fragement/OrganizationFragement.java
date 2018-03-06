@@ -86,6 +86,8 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
     public LinearLayout lineSelecall;
     @BindView(R.id.btn_queren)
     Button btnQueren;
+    @BindView(R.id.img_quesheng)
+    ImageView imgQuesheng;
 
     private int tabindex;
     private boolean ischeck = false;
@@ -104,7 +106,7 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
     private List<FindProjectWorkerBean.RespBodyBean> findWorkerProjectBeanList = new ArrayList<>();//项目搜索人员
     private SelectFindProjectWorkerListAdapter selectFindProjectWorkerListAdapter;//项目搜索人员适配器
     private List<ProjectFromWorkBean.ListBean.UserListBean> selectprojectlist = new ArrayList<>();//项目选中的人员
-    private List<ProjectFromWorkBean.ListBean.UserListBean> findprojectselectlist=new ArrayList<>();//项目搜索选中的人员
+    private List<ProjectFromWorkBean.ListBean.UserListBean> findprojectselectlist = new ArrayList<>();//项目搜索选中的人员
 
     private String sousuo_neirong;
 
@@ -168,9 +170,9 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
                     String str = object.toString();
                     Log.i("stridnifn", str);
 
-                    if (((SelectPeopleActivity)getActivity()).type==1){
+                    if (((SelectPeopleActivity) getActivity()).type == 1) {
                         createSelectTaskDialog(getActivity());
-                    }else {
+                    } else {
                         Intent intent = getActivity().getIntent();
                         intent.putExtra("size", selectlist.size());
                         intent.putExtra("selectjson", str);
@@ -271,7 +273,7 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
                     setViewList(selectFindWorkerListAdapter.getSelectlist());
                 } else {
                     FindProjectWorkerBean.RespBodyBean respBodyBean = findWorkerProjectBeanList.get(position);
-                    if (respBodyBean.isIscheck()){
+                    if (respBodyBean.isIscheck()) {
                         respBodyBean.setIscheck(false);
                     } else {
                         respBodyBean.setIscheck(true);
@@ -391,25 +393,25 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
 
             @Override
             public void onClick(View arg0) {
-              Intent intent=new Intent(mContext, CreateDeviceTaskAcitvity.class);
-              intent.putExtra("selectlist",(Serializable)selectlist);
-              startActivity(intent);
+                Intent intent = new Intent(mContext, CreateDeviceTaskAcitvity.class);
+                intent.putExtra("selectlist", (Serializable) selectlist);
+                startActivity(intent);
             }
         });
         rl_wrongshebei_task.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                Intent intent=new Intent(mContext, CreateNoneDeviceTaskAcitvity.class);
-                intent.putExtra("selectlist",(Serializable)selectlist);
+                Intent intent = new Intent(mContext, CreateNoneDeviceTaskAcitvity.class);
+                intent.putExtra("selectlist", (Serializable) selectlist);
                 startActivity(intent);
             }
         });
         rl_liucheng_task.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(mContext, CreateProcessTaskAcitvity.class);
-                intent.putExtra("selectlist",(Serializable)selectlist);
+                Intent intent = new Intent(mContext, CreateProcessTaskAcitvity.class);
+                intent.putExtra("selectlist", (Serializable) selectlist);
                 startActivity(intent);
             }
         });
@@ -518,7 +520,7 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
             }
             for (int i = 0; i < list.size(); i++) {
                 FindProjectWorkerBean.RespBodyBean respBodyBean = list.get(i);
-                ProjectFromWorkBean.ListBean.UserListBean listBean=new ProjectFromWorkBean.ListBean.UserListBean();
+                ProjectFromWorkBean.ListBean.UserListBean listBean = new ProjectFromWorkBean.ListBean.UserListBean();
                 listBean.setUserId(respBodyBean.getUserId());
                 listBean.setUserName(respBodyBean.getUserName());
                 findprojectselectlist.add(listBean);
@@ -543,8 +545,8 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
             selectlist = adapter.getSelectPeopleList();
             if (isfind) {
                 selectlist.addAll(findselectlist);
-            }else {
-                if (findselectlist.size()>0){
+            } else {
+                if (findselectlist.size() > 0) {
                     selectlist.addAll(findselectlist);
                 }
             }
@@ -568,14 +570,14 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
             selectprojectlist = fromWorkListExpenableAdapter.getSelectPeopleList();
             if (isfind) {
                 selectprojectlist.addAll(findprojectselectlist);
-            }else {
-                if (findprojectselectlist.size()>0){
+            } else {
+                if (findprojectselectlist.size() > 0) {
                     selectprojectlist.addAll(findprojectselectlist);
                 }
             }
             if (selectprojectlist.size() > 0) {
                 rlBottom.setVisibility(View.VISIBLE);
-                if (selectlist.size()>0){//清空要加入的list
+                if (selectlist.size() > 0) {//清空要加入的list
                     selectlist.clear();
                 }
                 for (int i = 0; i < selectprojectlist.size(); i++) {
@@ -681,18 +683,22 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
      */
     public void getResult(ProjectFromWorkBean projectFromWorkBean) {
         List<ProjectFromWorkBean.ListBean> list = projectFromWorkBean.getList();
-        projectFromWorkBeans.addAll(list);
-        fromWorkListExpenableAdapter = new FromWorkListExpenableAdapter(getContext(), projectFromWorkBeans);
-        elv_framework.setAdapter(fromWorkListExpenableAdapter);
-        elv_framework.setGroupIndicator(null);
-        fromWorkListExpenableAdapter.setMyOnclicklisttener(new FromWorkListExpenableAdapter.proOnclicklisttener() {
-            @Override
-            public void Onclicklistener(int position) {
+        if (list.size()>0) {
+            projectFromWorkBeans.addAll(list);
+            fromWorkListExpenableAdapter = new FromWorkListExpenableAdapter(getContext(), projectFromWorkBeans);
+            elv_framework.setAdapter(fromWorkListExpenableAdapter);
+            elv_framework.setGroupIndicator(null);
+            fromWorkListExpenableAdapter.setMyOnclicklisttener(new FromWorkListExpenableAdapter.proOnclicklisttener() {
+                @Override
+                public void Onclicklistener(int position) {
 //                setSelectView(2,false);
-                groupisCheckall(position);
-            }
-        });
-
+                    groupisCheckall(position);
+                }
+            });
+        }else {
+            elv_framework.setVisibility(View.GONE);
+            imgQuesheng.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
@@ -710,7 +716,6 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
             selectFindWorkerListAdapter = new SelectFindWorkerListAdapter(getContext(), findWorkerBeanList);
             lvSearch.setAdapter(selectFindWorkerListAdapter);
         }
-
     }
 
     /**
@@ -811,19 +816,30 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
                 }
 
             }
-            adapter = new SelectPeopleExpenableAdapter(getContext(), workerbeanlist);
-            elv_framework.setAdapter(adapter);
-            elv_framework.setGroupIndicator(null);
-            adapter.setMyOnclicklisttener(new SelectPeopleExpenableAdapter.myOnclicklisttener() {
-                @Override
-                public void Onclicklistener(int position) {
+            if (workerbeanlist.size()>0) {
+                adapter = new SelectPeopleExpenableAdapter(getContext(), workerbeanlist);
+                elv_framework.setAdapter(adapter);
+                elv_framework.setGroupIndicator(null);
+                adapter.setMyOnclicklisttener(new SelectPeopleExpenableAdapter.myOnclicklisttener() {
+                    @Override
+                    public void Onclicklistener(int position) {
 //                    setSelectView(1,false);
-                    groupisCheckall(position);
-                }
-            });
+                        groupisCheckall(position);
+                    }
+                });
+            }else {
+                elv_framework.setVisibility(View.GONE);
+                imgQuesheng.setVisibility(View.VISIBLE);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setImgQuesheng(){
+        elv_framework.setVisibility(View.GONE);
+        imgQuesheng.setVisibility(View.VISIBLE);
+        imgQuesheng.setBackgroundResource(R.mipmap.no_network);
     }
 
     /**
@@ -915,5 +931,5 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
 //        view.setTag(infoBean.getDescription());
         lineSelecall.addView(view);
     }
-    
+
 }

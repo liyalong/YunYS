@@ -398,6 +398,11 @@ public class CommonUtils {
         return df.parse(strDate);
     }
 
+    public static Date ConverToMonthDate(String strDate) throws Exception {
+        DateFormat df = new SimpleDateFormat("yyyy-MM");
+        return df.parse(strDate);
+    }
+
     /**
      * @author fuduo
      * @time 2018/1/29  19:04
@@ -475,6 +480,58 @@ public class CommonUtils {
         return s;
     }
 
+    /**
+     * @author fuduo
+     * @time 2018/3/6  12:12
+     * @describe 获取当前月份最后一天
+     */
+    public static String getTodayLastMonth(){
+        Calendar ca = Calendar.getInstance();
+        ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
+        Date time = ca.getTime();
+        String s = ConverToStringminute(time);
+        return s;
+    }
+
+    /**
+     * @author fuduo
+     * @time 2018/3/6  11:25
+     * @describe 某年某月第一天
+     */
+    public static String getFirstMonthDay(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date time = calendar.getTime();
+        String s = ConverToStringminute(time);
+        System.out.println("某年某月第一天：" + s);
+        return s;
+    }
+
+    /**
+     * @author fuduo
+     * @time 2018/3/6  11:25
+     * @describe 某年某月最后一天
+     */
+    public static String getLastMonthDay(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+//        //获取某月最大天数
+        int lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        calendar.add(Calendar.DAY_OF_MONTH, lastDay-1);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        Date time = calendar.getTime();
+        String s = ConverToStringminute(time);
+        System.out.println("某年某月最后一天：" + s);
+        return s;
+    }
 
     /**
      * @Author :付铎

@@ -47,6 +47,7 @@ public class SelectPeoplePresent extends XPresent<OrganizationFragement> {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 LoadingDialog.dismiss(getV().getContext());
+                getV().setImgQuesheng();
             }
         });
     }
@@ -103,6 +104,9 @@ public class SelectPeoplePresent extends XPresent<OrganizationFragement> {
 
                     @Override
                     protected void onFail(NetError error) {
+                        if (error.getType()==5){
+                            getV().setImgQuesheng();
+                        }
                         ToastUtils.showToast("请求数据失败！");
                     }
                 });

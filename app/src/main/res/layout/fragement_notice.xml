@@ -32,8 +32,8 @@
                 android:layout_marginRight="@dimen/distance_10"
                 android:background="@null"
                 android:hint="@string/search"
-                android:singleLine="true"
                 android:imeOptions="actionSearch"
+                android:singleLine="true"
                 android:textColor="@color/color_333"
                 android:textColorHint="@color/color_666"
                 android:textSize="@dimen/distance_10" />
@@ -42,9 +42,9 @@
                 android:id="@+id/img_clear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_gravity="center_vertical"
-                android:background="@mipmap/ed_close" />
+                android:background="@mipmap/ed_close"
+                android:visibility="gone" />
         </LinearLayout>
 
         <com.handmark.pulltorefresh.library.PullToRefreshListView
@@ -57,5 +57,16 @@
             android:scrollbars="none">
 
         </com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+        <ImageView
+            android:id="@+id/img_quesheng"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/distance_115"
+            android:background="@mipmap/no_data"
+            android:visibility="gone" />
+
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

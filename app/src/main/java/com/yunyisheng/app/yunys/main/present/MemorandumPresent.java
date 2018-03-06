@@ -4,6 +4,7 @@ import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.main.activity.MemorandumActivity;
 import com.yunyisheng.app.yunys.main.model.MemorandumBean;
 import com.yunyisheng.app.yunys.net.Api;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import cn.droidlover.xdroidmvp.mvp.XPresent;
@@ -25,6 +26,7 @@ public class MemorandumPresent extends XPresent<MemorandumActivity> {
      * @describe 查询备忘录
      */
     public void getMemoList(int pagenum, int pagerows) {
+        LoadingDialog.show(getV());
         Api.homeService().getMemorandumList(pagenum, pagerows)
                 .compose(XApi.<MemorandumBean>getApiTransformer()) //统一异常处理
                 .compose(XApi.<MemorandumBean>getScheduler()) //线程调度
@@ -32,6 +34,7 @@ public class MemorandumPresent extends XPresent<MemorandumActivity> {
                 .subscribe(new ApiSubscriber<MemorandumBean>() {
                     @Override
                     public void onNext(MemorandumBean memorandumBean) {
+                        LoadingDialog.dismiss(getV());
                         if (memorandumBean.getRespCode() == 0) {
                             getV().getResult(memorandumBean);
                         } else {
@@ -42,8 +45,12 @@ public class MemorandumPresent extends XPresent<MemorandumActivity> {
 
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
                         ToastUtils.showToast("请求数据失败！");
                         getV().stopRefresh();
+                        if (error.getType()==5){
+                            getV().setImgQuesheng();
+                        }
                     }
                 });
     }

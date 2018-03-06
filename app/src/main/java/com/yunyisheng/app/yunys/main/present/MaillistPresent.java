@@ -26,11 +26,11 @@ import retrofit2.Callback;
 public class MaillistPresent extends XPresent<MailListActivity> {
 
     /**
-     *  @author fuduo
-     *  @time 2018/1/24  15:42
-     *  @describe 获取通讯录列表
+     * @author fuduo
+     * @time 2018/1/24  15:42
+     * @describe 获取通讯录列表
      */
-    public void getMaillist(){
+    public void getMaillist() {
         LoadingDialog.show(getV());
         HomeService mMallRequest = RetrofitManager.getInstance().getRetrofit().create(HomeService.class);
         Call<String> call = mMallRequest.getUserFromwork();
@@ -44,16 +44,18 @@ public class MaillistPresent extends XPresent<MailListActivity> {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
+                getV().setImgQueshengng();
                 LoadingDialog.dismiss(getV());
             }
         });
     }
+
     /**
      * @author fuduo
      * @time 2018/1/23  20:05
      * @describe 获取搜索人员列表
      */
-    public void getFindList(String title){
+    public void getFindList(String title) {
         LoadingDialog.show(getV());
         Api.homeService().getfindworkerlist(title)
                 .compose(XApi.<FindWorkerBean>getApiTransformer()) //统一异常处理
@@ -63,9 +65,9 @@ public class MaillistPresent extends XPresent<MailListActivity> {
                     @Override
                     public void onNext(FindWorkerBean FindWorkerBean) {
                         LoadingDialog.dismiss(getV());
-                        if (FindWorkerBean.getRespCode()==0){
+                        if (FindWorkerBean.getRespCode() == 0) {
                             getV().getFindList(FindWorkerBean);
-                        }else {
+                        } else {
                             ToastUtils.showToast(FindWorkerBean.getRespMsg());
                         }
                     }
@@ -73,6 +75,9 @@ public class MaillistPresent extends XPresent<MailListActivity> {
                     @Override
                     protected void onFail(NetError error) {
                         LoadingDialog.dismiss(getV());
+                        if (error.getType() == 5) {
+                            getV().setImgQueshengng();
+                        }
                         ToastUtils.showToast("请求数据失败！");
                     }
                 });

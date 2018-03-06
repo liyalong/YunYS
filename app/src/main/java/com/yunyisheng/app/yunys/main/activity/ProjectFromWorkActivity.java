@@ -43,6 +43,8 @@ public class ProjectFromWorkActivity extends BaseActivity<ProjectFromworkPresent
     ExpandableListView elvOrganizationframe;
     @BindView(R.id.lv_search)
     ListView lvSearch;
+    @BindView(R.id.img_quesheng)
+    ImageView imgQuesheng;
     private List<ProjectFromWorkBean.ListBean> projectFromWorkBeans = new ArrayList<>();//项目架构全部人员
     private List<FindProjectWorkerBean.RespBodyBean> findWorkerProjectBeanList = new ArrayList<>();//项目搜索人员
     private String sousuo_neirong;
@@ -88,7 +90,7 @@ public class ProjectFromWorkActivity extends BaseActivity<ProjectFromworkPresent
                 FindProjectWorkerBean.RespBodyBean respBodyBean = findWorkerProjectBeanList.get(position);
                 Intent intent = new Intent(ProjectFromWorkActivity.this, WorkerDataActivity.class);
                 intent.putExtra("userid", respBodyBean.getUserId());
-                intent.putExtra("workerhead",respBodyBean.getUserPicture());
+                intent.putExtra("workerhead", respBodyBean.getUserPicture());
                 startActivity(intent);
             }
         });
@@ -99,7 +101,7 @@ public class ProjectFromWorkActivity extends BaseActivity<ProjectFromworkPresent
                 ProjectFromWorkBean.ListBean.UserListBean userListBean = projectFromWorkBeans.get(groupPosition).getUserList().get(childPosition);
                 Intent intent = new Intent(ProjectFromWorkActivity.this, WorkerDataActivity.class);
                 intent.putExtra("userid", userListBean.getUserId());
-                intent.putExtra("workerhead",userListBean.getUserPicture());
+                intent.putExtra("workerhead", userListBean.getUserPicture());
                 startActivity(intent);
                 return true;
             }
@@ -153,10 +155,15 @@ public class ProjectFromWorkActivity extends BaseActivity<ProjectFromworkPresent
      */
     public void getResult(ProjectFromWorkBean projectFromWorkBean) {
         List<ProjectFromWorkBean.ListBean> list = projectFromWorkBean.getList();
-        projectFromWorkBeans.addAll(list);
-        ProjectFromWorkListExpenableAdapter adapter = new ProjectFromWorkListExpenableAdapter(this, projectFromWorkBeans);
-        elvOrganizationframe.setAdapter(adapter);
-        elvOrganizationframe.setGroupIndicator(null);
+        if (list.size() > 0) {
+            projectFromWorkBeans.addAll(list);
+            ProjectFromWorkListExpenableAdapter adapter = new ProjectFromWorkListExpenableAdapter(this, projectFromWorkBeans);
+            elvOrganizationframe.setAdapter(adapter);
+            elvOrganizationframe.setGroupIndicator(null);
+        } else {
+            elvOrganizationframe.setVisibility(View.GONE);
+            imgQuesheng.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
@@ -176,6 +183,12 @@ public class ProjectFromWorkActivity extends BaseActivity<ProjectFromworkPresent
         }
     }
 
+    public void setImgQueshengng(){
+        elvOrganizationframe.setVisibility(View.GONE);
+        imgQuesheng.setVisibility(View.VISIBLE);
+        imgQuesheng.setBackgroundResource(R.mipmap.no_network);
+    }
+
     @Override
     public void setListener() {
 
@@ -185,5 +198,4 @@ public class ProjectFromWorkActivity extends BaseActivity<ProjectFromworkPresent
     public void widgetClick(View v) {
 
     }
-
 }

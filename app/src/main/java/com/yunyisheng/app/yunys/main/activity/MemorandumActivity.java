@@ -59,6 +59,8 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
     PullToRefreshScrollView pullToRefreshScrollview;
     @BindView(R.id.img_clear)
     ImageView imgClear;
+    @BindView(R.id.img_quesheng)
+    ImageView imgQuesheng;
     private int pageindex = 1;
     private int userid;
     private List<MemorandumBean.ListBean> beanList = new ArrayList<>();
@@ -203,6 +205,8 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
             }
         } else {
             if (pageindex == 1) {
+                pullToRefreshScrollview.setVisibility(View.GONE);
+                imgQuesheng.setVisibility(View.VISIBLE);
                 ToastUtils.showToast("暂无数据");
             } else {
                 ToastUtils.showToast("暂无更多数据");
@@ -235,6 +239,12 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
         stopRefresh();
     }
 
+    public void setImgQuesheng(){
+        pullToRefreshScrollview.setVisibility(View.GONE);
+        imgQuesheng.setVisibility(View.VISIBLE);
+        imgQuesheng.setBackgroundResource(R.mipmap.no_network);
+    }
+
     public void stopRefresh() {
         pullToRefreshScrollview.onRefreshComplete();
     }
@@ -247,10 +257,10 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
     public void getDelete(BaseModel baseModel) {
         if (baseModel.getRespCode() == 0) {
             String trim = edSearch.getText().toString().trim();
-            if (trim!=null&&!trim.equals("")){
+            if (trim != null && !trim.equals("")) {
                 selectbeanList.remove(position);
                 selectadapter.notifyDataSetChanged();
-            }else {
+            } else {
                 beanList.remove(position);
                 adapter.notifyDataSetChanged();
             }

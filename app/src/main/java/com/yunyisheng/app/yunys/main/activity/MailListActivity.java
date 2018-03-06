@@ -67,6 +67,8 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
     ImageView imgClear;
     @BindView(R.id.lv_search)
     ListView lvSearch;
+    @BindView(R.id.img_quesheng)
+    ImageView imgQuesheng;
     private String sousuo_neirong;
     private List<WorkerListBean> workerbeanlist = new ArrayList<>();
     private List<FindWorkerBean.respBodyBean> findWorkerBeanList = new ArrayList<>();
@@ -100,7 +102,7 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 WorkerBean workerBean = workerbeanlist.get(groupPosition).getWorkerBeanList().get(childPosition);
                 Intent intent = new Intent(MailListActivity.this, WorkerDataActivity.class);
-                intent.putExtra("workerhead",workerBean.getIcon());
+                intent.putExtra("workerhead", workerBean.getIcon());
                 intent.putExtra("userid", workerBean.getUserId());
                 startActivity(intent);
                 return true;
@@ -136,7 +138,7 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
      * 请求权限
      */
     private void requestPermission() {
-       requestRunTimePression(this, new String[]{Manifest.permission.CALL_PHONE}, new PressionListener() {
+        requestRunTimePression(this, new String[]{Manifest.permission.CALL_PHONE}, new PressionListener() {
             @Override
             public void onGranted() {
 
@@ -150,7 +152,7 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
                         .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                               finish();
+                                finish();
                             }
                         })
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -256,9 +258,14 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
                 }
 
             }
-            MaillistExpenableAdapter adapter = new MaillistExpenableAdapter(MailListActivity.this, workerbeanlist);
-            elvOrganizationframe.setAdapter(adapter);
-            elvOrganizationframe.setGroupIndicator(null);
+            if (workerbeanlist.size()>0) {
+                MaillistExpenableAdapter adapter = new MaillistExpenableAdapter(MailListActivity.this, workerbeanlist);
+                elvOrganizationframe.setAdapter(adapter);
+                elvOrganizationframe.setGroupIndicator(null);
+            }else {
+                elvOrganizationframe.setVisibility(View.GONE);
+                imgQuesheng.setVisibility(View.VISIBLE);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -308,16 +315,22 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
         }
     }
 
-    public void getFindList(FindWorkerBean findWorkerBean){
-        if (findWorkerBean.getRespBodyBeanList().size()>0){
+    public void getFindList(FindWorkerBean findWorkerBean) {
+        if (findWorkerBean.getRespBodyBeanList().size() > 0) {
             findWorkerBeanList.clear();
             elvOrganizationframe.setVisibility(View.GONE);
             lvSearch.setVisibility(View.VISIBLE);
             List<FindWorkerBean.respBodyBean> respBodyBeanList = findWorkerBean.getRespBodyBeanList();
             findWorkerBeanList.addAll(respBodyBeanList);
-            FindWorkerListAdapter adapter=new FindWorkerListAdapter(MailListActivity.this,findWorkerBeanList);
+            FindWorkerListAdapter adapter = new FindWorkerListAdapter(MailListActivity.this, findWorkerBeanList);
             lvSearch.setAdapter(adapter);
         }
+    }
+
+    public void setImgQueshengng(){
+        elvOrganizationframe.setVisibility(View.GONE);
+        imgQuesheng.setVisibility(View.VISIBLE);
+        imgQuesheng.setBackgroundResource(R.mipmap.no_network);
     }
 
     @Override
@@ -342,12 +355,12 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
                 startActivity(new Intent(MailListActivity.this, ProjectFromWorkActivity.class));
                 break;
             case R.id.rl_arrangework:
-                Intent intent=new Intent(MailListActivity.this, SelectPeopleActivity.class);
-                intent.putExtra("type",1);
-                startActivity(intent);
+//                Intent intent = new Intent(MailListActivity.this, SelectPeopleActivity.class);
+//                intent.putExtra("type", 1);
+//                startActivity(intent);
                 break;
             case R.id.rl_invite:
-                startActivity(new Intent(MailListActivity.this, InviteWorkerActivity.class));
+               startActivity(new Intent(MailListActivity.this, InviteWorkerActivity.class));
                 break;
             case R.id.img_clear:
                 edSearch.setText("");

@@ -78,7 +78,9 @@ public class HomePresent extends XPresent<HomeFragement> {
                     protected void onFail(NetError error) {
                         LoadingDialog.dismiss(getV().getContext());
                         getV().stopRefresh();
-                        getV().setimgBac();
+                        if (error.getType()==5) {
+                            getV().setimgBac();
+                        }
                         ToastUtils.showToast("获取数据失败！");
                     }
                 });

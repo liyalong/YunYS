@@ -105,5 +105,14 @@
                     android:scrollbars="none"></com.yunyisheng.app.yunys.utils.SwipeListView>
             </RelativeLayout>
         </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+        <ImageView
+            android:id="@+id/img_quesheng"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/no_data"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/distance_100"
+            android:layout_gravity="center_horizontal"
+            />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

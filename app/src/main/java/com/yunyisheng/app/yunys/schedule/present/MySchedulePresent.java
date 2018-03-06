@@ -44,6 +44,9 @@ public class MySchedulePresent extends XPresent<OurProjeceScheduleFragement> {
                     @Override
                     protected void onFail(NetError error) {
                         LoadingDialog.dismiss(getV().getContext());
+                        if (error.getType()==5){
+                            getV().setimgBac();
+                        }
                         ToastUtils.showToast("获取数据失败");
                     }
                 });
@@ -71,6 +74,9 @@ public class MySchedulePresent extends XPresent<OurProjeceScheduleFragement> {
 
                     @Override
                     protected void onFail(NetError error) {
+                        if (error.getType()==5){
+                            getV().setProjimgBac();
+                        }
                         ToastUtils.showToast("获取数据失败");
                     }
                 });

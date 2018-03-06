@@ -61,11 +61,13 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
     Unbinder unbinder;
     @BindView(R.id.pull_to_refresh_listview)
     PullToRefreshListView pullToRefreshListview;
+    @BindView(R.id.img_quesheng)
+    ImageView imgQuesheng;
     private int tabindex;
     private String sousuo_neirong;
     private int pageindex = 1;
     private List<SendNoticeBean.ListBean> sendlist = new ArrayList<>();
-    private List<ReceiveMeMessageBean.ListBean> receivemelist=new ArrayList<>();
+    private List<ReceiveMeMessageBean.ListBean> receivemelist = new ArrayList<>();
     private PublishNoticeListAdapter adapter;
     private ReceiveNoticeListAdapter adapter1;
     private MyReceiver receiver;
@@ -146,13 +148,13 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
         pullToRefreshListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (tabindex==0) {
+                if (tabindex == 0) {
                     SendNoticeBean.ListBean listBean = sendlist.get(position - 1);
                     Intent intent = new Intent(mContext, NoticeDeatilActivity.class);
                     intent.putExtra("type", tabindex);
                     intent.putExtra("noticeid", listBean.getAnnouncementId());
                     startActivityForResult(intent, 2);
-                }else {
+                } else {
                     ReceiveMeMessageBean.ListBean listBean = receivemelist.get(position - 1);
                     Intent intent = new Intent(mContext, NoticeDeatilActivity.class);
                     intent.putExtra("type", tabindex);
@@ -174,9 +176,9 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
 
     //订阅方法，当接收到事件的时候，会调用该方法
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(PositionMessageEvent messageEvent){
+    public void onEvent(PositionMessageEvent messageEvent) {
         String position = messageEvent.getPosition();
-        if (position.equals("updatenotice")){
+        if (position.equals("updatenotice")) {
             sendlist.clear();
             pageindex = 1;
             getP().getSendNoticelist(pageindex, 10, null);
@@ -227,6 +229,8 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
             }
         } else {
             if (pageindex == 1) {
+                pullToRefreshListview.setVisibility(View.GONE);
+                imgQuesheng.setVisibility(View.VISIBLE);
                 ToastUtils.showToast("暂无数据");
             } else {
                 ToastUtils.showToast("暂无更多数据");
@@ -235,7 +239,7 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
         stopRefresh();
     }
 
-    public void stopRefresh(){
+    public void stopRefresh() {
         pullToRefreshListview.onRefreshComplete();
     }
 
@@ -251,11 +255,20 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
             }
         } else {
             if (pageindex == 1) {
+                pullToRefreshListview.setVisibility(View.GONE);
+                imgQuesheng.setVisibility(View.VISIBLE);
+                ToastUtils.showToast("暂无数据");
             } else {
                 ToastUtils.showToast("暂无更多数据");
             }
         }
         stopRefresh();
+    }
+
+    public void setimgBac(){
+        pullToRefreshListview.setVisibility(View.GONE);
+        imgQuesheng.setVisibility(View.VISIBLE);
+        imgQuesheng.setBackgroundResource(R.mipmap.no_network);
     }
 
     //监听是否输入
