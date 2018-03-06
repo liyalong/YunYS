@@ -260,9 +260,12 @@ public class HomeFragement extends BaseFragement<HomePresent> {
         if (myScheduleBean.getRespBody().getDataList() != null && myScheduleBean.getRespBody().getDataList().size() > 0) {
             list.addAll(myScheduleBean.getRespBody().getDataList());
             adapter.setData(list);
+            pullToRefreshListview.setVisibility(View.VISIBLE);
+            img_quesheng.setVisibility(View.GONE);
         } else {
             if (pageindex == 1) {
-                ToastUtils.showToast("当前日期暂无日程");
+                pullToRefreshListview.setVisibility(View.GONE);
+                img_quesheng.setVisibility(View.VISIBLE);
             } else {
                 ToastUtils.showToast("没有更多了");
             }

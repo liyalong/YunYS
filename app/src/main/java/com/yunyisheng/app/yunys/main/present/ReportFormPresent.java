@@ -42,6 +42,7 @@ public class ReportFormPresent extends XPresent<ReportformActivity> {
                     @Override
                     protected void onFail(NetError error) {
                         ToastUtils.showToast("请求数据失败！");
+                        getV().setImgBac();
                     }
                 });
     }
@@ -49,7 +50,7 @@ public class ReportFormPresent extends XPresent<ReportformActivity> {
     /**
      * @author fuduo
      * @time 2018/1/26  18:44
-     * @describe 获取报表列表
+     * @describe 获取报表列表详情
      */
     public void getBaobiaoDetail(final int instanceId) {
         Api.homeService().getBaobiaoDetail(instanceId)

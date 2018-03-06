@@ -47,6 +47,8 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
     ImageView imgAdd;
     @BindView(R.id.web)
     WebView web;
+    @BindView(R.id.img_quesheng)
+    ImageView imgQuesheng;
     private boolean isshowmenu;
     private SlidingMenu menu;
     private MyGridView gvadded;
@@ -234,7 +236,18 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
             });
             CanAddReportformListAdapter addReportformListAdapter = new CanAddReportformListAdapter(ReportformActivity.this, list);
             gvadd.setAdapter(addReportformListAdapter);
+            web.setVisibility(View.VISIBLE);
+            imgQuesheng.setVisibility(View.GONE);
+        } else {
+            web.setVisibility(View.GONE);
+            imgQuesheng.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void setImgBac(){
+        web.setVisibility(View.GONE);
+        imgQuesheng.setVisibility(View.VISIBLE);
+        imgQuesheng.setBackgroundResource(R.mipmap.no_network);
     }
 
     @Override

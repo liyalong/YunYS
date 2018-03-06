@@ -209,6 +209,6 @@
             android:visibility="gone"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/distance_38"
-            android:background="@mipmap/quesheng" />
+            android:background="@mipmap/no_index_task" />
     </RelativeLayout>
 </RelativeLayout>
