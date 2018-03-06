@@ -273,6 +273,12 @@ public class HomeFragement extends BaseFragement<HomePresent> {
         stopRefresh();
     }
 
+    public void setimgBac(){
+        pullToRefreshListview.setVisibility(View.GONE);
+        img_quesheng.setVisibility(View.VISIBLE);
+        img_quesheng.setBackgroundResource(R.mipmap.no_network);
+    }
+
     public void stopRefresh() {
         pullToRefreshListview.onRefreshComplete();
     }
