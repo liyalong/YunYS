@@ -49,6 +49,7 @@ public class MessagePresent extends XPresent<MessageActivity> {
                         LoadingDialog.dismiss(getV());
                         if (error.getType()==5) {
                             getV().setimgBac();
+
                         }
                         ToastUtils.showToast("请求数据失败！");
                     }
