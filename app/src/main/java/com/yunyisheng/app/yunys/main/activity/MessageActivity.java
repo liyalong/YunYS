@@ -153,6 +153,12 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
         stopRefresh();
     }
 
+    public void setimgBac(){
+        pullToList.setVisibility(View.GONE);
+        imgQuesheng.setVisibility(View.VISIBLE);
+        imgQuesheng.setBackgroundResource(R.mipmap.no_network);
+    }
+
     public void stopRefresh() {
         pullToList.onRefreshComplete();
     }

@@ -47,6 +47,9 @@ public class MessagePresent extends XPresent<MessageActivity> {
                     @Override
                     protected void onFail(NetError error) {
                         LoadingDialog.dismiss(getV());
+                        if (error.getType()==5) {
+                            getV().setimgBac();
+                        }
                         ToastUtils.showToast("请求数据失败！");
                     }
                 });
@@ -79,6 +82,7 @@ public class MessagePresent extends XPresent<MessageActivity> {
                     protected void onFail(NetError error) {
                         LoadingDialog.dismiss(getV());
                         getV().stopRefresh();
+                        getV().setimgBac();
                         ToastUtils.showToast("请求数据失败！");
                     }
                 });
