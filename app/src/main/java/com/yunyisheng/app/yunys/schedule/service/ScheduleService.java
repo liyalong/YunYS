@@ -4,6 +4,7 @@ import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 import com.yunyisheng.app.yunys.schedule.model.RenWuFanKuiDetailBean;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
+import com.yunyisheng.app.yunys.schedule.model.ScheduleNoSizeBean;
 import com.yunyisheng.app.yunys.schedule.model.SeeScheduleDetailBean;
 
 import io.reactivex.Flowable;
@@ -52,6 +53,18 @@ public interface ScheduleService {
                                                     @Field("projectId") String projectId,
                                                     @Field("startTime") String startTime,
                                                     @Field("endTime") String endTime);
+
+    /**
+     * 获取未完成任务的日期
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("android/enterpriseUser/schedule/numList")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    Flowable<ScheduleNoSizeBean> getNoschedulelist(@Field("startTime") String startTime,
+                                                   @Field("endTime") String endTime,
+                                                   @Field("type") int type);
 
     /**
      * @author fuduo

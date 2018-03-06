@@ -36,6 +36,7 @@ import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.schedule.adapter.TaskAdapter;
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 import com.yunyisheng.app.yunys.schedule.model.PositionMessageEvent;
+import com.yunyisheng.app.yunys.schedule.model.ScheduleNoSizeBean;
 import com.yunyisheng.app.yunys.schedule.present.MySchedulePresent;
 import com.yunyisheng.app.yunys.schedule.view.CustomDayView;
 import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
@@ -49,6 +50,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -206,6 +209,9 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         LogUtils.i("MonthDay", firstMonthDay +"===="+ lastMonthDay);
         if (tabindex == 0) {
             getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
+            getP().getNoScheduleList(firstMonthDay,lastMonthDay,1);
+        }else {
+            getP().getNoScheduleList(firstMonthDay,lastMonthDay,2);
         }
     }
 
@@ -296,6 +302,41 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         rvToDoList.setVisibility(View.GONE);
         imgQuesheng2.setVisibility(View.VISIBLE);
         imgQuesheng2.setBackgroundResource(R.mipmap.no_network);
+    }
+
+    public void getNoScheduleResultList(ScheduleNoSizeBean scheduleNoSizeBean) {
+        List<ScheduleNoSizeBean.RespBodyBean> respBody = scheduleNoSizeBean.getRespBody();
+        HashMap<String, String> markData = new HashMap<>();
+        DateFormat df = new SimpleDateFormat("y-M-d");
+        if (respBody.size()>0){
+            try {
+                for (int i = 0; i < respBody.size(); i++) {
+                    String[] str = null;
+                    ScheduleNoSizeBean.RespBodyBean respBodyBean = respBody.get(i);
+                    int num = respBodyBean.getNum();
+//                String splitstr="";
+                    String date = respBodyBean.getDate();
+                    Date date1 = CommonUtils.ConverToDate(date);
+                    String format = df.format(date1);
+//                str=date.split("-");
+//                for (int m=0;m<str.length;m++){
+//                    if ((str[m].subSequence(0,1)).equals("0")){
+//                        StringBuffer stringBuffer=new StringBuffer(str[m]);
+//                        StringBuffer replace = stringBuffer.replace(0, 1, "");
+//
+//                    }else {
+//                        splitstr+=str[m];
+//                    }
+//                    markData.put(date,num+"");
+//                }
+                    markData.put(format,num+"");
+                }
+            }catch (Exception e){
+
+            }
+            calendarAdapter.setMarkData(markData);
+            calendarAdapter.notifyDataChanged();
+        }
     }
 
     private class WindowsReceiver extends BroadcastReceiver {
@@ -474,21 +515,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                 rvToDoList.scrollToPosition(0);
             }
         });
-        initMarkData();
         initMonthPager();
-    }
-
-    /**
-     * 初始化标记数据，HashMap的形式，可自定义
-     * 如果存在异步的话，在使用setMarkData之后调用 calendarAdapter.notifyDataChanged();
-     */
-    private void initMarkData() {
-        HashMap<String, String> markData = new HashMap<>();
-        markData.put("2018-3-4", "1");
-        markData.put("2017-7-9", "0");
-        markData.put("2017-6-9", "1");
-        markData.put("2017-6-10", "0");
-        calendarAdapter.setMarkData(markData);
     }
 
     private void initListener() {
@@ -556,13 +583,18 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                 try {
                     if (currentCalendars.get(position % currentCalendars.size()) != null) {
                         CalendarDate date = currentCalendars.get(position % currentCalendars.size()).getSeedDate();
-                        currentDate = date;
                         Date date1 = ConverToMonthDate(date.toString());
                         firstMonthDay = CommonUtils.getFirstMonthDay(date1);
                         lastMonthDay = CommonUtils.getLastMonthDay(date1);
                         LogUtils.i("MonthDay",firstMonthDay+"===="+lastMonthDay);
                         if (currentDate.getYear() != date.getYear() || currentDate.getMonth() != date.getMonth()) {
+                            if (tabindex == 0) {
+                                getP().getNoScheduleList(firstMonthDay,lastMonthDay,1);
+                            }else {
+                                getP().getNoScheduleList(firstMonthDay,lastMonthDay,2);
+                            }
                         }
+                        currentDate = date;
                         teDate.setText(date.getYear() + "年" + date.getMonth() + "月");
                     }
                 } catch (Exception e) {
