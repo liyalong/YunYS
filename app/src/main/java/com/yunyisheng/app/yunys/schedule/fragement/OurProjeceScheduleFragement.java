@@ -335,7 +335,6 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
 
             }
             calendarAdapter.setMarkData(markData);
-            calendarAdapter.notifyDataChanged();
         }
     }
 
@@ -583,6 +582,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                 try {
                     if (currentCalendars.get(position % currentCalendars.size()) != null) {
                         CalendarDate date = currentCalendars.get(position % currentCalendars.size()).getSeedDate();
+                        teDate.setText(date.getYear() + "年" + date.getMonth() + "月");
                         Date date1 = ConverToMonthDate(date.toString());
                         firstMonthDay = CommonUtils.getFirstMonthDay(date1);
                         lastMonthDay = CommonUtils.getLastMonthDay(date1);
@@ -595,7 +595,6 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                             }
                         }
                         currentDate = date;
-                        teDate.setText(date.getYear() + "年" + date.getMonth() + "月");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
