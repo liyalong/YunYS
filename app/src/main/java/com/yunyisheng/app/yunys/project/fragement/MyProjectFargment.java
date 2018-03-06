@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,7 +29,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.droidlover.xdroidmvp.log.XLog;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
 import cn.droidlover.xdroidmvp.router.Router;
 
 /**
@@ -40,6 +41,11 @@ public class MyProjectFargment extends BaseFragement<MyProjectPresent> {
     TextView myProjectNums;
     @BindView(R.id.my_project_list)
     PullToRefreshListView myProjectList;
+    @BindView(R.id.no_data_img)
+    ImageView noDataImg;
+    @BindView(R.id.no_data)
+    LinearLayout noData;
+    Unbinder unbinder;
 
     private ProjectListModel projectListModel;
     private static int PAGE_NUM = 1;
@@ -56,30 +62,30 @@ public class MyProjectFargment extends BaseFragement<MyProjectPresent> {
     @Override
     public void initView() {
         ButterKnife.bind(this, context);
-        getP().getMyProjectList(PAGE_NUM,PAGE_SIZE,"");
+        getP().getMyProjectList(PAGE_NUM, PAGE_SIZE, "");
         ScrowUtil.listViewConfig(myProjectList);
         myProjectList.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 PAGE_NUM = 1;
-                getP().getMyProjectList(PAGE_NUM,PAGE_SIZE,"");
+                getP().getMyProjectList(PAGE_NUM, PAGE_SIZE, "");
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 PAGE_NUM += 1;
-                getP().getMyProjectList(PAGE_NUM,PAGE_SIZE,"");
+                getP().getMyProjectList(PAGE_NUM, PAGE_SIZE, "");
             }
         });
         myProjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ProjectBean item = mList.get(i-1);
+                ProjectBean item = mList.get(i - 1);
                 XLog.d(item.toString());
                 Router.newIntent(context)
                         .to(ProjectDetailsActivity.class)
-                        .putString("projectId",item.getProjectId())
-                        .putString("projectName",item.getProjectName())
+                        .putString("projectId", item.getProjectId())
+                        .putString("projectName", item.getProjectName())
                         .launch();
             }
         });
@@ -112,25 +118,34 @@ public class MyProjectFargment extends BaseFragement<MyProjectPresent> {
 
     public void setProjectListModel(ProjectListModel projectListModel) {
         this.projectListModel = projectListModel;
-        myProjectNums.setText("（"+projectListModel.getTotal()+"条）");
-        if (projectListModel.getRespBody().size() > 0){
-            if (PAGE_NUM == 1){
+        myProjectNums.setText("（" + projectListModel.getTotal() + "条）");
+        if (projectListModel.getRespBody().size() > 0) {
+            noData.setVisibility(View.GONE);
+            myProjectList.setVisibility(View.VISIBLE);
+            if (PAGE_NUM == 1) {
                 mList.clear();
                 mList.addAll(projectListModel.getRespBody());
-                mAdapter = new MyProjectListAdapter(context,projectListModel.getRespBody());
+                mAdapter = new MyProjectListAdapter(context, projectListModel.getRespBody());
                 myProjectList.setAdapter(mAdapter);
-            }else {
+            } else {
                 mList.addAll(projectListModel.getRespBody());
                 mAdapter.setData(mList);
             }
-        }else {
+        } else {
+            if (PAGE_NUM == 1){
+                noData.setVisibility(View.VISIBLE);
+                myProjectList.setVisibility(View.GONE);
+            }else {
+                ToastUtils.showToast("暂无更多数据");
+            }
             PAGE_NUM -= 1;
-            ToastUtils.showToast("暂无数据");
         }
         initRefresh();
     }
-    public void initRefresh(){
+
+    public void initRefresh() {
         myProjectList.onRefreshComplete();
         myProjectList.computeScroll();
     }
+
 }

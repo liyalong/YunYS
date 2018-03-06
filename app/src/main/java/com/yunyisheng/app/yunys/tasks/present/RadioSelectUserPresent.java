@@ -18,7 +18,7 @@ import cn.droidlover.xdroidmvp.net.XApi;
 public class RadioSelectUserPresent extends XPresent<RadioSelectUserActivity> {
     public void getAllUserLists(){
         LoadingDialog.show(getV());
-        Api.taskService().getAllUserLists("activiti")
+        Api.taskService().getCheckUserList("activiti")
                 .compose(XApi.<ProjectUserListModel>getApiTransformer())
                 .compose(XApi.<ProjectUserListModel>getScheduler())
                 .compose(getV().<ProjectUserListModel>bindToLifecycle())

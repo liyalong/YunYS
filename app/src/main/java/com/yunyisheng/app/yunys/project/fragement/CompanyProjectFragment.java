@@ -1,6 +1,11 @@
 package com.yunyisheng.app.yunys.project.fragement;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,7 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.droidlover.xdroidmvp.log.XLog;
+import butterknife.Unbinder;
 
 /**
  * Created by liyalong on 2018/1/10.
@@ -33,11 +38,15 @@ public class CompanyProjectFragment extends BaseFragement<CompanyProjectPresent>
     TextView companyProjectNums;
     @BindView(R.id.company_project_list)
     PullToRefreshListView companyProjectList;
+    @BindView(R.id.no_company_data_img)
+    ImageView noCompanyDataImg;
+    @BindView(R.id.no_company_data)
+    LinearLayout noCompanyData;
 
     private ProjectListModel projectListModel;
     private static int PAGE_NUM = 1;
     private static int PAGE_SIZE = 10;
-    List<ProjectBean> projectBeanList=new ArrayList<>();
+    List<ProjectBean> projectBeanList = new ArrayList<>();
     ProjectListAdapter adapter;
 
 
@@ -99,37 +108,42 @@ public class CompanyProjectFragment extends BaseFragement<CompanyProjectPresent>
 
     public void setProjectListModel(ProjectListModel projectListModel) {
         this.projectListModel = projectListModel;
-        if (projectListModel.getRespCode() == 1){
+        if (projectListModel.getRespCode() == 1) {
             ToastUtils.showToast(projectListModel.getRespMsg());
             return;
         }
         //设置总数
-        companyProjectNums.setText("（"+projectListModel.getTotal()+"条）");
-        if (projectListModel.getRespBody().size() > 0){
-            if (PAGE_NUM==1){
+        companyProjectNums.setText("（" + projectListModel.getTotal() + "条）");
+        if (projectListModel.getRespBody().size() > 0) {
+            if (PAGE_NUM == 1) {
+                noCompanyData.setVisibility(View.GONE);
+                companyProjectList.setVisibility(View.VISIBLE);
                 projectBeanList.clear();
                 projectBeanList.addAll(projectListModel.getRespBody());
-                adapter= new ProjectListAdapter(context,projectBeanList);
+                adapter = new ProjectListAdapter(context, projectBeanList);
                 companyProjectList.setAdapter(adapter);
-            }else {
+            } else {
                 projectBeanList.addAll(projectListModel.getRespBody());
 //                ProjectListAdapter adapter = new ProjectListAdapter(context,projectBeanList);
 //                companyProjectList.setAdapter(adapter);
                 adapter.setData(projectBeanList);
             }
-        }else {
-            PAGE_NUM = projectListModel.getLastPage();
-            if (PAGE_NUM == 1){
-                ToastUtils.showToast("暂无数据！");
-            }else {
+        } else {
+            if (PAGE_NUM == 1) {
+                companyProjectList.setVisibility(View.GONE);
+                noCompanyData.setVisibility(View.VISIBLE);
+                //ToastUtils.showToast("暂无数据！");
+            } else {
                 ToastUtils.showToast("暂无更多数据！");
             }
-
+            PAGE_NUM -= 1;
         }
         initRefresh();
     }
-    public void initRefresh(){
+
+    public void initRefresh() {
         companyProjectList.onRefreshComplete();
         companyProjectList.computeScroll();
     }
+
 }

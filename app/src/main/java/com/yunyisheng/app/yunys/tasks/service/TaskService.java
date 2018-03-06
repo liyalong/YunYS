@@ -305,6 +305,14 @@ public interface TaskService {
     Flowable<ProjectUserListModel> getAllUserLists(@Field("activiti") String activiti);
 
     /**
+     * 获取审批人列表
+     * @param activiti
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("android/enterprise/section/show")
+    Flowable<ProjectUserListModel> getCheckUserList(@Field("activiti") String activiti);
+    /**
      * 获取流程任务详情
      * @param taskId
      * @return
