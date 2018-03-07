@@ -191,9 +191,9 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
                     web.loadUrl("javascript:createTableDiv('" + addedReformString + "" + "')");
                 }
             });
-        } else {
-            getP().getBaobiaoList(1, 0);
         }
+        getP().getBaobiaoList(1, 0);
+
     }
 
     @Override
@@ -228,14 +228,16 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
             setGoneQuesheng();
             list.addAll(reportFormBean.getList());
             netstring = JSON.toJSONString(list);
-            web.post(new Runnable() {
-                @Override
-                public void run() {
-                    // 注意调用的JS方法名要对应上
-                    // 调用javascript的callJS()方法
-                    web.loadUrl("javascript:createTableDiv('" + netstring + "" + "')");
-                }
-            });
+            if (addedReformString == null && addedReformString.equals("")) {
+                web.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 注意调用的JS方法名要对应上
+                        // 调用javascript的callJS()方法
+                        web.loadUrl("javascript:createTableDiv('" + netstring + "" + "')");
+                    }
+                });
+            }
             CanAddReportformListAdapter addReportformListAdapter = new CanAddReportformListAdapter(ReportformActivity.this, list);
             gvadd.setAdapter(addReportformListAdapter);
         } else {
