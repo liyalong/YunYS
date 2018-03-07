@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import com.yunyisheng.app.yunys.MainActivity;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
-import com.yunyisheng.app.yunys.login.model.WelcomePageBean;
 import com.yunyisheng.app.yunys.login.present.WelcomePagePresent;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.Constans;
@@ -64,7 +63,7 @@ public class WelcomeActivity extends BaseActivity<WelcomePagePresent> {
                         netError();
                     }
                 } else {
-                    netError();
+                    handler.sendEmptyMessageDelayed(0, 1000);
                 }
             } else {
                 netError();
@@ -111,23 +110,6 @@ public class WelcomeActivity extends BaseActivity<WelcomePagePresent> {
 
     @Override
     public void initAfter() {
-    }
-
-    public void setImageBac(WelcomePageBean welcomePageBean) {
-//        companyimg = welcomePageBean.getRespBody().getCompany();
-//        enterpriseimg = welcomePageBean.getRespBody().getEnterprise();
-//        try {
-//            if (enterpriseimg != null && !enterpriseimg.equals("")) {
-//                Bitmap bitmap = CommonUtils.stringtoBitmap(enterpriseimg);
-//                welcomeView.setImageBitmap(bitmap);
-//                handler.sendEmptyMessageDelayed(0, 1000);
-//            } else {
-//                netError();
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            netError();
-//        }
     }
 
     public void netError() {
