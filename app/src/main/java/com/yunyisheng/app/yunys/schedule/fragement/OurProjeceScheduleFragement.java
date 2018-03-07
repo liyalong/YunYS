@@ -239,6 +239,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
             if (pageindex == 1) {
                 rvToDoList.setVisibility(View.GONE);
                 if (isfirst) {
+                    imgQuesheng2.setVisibility(View.GONE);
                     imgQuesheng.setVisibility(View.VISIBLE);
                     imgQuesheng.setBackgroundResource(R.mipmap.no_index_task);
                 } else {
@@ -539,6 +540,10 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                     Date date1 = ConverToDate(date.toString());
                     dayStartTime = getOtherStarttime(date1);
                     dayEndTime = getOtherEndtime(date1);
+                    String dayStart = getDayStartTime();
+                    if (dayStart.equals(dayStartTime)){
+                        isfirst=true;
+                    }
                     if (tabindex == 0) {
                         nomore = false;
                         list.clear();
