@@ -57,6 +57,7 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
                         LoadingDialog.dismiss(getV().getContext());
                         getV().initRefresh();
                         ToastUtils.showToast("网络链接错误！");
+                        getV().setNoNetwork();
                     }
 
                     @Override
@@ -91,6 +92,7 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
                         LoadingDialog.dismiss(getV().getContext());
                         ToastUtils.showToast("网络链接错误！");
                         getV().initRefresh();
+                        getV().setNoNetwork();
                     }
 
                     @Override
@@ -125,6 +127,7 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
                         LoadingDialog.dismiss(getV().getContext());
                         ToastUtils.showToast("网络链接错误！");
                         getV().initRefresh();
+                        getV().setNoNetwork();
                     }
 
                     @Override
@@ -158,6 +161,7 @@ public class TaskListPresent extends XPresent<TaskPoolFragment> {
                         LoadingDialog.dismiss(getV().getContext());
                         ToastUtils.showToast("网络链接错误！");
                         getV().initRefresh();
+                        getV().setNoNetwork();
                     }
 
                     @Override

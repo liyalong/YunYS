@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -24,7 +26,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
  * Created by liyalong on 2018/1/18.
@@ -36,6 +37,11 @@ public class AlarmListFragment extends BaseFragement<AlarmListPresent> {
 
     @BindView(R.id.alarm_history_list)
     PullToRefreshListView alarmHistoryList;
+    @BindView(R.id.no_data_img_alarm)
+    ImageView noDataImgAlarm;
+    @BindView(R.id.no_data_alarm)
+    LinearLayout noDataAlarm;
+    Unbinder unbinder;
     private int PAGE_NUM = 1;
     private int PAGE_SIZE = 10;
     private List<DeviceWarningBean> dataList = new ArrayList<>();
@@ -53,20 +59,20 @@ public class AlarmListFragment extends BaseFragement<AlarmListPresent> {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 PAGE_NUM = 1;
-                getP().getProjectAlarmLists(projectId,PAGE_NUM,PAGE_SIZE);
+                getP().getProjectAlarmLists(projectId, PAGE_NUM, PAGE_SIZE);
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 PAGE_NUM += 1;
-                getP().getProjectAlarmLists(projectId,PAGE_NUM,PAGE_SIZE);
+                getP().getProjectAlarmLists(projectId, PAGE_NUM, PAGE_SIZE);
             }
         });
     }
 
     @Override
     public void initAfter() {
-        getP().getProjectAlarmLists(projectId,PAGE_NUM,PAGE_SIZE);
+        getP().getProjectAlarmLists(projectId, PAGE_NUM, PAGE_SIZE);
     }
 
     @Override
@@ -81,12 +87,16 @@ public class AlarmListFragment extends BaseFragement<AlarmListPresent> {
 
     @Override
     public void setListener() {
-
+        noDataImgAlarm.setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
-
+        switch (v.getId()){
+            case R.id.no_data_img_alarm:
+                getP().getProjectAlarmLists(projectId, PAGE_NUM, PAGE_SIZE);
+                break;
+        }
     }
 
     public static AlarmListFragment newInstance() {
@@ -94,28 +104,45 @@ public class AlarmListFragment extends BaseFragement<AlarmListPresent> {
     }
 
     public void setAdapterData(DeviceWarningListModel deviceWarningListModel) {
-        if (deviceWarningListModel.getRespBody().size() > 0){
-            if (PAGE_NUM == 1){
+        if (deviceWarningListModel.getRespBody().size() > 0) {
+            showList();
+            if (PAGE_NUM == 1) {
                 dataList.clear();
                 dataList.addAll(deviceWarningListModel.getRespBody());
-                adapter = new AlarmListAdapter(context,dataList);
+                adapter = new AlarmListAdapter(context, dataList);
                 alarmHistoryList.setAdapter(adapter);
-            }else {
+            } else {
                 dataList.addAll(deviceWarningListModel.getRespBody());
                 adapter.setData(dataList);
             }
-        }else {
-            if (PAGE_NUM == 1){
+        } else {
+            if (PAGE_NUM == 1) {
+                setNodata();
                 ToastUtils.showToast("暂无数据！");
-            }else {
+            } else {
                 ToastUtils.showToast("暂无更多数据！");
             }
         }
         initRefresh();
     }
-    public void initRefresh(){
+
+    public void initRefresh() {
         alarmHistoryList.onRefreshComplete();
         alarmHistoryList.computeScroll();
     }
 
+    public void setNodata(){
+        alarmHistoryList.setVisibility(View.GONE);
+        noDataImgAlarm.setImageResource(R.mipmap.no_data);
+        noDataAlarm.setVisibility(View.VISIBLE);
+    }
+    public void setNoNetwork(){
+        alarmHistoryList.setVisibility(View.GONE);
+        noDataImgAlarm.setImageResource(R.mipmap.no_network);
+        noDataAlarm.setVisibility(View.VISIBLE);
+    }
+    public void showList(){
+        noDataAlarm.setVisibility(View.GONE);
+        alarmHistoryList.setVisibility(View.VISIBLE);
+    }
 }

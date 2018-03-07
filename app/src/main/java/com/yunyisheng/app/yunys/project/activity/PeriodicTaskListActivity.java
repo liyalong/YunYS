@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys.project.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -22,21 +23,24 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
 import cn.droidlover.xdroidmvp.router.Router;
 
 /**
  * Created by liyalong on 2018/1/22.
  */
 
-public class PeriodicTaskListActivity extends BaseActivity<PeriodicTaskPresent> implements PeriodicTaskListAdapter.Callback{
+public class PeriodicTaskListActivity extends BaseActivity<PeriodicTaskPresent> implements PeriodicTaskListAdapter.Callback {
     @BindView(R.id.img_back)
     ImageView imgBack;
     @BindView(R.id.periodic_task_list_view)
     PullToRefreshListView periodicTaskListView;
+    @BindView(R.id.no_data_img)
+    ImageView noDataImg;
+    @BindView(R.id.no_data)
+    LinearLayout noData;
 
     private int PAGE_NUM = 1;
-    private  int PAGE_SIZE = 10;
+    private int PAGE_SIZE = 10;
 
     private String projectId;
     private String deviceId;
@@ -52,18 +56,18 @@ public class PeriodicTaskListActivity extends BaseActivity<PeriodicTaskPresent> 
         this.deviceId = getIntent().getStringExtra("deviceId");
         this.deviceName = getIntent().getStringExtra("deviceName");
         ScrowUtil.listViewConfig(periodicTaskListView);
-        getP().getPeriodicTaskList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
+        getP().getPeriodicTaskList(projectId, deviceId, PAGE_NUM, PAGE_SIZE);
         periodicTaskListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 PAGE_NUM = 1;
-                getP().getPeriodicTaskList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
+                getP().getPeriodicTaskList(projectId, deviceId, PAGE_NUM, PAGE_SIZE);
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 PAGE_SIZE += 1;
-                getP().getPeriodicTaskList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
+                getP().getPeriodicTaskList(projectId, deviceId, PAGE_NUM, PAGE_SIZE);
             }
         });
     }
@@ -86,40 +90,47 @@ public class PeriodicTaskListActivity extends BaseActivity<PeriodicTaskPresent> 
     @Override
     public void setListener() {
         imgBack.setOnClickListener(this);
+        noDataImg.setOnClickListener(this);
 
     }
 
     @Override
     public void widgetClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.img_back:
                 this.finish();
+                break;
+            case R.id.no_data_img:
+                getP().getPeriodicTaskList(projectId, deviceId, PAGE_NUM, PAGE_SIZE);
                 break;
         }
     }
 
-    public void setAdapter(PeriodicTaskListModel periodicTaskListModel){
-        if (periodicTaskListModel.getRespBody().size() > 0){
-            if (PAGE_NUM == 1){
+    public void setAdapter(PeriodicTaskListModel periodicTaskListModel) {
+        if (periodicTaskListModel.getRespBody().size() > 0) {
+            showList();
+            if (PAGE_NUM == 1) {
                 dataList.clear();
                 dataList.addAll(periodicTaskListModel.getRespBody());
-                adapter = new PeriodicTaskListAdapter(context,dataList,this);
+                adapter = new PeriodicTaskListAdapter(context, dataList, this);
                 periodicTaskListView.setAdapter(adapter);
-            }else {
+            } else {
                 dataList.addAll(periodicTaskListModel.getRespBody());
                 adapter.setData(dataList);
             }
-        }else {
-            if (PAGE_NUM == 1){
+        } else {
+            if (PAGE_NUM == 1) {
+                setNoData();
                 ToastUtils.showToast("暂无数据！");
-            }else {
+            } else {
                 ToastUtils.showToast("暂无更多数据！");
             }
         }
         initRefresh();
 
     }
-    public void initRefresh(){
+
+    public void initRefresh() {
         periodicTaskListView.onRefreshComplete();
         periodicTaskListView.computeScroll();
     }
@@ -130,9 +141,23 @@ public class PeriodicTaskListActivity extends BaseActivity<PeriodicTaskPresent> 
         PeriodicTaskBean clickTask = dataList.get(tag);
         Router.newIntent(context)
                 .to(CreateDeviceTaskAcitvity.class)
-                .putInt("fromPageType",2)
+                .putInt("fromPageType", 2)
                 .putString("taskId", String.valueOf(clickTask.getCycletaskId()))
-                .putString("projectId",clickTask.getProjectId())
+                .putString("projectId", clickTask.getProjectId())
                 .launch();
+    }
+    public void setNoData(){
+        periodicTaskListView.setVisibility(View.GONE);
+        noDataImg.setImageResource(R.mipmap.no_data);
+        noData.setVisibility(View.VISIBLE);
+    }
+    public void setNoNetwork(){
+        periodicTaskListView.setVisibility(View.GONE);
+        noDataImg.setImageResource(R.mipmap.no_network);
+        noData.setVisibility(View.VISIBLE);
+    }
+    public void showList(){
+        noData.setVisibility(View.GONE);
+        periodicTaskListView.setVisibility(View.VISIBLE);
     }
 }

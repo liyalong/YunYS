@@ -35,6 +35,7 @@ public class CompanyProjectPresent extends XPresent<CompanyProjectFragment> {
                         XLog.d("NET ERROR :"+error.toString());
                         ToastUtils.showToast("网络请求错误！");
                         getV().initRefresh();
+                        getV().setNoNetWork();
                         return;
                     }
 
@@ -44,7 +45,7 @@ public class CompanyProjectPresent extends XPresent<CompanyProjectFragment> {
                         try {
                             if (projectListModel.getRespCode() == 1){
                                 ToastUtils.showToast(projectListModel.getRespMsg());
-                                return;
+                                getV().initRefresh();
                             }
                             getV().setProjectListModel(projectListModel);
                         }catch (Exception e){

@@ -60,7 +60,10 @@
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/device_parts_list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+        android:layout_height="match_parent">
+
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+    <include layout="@layout/no_data" />
 
 
 </LinearLayout>

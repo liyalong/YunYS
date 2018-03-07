@@ -108,20 +108,22 @@ public class MyProjectFargment extends BaseFragement<MyProjectPresent> {
 
     @Override
     public void setListener() {
-
+        noDataImg.setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
-
+        switch (v.getId()){
+            case R.id.no_data_img:
+                getP().getMyProjectList(PAGE_NUM, PAGE_SIZE, "");
+                break;
+        }
     }
 
     public void setProjectListModel(ProjectListModel projectListModel) {
         this.projectListModel = projectListModel;
         myProjectNums.setText("（" + projectListModel.getTotal() + "条）");
         if (projectListModel.getRespBody().size() > 0) {
-            noData.setVisibility(View.GONE);
-            myProjectList.setVisibility(View.VISIBLE);
             if (PAGE_NUM == 1) {
                 mList.clear();
                 mList.addAll(projectListModel.getRespBody());
@@ -133,8 +135,8 @@ public class MyProjectFargment extends BaseFragement<MyProjectPresent> {
             }
         } else {
             if (PAGE_NUM == 1){
-                noData.setVisibility(View.VISIBLE);
-                myProjectList.setVisibility(View.GONE);
+                setNoData();
+                ToastUtils.showToast("暂无数据");
             }else {
                 ToastUtils.showToast("暂无更多数据");
             }
@@ -147,5 +149,14 @@ public class MyProjectFargment extends BaseFragement<MyProjectPresent> {
         myProjectList.onRefreshComplete();
         myProjectList.computeScroll();
     }
-
+    public void setNoData(){
+        myProjectList.setVisibility(View.GONE);
+        noDataImg.setImageResource(R.mipmap.no_data);
+        noData.setVisibility(View.VISIBLE);
+    }
+    public void setNoNetWork(){
+        myProjectList.setVisibility(View.GONE);
+        noDataImg.setImageResource(R.mipmap.no_network);
+        noData.setVisibility(View.VISIBLE);
+    }
 }

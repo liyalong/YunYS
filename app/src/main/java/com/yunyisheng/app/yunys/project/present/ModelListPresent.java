@@ -30,6 +30,7 @@ public class ModelListPresent extends XPresent<ModelListFragment> {
                         ToastUtils.showToast("网络请求错误！");
                         LoadingDialog.dismiss(getV().getContext());
                         getV().initRefresh();
+                        getV().setNoNetwork();
                         return;
                     }
 

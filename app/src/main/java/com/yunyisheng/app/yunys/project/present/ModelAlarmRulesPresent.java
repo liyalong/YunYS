@@ -28,6 +28,8 @@ public class ModelAlarmRulesPresent extends XPresent<ModelAlarmRulesActivity> {
                     protected void onFail(NetError error) {
                         LoadingDialog.dismiss(getV());
                         ToastUtils.showToast("网络请求错误！");
+                        getV().initRefresh();
+                        getV().setNoNetwork();
                     }
 
                     @Override

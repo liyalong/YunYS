@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,7 +29,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.droidlover.xdroidmvp.log.XLog;
 import cn.droidlover.xdroidmvp.router.Router;
 
 /**
@@ -43,6 +43,10 @@ public class ModelDeviceListActivity extends BaseActivity<ModelDeviceListPresent
     TextView teTitle;
     @BindView(R.id.model_device_list_view)
     PullToRefreshListView modelDeviceListView;
+    @BindView(R.id.no_data_img)
+    ImageView noDataImg;
+    @BindView(R.id.no_data)
+    LinearLayout noData;
 
     private String projectId;
     private String modelId;
@@ -60,30 +64,30 @@ public class ModelDeviceListActivity extends BaseActivity<ModelDeviceListPresent
         this.projectId = getIntent().getStringExtra("projectId");
         this.modelId = getIntent().getStringExtra("modelId");
         this.modelName = getIntent().getStringExtra("modelName");
-        getP().getModelDeviceList(projectId,modelId,PAGE_NUM,PAGE_SIZE);
+        getP().getModelDeviceList(projectId, modelId, PAGE_NUM, PAGE_SIZE);
         ScrowUtil.listViewConfig(modelDeviceListView);
         modelDeviceListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 PAGE_NUM = 1;
-                getP().getModelDeviceList(projectId,modelId,PAGE_NUM,PAGE_SIZE);
+                getP().getModelDeviceList(projectId, modelId, PAGE_NUM, PAGE_SIZE);
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 PAGE_NUM += 1;
-                getP().getModelDeviceList(projectId,modelId,PAGE_NUM,PAGE_SIZE);
+                getP().getModelDeviceList(projectId, modelId, PAGE_NUM, PAGE_SIZE);
             }
         });
         modelDeviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                DeviceBean deviceBean = dataList.get(i-1);
+                DeviceBean deviceBean = dataList.get(i - 1);
                 Router.newIntent(context)
                         .to(DeviceDetailActivity.class)
-                        .putString("projectId",projectId)
-                        .putString("deviceId",deviceBean.getEquipmentId())
-                        .putString("deviceName",deviceBean.getEquipmentName())
+                        .putString("projectId", projectId)
+                        .putString("deviceId", deviceBean.getEquipmentId())
+                        .putString("deviceName", deviceBean.getEquipmentName())
                         .launch();
             }
         });
@@ -108,57 +112,66 @@ public class ModelDeviceListActivity extends BaseActivity<ModelDeviceListPresent
     @Override
     public void setListener() {
         imgBack.setOnClickListener(this);
+        noDataImg.setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.img_back:
                 finish();
+                break;
+            case R.id.no_data_img:
+                getP().getModelDeviceList(projectId, modelId, PAGE_NUM, PAGE_SIZE);
                 break;
         }
     }
 
-    public void setAdapter(DeviceListModel deviceListModel){
-        if (deviceListModel.getList().size() > 0){
-            if (PAGE_NUM == 1){
+    public void setAdapter(DeviceListModel deviceListModel) {
+        if (deviceListModel.getList().size() > 0) {
+            showList();
+            if (PAGE_NUM == 1) {
                 dataList.clear();
                 dataList.addAll(deviceListModel.getList());
-                adapter = new DeviceListAdapter(context,dataList,this);
+                adapter = new DeviceListAdapter(context, dataList, this);
                 modelDeviceListView.setAdapter(adapter);
-            }else {
+            } else {
                 dataList.addAll(deviceListModel.getList());
                 adapter.setData(dataList);
             }
-        }else {
-            if (PAGE_NUM == 1){
+        } else {
+            if (PAGE_NUM == 1) {
+                setNoData();
                 ToastUtils.showToast("暂无数据！");
-            }else {
+            } else {
                 PAGE_NUM -= 1;
                 ToastUtils.showToast("暂无更多数据！");
             }
         }
         initRefresh();
     }
-    public void initRefresh(){
+
+    public void initRefresh() {
         modelDeviceListView.onRefreshComplete();
         modelDeviceListView.computeScroll();
     }
+
     @Override
     public void click(View v) {
         int position = (Integer) v.getTag();
-        createDeviceListBtnDialog(context,position);
+        createDeviceListBtnDialog(context, position);
     }
-    private void createDeviceListBtnDialog(final Activity activity, Integer position){
+
+    private void createDeviceListBtnDialog(final Activity activity, Integer position) {
         //当前点击按钮的设备
         final DeviceBean clickedDevice = dataList.get(position);
 
-        final Dialog deviceListBtnDialog = new Dialog(activity,R.style.dialog_bottom_full);
+        final Dialog deviceListBtnDialog = new Dialog(activity, R.style.dialog_bottom_full);
         deviceListBtnDialog.setCanceledOnTouchOutside(true);
         deviceListBtnDialog.setCancelable(true);
         Window window = deviceListBtnDialog.getWindow();
         window.setGravity(Gravity.BOTTOM);
-        View v = View.inflate(activity,R.layout.device_list_button_dialog,null);
+        View v = View.inflate(activity, R.layout.device_list_button_dialog, null);
         TextView toAlarmRules = v.findViewById(R.id.to_alarm_rules);
         TextView toKnowledge = v.findViewById(R.id.to_knowledge);
         TextView toDeviceParts = v.findViewById(R.id.to_device_parts);
@@ -170,9 +183,9 @@ public class ModelDeviceListActivity extends BaseActivity<ModelDeviceListPresent
             public void onClick(View view) {
                 Router.newIntent(context)
                         .to(DeviceAlarmRulesActivity.class)
-                        .putString("deviceId",clickedDevice.getEquipmentId())
-                        .putString("projectId",projectId)
-                        .putString("deviceName",clickedDevice.getEquipmentName())
+                        .putString("deviceId", clickedDevice.getEquipmentId())
+                        .putString("projectId", projectId)
+                        .putString("deviceName", clickedDevice.getEquipmentName())
                         .launch();
             }
         });
@@ -182,9 +195,9 @@ public class ModelDeviceListActivity extends BaseActivity<ModelDeviceListPresent
             public void onClick(View view) {
                 Router.newIntent(context)
                         .to(KnowledgeListActivity.class)
-                        .putString("deviceId",clickedDevice.getEquipmentId())
-                        .putString("projectId",projectId)
-                        .putString("deviceName",clickedDevice.getEquipmentName())
+                        .putString("deviceId", clickedDevice.getEquipmentId())
+                        .putString("projectId", projectId)
+                        .putString("deviceName", clickedDevice.getEquipmentName())
                         .launch();
             }
         });
@@ -194,9 +207,9 @@ public class ModelDeviceListActivity extends BaseActivity<ModelDeviceListPresent
             public void onClick(View view) {
                 Router.newIntent(context)
                         .to(DevicePartsListActivity.class)
-                        .putString("deviceId",clickedDevice.getEquipmentId())
-                        .putString("projectId",projectId)
-                        .putString("deviceName",clickedDevice.getEquipmentName())
+                        .putString("deviceId", clickedDevice.getEquipmentId())
+                        .putString("projectId", projectId)
+                        .putString("deviceName", clickedDevice.getEquipmentName())
                         .launch();
             }
         });
@@ -206,9 +219,9 @@ public class ModelDeviceListActivity extends BaseActivity<ModelDeviceListPresent
             public void onClick(View view) {
                 Router.newIntent(context)
                         .to(PeriodicTaskListActivity.class)
-                        .putString("deviceId",clickedDevice.getEquipmentId())
-                        .putString("projectId",projectId)
-                        .putString("deviceName",clickedDevice.getEquipmentName())
+                        .putString("deviceId", clickedDevice.getEquipmentId())
+                        .putString("projectId", projectId)
+                        .putString("deviceName", clickedDevice.getEquipmentName())
                         .launch();
             }
         });
@@ -225,4 +238,21 @@ public class ModelDeviceListActivity extends BaseActivity<ModelDeviceListPresent
         deviceListBtnDialog.show();
 
     }
+
+    public void setNoData(){
+        modelDeviceListView.setVisibility(View.GONE);
+        noDataImg.setImageResource(R.mipmap.no_data);
+        noData.setVisibility(View.VISIBLE);
+    }
+    public void setNoNetwork(){
+        modelDeviceListView.setVisibility(View.GONE);
+        noDataImg.setImageResource(R.mipmap.no_network);
+        noData.setVisibility(View.VISIBLE);
+    }
+    public void showList(){
+        noData.setVisibility(View.GONE);
+        modelDeviceListView.setVisibility(View.VISIBLE);
+    }
+
+
 }

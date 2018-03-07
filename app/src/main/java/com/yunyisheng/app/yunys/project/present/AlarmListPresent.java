@@ -29,6 +29,7 @@ public class AlarmListPresent extends XPresent<AlarmListFragment> {
                         LoadingDialog.dismiss(getV().getContext());
                         getV().initRefresh();
                         ToastUtils.showToast("网络请求错误！");
+                        getV().setNoNetwork();
                     }
 
                     @Override

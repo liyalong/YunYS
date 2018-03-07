@@ -35,6 +35,7 @@ public class DeviceAlarmRulesPresent extends XPresent<DeviceAlarmRulesActivity> 
                         LoadingDialog.dismiss(getV());
                         getV().initRefresh();
                         ToastUtils.showToast("网络请求错误");
+                        getV().setNoNetwork();
                         return;
                     }
 

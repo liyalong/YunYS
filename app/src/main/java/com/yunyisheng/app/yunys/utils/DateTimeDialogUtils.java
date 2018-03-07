@@ -88,7 +88,6 @@ public class DateTimeDialogUtils {
         } catch (java.text.ParseException e) {
             e.printStackTrace();
         }
-        XLog.d(old+"--"+now+":"+dt1.getTime()+"-------"+dt2.getTime());
         if (dt1.getTime() > dt2.getTime()) {
             isBigger = false;
         } else if (dt1.getTime() <= dt2.getTime()) {

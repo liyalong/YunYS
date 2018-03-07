@@ -29,6 +29,7 @@ public class DeviceListPresent extends XPresent<DeviceListFragment> {
                         LoadingDialog.dismiss(getV().getContext());
                         ToastUtils.showToast("网络请求失败！");
                         getV().initRefresh();
+                        getV().setNoNetwork();
                         return;
                     }
 

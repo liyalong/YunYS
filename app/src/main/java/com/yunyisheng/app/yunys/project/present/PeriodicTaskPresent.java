@@ -28,6 +28,7 @@ public class PeriodicTaskPresent extends XPresent<PeriodicTaskListActivity> {
                         LoadingDialog.dismiss(getV());
                         ToastUtils.showToast("网络请求错误！");
                         getV().initRefresh();
+                        getV().setNoNetwork();
                         return;
                     }
 

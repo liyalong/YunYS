@@ -2,12 +2,16 @@ package com.yunyisheng.app.yunys.project.fragement;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,6 +38,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.droidlover.xdroidmvp.router.Router;
 
 /**
@@ -41,9 +46,14 @@ import cn.droidlover.xdroidmvp.router.Router;
  * 设备列表
  */
 
-public class DeviceListFragment extends BaseFragement<DeviceListPresent> implements DeviceListAdapter.Callback{
+public class DeviceListFragment extends BaseFragement<DeviceListPresent> implements DeviceListAdapter.Callback {
     @BindView(R.id.device_list_view)
     PullToRefreshListView deviceListView;
+    @BindView(R.id.no_data_img_devicd)
+    ImageView noDataImgDevicd;
+    @BindView(R.id.no_data_device)
+    LinearLayout noDataDevice;
+    Unbinder unbinder;
 
     private List<DeviceBean> deviceBeanList = new ArrayList<>();
     private String projectId;
@@ -59,31 +69,31 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
         ProjectDetailsActivity projectDetailsActivity = (ProjectDetailsActivity) getActivity();
         projectId = projectDetailsActivity.getProjectId();
         projectName = projectDetailsActivity.getProjectName();
-        getP().getProjectDeviceList(projectId,PAGE_NUM,PAGE_SIZE,"");
+        getP().getProjectDeviceList(projectId, PAGE_NUM, PAGE_SIZE, "");
         ScrowUtil.listViewConfig(deviceListView);
         deviceListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 PAGE_NUM = 1;
-                getP().getProjectDeviceList(projectId,PAGE_NUM,PAGE_SIZE,"");
+                getP().getProjectDeviceList(projectId, PAGE_NUM, PAGE_SIZE, "");
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 PAGE_NUM += 1;
-                getP().getProjectDeviceList(projectId,PAGE_NUM,PAGE_SIZE,"");
+                getP().getProjectDeviceList(projectId, PAGE_NUM, PAGE_SIZE, "");
             }
         });
         //点击列表中的设备进入设备详情
         deviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                DeviceBean deviceBean= deviceBeanList.get(i-1);
+                DeviceBean deviceBean = deviceBeanList.get(i - 1);
                 Router.newIntent(context)
                         .to(DeviceDetailActivity.class)
-                        .putString("projectId",projectId)
-                        .putString("deviceId",deviceBean.getEquipmentId())
-                        .putString("deviceName",deviceBean.getEquipmentName())
+                        .putString("projectId", projectId)
+                        .putString("deviceId", deviceBean.getEquipmentId())
+                        .putString("deviceName", deviceBean.getEquipmentName())
                         .launch();
             }
         });
@@ -121,20 +131,22 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
     }
 
     public void setAdapterData(DeviceListModel deviceListModel) {
-        if (deviceListModel.getList().size() > 0){
-            if (PAGE_NUM == 1){
+        if (deviceListModel.getList().size() > 0) {
+            showList();
+            if (PAGE_NUM == 1) {
                 deviceBeanList.clear();
                 deviceBeanList.addAll(deviceListModel.getList());
-                adapter = new DeviceListAdapter(context,deviceBeanList,this);
+                adapter = new DeviceListAdapter(context, deviceBeanList, this);
                 deviceListView.setAdapter(adapter);
-            }else {
+            } else {
                 deviceBeanList.addAll(deviceListModel.getList());
                 adapter.setData(deviceBeanList);
             }
-        }else {
-            if (PAGE_NUM == 1){
+        } else {
+            if (PAGE_NUM == 1) {
+                setNodata();
                 ToastUtils.showToast("暂无数据！");
-            }else {
+            } else {
                 PAGE_NUM -= 1;
                 ToastUtils.showToast("暂无更多数据");
             }
@@ -154,16 +166,16 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
         return new DeviceListFragment();
     }
 
-    private void createDeviceListBtnDialog(final Activity activity,Integer position){
+    private void createDeviceListBtnDialog(final Activity activity, Integer position) {
         //当前点击按钮的设备
         final DeviceBean clickedDevice = deviceBeanList.get(position);
 
-        final Dialog deviceListBtnDialog = new Dialog(activity,R.style.dialog_bottom_full);
+        final Dialog deviceListBtnDialog = new Dialog(activity, R.style.dialog_bottom_full);
         deviceListBtnDialog.setCanceledOnTouchOutside(true);
         deviceListBtnDialog.setCancelable(true);
         Window window = deviceListBtnDialog.getWindow();
         window.setGravity(Gravity.BOTTOM);
-        View v = View.inflate(activity,R.layout.device_list_button_dialog,null);
+        View v = View.inflate(activity, R.layout.device_list_button_dialog, null);
         TextView toAlarmRules = v.findViewById(R.id.to_alarm_rules);
         TextView toKnowledge = v.findViewById(R.id.to_knowledge);
         TextView toDeviceParts = v.findViewById(R.id.to_device_parts);
@@ -176,9 +188,9 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
             public void onClick(View view) {
                 Router.newIntent(context)
                         .to(DeviceAlarmRulesActivity.class)
-                        .putString("deviceId",clickedDevice.getEquipmentId())
-                        .putString("projectId",projectId)
-                        .putString("deviceName",clickedDevice.getEquipmentName())
+                        .putString("deviceId", clickedDevice.getEquipmentId())
+                        .putString("projectId", projectId)
+                        .putString("deviceName", clickedDevice.getEquipmentName())
                         .launch();
             }
         });
@@ -188,9 +200,9 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
             public void onClick(View view) {
                 Router.newIntent(context)
                         .to(KnowledgeListActivity.class)
-                        .putString("deviceId",clickedDevice.getEquipmentId())
-                        .putString("projectId",projectId)
-                        .putString("deviceName",clickedDevice.getEquipmentName())
+                        .putString("deviceId", clickedDevice.getEquipmentId())
+                        .putString("projectId", projectId)
+                        .putString("deviceName", clickedDevice.getEquipmentName())
                         .launch();
             }
         });
@@ -200,9 +212,9 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
             public void onClick(View view) {
                 Router.newIntent(context)
                         .to(DevicePartsListActivity.class)
-                        .putString("deviceId",clickedDevice.getEquipmentId())
-                        .putString("projectId",projectId)
-                        .putString("deviceName",clickedDevice.getEquipmentName())
+                        .putString("deviceId", clickedDevice.getEquipmentId())
+                        .putString("projectId", projectId)
+                        .putString("deviceName", clickedDevice.getEquipmentName())
                         .launch();
             }
         });
@@ -212,9 +224,9 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
             public void onClick(View view) {
                 Router.newIntent(context)
                         .to(PeriodicTaskListActivity.class)
-                        .putString("deviceId",clickedDevice.getEquipmentId())
-                        .putString("projectId",projectId)
-                        .putString("deviceName",clickedDevice.getEquipmentName())
+                        .putString("deviceId", clickedDevice.getEquipmentId())
+                        .putString("projectId", projectId)
+                        .putString("deviceName", clickedDevice.getEquipmentName())
                         .launch();
             }
         });
@@ -223,11 +235,11 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
             public void onClick(View view) {
                 Router.newIntent(context)
                         .to(CreateDeviceTaskAcitvity.class)
-                        .putString("projectName",projectName)
-                        .putString("projectId",projectId)
-                        .putInt("fromPageType",3)
-                        .putString("deviceName",clickedDevice.getEquipmentName())
-                        .putString("deviceId",clickedDevice.getEquipmentId())
+                        .putString("projectName", projectName)
+                        .putString("projectId", projectId)
+                        .putInt("fromPageType", 3)
+                        .putString("deviceName", clickedDevice.getEquipmentName())
+                        .putString("deviceId", clickedDevice.getEquipmentId())
                         .launch();
             }
         });
@@ -248,10 +260,26 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
     @Override
     public void click(View v) {
         int position = (Integer) v.getTag();
-        createDeviceListBtnDialog(context,position);
+        createDeviceListBtnDialog(context, position);
     }
-    public void initRefresh(){
+
+    public void initRefresh() {
         deviceListView.onRefreshComplete();
         deviceListView.computeScroll();
     }
+    public void setNodata(){
+        deviceListView.setVisibility(View.GONE);
+        noDataImgDevicd.setImageResource(R.mipmap.no_data);
+        noDataDevice.setVisibility(View.VISIBLE);
+    }
+    public void setNoNetwork(){
+        deviceListView.setVisibility(View.GONE);
+        noDataImgDevicd.setImageResource(R.mipmap.no_network);
+        noDataDevice.setVisibility(View.VISIBLE);
+    }
+    public void showList(){
+        noDataDevice.setVisibility(View.GONE);
+        deviceListView.setVisibility(View.VISIBLE);
+    }
+
 }

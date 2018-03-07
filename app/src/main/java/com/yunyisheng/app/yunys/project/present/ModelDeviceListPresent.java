@@ -28,6 +28,7 @@ public class ModelDeviceListPresent extends XPresent<ModelDeviceListActivity> {
                     protected void onFail(NetError error) {
                         LoadingDialog.dismiss(getV());
                         ToastUtils.showToast("网络请求错误！");
+                        getV().setNoNetwork();
                     }
 
                     @Override

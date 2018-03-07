@@ -1,7 +1,9 @@
 package com.yunyisheng.app.yunys.project.activity;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -26,6 +28,10 @@ public class ModelAlarmRulesActivity extends BaseActivity<ModelAlarmRulesPresent
     ImageView imgBack;
     @BindView(R.id.model_alarm_rules_list)
     PullToRefreshListView modelAlarmRulesList;
+    @BindView(R.id.no_data_img)
+    ImageView noDataImg;
+    @BindView(R.id.no_data)
+    LinearLayout noData;
 
     private int PAGE_NUM = 1;
     private final int PAGE_SIZE = 10;
@@ -77,6 +83,7 @@ public class ModelAlarmRulesActivity extends BaseActivity<ModelAlarmRulesPresent
     @Override
     public void setListener() {
         imgBack.setOnClickListener(this);
+        noDataImg.setOnClickListener(this);
     }
 
     @Override
@@ -85,12 +92,16 @@ public class ModelAlarmRulesActivity extends BaseActivity<ModelAlarmRulesPresent
             case R.id.img_back:
                 finish();
                 break;
+            case R.id.no_data_img:
+                getP().getModelAlarmRulesList(projectId, modelId, PAGE_NUM, PAGE_SIZE);
+                break;
         }
 
     }
 
     public void setAdapter(ModelAlarmRulesListModel modelAlarmRulesListModel) {
         if (modelAlarmRulesListModel.getRespBody().size() > 0) {
+            showList();
             if (PAGE_NUM == 1) {
                 dataList.clear();
                 dataList.addAll(modelAlarmRulesListModel.getRespBody());
@@ -102,6 +113,7 @@ public class ModelAlarmRulesActivity extends BaseActivity<ModelAlarmRulesPresent
             }
         } else {
             if (PAGE_NUM == 1) {
+                setNoData();
                 ToastUtils.showToast("暂无数据！");
             } else {
                 PAGE_NUM -= 1;
@@ -110,8 +122,23 @@ public class ModelAlarmRulesActivity extends BaseActivity<ModelAlarmRulesPresent
         }
         initRefresh();
     }
-    public void initRefresh(){
+
+    public void initRefresh() {
         modelAlarmRulesList.onRefreshComplete();
         modelAlarmRulesList.computeScroll();
+    }
+    public void setNoData(){
+        modelAlarmRulesList.setVisibility(View.GONE);
+        noDataImg.setImageResource(R.mipmap.no_data);
+        noData.setVisibility(View.VISIBLE);
+    }
+    public void setNoNetwork(){
+        modelAlarmRulesList.setVisibility(View.GONE);
+        noDataImg.setImageResource(R.mipmap.no_network);
+        noData.setVisibility(View.VISIBLE);
+    }
+    public void showList(){
+        noData.setVisibility(View.VISIBLE);
+        modelAlarmRulesList.setVisibility(View.GONE);
     }
 }

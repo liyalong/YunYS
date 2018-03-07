@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys.project.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -21,7 +22,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
  * Created by liyalong on 2018/1/22.
@@ -32,6 +32,10 @@ public class DevicePartsListActivity extends BaseActivity<DevicePartsListPresent
     ImageView imgBack;
     @BindView(R.id.device_parts_list_view)
     PullToRefreshListView devicePartsListView;
+    @BindView(R.id.no_data_img)
+    ImageView noDataImg;
+    @BindView(R.id.no_data)
+    LinearLayout noData;
 
     private List<DevicePartsBean> dataList = new ArrayList<>();
 
@@ -51,18 +55,18 @@ public class DevicePartsListActivity extends BaseActivity<DevicePartsListPresent
         this.deviceId = getIntent().getStringExtra("deviceId");
         this.deviceName = getIntent().getStringExtra("deviceName");
         ScrowUtil.listViewConfig(devicePartsListView);
-        getP().getDevicePartsList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
+        getP().getDevicePartsList(projectId, deviceId, PAGE_NUM, PAGE_SIZE);
         devicePartsListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 PAGE_NUM = 1;
-                getP().getDevicePartsList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
+                getP().getDevicePartsList(projectId, deviceId, PAGE_NUM, PAGE_SIZE);
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 PAGE_NUM += 1;
-                getP().getDevicePartsList(projectId,deviceId,PAGE_NUM,PAGE_SIZE);
+                getP().getDevicePartsList(projectId, deviceId, PAGE_NUM, PAGE_SIZE);
             }
         });
     }
@@ -85,40 +89,63 @@ public class DevicePartsListActivity extends BaseActivity<DevicePartsListPresent
     @Override
     public void setListener() {
         imgBack.setOnClickListener(this);
+        noDataImg.setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.img_back:
                 this.finish();
                 break;
+            case R.id.no_data_img:
+                getP().getDevicePartsList(projectId, deviceId, PAGE_NUM, PAGE_SIZE);
+                break;
         }
     }
-    public void setAdapter(DevicePartsListModel devicePartsListModel){
 
-        if (devicePartsListModel.getRespBody().size() > 0){
-            if (PAGE_NUM == 1){
+    public void setAdapter(DevicePartsListModel devicePartsListModel) {
+
+        if (devicePartsListModel.getRespBody().size() > 0) {
+            showList();
+            if (PAGE_NUM == 1) {
                 dataList.clear();
                 dataList.addAll(devicePartsListModel.getRespBody());
-                adapter = new DevicePartsListAdapter(context,dataList);
+                adapter = new DevicePartsListAdapter(context, dataList);
                 devicePartsListView.setAdapter(adapter);
-            }else {
+            } else {
                 dataList.addAll(devicePartsListModel.getRespBody());
                 adapter.setData(dataList);
             }
-        }else {
-            if (PAGE_NUM == 1){
+        } else {
+            if (PAGE_NUM == 1) {
+                setNoData();
                 ToastUtils.showToast("暂无数据！");
-            }else {
+            } else {
                 PAGE_NUM -= 1;
                 ToastUtils.showToast("暂无更多数据！");
             }
         }
         initRefresh();
     }
-    public void initRefresh(){
+
+    public void initRefresh() {
         devicePartsListView.onRefreshComplete();
         devicePartsListView.computeScroll();
+    }
+
+    public void setNoData(){
+        devicePartsListView.setVisibility(View.GONE);
+        noDataImg.setImageResource(R.mipmap.no_data);
+        noData.setVisibility(View.VISIBLE);
+    }
+    public void setNoNetwork(){
+        devicePartsListView.setVisibility(View.GONE);
+        noDataImg.setImageResource(R.mipmap.no_network);
+        noData.setVisibility(View.VISIBLE);
+    }
+    public void showList(){
+        noData.setVisibility(View.GONE);
+        devicePartsListView.setVisibility(View.VISIBLE);
     }
 }

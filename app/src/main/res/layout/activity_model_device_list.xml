@@ -67,5 +67,6 @@
         android:layout_height="match_parent">
 
     </com.handmark.pulltorefresh.library.PullToRefreshListView>
+    <include layout="@layout/no_data" />
 </LinearLayout>
 </android.support.constraint.ConstraintLayout>

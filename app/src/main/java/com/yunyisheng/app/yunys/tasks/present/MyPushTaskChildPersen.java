@@ -29,6 +29,7 @@ public class MyPushTaskChildPersen extends XPresent<MyPushTaskChildListActivity>
                         LoadingDialog.dismiss(getV());
                         ToastUtils.showToast("网络链接错误！");
                         getV().stopRefresh();
+                        getV().setNoNetwork();
                     }
 
                     @Override

@@ -30,6 +30,7 @@ public class DevicePartsListPresent extends XPresent<DevicePartsListActivity> {
                         LoadingDialog.dismiss(getV());
                         ToastUtils.showToast("网络请求错误!");
                         getV().initRefresh();
+                        getV().setNoNetwork();
                         return;
                     }
 

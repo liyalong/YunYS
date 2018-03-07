@@ -69,6 +69,20 @@
         android:layout_height="match_parent">
 
     </com.handmark.pulltorefresh.library.PullToRefreshListView>
-
+    <LinearLayout
+        android:id="@+id/no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/baseBackgroundColor"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/no_data_img"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/no_data"
+            android:layout_gravity="center_horizontal"
+            />
+    </LinearLayout>
 
 </LinearLayout>

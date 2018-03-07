@@ -1,9 +1,11 @@
 package com.yunyisheng.app.yunys.tasks.activity;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidmvp.router.Router;
 
-public class MyPushTaskChildListActivity extends BaseActivity<MyPushTaskChildPersen> implements MyPushTaskListAdapter.Callback{
+public class MyPushTaskChildListActivity extends BaseActivity<MyPushTaskChildPersen> implements MyPushTaskListAdapter.Callback {
 
     @BindView(R.id.img_back)
     ImageView imgBack;
@@ -36,6 +38,10 @@ public class MyPushTaskChildListActivity extends BaseActivity<MyPushTaskChildPer
     PullToRefreshListView taskChildList;
 
     MyPushTaskListAdapter adapter;
+    @BindView(R.id.no_data_img)
+    ImageView noDataImg;
+    @BindView(R.id.no_data)
+    LinearLayout noData;
     private int PAGE_NUM = 1;
     private int PAGE_SIZE = 10;
     private int SELECT_TYPE = 1;
@@ -50,30 +56,30 @@ public class MyPushTaskChildListActivity extends BaseActivity<MyPushTaskChildPer
         this.projectId = getIntent().getStringExtra("projectId");
         this.releaseId = getIntent().getStringExtra("releaseId");
         ScrowUtil.listViewConfig(taskChildList);
-        getP().getMyPushTaskChildList(projectId,releaseId,PAGE_NUM,PAGE_SIZE);
+        getP().getMyPushTaskChildList(projectId, releaseId, PAGE_NUM, PAGE_SIZE);
 
         taskChildList.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 PAGE_NUM = 1;
-                getP().getMyPushTaskChildList(projectId,releaseId,PAGE_NUM,PAGE_SIZE);
+                getP().getMyPushTaskChildList(projectId, releaseId, PAGE_NUM, PAGE_SIZE);
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 PAGE_NUM += 1;
-                getP().getMyPushTaskChildList(projectId,releaseId,PAGE_NUM,PAGE_SIZE);
+                getP().getMyPushTaskChildList(projectId, releaseId, PAGE_NUM, PAGE_SIZE);
             }
         });
         taskChildList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                TaskBean task = dataList.get(i-1);
+                TaskBean task = dataList.get(i - 1);
                 Router.newIntent(context)
                         .to(TaskDetailActivity.class)
-                        .putString("taskId",task.getTaskId())
-                        .putInt("fromPage",3)
-                        .putString("projectId",projectId)
+                        .putString("taskId", task.getTaskId())
+                        .putInt("fromPage", 3)
+                        .putString("projectId", projectId)
                         .putString("taskType", String.valueOf(task.getReleaseTaskType()))
                         .launch();
             }
@@ -102,28 +108,30 @@ public class MyPushTaskChildListActivity extends BaseActivity<MyPushTaskChildPer
 
     @Override
     public void widgetClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.img_back:
                 finish();
                 break;
         }
     }
 
-    public void setDataList(TaskListModel taskListModel){
-        if (taskListModel.getRespBody().size() > 0){
-            if (PAGE_NUM == 1){
+    public void setDataList(TaskListModel taskListModel) {
+        if (taskListModel.getRespBody().size() > 0) {
+            showList();
+            if (PAGE_NUM == 1) {
                 dataList.clear();
                 dataList = taskListModel.getRespBody();
-                adapter = new MyPushTaskListAdapter(context,dataList,this);
+                adapter = new MyPushTaskListAdapter(context, dataList, this);
                 taskChildList.setAdapter(adapter);
-            }else {
+            } else {
                 dataList = taskListModel.getRespBody();
                 adapter.setData(dataList);
             }
-        }else {
-            if (PAGE_NUM == 1){
+        } else {
+            if (PAGE_NUM == 1) {
+                setNoData();
                 ToastUtils.showToast("暂无数据！");
-            }else {
+            } else {
                 PAGE_NUM -= 1;
                 ToastUtils.showToast("暂无更多数据！");
             }
@@ -137,16 +145,24 @@ public class MyPushTaskChildListActivity extends BaseActivity<MyPushTaskChildPer
         //createTaskListBtnDialog(context,position);
     }
 
-    public void stopRefresh(){
+    public void stopRefresh() {
         taskChildList.onRefreshComplete();
         taskChildList.computeScroll();
     }
-    //任务列表操作按钮点击弹框
-    private void createTaskListBtnDialog(final Activity activity, int position) {
 
+    public void setNoData(){
+        taskChildList.setVisibility(View.GONE);
+        noDataImg.setImageResource(R.mipmap.no_data);
+        noData.setVisibility(View.VISIBLE);
     }
-
-
-
+    public void setNoNetwork(){
+        taskChildList.setVisibility(View.GONE);
+        noDataImg.setImageResource(R.mipmap.no_network);
+        noData.setVisibility(View.VISIBLE);
+    }
+    public void showList(){
+        noData.setVisibility(View.GONE);
+        taskChildList.setVisibility(View.VISIBLE);
+    }
 
 }

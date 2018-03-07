@@ -94,12 +94,16 @@ public class CompanyProjectFragment extends BaseFragement<CompanyProjectPresent>
 
     @Override
     public void setListener() {
-
+        noCompanyDataImg.setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
-
+        switch (v.getId()){
+            case R.id.no_company_data_img:
+                getP().getCompanyProjectList(PAGE_NUM, PAGE_SIZE);
+                break;
+        }
     }
 
     public ProjectListModel getProjectListModel() {
@@ -116,8 +120,6 @@ public class CompanyProjectFragment extends BaseFragement<CompanyProjectPresent>
         companyProjectNums.setText("（" + projectListModel.getTotal() + "条）");
         if (projectListModel.getRespBody().size() > 0) {
             if (PAGE_NUM == 1) {
-                noCompanyData.setVisibility(View.GONE);
-                companyProjectList.setVisibility(View.VISIBLE);
                 projectBeanList.clear();
                 projectBeanList.addAll(projectListModel.getRespBody());
                 adapter = new ProjectListAdapter(context, projectBeanList);
@@ -130,8 +132,7 @@ public class CompanyProjectFragment extends BaseFragement<CompanyProjectPresent>
             }
         } else {
             if (PAGE_NUM == 1) {
-                companyProjectList.setVisibility(View.GONE);
-                noCompanyData.setVisibility(View.VISIBLE);
+                setNoData();
                 //ToastUtils.showToast("暂无数据！");
             } else {
                 ToastUtils.showToast("暂无更多数据！");
@@ -144,6 +145,17 @@ public class CompanyProjectFragment extends BaseFragement<CompanyProjectPresent>
     public void initRefresh() {
         companyProjectList.onRefreshComplete();
         companyProjectList.computeScroll();
+    }
+
+    public void setNoData(){
+        companyProjectList.setVisibility(View.GONE);
+        noCompanyDataImg.setImageResource(R.mipmap.no_data);
+        noCompanyData.setVisibility(View.VISIBLE);
+    }
+    public void setNoNetWork(){
+        companyProjectList.setVisibility(View.GONE);
+        noCompanyDataImg.setImageResource(R.mipmap.no_network);
+        noCompanyData.setVisibility(View.VISIBLE);
     }
 
 }
