@@ -123,6 +123,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.MessageActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.NoticeActivity"
