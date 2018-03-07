@@ -204,7 +204,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 }
         } else {
             //为了版本兼容  选择V7包下的NotificationCompat进行构造
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this);
             builder.setContentTitle("横幅通知");
             builder.setContentText("请在设置通知管理中开启消息横幅提醒权限");
             builder.setDefaults(NotificationCompat.DEFAULT_ALL);
@@ -216,7 +216,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 //            broadcastIntent.putExtra("data", "noticeMessage");
             broadcastIntent.putExtra("str",string);
             //sendBroadcast(broadcastIntent);
-            PendingIntent pIntent = PendingIntent.getBroadcast(context, 1, broadcastIntent, 0);
+            PendingIntent pIntent = PendingIntent.getBroadcast(context, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             builder.setContentIntent(pIntent);
             builder.setFullScreenIntent(pIntent, true);
             builder.setAutoCancel(true);
