@@ -156,6 +156,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                             startActivity(intent);
                         }
                     });
+            builder.show();
         }
     }
 
