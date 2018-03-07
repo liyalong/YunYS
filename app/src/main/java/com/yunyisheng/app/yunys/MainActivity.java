@@ -139,7 +139,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 createSelectTaskDialog(MainActivity.this);
             }
         });
-        if (!CommonUtils.isNotificationEnabled(context)){
+        if (!CommonUtils.isNotificationEnabled()){
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
             builder.setMessage("提示")
                     .setMessage("请您去设置中授予消息横幅提醒权限")

@@ -1,14 +1,11 @@
 package com.yunyisheng.app.yunys.utils;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.AppOpsManager;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.pm.ApplicationInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,6 +15,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
+import android.support.v4.app.NotificationManagerCompat;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -26,6 +24,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.WindowManager;
 
+import com.yunyisheng.app.yunys.App;
 import com.yunyisheng.app.yunys.utils.encrypt.MD5;
 
 import java.io.BufferedOutputStream;
@@ -34,9 +33,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.text.DateFormat;
@@ -275,36 +271,10 @@ public class CommonUtils {
     /**
      * 获取通知栏权限是否开启
      */
-    @SuppressLint("NewApi")
-    public static boolean isNotificationEnabled(Context context) {
-        AppOpsManager mAppOps = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
-        ApplicationInfo appInfo = context.getApplicationInfo();
-        String pkg = context.getApplicationContext().getPackageName();
-        int uid = appInfo.uid;
-
-        Class appOpsClass = null;
-      /* Context.APP_OPS_MANAGER */
-        try {
-            appOpsClass = Class.forName(AppOpsManager.class.getName());
-            Method checkOpNoThrowMethod = appOpsClass.getMethod(CHECK_OP_NO_THROW, Integer.TYPE, Integer.TYPE,
-                    String.class);
-            Field opPostNotificationValue = appOpsClass.getDeclaredField(OP_POST_NOTIFICATION);
-
-            int value = (Integer) opPostNotificationValue.get(Integer.class);
-            return ((Integer) checkOpNoThrowMethod.invoke(mAppOps, value, uid, pkg) == AppOpsManager.MODE_ALLOWED);
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return false;
+    public static boolean isNotificationEnabled() {
+        NotificationManagerCompat manager = NotificationManagerCompat.from(App.getInstance().getContext());
+        boolean isOpened = manager.areNotificationsEnabled();
+        return isOpened;
     }
 
     /**
