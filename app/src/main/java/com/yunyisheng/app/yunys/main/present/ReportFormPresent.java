@@ -36,6 +36,7 @@ public class ReportFormPresent extends XPresent<ReportformActivity> {
                             getV().getResultList(reportFormBean);
                         } else {
                             ToastUtils.showToast(reportFormBean.getRespMsg());
+                            getV().setGoneQuesheng();
                         }
                     }
 

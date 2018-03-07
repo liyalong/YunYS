@@ -682,6 +682,7 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
      * @describe 获取项目架构
      */
     public void getResult(ProjectFromWorkBean projectFromWorkBean) {
+        projectFromWorkBeans.clear();
         List<ProjectFromWorkBean.ListBean> list = projectFromWorkBean.getList();
         if (list.size()>0) {
             projectFromWorkBeans.addAll(list);
@@ -695,9 +696,12 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
                     groupisCheckall(position);
                 }
             });
+            elv_framework.setVisibility(View.VISIBLE);
+            imgQuesheng.setVisibility(View.GONE);
         }else {
             elv_framework.setVisibility(View.GONE);
             imgQuesheng.setVisibility(View.VISIBLE);
+            imgQuesheng.setBackgroundResource(R.mipmap.no_data);
         }
     }
 
@@ -742,6 +746,7 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
      */
     public void getResultList(String fromworkBean) {
         try {
+            workerbeanlist.clear();
             List<WorkerBean> workerlist = new ArrayList<>();
             JSONObject object = new JSONObject(fromworkBean);
             JSONArray jsonArray = object.getJSONArray("list");
@@ -817,6 +822,8 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
 
             }
             if (workerbeanlist.size()>0) {
+                elv_framework.setVisibility(View.VISIBLE);
+                imgQuesheng.setVisibility(View.GONE);
                 adapter = new SelectPeopleExpenableAdapter(getContext(), workerbeanlist);
                 elv_framework.setAdapter(adapter);
                 elv_framework.setGroupIndicator(null);
@@ -830,6 +837,7 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
             }else {
                 elv_framework.setVisibility(View.GONE);
                 imgQuesheng.setVisibility(View.VISIBLE);
+                imgQuesheng.setBackgroundResource(R.mipmap.no_data);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -903,12 +911,20 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
 
     @Override
     public void setListener() {
-
+       imgQuesheng.setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
-
+       switch (v.getId()){
+           case R.id.img_quesheng:
+               if (tabindex == 0) {
+                   getP().getMaillist();
+               } else {
+                   getP().getFromworklist();
+               }
+               break;
+       }
     }
 
     @Override

@@ -41,6 +41,7 @@ public class MemorandumPresent extends XPresent<MemorandumActivity> {
                             ToastUtils.showToast(memorandumBean.getRespMsg());
                             getV().stopRefresh();
                         }
+                        getV().setGoneQuesheng();
                     }
 
                     @Override

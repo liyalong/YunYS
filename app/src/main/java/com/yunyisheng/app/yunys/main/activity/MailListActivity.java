@@ -185,6 +185,7 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
 
     public void getResultList(String fromworkBean) {
         try {
+            workerbeanlist.clear();
             List<WorkerBean> workerlist = new ArrayList<>();
             JSONObject object = new JSONObject(fromworkBean);
             JSONArray jsonArray = object.getJSONArray("list");
@@ -262,9 +263,12 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
                 MaillistExpenableAdapter adapter = new MaillistExpenableAdapter(MailListActivity.this, workerbeanlist);
                 elvOrganizationframe.setAdapter(adapter);
                 elvOrganizationframe.setGroupIndicator(null);
+                elvOrganizationframe.setVisibility(View.VISIBLE);
+                imgQuesheng.setVisibility(View.GONE);
             }else {
                 elvOrganizationframe.setVisibility(View.GONE);
                 imgQuesheng.setVisibility(View.VISIBLE);
+                imgQuesheng.setBackgroundResource(R.mipmap.no_data);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -341,6 +345,7 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
         rlArrangework.setOnClickListener(this);
         rlInvite.setOnClickListener(this);
         imgClear.setOnClickListener(this);
+        imgQuesheng.setOnClickListener(this);
     }
 
     @Override
@@ -348,6 +353,9 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
         switch (v.getId()) {
             case R.id.img_back:
                 finish();
+                break;
+            case R.id.img_quesheng:
+                getP().getMaillist();
                 break;
             case R.id.rl_organizationframe:
                 break;

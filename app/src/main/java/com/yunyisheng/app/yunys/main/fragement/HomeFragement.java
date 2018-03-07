@@ -163,6 +163,7 @@ public class HomeFragement extends BaseFragement<HomePresent> {
     public void setListener() {
         imgBaobiao.setOnClickListener(this);
         imgMessage.setOnClickListener(this);
+        img_quesheng.setOnClickListener(this);
         teSeeall.setOnClickListener(this);
         lineNotice.setOnClickListener(this);
         lineTongxunlu.setOnClickListener(this);
@@ -195,6 +196,9 @@ public class HomeFragement extends BaseFragement<HomePresent> {
                 break;
             case R.id.img_message:
                 startActivity(new Intent(mContext, MessageActivity.class));
+                break;
+            case R.id.img_quesheng:
+                getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
                 break;
             case R.id.te_seeall:
                 ((MainActivity) getActivity()).changerTask();
@@ -266,6 +270,7 @@ public class HomeFragement extends BaseFragement<HomePresent> {
             if (pageindex == 1) {
                 pullToRefreshListview.setVisibility(View.GONE);
                 img_quesheng.setVisibility(View.VISIBLE);
+                img_quesheng.setBackgroundResource(R.mipmap.no_data);
             } else {
                 ToastUtils.showToast("没有更多了");
             }

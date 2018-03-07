@@ -159,15 +159,19 @@ public class MessageService extends Service {
 			@Override
 			public void onResponse(Call<NoReadMessage> call, Response<NoReadMessage> response) {
 				NoReadMessage body = response.body();
-				NoReadMessage.RespBodyBean respBody =body.getRespBody();
 				try {
 					//LogUtils.i("servicehflkdh", respBody.toString());
-					if (respBody.getMids() != null && respBody.getMids().size() > 0) {
-						int size = respBody.getMids().size();
-						if (allsize == size) {
-						} else {
-							allsize = size;
-							EventBus.getDefault().post(new NoReadMessageEvent(size));
+					if (body!=null) {
+						NoReadMessage.RespBodyBean respBody =body.getRespBody();
+						if (respBody!=null) {
+							if (respBody.getMids() != null && respBody.getMids().size() > 0) {
+								int size = respBody.getMids().size();
+								if (allsize == size) {
+								} else {
+									allsize = size;
+									EventBus.getDefault().post(new NoReadMessageEvent(size));
+								}
+							}
 						}
 					}
 				} catch (Exception e) {

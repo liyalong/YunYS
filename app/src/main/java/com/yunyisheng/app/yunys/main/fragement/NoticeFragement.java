@@ -227,6 +227,8 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
                 sendlist.addAll(sendNoticeBean.getList());
                 adapter.notifyDataSetChanged();
             }
+            pullToRefreshListview.setVisibility(View.VISIBLE);
+            imgQuesheng.setVisibility(View.GONE);
         } else {
             if (pageindex == 1) {
                 pullToRefreshListview.setVisibility(View.GONE);
@@ -253,10 +255,13 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
                 receivemelist.addAll(receiveMeMessageBean.getList());
                 adapter1.notifyDataSetChanged();
             }
+            pullToRefreshListview.setVisibility(View.VISIBLE);
+            imgQuesheng.setVisibility(View.GONE);
         } else {
             if (pageindex == 1) {
                 pullToRefreshListview.setVisibility(View.GONE);
                 imgQuesheng.setVisibility(View.VISIBLE);
+                imgQuesheng.setBackgroundResource(R.mipmap.no_data);
                 ToastUtils.showToast("暂无数据");
             } else {
                 ToastUtils.showToast("暂无更多数据");
@@ -305,17 +310,27 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
 
     @Override
     public void setListener() {
-        imgClear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edSearch.setText("");
-            }
-        });
+        imgQuesheng.setOnClickListener(this);
+        imgClear.setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
-
+        switch (v.getId()){
+            case R.id.img_quesheng:
+                pageindex = 1;
+                if (tabindex == 0) {
+                    sendlist.clear();
+                    getP().getSendNoticelist(pageindex, 10, null);
+                } else {
+                    receivemelist.clear();
+                    getP().getReceiveNoticelist(pageindex, 10, null);
+                }
+                break;
+            case R.id.img_clear:
+                edSearch.setText("");
+                break;
+        }
     }
 
     @Override

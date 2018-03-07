@@ -210,6 +210,7 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
     public void setListener() {
         imgBack.setOnClickListener(this);
         imgAdd.setOnClickListener(this);
+        imgQuesheng.setOnClickListener(this);
         btn_reset.setOnClickListener(this);
         btn_queren.setOnClickListener(this);
     }
@@ -224,6 +225,7 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
     public void getResultList(ReportFormBean reportFormBean) {
         list.clear();
         if (reportFormBean.getList().size() > 0) {
+            setGoneQuesheng();
             list.addAll(reportFormBean.getList());
             netstring = JSON.toJSONString(list);
             web.post(new Runnable() {
@@ -236,12 +238,16 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
             });
             CanAddReportformListAdapter addReportformListAdapter = new CanAddReportformListAdapter(ReportformActivity.this, list);
             gvadd.setAdapter(addReportformListAdapter);
-            web.setVisibility(View.VISIBLE);
-            imgQuesheng.setVisibility(View.GONE);
         } else {
             web.setVisibility(View.GONE);
             imgQuesheng.setVisibility(View.VISIBLE);
+            imgQuesheng.setBackgroundResource(R.mipmap.no_data);
         }
+    }
+
+    public void setGoneQuesheng(){
+        web.setVisibility(View.VISIBLE);
+        imgQuesheng.setVisibility(View.GONE);
     }
 
     public void setImgBac(){
@@ -255,6 +261,9 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
         switch (v.getId()) {
             case R.id.img_back:
                 finish();
+                break;
+            case R.id.img_quesheng:
+                getP().getBaobiaoList(1, 0);
                 break;
             case R.id.img_add:
                 if (!isshowmenu) {

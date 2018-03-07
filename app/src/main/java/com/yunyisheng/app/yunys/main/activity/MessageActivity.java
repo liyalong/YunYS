@@ -53,6 +53,7 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
     private int userid;
     private MessageAdapter messageAdapter;
     private String str = "";
+    private String selecttype = "";
 
     @Override
     public void initView() {
@@ -76,6 +77,7 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
                 pageindex = 1;
                 messagelist.clear();
                 getP().getMessageList(str, 1);
+                selecttype=str;
                 LogUtils.i("fdfsfdsfdsf", str);
                 str="";
             }
@@ -125,6 +127,7 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
     }
 
     public void getMessageType(MessageTypeBean messageTypeBean) {
+        typelist.clear();
         List<MessageTypeBean.ListBean> list = messageTypeBean.getList();
         if (list != null && list.size() > 0) {
             typelist.addAll(list);
@@ -145,6 +148,7 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
             if (pageindex == 1) {
                 imgQuesheng.setVisibility(View.VISIBLE);
                 pullToList.setVisibility(View.GONE);
+                imgQuesheng.setBackgroundResource(R.mipmap.no_data);
                 ToastUtils.showToast("暂无消息");
             } else {
                 ToastUtils.showToast("没有更多了");
@@ -176,6 +180,7 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
     @Override
     public void setListener() {
         imgBack.setOnClickListener(this);
+        imgQuesheng.setOnClickListener(this);
         rlAllmsg.setOnClickListener(this);
     }
 
@@ -184,6 +189,15 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
         switch (v.getId()) {
             case R.id.img_back:
                 finish();
+                break;
+            case R.id.img_quesheng:
+                if (selecttype==null||selecttype.equals("")){
+                    getP().getMessageTypeList();
+                }else {
+                    pageindex = 1;
+                    messagelist.clear();
+                    getP().getMessageList(selecttype, pageindex);
+                }
                 break;
             case R.id.rl_allmsg:
                 break;

@@ -39,13 +39,18 @@ public class WorkerSchedulePresent extends XPresent<ScheduleFragement> {
                         }else {
                             ToastUtils.showToast(myScheduleBean.getRespMsg());
                             getV().stopRefresh();
+                            getV().setGoneQuesheng();
                         }
+
                     }
 
                     @Override
                     protected void onFail(NetError error) {
                         LoadingDialog.dismiss(getV().getContext());
                         getV().stopRefresh();
+                        if (error.getType()==5){
+                            getV().setImgQuesheng();
+                        }
                         ToastUtils.showToast("请求数据失败！");
                     }
                 });

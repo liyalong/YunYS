@@ -63,5 +63,14 @@
             android:layout_height="match_parent"
             android:divider="@null"
             android:scrollbars="none"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+        <ImageView
+            android:id="@+id/img_quesheng"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/distance_115"
+            android:background="@mipmap/no_data"
+            android:visibility="gone" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

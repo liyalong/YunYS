@@ -46,7 +46,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/distance_5"
                 android:layout_toRightOf="@+id/te_participateintitle"
-                android:text="(32)"
                 android:textColor="@color/color_666"
                 android:textSize="@dimen/distance_16" />
         </RelativeLayout>
@@ -68,5 +67,13 @@
             android:background="@color/white"
             android:dividerHeight="0.5dp"
             android:scrollbars="none"></ListView>
+        <ImageView
+            android:id="@+id/img_quesheng"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/distance_115"
+            android:background="@mipmap/no_data"
+            android:visibility="gone" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

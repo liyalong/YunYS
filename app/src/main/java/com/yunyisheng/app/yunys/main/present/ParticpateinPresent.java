@@ -32,6 +32,9 @@ public class ParticpateinPresent extends XPresent<ParticipateinFragement> {
                     protected void onFail(NetError error) {
                         XLog.d("NET ERROR :"+error.toString());
                         ToastUtils.showToast("网络请求错误！");
+                        if (error.getType()==5){
+                            getV().setImgQuesheng();
+                        }
                         return;
                     }
 
@@ -40,6 +43,7 @@ public class ParticpateinPresent extends XPresent<ParticipateinFragement> {
                         try {
                             if (projectListModel.getRespCode() == 1){
                                 ToastUtils.showToast(projectListModel.getRespMsg());
+                                getV().setGoneQuesheng();
                                 return;
                             }
                             getV().setProjectListModel(projectListModel);

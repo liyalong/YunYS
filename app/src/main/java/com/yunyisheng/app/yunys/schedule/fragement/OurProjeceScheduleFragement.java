@@ -220,12 +220,13 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
             list.clear();
         }
         if (myScheduleBean.getRespBody().getDataList() != null && myScheduleBean.getRespBody().getDataList().size() > 0) {
+            rvToDoList.setVisibility(View.VISIBLE);
+            imgQuesheng.setVisibility(View.GONE);
+            imgQuesheng2.setVisibility(View.GONE);
             list.addAll(myScheduleBean.getRespBody().getDataList());
             if (pageindex == 1) {
                 mineadapter = new TaskAdapter(mContext, list);
                 rvToDoList.setAdapter(mineadapter);
-                rvToDoList.setVisibility(View.VISIBLE);
-                imgQuesheng.setVisibility(View.GONE);
             } else {
                 mineadapter.setData(list);
             }
@@ -239,9 +240,11 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                 rvToDoList.setVisibility(View.GONE);
                 if (isfirst) {
                     imgQuesheng.setVisibility(View.VISIBLE);
+                    imgQuesheng.setBackgroundResource(R.mipmap.no_index_task);
                 } else {
                     imgQuesheng.setVisibility(View.GONE);
                     imgQuesheng2.setVisibility(View.VISIBLE);
+                    imgQuesheng2.setBackgroundResource(R.mipmap.no_task);
                 }
                 ToastUtils.showToast("当前日期暂无日程");
             } else {
@@ -254,6 +257,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
 
     public void setimgBac(){
         rvToDoList.setVisibility(View.GONE);
+        imgQuesheng2.setVisibility(View.GONE);
         imgQuesheng.setVisibility(View.VISIBLE);
         imgQuesheng.setBackgroundResource(R.mipmap.no_network);
     }
@@ -277,20 +281,23 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
             projectschedulelist.clear();
         }
         if (myScheduleBean.getRespBody().getDataList() != null && myScheduleBean.getRespBody().getDataList().size() > 0) {
+            rvToDoList.setVisibility(View.VISIBLE);
+            imgQuesheng2.setVisibility(View.GONE);
             projectschedulelist.addAll(myScheduleBean.getRespBody().getDataList());
             if (pageindex == 1) {
                 projectadapter = new TaskAdapter(mContext, projectschedulelist);
                 rvToDoList.setAdapter(projectadapter);
-                rvToDoList.setVisibility(View.VISIBLE);
-                imgQuesheng2.setVisibility(View.GONE);
             } else {
                 projectadapter.setData(projectschedulelist);
             }
             projectadapter.setType(6);
+            rvToDoList.setVisibility(View.VISIBLE);
+            imgQuesheng2.setVisibility(View.GONE);
         } else {
             if (pageindex == 1) {
                 rvToDoList.setVisibility(View.GONE);
                 imgQuesheng2.setVisibility(View.VISIBLE);
+                imgQuesheng2.setBackgroundResource(R.mipmap.no_task);
             } else {
                 ToastUtils.showToast("没有更多了");
                 nomore = true;
@@ -311,24 +318,11 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         if (respBody.size()>0){
             try {
                 for (int i = 0; i < respBody.size(); i++) {
-                    String[] str = null;
                     ScheduleNoSizeBean.RespBodyBean respBodyBean = respBody.get(i);
                     int num = respBodyBean.getNum();
-//                String splitstr="";
                     String date = respBodyBean.getDate();
                     Date date1 = CommonUtils.ConverToDate(date);
                     String format = df.format(date1);
-//                str=date.split("-");
-//                for (int m=0;m<str.length;m++){
-//                    if ((str[m].subSequence(0,1)).equals("0")){
-//                        StringBuffer stringBuffer=new StringBuffer(str[m]);
-//                        StringBuffer replace = stringBuffer.replace(0, 1, "");
-//
-//                    }else {
-//                        splitstr+=str[m];
-//                    }
-//                    markData.put(date,num+"");
-//                }
                     markData.put(format,num+"");
                 }
             }catch (Exception e){
@@ -364,12 +358,32 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
 
     @Override
     public void setListener() {
-
+      imgQuesheng.setOnClickListener(this);
+      imgQuesheng2.setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
-
+      switch (v.getId()){
+          case R.id.img_quesheng:
+              String dayStart = getDayStartTime();
+              if (dayStart.equals(dayStartTime)){
+                  isfirst=true;
+              }
+              getP().getMySchedulrList(pageindex,dayStartTime, dayEndTime);
+              break;
+          case R.id.img_quesheng2:
+              if (tabindex==0){
+                  getP().getMySchedulrList(pageindex, this.dayStartTime, dayEndTime);
+              }else {
+                  if (projectid != null && !projectid.equals("")) {
+                      projectschedulelist.clear();
+                      pageindex = 1;
+                      getP().getMyProjectSchedulrList(pageindex, projectid, this.dayStartTime, dayEndTime);
+                  }
+              }
+              break;
+      }
     }
 
     /**

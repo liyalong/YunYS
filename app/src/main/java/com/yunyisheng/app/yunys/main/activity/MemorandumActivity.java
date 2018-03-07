@@ -189,6 +189,7 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
     public void setListener() {
         imgBack.setOnClickListener(this);
         imgClear.setOnClickListener(this);
+        imgQuesheng.setOnClickListener(this);
         teAdd.setOnClickListener(this);
     }
 
@@ -207,6 +208,7 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
             if (pageindex == 1) {
                 pullToRefreshScrollview.setVisibility(View.GONE);
                 imgQuesheng.setVisibility(View.VISIBLE);
+                imgQuesheng.setBackgroundResource(R.mipmap.no_data);
                 ToastUtils.showToast("暂无数据");
             } else {
                 ToastUtils.showToast("暂无更多数据");
@@ -237,6 +239,11 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
         }
         setListViewHeightBasedOnChildren(lvMemarand);
         stopRefresh();
+    }
+
+    public void setGoneQuesheng(){
+        pullToRefreshScrollview.setVisibility(View.VISIBLE);
+        imgQuesheng.setVisibility(View.GONE);
     }
 
     public void setImgQuesheng(){
@@ -299,6 +306,10 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
         switch (v.getId()) {
             case R.id.img_back:
                 finish();
+                break;
+            case R.id.img_quesheng:
+                pageindex = 1;
+                getP().getMemoList(pageindex, 10);
                 break;
             case R.id.img_clear:
                 edSearch.setText("");

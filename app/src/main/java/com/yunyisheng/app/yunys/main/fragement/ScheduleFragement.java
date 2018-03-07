@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -40,6 +41,8 @@ public class ScheduleFragement extends BaseFragement<WorkerSchedulePresent> {
     Unbinder unbinder;
     @BindView(R.id.pull_to_list_schudle)
     PullToRefreshListView pullToListSchudle;
+    @BindView(R.id.img_quesheng)
+    ImageView imgQuesheng;
     private int userid;
     private String dayStartTime;
     private String dayEndTime;
@@ -51,7 +54,7 @@ public class ScheduleFragement extends BaseFragement<WorkerSchedulePresent> {
     @Override
     public void initView() {
         ScrowUtil.listViewConfig(pullToListSchudle);
-        userid =((WorkerDataActivity) getActivity()).userid;
+        userid = ((WorkerDataActivity) getActivity()).userid;
         dayStartTime = getDayStartTime();
         dayEndTime = getDayEndTime();
         adapter = new HomeScheduleAdapter(mContext, dataListBeans);
@@ -89,12 +92,18 @@ public class ScheduleFragement extends BaseFragement<WorkerSchedulePresent> {
 
     @Override
     public void setListener() {
-
+        imgQuesheng.setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
-
+        switch (v.getId()){
+            case R.id.img_quesheng:
+                pageindex = 1;
+                dataListBeans.clear();
+                getP().getWorkerScheduleList(pageindex, userid, dayStartTime, dayEndTime);
+                break;
+        }
     }
 
     @Override
@@ -122,8 +131,12 @@ public class ScheduleFragement extends BaseFragement<WorkerSchedulePresent> {
             dataListBeans.addAll(dataList);
             adapter.setData(dataListBeans);
             adapter.setOtheruserid(userid);
+            setGoneQuesheng();
         } else {
             if (pageindex == 1) {
+                pullToListSchudle.setVisibility(View.GONE);
+                imgQuesheng.setVisibility(View.VISIBLE);
+                imgQuesheng.setBackgroundResource(R.mipmap.no_data);
                 ToastUtils.showToast("暂无日程");
             } else {
                 ToastUtils.showToast("没有更多了");
@@ -132,7 +145,18 @@ public class ScheduleFragement extends BaseFragement<WorkerSchedulePresent> {
         stopRefresh();
     }
 
-    public void stopRefresh(){
+    public void setGoneQuesheng(){
+        pullToListSchudle.setVisibility(View.VISIBLE);
+        imgQuesheng.setVisibility(View.GONE);
+    }
+
+    public void setImgQuesheng(){
+        pullToListSchudle.setVisibility(View.GONE);
+        imgQuesheng.setVisibility(View.VISIBLE);
+        imgQuesheng.setBackgroundResource(R.mipmap.no_network);
+    }
+
+    public void stopRefresh() {
         pullToListSchudle.onRefreshComplete();
     }
 
