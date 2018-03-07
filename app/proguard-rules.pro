@@ -32,6 +32,8 @@
 #----------------------------------------------------------------------------
 
 #---------------------------------默认保留区---------------------------------
+#保护注解
+-keepattributes *Annotation*
 #继承activity,application,service,broadcastReceiver,contentprovider....不进行混淆
 -keep public class * extends android.app.Activity
 -keep public class * extends android.app.Application
@@ -44,6 +46,8 @@
 -keep public class * extends android.view.View
 -keep public class com.android.vending.licensing.ILicensingService
 -keep class android.support.** {*;}
+#如果有引用v4包可以添加下面这行
+-keep public class * extends android.support.v4.app.Fragment
 
 -keep public class * extends android.view.View{
     *** get*();
@@ -107,6 +111,12 @@
 -keepclassmembers class * extends android.webkit.WebViewClient {
     public void *(android.webkit.WebView, jav.lang.String);
 }
+#不混淆资源类
+-keepclassmembers class **.R$* {
+    public static <fields>;
+}
+#避免混淆泛型 如果混淆报错建议关掉
+-keepattributes Signature
 #----------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------
 #---------------------------------实体类---------------------------------
@@ -115,6 +125,8 @@
 -keep class com.yunyisheng.app.yunys.main.model.** { *; }
 -keep class com.yunyisheng.app.yunys.project.model.** { *; }
 -keep class com.yunyisheng.app.yunys.userset.model.** { *; }
+-keep class com.yunyisheng.app.yunys.tasks.model.** { *; }
+-keep class com.yunyisheng.app.yunys.schedule.model.** { *; }
 -keep class com.yunyisheng.app.yunys.base.** { *; }
 
 #---------------------------------第三方包-------------------------------
@@ -133,7 +145,32 @@
 -keepattributes Signature
 -keepattributes Exceptions
 
-# okhttp
+#Okhttp
 -dontwarn okio.**
+#Fastjson
+-keepattributes Signature
+-dontwarn com.alibaba.fastjson.**
+-keep class com.alibaba.fastjson.**{*; }
+#Eventbus
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
+#3 butterknife
+-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}
 
 
