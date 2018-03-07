@@ -104,14 +104,14 @@ public class ReportListBean extends BaseModel {
              * date : 2017-12-01 00:00:00
              */
 
-            private int value;
+            private String value;
             private String date;
 
-            public int getValue() {
+            public String getValue() {
                 return value;
             }
 
-            public void setValue(int value) {
+            public void setValue(String value) {
                 this.value = value;
             }
 

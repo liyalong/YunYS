@@ -24,10 +24,11 @@
 </div>
 <script type="text/javascript">
     function getChartData(instanceId){
-        $('#log').append("<br/>"+instanceId+"<br/>");
+        //$('#log').append("<br/>"+instanceId+"<br/>");
         reportDetail.getReportDeatil(instanceId);
     }
     function createTableDiv(result){
+    //$('#log').append(123+"<br/>");
     var data = JSON.parse(result);
     var intervalIds = [];
     var divHtml = "";
@@ -35,6 +36,7 @@
     var nums = count(data);
     if(nums > 0){
         for(var i=0;i<nums;i++){
+        //$('#log').append('<br/>chartType:'+data[i].chartType+"<br/>");
             divHtml += '<div id="chart_'+data[i].instanceId+'" instanceId="'+data[i].instanceId+'" chartType="'+data[i].chartType+'" tableName="'+data[i].instanceName+'" class="col-xs-12" style="height:300px;"></div>';
         }
     }else{
@@ -51,7 +53,7 @@
             var chartname = "chart_"+data[i].instanceId;
             window[chartname] = echarts.init(document.getElementById("chart_"+data[i].instanceId));
 
-            $('#log').append(data[i].instanceId+"<br/>");
+            //$('#log').append(data[i].instanceId+"<br/>");
             if(data[i].refreshFrequency != "" && data[i].refreshFrequency != null){
                 setIntervalById(data[i].instanceId,intervalIds,data[i].refreshFrequency);
                 $('#log').append(data[i].refreshFrequency);
@@ -108,11 +110,17 @@ function createChart(instanceId,result){
             var num = count(data);
             if(num > 0){
                 for(var i=0;i<num;i++){
-                    var lineName = data[i].projectName+data[i].formName+data[i].fieldName;
+                    var lineName;
+                    if(data[i].dateSources == 0){
+                     lineName = data[i].plcName;
+                    }else{
+                     lineName = data[i].projectName+data[i].formName+data[i].fieldName;
+                    }
+
                     legendData.push(lineName);
                     var item = data[i].datas;
                     var itemNum = count(item);
-                    var markPoint
+                    var markPoint;
 
                     if(itemNum > 0){
                         var seriesItem = {name:lineName,type:"line",data:[],smooth: true,markPoint:{data:[{value:"",coord:[]}]}};
@@ -123,14 +131,14 @@ function createChart(instanceId,result){
                         }
 
                         for(var j=0;j<itemNum;j++){
-                            if(j == 0){
+                            if(i == 0){
                                 xAxisData.push(item[j].date);
                             }
 
                             if(j == (itemNum -1) && chartType != 2){
                                 seriesItem.markPoint.data[0].value = item[j].value;
                                 seriesItem.markPoint.data[0].coord.push((itemNum-1));
-                                seriesItem.markPoint.data[0].coord.push((item[j].value);
+                                seriesItem.markPoint.data[0].coord.push(item[j].value);
                             }
                             seriesItem.data.push(item[j].value);
 
@@ -142,7 +150,7 @@ function createChart(instanceId,result){
                 option.legend.data = legendData;
                 option.xAxis.data = xAxisData;
                 option.series = seriesData;
-                $('#log').append("<br/>"+instanceId+"<br/>");
+               // $('#log').append("<br/>"+JSON.stringify(option)+"<br/>");
                 eval("chart_"+instanceId).setOption(option);
                 eval("chart_"+instanceId).hideLoading();
             }else{
@@ -175,8 +183,6 @@ function noData(chart){
                       zlevel: 0
                     });
 }
-
-
 </script>
 </body>
 </html>

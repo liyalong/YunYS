@@ -228,7 +228,7 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
             setGoneQuesheng();
             list.addAll(reportFormBean.getList());
             netstring = JSON.toJSONString(list);
-            if (addedReformString == null && addedReformString.equals("")) {
+            if (addedReformString == null || addedReformString.equals("")) {
                 web.post(new Runnable() {
                     @Override
                     public void run() {
