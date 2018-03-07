@@ -164,6 +164,7 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
                                 startActivity(intent);
                             }
                         });
+                builder.show();
             }
         });
     }

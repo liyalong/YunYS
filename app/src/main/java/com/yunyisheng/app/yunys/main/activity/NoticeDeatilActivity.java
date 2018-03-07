@@ -131,6 +131,7 @@ public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
                                 startActivity(intent);
                             }
                         });
+                builder.show();
             }
         });
     }

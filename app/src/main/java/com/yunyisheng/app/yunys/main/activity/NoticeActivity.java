@@ -97,6 +97,7 @@ public class NoticeActivity extends BaseActivity {
                                 startActivity(intent);
                             }
                         });
+                builder.show();
             }
         });
     }

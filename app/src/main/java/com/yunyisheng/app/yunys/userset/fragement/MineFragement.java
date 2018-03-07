@@ -196,6 +196,7 @@ public class MineFragement extends BaseFragement<MinePresent> {
                                 startActivity(intent);
                             }
                         });
+                builder.show();
             }
         });
     }
@@ -230,6 +231,7 @@ public class MineFragement extends BaseFragement<MinePresent> {
                                 startActivity(intent);
                             }
                         });
+                builder.show();
             }
         });
     }

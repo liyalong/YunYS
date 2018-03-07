@@ -155,6 +155,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                                 startActivity(intent);
                             }
                         });
+                builder.show();
             }
         });
     }

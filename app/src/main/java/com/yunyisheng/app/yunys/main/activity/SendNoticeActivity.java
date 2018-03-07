@@ -232,6 +232,7 @@ public class SendNoticeActivity extends BaseActivity {
                                 startActivity(intent);
                             }
                         });
+                builder.show();
             }
         });
     }
