@@ -139,24 +139,26 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 createSelectTaskDialog(MainActivity.this);
             }
         });
-        if (!CommonUtils.isNotificationEnabled()){
-            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-            builder.setMessage("提示")
-                    .setMessage("请您去设置中授予消息横幅提醒权限")
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    })
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(Settings.ACTION_SETTINGS);
-                            startActivity(intent);
-                        }
-                    });
-            builder.show();
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+            if (!CommonUtils.isNotificationEnabled()) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setMessage("提示")
+                        .setMessage("请您去设置中授予消息横幅提醒权限")
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        })
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                                startActivity(intent);
+                            }
+                        });
+                builder.show();
+            }
         }
     }
 
