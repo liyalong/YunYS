@@ -18,6 +18,7 @@ import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import cn.droidlover.xdroidbase.cache.SharedPref;
+import cn.droidlover.xdroidmvp.router.Router;
 
 /**
  * Created by liyalong on 2017/12/15.
@@ -102,7 +103,10 @@ public class WelcomeActivity extends BaseActivity<WelcomePagePresent> {
                 }
             } else {
                 if (welcomeActivity != null) {
-                    gotoMainActivity();
+                    Router.newIntent(context)
+                            .to(LoginActivity.class)
+                            .launch();
+                    finish();
                 }
             }
         }
