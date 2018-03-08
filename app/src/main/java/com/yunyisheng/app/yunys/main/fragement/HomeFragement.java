@@ -270,7 +270,7 @@ public class HomeFragement extends BaseFragement<HomePresent> {
             if (pageindex == 1) {
                 pullToRefreshListview.setVisibility(View.GONE);
                 img_quesheng.setVisibility(View.VISIBLE);
-                img_quesheng.setBackgroundResource(R.mipmap.no_data);
+                img_quesheng.setBackgroundResource(R.mipmap.no_index_task);
             } else {
                 ToastUtils.showToast("没有更多了");
             }
@@ -305,8 +305,6 @@ public class HomeFragement extends BaseFragement<HomePresent> {
             int size = respBody.getMids().size();
             if (size > 0) {
                 imgMessage.setBackgroundResource(R.mipmap.red_msg);
-                playAudio();
-                doVibrator();
             }
         }
     }

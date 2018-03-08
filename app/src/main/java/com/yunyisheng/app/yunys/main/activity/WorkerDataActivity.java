@@ -255,10 +255,8 @@ public class WorkerDataActivity extends BaseActivity<WorkerDataPresent> {
                 finish();
                 break;
             case R.id.te_edit:
-                if (tabindex == 0) {
-                    if (basicDataFragement != null) {
-                        basicDataFragement.editInfo();
-                    }
+                if (basicDataFragement != null) {
+                    basicDataFragement.editInfo();
                 }
                 break;
         }

@@ -134,6 +134,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
 
             @Override
             public void onCitySelect(String str) {
+                edCompanyAddress.setTextColor(getResources().getColor(R.color.color_333));
                 edCompanyAddress.setText(str);
             }
         });

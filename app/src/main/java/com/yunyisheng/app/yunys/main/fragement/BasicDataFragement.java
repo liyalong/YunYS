@@ -96,9 +96,9 @@ public class BasicDataFragement extends BaseFragement<BasicDataPresent> {
     }
 
     public void editInfo() {
-        Intent intent = new Intent(getActivity(), ChangeOtherUserinfoActivity.class);
+        Intent intent = new Intent((WorkerDataActivity)getActivity(), ChangeOtherUserinfoActivity.class);
         intent.putExtra("otherinfo", getOtherinfoBean);
-        getActivity().startActivityForResult(intent, 9);
+        ((WorkerDataActivity)getActivity()).startActivityForResult(intent, 9);
     }
 
     @Override

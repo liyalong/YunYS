@@ -328,7 +328,11 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
                 }
                 break;
             case R.id.img_clear:
-                edSearch.setText("");
+//                edSearch.setText("");
+                sousuo_neirong = edSearch.getText().toString();
+                receivemelist.clear();
+                pageindex = 1;
+                getP().getReceiveNoticelist(pageindex, 10, sousuo_neirong);
                 break;
         }
     }

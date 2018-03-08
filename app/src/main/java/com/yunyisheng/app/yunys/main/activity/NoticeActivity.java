@@ -19,13 +19,13 @@ import com.yunyisheng.app.yunys.base.PressionListener;
 import com.yunyisheng.app.yunys.main.adapter.ViewPagerAdapter;
 import com.yunyisheng.app.yunys.main.fragement.NoticeFragement;
 import com.yunyisheng.app.yunys.main.model.NoticeBean;
+import com.yunyisheng.app.yunys.main.present.NoticeActicityPresent;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 import static com.yunyisheng.app.yunys.utils.ScreenUtils.setIndicator;
 
@@ -34,7 +34,7 @@ import static com.yunyisheng.app.yunys.utils.ScreenUtils.setIndicator;
  * @time 2018/1/11  15:33
  * @describe 公告activity
  */
-public class NoticeActivity extends BaseActivity {
+public class NoticeActivity extends BaseActivity<NoticeActicityPresent> {
 
     @BindView(R.id.img_back)
     ImageView imgBack;
@@ -65,6 +65,7 @@ public class NoticeActivity extends BaseActivity {
     @Override
     public void initAfter() {
         requestPermission();
+        getP().getNoticeQuanxian();
     }
 
     /**
@@ -108,8 +109,8 @@ public class NoticeActivity extends BaseActivity {
     }
 
     @Override
-    public XPresent bindPresent() {
-        return null;
+    public NoticeActicityPresent bindPresent() {
+        return new NoticeActicityPresent();
     }
 
     @Override

@@ -204,6 +204,9 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
                 beanList.addAll(bean.getList());
                 adapter.notifyDataSetChanged();
             }
+            pullToRefreshScrollview.setVisibility(View.VISIBLE);
+            imgQuesheng.setVisibility(View.GONE);
+            setListViewHeightBasedOnChildren(lvMemarand);
         } else {
             if (pageindex == 1) {
                 pullToRefreshScrollview.setVisibility(View.GONE);
@@ -214,7 +217,6 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
                 ToastUtils.showToast("暂无更多数据");
             }
         }
-        setListViewHeightBasedOnChildren(lvMemarand);
         stopRefresh();
     }
 
@@ -230,6 +232,7 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
                 selectbeanList.addAll(memorandumBean.getList());
                 selectadapter.notifyDataSetChanged();
             }
+            setListViewHeightBasedOnChildren(lvMemarand);
         } else {
             if (pageindex == 1) {
                 ToastUtils.showToast("暂无数据");
@@ -237,13 +240,7 @@ public class MemorandumActivity extends BaseActivity<MemorandumPresent> {
                 ToastUtils.showToast("暂无更多数据");
             }
         }
-        setListViewHeightBasedOnChildren(lvMemarand);
         stopRefresh();
-    }
-
-    public void setGoneQuesheng(){
-        pullToRefreshScrollview.setVisibility(View.VISIBLE);
-        imgQuesheng.setVisibility(View.GONE);
     }
 
     public void setImgQuesheng(){

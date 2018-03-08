@@ -28,7 +28,7 @@ public class GetOtherinfoBean extends BaseModel implements Serializable {
         this.respBody = respBody;
     }
 
-    public static class RespBodyBean {
+    public static class RespBodyBean implements Serializable {
         /**
          * reloName : 总经理
          * section : [{"sectionUpdatedTime":null,"sectionStatus":null,"sectionId":155,"principal":null,"enterpriseId":null,"isParent":null,"sectionName":"定理纪念室-研发一组","sectionSort":null,"sectionCreatedTime":null,"sectionParentid":null}]
@@ -63,7 +63,7 @@ public class GetOtherinfoBean extends BaseModel implements Serializable {
             this.section = section;
         }
 
-        public static class EnterpriseUserBean {
+        public static class EnterpriseUserBean implements Serializable {
             /**
              * userPhoneState : 1
              * phone : null
@@ -279,7 +279,7 @@ public class GetOtherinfoBean extends BaseModel implements Serializable {
             }
         }
 
-        public static class SectionBean {
+        public static class SectionBean implements Serializable {
             /**
              * sectionUpdatedTime : null
              * sectionStatus : null

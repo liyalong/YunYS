@@ -208,11 +208,13 @@ public class InviteWorkerActivity extends BaseActivity<InviteWorkerPresent> {
             case 8:
                 bumenid = data.getIntExtra("bumenid", 0);
                 String bumenname = data.getStringExtra("bumenname");
+                teBumen.setTextColor(getResources().getColor(R.color.color_333));
                 teBumen.setText(bumenname);
                 break;
             case 6:
                 roleid = data.getIntExtra("roleid", 0);
                 String rolename = data.getStringExtra("rolename");
+                teRole.setTextColor(getResources().getColor(R.color.color_333));
                 teRole.setText(rolename);
                 break;
         }

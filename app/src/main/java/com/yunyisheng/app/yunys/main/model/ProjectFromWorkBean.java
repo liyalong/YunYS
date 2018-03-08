@@ -52,27 +52,27 @@ public class ProjectFromWorkBean extends BaseModel {
 
         private String projectId;
         private String projectName;
-        private String projectNum;
-        private String projectCreate;
-        private String projectUpdate;
-        private String projectEndtime;
-        private int projectStat;
-        private int projectTypeId;
+//        private String projectNum;
+//        private String projectCreate;
+//        private String projectUpdate;
+//        private String projectEndtime;
+//        private int projectStat;
+//        private int projectTypeId;
         private String companyId;
-        private String terraceId;
-        private String projectNationName;
-        private String projectProvinceName;
-        private String projectCityName;
-        private String projectCountyName;
-        private String projectAddress;
-        private String projectRemarks;
-        private int projectFrequency;
-        private int projectStopIndicators;
+//        private String terraceId;
+//        private String projectNationName;
+//        private String projectProvinceName;
+//        private String projectCityName;
+//        private String projectCountyName;
+//        private String projectAddress;
+//        private String projectRemarks;
+//        private int projectFrequency;
+//        private int projectStopIndicators;
         private boolean isFocus;
-        private ProTypeBean proType;
-        private String unSeeTaskNum;
-        private String warningNum;
-        private String projectLeader;
+//        private ProTypeBean proType;
+//        private String unSeeTaskNum;
+//        private String warningNum;
+//        private String projectLeader;
         private boolean ischeckgroup;
         private List<UserListBean> userList;
 
@@ -108,53 +108,53 @@ public class ProjectFromWorkBean extends BaseModel {
             this.projectName = projectName;
         }
 
-        public String getProjectNum() {
-            return projectNum;
-        }
+//        public String getProjectNum() {
+//            return projectNum;
+//        }
+//
+//        public void setProjectNum(String projectNum) {
+//            this.projectNum = projectNum;
+//        }
+//
+//        public String getProjectCreate() {
+//            return projectCreate;
+//        }
+//
+//        public void setProjectCreate(String projectCreate) {
+//            this.projectCreate = projectCreate;
+//        }
+//
+//        public String getProjectUpdate() {
+//            return projectUpdate;
+//        }
+//
+//        public void setProjectUpdate(String projectUpdate) {
+//            this.projectUpdate = projectUpdate;
+//        }
+//
+//        public String getProjectEndtime() {
+//            return projectEndtime;
+//        }
+//
+//        public void setProjectEndtime(String projectEndtime) {
+//            this.projectEndtime = projectEndtime;
+//        }
 
-        public void setProjectNum(String projectNum) {
-            this.projectNum = projectNum;
-        }
-
-        public String getProjectCreate() {
-            return projectCreate;
-        }
-
-        public void setProjectCreate(String projectCreate) {
-            this.projectCreate = projectCreate;
-        }
-
-        public String getProjectUpdate() {
-            return projectUpdate;
-        }
-
-        public void setProjectUpdate(String projectUpdate) {
-            this.projectUpdate = projectUpdate;
-        }
-
-        public String getProjectEndtime() {
-            return projectEndtime;
-        }
-
-        public void setProjectEndtime(String projectEndtime) {
-            this.projectEndtime = projectEndtime;
-        }
-
-        public int getProjectStat() {
-            return projectStat;
-        }
-
-        public void setProjectStat(int projectStat) {
-            this.projectStat = projectStat;
-        }
-
-        public int getProjectTypeId() {
-            return projectTypeId;
-        }
-
-        public void setProjectTypeId(int projectTypeId) {
-            this.projectTypeId = projectTypeId;
-        }
+//        public int getProjectStat() {
+//            return projectStat;
+//        }
+//
+//        public void setProjectStat(int projectStat) {
+//            this.projectStat = projectStat;
+//        }
+//
+//        public int getProjectTypeId() {
+//            return projectTypeId;
+//        }
+//
+//        public void setProjectTypeId(int projectTypeId) {
+//            this.projectTypeId = projectTypeId;
+//        }
 
         public String getCompanyId() {
             return companyId;
@@ -164,117 +164,117 @@ public class ProjectFromWorkBean extends BaseModel {
             this.companyId = companyId;
         }
 
-        public String getTerraceId() {
-            return terraceId;
-        }
-
-        public void setTerraceId(String terraceId) {
-            this.terraceId = terraceId;
-        }
-
-        public String getProjectNationName() {
-            return projectNationName;
-        }
-
-        public void setProjectNationName(String projectNationName) {
-            this.projectNationName = projectNationName;
-        }
-
-        public String getProjectProvinceName() {
-            return projectProvinceName;
-        }
-
-        public void setProjectProvinceName(String projectProvinceName) {
-            this.projectProvinceName = projectProvinceName;
-        }
-
-        public String getProjectCityName() {
-            return projectCityName;
-        }
-
-        public void setProjectCityName(String projectCityName) {
-            this.projectCityName = projectCityName;
-        }
-
-        public String getProjectCountyName() {
-            return projectCountyName;
-        }
-
-        public void setProjectCountyName(String projectCountyName) {
-            this.projectCountyName = projectCountyName;
-        }
-
-        public String getProjectAddress() {
-            return projectAddress;
-        }
-
-        public void setProjectAddress(String projectAddress) {
-            this.projectAddress = projectAddress;
-        }
-
-        public String getProjectRemarks() {
-            return projectRemarks;
-        }
-
-        public void setProjectRemarks(String projectRemarks) {
-            this.projectRemarks = projectRemarks;
-        }
-
-        public int getProjectFrequency() {
-            return projectFrequency;
-        }
-
-        public void setProjectFrequency(int projectFrequency) {
-            this.projectFrequency = projectFrequency;
-        }
-
-        public int getProjectStopIndicators() {
-            return projectStopIndicators;
-        }
-
-        public void setProjectStopIndicators(int projectStopIndicators) {
-            this.projectStopIndicators = projectStopIndicators;
-        }
-
-        public boolean isIsFocus() {
-            return isFocus;
-        }
-
-        public void setIsFocus(boolean isFocus) {
-            this.isFocus = isFocus;
-        }
-
-        public ProTypeBean getProType() {
-            return proType;
-        }
-
-        public void setProType(ProTypeBean proType) {
-            this.proType = proType;
-        }
-
-        public String getUnSeeTaskNum() {
-            return unSeeTaskNum;
-        }
-
-        public void setUnSeeTaskNum(String unSeeTaskNum) {
-            this.unSeeTaskNum = unSeeTaskNum;
-        }
-
-        public String getWarningNum() {
-            return warningNum;
-        }
-
-        public void setWarningNum(String warningNum) {
-            this.warningNum = warningNum;
-        }
-
-        public String getProjectLeader() {
-            return projectLeader;
-        }
-
-        public void setProjectLeader(String projectLeader) {
-            this.projectLeader = projectLeader;
-        }
+//        public String getTerraceId() {
+//            return terraceId;
+//        }
+//
+//        public void setTerraceId(String terraceId) {
+//            this.terraceId = terraceId;
+//        }
+//
+//        public String getProjectNationName() {
+//            return projectNationName;
+//        }
+//
+//        public void setProjectNationName(String projectNationName) {
+//            this.projectNationName = projectNationName;
+//        }
+//
+//        public String getProjectProvinceName() {
+//            return projectProvinceName;
+//        }
+//
+//        public void setProjectProvinceName(String projectProvinceName) {
+//            this.projectProvinceName = projectProvinceName;
+//        }
+//
+//        public String getProjectCityName() {
+//            return projectCityName;
+//        }
+//
+//        public void setProjectCityName(String projectCityName) {
+//            this.projectCityName = projectCityName;
+//        }
+//
+//        public String getProjectCountyName() {
+//            return projectCountyName;
+//        }
+//
+//        public void setProjectCountyName(String projectCountyName) {
+//            this.projectCountyName = projectCountyName;
+//        }
+//
+//        public String getProjectAddress() {
+//            return projectAddress;
+//        }
+//
+//        public void setProjectAddress(String projectAddress) {
+//            this.projectAddress = projectAddress;
+//        }
+//
+//        public String getProjectRemarks() {
+//            return projectRemarks;
+//        }
+//
+//        public void setProjectRemarks(String projectRemarks) {
+//            this.projectRemarks = projectRemarks;
+//        }
+//
+//        public int getProjectFrequency() {
+//            return projectFrequency;
+//        }
+//
+//        public void setProjectFrequency(int projectFrequency) {
+//            this.projectFrequency = projectFrequency;
+//        }
+//
+//        public int getProjectStopIndicators() {
+//            return projectStopIndicators;
+//        }
+//
+//        public void setProjectStopIndicators(int projectStopIndicators) {
+//            this.projectStopIndicators = projectStopIndicators;
+//        }
+//
+//        public boolean isIsFocus() {
+//            return isFocus;
+//        }
+//
+//        public void setIsFocus(boolean isFocus) {
+//            this.isFocus = isFocus;
+//        }
+//
+//        public ProTypeBean getProType() {
+//            return proType;
+//        }
+//
+//        public void setProType(ProTypeBean proType) {
+//            this.proType = proType;
+//        }
+//
+//        public String getUnSeeTaskNum() {
+//            return unSeeTaskNum;
+//        }
+//
+//        public void setUnSeeTaskNum(String unSeeTaskNum) {
+//            this.unSeeTaskNum = unSeeTaskNum;
+//        }
+//
+//        public String getWarningNum() {
+//            return warningNum;
+//        }
+//
+//        public void setWarningNum(String warningNum) {
+//            this.warningNum = warningNum;
+//        }
+//
+//        public String getProjectLeader() {
+//            return projectLeader;
+//        }
+//
+//        public void setProjectLeader(String projectLeader) {
+//            this.projectLeader = projectLeader;
+//        }
 
         public List<UserListBean> getUserList() {
             return userList;
@@ -400,21 +400,21 @@ public class ProjectFromWorkBean extends BaseModel {
             private String userSex;
             private String userJobTitle;
             private String userPicture;
-            private int userNumber;
+//            private int userNumber;
             private String userPhone;
             private String phone;
             private String userMailbox;
-            private String userPassword;
-            private String userPhoneState;
-            private String userMailboxState;
-            private String userState;
-            private String userSetTime;
-            private int rolesId;
+//            private String userPassword;
+//            private String userPhoneState;
+//            private String userMailboxState;
+//            private String userState;
+//            private String userSetTime;
+//            private int rolesId;
             private String enterpriseId;
             private String parent;
-            private boolean userIsShow;
-            private int enterpriseRolesId;
-            private String userType;
+//            private boolean userIsShow;
+//            private int enterpriseRolesId;
+//            private String userType;
             private int id;
             private boolean ischeckchild;
 
@@ -466,13 +466,13 @@ public class ProjectFromWorkBean extends BaseModel {
                 this.userPicture = userPicture;
             }
 
-            public int getUserNumber() {
-                return userNumber;
-            }
-
-            public void setUserNumber(int userNumber) {
-                this.userNumber = userNumber;
-            }
+//            public int getUserNumber() {
+//                return userNumber;
+//            }
+//
+//            public void setUserNumber(int userNumber) {
+//                this.userNumber = userNumber;
+//            }
 
             public String getUserPhone() {
                 return userPhone;
@@ -498,53 +498,53 @@ public class ProjectFromWorkBean extends BaseModel {
                 this.userMailbox = userMailbox;
             }
 
-            public String getUserPassword() {
-                return userPassword;
-            }
-
-            public void setUserPassword(String userPassword) {
-                this.userPassword = userPassword;
-            }
-
-            public String getUserPhoneState() {
-                return userPhoneState;
-            }
-
-            public void setUserPhoneState(String userPhoneState) {
-                this.userPhoneState = userPhoneState;
-            }
-
-            public String getUserMailboxState() {
-                return userMailboxState;
-            }
-
-            public void setUserMailboxState(String userMailboxState) {
-                this.userMailboxState = userMailboxState;
-            }
-
-            public String getUserState() {
-                return userState;
-            }
-
-            public void setUserState(String userState) {
-                this.userState = userState;
-            }
-
-            public String getUserSetTime() {
-                return userSetTime;
-            }
-
-            public void setUserSetTime(String userSetTime) {
-                this.userSetTime = userSetTime;
-            }
-
-            public int getRolesId() {
-                return rolesId;
-            }
-
-            public void setRolesId(int rolesId) {
-                this.rolesId = rolesId;
-            }
+//            public String getUserPassword() {
+//                return userPassword;
+//            }
+//
+//            public void setUserPassword(String userPassword) {
+//                this.userPassword = userPassword;
+//            }
+//
+//            public String getUserPhoneState() {
+//                return userPhoneState;
+//            }
+//
+//            public void setUserPhoneState(String userPhoneState) {
+//                this.userPhoneState = userPhoneState;
+//            }
+//
+//            public String getUserMailboxState() {
+//                return userMailboxState;
+//            }
+//
+//            public void setUserMailboxState(String userMailboxState) {
+//                this.userMailboxState = userMailboxState;
+//            }
+//
+//            public String getUserState() {
+//                return userState;
+//            }
+//
+//            public void setUserState(String userState) {
+//                this.userState = userState;
+//            }
+//
+//            public String getUserSetTime() {
+//                return userSetTime;
+//            }
+//
+//            public void setUserSetTime(String userSetTime) {
+//                this.userSetTime = userSetTime;
+//            }
+//
+//            public int getRolesId() {
+//                return rolesId;
+//            }
+//
+//            public void setRolesId(int rolesId) {
+//                this.rolesId = rolesId;
+//            }
 
             public String getEnterpriseId() {
                 return enterpriseId;
@@ -562,29 +562,29 @@ public class ProjectFromWorkBean extends BaseModel {
                 this.parent = parent;
             }
 
-            public boolean isUserIsShow() {
-                return userIsShow;
-            }
-
-            public void setUserIsShow(boolean userIsShow) {
-                this.userIsShow = userIsShow;
-            }
-
-            public int getEnterpriseRolesId() {
-                return enterpriseRolesId;
-            }
-
-            public void setEnterpriseRolesId(int enterpriseRolesId) {
-                this.enterpriseRolesId = enterpriseRolesId;
-            }
-
-            public String getUserType() {
-                return userType;
-            }
-
-            public void setUserType(String userType) {
-                this.userType = userType;
-            }
+//            public boolean isUserIsShow() {
+//                return userIsShow;
+//            }
+//
+//            public void setUserIsShow(boolean userIsShow) {
+//                this.userIsShow = userIsShow;
+//            }
+//
+//            public int getEnterpriseRolesId() {
+//                return enterpriseRolesId;
+//            }
+//
+//            public void setEnterpriseRolesId(int enterpriseRolesId) {
+//                this.enterpriseRolesId = enterpriseRolesId;
+//            }
+//
+//            public String getUserType() {
+//                return userType;
+//            }
+//
+//            public void setUserType(String userType) {
+//                this.userType = userType;
+//            }
 
             public int getId() {
                 return id;

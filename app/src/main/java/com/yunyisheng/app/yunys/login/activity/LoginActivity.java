@@ -230,7 +230,7 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
 //				Session.onKillProcess();
 //				ExampleApplication.exit();
                 ActivityManager.getScreenManager().popAllActivity();
-//				System.exit(0);
+				System.exit(0);
 
             }
             return true;
