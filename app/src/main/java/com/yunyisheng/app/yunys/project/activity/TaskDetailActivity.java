@@ -251,7 +251,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                 createTime.setText("");
             }
             //任务创建人
-            createUser.setText(task.getReleaseName().toString());
+            createUser.setText(task.getTaskUserName().toString());
             //任务描述
             if (task.getReleaseRemark() != null){
                 taskDesc.setText(task.getReleaseRemark().toString());
