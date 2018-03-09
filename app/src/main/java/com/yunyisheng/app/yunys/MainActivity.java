@@ -101,16 +101,6 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     private NotificationManager notificationManager;
     private int id;
 
-    private void checkToken() {
-        String token = SharedPref.getInstance(context).getString("TOKEN", "");
-        if (token.length() == 0) {
-            Log.i("TOKEN", "token is empty");
-            Router.newIntent(context)
-                    .to(LoginActivity.class)
-                    .launch();
-            this.finish();
-        }
-    }
 
     private void initTab() {
         homeFragement = new HomeFragement();
@@ -125,7 +115,6 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         EventBus.getDefault().register(this);
         ButterKnife.bind(this);
-        checkToken();
         initTab();
         //广播接受者实例
 //        receiver = new NotificationReceiver();
@@ -229,7 +218,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     public void initAfter() {
         Intent intent = new Intent(MainActivity.this, MessageService.class);
         startService(intent);
-        startService(new Intent(this, MQTTService.class));
+//        startService(new Intent(this, MQTTService.class));
     }
 
     public void changerTask() {

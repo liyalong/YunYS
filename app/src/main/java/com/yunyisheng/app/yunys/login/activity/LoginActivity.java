@@ -64,9 +64,9 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
         if (CommonUtils.isServiceRunning(this, "com.yunyisheng.app.yunys.main.service.MessageService")) {
             stopService(new Intent(mContext, MessageService.class));
         }
-        if (CommonUtils.isServiceRunning(this, "org.eclipse.paho.android.service.MqttService")) {
-            stopService(new Intent(mContext, MqttService.class));
-        }
+//        if (CommonUtils.isServiceRunning(this, "org.eclipse.paho.android.service.MqttService")) {
+//            stopService(new Intent(mContext, MqttService.class));
+//        }
     }
 
     @Override
