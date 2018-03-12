@@ -16,7 +16,6 @@
             android:id="@+id/task_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="任务名称 bbbbb"
             android:textColor="@color/color_333"
             android:textSize="@dimen/distance_14" />
 
@@ -37,7 +36,6 @@
                 android:id="@+id/addtime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="2018-01-11 00:00:00"
                 android:textColor="@color/color_666"
                 android:textSize="@dimen/distance_12" />
         </LinearLayout>
@@ -81,7 +79,6 @@
                 android:id="@+id/cron_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="张三"
                 android:textColor="@color/color_666"
                 android:textSize="@dimen/distance_12" />
         </LinearLayout>

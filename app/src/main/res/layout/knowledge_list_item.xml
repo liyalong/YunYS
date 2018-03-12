@@ -17,7 +17,6 @@
             android:id="@+id/knowledge_name"
             android:layout_width="match_parent"
             android:layout_height="@dimen/distance_30"
-            android:text="知识名称bbbbb"
             android:gravity="center|left"
             android:textColor="@color/color_333"
             android:textSize="@dimen/distance_14"
@@ -26,7 +25,6 @@
             android:id="@+id/knowledge_create_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="2018-01-11 00:00:00"
             android:textColor="@color/color_666"
             android:textSize="@dimen/distance_12"
             />

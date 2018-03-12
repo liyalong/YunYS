@@ -21,6 +21,8 @@
         <EditText
             android:id="@+id/et_account"
             style="@style/LoginInputother"
+            android:maxLength="11"
+            android:inputType="number"
             android:hint="@string/account" />
     </LinearLayout>
 

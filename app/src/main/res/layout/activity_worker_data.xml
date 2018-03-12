@@ -65,7 +65,6 @@
                 android:layout_below="@+id/img_worker_head"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/distance_3"
-                android:text="发挥的空间是"
                 android:textColor="@color/white"
                 android:textSize="@dimen/distance_14" />
 

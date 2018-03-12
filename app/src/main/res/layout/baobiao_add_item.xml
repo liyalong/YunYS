@@ -6,7 +6,6 @@
         android:id="@+id/te_baobiao_name"
         android:layout_width="@dimen/distance_104"
         android:layout_height="@dimen/distance_32"
-        android:text="自定义报表"
         android:textColor="@color/color_b5"
         android:gravity="center"
         android:background="@drawable/btn_baobiao_add"/>

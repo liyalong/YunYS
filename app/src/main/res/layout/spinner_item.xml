@@ -10,5 +10,4 @@
     android:textSize="@dimen/distance_14"
     android:padding="@dimen/distance_10"
     android:singleLine="true"
-    android:text="New Text"
     android:id="@+id/spinner_item" />
