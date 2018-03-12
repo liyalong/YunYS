@@ -94,6 +94,7 @@ public class AlarmListFragment extends BaseFragement<AlarmListPresent> {
     public void widgetClick(View v) {
         switch (v.getId()){
             case R.id.no_data_img_alarm:
+                PAGE_NUM = 1;
                 getP().getProjectAlarmLists(projectId, PAGE_NUM, PAGE_SIZE);
                 break;
         }
@@ -118,8 +119,8 @@ public class AlarmListFragment extends BaseFragement<AlarmListPresent> {
         } else {
             if (PAGE_NUM == 1) {
                 setNodata();
-                ToastUtils.showToast("暂无数据！");
             } else {
+                PAGE_NUM -= 1;
                 ToastUtils.showToast("暂无更多数据！");
             }
         }

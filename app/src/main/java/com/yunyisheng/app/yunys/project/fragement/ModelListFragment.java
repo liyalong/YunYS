@@ -110,6 +110,7 @@ public class ModelListFragment extends BaseFragement<ModelListPresent> {
     public void widgetClick(View v) {
         switch (v.getId()){
             case R.id.no_data_img_model:
+                PAGE_NUM = 1;
                 getP().getModelList(projectId, PAGE_NUM, PAGE_SIZE);
                 break;
         }
@@ -134,8 +135,8 @@ public class ModelListFragment extends BaseFragement<ModelListPresent> {
         } else {
             if (PAGE_NUM == 1) {
                 setNoData();
-                ToastUtils.showToast("暂无数据！");
             } else {
+                PAGE_NUM -= 1;
                 ToastUtils.showToast("暂无更多数据！");
             }
         }

@@ -117,12 +117,17 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
 
     @Override
     public void setListener() {
-
+        noDataImgDevicd.setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
-
+        switch (v.getId()){
+            case R.id.no_data_img_devicd:
+                PAGE_NUM = 1;
+                getP().getProjectDeviceList(projectId, PAGE_NUM, PAGE_SIZE, "");
+                break;
+        }
     }
 
     public DeviceListFragment newInstance(String projectId) {
@@ -145,7 +150,6 @@ public class DeviceListFragment extends BaseFragement<DeviceListPresent> impleme
         } else {
             if (PAGE_NUM == 1) {
                 setNodata();
-                ToastUtils.showToast("暂无数据！");
             } else {
                 PAGE_NUM -= 1;
                 ToastUtils.showToast("暂无更多数据");
