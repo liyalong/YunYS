@@ -67,6 +67,7 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
     private String selectDeviceName;
     private String selectUserId;
     private String selectUserName;
+    private String selectAssignUserId;
 
     private UpdateTemporaryTaskBean taskForm;
 
@@ -216,6 +217,8 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
                     selectProject.setText(selectProjectName.toString());
                     selectDeviceId = null;
                     selectProjectDevice.setText("*选择设备");
+                    selectUserId = null;
+                    selectAssignUsers.setText("请选择分配人员！");
                 }
                 break;
             case DEVICEEQUESTCODE:
@@ -234,7 +237,7 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
             case PROJECTUSERREQUESTCODE:
                 if (resultCode == 1){
 
-                    selectUserId = data.getStringExtra("selectUserId");
+                    selectAssignUserId = data.getStringExtra("selectUserId");
                     selectUserName = data.getStringExtra("selectUserName");
                     selectAssignUsers.setText(selectUserName);
                 }
@@ -276,10 +279,10 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
         }
         taskForm.setReleaseRemark(releaseRemark);
 
-        if (selectUserId != null){
+        if (selectAssignUserId != null){
             List<Map<String,String>> listStr = new ArrayList<>();
             Map<String,String> user = new HashMap<>();
-            user.put("userId", selectUserId);
+            user.put("userId", selectAssignUserId);
             listStr.add(user);
             taskForm.setListStr(JSON.toJSONString(listStr));
             if (releaseTaskId != null){
