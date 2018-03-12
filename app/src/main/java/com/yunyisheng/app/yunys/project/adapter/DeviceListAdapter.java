@@ -60,7 +60,7 @@ public class DeviceListAdapter extends SimpleListAdapter<DeviceBean, DeviceListA
             holder.deviceStatus.setText(context.getResources().getString(R.string.device_status_error));
         }else if (deviceBean.getEquipmentStat() == 3){
             holder.deviceStatus.setBackgroundColor(context.getResources().getColor(R.color.black_overlay));
-            holder.deviceStatus.setText(context.getResources().getString(R.string.device_status_1));
+            holder.deviceStatus.setText(context.getResources().getString(R.string.device_status_2));
         }
         if (deviceBean.getIsWarning() != null && deviceBean.getIsWarning() == 1){
             holder.deviceWarningStatus.setVisibility(View.VISIBLE);
