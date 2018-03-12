@@ -15,6 +15,7 @@ import com.yunyisheng.app.yunys.tasks.model.ChildBean;
 import com.yunyisheng.app.yunys.tasks.model.GroupBean;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.MyListView;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +85,21 @@ public class ProjectTemplateActivity extends BaseActivity {
                 break;
             case R.id.submit:
                 List<GroupBean> groupBeanList = adapter.getStrList();
+                for (int i=0;i<groupBeanList.size();i++){
+                    GroupBean groupBean = groupBeanList.get(i);
+                    String s = groupBean.getfeedbackName();
+                    if (s==null||s.equals("")){
+                        ToastUtils.showToast("您还有未填写的项");
+                        return;
+                    }else {
+                        ChildBean childBean = groupBean.getModel().get(0);
+                        String dynamicTypeName = childBean.getDynamicTypeName();
+                        if (dynamicTypeName==null||dynamicTypeName.equals("")){
+                            ToastUtils.showToast("您还有未填写的项");
+                            return;
+                        }
+                    }
+                }
                 String string = JSON.toJSONString(groupBeanList);
                 LogUtils.i("str", string);
                 Intent intent = getIntent();

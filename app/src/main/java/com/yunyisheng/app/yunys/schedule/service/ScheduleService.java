@@ -1,6 +1,7 @@
 package com.yunyisheng.app.yunys.schedule.service;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
+import com.yunyisheng.app.yunys.project.bean.UploadDynamicFormImageBean;
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 import com.yunyisheng.app.yunys.schedule.model.RenWuFanKuiDetailBean;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
@@ -89,6 +90,16 @@ public interface ScheduleService {
     Flowable<SeeScheduleDetailBean> getOtherFormScheduleDetail(@Field("userId") int userId,
                                                                @Field("taskId") String taskId,
                                                                @Field("type") int type);
+
+    /**
+     * @author fuduo
+     * @time 2018/1/21  10:38
+     * @describe 上传表单图片
+     */
+    @POST()
+    Call<UploadDynamicFormImageBean> uploadImage(@Header("token") String token,
+                                                @Url() String url,
+                                                @Body RequestBody Body);
 
     /**
      * @author fuduo
