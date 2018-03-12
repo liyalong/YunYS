@@ -41,6 +41,7 @@ public class RadioSelectUserPresent extends XPresent<RadioSelectUserActivity> {
         });
     }
     public void getProjectUserList(String projectId){
+        LoadingDialog.show(getV().mContext);
         Api.taskService().getProjectUserList(projectId,"1")
                 .compose(XApi.<ProjectUserListModel>getApiTransformer())
                 .compose(XApi.<ProjectUserListModel>getScheduler())
@@ -48,11 +49,13 @@ public class RadioSelectUserPresent extends XPresent<RadioSelectUserActivity> {
                 .subscribe(new ApiSubscriber<ProjectUserListModel>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV().mContext);
                         ToastUtils.showToast("网络请求错误！");
                     }
 
                     @Override
                     public void onNext(ProjectUserListModel projectUserListModel) {
+                        LoadingDialog.dismiss(getV().mContext);
                         if (projectUserListModel.getRespCode() == 1){
                             ToastUtils.showToast(projectUserListModel.getRespMsg());
                             return;

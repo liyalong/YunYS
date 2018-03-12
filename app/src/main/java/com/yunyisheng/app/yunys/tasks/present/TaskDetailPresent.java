@@ -5,6 +5,7 @@ import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.activity.TaskDetailActivity;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
 import com.yunyisheng.app.yunys.tasks.model.TaskDetailModel;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import cn.droidlover.xdroidmvp.mvp.XPresent;
@@ -31,6 +32,7 @@ public class TaskDetailPresent extends XPresent<TaskDetailActivity> {
      * @param taskId
      */
     public void getMyTaskDetail(String projectId,String taskId){
+        LoadingDialog.show(getV().mContext);
         Api.taskService().getTaskDetail(projectId,taskId)
                 .compose(XApi.<TaskDetailModel>getApiTransformer())
                 .compose(XApi.<TaskDetailModel>getScheduler())
@@ -38,11 +40,13 @@ public class TaskDetailPresent extends XPresent<TaskDetailActivity> {
                 .subscribe(new ApiSubscriber<TaskDetailModel>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV().mContext);
                         ToastUtils.showToast("网络请求错误！");
                     }
 
                     @Override
                     public void onNext(TaskDetailModel taskDetailModel) {
+                        LoadingDialog.dismiss(getV().mContext);
                         if (taskDetailModel.getRespCode() == 1){
                             ToastUtils.showToast(taskDetailModel.getRespMsg());
                             getV().goFinish();
@@ -62,6 +66,7 @@ public class TaskDetailPresent extends XPresent<TaskDetailActivity> {
      * @param userId
      */
     public void getTaskDetailByUserId(String taskId,String taskType,int userId){
+        LoadingDialog.show(getV().mContext);
         Api.taskService().getTaskDetailByUser(userId,taskId,taskType)
                 .compose(XApi.<ScheduleDetailBean>getApiTransformer())
                 .compose(XApi.<ScheduleDetailBean>getScheduler())
@@ -69,11 +74,13 @@ public class TaskDetailPresent extends XPresent<TaskDetailActivity> {
                 .subscribe(new ApiSubscriber<ScheduleDetailBean>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV().mContext);
                         ToastUtils.showToast("网络请求错误！");
                     }
 
                     @Override
                     public void onNext(ScheduleDetailBean taskDetailModel) {
+                        LoadingDialog.dismiss(getV().mContext);
                         if (taskDetailModel.getRespCode() == 1){
                             ToastUtils.showToast(taskDetailModel.getRespMsg());
                             getV().goFinish();
