@@ -1,9 +1,6 @@
 package com.yunyisheng.app.yunys.project.fragement;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -25,7 +22,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by liyalong on 2018/1/10.
@@ -130,6 +126,8 @@ public class CompanyProjectFragment extends BaseFragement<CompanyProjectPresent>
 //                companyProjectList.setAdapter(adapter);
                 adapter.setData(projectBeanList);
             }
+            companyProjectList.setVisibility(View.VISIBLE);
+            noCompanyData.setVisibility(View.GONE);
         } else {
             if (PAGE_NUM == 1) {
                 setNoData();
