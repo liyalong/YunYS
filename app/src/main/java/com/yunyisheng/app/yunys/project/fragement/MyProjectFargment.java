@@ -1,9 +1,6 @@
 package com.yunyisheng.app.yunys.project.fragement;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -133,6 +130,8 @@ public class MyProjectFargment extends BaseFragement<MyProjectPresent> {
                 mList.addAll(projectListModel.getRespBody());
                 mAdapter.setData(mList);
             }
+            myProjectList.setVisibility(View.VISIBLE);
+            noData.setVisibility(View.GONE);
         } else {
             if (PAGE_NUM == 1){
                 setNoData();

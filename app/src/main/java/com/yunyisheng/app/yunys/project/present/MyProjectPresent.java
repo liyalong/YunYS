@@ -36,7 +36,9 @@ public class MyProjectPresent extends XPresent<MyProjectFargment> {
                         ToastUtils.showToast("网络请求错误！");
                         LoadingDialog.dismiss(getV().getContext());
                         getV().initRefresh();
-                        getV().setNoNetWork();
+                        if (error.getType()==5) {
+                            getV().setNoNetWork();
+                        }
                         return;
                     }
 
