@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys.schedule.present;
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.activity.DynamicFormActivity;
+import com.yunyisheng.app.yunys.project.bean.UploadDynamicFormImageBean;
 import com.yunyisheng.app.yunys.project.model.TaskMessageEvent;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
 import com.yunyisheng.app.yunys.schedule.model.SeeScheduleDetailBean;
@@ -191,6 +192,41 @@ public class ScheduleDetailPresent extends XPresent<DynamicFormActivity> {
                             EventBus.getDefault().post(new TaskMessageEvent("updateOK"));
                             ToastUtils.showToast("提交成功");
                             getV().finish();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+    }
+
+    /**
+     * 获取图片
+     */
+    public void getFormImage(String fileurl){
+        LoadingDialog.show(getV());
+        Api.scheduleService().getFormImage(fileurl)
+                .compose(XApi.<UploadDynamicFormImageBean>getApiTransformer())
+                .compose(XApi.<UploadDynamicFormImageBean>getScheduler())
+                .compose(getV().<UploadDynamicFormImageBean>bindToLifecycle())
+                .subscribe(new ApiSubscriber<UploadDynamicFormImageBean>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
+                        XLog.d("NET ERROR :"+error.toString());
+                        ToastUtils.showToast("网络请求错误！");
+                        return;
+                    }
+
+                    @Override
+                    public void onNext(UploadDynamicFormImageBean uploadDynamicFormImageBean) {
+                        LoadingDialog.dismiss(getV());
+                        try {
+                            if (uploadDynamicFormImageBean.getRespCode() == 1){
+                                ToastUtils.showToast(uploadDynamicFormImageBean.getRespMsg());
+                                return;
+                            }
+                            getV().setFormImage(uploadDynamicFormImageBean.getRespBody());
                         }catch (Exception e){
                             e.printStackTrace();
                         }

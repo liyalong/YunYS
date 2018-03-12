@@ -100,6 +100,15 @@ public interface ScheduleService {
     Call<UploadDynamicFormImageBean> uploadImage(@Header("token") String token,
                                                 @Url() String url,
                                                 @Body RequestBody Body);
+    /**
+     * @author fuduo
+     * @time 2018/1/31  18:18
+     * @describe 下载展示表单图片
+     */
+    @FormUrlEncoded
+    @POST("formFile/download")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    Flowable<UploadDynamicFormImageBean> getFormImage(@Field("fileUrl") String fileUrl);
 
     /**
      * @author fuduo

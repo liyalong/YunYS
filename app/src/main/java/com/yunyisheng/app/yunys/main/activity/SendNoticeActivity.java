@@ -33,6 +33,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +41,7 @@ import cn.droidlover.xdroidbase.cache.SharedPref;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -146,7 +148,12 @@ public class SendNoticeActivity extends BaseActivity {
 
     private void sendNotice() {
         LoadingDialog.show(SendNoticeActivity.this);
+        OkHttpClient client = new OkHttpClient.Builder().
+                connectTimeout(60, TimeUnit.SECONDS).
+                readTimeout(60, TimeUnit.SECONDS).
+                writeTimeout(60, TimeUnit.SECONDS).build();
         Retrofit retrofit = new Retrofit.Builder()
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(Api.BASE_PATH)
                 .build();

@@ -4,11 +4,13 @@ import android.content.Intent;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.net.Api;
+import com.yunyisheng.app.yunys.project.bean.UploadDynamicFormImageBean;
 import com.yunyisheng.app.yunys.project.model.ProcessTaskFormDetailBean;
 import com.yunyisheng.app.yunys.tasks.activity.ProcessTaskFormActivity;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
+import cn.droidlover.xdroidmvp.log.XLog;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 import cn.droidlover.xdroidmvp.net.ApiSubscriber;
 import cn.droidlover.xdroidmvp.net.NetError;
@@ -170,6 +172,41 @@ public class ProcessTaskPresent extends XPresent<ProcessTaskFormActivity> {
                         getV().finish();
                     }
                 });
+    }
+
+    /**
+     * 获取图片
+     */
+    public void getFormImage(String fileurl){
+        LoadingDialog.show(getV());
+        Api.scheduleService().getFormImage(fileurl)
+                .compose(XApi.<UploadDynamicFormImageBean>getApiTransformer())
+                .compose(XApi.<UploadDynamicFormImageBean>getScheduler())
+                .compose(getV().<UploadDynamicFormImageBean>bindToLifecycle())
+                .subscribe(new ApiSubscriber<UploadDynamicFormImageBean>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
+                        XLog.d("NET ERROR :"+error.toString());
+                        ToastUtils.showToast("网络请求错误！");
+                        return;
+                    }
+
+                    @Override
+                    public void onNext(UploadDynamicFormImageBean uploadDynamicFormImageBean) {
+                        LoadingDialog.dismiss(getV());
+                        try {
+                            if (uploadDynamicFormImageBean.getRespCode() == 1){
+                                ToastUtils.showToast(uploadDynamicFormImageBean.getRespMsg());
+                                return;
+                            }
+                            getV().setFormImage(uploadDynamicFormImageBean.getRespBody());
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
     }
 
 }

@@ -87,16 +87,19 @@ public class ProjectTemplateActivity extends BaseActivity {
                 List<GroupBean> groupBeanList = adapter.getStrList();
                 for (int i=0;i<groupBeanList.size();i++){
                     GroupBean groupBean = groupBeanList.get(i);
+                    int type = groupBean.getfeedbackType();
                     String s = groupBean.getfeedbackName();
                     if (s==null||s.equals("")){
                         ToastUtils.showToast("您还有未填写的项");
                         return;
                     }else {
-                        ChildBean childBean = groupBean.getModel().get(0);
-                        String dynamicTypeName = childBean.getDynamicTypeName();
-                        if (dynamicTypeName==null||dynamicTypeName.equals("")){
-                            ToastUtils.showToast("您还有未填写的项");
-                            return;
+                        if (type!=4) {
+                            ChildBean childBean = groupBean.getModel().get(0);
+                            String dynamicTypeName = childBean.getDynamicTypeName();
+                            if (dynamicTypeName == null || dynamicTypeName.equals("")) {
+                                ToastUtils.showToast("您还有未填写的项");
+                                return;
+                            }
                         }
                     }
                 }

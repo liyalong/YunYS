@@ -2,8 +2,13 @@ package com.yunyisheng.app.yunys.project.activity;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,20 +22,38 @@ import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
+import com.yunyisheng.app.yunys.net.Api;
+import com.yunyisheng.app.yunys.project.bean.UploadDynamicFormImageBean;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
 import com.yunyisheng.app.yunys.schedule.model.SeeScheduleDetailBean;
 import com.yunyisheng.app.yunys.schedule.present.ScheduleDetailPresent;
+import com.yunyisheng.app.yunys.schedule.service.ScheduleService;
+import com.yunyisheng.app.yunys.utils.DialogManager;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+import com.yunyisheng.app.yunys.utils.Util;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.droidlover.xdroidbase.cache.SharedPref;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.yunyisheng.app.yunys.utils.CommonUtils.stringtoBitmap;
 
 public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
 
@@ -51,6 +74,10 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
     private int taskId;
     private String releaseFormId;
     private int seetype;
+    private ImageView image;
+    private int uploadimageid;
+    private String uploadimageuuid;
+    private ImageView imageView;
 
     @Override
     public void initView() {
@@ -153,6 +180,8 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                     LinearLayout.LayoutParams.WRAP_CONTENT);
             LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                     1);
+            LinearLayout.LayoutParams bigimgview = new LinearLayout.LayoutParams(500,
+                    600);
             lpview.setMargins(0, 10, 0, 0);
             if (leipiplugins.equals("text") || leipiplugins.equals("textarea")) {
                 TextView namevalue = new TextView(this);
@@ -244,13 +273,26 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
                 lineAll.addView(view);
+            }else if (leipiplugins.equals("formImage")) {
+                imageView = new ImageView(this);
+                imageView.setLayoutParams(bigimgview);
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                getP().getFormImage(value);
+                lineAll.addView(imageView);
             }
+        }
+    }
+
+    public void setFormImage(String respBody) {
+        if (respBody!=null&&!respBody.equals("")){
+            Bitmap bitmap = stringtoBitmap(respBody);
+            imageView.setImageBitmap(bitmap);
         }
     }
 
     private void initUi() {
         for (int i = 0; i < alldataBeanList.size(); i++) {
-            ScheduleDetailBean.RespBodyBean.FormBean.DataBean dataBean = alldataBeanList.get(i);
+            final ScheduleDetailBean.RespBodyBean.FormBean.DataBean dataBean = alldataBeanList.get(i);
             String leipiplugins = dataBean.getLeipiplugins();
             int id = dataBean.getId();
             TextView name = new TextView(this);
@@ -259,6 +301,8 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
             name.setTextColor(getResources().getColor(R.color.color_333));
             name.setTextSize(15);
             lineAll.addView(name);
+            LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(200,
+                    200);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
             LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
@@ -341,6 +385,22 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
                 lineAll.addView(view);
+            }else if (leipiplugins.equals("formImage")) {
+                final ImageView imageView = new ImageView(this);
+                imageView.setLayoutParams(imgview);
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                imageView.setBackgroundResource(R.mipmap.put_img);
+
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        image=imageView;
+                        uploadimageid = dataBean.getId();
+                        uploadimageuuid = dataBean.getUuid();
+                        DialogManager.createPickImageDialog(DynamicFormActivity.this);
+                    }
+                });
+                lineAll.addView(imageView);
             }
         }
         if (seetype == 1) {
@@ -424,4 +484,79 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
             }
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent intent) {
+        try {
+            if (requestCode == 1 && resultCode == RESULT_OK) {
+                Uri contentUri;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    contentUri = FileProvider.getUriForFile(DynamicFormActivity.this, "com.yunyisheng.app.yunys.fileprovider", DialogManager.tempFile);
+                }else {
+                    contentUri=Uri.fromFile(DialogManager.tempFile);
+                }
+                putPic(DialogManager.tempFile,contentUri);
+            } else if (requestCode == 2) {// 相册
+                if (intent != null) {
+                    Log.i("xiaoqiang", "smdongxi==" + intent.getData());
+                    Uri uri = intent.getData();
+                    String realPathFromURI = Util.getFileAbsolutePath(this, uri);
+                    File file = new File(realPathFromURI);
+                    putPic(file,uri);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        super.onActivityResult(requestCode, resultCode, intent);
+    }
+
+    /**
+     * @author fuduo
+     * @time 2018/2/1  18:22
+     * @describe 上传图片
+     */
+    private void putPic(File file, final Uri uri) {
+        LoadingDialog.show(DynamicFormActivity.this);
+        Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(Api.BASE_PATH)
+                .build();
+        ScheduleService service = retrofit.create(ScheduleService.class);
+        String token = SharedPref.getInstance(DynamicFormActivity.this).getString("TOKEN", null);
+
+        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("id", uploadimageid+"")
+                .addFormDataPart("uuid", uploadimageuuid)
+                .addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("file"), file))
+                .build();
+
+        //如果和rxjava1.x , call就换成 Observable
+        Call<UploadDynamicFormImageBean> call = service.uploadImage(token, "formFile/upload", requestBody);
+        // 执行
+        call.enqueue(new Callback<UploadDynamicFormImageBean>() {
+            @Override
+            public void onResponse(Call<UploadDynamicFormImageBean> call, Response<UploadDynamicFormImageBean> response) {
+                String msg = response.body().getRespMsg();
+                int code = response.body().getRespCode();
+                if (code == 0) {
+                    ToastUtils.showToast("上传成功!");
+                    String respBody = response.body().getRespBody();
+                    image.setImageURI(uri);
+                } else {
+                    ToastUtils.showToast("上传失败!");
+                }
+                LogUtils.i("fjdlkf", msg + code);
+                LoadingDialog.dismiss(DynamicFormActivity.this);
+            }
+
+            @Override
+            public void onFailure(Call<UploadDynamicFormImageBean> call, Throwable t) {
+                ToastUtils.showToast("请检查网络设置");
+                LoadingDialog.dismiss(DynamicFormActivity.this);
+            }
+        });
+    }
+    
 }
