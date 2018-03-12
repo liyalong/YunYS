@@ -244,9 +244,9 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
             this.task = task;
             initTaskBtn(task,fromPage);
             //任务名称
-            taskName.setText(task.getReleaseName().toString());
+            taskName.setText(task.getReleaseName());
             if (task.getTaskCreatet() != null){
-                createTime.setText(task.getTaskCreatet().toString());
+                createTime.setText(task.getTaskCreatet());
             }else {
                 createTime.setText("");
             }
@@ -259,15 +259,15 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
 
             //任务描述
             if (task.getReleaseRemark() != null){
-                taskDesc.setText(task.getReleaseRemark().toString());
+                taskDesc.setText(task.getReleaseRemark());
             }else {
                 taskDesc.setText("");
             }
 
             //任务开始时间
-            beginTime.setText(task.getReleaseBegint().toString());
+            beginTime.setText(task.getReleaseBegint());
             //任务结束时间
-            endTime.setText(task.getReleaseEndt().toString());
+            endTime.setText(task.getReleaseEndt());
 
 
 
@@ -279,8 +279,8 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
             }
             //项目设备 显示对应的项目和设备名称
             if (task.getReleaseTaskType() == 1) {
-                projectName.setText(task.getProjectName().toString());
-                deviceName.setText(task.getEquipmentName().toString());
+                projectName.setText(task.getProjectName());
+                deviceName.setText(task.getEquipmentName());
                 deviceTaskBox.setVisibility(View.VISIBLE);
             } else {
                 deviceTaskBox.setVisibility(View.GONE);
@@ -326,7 +326,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                     claimTask.setVisibility(View.VISIBLE);
                 }else if (task.getTaskStat() == 1){
                     taskStatus.setText(R.string.task_status_2);
-                    doUser.setText(task.getTaskUserName().toString());
+                    doUser.setText(task.getTaskUserName());
                     doTask.setVisibility(View.VISIBLE);
                     backTask.setVisibility(View.VISIBLE);
                 }else if (task.getTaskStat() == 3){
@@ -334,7 +334,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                 }else if (task.getTaskStat() == 2){
                     taskStatus.setText(R.string.task_status_3);
                     doUserLayout.setVisibility(View.VISIBLE);
-                    doUser.setText(task.getTaskUserName().toString());
+                    doUser.setText(task.getTaskUserName());
                     caozuoBox.setVisibility(View.VISIBLE);
                     lookTaskBackInfo.setVisibility(View.VISIBLE);
                 }
@@ -350,11 +350,11 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                     taskStatus.setText(R.string.task_status_2);
                     caozuoBox.setVisibility(View.GONE);
                     doUserLayout.setVisibility(View.VISIBLE);
-                    doUser.setText(task.getTaskUserName().toString());
+                    doUser.setText(task.getTaskUserName());
                 }else if (task.getTaskStat() == 2){
                     taskStatus.setText(R.string.task_status_3);
                     doUserLayout.setVisibility(View.VISIBLE);
-                    doUser.setText(task.getTaskUserName().toString());
+                    doUser.setText(task.getTaskUserName());
                     caozuoBox.setVisibility(View.VISIBLE);
                     lookTaskBackInfo.setVisibility(View.VISIBLE);
                 }else if (task.getTaskStat() == 3){
@@ -375,7 +375,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                     claimTask.setVisibility(View.VISIBLE);
                 }else if (task.getTaskStat() == 1){
                     taskStatus.setText(R.string.task_status_2);
-                    doUser.setText(task.getTaskUserName().toString());
+                    doUser.setText(task.getTaskUserName());
                     doTask.setVisibility(View.VISIBLE);
                     backTask.setVisibility(View.VISIBLE);
                 }else if (task.getTaskStat() == 3){
@@ -383,7 +383,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                 }else if (task.getTaskStat() == 2){
                     taskStatus.setText(R.string.task_status_3);
                     doUserLayout.setVisibility(View.VISIBLE);
-                    doUser.setText(task.getTaskUserName().toString());
+                    doUser.setText(task.getTaskUserName());
                     caozuoBox.setVisibility(View.VISIBLE);
                     lookTaskBackInfo.setVisibility(View.VISIBLE);
                 }
