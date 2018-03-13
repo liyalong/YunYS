@@ -45,7 +45,7 @@ public class MySchedulePresent extends XPresent<OurProjeceScheduleFragement> {
                     @Override
                     protected void onFail(NetError error) {
                         LoadingDialog.dismiss(getV().getContext());
-                        if (error.getType()==5){
+                        if (error.getType() == 5) {
                             getV().setimgBac();
                         }
                         ToastUtils.showToast("获取数据失败");
@@ -58,9 +58,9 @@ public class MySchedulePresent extends XPresent<OurProjeceScheduleFragement> {
      * @time 2018/1/29  19:21
      * @describe 获取未完成任务的日期
      */
-    public void getNoScheduleList(String startTime, String endTim,int type) {
+    public void getNoScheduleList(String startTime, String endTim, int type) {
         LoadingDialog.show(getV().getContext());
-        Api.scheduleService().getNoschedulelist(startTime, endTim,type)
+        Api.scheduleService().getNoschedulelist(startTime, endTim, type)
                 .compose(XApi.<ScheduleNoSizeBean>getApiTransformer()) //统一异常处理
                 .compose(XApi.<ScheduleNoSizeBean>getScheduler()) //线程调度
                 .compose(getV().<ScheduleNoSizeBean>bindToLifecycle()) //内存泄漏处理
@@ -82,35 +82,4 @@ public class MySchedulePresent extends XPresent<OurProjeceScheduleFragement> {
                     }
                 });
     }
-
-    /**
-     * @author fuduo
-     * @time 2018/1/29  19:21
-     * @describe 14.1    获取指定日期的当前登录员工的项目日程列表
-     */
-    public void getMyProjectSchedulrList(int pageNum,String projectid, String startTime, String endTim) {
-        Api.scheduleService().getProjectschedulelist(pageNum, 100,projectid, startTime, endTim)
-                .compose(XApi.<MyScheduleBean>getApiTransformer()) //统一异常处理
-                .compose(XApi.<MyScheduleBean>getScheduler()) //线程调度
-                .compose(getV().<MyScheduleBean>bindToLifecycle()) //内存泄漏处理
-                .subscribe(new ApiSubscriber<MyScheduleBean>() {
-                    @Override
-                    public void onNext(MyScheduleBean myScheduleBean) {
-                        if (myScheduleBean.getRespCode() == 0) {
-                            getV().getProjectResultList(myScheduleBean);
-                        } else {
-                            ToastUtils.showToast(myScheduleBean.getRespMsg());
-                        }
-                    }
-
-                    @Override
-                    protected void onFail(NetError error) {
-                        if (error.getType()==5){
-                            getV().setProjimgBac();
-                        }
-                        ToastUtils.showToast("获取数据失败");
-                    }
-                });
-    }
-
 }

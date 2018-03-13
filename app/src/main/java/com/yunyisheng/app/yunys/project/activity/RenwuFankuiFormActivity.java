@@ -330,7 +330,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                         lineAll.addView(name);
                         final ImageView imageView = new ImageView(this);
                         imageView.setLayoutParams(imgview);
-                        imageView.setScaleType(ImageView.ScaleType.FIT_START);
+                        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         imageView.setBackgroundResource(R.mipmap.put_img);
 
                             imageView.setOnClickListener(new View.OnClickListener() {
@@ -520,13 +520,8 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 int code = response.body().getRespCode();
                 if (code == 0) {
                     ToastUtils.showToast("上传成功!");
-                    LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(0,
-                            0);
                     image.setBackground(null);
-                    image.setLayoutParams(imgview);
                     image.setImageURI(uri);
-                    image.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                    image.setLayoutParams(bigimgview);
                 } else {
                     ToastUtils.showToast("上传失败!");
                 }

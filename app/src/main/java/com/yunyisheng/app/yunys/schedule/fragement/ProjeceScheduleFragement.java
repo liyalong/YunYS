@@ -33,8 +33,9 @@ import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.schedule.adapter.TaskAdapter;
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
+import com.yunyisheng.app.yunys.schedule.model.PositionMessageEvent;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleNoSizeBean;
-import com.yunyisheng.app.yunys.schedule.present.MySchedulePresent;
+import com.yunyisheng.app.yunys.schedule.present.ProjectSchedulePresent;
 import com.yunyisheng.app.yunys.schedule.view.CustomDayView;
 import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.CreateNoneDeviceTaskAcitvity;
@@ -42,6 +43,10 @@ import com.yunyisheng.app.yunys.tasks.activity.CreateProcessTaskAcitvity;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -65,9 +70,9 @@ import static com.yunyisheng.app.yunys.utils.CommonUtils.getOtherStarttime;
 /**
  * 作者：fuduo on 2018/1/13 15:56
  * 邮箱：duoendeavor@163.com
- * 用途：我的日程和项目日程fragement
+ * 用途：项目日程fragement
  */
-public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent> {
+public class ProjeceScheduleFragement extends BaseFragement<ProjectSchedulePresent> {
 
     Unbinder unbinder;
     @BindView(R.id.calendar_view)
@@ -91,17 +96,18 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
     private int mCurrentPage = MonthPager.CURRENT_DAY_INDEX;
     private CalendarDate currentDate;
     private WindowsReceiver mWindowsReceiver = new WindowsReceiver();
-    private List<MyScheduleBean.RespBodyBean.DataListBean> list = new ArrayList<>();
-    private TaskAdapter mineadapter;
+    private List<MyScheduleBean.RespBodyBean.DataListBean> projectschedulelist = new ArrayList<>();
+    private TaskAdapter projectadapter;
     private int pageindex = 1;
     private String dayStartTime;
     private String dayEndTime;
+    private String projectid;
     private boolean nomore;
     private boolean isfirst = true;
-    private boolean isfistopen=true;
     private String firstMonthDay;
     private String lastMonthDay;
     private HashMap<String, String> markData;
+
 
     @Override
     public void initView() {
@@ -112,7 +118,6 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         Log.e("ldf", "OnCreated");
         IntentFilter intent2 = new IntentFilter("WindowFoucuschanged");
         mContext.registerReceiver(mWindowsReceiver, intent2);
-
         rvToDoList.setHasFixedSize(true);
         //这里用线性显示 类似于listview
         rvToDoList.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -135,59 +140,66 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         firstMonthDay = CommonUtils.getFirstMonthDay(time);
         lastMonthDay = CommonUtils.getTodayLastMonth();
         LogUtils.i("MonthDay", firstMonthDay + "====" + lastMonthDay);
-        getP().getNoScheduleList(firstMonthDay, lastMonthDay, 1);
-        getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
     }
 
-    public void getResultList(MyScheduleBean myScheduleBean) {
+    //订阅方法，当接收到事件的时候，会调用该方法
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(PositionMessageEvent messageEvent) {
+        Log.d("cylog", "receive it");
+        projectid = messageEvent.getPosition();
+        if (projectid != null && !projectid.equals("")) {
+            projectschedulelist.clear();
+            pageindex = 1;
+            getP().getMyProjectSchedulrList(pageindex, projectid, dayStartTime, dayEndTime);
+            if (!isfirst){
+                isfirst=true;
+                getNodateSchedule();
+            }
+        }
+    }
+
+    public void getNodateSchedule(){
+        if (projectid != null && !projectid.equals("")) {
+            getP().getProjectscheduleDatelist(firstMonthDay, lastMonthDay, projectid);
+        }
+    }
+
+    public void getProjectResultList(MyScheduleBean myScheduleBean) {
         if (pageindex == 1) {
-            list.clear();
+            projectschedulelist.clear();
         }
         if (myScheduleBean.getRespBody().getDataList() != null && myScheduleBean.getRespBody().getDataList().size() > 0) {
             rvToDoList.setVisibility(View.VISIBLE);
-            imgQuesheng.setVisibility(View.GONE);
             imgQuesheng2.setVisibility(View.GONE);
-            list.addAll(myScheduleBean.getRespBody().getDataList());
+            projectschedulelist.addAll(myScheduleBean.getRespBody().getDataList());
             if (pageindex == 1) {
-                mineadapter = new TaskAdapter(mContext, list);
-                rvToDoList.setAdapter(mineadapter);
+                projectadapter = new TaskAdapter(mContext, projectschedulelist);
+                rvToDoList.setAdapter(projectadapter);
             } else {
-                mineadapter.setData(list);
+                projectadapter.setData(projectschedulelist);
             }
-            String[] str = null;
-            String creationTime = myScheduleBean.getRespBody().getDataList().get(0).getCreationTime();
-            str = creationTime.split(" ");
-            LogUtils.i("sfdfdfdf", str[0]);
-            mineadapter.setType(4);
+            projectadapter.setType(5);
+            rvToDoList.setVisibility(View.VISIBLE);
+            imgQuesheng2.setVisibility(View.GONE);
         } else {
             if (pageindex == 1) {
                 rvToDoList.setVisibility(View.GONE);
-                if (isfirst) {
-                    imgQuesheng2.setVisibility(View.GONE);
-                    imgQuesheng.setVisibility(View.VISIBLE);
-                    imgQuesheng.setBackgroundResource(R.mipmap.no_index_task);
-                } else {
-                    imgQuesheng.setVisibility(View.GONE);
-                    imgQuesheng2.setVisibility(View.VISIBLE);
-                    imgQuesheng2.setBackgroundResource(R.mipmap.no_task);
-                }
-                ToastUtils.showToast("当前日期暂无日程");
+                imgQuesheng2.setVisibility(View.VISIBLE);
+                imgQuesheng2.setBackgroundResource(R.mipmap.no_task);
             } else {
                 ToastUtils.showToast("没有更多了");
                 nomore = true;
             }
         }
-        isfirst = false;
     }
 
-    public void setimgBac() {
+    public void setProjimgBac() {
         rvToDoList.setVisibility(View.GONE);
-        imgQuesheng2.setVisibility(View.GONE);
-        imgQuesheng.setVisibility(View.VISIBLE);
-        imgQuesheng.setBackgroundResource(R.mipmap.no_network);
+        imgQuesheng2.setVisibility(View.VISIBLE);
+        imgQuesheng2.setBackgroundResource(R.mipmap.no_network);
     }
 
-    public void getNoScheduleResultList(ScheduleNoSizeBean scheduleNoSizeBean) {
+    public void getProjectNoScheduleResultList(ScheduleNoSizeBean scheduleNoSizeBean) {
         List<ScheduleNoSizeBean.RespBodyBean> respBody = scheduleNoSizeBean.getRespBody();
         markData = new HashMap<>();
         markData.clear();
@@ -207,8 +219,8 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
             }
         }
         calendarAdapter.setMarkData(markData);
-        if (isfistopen) {
-            isfistopen=false;
+        if (isfirst) {
+            isfirst=false;
             calendarAdapter.notifyDataChanged();
         }
     }
@@ -233,8 +245,8 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
     }
 
     @Override
-    public MySchedulePresent bindPresent() {
-        return new MySchedulePresent();
+    public ProjectSchedulePresent bindPresent() {
+        return new ProjectSchedulePresent();
     }
 
     @Override
@@ -251,10 +263,13 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                 if (dayStart.equals(dayStartTime)) {
                     isfirst = true;
                 }
-                getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
                 break;
             case R.id.img_quesheng2:
-                getP().getMySchedulrList(pageindex, this.dayStartTime, dayEndTime);
+                if (projectid != null && !projectid.equals("")) {
+                    projectschedulelist.clear();
+                    pageindex = 1;
+                    getP().getMyProjectSchedulrList(pageindex, projectid, this.dayStartTime, dayEndTime);
+                }
                 break;
         }
     }
@@ -281,7 +296,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                 .findViewById(R.id.rl_liucheng_task);
         RelativeLayout rl_close = (RelativeLayout) view1
                 .findViewById(R.id.rl_close);
-        rl_liucheng_task.setVisibility(View.VISIBLE);
+        rl_liucheng_task.setVisibility(View.GONE);
         rl_shebei_task.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -413,10 +428,9 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                         isfirst = true;
                     }
                     nomore = false;
-                    list.clear();
+                    projectschedulelist.clear();
                     pageindex = 1;
-                    getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
-
+                    getP().getMyProjectSchedulrList(pageindex, projectid, dayStartTime, dayEndTime);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -469,7 +483,9 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
                         lastMonthDay = CommonUtils.getLastMonthDay(date1);
                         LogUtils.i("MonthDay", firstMonthDay + "====" + lastMonthDay);
                         if (currentDate.getYear() != date.getYear() || currentDate.getMonth() != date.getMonth()) {
-                            getP().getNoScheduleList(firstMonthDay, lastMonthDay, 1);
+                            if (projectid != null && !projectid.equals("")) {
+                                getP().getProjectscheduleDatelist(firstMonthDay, lastMonthDay, projectid);
+                            }
                         }
                         currentDate = date;
                     }
@@ -501,6 +517,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
+        EventBus.getDefault().register(this);
         return rootView;
     }
 
@@ -509,6 +526,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         super.onDestroyView();
         unbinder.unbind();
         getActivity().unregisterReceiver(mWindowsReceiver);
+        EventBus.getDefault().unregister(this);
     }
 
 }

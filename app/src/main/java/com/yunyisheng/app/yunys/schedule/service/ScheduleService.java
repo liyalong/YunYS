@@ -56,6 +56,18 @@ public interface ScheduleService {
                                                     @Field("endTime") String endTime);
 
     /**
+     * 根据项目id获取项目未完成日程日期
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("android/enterpriseUser/project/schedule/numList")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    Flowable<ScheduleNoSizeBean> getProjectscheduleDatelist(@Field("startTime") String startTime,
+                                                            @Field("endTime") String endTime,
+                                                            @Field("projectId") String projectId);
+
+    /**
      * 获取未完成任务的日期
      *
      * @return
@@ -98,8 +110,9 @@ public interface ScheduleService {
      */
     @POST()
     Call<UploadDynamicFormImageBean> uploadImage(@Header("token") String token,
-                                                @Url() String url,
-                                                @Body RequestBody Body);
+                                                 @Url() String url,
+                                                 @Body RequestBody Body);
+
     /**
      * @author fuduo
      * @time 2018/1/31  18:18

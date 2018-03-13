@@ -104,7 +104,7 @@ public class RadioSelectUserActivity extends BaseActivity<RadioSelectUserPresent
                     if (selectUser.getUserName() != null){
                         username = selectUser.getUserName();
                     }
-                    intent.putExtra("selectUserId",selectUser.getUserId()+"");
+                    intent.putExtra("selectUserId",selectUser.getUserId());
                     intent.putExtra("selectUserName",username);
                     setResult(1,intent);
                 }

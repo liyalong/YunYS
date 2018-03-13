@@ -389,7 +389,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
             }else if (leipiplugins.equals("formImage")) {
                 final ImageView imageView = new ImageView(this);
                 imageView.setLayoutParams(imgview);
-                imageView.setScaleType(ImageView.ScaleType.FIT_START);
+                imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 imageView.setBackgroundResource(R.mipmap.put_img);
 
                 imageView.setOnClickListener(new View.OnClickListener() {

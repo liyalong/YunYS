@@ -59,6 +59,8 @@ public class ScheduleTaskFragement extends BaseFragement<SchedulrTaskPresent> {
     private List<String> mTitleList = new ArrayList<>();
     private List<ProjectBean> projectBeanList = new ArrayList<>();
     private ListView mScreenListView;
+    private ProjeceScheduleFragement projeceScheduleFragement;
+    private OurProjeceScheduleFragement ourProjeceScheduleFragement;
 
     @Override
     public void initView() {
@@ -70,9 +72,10 @@ public class ScheduleTaskFragement extends BaseFragement<SchedulrTaskPresent> {
         if (fragmentList.size() > 0) {
             fragmentList.clear();
         }
-        for (int i = 0; i < mTitleList.size(); i++) {
-            fragmentList.add(OurProjeceScheduleFragement.getInstance(i));
-        }
+        ourProjeceScheduleFragement = new OurProjeceScheduleFragement();
+        projeceScheduleFragement = new ProjeceScheduleFragement();
+        fragmentList.add(ourProjeceScheduleFragement);
+        fragmentList.add(projeceScheduleFragement);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(), fragmentList, mTitleList);
         vpTask.setAdapter(adapter);
         tablayoutTask.setupWithViewPager(vpTask);
@@ -91,6 +94,9 @@ public class ScheduleTaskFragement extends BaseFragement<SchedulrTaskPresent> {
                 } else {
 //                    imgSet.setVisibility(View.GONE);
                     teShaixuan.setVisibility(View.VISIBLE);
+                    if (projeceScheduleFragement != null) {
+                        projeceScheduleFragement.getNodateSchedule();
+                    }
                 }
             }
 
