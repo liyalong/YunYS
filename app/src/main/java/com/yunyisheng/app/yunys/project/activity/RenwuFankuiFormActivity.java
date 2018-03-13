@@ -33,7 +33,6 @@ import com.yunyisheng.app.yunys.main.service.HomeService;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.present.RenwuFankuiDetailPresent;
 import com.yunyisheng.app.yunys.schedule.model.RenWuFanKuiDetailBean;
-import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.DialogManager;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.LogUtils;
@@ -525,8 +524,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                             0);
                     image.setBackground(null);
                     image.setLayoutParams(imgview);
-                    Bitmap bitmapFromUri = CommonUtils.getBitmapFromUri(context, uri);
-                    image.setImageBitmap(bitmapFromUri);
+                    image.setImageURI(uri);
                     image.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                     image.setLayoutParams(bigimgview);
                 } else {
