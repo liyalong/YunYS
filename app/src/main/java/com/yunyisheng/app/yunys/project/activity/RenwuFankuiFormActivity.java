@@ -310,7 +310,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                         lineAll.addView(name);
                         ImageView imageView = new ImageView(this);
                         imageView.setLayoutParams(bigimgview);
-                        imageView.setScaleType(ImageView.ScaleType.FIT_START);
+                        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                         if (feedbackVal!=null&&!feedbackVal.equals("")){
                             Bitmap bitmap = stringtoBitmap(feedbackVal);
                             imageView.setImageBitmap(bitmap);
@@ -521,6 +521,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                     ToastUtils.showToast("上传成功!");
                     image.setBackground(null);
                     image.setImageURI(uri);
+                    image.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 } else {
                     ToastUtils.showToast("上传失败!");
                 }
