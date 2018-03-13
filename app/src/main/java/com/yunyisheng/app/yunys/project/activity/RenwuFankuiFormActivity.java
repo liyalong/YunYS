@@ -186,10 +186,10 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
             LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                     1);
             lpview.setMargins(0, 10, 0, 0);
-            LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(200,
-                    200);
-            LinearLayout.LayoutParams bigimgview = new LinearLayout.LayoutParams(500,
-                    600);
+            LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams bigimgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
             if (type == 1) {
                 TextView name = new TextView(this);
                 name.setPadding(0, 10, 0, 0);
@@ -300,9 +300,15 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
             } else if (type == 4) {
                 try {
                     if (seetype==2){
+                        TextView name = new TextView(this);
+                        name.setPadding(0, 10, 0, 0);
+                        name.setText(feedbackItemBean.getFeedbackName());
+                        name.setTextColor(getResources().getColor(R.color.color_333));
+                        name.setTextSize(15);
+                        lineAll.addView(name);
                         ImageView imageView = new ImageView(this);
                         imageView.setLayoutParams(bigimgview);
-                        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                        imageView.setScaleType(ImageView.ScaleType.FIT_START);
                         if (feedbackVal!=null&&!feedbackVal.equals("")){
                             Bitmap bitmap = stringtoBitmap(feedbackVal);
                             imageView.setImageBitmap(bitmap);
@@ -321,7 +327,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                         lineAll.addView(name);
                         final ImageView imageView = new ImageView(this);
                         imageView.setLayoutParams(imgview);
-                        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                        imageView.setScaleType(ImageView.ScaleType.FIT_START);
                         imageView.setBackgroundResource(R.mipmap.put_img);
 
                             imageView.setOnClickListener(new View.OnClickListener() {

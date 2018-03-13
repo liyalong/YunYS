@@ -11,9 +11,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <include
+            android:id="@+id/icu"
+            layout="@layout/include_titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/icu"
+            android:background="@color/color_e7"
+            />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/view"
             android:fillViewport="true"
             android:scrollbars="none">
 
@@ -22,15 +36,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <include
-                    layout="@layout/include_titlebar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/color_e7"
-                    />
                 <LinearLayout
                     android:id="@+id/line_all"
                     android:layout_width="match_parent"
