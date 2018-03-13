@@ -14,6 +14,7 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 import butterknife.BindView;
+import cn.droidlover.xdroidbase.cache.SharedPref;
 import cn.droidlover.xdroidmvp.base.SimpleListAdapter;
 import cn.droidlover.xdroidmvp.kit.KnifeKit;
 
@@ -22,8 +23,8 @@ import cn.droidlover.xdroidmvp.kit.KnifeKit;
  */
 
 public class TaskAdapter extends SimpleListAdapter<TaskBean, TaskAdapter.ViewHolder> implements View.OnClickListener {
-    TaskBean taskBean;
     private int SELECT_TYPE;
+    private int thisUserId = SharedPref.getInstance(context).getInt("userid",0);
 
     private TaskAdapter.Callback mCallback;
     public interface Callback{
@@ -52,9 +53,8 @@ public class TaskAdapter extends SimpleListAdapter<TaskBean, TaskAdapter.ViewHol
         holder.taskStartTime.setText(item.getReleaseBegint().toString());
         holder.taskEndTime.setText(item.getReleaseEndt().toString());
         holder.createUser.setText(item.getReleaseUsername().toString());
-        if (SELECT_TYPE == 1 || SELECT_TYPE == 2 || SELECT_TYPE == 9){
+        if (SELECT_TYPE == 1){
             //待认领任务设置待认领状态隐藏，认领人信息隐藏
-            //待完成任务状态，设置待认领状态隐藏,认领人信息隐藏
             holder.taskDoUserInfo.setVisibility(View.GONE);
             holder.takeDoUser.setVisibility(View.GONE);
             holder.taskStatusBox.setVisibility(View.GONE);
@@ -64,6 +64,24 @@ public class TaskAdapter extends SimpleListAdapter<TaskBean, TaskAdapter.ViewHol
                 holder.taskName.getPaint().setFakeBoldText(false);
             }
 
+        }else if(SELECT_TYPE == 2 || SELECT_TYPE == 9){
+            //待认领任务设置待认领状态隐藏，认领人信息隐藏
+            //待完成任务状态，设置待认领状态隐藏,认领人信息隐藏
+            if (String.valueOf(thisUserId) == item.getTaskUserId()){
+                holder.taskDoUserInfo.setVisibility(View.GONE);
+                holder.takeDoUser.setVisibility(View.GONE);
+                holder.taskStatusBox.setVisibility(View.GONE);
+            }else {
+                holder.takeDoUser.setText(item.getTaskUserName());
+                holder.taskDoUserInfo.setVisibility(View.VISIBLE);
+                holder.takeDoUser.setVisibility(View.VISIBLE);
+            }
+            holder.taskStatusBox.setVisibility(View.GONE);
+            if (item.getTaskLook() == 0){
+                holder.taskName.getPaint().setFakeBoldText(true);
+            }else {
+                holder.taskName.getPaint().setFakeBoldText(false);
+            }
         }else if(SELECT_TYPE == 3){
             //已发布任务
             holder.userInfoBox.setVisibility(View.GONE);
@@ -90,8 +108,21 @@ public class TaskAdapter extends SimpleListAdapter<TaskBean, TaskAdapter.ViewHol
                 holder.taskStatusIstimeout.setVisibility(View.GONE);
             }
         }
-        holder.taskBtn.setTag(position);
-        holder.taskBtn.setOnClickListener(this);
+        if (SELECT_TYPE == 2){
+            if (thisUserId == Integer.valueOf(item.getTaskUserId())){
+                holder.taskBtn.setEnabled(true);
+                holder.taskBtn.setBackground(context.getResources().getDrawable(R.mipmap.button_cz));
+                holder.taskBtn.setTag(position);
+                holder.taskBtn.setOnClickListener(this);
+            }else {
+                holder.taskBtn.setEnabled(false);
+                holder.taskBtn.setBackgroundColor(context.getResources().getColor(R.color.color_c8c8c8));
+            }
+        }else {
+            holder.taskBtn.setTag(position);
+            holder.taskBtn.setOnClickListener(this);
+        }
+
 
     }
 
