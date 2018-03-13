@@ -15,6 +15,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
+import android.provider.MediaStore;
 import android.support.v4.app.NotificationManagerCompat;
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -240,7 +241,21 @@ public class CommonUtils {
         } else {
             return false;
         }
+    }
 
+    /* uri转化为bitmap */
+    public static Bitmap getBitmapFromUri(Context context,Uri uri) {
+        try {
+          // 读取uri所在的图片
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(
+                    context.getContentResolver(), uri);
+            return bitmap;
+        } catch (Exception e) {
+            Log.e("[Android]", e.getMessage());
+            Log.e("[Android]", "目录为：" + uri);
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
