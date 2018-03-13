@@ -18,7 +18,6 @@ import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.project.model.TaskMessageEvent;
-import com.yunyisheng.app.yunys.schedule.model.PositionMessageEvent;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
 import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectUserListActivity;
@@ -113,6 +112,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         Intent intent=getIntent();
         taskId = intent.getStringExtra("taskId");
         userId = intent.getIntExtra("userId",0);
