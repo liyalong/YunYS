@@ -65,7 +65,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/distance_2"
-                android:text="哦差发的很好fdfdsfsfdsfdsfsfds"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_11" />
 
@@ -76,7 +75,6 @@
                 android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/distance_3"
                 android:singleLine="true"
-                android:text="恢复快接电话是否健康当回事回复奋斗奋斗辅导费分地方地方辅导费"
                 android:textColor="@color/color_666"
                 android:textSize="@dimen/distance_14" />
         </LinearLayout>
@@ -103,7 +101,6 @@
                 android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/distance_3"
                 android:singleLine="true"
-                android:text="执行人：李尔 刘勇气 贝斯特"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_12" />
         </LinearLayout>

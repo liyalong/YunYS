@@ -78,6 +78,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
     private int uploadimageid;
     private String uploadimageuuid;
     private ImageView imageView;
+    private String imageurl;
 
     @Override
     public void initView() {
@@ -180,8 +181,8 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                     LinearLayout.LayoutParams.WRAP_CONTENT);
             LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                     1);
-            LinearLayout.LayoutParams bigimgview = new LinearLayout.LayoutParams(500,
-                    600);
+            LinearLayout.LayoutParams bigimgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
             lpview.setMargins(0, 10, 0, 0);
             if (leipiplugins.equals("text") || leipiplugins.equals("textarea")) {
                 TextView namevalue = new TextView(this);
@@ -276,7 +277,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
             }else if (leipiplugins.equals("formImage")) {
                 imageView = new ImageView(this);
                 imageView.setLayoutParams(bigimgview);
-                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                imageView.setScaleType(ImageView.ScaleType.FIT_START);
                 getP().getFormImage(value);
                 lineAll.addView(imageView);
             }
@@ -301,8 +302,8 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
             name.setTextColor(getResources().getColor(R.color.color_333));
             name.setTextSize(15);
             lineAll.addView(name);
-            LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(200,
-                    200);
+            LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
             LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
@@ -388,7 +389,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
             }else if (leipiplugins.equals("formImage")) {
                 final ImageView imageView = new ImageView(this);
                 imageView.setLayoutParams(imgview);
-                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                imageView.setScaleType(ImageView.ScaleType.FIT_START);
                 imageView.setBackgroundResource(R.mipmap.put_img);
 
                 imageView.setOnClickListener(new View.OnClickListener() {
@@ -471,6 +472,16 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                                 ToastUtils.showToast("您还有未选择的选项");
                                 return;
                             }
+                        }else if (leipiplugins.equals("formImage")) {
+                            JSONObject jsonObject = new JSONObject();
+                            jsonObject.put(kongjianid, id + "");
+                            if (imageurl==null||imageurl.equals("")){
+                                ToastUtils.showToast("请选择图片");
+                                return;
+                            }else {
+                                jsonObject.put(valuestr, imageurl);
+                                jsonArray.put(jsonObject);
+                            }
                         }
                     }
                     object.put("uuid", releaseFormId);
@@ -542,7 +553,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 int code = response.body().getRespCode();
                 if (code == 0) {
                     ToastUtils.showToast("上传成功!");
-                    String respBody = response.body().getRespBody();
+                    imageurl = response.body().getRespBody();
                     image.setImageURI(uri);
                 } else {
                     ToastUtils.showToast("上传失败!");

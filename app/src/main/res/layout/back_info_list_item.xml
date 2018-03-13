@@ -35,7 +35,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginRight="@dimen/distance_10"
-                android:text="张三"
                 android:textColor="@color/color_666"
                 android:textSize="@dimen/distance_12" />
             <TextView
@@ -48,7 +47,6 @@
                 android:id="@+id/task_back_createt"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="2018-02-01 22:23:27"
                 android:textColor="@color/color_666"
                 android:textSize="@dimen/distance_12" />
         </LinearLayout>
