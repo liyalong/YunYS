@@ -61,6 +61,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 import static com.yunyisheng.app.yunys.utils.CommonUtils.stringtoBitmap;
 
@@ -444,20 +446,42 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 }
 //                String realPathFromURI = Util.getFileAbsolutePath(this, contentUri);
 //                File file = new File(realPathFromURI);
-                putPic(DialogManager.tempFile,contentUri);
+                setCompressImg(DialogManager.tempFile,contentUri);
             } else if (requestCode == 2) {// 相册
                 if (intent != null) {
                     Log.i("xiaoqiang", "smdongxi==" + intent.getData());
                     Uri uri = intent.getData();
                     String realPathFromURI = Util.getFileAbsolutePath(this, uri);
                     File file = new File(realPathFromURI);
-                    putPic(file,uri);
+                    setCompressImg(file,uri);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         super.onActivityResult(requestCode, resultCode, intent);
+    }
+
+    private void setCompressImg(File file, final Uri uri){
+        Luban.with(this).
+                load(file).
+                ignoreBy(1000).
+                setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        putPic(file,uri);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showToast("上传错误，请重试！");
+                    }
+                }).launch();
     }
 
     /**
