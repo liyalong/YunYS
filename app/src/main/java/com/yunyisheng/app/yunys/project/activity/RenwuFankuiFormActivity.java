@@ -329,7 +329,6 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                         lineAll.addView(name);
                         imageView = new ImageView(this);
                         imageView.setLayoutParams(imgview);
-                        imageView.setScaleType(ImageView.ScaleType.FIT_START);
                         imageView.setBackgroundResource(R.mipmap.put_img);
 
                             imageView.setOnClickListener(new View.OnClickListener() {
@@ -520,6 +519,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                     ToastUtils.showToast("上传成功!");
                     imageView.setBackground(null);
                     imageView.setImageURI(uri);
+                    imageView.setScaleType(ImageView.ScaleType.FIT_START);
                 } else {
                     ToastUtils.showToast("上传失败!");
                 }
