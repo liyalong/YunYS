@@ -86,7 +86,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
     private String imgstr;
     private String projectId;
     private int seetype;
-    private ImageView imageView;
+    private ImageView image;
 
     @Override
     public void initView() {
@@ -327,14 +327,16 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                         name.setTextColor(getResources().getColor(R.color.color_333));
                         name.setTextSize(15);
                         lineAll.addView(name);
-                        imageView = new ImageView(this);
+                        final ImageView imageView = new ImageView(this);
                         imageView.setLayoutParams(imgview);
+                        imageView.setScaleType(ImageView.ScaleType.FIT_START);
                         imageView.setBackgroundResource(R.mipmap.put_img);
 
                             imageView.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     imgstr = jsonObject.toString();
+                                    image=imageView;
                                     DialogManager.createPickImageDialog(RenwuFankuiFormActivity.this);
                                 }
                             });
@@ -517,9 +519,8 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 int code = response.body().getRespCode();
                 if (code == 0) {
                     ToastUtils.showToast("上传成功!");
-                    imageView.setBackground(null);
-                    imageView.setImageURI(uri);
-                    imageView.setScaleType(ImageView.ScaleType.FIT_START);
+                    image.setBackground(null);
+                    image.setImageURI(uri);
                 } else {
                     ToastUtils.showToast("上传失败!");
                 }
