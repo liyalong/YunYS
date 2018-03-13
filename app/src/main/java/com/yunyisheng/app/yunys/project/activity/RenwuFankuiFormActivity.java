@@ -519,6 +519,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 int code = response.body().getRespCode();
                 if (code == 0) {
                     ToastUtils.showToast("上传成功!");
+                    image.setBackground(null);
                     image.setImageURI(uri);
                 } else {
                     ToastUtils.showToast("上传失败!");

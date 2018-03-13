@@ -135,6 +135,7 @@ public class HomeFragement extends BaseFragement<HomePresent> {
                 getP().getWelcomePage();
             }
         }
+        pageindex=1;
         getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
         getP().getBannerList();
         getP().getNoMessage();
