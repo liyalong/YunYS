@@ -291,7 +291,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
             } else {
                 projectadapter.setData(projectschedulelist);
             }
-            projectadapter.setType(6);
+            projectadapter.setType(5);
             rvToDoList.setVisibility(View.VISIBLE);
             imgQuesheng2.setVisibility(View.GONE);
         } else {
