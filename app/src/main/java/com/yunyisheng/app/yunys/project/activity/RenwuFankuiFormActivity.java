@@ -87,6 +87,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
     private String projectId;
     private int seetype;
     private ImageView image;
+    private LinearLayout.LayoutParams bigimgview;
 
     @Override
     public void initView() {
@@ -190,7 +191,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
             lpview.setMargins(0, 10, 0, 0);
             LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams bigimgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+            bigimgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
             if (type == 1) {
                 TextView name = new TextView(this);
@@ -519,9 +520,13 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 int code = response.body().getRespCode();
                 if (code == 0) {
                     ToastUtils.showToast("上传成功!");
+                    LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(0,
+                            0);
                     image.setBackground(null);
+                    image.setLayoutParams(imgview);
                     image.setImageURI(uri);
                     image.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                    image.setLayoutParams(bigimgview);
                 } else {
                     ToastUtils.showToast("上传失败!");
                 }
