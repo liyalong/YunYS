@@ -106,6 +106,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
     private Dialog taskBackInfoDialog;
     private String projectId;
     private ScheduleDetailBean.RespBodyBean.TaskBean task;
+    Integer thisUserid = SharedPref.getInstance(context).getInt("userid",0);
 
     private int fromPage;  //从哪个页面跳转过来的，1。任务池待认领列表，2任务池待完成列表，3我发布任务的子列表,4我的日程，5项目日程，6通讯录日程
 
@@ -311,7 +312,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
      * @param task
      */
     public void initTaskBtn(ScheduleDetailBean.RespBodyBean.TaskBean task ,int fromPage) {
-        Integer thisUserid = SharedPref.getInstance(context).getInt("userid",0);
+
         switch (fromPage){
             case 1:
                 taskStatus.setText(R.string.task_status_1);
@@ -327,8 +328,11 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                 }else if (task.getTaskStat() == 1){
                     taskStatus.setText(R.string.task_status_2);
                     doUser.setText(task.getTaskUserName());
-                    doTask.setVisibility(View.VISIBLE);
-                    backTask.setVisibility(View.VISIBLE);
+                    //当前登录人和任务认领人相同时显示执行和回退按钮
+                    if (isMyTask(task.getReleaseUserId())){
+                        doTask.setVisibility(View.VISIBLE);
+                        backTask.setVisibility(View.VISIBLE);
+                    }
                 }else if (task.getTaskStat() == 3){
                     caozuoBox.setVisibility(View.GONE);
                 }else if (task.getTaskStat() == 2){
@@ -349,8 +353,12 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                 }else if (task.getTaskStat() == 1){
                     taskStatus.setText(R.string.task_status_2);
                     caozuoBox.setVisibility(View.GONE);
-                    doUserLayout.setVisibility(View.VISIBLE);
-                    doUser.setText(task.getTaskUserName());
+                    //当前登录人和任务认领人相同时显示执行和回退按钮
+                    if (isMyTask(task.getReleaseUserId())){
+                        doUserLayout.setVisibility(View.VISIBLE);
+                        doUser.setText(task.getTaskUserName());
+                    }
+
                 }else if (task.getTaskStat() == 2){
                     taskStatus.setText(R.string.task_status_3);
                     doUserLayout.setVisibility(View.VISIBLE);
@@ -376,8 +384,11 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                 }else if (task.getTaskStat() == 1){
                     taskStatus.setText(R.string.task_status_2);
                     doUser.setText(task.getTaskUserName());
-                    doTask.setVisibility(View.VISIBLE);
-                    backTask.setVisibility(View.VISIBLE);
+                    //当前登录人和任务认领人相同时显示执行和回退按钮
+                    if (isMyTask(task.getReleaseUserId())) {
+                        doTask.setVisibility(View.VISIBLE);
+                        backTask.setVisibility(View.VISIBLE);
+                    }
                 }else if (task.getTaskStat() == 3){
                     caozuoBox.setVisibility(View.GONE);
                 }else if (task.getTaskStat() == 2){
@@ -498,5 +509,12 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+    public boolean isMyTask(int taskUserId){
+        if (thisUserid == taskUserId){
+            return true;
+        }else {
+            return false;
+        }
     }
 }
