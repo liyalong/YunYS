@@ -21,6 +21,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.droidlover.xdroidbase.cache.SharedPref;
 
 public class SelectProjectUserListActivity extends BaseActivity<ProjectUserListPresent> {
     @BindView(R.id.img_back)
@@ -33,6 +34,7 @@ public class SelectProjectUserListActivity extends BaseActivity<ProjectUserListP
     private List<ProjectUserBean> dataList = new ArrayList<>();
     private String projectId;
     private String releaseId;
+    int thisUserid = SharedPref.getInstance(context).getInt("userid",0);
 
     @Override
     public void initView() {
@@ -93,8 +95,14 @@ public class SelectProjectUserListActivity extends BaseActivity<ProjectUserListP
     public void setAdapterData(ProjectUserListModel projectUserListModel) {
         if (projectUserListModel.getRespBody().size() > 0){
             dataList.clear();
-            dataList = projectUserListModel.getRespBody();
-            adapter = new ProjectUserListAdapter(context,projectUserListModel.getRespBody());
+            List<ProjectUserBean> checkUserLists = new ArrayList<>();
+            for (int i=0;i<projectUserListModel.getRespBody().size();i++){
+                if (thisUserid != projectUserListModel.getRespBody().get(i).getUserId()){
+                    checkUserLists.add(projectUserListModel.getRespBody().get(i));
+                }
+            }
+            dataList.addAll(checkUserLists);
+            adapter = new ProjectUserListAdapter(context,dataList);
             selectProjectUserList.setAdapter(adapter);
         }else {
             ToastUtils.showToast("获取人员列表失败！");
