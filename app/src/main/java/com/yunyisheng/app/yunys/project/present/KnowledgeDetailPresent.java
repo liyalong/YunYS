@@ -6,7 +6,6 @@ import com.yunyisheng.app.yunys.ConstantManager;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.activity.KnowledgeDetailActivity;
 import com.yunyisheng.app.yunys.project.model.KnowledgDetailModel;
-import com.yunyisheng.app.yunys.project.model.KnowledgeListModel;
 import com.yunyisheng.app.yunys.upload.ProgressHelper;
 import com.yunyisheng.app.yunys.upload.ProgressUIListener;
 import com.yunyisheng.app.yunys.utils.CallOtherOpeanFile;
@@ -16,6 +15,7 @@ import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 import cn.droidlover.xdroidmvp.net.ApiSubscriber;
@@ -60,7 +60,10 @@ public class KnowledgeDetailPresent extends XPresent<KnowledgeDetailActivity> {
                 });
     }
     public void downloadFujin(String url, final String filename, String fujianid) {
-        OkHttpClient okHttpClient = new OkHttpClient();
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().
+                connectTimeout(60, TimeUnit.SECONDS).
+                readTimeout(60, TimeUnit.SECONDS).
+                writeTimeout(60, TimeUnit.SECONDS).build();
         FormBody formBody = new FormBody
                 .Builder()
                 .add("fileId", fujianid+"")//设置参数名称和参数值

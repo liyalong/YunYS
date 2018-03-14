@@ -16,6 +16,7 @@ import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 import cn.droidlover.xdroidmvp.net.ApiSubscriber;
@@ -127,7 +128,10 @@ public class NoticeDetaiPresent extends XPresent<NoticeDeatilActivity> {
     }
 
     public void downloadFujin(String url, final String filename, int fujianid) {
-        OkHttpClient okHttpClient = new OkHttpClient();
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().
+                connectTimeout(60, TimeUnit.SECONDS).
+                readTimeout(60, TimeUnit.SECONDS).
+                writeTimeout(60, TimeUnit.SECONDS).build();
         FormBody formBody = new FormBody
                 .Builder()
                 .add("announcementAnnexId", fujianid+"")//设置参数名称和参数值
