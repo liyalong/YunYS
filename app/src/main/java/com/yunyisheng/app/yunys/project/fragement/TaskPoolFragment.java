@@ -548,9 +548,10 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
         }
 
     }
+
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         EventBus.getDefault().unregister(this);
     }
 }
