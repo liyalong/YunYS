@@ -25,6 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.droidlover.xdroidbase.cache.SharedPref;
 
 public class RadioSelectUserActivity extends BaseActivity<RadioSelectUserPresent> {
 
@@ -44,7 +45,7 @@ public class RadioSelectUserActivity extends BaseActivity<RadioSelectUserPresent
     private String fromPageTitle;
     private String selectUserId;
     private List<WorkerBean> workerlist;
-
+    int thisUserid = SharedPref.getInstance(context).getInt("userid",0);
     @Override
     public void initView() {
         ButterKnife.bind(this);
@@ -116,7 +117,13 @@ public class RadioSelectUserActivity extends BaseActivity<RadioSelectUserPresent
     public void setAdapterData(ProjectUserListModel projectUserListModel) {
         if (projectUserListModel.getRespBody().size() > 0){
             dataList.clear();
-            dataList.addAll(projectUserListModel.getRespBody());
+            List<ProjectUserBean> checkUserLists = new ArrayList<>();
+            for (int i=0;i<projectUserListModel.getRespBody().size();i++){
+                if (thisUserid != projectUserListModel.getRespBody().get(i).getUserId()){
+                    checkUserLists.add(projectUserListModel.getRespBody().get(i));
+                }
+            }
+            dataList.addAll(checkUserLists);
             adapter = new RadioSelectUserAdapter(context,dataList,selectUserId);
             selectCheckUserList.setAdapter(adapter);
         }else {
