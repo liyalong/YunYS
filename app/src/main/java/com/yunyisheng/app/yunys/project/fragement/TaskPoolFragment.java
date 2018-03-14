@@ -3,11 +3,8 @@ package com.yunyisheng.app.yunys.project.fragement;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -89,6 +86,7 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
     @Override
     public void initView() {
         ButterKnife.bind(this, context);
+        EventBus.getDefault().register(this);
         ProjectDetailsActivity projectDetailsActivity = (ProjectDetailsActivity) getActivity();
         this.projectId = projectDetailsActivity.getProjectId();
         sList.clear();
@@ -543,6 +541,9 @@ public class TaskPoolFragment extends BaseFragement<TaskListPresent> implements 
     public void onEvent(TaskMessageEvent messageEvent){
         String position = messageEvent.getPosition();
         if (position.equals("updateOK")){
+            if (taskListBtnDialog.isShowing()) {
+                taskListBtnDialog.dismiss();
+            }
             getP().getTaskList(SELECT_TYPE, projectId, PAGE_NUM, PAGE_SIZE);
         }
 

@@ -40,12 +40,14 @@ import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidbase.cache.SharedPref;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -78,7 +80,8 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
     private int uploadimageid;
     private String uploadimageuuid;
     private ImageView imageView;
-    private String imageurl;
+    private List<String> imageurllist = new ArrayList<>();
+    private int imageurlsize;
 
     @Override
     public void initView() {
@@ -274,7 +277,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
                 lineAll.addView(view);
-            }else if (leipiplugins.equals("formImage")) {
+            } else if (leipiplugins.equals("formImage")) {
                 imageView = new ImageView(this);
                 imageView.setLayoutParams(bigimgview);
                 imageView.setScaleType(ImageView.ScaleType.FIT_START);
@@ -285,7 +288,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
     }
 
     public void setFormImage(String respBody) {
-        if (respBody!=null&&!respBody.equals("")){
+        if (respBody != null && !respBody.equals("")) {
             Bitmap bitmap = stringtoBitmap(respBody);
             imageView.setImageBitmap(bitmap);
         }
@@ -386,16 +389,15 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
                 lineAll.addView(view);
-            }else if (leipiplugins.equals("formImage")) {
+            } else if (leipiplugins.equals("formImage")) {
                 final ImageView imageView = new ImageView(this);
                 imageView.setLayoutParams(imgview);
                 imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 imageView.setBackgroundResource(R.mipmap.put_img);
-
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        image=imageView;
+                        image = imageView;
                         uploadimageid = dataBean.getId();
                         uploadimageuuid = dataBean.getUuid();
                         DialogManager.createPickImageDialog(DynamicFormActivity.this);
@@ -460,9 +462,17 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                                 return;
                             }
                         } else if (leipiplugins.equals("checkboxs")) {
+                            List<ScheduleDetailBean.RespBodyBean.FormBean.VelueBean> options = dataBean.getOptions();
                             JSONObject jsonObject = new JSONObject();
-                            String val = dataBean.getValue();
                             jsonObject.put(kongjianid, id + "");
+                            String val = "";
+                            if (options.size() < 1) return;
+                            for (int m = 0; m < options.size(); m++) {
+                                CheckBox cb = findViewById(Integer.parseInt(id + "2" + m));
+                                if (cb.isChecked()) {
+                                    val += cb.getText().toString() + ",";
+                                }
+                            }
                             if (!val.equals("")) {
                                 if (val.lastIndexOf(",") == val.length() - 1)
                                     val = val.substring(0, val.length() - 1);
@@ -472,15 +482,14 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                                 ToastUtils.showToast("您还有未选择的选项");
                                 return;
                             }
-                        }else if (leipiplugins.equals("formImage")) {
+                        } else if (leipiplugins.equals("formImage")) {
                             JSONObject jsonObject = new JSONObject();
                             jsonObject.put(kongjianid, id + "");
-                            if (imageurl==null||imageurl.equals("")){
-                                ToastUtils.showToast("请选择图片");
-                                return;
-                            }else {
+                            if (imageurllist.size() > 0) {
+                                String imageurl = imageurllist.get(imageurlsize);
                                 jsonObject.put(valuestr, imageurl);
                                 jsonArray.put(jsonObject);
+                                imageurlsize++;
                             }
                         }
                     }
@@ -504,17 +513,17 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 Uri contentUri;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     contentUri = FileProvider.getUriForFile(DynamicFormActivity.this, "com.yunyisheng.app.yunys.fileprovider", DialogManager.tempFile);
-                }else {
-                    contentUri=Uri.fromFile(DialogManager.tempFile);
+                } else {
+                    contentUri = Uri.fromFile(DialogManager.tempFile);
                 }
-                putPic(DialogManager.tempFile,contentUri);
+                putPic(DialogManager.tempFile, contentUri);
             } else if (requestCode == 2) {// 相册
                 if (intent != null) {
                     Log.i("xiaoqiang", "smdongxi==" + intent.getData());
                     Uri uri = intent.getData();
                     String realPathFromURI = Util.getFileAbsolutePath(this, uri);
                     File file = new File(realPathFromURI);
-                    putPic(file,uri);
+                    putPic(file, uri);
                 }
             }
         } catch (Exception e) {
@@ -530,7 +539,12 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
      */
     private void putPic(File file, final Uri uri) {
         LoadingDialog.show(DynamicFormActivity.this);
+        OkHttpClient client = new OkHttpClient.Builder().
+                connectTimeout(60, TimeUnit.SECONDS).
+                readTimeout(60, TimeUnit.SECONDS).
+                writeTimeout(60, TimeUnit.SECONDS).build();
         Retrofit retrofit = new Retrofit.Builder()
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(Api.BASE_PATH)
                 .build();
@@ -538,7 +552,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
         String token = SharedPref.getInstance(DynamicFormActivity.this).getString("TOKEN", null);
 
         RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("id", uploadimageid+"")
+                .addFormDataPart("id", uploadimageid + "")
                 .addFormDataPart("uuid", uploadimageuuid)
                 .addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("file"), file))
                 .build();
@@ -553,7 +567,9 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 int code = response.body().getRespCode();
                 if (code == 0) {
                     ToastUtils.showToast("上传成功!");
-                    imageurl = response.body().getRespBody();
+                    String imageurl = response.body().getRespBody();
+                    imageurllist.add(imageurl);
+                    image.setBackground(null);
                     image.setImageURI(uri);
                 } else {
                     ToastUtils.showToast("上传失败!");
@@ -569,5 +585,5 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
             }
         });
     }
-    
+
 }

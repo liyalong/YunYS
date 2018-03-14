@@ -44,12 +44,14 @@ import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidbase.cache.SharedPref;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -98,7 +100,8 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
     private int uploadimageid;
     private String uploadimageuuid;
     private ImageView imageView;
-    private String imageurl;
+    private List<String> imageurllist = new ArrayList<>();
+    private int imageurlsize;
 
     @Override
     public void initView() {
@@ -535,12 +538,15 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                         }else if (leipiplugins.equals("formImage")) {
                             JSONObject jsonObject = new JSONObject();
                             jsonObject.put(kongjianid, id + "");
-                            if (imageurl==null||imageurl.equals("")){
-                                ToastUtils.showToast("请选择图片");
-                                return;
-                            }else {
+
+                            if (imageurllist.size()>0){
+                                String imageurl=imageurllist.get(imageurlsize);
                                 jsonObject.put(valuestr, imageurl);
                                 jsonArray.put(jsonObject);
+                                imageurlsize++;
+                            }else {
+                                ToastUtils.showToast("请选择图片");
+                                return;
                             }
                         }
                     }
@@ -647,7 +653,12 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
      */
     private void putPic(File file, final Uri uri) {
         LoadingDialog.show(ProcessTaskFormActivity.this);
+        OkHttpClient client = new OkHttpClient.Builder().
+                connectTimeout(60, TimeUnit.SECONDS).
+                readTimeout(60, TimeUnit.SECONDS).
+                writeTimeout(60, TimeUnit.SECONDS).build();
         Retrofit retrofit = new Retrofit.Builder()
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(Api.BASE_PATH)
                 .build();
@@ -670,7 +681,9 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                 int code = response.body().getRespCode();
                 if (code == 0) {
                     ToastUtils.showToast("上传成功!");
-                    imageurl = response.body().getRespBody();
+                    String imageurl = response.body().getRespBody();
+                    imageurllist.add(imageurl);
+                    image.setBackground(null);
                     image.setImageURI(uri);
                 } else {
                     ToastUtils.showToast("上传失败!");

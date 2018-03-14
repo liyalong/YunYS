@@ -18,13 +18,10 @@ import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.login.model.LoginModel;
 import com.yunyisheng.app.yunys.login.present.LoginPresent;
 import com.yunyisheng.app.yunys.main.service.MessageService;
-import com.yunyisheng.app.yunys.utils.ActivityManager;
 import com.yunyisheng.app.yunys.utils.AndroidIDUtil;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.RegularUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
-
-import org.eclipse.paho.android.service.MqttService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -229,7 +226,7 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
 //				nm.cancelAll();//清空通知栏
 //				Session.onKillProcess();
 //				ExampleApplication.exit();
-                ActivityManager.getScreenManager().popAllActivity();
+//                ActivityManager.getScreenManager().popAllActivity();
 				System.exit(0);
 
             }
