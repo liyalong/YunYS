@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -423,8 +424,8 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
 
         View v =View.inflate(activity,R.layout.task_back_info,null);
         final EditText taskBackInfo = v.findViewById(R.id.task_back_info);
-        TextView backTaskSubmit = v.findViewById(R.id.back_task_submit);
-        TextView backTaskClose = v.findViewById(R.id.back_task_close);
+        RelativeLayout backTaskSubmit = v.findViewById(R.id.back_task_submit);
+        RelativeLayout backTaskClose = v.findViewById(R.id.back_task_close);
 
         backTaskSubmit.setOnClickListener(new View.OnClickListener(){
             @Override
