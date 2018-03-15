@@ -107,6 +107,7 @@ public class WorkerDataActivity extends BaseActivity<WorkerDataPresent> {
             @Override
             public void onClick(View v) {
                 if (workername != null && !workername.equals("")) {
+                    selectlist.clear();
                     WorkerBean workerBean = new WorkerBean();
                     workerBean.setName(workername);
                     workerBean.setUserId(userid);
