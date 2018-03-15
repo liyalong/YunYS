@@ -32,12 +32,10 @@ import android.widget.RelativeLayout;
 import com.yalantis.ucrop.UCrop;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseModel;
-import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.main.fragement.HomeFragement;
 import com.yunyisheng.app.yunys.main.model.WarningMessageEvent;
 import com.yunyisheng.app.yunys.main.service.MessageService;
 import com.yunyisheng.app.yunys.mqtt.MQTTMessage;
-import com.yunyisheng.app.yunys.mqtt.MQTTService;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.fragement.ProjectFragement;
 import com.yunyisheng.app.yunys.schedule.fragement.ScheduleTaskFragement;
@@ -564,8 +562,11 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 //				nm.cancelAll();//清空通知栏
 //				Session.onKillProcess();
 //				ExampleApplication.exit();
-			    System.exit(0);
-
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                android.os.Process.killProcess(android.os.Process.myPid());
             }
             return true;
         }
