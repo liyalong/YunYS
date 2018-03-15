@@ -361,6 +361,23 @@ public class GlideDownLoadImage {
     }
 
     /**
+     * @name 加载bitmap带角度的图片
+     * @auhtor fuduo
+     * @Data 2017-9-5 11:18
+     */
+    public void loadBitmapCircleImage(Context mContext, ImageView view, Bitmap bitmap,int size) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] bytes=baos.toByteArray();
+        Glide.with(mContext)
+                .load(bytes)
+                .centerCrop()
+                .error(R.mipmap.moren_head)
+                .bitmapTransform(new GlideRoundTransform(mContext,size))
+                .into(view);
+    }
+
+    /**
      * @name 加载bitmap的图片
      * @auhtor fuduo
      * @Data 2017-9-5 11:18

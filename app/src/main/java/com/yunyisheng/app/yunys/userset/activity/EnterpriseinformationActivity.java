@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.userset.activity;
 
+import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,6 +9,7 @@ import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.userset.model.CompanyBean;
 import com.yunyisheng.app.yunys.userset.present.EnterpriseinformationPresent;
+import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.getapp.AppApplicationMgr;
 import com.yunyisheng.app.yunys.utils.glide.GlideDownLoadImage;
 
@@ -77,7 +79,8 @@ public class EnterpriseinformationActivity extends BaseActivity<Enterpriseinform
         teCompanyName.setText(companyBean.getRespBody().getEnterpriseName());
         teCompanyAddress.setText(companyBean.getRespBody().getEnterpriseAddressProvince());
         teCompanyNum.setText(companyBean.getRespBody().getEnterpriseNumber());
-        GlideDownLoadImage.getInstance().loadImage(EnterpriseinformationActivity.this, companyBean.getRespBody().getEnterpriseLogo(), imgCompanyLogo);
+        Bitmap bitmap = CommonUtils.stringtoBitmap(companyBean.getRespBody().getEnterpriseLogo());
+        GlideDownLoadImage.getInstance().loadBitmapCircleImage(EnterpriseinformationActivity.this, imgCompanyLogo,bitmap,20);
         teTopCompanyname.setText(companyBean.getRespBody().getEnterpriseName());
     }
 
