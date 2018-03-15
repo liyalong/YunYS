@@ -1,8 +1,11 @@
 package com.yunyisheng.app.yunys.project.activity;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,9 +25,9 @@ import com.yunyisheng.app.yunys.project.model.DeviceWarningListModel;
 import com.yunyisheng.app.yunys.project.model.ModelDetailModel;
 import com.yunyisheng.app.yunys.project.present.ModelDetailPresent;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
+import com.yunyisheng.app.yunys.utils.MatrixImageView;
 import com.yunyisheng.app.yunys.utils.SuperExpandableListView;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
-import com.yunyisheng.app.yunys.utils.glide.GlideDownLoadImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +36,6 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.droidlover.xdroidmvp.log.XLog;
 import cn.droidlover.xdroidmvp.router.Router;
 
 /**
@@ -84,6 +86,8 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> implem
 
     private DeviceOrPcmPLCValueListAdapter PLCAdapter;
     private List<DevicePLCValueBean> devicePLCValueList = new ArrayList<>();
+    private Bitmap bitmap;
+
     @Override
     public void initView() {
         ButterKnife.bind(this);
@@ -138,6 +142,7 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> implem
 
     @Override
     public void setListener() {
+        modelPic.setOnClickListener(this);
         imgBack.setOnClickListener(this);
         modelDetailJbxxDrop.setOnClickListener(this);
         modelPicDrop.setOnClickListener(this);
@@ -152,6 +157,11 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> implem
             case R.id.img_back:
                 stopTimer();
                 finish();
+                break;
+            case R.id.model_pic:
+                if (bitmap!=null) {
+                    createBigImageDialog(this);
+                }
                 break;
             case R.id.model_detail_jbxx_drop:
                 if (jbxxBoxIsshow == true) {
@@ -202,12 +212,34 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> implem
         }
     }
 
+    /**
+     * 图片放大框
+     *
+     * @param activity
+     * @return
+     */
+    public void createBigImageDialog(final Activity activity) {
+        final Dialog mSelectTask = new Dialog(activity, R.style.dialog_bottom_full);
+        mSelectTask.setCanceledOnTouchOutside(true);
+        mSelectTask.setCancelable(true);
+        Window window = mSelectTask.getWindow();
+//        window.setGravity(Gravity.BOTTOM);
+        View view1 = View.inflate(activity, R.layout.dialog_show_image, null);
+        MatrixImageView matriximage = (MatrixImageView) view1
+                .findViewById(R.id.matriximage);
+        matriximage.setImageBitmap(bitmap);
+        window.setContentView(view1);
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);//设置横向全屏
+        mSelectTask.show();
+    }
+
     public void setModelInfo(ModelDetailModel modelDetailModel) {
         ModelInfoBean modelInfoBean = modelDetailModel.getRespBody();
         String modelPicValue = modelInfoBean.getPcmBlueprint();
         if (modelPicValue != null && modelPicValue != "") {
-            Bitmap bitmap = CommonUtils.stringtoBitmap(modelPicValue);
-            GlideDownLoadImage.getInstance().loadBitmapImageRole(mContext, modelPic, bitmap);
+            bitmap = CommonUtils.stringtoBitmap(modelPicValue);
+            modelPic.setImageBitmap(bitmap);
+//            GlideDownLoadImage.getInstance().loadBitmapImageRole(mContext, modelPic, bitmap);
         }
     }
 
