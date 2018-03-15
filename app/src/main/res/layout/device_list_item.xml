@@ -12,7 +12,7 @@
         android:orientation="horizontal"
         android:background="@drawable/linearlayout_bottom_line">
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:orientation="vertical">
@@ -78,7 +78,7 @@
         </LinearLayout>
         <TextView
             android:id="@+id/item_button"
-            android:layout_width="@dimen/distance_71"
+            android:layout_width="0dp"
             android:layout_height="@dimen/distance_31"
             android:layout_weight="1"
             android:gravity="center"
