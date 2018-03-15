@@ -69,6 +69,8 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/distance_32"
+                android:singleLine="true"
+                android:layout_marginLeft="@dimen/distance_60"
                 android:text="@string/putname"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_14" />
@@ -104,6 +106,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/img2"
+                android:singleLine="true"
+                android:layout_marginLeft="@dimen/distance_60"
                 android:text="@string/putphonenum"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_14" />
@@ -139,6 +143,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/img3"
+                android:singleLine="true"
+                android:layout_marginLeft="@dimen/distance_60"
                 android:text="@string/puteamil"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_14" />
@@ -173,6 +179,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
+                android:singleLine="true"
+                android:layout_marginLeft="@dimen/distance_60"
                 android:layout_marginRight="@dimen/distance_32"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_14" />
@@ -208,6 +216,8 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/distance_32"
+                android:singleLine="true"
+                android:layout_marginLeft="@dimen/distance_60"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/distance_14" />
 
@@ -240,6 +250,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:singleLine="true"
+                android:layout_marginLeft="@dimen/distance_60"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/distance_32"
                 android:textColor="@color/color_999"

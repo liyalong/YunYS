@@ -7,6 +7,9 @@
         android:layout_width="@dimen/distance_104"
         android:layout_height="@dimen/distance_32"
         android:textColor="@color/color_b5"
+        android:paddingLeft="@dimen/distance_3"
+        android:singleLine="true"
+        android:textSize="@dimen/distance_14"
         android:gravity="center"
         android:background="@drawable/btn_baobiao_add"/>
 </RelativeLayout>

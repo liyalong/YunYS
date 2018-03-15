@@ -77,6 +77,7 @@ public class ScheduleFragement extends BaseFragement<WorkerSchedulePresent> {
 
     @Override
     public void initAfter() {
+        pageindex = 1;
         getP().getWorkerScheduleList(pageindex, userid, dayStartTime, dayEndTime);
     }
 
