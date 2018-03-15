@@ -187,6 +187,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
             LinearLayout.LayoutParams bigimgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
             lpview.setMargins(0, 10, 0, 0);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, 50);
             if (leipiplugins.equals("text") || leipiplugins.equals("textarea")) {
                 TextView namevalue = new TextView(this);
                 namevalue.setPadding(0, 10, 0, 0);
@@ -254,6 +255,8 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                         for (int j = 0; j < values.length; j++) {
                             String valuetext = values[j];
                             CheckBox checkBox = new CheckBox(this);
+                            checkBox.setLayoutParams(layoutParams);
+                            checkBox.setButtonDrawable(getResources().getDrawable(R.drawable.checkbox_selector));
                             checkBox.setTextColor(getResources().getColor(R.color.color_666));
                             checkBox.setTextSize(14);
                             checkBox.setId(Integer.parseInt(id + "2" + j));
@@ -312,6 +315,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
             LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                     1);
             lpview.setMargins(0, 10, 0, 0);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             if (leipiplugins.equals("text") || leipiplugins.equals("textarea")) {
 
                 EditText editText = new EditText(this);
@@ -370,10 +374,11 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                         for (int j = 0; j < values.length; j++) {
                             String valuetext = values[j];
                             CheckBox checkBox = new CheckBox(this);
+                            checkBox.setLayoutParams(layoutParams);
                             checkBox.setTextColor(getResources().getColor(R.color.color_666));
                             checkBox.setTextSize(14);
                             checkBox.setId(Integer.parseInt(id + "2" + j));
-                            // checkBox.setButtonDrawable(getResources().getDrawable(R.drawable.checkbox_selector));
+                             checkBox.setButtonDrawable(getResources().getDrawable(R.drawable.checkbox_selector));
                             checkBox.setText(valuetext);
                             if (seetype == 2) {
                                 checkBox.setClickable(false);
