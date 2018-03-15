@@ -21,6 +21,8 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:textColor="@color/color_333"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:textSize="@dimen/distance_14"/>
         <TextView
             android:id="@+id/warning_leveal"

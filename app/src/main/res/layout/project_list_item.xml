@@ -18,6 +18,8 @@
                 android:id="@+id/project_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:gravity="center"
                 android:textColor="#333"
                 android:text="深圳罗湖餐厨垃圾预处理项目"/>
