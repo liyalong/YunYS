@@ -227,9 +227,9 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
 //				nm.cancelAll();//清空通知栏
 //				Session.onKillProcess();
 //				ExampleApplication.exit();
-                finish();
-                ActivityManager.getScreenManager().popAllActivity();
 
+                ActivityManager.getScreenManager().popAllActivityExceptOne(LoginActivity.class);
+                finish();
 //				System.exit(0);
 
             }
