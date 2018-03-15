@@ -228,6 +228,14 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> implem
         ScaleImageView matriximage = (ScaleImageView) view1
                 .findViewById(R.id.matriximage);
         matriximage.setImageBitmap(bitmap);
+        matriximage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mSelectTask.isShowing()){
+                    mSelectTask.dismiss();
+                }
+            }
+        });
         window.setContentView(view1);
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);//设置横向全屏
         mSelectTask.show();
