@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     >
 
-    <com.yunyisheng.app.yunys.utils.MatrixImageView
+    <com.yunyisheng.app.yunys.utils.ScaleImageView
         android:id="@+id/matriximage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

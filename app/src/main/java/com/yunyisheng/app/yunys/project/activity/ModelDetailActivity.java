@@ -25,7 +25,7 @@ import com.yunyisheng.app.yunys.project.model.DeviceWarningListModel;
 import com.yunyisheng.app.yunys.project.model.ModelDetailModel;
 import com.yunyisheng.app.yunys.project.present.ModelDetailPresent;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
-import com.yunyisheng.app.yunys.utils.MatrixImageView;
+import com.yunyisheng.app.yunys.utils.ScaleImageView;
 import com.yunyisheng.app.yunys.utils.SuperExpandableListView;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
@@ -225,7 +225,7 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> implem
         Window window = mSelectTask.getWindow();
 //        window.setGravity(Gravity.BOTTOM);
         View view1 = View.inflate(activity, R.layout.dialog_show_image, null);
-        MatrixImageView matriximage = (MatrixImageView) view1
+        ScaleImageView matriximage = (ScaleImageView) view1
                 .findViewById(R.id.matriximage);
         matriximage.setImageBitmap(bitmap);
         window.setContentView(view1);
