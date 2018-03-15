@@ -18,7 +18,6 @@ import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.login.model.LoginModel;
 import com.yunyisheng.app.yunys.login.present.LoginPresent;
 import com.yunyisheng.app.yunys.main.service.MessageService;
-import com.yunyisheng.app.yunys.utils.ActivityManager;
 import com.yunyisheng.app.yunys.utils.AndroidIDUtil;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.RegularUtil;
@@ -228,8 +227,11 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
 //				Session.onKillProcess();
 //				ExampleApplication.exit();
 
-                ActivityManager.getScreenManager().popAllActivityExceptOne(LoginActivity.class);
-                finish();
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                android.os.Process.killProcess(android.os.Process.myPid());
 //				System.exit(0);
 
             }
