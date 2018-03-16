@@ -94,11 +94,13 @@ public class ProjectTemplateActivity extends BaseActivity {
                         return;
                     }else {
                         if (type!=4) {
-                            ChildBean childBean = groupBean.getModel().get(0);
-                            String dynamicTypeName = childBean.getDynamicTypeName();
-                            if (dynamicTypeName == null || dynamicTypeName.equals("")) {
-                                ToastUtils.showToast("您还有未填写的项");
-                                return;
+                            for (int m=0;m<groupBean.getModel().size();m++){
+                                ChildBean childBean = groupBean.getModel().get(m);
+                                String dynamicTypeName = childBean.getDynamicTypeName();
+                                if (dynamicTypeName == null || dynamicTypeName.equals("")) {
+                                    ToastUtils.showToast("您还有未填写的项");
+                                    return;
+                                }
                             }
                         }
                     }

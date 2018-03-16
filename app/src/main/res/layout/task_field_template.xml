@@ -48,6 +48,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/distance_40"
             android:layout_below="@+id/top">
 
             <ScrollView
