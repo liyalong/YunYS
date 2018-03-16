@@ -45,7 +45,7 @@ public class ProjectWorkerFindListAdapter extends SimpleListAdapter<FindProjectW
 
     @Override
     protected int getLayoutId() {
-        return R.layout.selectpeople_exp_child_item;
+        return R.layout.maillist_select_item;
     }
 
     @Override

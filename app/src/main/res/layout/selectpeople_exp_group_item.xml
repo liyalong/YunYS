@@ -40,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/distance_3"
+                android:singleLine="true"
                 android:layout_toRightOf="@+id/ck_select"
                 android:textColor="@color/color_333"
                 android:textSize="@dimen/distance_14" />
