@@ -248,7 +248,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
             //任务名称
             taskName.setText(task.getReleaseName());
             if (task.getTaskCreatet() != null){
-                createTime.setText(task.getTaskCreatet());
+                createTime.setText(task.getTaskCreatet().substring(0,16));
             }else {
                 createTime.setText("");
             }
@@ -331,8 +331,11 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                     doUser.setText(task.getTaskUserName());
                     //当前登录人和任务认领人相同时显示执行和回退按钮
                     if (isMyTask(task.getTaskUserId())){
+                        caozuoBox.setVisibility(View.VISIBLE);
                         doTask.setVisibility(View.VISIBLE);
                         backTask.setVisibility(View.VISIBLE);
+                    }else {
+                        caozuoBox.setVisibility(View.GONE);
                     }
                 }else if (task.getTaskStat() == 3){
                     caozuoBox.setVisibility(View.GONE);
@@ -352,14 +355,15 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                     taskStatus.setText(R.string.task_status_1);
                     caozuoBox.setVisibility(View.GONE);
                     doUserLayout.setVisibility(View.GONE);
-
                 }else if (task.getTaskStat() == 1){
                     taskStatus.setText(R.string.task_status_2);
-                    caozuoBox.setVisibility(View.GONE);
                     //当前登录人和任务认领人相同时显示执行和回退按钮
                     if (isMyTask(task.getTaskUserId())){
+                        caozuoBox.setVisibility(View.VISIBLE);
                         doUserLayout.setVisibility(View.VISIBLE);
                         doUser.setText(task.getTaskUserName());
+                    }else {
+                        caozuoBox.setVisibility(View.GONE);
                     }
 
                 }else if (task.getTaskStat() == 2){
@@ -392,8 +396,11 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                     doUser.setText(task.getTaskUserName());
                     //当前登录人和任务认领人相同时显示执行和回退按钮
                     if (isMyTask(task.getTaskUserId())) {
+                        caozuoBox.setVisibility(View.VISIBLE);
                         doTask.setVisibility(View.VISIBLE);
                         backTask.setVisibility(View.VISIBLE);
+                    }else {
+                        caozuoBox.setVisibility(View.GONE);
                     }
                 }else if (task.getTaskStat() == 3){
                     caozuoBox.setVisibility(View.GONE);
