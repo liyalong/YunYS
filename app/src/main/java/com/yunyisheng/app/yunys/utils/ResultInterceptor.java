@@ -50,7 +50,7 @@ public class ResultInterceptor implements Interceptor {
                         baseModel = gson.fromJson(json,BaseModel.class);
                         Integer status = baseModel.getRespCode();
                         if(status != null && status.equals(3)){
-
+                            ToastUtils.showToast(baseModel.getRespMsg());
                             Router.newIntent((Activity) context)
                                     .to(LoginActivity.class)
                                     .launch();
