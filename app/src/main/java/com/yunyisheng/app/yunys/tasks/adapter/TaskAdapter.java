@@ -99,13 +99,20 @@ public class TaskAdapter extends SimpleListAdapter<TaskBean, TaskAdapter.ViewHol
             holder.taskBtn.setEnabled(true);
             holder.taskBtn.setBackground(context.getResources().getDrawable(R.mipmap.button_cz));
         }
+
         if (item.getTaskSubmitTime() == null){
             //判断超时，
             String now = DateTimeDialogUtils.getCurrentDate("yyyy-MM-dd HH:mm:ss");
             if (DateTimeDialogUtils.DateCompare(item.getReleaseEndt(),now) == true){
-                holder.taskStatusIstimeout.setVisibility(View.VISIBLE);
-            }else {
                 holder.taskStatusIstimeout.setVisibility(View.GONE);
+            }else {
+                holder.taskStatusIstimeout.setVisibility(View.VISIBLE);
+            }
+        }else {
+            if (DateTimeDialogUtils.DateCompare(item.getTaskSubmitTime(),item.getReleaseEndt()) == true){
+                holder.taskStatusIstimeout.setVisibility(View.GONE);
+            }else {
+                holder.taskStatusIstimeout.setVisibility(View.VISIBLE);
             }
         }
         if (SELECT_TYPE == 2){
