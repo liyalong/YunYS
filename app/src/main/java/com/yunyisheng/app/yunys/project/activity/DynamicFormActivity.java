@@ -167,6 +167,13 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
     }
 
     private void initFormUi(List<SeeScheduleDetailBean.RespBodyBean.ForminstanceBean.DataListBean> dataList) {
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                2);
+        LinearLayout.LayoutParams bigimgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        lpview.setMargins(0, 10, 0, 0);
         for (int i = 0; i < formalldataBeanList.size(); i++) {
             SeeScheduleDetailBean.RespBodyBean.ForminstanceBean.FormBean.DataBean dataBean = formalldataBeanList.get(i);
             SeeScheduleDetailBean.RespBodyBean.ForminstanceBean.DataListBean dataListBean = dataList.get(i);
@@ -175,31 +182,33 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
             String value = dataListBean.getValue();
 
             TextView name = new TextView(this);
-            name.setPadding(0, 10, 0, 0);
+            name.setPadding(0, 10, 0, 10);
             name.setText(dataBean.getTitle());
             name.setTextColor(getResources().getColor(R.color.color_333));
             name.setTextSize(15);
             lineAll.addView(name);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                    1);
-            LinearLayout.LayoutParams bigimgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            lpview.setMargins(0, 10, 0, 0);
             if (leipiplugins.equals("text") || leipiplugins.equals("textarea")) {
+                LinearLayout linearLayout = new LinearLayout(this);
+                linearLayout.setLayoutParams(lp);
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                linearLayout.setBackgroundResource(R.drawable.btn_baobiao_add);
                 TextView namevalue = new TextView(this);
-                namevalue.setPadding(0, 10, 0, 0);
+                namevalue.setPadding(5, 10, 0, 10);
                 namevalue.setTextColor(getResources().getColor(R.color.color_333));
-                namevalue.setTextSize(13);
+                namevalue.setTextSize(14);
                 namevalue.setText(value);
-                lineAll.addView(namevalue);
+                linearLayout.addView(namevalue);
+                lineAll.addView(linearLayout);
 
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
                 lineAll.addView(view);
             } else if (leipiplugins.equals("radios")) {
+                LinearLayout linearLayout = new LinearLayout(this);
+                linearLayout.setLayoutParams(lp);
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                linearLayout.setBackgroundResource(R.drawable.btn_baobiao_add);
                 RadioGroup radioGroup = new RadioGroup(this);
                 radioGroup.setLayoutParams(lp);
                 radioGroup.setId(id);
@@ -233,7 +242,8 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
-                lineAll.addView(radioGroup);
+                linearLayout.addView(radioGroup);
+                lineAll.addView(linearLayout);
 
                 View view = new View(this);
                 view.setLayoutParams(lpview);
@@ -243,6 +253,8 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 LinearLayout l = new LinearLayout(this);
                 l.setId(id);
                 l.setOrientation(LinearLayout.VERTICAL);
+                l.setLayoutParams(lp);
+                l.setBackgroundResource(R.drawable.btn_baobiao_add);
                 String valuestring = dataBean.getValue();
                 try {
                     if (valuestring != null && !valuestring.equals("")) {
@@ -272,7 +284,6 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                     e.printStackTrace();
                 }
                 lineAll.addView(l);
-
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
@@ -283,6 +294,10 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 imageView.setScaleType(ImageView.ScaleType.FIT_START);
                 getP().getFormImage(value);
                 lineAll.addView(imageView);
+                View view = new View(this);
+                view.setLayoutParams(lpview);
+                view.setBackgroundColor(getResources().getColor(R.color.color_e7));
+                lineAll.addView(view);
             }
         }
     }
@@ -295,37 +310,49 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
     }
 
     private void initUi() {
+        LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                2);
+        lpview.setMargins(0, 20, 0, 0);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(0, 20, 0, 20);
         for (int i = 0; i < alldataBeanList.size(); i++) {
             final ScheduleDetailBean.RespBodyBean.FormBean.DataBean dataBean = alldataBeanList.get(i);
             String leipiplugins = dataBean.getLeipiplugins();
             int id = dataBean.getId();
             TextView name = new TextView(this);
-            name.setPadding(0, 10, 0, 0);
+            name.setPadding(0, 10, 0, 10);
             name.setText(dataBean.getTitle());
             name.setTextColor(getResources().getColor(R.color.color_333));
             name.setTextSize(15);
             lineAll.addView(name);
-            LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                    1);
-            lpview.setMargins(0, 10, 0, 0);
             if (leipiplugins.equals("text") || leipiplugins.equals("textarea")) {
-
+                LinearLayout linearLayout = new LinearLayout(this);
+                linearLayout.setLayoutParams(lp);
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                linearLayout.setBackgroundResource(R.drawable.btn_baobiao_add);
                 EditText editText = new EditText(this);
                 editText.setId(id);
                 editText.setTextColor(getResources().getColor(R.color.color_666));
                 editText.setTextSize(14);
+                editText.setHint("请输入" + dataBean.getTitle());
+                editText.setHintTextColor((getResources().getColor(R.color.color_999)));
                 editText.setBackground(null);
                 editText.setLayoutParams(lp);
-                lineAll.addView(editText);
+                linearLayout.addView(editText);
+                lineAll.addView(linearLayout);
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
                 lineAll.addView(view);
             } else if (leipiplugins.equals("radios")) {
+                LinearLayout linearLayout = new LinearLayout(this);
+                linearLayout.setLayoutParams(lp);
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                linearLayout.setBackgroundResource(R.drawable.btn_baobiao_add);
                 RadioGroup radioGroup = new RadioGroup(this);
                 radioGroup.setLayoutParams(lp);
                 radioGroup.setId(id);
@@ -352,7 +379,8 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
-                lineAll.addView(radioGroup);
+                linearLayout.addView(radioGroup);
+                lineAll.addView(linearLayout);
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
@@ -361,6 +389,8 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 LinearLayout l = new LinearLayout(this);
                 l.setId(id);
                 l.setOrientation(LinearLayout.VERTICAL);
+                l.setBackgroundResource(R.drawable.btn_baobiao_add);
+                l.setLayoutParams(lp);
                 String valuestring = dataBean.getValue();
                 try {
                     if (valuestring != null && !valuestring.equals("")) {
@@ -404,10 +434,13 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                     }
                 });
                 lineAll.addView(imageView);
+                View view = new View(this);
+                view.setLayoutParams(lpview);
+                view.setBackgroundColor(getResources().getColor(R.color.color_e7));
+                lineAll.addView(view);
             }
         }
         if (seetype == 1) {
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             Button button = new Button(this);
             button.setLayoutParams(layoutParams);
             button.setText("提交");

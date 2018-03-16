@@ -168,39 +168,52 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
         teTitle.setText(theme);
         dataList = processDetailBean.getRespBody().getSelectByIdAndUuid().getDataList();
         data = processDetailBean.getRespBody().getSelectByIdAndUuid().getForm().getData();
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                1);
+        lpview.setMargins(0, 20, 0, 0);
+        LinearLayout.LayoutParams bigimgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(0, 20, 0, 0);
+
         for (int i = 0; i < data.size(); i++) {
             final ProcessDetailBean.SelectByIdAndUuid.FormBean.DataBean dataBean = data.get(i);
             dataListBean = dataList.get(i);
             value = dataListBean.getValue();
             String leipiplugins = dataBean.getLeipiplugins();
             int id = dataBean.getId();
+
             TextView name = new TextView(this);
             name.setPadding(0, 10, 0, 0);
             name.setText(dataBean.getTitle());
             name.setTextColor(getResources().getColor(R.color.color_333));
             name.setTextSize(15);
             lineAll.addView(name);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                    1);
-            lpview.setMargins(0, 10, 0, 0);
-            LinearLayout.LayoutParams bigimgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
             if (leipiplugins.equals("text") || leipiplugins.equals("textarea")) {
-
+                LinearLayout linearLayout = new LinearLayout(this);
+                linearLayout.setLayoutParams(lp);
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                linearLayout.setBackgroundResource(R.drawable.btn_baobiao_add);
                 TextView namevalue = new TextView(this);
-                namevalue.setPadding(0, 10, 0, 0);
+                namevalue.setPadding(5, 10, 0, 10);
                 namevalue.setTextColor(getResources().getColor(R.color.color_333));
-                namevalue.setTextSize(13);
+                namevalue.setTextSize(14);
                 namevalue.setText(value);
-                lineAll.addView(namevalue);
-
+                linearLayout.addView(namevalue);
+                lineAll.addView(linearLayout);
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
                 lineAll.addView(view);
             } else if (leipiplugins.equals("radios")) {
+                LinearLayout linearLayout = new LinearLayout(this);
+                linearLayout.setLayoutParams(lp);
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                linearLayout.setBackgroundResource(R.drawable.btn_baobiao_add);
                 RadioGroup radioGroup = new RadioGroup(this);
                 radioGroup.setLayoutParams(lp);
                 radioGroup.setId(id);
@@ -234,7 +247,8 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
-                lineAll.addView(radioGroup);
+                linearLayout.addView(radioGroup);
+                lineAll.addView(linearLayout);
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
@@ -242,7 +256,9 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
             } else if (leipiplugins.equals("checkboxs")) {
                 LinearLayout l = new LinearLayout(this);
                 l.setId(id);
+                l.setLayoutParams(lp);
                 l.setOrientation(LinearLayout.VERTICAL);
+                l.setBackgroundResource(R.drawable.btn_baobiao_add);
                 String valuestring = dataBean.getValue();
                 try {
                     if (valuestring != null && !valuestring.equals("")) {
@@ -274,21 +290,22 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                     e.printStackTrace();
                 }
                 lineAll.addView(l);
-
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
                 lineAll.addView(view);
-            }else if (leipiplugins.equals("formImage")) {
+            } else if (leipiplugins.equals("formImage")) {
                 imageView = new ImageView(this);
                 imageView.setLayoutParams(bigimgview);
                 imageView.setScaleType(ImageView.ScaleType.FIT_START);
                 getP().getFormImage(value);
                 lineAll.addView(imageView);
+                View view = new View(this);
+                view.setLayoutParams(lpview);
+                view.setBackgroundColor(getResources().getColor(R.color.color_e7));
+                lineAll.addView(view);
             }
         }
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(0, 20, 0, 0);
         if (state != null && !state.equals("")) {
             if (state.equals("101")) {
                 Button but_ok = new Button(this);
@@ -334,45 +351,57 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
     }
 
     public void setFormImage(String respBody) {
-        if (respBody!=null&&!respBody.equals("")){
+        if (respBody != null && !respBody.equals("")) {
             Bitmap bitmap = stringtoBitmap(respBody);
             imageView.setImageBitmap(bitmap);
         }
     }
 
     private void initUi() {
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                2);
+        LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        lpview.setMargins(0, 20, 0, 0);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(0, 20, 0, 20);
+
         for (int i = 0; i < dataBeanList.size(); i++) {
             final ProcessTaskFormDetailBean.RespBodyBean.DataBean dataBean = dataBeanList.get(i);
             String leipiplugins = dataBean.getLeipiplugins();
             int id = dataBean.getId();
             TextView name = new TextView(this);
-            name.setPadding(0, 10, 0, 0);
+            name.setPadding(0, 10, 0, 10);
             name.setText(dataBean.getTitle());
             name.setTextColor(getResources().getColor(R.color.color_333));
             name.setTextSize(15);
             lineAll.addView(name);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                    1);
-            LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            lpview.setMargins(0, 10, 0, 0);
             if (leipiplugins.equals("text") || leipiplugins.equals("textarea")) {
+                LinearLayout linearLayout = new LinearLayout(this);
+                linearLayout.setLayoutParams(lp);
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                linearLayout.setBackgroundResource(R.drawable.btn_baobiao_add);
                 EditText editText = new EditText(this);
                 editText.setId(id);
                 editText.setTextColor(getResources().getColor(R.color.color_666));
+                editText.setHint("请输入" + dataBean.getTitle());
+                editText.setHintTextColor((getResources().getColor(R.color.color_999)));
                 editText.setTextSize(14);
                 editText.setBackground(null);
                 editText.setLayoutParams(lp);
-                lineAll.addView(editText);
-
+                linearLayout.addView(editText);
+                lineAll.addView(linearLayout);
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
                 lineAll.addView(view);
             } else if (leipiplugins.equals("radios")) {
-
+                LinearLayout linearLayout = new LinearLayout(this);
+                linearLayout.setLayoutParams(lp);
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                linearLayout.setBackgroundResource(R.drawable.btn_baobiao_add);
                 RadioGroup radioGroup = new RadioGroup(this);
                 radioGroup.setLayoutParams(lp);
                 radioGroup.setId(id);
@@ -399,17 +428,18 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
-                lineAll.addView(radioGroup);
-
+                linearLayout.addView(radioGroup);
+                lineAll.addView(linearLayout);
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
                 lineAll.addView(view);
             } else if (leipiplugins.equals("checkboxs")) {
-
                 LinearLayout l = new LinearLayout(this);
                 l.setId(id);
                 l.setOrientation(LinearLayout.VERTICAL);
+                l.setBackgroundResource(R.drawable.btn_baobiao_add);
+                l.setLayoutParams(lp);
                 String valuestring = dataBean.getValue();
                 try {
                     if (valuestring != null && !valuestring.equals("")) {
@@ -432,31 +462,31 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                     e.printStackTrace();
                 }
                 lineAll.addView(l);
-
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
                 lineAll.addView(view);
-            }else if (leipiplugins.equals("formImage")) {
+            } else if (leipiplugins.equals("formImage")) {
                 final ImageView imageView = new ImageView(this);
                 imageView.setLayoutParams(imgview);
                 imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 imageView.setBackgroundResource(R.mipmap.put_img);
-
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        image=imageView;
+                        image = imageView;
                         uploadimageid = dataBean.getId();
                         uploadimageuuid = dataBean.getUuid();
                         DialogManager.createPickImageDialog(ProcessTaskFormActivity.this);
                     }
                 });
                 lineAll.addView(imageView);
+                View view = new View(this);
+                view.setLayoutParams(lpview);
+                view.setBackgroundColor(getResources().getColor(R.color.color_e7));
+                lineAll.addView(view);
             }
         }
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(0, 20, 0, 0);
         if (state != null && !state.equals("")) {
             if (state.equals("103")) {
                 Button button = new Button(this);
@@ -535,16 +565,16 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                                 ToastUtils.showToast("您还有未选择的选项");
                                 return;
                             }
-                        }else if (leipiplugins.equals("formImage")) {
+                        } else if (leipiplugins.equals("formImage")) {
                             JSONObject jsonObject = new JSONObject();
                             jsonObject.put(kongjianid, id + "");
 
-                            if (imageurllist.size()>0){
-                                String imageurl=imageurllist.get(imageurlsize);
+                            if (imageurllist.size() > 0) {
+                                String imageurl = imageurllist.get(imageurlsize);
                                 jsonObject.put(valuestr, imageurl);
                                 jsonArray.put(jsonObject);
                                 imageurlsize++;
-                            }else {
+                            } else {
                                 ToastUtils.showToast("请选择图片");
                                 return;
                             }
@@ -626,23 +656,23 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                 Uri contentUri;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     contentUri = FileProvider.getUriForFile(ProcessTaskFormActivity.this, "com.yunyisheng.app.yunys.fileprovider", DialogManager.tempFile);
-                }else {
-                    contentUri=Uri.fromFile(DialogManager.tempFile);
+                } else {
+                    contentUri = Uri.fromFile(DialogManager.tempFile);
                 }
-                putPic(DialogManager.tempFile,contentUri);
+                putPic(DialogManager.tempFile, contentUri);
             } else if (requestCode == 2) {// 相册
                 if (data != null) {
                     Log.i("xiaoqiang", "smdongxi==" + data.getData());
                     Uri uri = data.getData();
                     String realPathFromURI = Util.getFileAbsolutePath(this, uri);
                     File file = new File(realPathFromURI);
-                    putPic(file,uri);
+                    putPic(file, uri);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
 
 
@@ -666,7 +696,7 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
         String token = SharedPref.getInstance(ProcessTaskFormActivity.this).getString("TOKEN", null);
 
         RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("id", uploadimageid+"")
+                .addFormDataPart("id", uploadimageid + "")
                 .addFormDataPart("uuid", uploadimageuuid)
                 .addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("file"), file))
                 .build();

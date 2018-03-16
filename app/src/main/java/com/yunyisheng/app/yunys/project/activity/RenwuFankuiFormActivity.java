@@ -179,185 +179,177 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
     }
 
     private void initUi() {
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                2);
+        lpview.setMargins(0, 20, 0, 0);
+        LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        bigimgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(0, 20, 0, 20);
+
         for (int i = 0; i < feedbackItemlist.size(); i++) {
             RenWuFanKuiDetailBean.RespBodyBean.FeedbackItemBean feedbackItemBean = feedbackItemlist.get(i);
             int id = feedbackItemBean.getFeedbackItemId();
             int type = feedbackItemBean.getFeedbackType();
             String feedbackVal = feedbackItemBean.getFeedbackVal();
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                    1);
-            lpview.setMargins(0, 10, 0, 0);
-            LinearLayout.LayoutParams imgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            bigimgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            TextView name = new TextView(this);
+            name.setPadding(5, 10, 0, 10);
+            name.setText(feedbackItemBean.getFeedbackName());
+            name.setTextColor(getResources().getColor(R.color.color_333));
+            name.setTextSize(15);
+            lineAll.addView(name);
             if (type == 1) {
-                TextView name = new TextView(this);
-                name.setPadding(0, 10, 0, 0);
-                name.setText(feedbackItemBean.getFeedbackName());
-                name.setTextColor(getResources().getColor(R.color.color_333));
-                name.setTextSize(15);
-                lineAll.addView(name);
-
-                if (seetype==2){
+                if (seetype == 2) {
+                    LinearLayout linearLayout = new LinearLayout(this);
+                    linearLayout.setLayoutParams(lp);
+                    linearLayout.setOrientation(LinearLayout.VERTICAL);
+                    linearLayout.setBackgroundResource(R.drawable.btn_baobiao_add);
                     TextView namevalue = new TextView(this);
-                    namevalue.setPadding(0, 10, 0, 0);
                     namevalue.setTextColor(getResources().getColor(R.color.color_333));
-                    namevalue.setTextSize(13);
+                    namevalue.setPadding(5, 5, 0, 5);
+                    namevalue.setTextSize(14);
                     namevalue.setText(feedbackVal);
-                    lineAll.addView(namevalue);
-                }else {
+                    linearLayout.addView(namevalue);
+                    lineAll.addView(linearLayout);
+                } else {
+                    LinearLayout linearLayout = new LinearLayout(this);
+                    linearLayout.setLayoutParams(lp);
+                    linearLayout.setOrientation(LinearLayout.VERTICAL);
+                    linearLayout.setBackgroundResource(R.drawable.btn_baobiao_add);
                     EditText editText = new EditText(this);
                     editText.setId(id);
                     editText.setTextColor(getResources().getColor(R.color.color_666));
                     editText.setTextSize(14);
+                    editText.setHint("请输入" + feedbackItemBean.getFeedbackName());
+                    editText.setHintTextColor((getResources().getColor(R.color.color_999)));
                     editText.setBackground(null);
                     editText.setLayoutParams(lp);
-                    lineAll.addView(editText);
+                    linearLayout.addView(editText);
+                    lineAll.addView(linearLayout);
                 }
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
                 lineAll.addView(view);
             } else if (type == 2) {
-                TextView name = new TextView(this);
-                name.setPadding(0, 10, 0, 0);
-                name.setText(feedbackItemBean.getFeedbackName());
-                name.setTextColor(getResources().getColor(R.color.color_333));
-                name.setTextSize(15);
-                lineAll.addView(name);
-
-                if (seetype==2){
-                    TextView namevalue = new TextView(this);
-                    namevalue.setPadding(0, 10, 0, 0);
-                    namevalue.setTextColor(getResources().getColor(R.color.color_333));
-                    namevalue.setTextSize(13);
-                    namevalue.setText(feedbackVal);
-                    lineAll.addView(namevalue);
-                }else {
-                    RadioGroup radioGroup = new RadioGroup(this);
-                    radioGroup.setLayoutParams(lp);
-                    radioGroup.setId(id);
-                    radioGroup.setPadding(0, 10, 0, 0);
-                    radioGroup.setOrientation(LinearLayout.VERTICAL);
-                    List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> model = feedbackItemBean.getModel();
-                    if (model.size() < 1) return;
-                    for (int j = 0; j < model.size(); j++) {
-                        String valuetext = model.get(j).getDynamic_type_name();
-                        RadioButton radioButton = new RadioButton(this);
-                        radioButton.setTextColor(getResources().getColor(R.color.color_666));
-                        radioButton.setTextSize(14);
-                        radioButton.setId(Integer.parseInt(id + "1" + j));
-                        radioButton.setText(valuetext);
-                        if (seetype == 2) {
-                            radioButton.setFocusable(false);
-                            radioButton.setClickable(false);
+                LinearLayout linearLayout = new LinearLayout(this);
+                linearLayout.setLayoutParams(lp);
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                linearLayout.setBackgroundResource(R.drawable.btn_baobiao_add);
+                RadioGroup radioGroup = new RadioGroup(this);
+                radioGroup.setLayoutParams(lp);
+                radioGroup.setId(id);
+                radioGroup.setPadding(0, 10, 0, 0);
+                radioGroup.setOrientation(LinearLayout.VERTICAL);
+                List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> model = feedbackItemBean.getModel();
+                if (model.size() < 1) return;
+                for (int j = 0; j < model.size(); j++) {
+                    String valuetext = model.get(j).getDynamic_type_name();
+                    RadioButton radioButton = new RadioButton(this);
+                    radioButton.setTextColor(getResources().getColor(R.color.color_666));
+                    radioButton.setTextSize(14);
+                    radioButton.setId(Integer.parseInt(id + "1" + j));
+                    radioButton.setText(valuetext);
+                    if (seetype == 2) {
+                        radioButton.setClickable(false);
+                        radioButton.setFocusable(false);
+                        if (feedbackVal.equals(valuetext)) {
+                            radioButton.setChecked(true);
                         }
-                        radioGroup.addView(radioButton);
                     }
-                    lineAll.addView(radioGroup);
+                    radioGroup.addView(radioButton);
                 }
-            } else if (type == 3) {
-                TextView name = new TextView(this);
-                name.setPadding(0, 10, 0, 0);
-                name.setText(feedbackItemBean.getFeedbackName());
-                name.setTextColor(getResources().getColor(R.color.color_333));
-                name.setTextSize(15);
-                lineAll.addView(name);
-                if (seetype==2){
-                    TextView namevalue = new TextView(this);
-                    namevalue.setPadding(0, 10, 0, 0);
-                    namevalue.setTextColor(getResources().getColor(R.color.color_333));
-                    namevalue.setTextSize(13);
-                    namevalue.setText(feedbackVal);
-                    lineAll.addView(namevalue);
-                }else {
-                    LinearLayout l = new LinearLayout(this);
-//                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                    l.setId(id);
-                    l.setOrientation(LinearLayout.VERTICAL);
-                    List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> model = feedbackItemBean.getModel();
-                    if (model.size() < 1) return;
-                    for (int j = 0; j < model.size(); j++) {
-                        String valuetext = model.get(j).getDynamic_type_name();
-                        CheckBox checkBox = new CheckBox(this);
-                        checkBox.setTextColor(getResources().getColor(R.color.color_666));
-                        checkBox.setTextSize(14);
-                        checkBox.setId(Integer.parseInt(id + "2" + j));
-                        // checkBox.setButtonDrawable(getResources().getDrawable(R.drawable.checkbox_selector));
-                        checkBox.setText(valuetext);
-                        if (seetype == 2) {
-                            checkBox.setClickable(false);
-                        }
-                        l.addView(checkBox);
-                    }
-                    lineAll.addView(l);
-                }
+                radioGroup.setClickable(false);
+                radioGroup.setFocusable(false);
+                linearLayout.addView(radioGroup);
+                lineAll.addView(linearLayout);
                 View view = new View(this);
                 view.setLayoutParams(lpview);
                 view.setBackgroundColor(getResources().getColor(R.color.color_e7));
                 lineAll.addView(view);
-
+            } else if (type == 3) {
+                LinearLayout l = new LinearLayout(this);
+                l.setId(id);
+                l.setLayoutParams(lp);
+                l.setBackgroundResource(R.drawable.btn_baobiao_add);
+                l.setOrientation(LinearLayout.VERTICAL);
+                List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> model = feedbackItemBean.getModel();
+                if (model.size() < 1) return;
+                for (int j = 0; j < model.size(); j++) {
+                    String valuetext = model.get(j).getDynamic_type_name();
+                    CheckBox checkBox = new CheckBox(this);
+                    checkBox.setTextColor(getResources().getColor(R.color.color_666));
+                    checkBox.setTextSize(14);
+                    checkBox.setId(Integer.parseInt(id + "2" + j));
+                    checkBox.setText(valuetext);
+                    if (seetype == 2) {
+                        String[] selectvalue = null;
+                        selectvalue = feedbackVal.split(",");
+                        for (int m = 0; m < selectvalue.length; m++) {
+                            if (valuetext.equals(selectvalue[0])) {
+                                checkBox.setChecked(true);
+                            }
+                        }
+                        checkBox.setClickable(false);
+                        checkBox.setFocusable(false);
+                    }
+                    l.addView(checkBox);
+                }
+                lineAll.addView(l);
+                View view = new View(this);
+                view.setLayoutParams(lpview);
+                view.setBackgroundColor(getResources().getColor(R.color.color_e7));
+                lineAll.addView(view);
             } else if (type == 4) {
                 try {
-                    if (seetype==2){
-                        TextView name = new TextView(this);
-                        name.setPadding(0, 10, 0, 0);
-                        name.setText(feedbackItemBean.getFeedbackName());
-                        name.setTextColor(getResources().getColor(R.color.color_333));
-                        name.setTextSize(15);
-                        lineAll.addView(name);
+                    if (seetype == 2) {
                         ImageView imageView = new ImageView(this);
                         imageView.setLayoutParams(bigimgview);
                         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                        if (feedbackVal!=null&&!feedbackVal.equals("")){
+                        if (feedbackVal != null && !feedbackVal.equals("")) {
                             Bitmap bitmap = stringtoBitmap(feedbackVal);
                             imageView.setImageBitmap(bitmap);
                         }
                         lineAll.addView(imageView);
-                    }else {
+                    } else {
                         final JSONObject jsonObject = new JSONObject();
                         int imgid = feedbackItemBean.getFeedbackItemId();
                         jsonObject.put(kongjianid, imgid + "");
                         jsonObject.put(valuestr, null);
-                        TextView name = new TextView(this);
-                        name.setPadding(0, 10, 0, 0);
-                        name.setText(feedbackItemBean.getFeedbackName());
-                        name.setTextColor(getResources().getColor(R.color.color_333));
-                        name.setTextSize(15);
-                        lineAll.addView(name);
                         final ImageView imageView = new ImageView(this);
                         imageView.setLayoutParams(imgview);
                         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                         imageView.setBackgroundResource(R.mipmap.put_img);
 
-                            imageView.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    imgstr = jsonObject.toString();
-                                    image=imageView;
-                                    DialogManager.createPickImageDialog(RenwuFankuiFormActivity.this);
-                                }
-                            });
+                        imageView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                imgstr = jsonObject.toString();
+                                image = imageView;
+                                DialogManager.createPickImageDialog(RenwuFankuiFormActivity.this);
+                            }
+                        });
                         lineAll.addView(imageView);
                     }
                 } catch (Exception e) {
-
                 }
+                View view = new View(this);
+                view.setLayoutParams(lpview);
+                view.setBackgroundColor(getResources().getColor(R.color.color_e7));
+                lineAll.addView(view);
             }
         }
 
         if (seetype == 1) {
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(0, 20, 0, 0);
             Button button = new Button(this);
             button.setLayoutParams(layoutParams);
             button.setText("提交");
             button.setBackgroundResource(R.drawable.btn_anpai_work);
             button.setTextColor(getResources().getColor(R.color.white));
-
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -442,19 +434,19 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 Uri contentUri;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     contentUri = FileProvider.getUriForFile(RenwuFankuiFormActivity.this, "com.yunyisheng.app.yunys.fileprovider", DialogManager.tempFile);
-                }else {
-                    contentUri=Uri.fromFile(DialogManager.tempFile);
+                } else {
+                    contentUri = Uri.fromFile(DialogManager.tempFile);
                 }
 //                String realPathFromURI = Util.getFileAbsolutePath(this, contentUri);
 //                File file = new File(realPathFromURI);
-                setCompressImg(DialogManager.tempFile,contentUri);
+                setCompressImg(DialogManager.tempFile, contentUri);
             } else if (requestCode == 2) {// 相册
                 if (intent != null) {
                     Log.i("xiaoqiang", "smdongxi==" + intent.getData());
                     Uri uri = intent.getData();
                     String realPathFromURI = Util.getFileAbsolutePath(this, uri);
                     File file = new File(realPathFromURI);
-                    setCompressImg(file,uri);
+                    setCompressImg(file, uri);
                 }
             }
         } catch (Exception e) {
@@ -463,7 +455,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
         super.onActivityResult(requestCode, resultCode, intent);
     }
 
-    private void setCompressImg(File file, final Uri uri){
+    private void setCompressImg(File file, final Uri uri) {
         Luban.with(this).
                 load(file).
                 ignoreBy(1000).
@@ -475,7 +467,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
 
                     @Override
                     public void onSuccess(File file) {
-                        putPic(file,uri);
+                        putPic(file, uri);
                     }
 
                     @Override
