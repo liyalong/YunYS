@@ -125,7 +125,7 @@
     <string name="myProject">我的项目</string>
     <string name="companyProject">公司项目</string>
     <string name="projectCreateTime">创建时间：</string>
-    <string name="projectCreateUser">负责人</string>
+    <string name="projectCreateUser">负责人:</string>
     <string name="project">项目</string>
     <string name="device">设备</string>
     <string name="model">工艺模块</string>

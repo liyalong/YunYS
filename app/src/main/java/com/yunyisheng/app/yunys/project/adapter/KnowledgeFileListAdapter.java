@@ -41,8 +41,8 @@ public class KnowledgeFileListAdapter extends SimpleListAdapter<FileItem, Knowle
 
     @Override
     protected void convert(ViewHolder holder, FileItem item, int position) {
-        holder.knowledgeFileName.setText(data.get(position).getFname().toString());
-        holder.knowledgeFileCreateTime.setText(data.get(position).getCreatet().toString());
+        holder.knowledgeFileName.setText(data.get(position).getFname());
+        holder.knowledgeFileCreateTime.setText(data.get(position).getCreatet().substring(0,16));
         if (CommonUtils.initDownPath(FileCache.path + data.get(position).getFname())){
             holder.download.setText(R.string.show);
         }else {

@@ -55,7 +55,7 @@ public class MyProjectListAdapter extends SimpleListAdapter<ProjectBean, MyProje
             }else {
                 holder.projectErrorLayout.setVisibility(View.GONE);
             }
-            holder.projectCreateTime.setText(projectBean.getProjectCreate());
+            holder.projectCreateTime.setText(projectBean.getProjectCreate().substring(0,16));
             holder.projectDesc.setText(projectBean.getProjectRemarks());
     }
 

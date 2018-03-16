@@ -50,8 +50,8 @@ public class TaskAdapter extends SimpleListAdapter<TaskBean, TaskAdapter.ViewHol
     @Override
     protected void convert(ViewHolder holder, TaskBean item, int position) {
         holder.taskName.setText(item.getReleaseName().toString());
-        holder.taskStartTime.setText(item.getReleaseBegint().toString());
-        holder.taskEndTime.setText(item.getReleaseEndt().toString());
+        holder.taskStartTime.setText(item.getReleaseBegint().toString().substring(0,16));
+        holder.taskEndTime.setText(item.getReleaseEndt().toString().substring(0,16));
         holder.createUser.setText(item.getReleaseUsername().toString());
         if (SELECT_TYPE == 1){
             //待认领任务设置待认领状态隐藏，认领人信息隐藏
@@ -103,7 +103,7 @@ public class TaskAdapter extends SimpleListAdapter<TaskBean, TaskAdapter.ViewHol
         if (item.getTaskSubmitTime() == null){
             //判断超时，
             String now = DateTimeDialogUtils.getCurrentDate("yyyy-MM-dd HH:mm:ss");
-            if (DateTimeDialogUtils.DateCompare(item.getReleaseEndt(),now) == true){
+            if (DateTimeDialogUtils.DateCompare(now,item.getReleaseEndt()) == true){
                 holder.taskStatusIstimeout.setVisibility(View.GONE);
             }else {
                 holder.taskStatusIstimeout.setVisibility(View.VISIBLE);

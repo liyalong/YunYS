@@ -39,7 +39,7 @@ public class ModelAlarmRulesAdapter extends SimpleListAdapter<ModelAlarmRulesBea
     @Override
     protected void convert(ViewHolder holder, ModelAlarmRulesBean item, int position) {
         ModelAlarmRulesBean modelAlarmRulesBean = dataList.get(position);
-        holder.alramRulesName.setText(modelAlarmRulesBean.getPcmwarnName().toString());
+        holder.alramRulesName.setText(modelAlarmRulesBean.getPcmwarnName());
         switch (modelAlarmRulesBean.getPcmwarnLevel()) {
             case 1:
                 holder.alarmRulesLevel.setText(R.string.alarm_rules_level_1);
@@ -58,10 +58,10 @@ public class ModelAlarmRulesAdapter extends SimpleListAdapter<ModelAlarmRulesBea
                 holder.alarmRulesLevel.setBackgroundColor(context.getResources().getColor(R.color.alarmrules_level_4));
                 break;
         }
-        holder.addtime.setText(modelAlarmRulesBean.getCreatet().toString());
-        holder.alarmrulesSet.setText(modelAlarmRulesBean.getCompare().toString());
+        holder.addtime.setText(modelAlarmRulesBean.getCreatet().substring(0,16));
+        holder.alarmrulesSet.setText(modelAlarmRulesBean.getCompare());
         if (modelAlarmRulesBean.getRemark() != null) {
-            holder.alarmrulesDesc.setText(modelAlarmRulesBean.getRemark().toString());
+            holder.alarmrulesDesc.setText(modelAlarmRulesBean.getRemark());
         } else {
             holder.alarmrulesDesc.setText("");
         }

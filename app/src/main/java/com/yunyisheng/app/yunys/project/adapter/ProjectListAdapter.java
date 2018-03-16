@@ -46,7 +46,7 @@ public class ProjectListAdapter extends SimpleListAdapter<ProjectBean, ProjectLi
             holder.projectCreateUser.setText(projectBean.getProjectLeaderName());
             holder.projectErrorLayout.setVisibility(View.GONE);
             holder.projectNewtaskLayout.setVisibility(View.GONE);
-            holder.projectCreateTime.setText(projectBean.getProjectCreate());
+            holder.projectCreateTime.setText(projectBean.getProjectCreate().substring(0,16));
             holder.projectDesc.setText(projectBean.getProjectRemarks());
     }
 

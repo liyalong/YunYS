@@ -40,7 +40,7 @@ public class DeviceAlarmRulesAdapter extends SimpleListAdapter<DeviceAlarmRulesB
     @Override
     protected void convert(ViewHolder holder, DeviceAlarmRulesBean item, int position) {
         DeviceAlarmRulesBean deviceAlarmRulesBean = dataList.get(position);
-        holder.alramRulesName.setText(deviceAlarmRulesBean.getEquwarnName().toString());
+        holder.alramRulesName.setText(deviceAlarmRulesBean.getEquwarnName());
         switch (deviceAlarmRulesBean.getEquwarnLevel()) {
             case 1:
                 holder.alarmRulesLevel.setText(R.string.alarm_rules_level_1);
@@ -59,10 +59,10 @@ public class DeviceAlarmRulesAdapter extends SimpleListAdapter<DeviceAlarmRulesB
                 holder.alarmRulesLevel.setBackgroundColor(context.getResources().getColor(R.color.alarmrules_level_4));
                 break;
         }
-        holder.addtime.setText(deviceAlarmRulesBean.getCreatet().toString());
-        holder.alarmrulesSet.setText(deviceAlarmRulesBean.getEquwarnCompare().toString());
+        holder.addtime.setText(deviceAlarmRulesBean.getCreatet().substring(0,16));
+        holder.alarmrulesSet.setText(deviceAlarmRulesBean.getEquwarnCompare());
         if (deviceAlarmRulesBean.getDescription() != null) {
-            holder.alarmrulesDesc.setText(deviceAlarmRulesBean.getDescription().toString());
+            holder.alarmrulesDesc.setText(deviceAlarmRulesBean.getDescription());
         } else {
             holder.alarmrulesDesc.setText("");
         }
@@ -72,7 +72,7 @@ public class DeviceAlarmRulesAdapter extends SimpleListAdapter<DeviceAlarmRulesB
         } else {
             holder.alarmrulesStatus.setText(R.string.alarm_rules_status_2);
         }
-        holder.alarmrulesValue.setText(deviceAlarmRulesBean.getEquwarnVal().toString());
+        holder.alarmrulesValue.setText(deviceAlarmRulesBean.getEquwarnVal());
     }
 
     public static class ViewHolder {

@@ -267,9 +267,9 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
             }
 
             //任务开始时间
-            beginTime.setText(task.getReleaseBegint());
+            beginTime.setText(task.getReleaseBegint().substring(0,16));
             //任务结束时间
-            endTime.setText(task.getReleaseEndt());
+            endTime.setText(task.getReleaseEndt().substring(0,16));
 
 
 

@@ -50,7 +50,7 @@ public class DeviceListAdapter extends SimpleListAdapter<DeviceBean, DeviceListA
     protected void convert(ViewHolder holder, DeviceBean item, int position) {
         final DeviceBean deviceBean = data.get(position);
         holder.deviceName.setText(deviceBean.getEquipmentName());
-        holder.deviceCreateTime.setText(deviceBean.getEquipmentCreate());
+        holder.deviceCreateTime.setText(deviceBean.getEquipmentCreate().substring(0,16));
         if (deviceBean.getEquipmentStat() == 1){
             holder.deviceStatus.setBackgroundColor(context.getResources().getColor(R.color.device_status_success));
             holder.deviceStatus.setText(context.getResources().getString(R.string.device_status_1));

@@ -36,7 +36,7 @@ public class AlarmListAdapter extends SimpleListAdapter<DeviceWarningBean, Alarm
     @Override
     protected void convert(ViewHolder holder, DeviceWarningBean item, int position) {
         holder.warningName.setText(item.getAlarmName().toString());
-        holder.alarmHistoryTime.setText(item.getAlarmCreateDate().toString());
+        holder.alarmHistoryTime.setText(item.getAlarmCreateDate().toString().substring(0,16));
 
         if (item.getAlarmType() == 1){
             holder.alarmHistoryType.setText(R.string.alarm_history_type_1);

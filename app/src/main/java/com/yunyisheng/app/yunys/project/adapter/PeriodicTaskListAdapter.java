@@ -44,9 +44,9 @@ public class PeriodicTaskListAdapter extends SimpleListAdapter<PeriodicTaskBean,
     @Override
     protected void convert(ViewHolder holder, final PeriodicTaskBean item, int position) {
         periodicTaskBean = data.get(position);
-        holder.taskName.setText(periodicTaskBean.getCycletaskName().toString());
-        holder.addtime.setText(periodicTaskBean.getCreateTime().toString());
-        holder.cronValue.setText(periodicTaskBean.getCorn().toString());
+        holder.taskName.setText(periodicTaskBean.getCycletaskName());
+        holder.addtime.setText(periodicTaskBean.getCreateTime().substring(0,16));
+        holder.cronValue.setText(periodicTaskBean.getCorn());
         if(periodicTaskBean.getCycletaskStat() == 1){
             holder.deviceTasksStatus.setText(R.string.device_cycle_task_status_1);
         }else {
