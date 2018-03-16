@@ -64,6 +64,7 @@ public class MyScheduleBean extends BaseModel {
              * endTime : 2018-02-23 00:00:00
              * initiator : 毛硕
              * theme : 任务用于测试message
+             * over:1
              */
 
             private String state;
@@ -74,6 +75,15 @@ public class MyScheduleBean extends BaseModel {
             private String initiator;
             private String theme;
             private String projectsId;
+            private int over;
+
+            public int getOver() {
+                return over;
+            }
+
+            public void setOver(int over) {
+                this.over = over;
+            }
 
             public String getProjectsId() {
                 return projectsId;

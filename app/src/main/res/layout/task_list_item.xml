@@ -46,6 +46,21 @@
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/distance_8" />
+            <TextView
+                android:id="@+id/task_status_istimeout"
+                android:layout_width="@dimen/distance_30"
+                android:layout_height="@dimen/distance_14"
+                android:background="@color/device_status_error"
+                android:gravity="center"
+                android:layout_toRightOf="@+id/te_liucheng_type"
+                android:text="@string/task_status_5"
+                android:layout_marginTop="@dimen/distance_2"
+                android:paddingHorizontal="@dimen/distance_2"
+                android:textSize="@dimen/distance_8"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                android:layout_marginLeft="@dimen/distance_10"
+                />
 
         </RelativeLayout>
 

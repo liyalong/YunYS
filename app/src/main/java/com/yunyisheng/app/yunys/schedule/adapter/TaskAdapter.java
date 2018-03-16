@@ -74,6 +74,12 @@ public class TaskAdapter extends RecyclerAdapter<MyScheduleBean.RespBodyBean.Dat
         } else {
             holder.img_isok.setVisibility(View.GONE);
         }
+        int over = bean.getOver();
+        if (over==6){
+            holder.task_status_istimeout.setVisibility(View.VISIBLE);
+        }else {
+            holder.task_status_istimeout.setVisibility(View.GONE);
+        }
         holder.cv_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,13 +110,14 @@ public class TaskAdapter extends RecyclerAdapter<MyScheduleBean.RespBodyBean.Dat
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView te_schedule_title, te_schedule_time, te_liucheng_type;
+        TextView te_schedule_title, te_schedule_time, te_liucheng_type,task_status_istimeout;
         RelativeLayout cv_item;
         ImageView img_isok;
         View view1;
 
         ViewHolder(View view) {
             super(view);
+            task_status_istimeout=(TextView)view.findViewById(R.id.task_status_istimeout);
             te_liucheng_type = (TextView) view.findViewById(R.id.te_liucheng_type);
             img_isok = (ImageView) view.findViewById(R.id.img_isok);
             cv_item = (RelativeLayout) view.findViewById(R.id.cv_item);
