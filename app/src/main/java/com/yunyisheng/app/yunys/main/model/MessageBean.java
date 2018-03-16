@@ -40,7 +40,7 @@ public class MessageBean extends BaseModel {
          */
 
         private String messageReleaseUserName;
-        private Object messageCreateTime;
+        private String messageCreateTime;
         private int messageReleaseUserId;
         private String messageRemark;
         private int messageReceiveUserId;
@@ -60,11 +60,11 @@ public class MessageBean extends BaseModel {
             this.messageReleaseUserName = messageReleaseUserName;
         }
 
-        public Object getMessageCreateTime() {
+        public String getMessageCreateTime() {
             return messageCreateTime;
         }
 
-        public void setMessageCreateTime(Object messageCreateTime) {
+        public void setMessageCreateTime(String messageCreateTime) {
             this.messageCreateTime = messageCreateTime;
         }
 

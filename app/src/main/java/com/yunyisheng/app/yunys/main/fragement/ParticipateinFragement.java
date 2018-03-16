@@ -92,6 +92,7 @@ public class ParticipateinFragement extends BaseFragement<ParticpateinPresent> {
     }
 
     public void setProjectListModel(ProjectListModel projectListModel) {
+        teColumnsize.setText("("+projectListModel.getTotal()+")");
         respBodylist.clear();
         List<ProjectBean> respBody = projectListModel.getRespBody();
         if (respBody != null && respBody.size() > 0) {

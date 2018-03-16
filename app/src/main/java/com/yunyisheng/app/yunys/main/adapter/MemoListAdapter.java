@@ -60,8 +60,9 @@ public class MemoListAdapter extends BaseAdapter {
         } else {
             viewholder = (Viewholder) convertView.getTag();
         }
+        String subMemoDate = list.get(position).getMemoDate().substring(0, 16);
         viewholder.te_dateil.setText(list.get(position).getMemoVal());
-        viewholder.te_time.setText(list.get(position).getMemoDate());
+        viewholder.te_time.setText(subMemoDate);
         viewholder.te_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

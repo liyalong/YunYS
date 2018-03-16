@@ -23,6 +23,8 @@ import cn.droidlover.xdroidmvp.kit.KnifeKit;
 public class WorkerDatProjectlistAdapter extends SimpleListAdapter<ProjectBean, WorkerDatProjectlistAdapter.ViewHolder> {
 
 
+    private String subendTime;
+
     public WorkerDatProjectlistAdapter(Context context, List<ProjectBean> data) {
         super(context, data);
     }
@@ -43,7 +45,11 @@ public class WorkerDatProjectlistAdapter extends SimpleListAdapter<ProjectBean, 
         holder.teProjectTitle.setText(projectBean.getProjectName());
         String creationTime = projectBean.getProjectCreate();
         String endTime = projectBean.getProjectUpdate();
-        holder.teProjectTime.setText(creationTime + " - " + endTime);
+        String subcreationTime = creationTime.substring(0, 16);
+        if (endTime!=null&&!endTime.equals("")){
+            subendTime = endTime.substring(0, 16);
+        }
+        holder.teProjectTime.setText(subcreationTime + " - " + subendTime);
         ProjectBean.ProType proType = projectBean.getProType();
         String projectTypeName = proType.getProjectTypeName();
         holder.teProjectType.setText(projectTypeName);

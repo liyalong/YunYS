@@ -207,7 +207,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                     LinearLayout linearLayout = new LinearLayout(this);
                     linearLayout.setLayoutParams(lp);
                     linearLayout.setOrientation(LinearLayout.VERTICAL);
-                    linearLayout.setBackgroundResource(R.drawable.btn_baobiao_add);
+                    linearLayout.setBackgroundResource(R.drawable.form_bac);
                     TextView namevalue = new TextView(this);
                     namevalue.setTextColor(getResources().getColor(R.color.color_333));
                     namevalue.setPadding(5, 5, 0, 5);
@@ -219,10 +219,10 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                     LinearLayout linearLayout = new LinearLayout(this);
                     linearLayout.setLayoutParams(lp);
                     linearLayout.setOrientation(LinearLayout.VERTICAL);
-                    linearLayout.setBackgroundResource(R.drawable.btn_baobiao_add);
+                    linearLayout.setBackgroundResource(R.drawable.form_bac);
                     EditText editText = new EditText(this);
                     editText.setId(id);
-                    editText.setTextColor(getResources().getColor(R.color.color_666));
+                    editText.setTextColor(getResources().getColor(R.color.color_333));
                     editText.setTextSize(14);
                     editText.setHint("请输入" + feedbackItemBean.getFeedbackName());
                     editText.setHintTextColor((getResources().getColor(R.color.color_999)));
@@ -239,7 +239,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 LinearLayout linearLayout = new LinearLayout(this);
                 linearLayout.setLayoutParams(lp);
                 linearLayout.setOrientation(LinearLayout.VERTICAL);
-                linearLayout.setBackgroundResource(R.drawable.btn_baobiao_add);
+                linearLayout.setBackgroundResource(R.drawable.form_bac);
                 RadioGroup radioGroup = new RadioGroup(this);
                 radioGroup.setLayoutParams(lp);
                 radioGroup.setId(id);
@@ -250,7 +250,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 for (int j = 0; j < model.size(); j++) {
                     String valuetext = model.get(j).getDynamic_type_name();
                     RadioButton radioButton = new RadioButton(this);
-                    radioButton.setTextColor(getResources().getColor(R.color.color_666));
+                    radioButton.setTextColor(getResources().getColor(R.color.color_333));
                     radioButton.setTextSize(14);
                     radioButton.setId(Integer.parseInt(id + "1" + j));
                     radioButton.setText(valuetext);
@@ -275,14 +275,14 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 LinearLayout l = new LinearLayout(this);
                 l.setId(id);
                 l.setLayoutParams(lp);
-                l.setBackgroundResource(R.drawable.btn_baobiao_add);
+                l.setBackgroundResource(R.drawable.form_bac);
                 l.setOrientation(LinearLayout.VERTICAL);
                 List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> model = feedbackItemBean.getModel();
                 if (model.size() < 1) return;
                 for (int j = 0; j < model.size(); j++) {
                     String valuetext = model.get(j).getDynamic_type_name();
                     CheckBox checkBox = new CheckBox(this);
-                    checkBox.setTextColor(getResources().getColor(R.color.color_666));
+                    checkBox.setTextColor(getResources().getColor(R.color.color_333));
                     checkBox.setTextSize(14);
                     checkBox.setId(Integer.parseInt(id + "2" + j));
                     checkBox.setText(valuetext);

@@ -40,7 +40,8 @@ public class ReceiveNoticeListAdapter extends SimpleListAdapter<ReceiveMeMessage
     protected void convert(ViewHolder holder, ReceiveMeMessageBean.ListBean item, int position) {
         ReceiveMeMessageBean.ListBean.AnnouncementBean announcement = data.get(position).getAnnouncement();
         holder.teNoticetitle.setText(announcement.getTitle());
-        holder.teNoticetime.setText(announcement.getCreateTime());
+        String subCreateTime = announcement.getCreateTime().substring(0, 16);
+        holder.teNoticetime.setText(subCreateTime);
         holder.teNoticedetail.setText(announcement.getContent());
     }
 

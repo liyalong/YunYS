@@ -40,7 +40,8 @@ public class PublishNoticeListAdapter extends SimpleListAdapter<SendNoticeBean.L
     protected void convert(ViewHolder holder, SendNoticeBean.ListBean item, int position) {
         SendNoticeBean.ListBean listBean = data.get(position);
         holder.teNoticetitle.setText(listBean.getTitle());
-        holder.teNoticetime.setText(listBean.getCreateTime());
+        String subCreateTime = listBean.getCreateTime().substring(0, 16);
+        holder.teNoticetime.setText(subCreateTime);
         holder.teNoticedetail.setText(listBean.getContent());
         String readStatistic=listBean.getReadStatistic();
         String[] strarray=readStatistic.split("[/]");

@@ -191,7 +191,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 LinearLayout linearLayout = new LinearLayout(this);
                 linearLayout.setLayoutParams(lp);
                 linearLayout.setOrientation(LinearLayout.VERTICAL);
-                linearLayout.setBackgroundResource(R.drawable.btn_baobiao_add);
+                linearLayout.setBackgroundResource(R.drawable.form_bac);
                 TextView namevalue = new TextView(this);
                 namevalue.setPadding(5, 10, 0, 10);
                 namevalue.setTextColor(getResources().getColor(R.color.color_333));
@@ -208,7 +208,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 LinearLayout linearLayout = new LinearLayout(this);
                 linearLayout.setLayoutParams(lp);
                 linearLayout.setOrientation(LinearLayout.VERTICAL);
-                linearLayout.setBackgroundResource(R.drawable.btn_baobiao_add);
+                linearLayout.setBackgroundResource(R.drawable.form_bac);
                 RadioGroup radioGroup = new RadioGroup(this);
                 radioGroup.setLayoutParams(lp);
                 radioGroup.setId(id);
@@ -223,7 +223,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                         for (int j = 0; j < values.length; j++) {
                             String valuetext = values[j];
                             RadioButton radioButton = new RadioButton(this);
-                            radioButton.setTextColor(getResources().getColor(R.color.color_666));
+                            radioButton.setTextColor(getResources().getColor(R.color.color_333));
                             radioButton.setTextSize(14);
                             radioButton.setId(Integer.parseInt(id + "1" + j));
                             radioButton.setText(valuetext);
@@ -254,7 +254,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 l.setId(id);
                 l.setOrientation(LinearLayout.VERTICAL);
                 l.setLayoutParams(lp);
-                l.setBackgroundResource(R.drawable.btn_baobiao_add);
+                l.setBackgroundResource(R.drawable.form_bac);
                 String valuestring = dataBean.getValue();
                 try {
                     if (valuestring != null && !valuestring.equals("")) {
@@ -266,7 +266,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                         for (int j = 0; j < values.length; j++) {
                             String valuetext = values[j];
                             CheckBox checkBox = new CheckBox(this);
-                            checkBox.setTextColor(getResources().getColor(R.color.color_666));
+                            checkBox.setTextColor(getResources().getColor(R.color.color_333));
                             checkBox.setTextSize(14);
                             checkBox.setId(Integer.parseInt(id + "2" + j));
                             checkBox.setText(valuetext);
@@ -333,10 +333,10 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 LinearLayout linearLayout = new LinearLayout(this);
                 linearLayout.setLayoutParams(lp);
                 linearLayout.setOrientation(LinearLayout.VERTICAL);
-                linearLayout.setBackgroundResource(R.drawable.btn_baobiao_add);
+                linearLayout.setBackgroundResource(R.drawable.form_bac);
                 EditText editText = new EditText(this);
                 editText.setId(id);
-                editText.setTextColor(getResources().getColor(R.color.color_666));
+                editText.setTextColor(getResources().getColor(R.color.color_333));
                 editText.setTextSize(14);
                 editText.setHint("请输入" + dataBean.getTitle());
                 editText.setHintTextColor((getResources().getColor(R.color.color_999)));
@@ -352,7 +352,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 LinearLayout linearLayout = new LinearLayout(this);
                 linearLayout.setLayoutParams(lp);
                 linearLayout.setOrientation(LinearLayout.VERTICAL);
-                linearLayout.setBackgroundResource(R.drawable.btn_baobiao_add);
+                linearLayout.setBackgroundResource(R.drawable.form_bac);
                 RadioGroup radioGroup = new RadioGroup(this);
                 radioGroup.setLayoutParams(lp);
                 radioGroup.setId(id);
@@ -367,7 +367,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                         for (int j = 0; j < values.length; j++) {
                             String valuetext = values[j];
                             RadioButton radioButton = new RadioButton(this);
-                            radioButton.setTextColor(getResources().getColor(R.color.color_666));
+                            radioButton.setTextColor(getResources().getColor(R.color.color_333));
                             radioButton.setTextSize(14);
                             radioButton.setId(Integer.parseInt(id + "1" + j));
                             radioButton.setText(valuetext);
@@ -389,7 +389,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 LinearLayout l = new LinearLayout(this);
                 l.setId(id);
                 l.setOrientation(LinearLayout.VERTICAL);
-                l.setBackgroundResource(R.drawable.btn_baobiao_add);
+                l.setBackgroundResource(R.drawable.form_bac);
                 l.setLayoutParams(lp);
                 String valuestring = dataBean.getValue();
                 try {
@@ -400,7 +400,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                         for (int j = 0; j < values.length; j++) {
                             String valuetext = values[j];
                             CheckBox checkBox = new CheckBox(this);
-                            checkBox.setTextColor(getResources().getColor(R.color.color_666));
+                            checkBox.setTextColor(getResources().getColor(R.color.color_333));
                             checkBox.setTextSize(14);
                             checkBox.setId(Integer.parseInt(id + "2" + j));
                             // checkBox.setButtonDrawable(getResources().getDrawable(R.drawable.checkbox_selector));

@@ -56,7 +56,9 @@ public class TaskAdapter extends RecyclerAdapter<MyScheduleBean.RespBodyBean.Dat
         if (position==list.size()-1){
             holder.view1.setVisibility(View.GONE);
         }
-        holder.te_schedule_time.setText(creationTime + "-" + endTime);
+        String subcreationTime = creationTime.substring(0, 16);
+        String subendTime = endTime.substring(0, 16);
+        holder.te_schedule_time.setText(subcreationTime + " - " + subendTime);
         final String type = bean.getType();
         if (type==null)return;
         if (type.equals("1")) {
