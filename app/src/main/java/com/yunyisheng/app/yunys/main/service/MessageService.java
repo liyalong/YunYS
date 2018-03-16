@@ -13,12 +13,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.yunyisheng.app.yunys.R;
+import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.main.model.NoReadMessage;
 import com.yunyisheng.app.yunys.main.model.NoReadMessageEvent;
 import com.yunyisheng.app.yunys.main.model.WarningMessageEvent;
 import com.yunyisheng.app.yunys.main.model.WarnningMessageBean;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.utils.LogUtils;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -66,12 +68,11 @@ public class MessageService extends Service {
 		}
 		return START_NOT_STICKY;
 	}
-	
+
 	@Override
     public void onDestroy() {
 		Log.i(TAG, "onDestroy:");
 	    isRun = false;
-	    startService(new Intent(this,MessageService.class));
         super.onDestroy();
     }
 
@@ -160,16 +161,24 @@ public class MessageService extends Service {
 			public void onResponse(Call<NoReadMessage> call, Response<NoReadMessage> response) {
 				NoReadMessage body = response.body();
 				try {
-					//LogUtils.i("servicehflkdh", respBody.toString());
+					//
 					if (body!=null) {
-						NoReadMessage.RespBodyBean respBody =body.getRespBody();
-						if (respBody!=null) {
-							if (respBody.getMids() != null && respBody.getMids().size() > 0) {
-								int size = respBody.getMids().size();
-								if (allsize == size) {
-								} else {
-									allsize = size;
-									EventBus.getDefault().post(new NoReadMessageEvent(size));
+						LogUtils.i("servicehflkdh", body.getRespCode()+"");
+						if (body.getRespCode()==3){
+							ToastUtils.showToast(body.getRespMsg());
+							Intent intent=new Intent(MessageService.this,LoginActivity.class);
+							intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+							startActivity(intent);
+						}else {
+							NoReadMessage.RespBodyBean respBody = body.getRespBody();
+							if (respBody != null) {
+								if (respBody.getMids() != null && respBody.getMids().size() > 0) {
+									int size = respBody.getMids().size();
+									if (allsize == size) {
+									} else {
+										allsize = size;
+										EventBus.getDefault().post(new NoReadMessageEvent(size));
+									}
 								}
 							}
 						}
@@ -203,11 +212,18 @@ public class MessageService extends Service {
 					WarnningMessageBean body = response.body();
 					int respBody = body.getRespBody();
 					LogUtils.i("servicehflkdh",body.getRespBody()+"");
-					if (respBody>0){
-                        doVibrator();
-                        playAudio();
-                    }
-					EventBus.getDefault().post(new WarningMessageEvent(respBody));
+					if (body.getRespCode()==3){
+						ToastUtils.showToast(body.getRespMsg());
+						Intent intent=new Intent(MessageService.this,LoginActivity.class);
+						intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						startActivity(intent);
+					}else {
+						if (respBody > 0) {
+							doVibrator();
+							playAudio();
+						}
+						EventBus.getDefault().post(new WarningMessageEvent(respBody));
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
