@@ -46,6 +46,7 @@ public class ParticipateinFragement extends BaseFragement<ParticpateinPresent> {
     public void initView() {
         userid = ((WorkerDataActivity) getActivity()).userid;
         adapter = new WorkerDatProjectlistAdapter(mContext, respBodylist);
+
         lvParticipatein.setAdapter(adapter);
     }
 
