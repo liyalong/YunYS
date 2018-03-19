@@ -26,7 +26,7 @@ import cn.droidlover.xdroidmvp.mvp.XPresent;
 
 /**
  * Created by liyalong on 2018/1/18.
- * 任务反馈项
+ * 生成任务反馈项
  */
 
 public class ProjectTemplateActivity extends BaseActivity {
@@ -50,6 +50,7 @@ public class ProjectTemplateActivity extends BaseActivity {
 
     @Override
     public void initAfter() {
+        //首先生成一个反馈项展示
         List<ChildBean> childBeans = new ArrayList<>();
         ChildBean childBean = new ChildBean();
         childBeans.add(childBean);
@@ -89,6 +90,7 @@ public class ProjectTemplateActivity extends BaseActivity {
                     GroupBean groupBean = groupBeanList.get(i);
                     int type = groupBean.getfeedbackType();
                     String s = groupBean.getfeedbackName();
+                    //判断是否有未填写的外层内容
                     if (s==null||s.equals("")){
                         ToastUtils.showToast("您还有未填写的项");
                         return;
@@ -97,6 +99,7 @@ public class ProjectTemplateActivity extends BaseActivity {
                             for (int m=0;m<groupBean.getModel().size();m++){
                                 ChildBean childBean = groupBean.getModel().get(m);
                                 String dynamicTypeName = childBean.getDynamicTypeName();
+                                //判断是否有未填写的里层内容
                                 if (dynamicTypeName == null || dynamicTypeName.equals("")) {
                                     ToastUtils.showToast("您还有未填写的项");
                                     return;
@@ -113,6 +116,7 @@ public class ProjectTemplateActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.bottom:
+                //添加任务反馈项
                 List<GroupBean> list = adapter.getStrList();
                 List<ChildBean> childBeans = new ArrayList<>();
                 ChildBean childBean = new ChildBean();

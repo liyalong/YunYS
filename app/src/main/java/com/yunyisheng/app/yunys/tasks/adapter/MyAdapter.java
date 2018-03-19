@@ -28,16 +28,15 @@ import java.util.List;
 /**
  * 作者：fuduo on 2018/1/17 17:31
  * 邮箱：duoendeavor@163.com
- * 用途：
+ * 用途：外层反馈项适配器
  */
 
 public class MyAdapter extends BaseAdapter {
 
     Context context;
-    List<GroupBean> strList = new ArrayList<>();
-//    String[] str = new String[]{"单选", "照片", "文本", "多选"};
-    List<ChildBean> stringList;
-    private MySmallitemAdapter adapter;
+    List<GroupBean> strList = new ArrayList<>();//外层集合
+    List<ChildBean> stringList;//里层集合
+    private MySmallitemAdapter adapter;//里层适配器
 
     public MyAdapter(Context context, List<GroupBean> strList) {
         this.context = context;
@@ -69,12 +68,14 @@ public class MyAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+        //保证edittext内容不重复
         if (viewHolder.ed_fankui.getTag() instanceof TextWatcher) {
             viewHolder.ed_fankui.removeTextChangedListener((TextWatcher) viewHolder.ed_fankui.getTag());
         }
         if (viewHolder.ed_wenzi.getTag() instanceof TextWatcher) {
             viewHolder.ed_wenzi.removeTextChangedListener((TextWatcher) viewHolder.ed_wenzi.getTag());
         }
+        //如果spinner数据为空给spinner填充数据
         if (viewHolder.sp_type.getCount() == 0) {
             SelectFankuiTypeSpinnerAdapter spadapter=new SelectFankuiTypeSpinnerAdapter(context);
             //绑定 Adapter到控件
@@ -82,14 +83,14 @@ public class MyAdapter extends BaseAdapter {
         }
         viewHolder.te_fankuisize.setText("("+ CommonUtils.formatInteger(position+1)+")");
         viewHolder.ed_fankui.setText(strList.get(position).getfeedbackName());
-
-        stringList = strList.get(position).getModel();
+        stringList = strList.get(position).getModel();//从外层集合获取里层集合
+        //赋值
         adapter = new MySmallitemAdapter(context, stringList);
         viewHolder.myListView.setAdapter(adapter);
-
         viewHolder.img_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //添加一个里层选项并刷新适配器
                 List<ChildBean> list = strList.get(position).getModel();
                 ChildBean childBean = new ChildBean();
                 list.add(childBean);
@@ -101,11 +102,12 @@ public class MyAdapter extends BaseAdapter {
         viewHolder.img_delete_fankui.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //删除一个反馈项 刷新列表
                 strList.remove(position);
                 notifyDataSetChanged();
             }
         });
-
+        //根据选中的类型设置反馈项类型
         int type = strList.get(position).getfeedbackType();
         if (type==1){
             viewHolder.sp_type.setSelection(2);

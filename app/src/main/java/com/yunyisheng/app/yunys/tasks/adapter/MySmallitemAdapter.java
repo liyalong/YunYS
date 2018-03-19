@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * 作者：fuduo on 2018/1/17 18:40
  * 邮箱：duoendeavor@163.com
- * 用途：
+ * 用途：里层适配器
  */
 
 public class MySmallitemAdapter extends BaseAdapter {
@@ -92,21 +92,6 @@ public class MySmallitemAdapter extends BaseAdapter {
 
     public List<ChildBean> getStringList() {
         return stringList;
-    }
-
-    public void notfiy() {
-        notifyDataSetChanged();
-    }
-
-    class ViewHplder {
-
-        EditText ed_beixuan;
-        ImageView img_remove;
-
-        public ViewHplder(View view) {
-            ed_beixuan = (EditText) view.findViewById(R.id.ed_beixuan);
-            img_remove = (ImageView) view.findViewById(R.id.img_remove);
-        }
     }
 
 }
