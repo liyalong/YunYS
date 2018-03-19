@@ -86,34 +86,38 @@ public class ProjectTemplateActivity extends BaseActivity {
                 break;
             case R.id.submit:
                 List<GroupBean> groupBeanList = adapter.getStrList();
-                for (int i=0;i<groupBeanList.size();i++){
-                    GroupBean groupBean = groupBeanList.get(i);
-                    int type = groupBean.getfeedbackType();
-                    String s = groupBean.getfeedbackName();
-                    //判断是否有未填写的外层内容
-                    if (s==null||s.equals("")){
-                        ToastUtils.showToast("您还有未填写的项");
-                        return;
-                    }else {
-                        if (type!=4) {
-                            for (int m=0;m<groupBean.getModel().size();m++){
-                                ChildBean childBean = groupBean.getModel().get(m);
-                                String dynamicTypeName = childBean.getDynamicTypeName();
-                                //判断是否有未填写的里层内容
-                                if (dynamicTypeName == null || dynamicTypeName.equals("")) {
-                                    ToastUtils.showToast("您还有未填写的项");
-                                    return;
+                if (groupBeanList.size()>0) {
+                    for (int i = 0; i < groupBeanList.size(); i++) {
+                        GroupBean groupBean = groupBeanList.get(i);
+                        int type = groupBean.getfeedbackType();
+                        String s = groupBean.getfeedbackName();
+                        //判断是否有未填写的外层内容
+                        if (s == null || s.equals("")) {
+                            ToastUtils.showToast("您还有未填写的项");
+                            return;
+                        } else {
+                            if (type != 4) {
+                                for (int m = 0; m < groupBean.getModel().size(); m++) {
+                                    ChildBean childBean = groupBean.getModel().get(m);
+                                    String dynamicTypeName = childBean.getDynamicTypeName();
+                                    //判断是否有未填写的里层内容
+                                    if (dynamicTypeName == null || dynamicTypeName.equals("")) {
+                                        ToastUtils.showToast("您还有未填写的项");
+                                        return;
+                                    }
                                 }
                             }
                         }
                     }
+                    String string = JSON.toJSONString(groupBeanList);
+                    LogUtils.i("str", string);
+                    Intent intent = getIntent();
+                    intent.putExtra("fankuijson",string);
+                    setResult(5,intent);
+                    finish();
+                }else {
+                    ToastUtils.showToast("请添加任务反馈项");
                 }
-                String string = JSON.toJSONString(groupBeanList);
-                LogUtils.i("str", string);
-                Intent intent = getIntent();
-                intent.putExtra("fankuijson",string);
-                setResult(5,intent);
-                finish();
                 break;
             case R.id.bottom:
                 //添加任务反馈项

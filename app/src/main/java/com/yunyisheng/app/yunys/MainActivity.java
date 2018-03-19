@@ -195,6 +195,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
             builder.setContentTitle("横幅通知");
             builder.setContentText("请在设置通知管理中开启消息横幅提醒权限");
             builder.setDefaults(NotificationCompat.DEFAULT_ALL);
+            builder.setSmallIcon(R.mipmap.tubiao);
             builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.tubiao));
             Intent broadcastIntent = new Intent("com.yunyisheng.app.yunys.receiver");
 //            broadcastIntent.setAction("action");
