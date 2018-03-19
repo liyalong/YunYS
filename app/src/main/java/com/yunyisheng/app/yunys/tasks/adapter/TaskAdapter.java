@@ -90,15 +90,7 @@ public class TaskAdapter extends SimpleListAdapter<TaskBean, TaskAdapter.ViewHol
             holder.releaseStatBack.setText(String.valueOf(item.getReleaseStatBack()));
             holder.releaseStatUnclaim.setText(String.valueOf(item.getReleaseStatUnclaim()));
         }
-        if (item.getTaskStat() == 3){
-            holder.taskStat.setVisibility(View.VISIBLE);
-            holder.taskBtn.setEnabled(false);
-            holder.taskBtn.setBackgroundColor(context.getResources().getColor(R.color.color_c8c8c8));
-        }else {
-            holder.taskStat.setVisibility(View.GONE);
-            holder.taskBtn.setEnabled(true);
-            holder.taskBtn.setBackground(context.getResources().getDrawable(R.mipmap.button_cz));
-        }
+
 
         if (item.getTaskSubmitTime() == null){
             //判断超时，
@@ -128,6 +120,15 @@ public class TaskAdapter extends SimpleListAdapter<TaskBean, TaskAdapter.ViewHol
         }else {
             holder.taskBtn.setTag(position);
             holder.taskBtn.setOnClickListener(this);
+        }
+        if (item.getTaskStat() == 3){
+            holder.taskStat.setVisibility(View.VISIBLE);
+            holder.taskBtn.setEnabled(false);
+            holder.taskBtn.setBackgroundColor(context.getResources().getColor(R.color.color_c8c8c8));
+        }else {
+            holder.taskStat.setVisibility(View.GONE);
+            holder.taskBtn.setEnabled(true);
+            holder.taskBtn.setBackground(context.getResources().getDrawable(R.mipmap.button_cz));
         }
 
 
