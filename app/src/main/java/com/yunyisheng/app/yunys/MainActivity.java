@@ -36,6 +36,7 @@ import com.yunyisheng.app.yunys.main.fragement.HomeFragement;
 import com.yunyisheng.app.yunys.main.model.WarningMessageEvent;
 import com.yunyisheng.app.yunys.main.service.MessageService;
 import com.yunyisheng.app.yunys.mqtt.MQTTMessage;
+import com.yunyisheng.app.yunys.mqtt.MQTTService;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.fragement.ProjectFragement;
 import com.yunyisheng.app.yunys.schedule.fragement.ScheduleTaskFragement;
@@ -216,7 +217,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     public void initAfter() {
         Intent intent = new Intent(MainActivity.this, MessageService.class);
         startService(intent);
-//        startService(new Intent(this, MQTTService.class));
+        startService(new Intent(this, MQTTService.class));
     }
 
     public void changerTask() {
