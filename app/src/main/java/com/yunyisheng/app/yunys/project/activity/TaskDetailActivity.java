@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -101,6 +102,8 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
     LinearLayout backInfoBox;
     @BindView(R.id.back_info_list)
     ListView backInfoList;
+    @BindView(R.id.task_detail_info)
+    ScrollView taskDetailInfo;
     private String taskId;
     private int userId;
     private String taskType;
@@ -303,6 +306,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                     taskStatusIstimeout.setVisibility(View.GONE);
                 }
             }
+            taskDetailInfo.setVisibility(View.VISIBLE);
 
 
     }

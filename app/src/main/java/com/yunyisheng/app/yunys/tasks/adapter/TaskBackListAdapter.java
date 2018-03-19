@@ -35,12 +35,12 @@ public class TaskBackListAdapter extends SimpleListAdapter<ScheduleDetailBean.Re
     @Override
     protected void convert(ViewHolder holder, ScheduleDetailBean.RespBodyBean.TaskBackBean item, int position) {
         if (data.get(position).getTaskbackVal() != null){
-            holder.taskbackVal.setText(item.getTaskbackVal().toString());
+            holder.taskbackVal.setText(item.getTaskbackVal());
         }else {
             holder.taskbackVal.setText("无");
         }
-        holder.taskBackUser.setText(item.getTaskbackUsername().toString());
-        holder.taskBackCreatet.setText(item.getTaskbackCreatet().toString());
+        holder.taskBackUser.setText(item.getTaskbackUsername());
+        holder.taskBackCreatet.setText(item.getTaskbackCreatet());
     }
 
     public static class ViewHolder {
