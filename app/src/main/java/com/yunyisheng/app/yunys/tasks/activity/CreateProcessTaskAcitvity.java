@@ -141,7 +141,7 @@ public class CreateProcessTaskAcitvity extends BaseActivity {
                 break;
             case USERREQUESTCODE:
                 if (resultCode == 1){
-                    selectUserId = data.getIntExtra("selectUserId",0);
+                    selectUserId = Integer.valueOf(data.getStringExtra("selectUserId"));
                     selectUserName = data.getStringExtra("selectUserName");
                     selectProcessTaskToUser.setText(selectUserName);
                 }
