@@ -36,8 +36,8 @@ public class ProcessFormListAdapter extends SimpleListAdapter<ProcessFormBean, P
 
     @Override
     protected void convert(ViewHolder holder, ProcessFormBean item, final int position) {
-        if (item.getName() != null){
-            holder.projectTitle.setText(item.getName().toString());
+        if (item.getFormBasicName() != null){
+            holder.projectTitle.setText(item.getFormBasicName());
         }
         holder.mRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
