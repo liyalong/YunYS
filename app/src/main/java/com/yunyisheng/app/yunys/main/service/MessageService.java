@@ -174,7 +174,7 @@ public class MessageService extends Service {
 							if (respBody != null) {
 								if (respBody.getMids() != null && respBody.getMids().size() > 0) {
 									int size = respBody.getMids().size();
-									if (allsize == size) {
+									if (allsize >= size) {
 									} else {
 										allsize = size;
 										EventBus.getDefault().post(new NoReadMessageEvent(size));

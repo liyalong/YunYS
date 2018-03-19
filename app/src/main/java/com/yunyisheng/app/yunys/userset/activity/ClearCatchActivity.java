@@ -39,8 +39,8 @@ public class ClearCatchActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        long allzonesizeK = CommonUtils.getTotalInternalMemorySize();
-        long allzonesizeM = CommonUtils.getTotalInternalMemorySize() / 1024;
+        long allzonesizeK = CommonUtils.getTotalInternalMemorySize() / 1024;
+        long allzonesizeM = CommonUtils.getTotalInternalMemorySize() / 1024 / 1024;
         try {
             teCatchsize.setText(catchsize);
         } catch (Exception e) {
@@ -50,13 +50,16 @@ public class ClearCatchActivity extends BaseActivity {
             type = catchsize.substring(catchsize.length() - 2, catchsize.length());
         }
         if (type.equals("KB")) {
-            String usesize = catchsize.substring(0, catchsize.length() - 2);
-            teUsecatchsize.setText("占据手机" + String.format("%.2f", Double.parseDouble(Long.parseLong(usesize) / allzonesizeK + "")) + "%存储空间");
+//            String usesize = catchsize.substring(0, catchsize.length() - 2);
+//            double v = Double.parseDouble(usesize);
+//            double v1 = Double.parseDouble(v / allzonesizeK + "");
+//            String format = String.format("%.2f", v1);
+            teUsecatchsize.setText("占据手机" + 0.01 + "%存储空间");
         }
 
         if (type.equals("MB")) {
             String usesize = catchsize.substring(0, catchsize.length() - 2);
-            teUsecatchsize.setText("占据手机" + String.format("%.2f", Double.parseDouble(Long.parseLong(usesize) / allzonesizeM + "")) + "%存储空间");
+            teUsecatchsize.setText("占据手机" + String.format("%.2f", Double.parseDouble(Double.parseDouble(usesize) / allzonesizeM + "")) + "%存储空间");
         }
 
     }

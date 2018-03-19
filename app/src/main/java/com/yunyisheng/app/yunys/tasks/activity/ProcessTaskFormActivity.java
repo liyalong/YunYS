@@ -118,7 +118,7 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
     public void initAfter() {
         userid = SharedPref.getInstance(ProcessTaskFormActivity.this).getInt("userid", 0);
         Intent intent = getIntent();
-        seetype = intent.getIntExtra("type", 0);
+        seetype = intent.getIntExtra("type", 0);//
         selectUserId = intent.getIntExtra("selectUserId", 0);
         selectFormId = intent.getStringExtra("selectFormId");
         endTime = intent.getStringExtra("endTime");
@@ -381,6 +381,7 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
             if (leipiplugins.equals("text") || leipiplugins.equals("textarea")) {
                 LinearLayout linearLayout = new LinearLayout(this);
                 linearLayout.setLayoutParams(lp);
+                linearLayout.setGravity(Gravity.CENTER_VERTICAL);
                 linearLayout.setOrientation(LinearLayout.VERTICAL);
                 linearLayout.setBackgroundResource(R.drawable.form_bac);
                 EditText editText = new EditText(this);

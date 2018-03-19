@@ -13,6 +13,7 @@ import android.os.Message;
 import android.provider.Settings;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -228,6 +229,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                     editText.setHintTextColor((getResources().getColor(R.color.color_999)));
                     editText.setBackground(null);
                     editText.setLayoutParams(lp);
+                    editText.setGravity(Gravity.CENTER_VERTICAL);
                     linearLayout.addView(editText);
                     lineAll.addView(linearLayout);
                 }

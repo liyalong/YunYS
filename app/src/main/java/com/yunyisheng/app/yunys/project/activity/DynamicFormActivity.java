@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -332,6 +333,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
             if (leipiplugins.equals("text") || leipiplugins.equals("textarea")) {
                 LinearLayout linearLayout = new LinearLayout(this);
                 linearLayout.setLayoutParams(lp);
+                linearLayout.setGravity(Gravity.CENTER_VERTICAL);
                 linearLayout.setOrientation(LinearLayout.VERTICAL);
                 linearLayout.setBackgroundResource(R.drawable.form_bac);
                 EditText editText = new EditText(this);

@@ -23,8 +23,6 @@ import cn.droidlover.xdroidmvp.kit.KnifeKit;
 
 public class MessageAdapter extends SimpleListAdapter<MessageBean.RespBodyBean, MessageAdapter.ViewHolder> {
 
-    private String subsUpdateTime;
-
     public MessageAdapter(Context context, List<MessageBean.RespBodyBean> data) {
         super(context, data);
     }
@@ -45,11 +43,7 @@ public class MessageAdapter extends SimpleListAdapter<MessageBean.RespBodyBean, 
 
         holder.teMsgdetail.setText(Html.fromHtml(respBodyBean.getMessageRemark()));
         String subCreateTime = respBodyBean.getMessageCreateTime().substring(0, 16);
-        String messageUpdateTime = respBodyBean.getMessageUpdateTime();
-        if (messageUpdateTime!=null&&!messageUpdateTime.equals("")){
-            subsUpdateTime = messageUpdateTime.substring(0, 16);
-        }
-        holder.teMsgtime.setText(subCreateTime+" - "+subsUpdateTime);
+        holder.teMsgtime.setText(subCreateTime);
         String messageType = respBodyBean.getMessageType();
         if (messageType.equals("3")){
             holder.teMsgtitle.setVisibility(View.VISIBLE);

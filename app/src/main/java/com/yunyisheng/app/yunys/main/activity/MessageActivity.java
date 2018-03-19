@@ -94,13 +94,13 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 pageindex = 1;
                 messagelist.clear();
-                getP().getMessageList(str, pageindex);
+                getP().getMessageList(selecttype, pageindex);
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 pageindex++;
-                getP().getMessageList(str, pageindex);
+                getP().getMessageList(selecttype, pageindex);
             }
         });
         pullToList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

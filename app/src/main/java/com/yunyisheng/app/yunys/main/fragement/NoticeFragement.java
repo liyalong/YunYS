@@ -180,8 +180,10 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
         String position = messageEvent.getPosition();
         if (position.equals("updatenotice")) {
             sendlist.clear();
+            receivemelist.clear();
             pageindex = 1;
             getP().getSendNoticelist(pageindex, 10, null);
+            getP().getReceiveNoticelist(pageindex, 10, null);
         }
 
     }
@@ -242,6 +244,10 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
     }
 
     public void stopRefresh() {
+        if (pageindex == 1 && tabindex==1) {
+            pullToRefreshListview.setVisibility(View.GONE);
+            imgQuesheng.setVisibility(View.VISIBLE);
+        }
         pullToRefreshListview.onRefreshComplete();
     }
 
@@ -328,11 +334,7 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
                 }
                 break;
             case R.id.img_clear:
-//                edSearch.setText("");
-                sousuo_neirong = edSearch.getText().toString();
-                receivemelist.clear();
-                pageindex = 1;
-                getP().getReceiveNoticelist(pageindex, 10, sousuo_neirong);
+               edSearch.setText("");
                 break;
         }
     }
