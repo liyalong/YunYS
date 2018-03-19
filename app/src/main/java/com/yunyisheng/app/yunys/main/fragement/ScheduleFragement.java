@@ -76,9 +76,17 @@ public class ScheduleFragement extends BaseFragement<WorkerSchedulePresent> {
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            pageindex = 1;
+            getP().getWorkerScheduleList(pageindex, userid, dayStartTime, dayEndTime);
+        }
+    }
+
+    @Override
     public void initAfter() {
-        pageindex = 1;
-        getP().getWorkerScheduleList(pageindex, userid, dayStartTime, dayEndTime);
+
     }
 
     @Override

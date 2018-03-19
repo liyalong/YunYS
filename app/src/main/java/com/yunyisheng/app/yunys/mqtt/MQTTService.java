@@ -101,6 +101,9 @@ public class MQTTService extends Service {
     @Override
     public void onDestroy() {
         try {
+            if (client==null){
+                return;
+            }
             client.disconnect();
         } catch (MqttException e) {
             e.printStackTrace();
@@ -128,6 +131,9 @@ public class MQTTService extends Service {
             Log.i(TAG, "连接成功 ");
             try {
                 // 订阅myTopic话题
+                if (client==null){
+                    return;
+                }
                 client.subscribe(myTopic,1);
             } catch (MqttException e) {
                 e.printStackTrace();

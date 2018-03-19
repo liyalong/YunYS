@@ -61,7 +61,7 @@ public class WelcomeActivity extends BaseActivity<WelcomePagePresent> {
                         handler.sendEmptyMessageDelayed(0, 1000);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        netError();
+                        gotoMainActivity();
                     }
                 } else {
                     handler.sendEmptyMessageDelayed(0, 1000);
@@ -91,11 +91,11 @@ public class WelcomeActivity extends BaseActivity<WelcomePagePresent> {
                         welcomeView.setImageBitmap(bitmap);
                         handler.sendEmptyMessageDelayed(1, 1000);
                     } else {
-                        netError();
+                        gotoMainActivity();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    netError();
+                    gotoMainActivity();
                 }
             } else if (what == 1) {
                 if (welcomeActivity != null) {
