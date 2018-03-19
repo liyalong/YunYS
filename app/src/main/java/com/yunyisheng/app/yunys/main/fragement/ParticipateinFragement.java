@@ -50,8 +50,15 @@ public class ParticipateinFragement extends BaseFragement<ParticpateinPresent> {
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            getP().getOtherProjectList(userid, "");
+        }
+    }
+    @Override
     public void initAfter() {
-        getP().getOtherProjectList(userid, "");
+
     }
 
     @Override
