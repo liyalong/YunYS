@@ -178,6 +178,7 @@ public class MineFragement extends BaseFragement<MinePresent> {
 
             @Override
             public void onFailure(List<String> failurePression) {
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setMessage("提示")
                         .setMessage("请您去设置中授予拍照的权限")
