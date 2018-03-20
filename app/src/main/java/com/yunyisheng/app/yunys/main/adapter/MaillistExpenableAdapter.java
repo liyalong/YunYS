@@ -14,11 +14,11 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.main.model.WorkerBean;
 import com.yunyisheng.app.yunys.main.model.WorkerListBean;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
-import com.yunyisheng.app.yunys.utils.glide.GlideDownLoadImage;
 
 import java.util.List;
 
@@ -111,7 +111,7 @@ public class MaillistExpenableAdapter extends BaseExpandableListAdapter {
         View view = mInflater.inflate(R.layout.maillist_exp_child_item, parent, false);
         TextView te_zhiwei = (TextView) view.findViewById(R.id.te_zhiwei);
         TextView te_name = (TextView) view.findViewById(R.id.te_name);
-        ImageView img_woker_head = (ImageView) view.findViewById(R.id.img_woker_head);
+        RoundedImageView img_woker_head = (RoundedImageView) view.findViewById(R.id.img_woker_head);
         ImageView img_send_msg = (ImageView) view.findViewById(R.id.img_send_msg);
         ImageView img_call_phone = (ImageView) view.findViewById(R.id.img_call_phone);
         View view1 = view.findViewById(R.id.view1);
@@ -126,7 +126,8 @@ public class MaillistExpenableAdapter extends BaseExpandableListAdapter {
         }
         if (workerBean.getIcon() != null && !workerBean.getIcon().equals("") && !workerBean.getIcon().equals("null")) {
             Bitmap bitmap = CommonUtils.stringtoBitmap(workerBean.getIcon());
-            GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(context, img_woker_head, bitmap);
+            img_woker_head.setImageBitmap(bitmap);
+//            GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(context, img_woker_head, bitmap);
         } else {
             img_woker_head.setBackground(null);
             String sex = workerBean.getSex();

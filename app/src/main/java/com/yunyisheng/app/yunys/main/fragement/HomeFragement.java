@@ -199,8 +199,8 @@ public class HomeFragement extends BaseFragement<HomePresent> {
                 startActivity(new Intent(mContext, MessageActivity.class));
                 break;
             case R.id.img_quesheng:
-                String userid = SharedPref.getInstance(mContext).getString("userid", "");
-                if (userid==null||userid.equals("")){
+                int userid = SharedPref.getInstance(mContext).getInt("userid", 0);
+                if (userid==0){
                     getUserinfo();
                 }
                 getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
