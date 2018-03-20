@@ -326,6 +326,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                             public void onClick(View v) {
                                 imgstr = jsonObject.toString();
                                 image = imageView;
+                                requestCamaraPermission();
                                 DialogManager.createPickImageDialog(RenwuFankuiFormActivity.this);
                             }
                         });
@@ -522,6 +523,37 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
             public void onFailure(Call<BaseModel> call, Throwable t) {
                 ToastUtils.showToast("请检查网络设置");
                 LoadingDialog.dismiss(RenwuFankuiFormActivity.this);
+            }
+        });
+    }
+
+    /**
+     * 请求权限
+     */
+    private void requestCamaraPermission() {
+        requestRunTimePression(RenwuFankuiFormActivity.this, new String[]{Manifest.permission.CAMERA}, new PressionListener() {
+            @Override
+            public void onGranted() {
+
+            }
+
+            @Override
+            public void onFailure(List<String> failurePression) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setMessage("提示")
+                        .setMessage("请您去设置中授予拍照的权限")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent();
+                                intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+                                intent.setData(Uri.fromParts("package", mContext.getPackageName(), null));
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                        });
+                builder.setCancelable(false);
+                builder.show();
             }
         });
     }
