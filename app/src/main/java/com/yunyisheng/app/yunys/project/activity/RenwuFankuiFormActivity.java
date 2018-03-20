@@ -435,14 +435,14 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 }
 //                String realPathFromURI = Util.getFileAbsolutePath(this, contentUri);
 //                File file = new File(realPathFromURI);
-                setCompressImg(DialogManager.tempFile, contentUri);
+                setCompressImg(DialogManager.tempFile);
             } else if (requestCode == 2) {// 相册
                 if (intent != null) {
                     Log.i("xiaoqiang", "smdongxi==" + intent.getData());
                     Uri uri = intent.getData();
                     String realPathFromURI = Util.getFileAbsolutePath(this, uri);
                     File file = new File(realPathFromURI);
-                    setCompressImg(file, uri);
+                    setCompressImg(file);
                 }
             }
         } catch (Exception e) {
@@ -451,7 +451,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
         super.onActivityResult(requestCode, resultCode, intent);
     }
 
-    private void setCompressImg(File file, final Uri uri) {
+    private void setCompressImg(File file) {
         Luban.with(this).
                 load(file).
                 ignoreBy(1000).
@@ -463,7 +463,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
 
                     @Override
                     public void onSuccess(File file) {
-                        putPic(file, uri);
+                        putPic(file);
                     }
 
                     @Override
@@ -478,7 +478,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
      * @time 2018/2/1  18:22
      * @describe 上传图片
      */
-    private void putPic(File file, final Uri uri) {
+    private void putPic(final File file) {
         LoadingDialog.show(RenwuFankuiFormActivity.this);
         OkHttpClient client = new OkHttpClient.Builder().
                 connectTimeout(60, TimeUnit.SECONDS).
@@ -509,7 +509,8 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 if (code == 0) {
                     ToastUtils.showToast("上传成功!");
                     image.setBackground(null);
-                    image.setImageURI(uri);
+                    Uri uri1 = Uri.fromFile(file);
+                    image.setImageURI(uri1);
                 } else {
                     ToastUtils.showToast("上传失败!");
                 }

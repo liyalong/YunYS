@@ -55,6 +55,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 import static com.yunyisheng.app.yunys.utils.CommonUtils.stringtoBitmap;
 
@@ -551,14 +553,14 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 } else {
                     contentUri = Uri.fromFile(DialogManager.tempFile);
                 }
-                putPic(DialogManager.tempFile, contentUri);
+                setCompressImg(DialogManager.tempFile);
             } else if (requestCode == 2) {// 相册
                 if (intent != null) {
                     Log.i("xiaoqiang", "smdongxi==" + intent.getData());
                     Uri uri = intent.getData();
                     String realPathFromURI = Util.getFileAbsolutePath(this, uri);
                     File file = new File(realPathFromURI);
-                    putPic(file, uri);
+                    setCompressImg(file);
                 }
             }
         } catch (Exception e) {
@@ -567,12 +569,34 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
         super.onActivityResult(requestCode, resultCode, intent);
     }
 
+    private void setCompressImg(File file) {
+        Luban.with(this).
+                load(file).
+                ignoreBy(1000).
+                setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        putPic(file);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showToast("上传错误，请重试！");
+                    }
+                }).launch();
+    }
+
     /**
      * @author fuduo
      * @time 2018/2/1  18:22
      * @describe 上传图片
      */
-    private void putPic(File file, final Uri uri) {
+    private void putPic(final File file) {
         LoadingDialog.show(DynamicFormActivity.this);
         OkHttpClient client = new OkHttpClient.Builder().
                 connectTimeout(60, TimeUnit.SECONDS).
@@ -605,7 +629,8 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                     String imageurl = response.body().getRespBody();
                     imageurllist.add(imageurl);
                     image.setBackground(null);
-                    image.setImageURI(uri);
+                    Uri uri1 = Uri.fromFile(file);
+                    image.setImageURI(uri1);
                 } else {
                     ToastUtils.showToast("上传失败!");
                 }
@@ -620,5 +645,4 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
             }
         });
     }
-
 }
