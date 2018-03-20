@@ -418,6 +418,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                 String str = JSONArray.toJSONString(l);
                 LogUtils.i("gdsgfdsgfg", str);
                 getP().getScheduleDetail(taskid, str);
+
             }
         }
     }
