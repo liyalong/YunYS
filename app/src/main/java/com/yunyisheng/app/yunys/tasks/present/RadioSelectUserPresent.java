@@ -29,14 +29,22 @@ public class RadioSelectUserPresent extends XPresent<RadioSelectUserActivity> {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, retrofit2.Response<String> response) {
-                Log.d("debug", response.body());
-                LoadingDialog.dismiss(getV());
-                getV().getResultList(response.body());
+                try {
+                    Log.d("debug", response.body());
+                    LoadingDialog.dismiss(getV());
+                    getV().getResultList(response.body());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                LoadingDialog.dismiss(getV());
+                try {
+                    LoadingDialog.dismiss(getV());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

@@ -3,10 +3,9 @@ package com.yunyisheng.app.yunys.main.activity;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.provider.Settings;
+import android.net.Uri;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -116,21 +115,17 @@ public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setMessage("提示")
                         .setMessage("请您去设置中授予内部存储的权限")
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        })
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
-                                ComponentName cName = new ComponentName("com.android.phone", "com.android.phone.Settings");
-                                intent.setComponent(cName);
+                                Intent intent = new Intent();
+                                intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+                                intent.setData(Uri.fromParts("package", getPackageName(), null));
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                             }
                         });
+                builder.setCancelable(false);
                 builder.show();
             }
         });

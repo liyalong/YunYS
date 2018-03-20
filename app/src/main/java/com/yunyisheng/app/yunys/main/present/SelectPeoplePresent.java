@@ -39,15 +39,23 @@ public class SelectPeoplePresent extends XPresent<OrganizationFragement> {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, retrofit2.Response<String> response) {
-                Log.d("debug", response.body());
-                LoadingDialog.dismiss(getV().getContext());
-                getV().getResultList(response.body());
+                try {
+                    Log.d("debug", response.body());
+                    LoadingDialog.dismiss(getV().getContext());
+                    getV().getResultList(response.body());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                LoadingDialog.dismiss(getV().getContext());
-                getV().setImgQuesheng();
+                try {
+                    LoadingDialog.dismiss(getV().getContext());
+                    getV().setImgQuesheng();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

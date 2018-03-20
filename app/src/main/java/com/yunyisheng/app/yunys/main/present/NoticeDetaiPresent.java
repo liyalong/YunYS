@@ -13,6 +13,7 @@ import com.yunyisheng.app.yunys.utils.CallOtherOpeanFile;
 import com.yunyisheng.app.yunys.utils.FileCache;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+import com.yunyisheng.app.yunys.utils.TokenHeaderInterceptor;
 
 import java.io.File;
 import java.io.IOException;
@@ -131,7 +132,9 @@ public class NoticeDetaiPresent extends XPresent<NoticeDeatilActivity> {
         OkHttpClient okHttpClient = new OkHttpClient.Builder().
                 connectTimeout(60, TimeUnit.SECONDS).
                 readTimeout(60, TimeUnit.SECONDS).
-                writeTimeout(60, TimeUnit.SECONDS).build();
+                writeTimeout(60, TimeUnit.SECONDS).
+                addNetworkInterceptor(new TokenHeaderInterceptor()).
+                build();
         FormBody formBody = new FormBody
                 .Builder()
                 .add("announcementAnnexId", fujianid+"")//设置参数名称和参数值

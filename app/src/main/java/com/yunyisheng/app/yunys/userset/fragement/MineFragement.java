@@ -3,14 +3,13 @@ package com.yunyisheng.app.yunys.userset.fragement;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,6 +117,7 @@ public class MineFragement extends BaseFragement<MinePresent> {
             }
         }
         tePhonenum.setText(userphone);
+        requestFilePermission();
     }
 
     @Override
@@ -181,21 +181,17 @@ public class MineFragement extends BaseFragement<MinePresent> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setMessage("提示")
                         .setMessage("请您去设置中授予拍照的权限")
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                getActivity().finish();
-                            }
-                        })
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
-                                ComponentName cName = new ComponentName("com.android.phone", "com.android.phone.Settings");
-                                intent.setComponent(cName);
+                                Intent intent = new Intent();
+                                intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+                                intent.setData(Uri.fromParts("package", mContext.getPackageName(), null));
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                             }
                         });
+                builder.setCancelable(false);
                 builder.show();
             }
         });
@@ -216,21 +212,17 @@ public class MineFragement extends BaseFragement<MinePresent> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setMessage("提示")
                         .setMessage("请您去设置中授予内部存储的权限")
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                getActivity().finish();
-                            }
-                        })
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
-                                ComponentName cName = new ComponentName("com.android.phone", "com.android.phone.Settings");
-                                intent.setComponent(cName);
+                                Intent intent = new Intent();
+                                intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+                                intent.setData(Uri.fromParts("package", mContext.getPackageName(), null));
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                             }
                         });
+                builder.setCancelable(false);
                 builder.show();
             }
         });
@@ -263,7 +255,6 @@ public class MineFragement extends BaseFragement<MinePresent> {
         switch (v.getId()) {
             case R.id.img_carm:
                 requestPermission();
-                requestFilePermission();
                 DialogManager.createPickImageDialog(getActivity());
                 break;
             case R.id.my_info:

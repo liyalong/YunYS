@@ -2,11 +2,9 @@ package com.yunyisheng.app.yunys.main.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,6 +24,7 @@ import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.SDCardHelper;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+import com.yunyisheng.app.yunys.utils.TokenHeaderInterceptor;
 import com.yunyisheng.app.yunys.utils.Util;
 
 import org.greenrobot.eventbus.EventBus;
@@ -151,7 +150,9 @@ public class SendNoticeActivity extends BaseActivity {
         OkHttpClient client = new OkHttpClient.Builder().
                 connectTimeout(60, TimeUnit.SECONDS).
                 readTimeout(60, TimeUnit.SECONDS).
-                writeTimeout(60, TimeUnit.SECONDS).build();
+                writeTimeout(60, TimeUnit.SECONDS).
+                addNetworkInterceptor(new TokenHeaderInterceptor()).
+                build();
         Retrofit retrofit = new Retrofit.Builder()
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -224,21 +225,17 @@ public class SendNoticeActivity extends BaseActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setMessage("提示")
                         .setMessage("请您去设置中授予内部存储的权限")
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        })
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
-                                ComponentName cName = new ComponentName("com.android.phone", "com.android.phone.Settings");
-                                intent.setComponent(cName);
+                                Intent intent = new Intent();
+                                intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+                                intent.setData(Uri.fromParts("package", getPackageName(), null));
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                             }
                         });
+                builder.setCancelable(false);
                 builder.show();
             }
         });

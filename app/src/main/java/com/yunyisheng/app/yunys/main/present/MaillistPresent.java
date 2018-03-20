@@ -6,16 +6,21 @@ import com.yunyisheng.app.yunys.main.activity.MailListActivity;
 import com.yunyisheng.app.yunys.main.model.FindWorkerBean;
 import com.yunyisheng.app.yunys.main.service.HomeService;
 import com.yunyisheng.app.yunys.net.Api;
-import com.yunyisheng.app.yunys.net.RetrofitManager;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+import com.yunyisheng.app.yunys.utils.TokenHeaderInterceptor;
+
+import java.util.concurrent.TimeUnit;
 
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 import cn.droidlover.xdroidmvp.net.ApiSubscriber;
 import cn.droidlover.xdroidmvp.net.NetError;
 import cn.droidlover.xdroidmvp.net.XApi;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * 作者：fuduo on 2018/1/24 15:42
@@ -25,6 +30,8 @@ import retrofit2.Callback;
 
 public class MaillistPresent extends XPresent<MailListActivity> {
 
+    private Call<String> call;
+
     /**
      * @author fuduo
      * @time 2018/1/24  15:42
@@ -32,23 +39,48 @@ public class MaillistPresent extends XPresent<MailListActivity> {
      */
     public void getMaillist() {
         LoadingDialog.show(getV());
-        HomeService mMallRequest = RetrofitManager.getInstance().getRetrofit().create(HomeService.class);
-        Call<String> call = mMallRequest.getUserFromwork();
+        OkHttpClient client = new OkHttpClient.Builder().
+                connectTimeout(60, TimeUnit.SECONDS).
+                readTimeout(60, TimeUnit.SECONDS).
+                writeTimeout(60, TimeUnit.SECONDS).
+                addNetworkInterceptor(new TokenHeaderInterceptor()).
+                build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(client)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .baseUrl(Api.BASE_PATH)
+                .build();
+        HomeService mMallRequest = retrofit.create(HomeService.class);
+        call = mMallRequest.getUserFromwork();
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, retrofit2.Response<String> response) {
-                Log.d("debug", response.body());
-                LoadingDialog.dismiss(getV());
-                getV().getResultList(response.body());
+                try {
+                    Log.d("debug", response.body());
+                    LoadingDialog.dismiss(getV());
+                    getV().getResultList(response.body());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                getV().setImgQueshengng();
-                LoadingDialog.dismiss(getV());
+                try {
+                    getV().setImgQueshengng();
+                    LoadingDialog.dismiss(getV());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
+
+    public void cancle(){
+        if (call!=null)
+        call.cancel();
+    }
+
 
     /**
      * @author fuduo

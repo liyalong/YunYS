@@ -140,6 +140,11 @@ public class LoadingDialog extends Dialog {
      */
     public static void dismiss(Context context) {
         try {
+            if (context==null){
+                loadDialog = null;
+                return;
+            }
+
             if (context instanceof Activity) {
                 if (((Activity) context).isFinishing()) {
                     loadDialog = null;
