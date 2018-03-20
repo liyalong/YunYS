@@ -12,10 +12,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.main.model.FindWorkerBean;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
-import com.yunyisheng.app.yunys.utils.glide.GlideDownLoadImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +85,7 @@ public class SelectFindWorkerListAdapter extends SimpleListAdapter<FindWorkerBea
         holder.teZhiwei.setText(respBodyBean.getUserJobTitle());
         if (respBodyBean.getIcon() != null && !respBodyBean.getIcon().equals("") && !respBodyBean.getIcon().equals("null")) {
             Bitmap bitmap = CommonUtils.stringtoBitmap(respBodyBean.getIcon());
-            GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(context, holder.imgWokerHead, bitmap);
+            holder.imgWokerHead.setImageBitmap(bitmap);
         } else {
             String sex = respBodyBean.getUserSex();
             if (sex != null && !sex.equals("") && !sex.equals("null")) {
@@ -131,7 +131,7 @@ public class SelectFindWorkerListAdapter extends SimpleListAdapter<FindWorkerBea
         @BindView(R.id.ck_select)
         ImageView ckSelect;
         @BindView(R.id.img_woker_head)
-        ImageView imgWokerHead;
+        RoundedImageView imgWokerHead;
         @BindView(R.id.te_name)
         TextView teName;
         @BindView(R.id.te_type)

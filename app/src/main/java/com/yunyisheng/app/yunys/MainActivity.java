@@ -131,12 +131,6 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setMessage("提示")
                         .setMessage("请您去设置中授予消息横幅提醒权限")
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        })
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -144,9 +138,30 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                                 startActivity(intent);
                             }
                         });
+                builder.setCancelable(false);
+                builder.show();
+           }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            boolean isfirst = SharedPref.getInstance(mContext).getBoolean("isfirst", true);
+            if (isfirst) {
+                SharedPref.getInstance(mContext).putBoolean("isfirst",false);
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setMessage("提示")
+                        .setMessage("请您去设置中授予消息横幅提醒权限")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                                startActivity(intent);
+                            }
+                        });
+                builder.setCancelable(false);
                 builder.show();
             }
         }
+
     }
 
     //订阅方法，当接收到事件的时候，会调用该方法

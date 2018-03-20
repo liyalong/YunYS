@@ -14,10 +14,10 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.main.model.ProjectFromWorkBean;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
-import com.yunyisheng.app.yunys.utils.glide.GlideDownLoadImage;
 
 import java.util.List;
 
@@ -109,7 +109,7 @@ public class ProjectFromWorkListExpenableAdapter extends BaseExpandableListAdapt
         View view = mInflater.inflate(R.layout.maillist_exp_child_item, parent, false);
         TextView te_zhiwei = (TextView) view.findViewById(R.id.te_zhiwei);
         TextView te_name = (TextView) view.findViewById(R.id.te_name);
-        ImageView img_woker_head = (ImageView) view.findViewById(R.id.img_woker_head);
+        RoundedImageView img_woker_head = (RoundedImageView) view.findViewById(R.id.img_woker_head);
         ImageView img_send_msg = (ImageView) view.findViewById(R.id.img_send_msg);
         ImageView img_call_phone = (ImageView) view.findViewById(R.id.img_call_phone);
         View view1=view.findViewById(R.id.view1);   
@@ -126,7 +126,7 @@ public class ProjectFromWorkListExpenableAdapter extends BaseExpandableListAdapt
                 !userListBean.getUserPicture().equals("")
                 && !userListBean.getUserPicture().equals("null")) {
             Bitmap bitmap = CommonUtils.stringtoBitmap(userListBean.getUserPicture());
-            GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(context, img_woker_head, bitmap);
+            img_woker_head.setImageBitmap(bitmap);
         }else {
             String sex = userListBean.getUserSex();
             if (sex!= null && !sex.equals("")&& !sex.equals("null")){
