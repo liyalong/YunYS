@@ -68,7 +68,6 @@ public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
     public void initView() {
         ButterKnife.bind(this);
         Intent intent = getIntent();
-
         type = intent.getIntExtra("type", 0);
         noticeid = intent.getIntExtra("noticeid", 0);
 
