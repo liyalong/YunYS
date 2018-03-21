@@ -64,10 +64,10 @@ public class HomeScheduleAdapter extends SimpleListAdapter<MyScheduleBean.RespBo
         final String type = bean.getType();
         if (type.equals("1")) {
             holder.te_liucheng_type.setText("设备");
-        } else if (type.equals("2")) {
-            holder.te_liucheng_type.setText("非设备");
+        }  else if (type.equals("2")) {
+            holder.te_liucheng_type.setText("工单");
         } else {
-            holder.te_liucheng_type.setText("流程");
+            holder.te_liucheng_type.setText("审批");
         }
         String state = bean.getState();
         if (state.equals("3")) {
