@@ -157,7 +157,9 @@ public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
             String taskApprovalState = processDetail.getRespBody().getTask().getYesOrNoApproval();
             processTaskName.setText(taskName);
             taskStartUser.setText(startUser);
-            taskStartTime.setText(taskStartTimeValue.substring(0,16));
+            if (taskStartTimeValue != null){
+                taskStartTime.setText(taskStartTimeValue.substring(0,16));
+            }
 
             if (taskApprovalState.equals("1")){
                 taskStartState.setText("待审批");

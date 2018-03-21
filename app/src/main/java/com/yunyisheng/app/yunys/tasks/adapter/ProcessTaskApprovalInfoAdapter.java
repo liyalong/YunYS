@@ -40,17 +40,25 @@ public class ProcessTaskApprovalInfoAdapter extends SimpleListAdapter<ProcessDet
 
     @Override
     protected void convert(ViewHolder holder, ProcessDetailBean.HistoryCommnetsBean item, int position) {
-        holder.processTaskApprovalUser.setText(item.getUserName());
-        holder.processTaskApprovalTime.setText(item.getTime().substring(0,16));
-        holder.processApprovalInfo.setText(item.getFullMessage());
-        if ((position+1) == countSize){
-            holder.processApprovalInfoTitle.setText(R.string.process_approval_info);
-            holder.processTaskApprovalTimeTitle.setText(R.string.process_approval_time);
-            holder.processTaskApprovalUserTitle.setText(R.string.process_approval_user);
-        }else {
-            holder.processApprovalInfoTitle.setText(R.string.process_turn_info);
-            holder.processTaskApprovalTimeTitle.setText(R.string.process_turn_time);
-            holder.processTaskApprovalUserTitle.setText(R.string.process_turn_user);
+        try {
+            holder.processTaskApprovalUser.setText(item.getUserName());
+            if (item.getTime() != null){
+                holder.processTaskApprovalTime.setText(item.getTime().substring(0,16));
+            }else {
+                holder.processTaskApprovalTime.setText(' ');
+            }
+            holder.processApprovalInfo.setText(item.getFullMessage());
+            if ((position+1) == countSize){
+                holder.processApprovalInfoTitle.setText(R.string.process_approval_info);
+                holder.processTaskApprovalTimeTitle.setText(R.string.process_approval_time);
+                holder.processTaskApprovalUserTitle.setText(R.string.process_approval_user);
+            }else {
+                holder.processApprovalInfoTitle.setText(R.string.process_turn_info);
+                holder.processTaskApprovalTimeTitle.setText(R.string.process_turn_time);
+                holder.processTaskApprovalUserTitle.setText(R.string.process_turn_user);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
