@@ -50,11 +50,15 @@ public class ClearCatchActivity extends BaseActivity {
             type = catchsize.substring(catchsize.length() - 2, catchsize.length());
         }
         if (type.equals("KB")) {
-//            String usesize = catchsize.substring(0, catchsize.length() - 2);
+           String usesize = catchsize.substring(0, catchsize.length() - 2);
 //            double v = Double.parseDouble(usesize);
 //            double v1 = Double.parseDouble(v / allzonesizeK + "");
 //            String format = String.format("%.2f", v1);
-            teUsecatchsize.setText("占据手机" + 0.01 + "%存储空间");
+            if (usesize.equals("0")){
+                teUsecatchsize.setText("占据手机" + 0.00 + "%存储空间");
+            }else {
+                teUsecatchsize.setText("占据手机" + 0.01 + "%存储空间");
+            }
         }
 
         if (type.equals("MB")) {
