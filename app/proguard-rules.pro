@@ -123,10 +123,12 @@
 
 -keep class com.yunyisheng.app.yunys.login.model.** { *; }
 -keep class com.yunyisheng.app.yunys.main.model.** { *; }
+-keep class com.yunyisheng.app.yunys.project.bean.** { *; }
 -keep class com.yunyisheng.app.yunys.project.model.** { *; }
 -keep class com.yunyisheng.app.yunys.userset.model.** { *; }
 -keep class com.yunyisheng.app.yunys.tasks.model.** { *; }
 -keep class com.yunyisheng.app.yunys.schedule.model.** { *; }
+-keep class com.yunyisheng.app.yunys.userset.model.** { *; }
 -keep class com.yunyisheng.app.yunys.base.** { *; }
 
 #---------------------------------第三方包-------------------------------

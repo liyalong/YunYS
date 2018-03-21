@@ -45,7 +45,7 @@ public class SelectProjectAdapter extends SimpleListAdapter<ProjectBean, SelectP
 
     @Override
     protected void convert(final ViewHolder holder, ProjectBean item, final int position) {
-        holder.projectTitle.setText(item.getProjectName().toString());
+        holder.projectTitle.setText(item.getProjectName());
         holder.mRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

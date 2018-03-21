@@ -1,7 +1,6 @@
 package com.yunyisheng.app.yunys.project.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,8 +21,6 @@ import cn.droidlover.xdroidmvp.kit.KnifeKit;
 public class ProjectListAdapter extends SimpleListAdapter<ProjectBean, ProjectListAdapter.ViewHolder> {
 
 
-
-
     public ProjectListAdapter(Context context, List<ProjectBean> data) {
         super(context, data);
     }
@@ -41,18 +38,20 @@ public class ProjectListAdapter extends SimpleListAdapter<ProjectBean, ProjectLi
 
     @Override
     protected void convert(ViewHolder holder, ProjectBean item, int position) {
-            final ProjectBean projectBean = data.get(position);
-            holder.projectName.setText(projectBean.getProjectName());
-            holder.projectCreateUser.setText(projectBean.getProjectLeaderName());
-            holder.projectErrorLayout.setVisibility(View.GONE);
-            holder.projectNewtaskLayout.setVisibility(View.GONE);
-            holder.projectCreateTime.setText(projectBean.getProjectCreate().substring(0,16));
-            holder.projectDesc.setText(projectBean.getProjectRemarks());
+        final ProjectBean projectBean = data.get(position);
+        holder.projectName.setText(projectBean.getProjectName());
+        holder.projectCreateUser.setText(projectBean.getProjectLeaderName());
+        holder.projectErrorLayout.setVisibility(View.GONE);
+        holder.projectNewtaskLayout.setVisibility(View.GONE);
+        String createtime = projectBean.getProjectCreate();
+        if (createtime != null && !createtime.equals("")) {
+            holder.projectCreateTime.setText(createtime.substring(0, 16));
+        }
+        holder.projectDesc.setText(projectBean.getProjectRemarks());
     }
 
 
-
-    public static class ViewHolder{
+    public static class ViewHolder {
         @BindView(R.id.project_name)
         TextView projectName;
         @BindView(R.id.project_error_nums)
@@ -69,6 +68,7 @@ public class ProjectListAdapter extends SimpleListAdapter<ProjectBean, ProjectLi
         TextView projectDesc;
         @BindView(R.id.project_create_user)
         TextView projectCreateUser;
+
         public ViewHolder(View itemView) {
             KnifeKit.bind(this, itemView);
         }

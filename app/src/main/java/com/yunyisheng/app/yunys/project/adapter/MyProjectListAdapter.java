@@ -21,8 +21,6 @@ import cn.droidlover.xdroidmvp.kit.KnifeKit;
 public class MyProjectListAdapter extends SimpleListAdapter<ProjectBean, MyProjectListAdapter.ViewHolder> {
 
 
-
-
     public MyProjectListAdapter(Context context, List<ProjectBean> data) {
         super(context, data);
     }
@@ -40,26 +38,29 @@ public class MyProjectListAdapter extends SimpleListAdapter<ProjectBean, MyProje
 
     @Override
     protected void convert(ViewHolder holder, ProjectBean item, int position) {
-            final ProjectBean projectBean = data.get(position);
-            holder.projectName.setText(projectBean.getProjectName());
-            holder.projectCreateUser.setText(projectBean.getProjectLeaderName());
-            if (item.getUnSeeTaskNum() != null && item.getUnSeeTaskNum() > 0){
-                holder.projectNewtaskLayout.setVisibility(View.VISIBLE);
-                holder.projectNewtaskNums.setText(item.getUnSeeTaskNum().toString());
-            }else {
-                holder.projectNewtaskLayout.setVisibility(View.GONE);
-            }
-            if (item.getWarningNum() != null && item.getWarningNum() > 0){
-                holder.projectErrorLayout.setVisibility(View.VISIBLE);
-                holder.projectErrorNums.setText(item.getWarningNum().toString());
-            }else {
-                holder.projectErrorLayout.setVisibility(View.GONE);
-            }
-            holder.projectCreateTime.setText(projectBean.getProjectCreate().substring(0,16));
-            holder.projectDesc.setText(projectBean.getProjectRemarks());
+        final ProjectBean projectBean = data.get(position);
+        holder.projectName.setText(projectBean.getProjectName());
+        holder.projectCreateUser.setText(projectBean.getProjectLeaderName());
+        if (item.getUnSeeTaskNum() != null && item.getUnSeeTaskNum() > 0) {
+            holder.projectNewtaskLayout.setVisibility(View.VISIBLE);
+            holder.projectNewtaskNums.setText(item.getUnSeeTaskNum().toString());
+        } else {
+            holder.projectNewtaskLayout.setVisibility(View.GONE);
+        }
+        if (item.getWarningNum() != null && item.getWarningNum() > 0) {
+            holder.projectErrorLayout.setVisibility(View.VISIBLE);
+            holder.projectErrorNums.setText(item.getWarningNum().toString());
+        } else {
+            holder.projectErrorLayout.setVisibility(View.GONE);
+        }
+        String createtime = projectBean.getProjectCreate();
+        if (createtime != null && !createtime.equals("")) {
+            holder.projectCreateTime.setText(createtime.substring(0, 16));
+        }
+        holder.projectDesc.setText(projectBean.getProjectRemarks());
     }
 
-    public static class ViewHolder{
+    public static class ViewHolder {
         @BindView(R.id.project_name)
         TextView projectName;
         @BindView(R.id.project_error_nums)
@@ -76,6 +77,7 @@ public class MyProjectListAdapter extends SimpleListAdapter<ProjectBean, MyProje
         TextView projectDesc;
         @BindView(R.id.project_create_user)
         TextView projectCreateUser;
+
         public ViewHolder(View itemView) {
             KnifeKit.bind(this, itemView);
         }

@@ -1,16 +1,19 @@
 package com.yunyisheng.app.yunys;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,6 +37,7 @@ import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.main.fragement.HomeFragement;
 import com.yunyisheng.app.yunys.main.model.WarningMessageEvent;
+import com.yunyisheng.app.yunys.main.roadcastReceiver.NotificationHighCodeReceiver;
 import com.yunyisheng.app.yunys.main.service.MessageService;
 import com.yunyisheng.app.yunys.mqtt.MQTTMessage;
 import com.yunyisheng.app.yunys.mqtt.MQTTService;
@@ -99,6 +103,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     private long exitTime = 0;
     private NotificationManager notificationManager;
     private int id;
+    private NotificationHighCodeReceiver receiver;
 
 
     private void initTab() {
@@ -116,10 +121,12 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         ButterKnife.bind(this);
         initTab();
         //广播接受者实例
-//        receiver = new NotificationReceiver();
-//        IntentFilter intentFilter = new IntentFilter();
-//        intentFilter.addAction("action");
-//        registerReceiver(receiver, intentFilter);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            receiver = new NotificationHighCodeReceiver();
+//            IntentFilter intentFilter = new IntentFilter();
+//            intentFilter.addAction("action");
+//            registerReceiver(receiver, intentFilter);
+//        }
         rbCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,13 +147,13 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                         });
                 builder.setCancelable(false);
                 builder.show();
-           }
+            }
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             boolean isfirst = SharedPref.getInstance(mContext).getBoolean("isfirst", true);
             if (isfirst) {
-                SharedPref.getInstance(mContext).putBoolean("isfirst",false);
+                SharedPref.getInstance(mContext).putBoolean("isfirst", false);
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setMessage("提示")
                         .setMessage("请您去设置中授予消息横幅提醒权限")
@@ -180,30 +187,68 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMqttEvent(MQTTMessage mqttMessage) {
         LogUtils.i("mqttmessage", mqttMessage.getMessage());
-        setNotification(mqttMessage.getMessage());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            setHighNotification(mqttMessage.getMessage());
+        } else {
+            setNotification(mqttMessage.getMessage());
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.O)
+    private void setHighNotification(String string) {
+
+        String name = "channelname";
+        String CHANNEL_ID = "my_channel_01";
+        String description="云依生消息通知";
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+
+        NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+        // 配置通知渠道的属性
+        mChannel.setDescription(description);
+        // 设置通知出现时的闪灯（如果 android 设备支持的话）
+        mChannel.enableLights(true);
+        mChannel.setLightColor(Color.RED);
+        notificationManager.createNotificationChannel(mChannel);
+
+        //为了版本兼容  选择V7包下的NotificationCompat进行构造
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this);
+        builder.setContentTitle("横幅通知");
+        builder.setContentText("请在设置通知管理中开启消息横幅提醒权限");
+        builder.setDefaults(NotificationCompat.DEFAULT_ALL);
+        builder.setSmallIcon(R.mipmap.tubiao);
+        builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.tubiao));
+        builder.setChannelId(CHANNEL_ID);
+
+        Intent broadcastIntent = new Intent("com.yunyisheng.app.yunys.receiver");
+        broadcastIntent.putExtra("str", string);
+        PendingIntent pIntent = PendingIntent.getBroadcast(context, id++, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pIntent);
+        builder.setFullScreenIntent(pIntent, true);
+        builder.setAutoCancel(true);
+        Notification notification = builder.build();
+        notification.flags=Notification.FLAG_AUTO_CANCEL;
+        notificationManager.notify(id++, notification);//注意这里 1 为当前通知栏的 Id 号，和 Fragment 设置 Id 是一样的
     }
 
     private void setNotification(String string) {
         //此类通知在Android 5.0以上版本才会有横幅有效！
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {//小于5.0
-                Intent broadcastIntent = new Intent("com.yunyisheng.app.yunys.receiver");
-//                broadcastIntent.setAction("action");
-//                broadcastIntent.putExtra("data", "noticeMessage");
-                broadcastIntent.putExtra("str",string);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                Notification.Builder builder = new Notification.Builder(MainActivity.this);
-                builder.setSmallIcon(R.mipmap.tubiao);
-                builder.setContentTitle(string);
-                builder.setContentText("我是默认显示的消息，我进来了");
-                builder.setWhen(System.currentTimeMillis());
-                builder.setTicker("接受到一条信息");
-                builder.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
-                builder.setAutoCancel(true);
-                builder.setContentIntent(pendingIntent);
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                    Notification notification = builder.build();
-                    notificationManager.notify(id++, notification);
-                }
+            Intent broadcastIntent = new Intent("com.yunyisheng.app.yunys.receiver");
+            broadcastIntent.putExtra("str", string);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id++, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            Notification.Builder builder = new Notification.Builder(MainActivity.this);
+            builder.setSmallIcon(R.mipmap.tubiao);
+            builder.setContentTitle(string);
+            builder.setContentText("我是默认显示的消息，我进来了");
+            builder.setWhen(System.currentTimeMillis());
+            builder.setTicker("接受到一条信息");
+            builder.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+            builder.setAutoCancel(true);
+            builder.setContentIntent(pendingIntent);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                Notification notification = builder.build();
+                notificationManager.notify(id++, notification);
+            }
         } else {
             //为了版本兼容  选择V7包下的NotificationCompat进行构造
             NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this);
@@ -213,11 +258,8 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
             builder.setSmallIcon(R.mipmap.tubiao);
             builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.tubiao));
             Intent broadcastIntent = new Intent("com.yunyisheng.app.yunys.receiver");
-//            broadcastIntent.setAction("action");
-//            broadcastIntent.putExtra("data", "noticeMessage");
-            broadcastIntent.putExtra("str",string);
-            //sendBroadcast(broadcastIntent);
-            PendingIntent pIntent = PendingIntent.getBroadcast(context, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            broadcastIntent.putExtra("str", string);
+            PendingIntent pIntent = PendingIntent.getBroadcast(context, id++, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             builder.setContentIntent(pIntent);
             builder.setFullScreenIntent(pIntent, true);
             builder.setAutoCancel(true);
@@ -561,7 +603,9 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        //unregisterReceiver(receiver);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            unregisterReceiver(receiver);
+//        }
     }
 
     @Override
