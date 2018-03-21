@@ -109,7 +109,7 @@ public class CreateProcessTaskAcitvity extends BaseActivity {
 
     private void NextProcessInfo() {
         if (selectFormId == null){
-            ToastUtils.showToast("请选择流程定义！");
+            ToastUtils.showToast("请选择审批表单！");
             return;
         }
         if (selectUserId == 0){

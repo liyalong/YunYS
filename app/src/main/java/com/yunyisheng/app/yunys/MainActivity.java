@@ -133,41 +133,41 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 createSelectTaskDialog(MainActivity.this);
             }
         });
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
-            if (!CommonUtils.isNotificationEnabled()) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setMessage("提示")
-                        .setMessage("请您去设置中授予消息横幅提醒权限")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(Settings.ACTION_SETTINGS);
-                                startActivity(intent);
-                            }
-                        });
-                builder.setCancelable(false);
-                builder.show();
-            }
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            boolean isfirst = SharedPref.getInstance(mContext).getBoolean("isfirst", true);
-            if (isfirst) {
-                SharedPref.getInstance(mContext).putBoolean("isfirst", false);
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setMessage("提示")
-                        .setMessage("请您去设置中授予消息横幅提醒权限")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(Settings.ACTION_SETTINGS);
-                                startActivity(intent);
-                            }
-                        });
-                builder.setCancelable(false);
-                builder.show();
-            }
-        }
+//        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+//            if (!CommonUtils.isNotificationEnabled()) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+//                builder.setMessage("提示")
+//                        .setMessage("请您去设置中授予消息横幅提醒权限")
+//                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Intent intent = new Intent(Settings.ACTION_SETTINGS);
+//                                startActivity(intent);
+//                            }
+//                        });
+//                builder.setCancelable(false);
+//                builder.show();
+//            }
+//        }
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            boolean isfirst = SharedPref.getInstance(mContext).getBoolean("isfirst", true);
+//            if (isfirst) {
+//                SharedPref.getInstance(mContext).putBoolean("isfirst", false);
+//                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+//                builder.setMessage("提示")
+//                        .setMessage("请您去设置中授予消息横幅提醒权限")
+//                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Intent intent = new Intent(Settings.ACTION_SETTINGS);
+//                                startActivity(intent);
+//                            }
+//                        });
+//                builder.setCancelable(false);
+//                builder.show();
+//            }
+//        }
 
     }
 
@@ -273,7 +273,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     public void initAfter() {
         Intent intent = new Intent(MainActivity.this, MessageService.class);
         startService(intent);
-        startService(new Intent(this, MQTTService.class));
+//        startService(new Intent(this, MQTTService.class));
     }
 
     public void changerTask() {

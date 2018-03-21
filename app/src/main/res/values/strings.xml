@@ -33,7 +33,7 @@
     <string name="newpassworded">重复新密码</string>
     <string name="seeall">查看全部</string>
     <string name="str">仅展示个人PC端数据</string>
-    <string name="liucheng">流程</string>
+    <string name="liucheng">审批任务</string>
     <string name="clickdelete">已添加(点击删除)</string>
     <string name="canadd">可添加</string>
     <string name="baobiao">报表</string>
@@ -114,8 +114,8 @@
     <string name="minedate">我的日程</string>
     <string name="projectdate">项目日程</string>
     <string name="shebeitask">设备任务</string>
-    <string name="wrongshebeitask">非设备任务</string>
-    <string name="liuchengtask">流程任务</string>
+    <string name="wrongshebeitask">工单任务</string>
+    <string name="liuchengtask">审批任务</string>
     <string name="isshowchexiao">是否显示已撤销日程</string>
     <string name="isshowwancheng">是否显示已完成的日程</string>
     <string name="isshowrili">是否同步日程至本机日历 </string>
@@ -142,7 +142,7 @@
     <string name="device_parts">设备备件</string>
     <string name="periodic_tasks">周期任务</string>
     <string name="create_task">添加任务</string>
-    <string name="process_task_detail">流程任务详情</string>
+    <string name="process_task_detail">审批任务详情</string>
     <string name="deviceinfo_bjxx">报警信息</string>
     <string name="deviceinfo_sszb">实时指标</string>
     <string name="deviceinfo_jbxx">基本信息</string>
@@ -225,10 +225,10 @@
     <string name="task_desc">备注</string>
     <string name="task_back_detail">任务反馈项</string>
     <string name="task_back_detail_form">任务反馈表单</string>
-    <string name="task_flow">流程任务</string>
+    <string name="task_flow">审批任务</string>
     <string name="task_temporary">临时任务</string>
     <string name="task_cycle">周期任务</string>
-    <string name="task_flow_form">*流程定义</string>
+    <string name="task_flow_form">*审批表单</string>
     <string name="task_flow_user">*审批人</string>
     <string name="task_flow_time">*审批截止时间</string>
     <string name="task_start_time">*开始时间</string>
@@ -251,7 +251,7 @@
     <string name="select_project_list">选择项目列表</string>
     <string name="select_project_device_list">选择设备列表</string>
     <string name="select_project_form_list">选择工单列表</string>
-    <string name="select_process_form_list">选择流程表单列表</string>
+    <string name="select_process_form_list">选择审批表单列表</string>
     <string name="select_project_user_list">选择分派人员列表</string>
     <string name="select_checked_user_list">选择审批人员</string>
 
@@ -273,7 +273,7 @@
     <string name="search_project">搜索项目</string>
     <string name="search_device">搜索设备</string>
     <string name="search_form">搜索工单</string>
-    <string name="search_process">搜索流程</string>
+    <string name="search_process">搜索审批表单</string>
     <!-- 设备使用状态 -->
     <string name="device_status_1">启用</string>
     <string name="device_status_2">禁用</string>
@@ -305,7 +305,7 @@
     <string name="the_device">所属设备：</string>
 
     <string name="task_back_info_title">回退意见</string>
-    <string name="process_task_name">流程任务名称：</string>
+    <string name="process_task_name">审批任务名称：</string>
     <string name="process_task_user">发起人：</string>
     <string name="process_task_start">发起时间：</string>
     <string name="process_approval_box">审批意见</string>
