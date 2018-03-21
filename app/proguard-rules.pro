@@ -127,6 +127,7 @@
 -keep class com.yunyisheng.app.yunys.project.model.** { *; }
 -keep class com.yunyisheng.app.yunys.userset.model.** { *; }
 -keep class com.yunyisheng.app.yunys.tasks.model.** { *; }
+-keep class com.yunyisheng.app.yunys.tasks.bean.** { *; }
 -keep class com.yunyisheng.app.yunys.schedule.model.** { *; }
 -keep class com.yunyisheng.app.yunys.userset.model.** { *; }
 -keep class com.yunyisheng.app.yunys.base.** { *; }

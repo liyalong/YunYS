@@ -38,7 +38,7 @@ public class ProjectUserListAdapter extends SimpleListAdapter<ProjectUserBean, P
 
     @Override
     protected void convert(final ViewHolder holder, final ProjectUserBean item, int position) {
-            holder.text.setText(item.getUserName().toString());
+            holder.text.setText(item.getUserName());
 
         holder.checkedView.setOnClickListener(new View.OnClickListener() {
                 @Override

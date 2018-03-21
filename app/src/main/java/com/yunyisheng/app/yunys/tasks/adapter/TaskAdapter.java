@@ -9,8 +9,6 @@ import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.tasks.bean.TaskBean;
 import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import butterknife.BindView;
@@ -49,10 +47,10 @@ public class TaskAdapter extends SimpleListAdapter<TaskBean, TaskAdapter.ViewHol
 
     @Override
     protected void convert(ViewHolder holder, TaskBean item, int position) {
-        holder.taskName.setText(item.getReleaseName().toString());
-        holder.taskStartTime.setText(item.getReleaseBegint().toString().substring(0,16));
-        holder.taskEndTime.setText(item.getReleaseEndt().toString().substring(0,16));
-        holder.createUser.setText(item.getReleaseUsername().toString());
+        holder.taskName.setText(item.getReleaseName());
+        holder.taskStartTime.setText(item.getReleaseBegint().substring(0,16));
+        holder.taskEndTime.setText(item.getReleaseEndt().substring(0,16));
+        holder.createUser.setText(item.getReleaseUsername());
         if (SELECT_TYPE == 1){
             //待认领任务设置待认领状态隐藏，认领人信息隐藏
             holder.taskDoUserInfo.setVisibility(View.GONE);
