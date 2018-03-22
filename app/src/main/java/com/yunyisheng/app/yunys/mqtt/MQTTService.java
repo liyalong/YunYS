@@ -45,7 +45,7 @@ public class MQTTService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    public static void publish(String msg){
+    public static void publish(String msg) {
         String topic = myTopic;
         Integer qos = 0;
         Boolean retained = false;
@@ -100,18 +100,13 @@ public class MQTTService extends Service {
 
     @Override
     public void onDestroy() {
-        try {
-            if (client==null){
-                return;
-            }
-            client.disconnect();
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }
+        startService(new Intent(this, MQTTService.class));
         super.onDestroy();
     }
 
-    /** 连接MQTT服务器 */
+    /**
+     * 连接MQTT服务器
+     */
     private void doClientConnection() {
         if (!client.isConnected() && isConnectIsNomarl()) {
             try {
@@ -131,10 +126,10 @@ public class MQTTService extends Service {
             Log.i(TAG, "连接成功 ");
             try {
                 // 订阅myTopic话题
-                if (client==null){
+                if (client == null) {
                     return;
                 }
-                client.subscribe(myTopic,1);
+                client.subscribe(myTopic, 1);
             } catch (MqttException e) {
                 e.printStackTrace();
             }
@@ -173,7 +168,9 @@ public class MQTTService extends Service {
         }
     };
 
-    /** 判断网络是否连接 */
+    /**
+     * 判断网络是否连接
+     */
     private boolean isConnectIsNomarl() {
         ConnectivityManager connectivityManager = (ConnectivityManager) this.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = connectivityManager.getActiveNetworkInfo();

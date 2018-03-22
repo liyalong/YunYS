@@ -152,9 +152,14 @@ public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
             teNoticesender.setText("发布人：" + noticeDetailBean.getRespBody().getCreateUserName());
         }
         teNoticetime.setText(noticeDetailBean.getRespBody().getCreateTime());
-        annexList.addAll(noticeDetailBean.getRespBody().getAnnexList());
-        NoticeFujianListAdapter adapter = new NoticeFujianListAdapter(NoticeDeatilActivity.this, annexList);
-        lvFujianlist.setAdapter(adapter);
+        List<AnnexBean> allannexList = noticeDetailBean.getRespBody().getAnnexList();
+        if (allannexList==null||allannexList.size()==0){
+            teFujinaType.setVisibility(View.GONE);
+        }else {
+            annexList.addAll(allannexList);
+            NoticeFujianListAdapter adapter = new NoticeFujianListAdapter(NoticeDeatilActivity.this, annexList);
+            lvFujianlist.setAdapter(adapter);
+        }
     }
 
     public void getResult(){

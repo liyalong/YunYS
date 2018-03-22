@@ -3,7 +3,6 @@ package com.yunyisheng.app.yunys;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -11,6 +10,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -18,7 +18,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.Settings;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
@@ -49,7 +48,6 @@ import com.yunyisheng.app.yunys.tasks.activity.CreateNoneDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.CreateProcessTaskAcitvity;
 import com.yunyisheng.app.yunys.userset.fragement.MineFragement;
 import com.yunyisheng.app.yunys.userset.service.UserSetService;
-import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.DialogManager;
 import com.yunyisheng.app.yunys.utils.FileCache;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
@@ -121,12 +119,12 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         ButterKnife.bind(this);
         initTab();
         //广播接受者实例
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            receiver = new NotificationHighCodeReceiver();
-//            IntentFilter intentFilter = new IntentFilter();
-//            intentFilter.addAction("action");
-//            registerReceiver(receiver, intentFilter);
-//        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            receiver = new NotificationHighCodeReceiver();
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction("action");
+            registerReceiver(receiver, intentFilter);
+        }
         rbCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -218,9 +216,12 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         builder.setSmallIcon(R.mipmap.tubiao);
         builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.tubiao));
         builder.setChannelId(CHANNEL_ID);
-
-        Intent broadcastIntent = new Intent("com.yunyisheng.app.yunys.receiver");
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("action");
+        broadcastIntent.putExtra("data", "noticeMessage");
         broadcastIntent.putExtra("str", string);
+//        Intent broadcastIntent = new Intent("com.yunyisheng.app.yunys.receiver");
+//        broadcastIntent.putExtra("str", string);
         PendingIntent pIntent = PendingIntent.getBroadcast(context, id++, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(pIntent);
         builder.setFullScreenIntent(pIntent, true);
@@ -273,7 +274,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     public void initAfter() {
         Intent intent = new Intent(MainActivity.this, MessageService.class);
         startService(intent);
-//        startService(new Intent(this, MQTTService.class));
+        startService(new Intent(this, MQTTService.class));
     }
 
     public void changerTask() {
@@ -603,9 +604,9 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            unregisterReceiver(receiver);
-//        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            unregisterReceiver(receiver);
+        }
     }
 
     @Override

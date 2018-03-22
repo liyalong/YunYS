@@ -1,14 +1,19 @@
 package com.yunyisheng.app.yunys.login.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.MainActivity;
@@ -64,6 +69,36 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
 //        if (CommonUtils.isServiceRunning(this, "org.eclipse.paho.android.service.MqttService")) {
 //            stopService(new Intent(mContext, MqttService.class));
 //        }
+
+        String errorlog = getIntent().getStringExtra("errorlog");
+        if (errorlog!=null&&!errorlog.equals("")){
+            showErrorlog(errorlog);
+        }
+    }
+    
+    private void showErrorlog(String string){
+        final Dialog mErrorDialog = new Dialog(this, R.style.dialog_bottom_full);
+        mErrorDialog.setCanceledOnTouchOutside(true);
+        mErrorDialog.setCancelable(true);
+        Window window = mErrorDialog.getWindow();
+        window.setGravity(Gravity.CENTER);
+        View view1 = View.inflate(this, R.layout.dialog_warning_login, null);
+        TextView text = (TextView) view1
+                .findViewById(R.id.text);
+        text.setText(string);
+        RelativeLayout rl_ok = (RelativeLayout) view1
+                .findViewById(R.id.rl_ok);
+
+        rl_ok.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                mErrorDialog.dismiss();
+            }
+        });
+        window.setContentView(view1);
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);//设置横向全屏
+        mErrorDialog.show();
     }
 
     @Override
@@ -107,14 +142,12 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
         Router.newIntent(context)
                 .to(RetrievePassword.class)
                 .launch();
-        this.finish();
     }
 
     private void toRegisiter() {
         Router.newIntent(context)
                 .to(RegisterActivity.class)
                 .launch();
-        this.finish();
     }
 
     private void login() {

@@ -168,6 +168,7 @@ public class MessageService extends Service {
 							ToastUtils.showToast(body.getRespMsg());
 							Intent intent=new Intent(MessageService.this,LoginActivity.class);
 							intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+							intent.putExtra("errorlog",body.getRespMsg());
 							startActivity(intent);
 						}else {
 							NoReadMessage.RespBodyBean respBody = body.getRespBody();
@@ -215,6 +216,7 @@ public class MessageService extends Service {
 					if (body.getRespCode()==3){
 						ToastUtils.showToast(body.getRespMsg());
 						Intent intent=new Intent(MessageService.this,LoginActivity.class);
+						intent.putExtra("errorlog",body.getRespMsg());
 						intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 						startActivity(intent);
 					}else {

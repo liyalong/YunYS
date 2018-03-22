@@ -52,6 +52,7 @@ public class ResultInterceptor implements Interceptor {
                         if(status != null && status.equals(3)){
                             ToastUtils.showToast(baseModel.getRespMsg());
                             Router.newIntent((Activity) context)
+                                    .putString("errorlog",baseModel.getRespMsg())
                                     .to(LoginActivity.class)
                                     .launch();
 
