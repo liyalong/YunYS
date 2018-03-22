@@ -81,7 +81,7 @@ public class SelectProcessFormActivity extends BaseActivity<ProcessFormListPrese
                 }else {
                     ProcessFormBean selectForm = dataList.get(selectPosition);
                     intent.putExtra("procDefId",selectForm.getProcDefId());
-                    intent.putExtra("formName",selectForm.getName());
+                    intent.putExtra("formName",selectForm.getFormBasicName());
                     setResult(1,intent);
                 }
                 finish();
