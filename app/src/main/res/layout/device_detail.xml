@@ -78,6 +78,7 @@
                 android:layout_marginTop="@dimen/distance_10"
                 android:orientation="vertical">
                 <LinearLayout
+                    android:id="@+id/jbxx_title_bar"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/distance_45"
                     android:background="@color/white"

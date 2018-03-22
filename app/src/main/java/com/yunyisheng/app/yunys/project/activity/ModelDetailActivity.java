@@ -69,6 +69,10 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> implem
     SuperExpandableListView bjxxList;
     @BindView(R.id.sszb_list)
     SuperExpandableListView sszbList;
+    @BindView(R.id.rl6_1)
+    RelativeLayout rl61;
+    @BindView(R.id.rl7_1)
+    RelativeLayout rl71;
 
 
     private List<String> PLCGroupList = new ArrayList<>();
@@ -144,11 +148,13 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> implem
     public void setListener() {
         modelPic.setOnClickListener(this);
         imgBack.setOnClickListener(this);
-        modelDetailJbxxDrop.setOnClickListener(this);
-        modelPicDrop.setOnClickListener(this);
+//        modelDetailJbxxDrop.setOnClickListener(this);
+//        modelPicDrop.setOnClickListener(this);
         toModelDeviceList.setOnClickListener(this);
         toModelAlarmRules.setOnClickListener(this);
         toModelKnowledge.setOnClickListener(this);
+        rl61.setOnClickListener(this);
+        rl71.setOnClickListener(this);
     }
 
     @Override
@@ -163,7 +169,7 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> implem
                     createBigImageDialog(this);
                 }
                 break;
-            case R.id.model_detail_jbxx_drop:
+            case R.id.rl7_1:
                 if (jbxxBoxIsshow == true) {
                     modelDetailJbxxBox.setVisibility(View.GONE);
                     modelDetailJbxxDrop.setImageResource(R.mipmap.icon_device_right);
@@ -174,7 +180,7 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> implem
                     jbxxBoxIsshow = true;
                 }
                 break;
-            case R.id.model_pic_drop:
+            case R.id.rl6_1:
                 if (MODELPICISSHOW){
                     modelPicBox.setVisibility(View.GONE);
                     modelPicDrop.setImageResource(R.mipmap.icon_device_right);

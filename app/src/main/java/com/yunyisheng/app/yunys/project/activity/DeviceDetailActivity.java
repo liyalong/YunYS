@@ -65,6 +65,8 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> impl
     LinearLayout toPeriodicTasks;
     @BindView(R.id.jbxx_list)
     LinearLayout jbxxList;
+    @BindView(R.id.jbxx_title_bar)
+    LinearLayout jbxxTitleBar;
 
     private String deviceId;
     private String projectId;
@@ -143,7 +145,8 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> impl
         toKnowledge.setOnClickListener(this);
         toDeviceParts.setOnClickListener(this);
         toPeriodicTasks.setOnClickListener(this);
-        infoDropBtn.setOnClickListener(this);
+//        infoDropBtn.setOnClickListener(this);
+        jbxxTitleBar.setOnClickListener(this);
 
     }
 
@@ -186,7 +189,7 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> impl
                         .putString("deviceName", deviceName)
                         .launch();
                 break;
-            case R.id.info_drop_btn:
+            case R.id.jbxx_title_bar:
                 if (INFOISSHOW) {
                     infoDropBtn.setImageResource(R.mipmap.icon_device_right);
                     jbxxList.setVisibility(View.GONE);
