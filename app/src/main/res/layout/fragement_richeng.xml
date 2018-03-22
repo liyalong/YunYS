@@ -94,7 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/no_task"
-                android:layout_marginBottom="@dimen/distance_100"
+                android:layout_marginBottom="@dimen/distance_70"
                 android:visibility="gone"
                 android:layout_gravity="center_horizontal|bottom"
                 />

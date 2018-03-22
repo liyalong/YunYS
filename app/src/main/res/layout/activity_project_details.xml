@@ -42,7 +42,7 @@
         android:background="@color/white"
         android:layout_marginTop="@dimen/distance_10"
         app:tabGravity="center"
-        app:tabTextAppearance="@style/TabLayoutTextStyle"
+        app:tabTextAppearance="@style/NoticeTabLayoutTextStyle"
         app:tabTextColor="@color/color_666"
         app:tabSelectedTextColor="@color/color_333"
         app:tabIndicatorColor="@color/color_tab_selected"

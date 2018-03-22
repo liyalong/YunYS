@@ -138,11 +138,15 @@
     </style>
 
     <style name="TabLayoutTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
-        <item name="android:textSize">@dimen/tablayout</item>
+        <item name="android:textSize">@dimen/distance_16</item>
     </style>
 
     <style name="NoticeTabLayoutTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
-        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textSize">@dimen/distance_14</item>
+    </style>
+
+    <style name="SmallNoticeTabLayoutTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">@dimen/distance_13</item>
     </style>
 
     <!-- 对话框样式 -->

@@ -132,6 +132,7 @@ public class MineFragement extends BaseFragement<MinePresent> {
 
     @Override
     public void setListener() {
+        imgWorkerHead.setOnClickListener(this);
         imgCarm.setOnClickListener(this);
         myInfo.setOnClickListener(this);
         softVersion.setOnClickListener(this);
@@ -254,6 +255,10 @@ public class MineFragement extends BaseFragement<MinePresent> {
     @Override
     public void widgetClick(View v) {
         switch (v.getId()) {
+            case R.id.img_worker_head:
+                requestPermission();
+                DialogManager.createPickImageDialog(getActivity());
+                break;
             case R.id.img_carm:
                 requestPermission();
                 DialogManager.createPickImageDialog(getActivity());
