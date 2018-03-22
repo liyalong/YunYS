@@ -35,9 +35,10 @@ public class DateTimeDialogUtils {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
                 mCalendar.set(Calendar.HOUR, i);
+                mCalendar.add(Calendar.HOUR,+12);
                 mCalendar.set(Calendar.MINUTE, i1);
-                SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-                textView.setText(format.format(mCalendar.getTime()));
+                SimpleDateFormat formats = new SimpleDateFormat("HH:mm");
+                textView.setText(formats.format(mCalendar.getTime()));
             }
         }, mCalendar.get(Calendar.HOUR), mCalendar.get(Calendar.MINUTE), true);
         dialog.show();

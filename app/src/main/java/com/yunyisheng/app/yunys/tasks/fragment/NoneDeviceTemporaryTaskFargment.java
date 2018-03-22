@@ -101,7 +101,6 @@ public class NoneDeviceTemporaryTaskFargment extends BaseFragement {
     }
     //初始化日期时间选择插件
     private void initDatePicker() {
-        String startDate = "2010-01-01 00:00";
         String patten = "yyyy-MM-dd HH:mm";
 
         String startTime = DateTimeDialogUtils.getNewData(patten,0);
@@ -115,13 +114,13 @@ public class NoneDeviceTemporaryTaskFargment extends BaseFragement {
             public void handle(String time) {
                 taskStartTime.setText(time);
             }
-        },startDate,closeingData);
+        },startTime,closeingData);
         endTimeCustomDatePicker = new CustomDatePicker(context, new CustomDatePicker.ResultHandler() {
             @Override
             public void handle(String time) {
                 taskEndTime.setText(time);
             }
-        },startDate,closeingData);
+        },startTime,closeingData);
 
     }
     @Override
@@ -228,6 +227,12 @@ public class NoneDeviceTemporaryTaskFargment extends BaseFragement {
             return checkStatus;
         }
         taskForm.setReleaseName(releaseName);
+        Boolean timeStatus = DateTimeDialogUtils.DateCompare(taskStartTime.getText().toString()+":00",taskEndTime.getText().toString()+":00");
+        if (!timeStatus){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","任务结束时间不能小于开始时间！");
+            return checkStatus;
+        }
         taskForm.setReleaseBegint(taskStartTime.getText().toString()+":00");
         taskForm.setReleaseEndt(taskEndTime.getText().toString()+":00");
 

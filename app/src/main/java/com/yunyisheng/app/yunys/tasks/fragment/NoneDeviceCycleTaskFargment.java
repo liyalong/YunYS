@@ -160,10 +160,11 @@ public class NoneDeviceCycleTaskFargment extends BaseFragement {
     }
 
     public void initDatePicker() {
-        String startDate = "2010-01-01 00:00";
         String pattern = "yyyy-MM-dd HH:mm";
         String startTime = DateTimeDialogUtils.getNewData(pattern, 0);
         String endTime = DateTimeDialogUtils.getNewData(pattern, 1);
+        String closeingData = DateTimeDialogUtils.getNewData(pattern,999);
+
         cycleTaskStartTime.setText(startTime);
         cycleTaskEndTime.setText(endTime);
         startCustomDatePicker = new CustomDatePicker(context, new CustomDatePicker.ResultHandler() {
@@ -171,14 +172,14 @@ public class NoneDeviceCycleTaskFargment extends BaseFragement {
             public void handle(String time) { // 回调接口，获得选中的时间
                 cycleTaskStartTime.setText(time);
             }
-        }, startDate, startTime);
+        }, startTime, closeingData);
         startCustomDatePicker.showSpecificTime(true);
         endCustomDatePicker = new CustomDatePicker(context, new CustomDatePicker.ResultHandler() {
             @Override
             public void handle(String time) {
                 cycleTaskEndTime.setText(time);
             }
-        }, startDate, endTime);
+        }, startTime, closeingData);
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -232,6 +233,12 @@ public class NoneDeviceCycleTaskFargment extends BaseFragement {
             return checkStatus;
         }
         cycleTaskForm.setCycletaskName(cycletaskName);
+        Boolean timeStatus = DateTimeDialogUtils.DateCompare(cycleTaskStartTime.getText().toString().trim()+":00",cycleTaskEndTime.getText().toString().trim()+":00");
+        if (!timeStatus){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","任务结束时间不能小于开始时间！");
+            return checkStatus;
+        }
         cycleTaskForm.setCycletaskBegint(cycleTaskStartTime.getText().toString().trim()+":00");
         cycleTaskForm.setCycletaskEndt(cycleTaskEndTime.getText().toString().trim()+":00");
         String cron = cycleSelectCron.getText().toString().trim();

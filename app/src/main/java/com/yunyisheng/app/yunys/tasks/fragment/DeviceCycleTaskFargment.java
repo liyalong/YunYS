@@ -226,7 +226,7 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
         }
     }
     public void initDatePicker(){
-        String startDate = "2010-01-01 00:00";
+
         String pattern = "yyyy-MM-dd HH:mm";
         String startTime =DateTimeDialogUtils.getNewData(pattern,0);
         String endTime  =DateTimeDialogUtils.getNewData(pattern,1);
@@ -239,13 +239,13 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
             public void handle(String time) { // 回调接口，获得选中的时间
                     cycleTaskStartTime.setText(time);
             }
-        }, startDate, closeingData);
+        }, startTime, closeingData);
         endCustomDatePicker = new CustomDatePicker(context, new CustomDatePicker.ResultHandler() {
             @Override
             public void handle(String time) {
                 cycleTaskEndTime.setText(time);
             }
-        },startDate,closeingData);
+        },startTime,closeingData);
     }
 
     public Map<String,String> checkFormResult() {
@@ -270,6 +270,12 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
             return checkStatus;
         }
         cycleTaskForm.setCycletaskName(cycletaskName);
+        Boolean timeStatus = DateTimeDialogUtils.DateCompare(cycleTaskStartTime.getText().toString().trim()+":00",cycleTaskEndTime.getText().toString().trim()+":00");
+        if (!timeStatus){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","任务结束时间不能小于开始时间！");
+            return checkStatus;
+        }
         cycleTaskForm.setCycletaskBegint(cycleTaskStartTime.getText().toString().trim()+":00");
         cycleTaskForm.setCycletaskEndt(cycleTaskEndTime.getText().toString().trim()+":00");
         String cron = cycleSelectCron.getText().toString().trim();

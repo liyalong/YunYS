@@ -52,7 +52,6 @@ public class CreateProcessTaskAcitvity extends BaseActivity {
 
     }
     public void initDatePicker(){
-        String startDate = "2010-01-01 00:00";
         String pattern = "yyyy-MM-dd HH:mm";
         String startTime = DateTimeDialogUtils.getNewData(pattern, 1);
         String closeTime = DateTimeDialogUtils.getNewData(pattern, 999);
@@ -62,7 +61,7 @@ public class CreateProcessTaskAcitvity extends BaseActivity {
             public void handle(String time) { // 回调接口，获得选中的时间
                 processTaskEndTime.setText(time);
             }
-        }, startDate, closeTime);
+        }, startTime, closeTime);
     }
     @Override
     public int bindLayout() {
