@@ -40,6 +40,7 @@ public class UpdateMempPresent extends XPresent<AddMemorandumActivity> {
                         if (baseModel.getRespCode()==0){
                             ToastUtils.showToast("添加成功");
                             EventBus.getDefault().post(new PositionMessageEvent("updatebeiwanglu"));
+                            getV().finish();
                         }else {
                             ToastUtils.showToast(baseModel.getRespMsg());
                         }

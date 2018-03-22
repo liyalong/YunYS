@@ -31,6 +31,7 @@ import com.ldf.calendar.view.Calendar;
 import com.ldf.calendar.view.MonthPager;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.project.model.TaskMessageEvent;
 import com.yunyisheng.app.yunys.schedule.adapter.TaskAdapter;
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleNoSizeBean;
@@ -42,6 +43,10 @@ import com.yunyisheng.app.yunys.tasks.activity.CreateProcessTaskAcitvity;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -105,6 +110,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
 
     @Override
     public void initView() {
+        EventBus.getDefault().register(this);
         monthPager.setViewHeight(Utils.dpi2px(mContext, 270));
         initCurrentDate();
         initCalendarView();
@@ -137,6 +143,16 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         LogUtils.i("MonthDay", firstMonthDay + "====" + lastMonthDay);
         getP().getNoScheduleList(firstMonthDay, lastMonthDay, 1);
         getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
+    }
+
+    //订阅方法，当接收到事件的时候，会调用该方法
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(TaskMessageEvent taskMessageEvent) {
+        Log.d("cylog", "receive it");
+        String position = taskMessageEvent.getPosition();
+        if (position.equals("updateOK")){
+            getP().getNoScheduleList(firstMonthDay, lastMonthDay, 1);
+        }
     }
 
     public void getResultList(MyScheduleBean myScheduleBean) {
@@ -508,6 +524,7 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
         getActivity().unregisterReceiver(mWindowsReceiver);
     }
 

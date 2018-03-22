@@ -31,6 +31,7 @@ import com.ldf.calendar.view.Calendar;
 import com.ldf.calendar.view.MonthPager;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.project.model.TaskMessageEvent;
 import com.yunyisheng.app.yunys.schedule.adapter.TaskAdapter;
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 import com.yunyisheng.app.yunys.schedule.model.PositionMessageEvent;
@@ -151,14 +152,24 @@ public class ProjeceScheduleFragement extends BaseFragement<ProjectSchedulePrese
             projectschedulelist.clear();
             pageindex = 1;
             getP().getMyProjectSchedulrList(pageindex, projectid, dayStartTime, dayEndTime);
-            if (!isfirst){
-                isfirst=true;
+            if (!isfirst) {
+                isfirst = true;
                 getNodateSchedule();
             }
         }
     }
 
-    public void getNodateSchedule(){
+    //订阅方法，当接收到事件的时候，会调用该方法
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(TaskMessageEvent taskMessageEvent) {
+        Log.d("cylog", "receive it");
+        String position = taskMessageEvent.getPosition();
+        if (position.equals("updateOK")){
+            getNodateSchedule();
+        }
+    }
+
+    public void getNodateSchedule() {
         if (projectid != null && !projectid.equals("")) {
             getP().getProjectscheduleDatelist(firstMonthDay, lastMonthDay, projectid);
         }
@@ -220,7 +231,7 @@ public class ProjeceScheduleFragement extends BaseFragement<ProjectSchedulePrese
         }
         calendarAdapter.setMarkData(markData);
         if (isfirst) {
-            isfirst=false;
+            isfirst = false;
             calendarAdapter.notifyDataChanged();
         }
     }
