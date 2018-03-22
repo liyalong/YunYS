@@ -227,7 +227,7 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
                 pullToRefreshListview.setAdapter(adapter);
             } else {
                 sendlist.addAll(sendNoticeBean.getList());
-                adapter.notifyDataSetChanged();
+                adapter.setData(sendlist);
             }
             pullToRefreshListview.setVisibility(View.VISIBLE);
             imgQuesheng.setVisibility(View.GONE);
@@ -259,7 +259,7 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
                 pullToRefreshListview.setAdapter(adapter1);
             } else {
                 receivemelist.addAll(receiveMeMessageBean.getList());
-                adapter1.notifyDataSetChanged();
+                adapter1.setData(receivemelist);
             }
             pullToRefreshListview.setVisibility(View.VISIBLE);
             imgQuesheng.setVisibility(View.GONE);

@@ -64,41 +64,41 @@ public class HomeScheduleAdapter extends SimpleListAdapter<MyScheduleBean.RespBo
         final String type = bean.getType();
         if (type.equals("1")) {
             holder.te_liucheng_type.setText("设备");
-        }  else if (type.equals("2")) {
+        } else if (type.equals("2")) {
             holder.te_liucheng_type.setText("工单");
         } else {
             holder.te_liucheng_type.setText("审批");
         }
         String state = bean.getState();
-        if (state.equals("3")) {
+        if (state.equals("2") || state.equals("102")) {
             holder.img_isok.setVisibility(View.VISIBLE);
         } else {
             holder.img_isok.setVisibility(View.GONE);
         }
         int over = bean.getOver();
-        if (over==6){
+        if (over == 6) {
             holder.task_status_istimeout.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             holder.task_status_istimeout.setVisibility(View.GONE);
         }
         holder.cv_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (type.equals("1")||type.equals("2")){
+                if (type.equals("1") || type.equals("2")) {
                     Intent intent = new Intent(context, TaskDetailActivity.class);
                     if (otheruserid != 0) {
                         intent.putExtra("userId", otheruserid + "");
                         intent.putExtra("fromPage", 6);
-                    }else {
+                    } else {
                         intent.putExtra("fromPage", 4);
                     }
-                    intent.putExtra("projectId",bean.getProjectsId());
+                    intent.putExtra("projectId", bean.getProjectsId());
                     intent.putExtra("taskType", type);
                     intent.putExtra("taskId", bean.getTaskId());
                     context.startActivity(intent);
-                }else {
-                    Intent intent=new Intent(context, ProcessDetailActivity.class);
+                } else {
+                    Intent intent = new Intent(context, ProcessDetailActivity.class);
                     if (otheruserid != 0) {
                         intent.putExtra("userId", otheruserid + "");
                     }
@@ -113,14 +113,14 @@ public class HomeScheduleAdapter extends SimpleListAdapter<MyScheduleBean.RespBo
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView te_schedule_title, te_schedule_time, te_liucheng_type,task_status_istimeout;
+        TextView te_schedule_title, te_schedule_time, te_liucheng_type, task_status_istimeout;
         RelativeLayout cv_item;
         ImageView img_isok;
         View view1;
 
         ViewHolder(View view) {
             super(view);
-            task_status_istimeout=(TextView)view.findViewById(R.id.task_status_istimeout);
+            task_status_istimeout = (TextView) view.findViewById(R.id.task_status_istimeout);
             te_liucheng_type = (TextView) view.findViewById(R.id.te_liucheng_type);
             img_isok = (ImageView) view.findViewById(R.id.img_isok);
             cv_item = (RelativeLayout) view.findViewById(R.id.cv_item);

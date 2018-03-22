@@ -270,7 +270,7 @@ public class SendNoticeActivity extends BaseActivity {
                         } else {
                             pathuri = realPathFromURI;
                             if (fileList.size() > 3) {
-                                ToastUtils.showToast("最多上传三个附件");
+                                ToastUtils.showToast("最多上传四个附件");
                             } else {
                                 if (fileList.size() > 0) {
                                     for (int i = 0; i < fileList.size(); i++) {

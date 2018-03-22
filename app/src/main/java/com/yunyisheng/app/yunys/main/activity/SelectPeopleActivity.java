@@ -51,7 +51,7 @@ public class SelectPeopleActivity extends BaseActivity{
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList, mTitleList);
         vpJiagou.setAdapter(adapter);
         tablayoutJiagou.setupWithViewPager(vpJiagou);
-        setIndicator(this, tablayoutJiagou, 10, 10);
+        setIndicator(this, tablayoutJiagou, 5, 5);
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

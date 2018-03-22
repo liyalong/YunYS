@@ -69,7 +69,7 @@ public class TaskAdapter extends RecyclerAdapter<MyScheduleBean.RespBodyBean.Dat
             holder.te_liucheng_type.setText("审批");
         }
         String state = bean.getState();
-        if (state.equals("3")||state.equals("102")) {
+        if (state.equals("2")||state.equals("102")) {
             holder.img_isok.setVisibility(View.VISIBLE);
         } else {
             holder.img_isok.setVisibility(View.GONE);
