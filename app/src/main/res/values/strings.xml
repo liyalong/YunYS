@@ -179,6 +179,7 @@
     <string name="enable">启用</string>
     <string name="disable">禁用</string>
     <string name="alarmrules_status">状态：</string>
+    <string name="alarmrules_update_time">恢复时间：</string>
     <!-- 工艺模块运行状态 -->
     <string name="model_running_status_1">正常</string>
     <string name="model_running_status_2">异常</string>

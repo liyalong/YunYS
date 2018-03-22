@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.project.bean.DeviceWarningBean;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,8 +37,8 @@ public class AlarmListAdapter extends SimpleListAdapter<DeviceWarningBean, Alarm
 
     @Override
     protected void convert(ViewHolder holder, DeviceWarningBean item, int position) {
-        holder.warningName.setText(item.getAlarmName().toString());
-        holder.alarmHistoryTime.setText(item.getAlarmCreateDate().toString().substring(0,16));
+        holder.warningName.setText(item.getAlarmName());
+        holder.alarmHistoryTime.setText(item.getAlarmCreateDate().substring(0,16));
 
         if (item.getAlarmType() == 1){
             holder.alarmHistoryType.setText(R.string.alarm_history_type_1);
@@ -44,7 +46,7 @@ public class AlarmListAdapter extends SimpleListAdapter<DeviceWarningBean, Alarm
             holder.alarmHistoryType.setText(R.string.alarm_history_type_2);
         }
         if (item.getAlarmRemark() != null){
-            holder.alarmHistoryDesc.setText(item.getAlarmRemark().toString());
+            holder.alarmHistoryDesc.setText(item.getAlarmRemark());
         }else {
             holder.alarmHistoryDesc.setText("");
         }
@@ -69,12 +71,20 @@ public class AlarmListAdapter extends SimpleListAdapter<DeviceWarningBean, Alarm
         switch (item.getAlarmHandleType()){
             case 0:
                 holder.alarm_status.setText(R.string.alarm_handle_type_1);
+                holder.alarmUpdateTimeTitle.setVisibility(View.GONE);
+                holder.alarmUpdateTime.setVisibility(View.GONE);
                 break;
             case 1:
                 holder.alarm_status.setText(R.string.alarm_handle_type_2);
+                holder.alarmUpdateTimeTitle.setVisibility(View.VISIBLE);
+                holder.alarmUpdateTime.setVisibility(View.VISIBLE);
+                holder.alarmUpdateTime.setText(item.getAlarmUpdateDate().substring(0,16));
                 break;
             case 2:
                 holder.alarm_status.setText(R.string.alarm_handle_type_3);
+                holder.alarmUpdateTimeTitle.setVisibility(View.VISIBLE);
+                holder.alarmUpdateTime.setVisibility(View.VISIBLE);
+                holder.alarmUpdateTime.setText(item.getAlarmUpdateDate().substring(0,16));
                 break;
         }
 
@@ -94,6 +104,10 @@ public class AlarmListAdapter extends SimpleListAdapter<DeviceWarningBean, Alarm
         TextView alarmHistoryDesc;
         @BindView(R.id.alarm_status)
         TextView alarm_status;
+        @BindView(R.id.alarm_update_time_title)
+        TextView alarmUpdateTimeTitle;
+        @BindView(R.id.alarm_update_time)
+        TextView alarmUpdateTime;
         public ViewHolder(View view){
             KnifeKit.bind(this,view);
         }
