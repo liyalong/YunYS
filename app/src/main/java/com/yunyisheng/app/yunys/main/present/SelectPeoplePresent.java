@@ -96,6 +96,7 @@ public class SelectPeoplePresent extends XPresent<OrganizationFragement> {
      * @describe 获取项目架构
      */
     public void getFromworklist() {
+        LoadingDialog.show(getV().getContext());
         Api.homeService().getProjectFromwork()
                 .compose(XApi.<ProjectFromWorkBean>getApiTransformer()) //统一异常处理
                 .compose(XApi.<ProjectFromWorkBean>getScheduler()) //线程调度
@@ -103,6 +104,7 @@ public class SelectPeoplePresent extends XPresent<OrganizationFragement> {
                 .subscribe(new ApiSubscriber<ProjectFromWorkBean>() {
                     @Override
                     public void onNext(ProjectFromWorkBean projectFromWorkBean) {
+                        LoadingDialog.dismiss(getV().getContext());
                         if (projectFromWorkBean.getRespCode() == 0) {
                             getV().getResult(projectFromWorkBean);
                         } else {
@@ -112,6 +114,7 @@ public class SelectPeoplePresent extends XPresent<OrganizationFragement> {
 
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV().getContext());
                         if (error.getType()==5){
                             getV().setImgQuesheng();
                         }

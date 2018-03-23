@@ -46,7 +46,7 @@
                 <ImageView
                     android:id="@+id/img_company_logo"
                     android:layout_width="@dimen/distance_58"
-                    android:layout_height="@dimen/distance_59"
+                    android:layout_height="@dimen/distance_58"
                     android:layout_centerHorizontal="true"
                      />
 

@@ -15,11 +15,11 @@
     <TextView
         android:id="@+id/te_allnumber"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/distance_37"
+        android:layout_height="@dimen/distance_35"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:layout_below="@+id/te_allnumbertitle"
-        android:textSize="@dimen/distance_35"
+        android:textSize="@dimen/distance_30"
         android:layout_centerHorizontal="true"
         />
     <LinearLayout

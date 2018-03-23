@@ -76,6 +76,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.yunyisheng.app.yunys.utils.DialogManager.tempFile;
+import static com.yunyisheng.app.yunys.utils.getapp.AppApplicationMgr.getSystemModel;
 
 @SuppressLint("SetTextI18n")
 public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedChangeListener {
@@ -102,6 +103,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     private NotificationManager notificationManager;
     private int id;
     private NotificationHighCodeReceiver receiver;
+    private String systemModel;
 
 
     private void initTab() {
@@ -114,6 +116,8 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 
     @Override
     public void initView() {
+        systemModel = getSystemModel();
+
         notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         EventBus.getDefault().register(this);
         ButterKnife.bind(this);
@@ -442,7 +446,11 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                     startPhotoZoom(contentUri, 150);
                 } else {
                     contentUri = Uri.fromFile(DialogManager.tempFile);
-                    cropRawPhoto(contentUri);
+                    if (systemModel.equals("vivo Y67")){
+                        startPhotoZoom(contentUri, 150);
+                    }else {
+                        cropRawPhoto(contentUri);
+                    }
                 }
 
             } else if (requestCode == 2) {// 相册
@@ -461,6 +469,9 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                 if (intent != null) {
                     setPicToView(intent);
                 }
+            }else if (requestCode == UCrop.RESULT_ERROR){
+                final Throwable cropError = UCrop.getError(intent);
+                Log.i("RESULT_ERROR","UCrop_RESULT_ERROR");
             }
 
 
