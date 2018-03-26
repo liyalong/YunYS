@@ -54,6 +54,7 @@ public class RadioSelectUserActivity extends BaseActivity<RadioSelectUserPresent
         fromPageTitle = getIntent().getStringExtra("fromPageTitle");
         selectUserId = getIntent().getStringExtra("selectUserId");
         createUserId = getIntent().getIntExtra("createUser",0);
+        submit.setVisibility(View.GONE);
         if (fromPageTitle != null){
             pageTitle.setText(fromPageTitle);
         }else {
@@ -95,7 +96,7 @@ public class RadioSelectUserActivity extends BaseActivity<RadioSelectUserPresent
                 break;
             case R.id.submit:
                 Intent intent = new Intent();
-                int selectPosition = adapter.getSelectPosition();
+                int selectPosition = adapter == null ? -1 : adapter.getSelectPosition();
                 if (selectPosition == -1){
                     setResult(2,intent);
                 }else {

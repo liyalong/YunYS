@@ -73,7 +73,7 @@ public class SelectProjectUserListActivity extends BaseActivity<ProjectUserListP
                 setResult(2,intent);
                 break;
             case R.id.submit:
-                List<ProjectUserBean> lists = adapter.getSelectList();
+                List<ProjectUserBean> lists = adapter == null ? new ArrayList<ProjectUserBean>() : adapter.getSelectList();
                 if (lists.size() == 0){
                     setResult(2,intent);
                 }else {

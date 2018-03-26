@@ -102,7 +102,7 @@ public class SelectProjectDeviceActivity extends BaseActivity<SelectProjectDevic
                 setResult(2,intent);
                 break;
             case R.id.submit:
-                int selectPostion = adapter.getSelectPosition();
+                int selectPostion = adapter == null ? -1 : adapter.getSelectPosition();
                 if (selectPostion == -1){
                     setResult(2,intent);
                 }else {

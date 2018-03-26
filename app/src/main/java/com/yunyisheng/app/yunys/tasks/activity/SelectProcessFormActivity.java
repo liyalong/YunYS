@@ -75,7 +75,7 @@ public class SelectProcessFormActivity extends BaseActivity<ProcessFormListPrese
                 break;
             case R.id.submit:
                 Intent intent = new Intent();
-                int selectPosition = adapter.getSelectPosition();
+                int selectPosition = adapter == null ? -1 : adapter.getSelectPosition();
                 if (selectPosition == -1){
                     setResult(2,intent);
                 }else {
