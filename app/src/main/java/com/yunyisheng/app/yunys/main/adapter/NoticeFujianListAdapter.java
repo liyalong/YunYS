@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
+import com.yunyisheng.app.yunys.main.activity.SendNoticeActivity;
 import com.yunyisheng.app.yunys.main.model.AnnexBean;
 import com.yunyisheng.app.yunys.utils.FileUtil;
 
@@ -21,10 +22,13 @@ import cn.droidlover.xdroidmvp.kit.KnifeKit;
  * 用途：
  */
 
-public class NoticeFujianListAdapter extends SimpleListAdapter<AnnexBean,NoticeFujianListAdapter.ViewHolder>{
+public class NoticeFujianListAdapter extends SimpleListAdapter<AnnexBean, NoticeFujianListAdapter.ViewHolder> {
 
-    public NoticeFujianListAdapter(Context context, List<AnnexBean> data) {
+    private int type;
+
+    public NoticeFujianListAdapter(Context context, List<AnnexBean> data, int i) {
         super(context, data);
+        type = i;
     }
 
     @Override
@@ -38,15 +42,24 @@ public class NoticeFujianListAdapter extends SimpleListAdapter<AnnexBean,NoticeF
     }
 
     @Override
-    protected void convert(ViewHolder holder, AnnexBean item, int position) {
+    protected void convert(ViewHolder holder, AnnexBean item, final int position) {
         AnnexBean annexBean = data.get(position);
         String annexName = annexBean.getAnnexName();
         String fileType = FileUtil.getFileType(annexName);
-        if (fileType.equals("image")){
+        if (fileType.equals("image")) {
             holder.imgFujianImg.setBackgroundResource(R.mipmap.imgbac);
-        }else {
+        } else {
             holder.imgFujianImg.setBackgroundResource(R.mipmap.wordimg);
         }
+        if (type==2){
+            holder.imgdeletefujian.setVisibility(View.VISIBLE);
+        }
+        holder.imgdeletefujian.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((SendNoticeActivity)context).deleteFilepos(position);
+            }
+        });
         holder.teFilename.setText(annexName);
     }
 
@@ -54,6 +67,8 @@ public class NoticeFujianListAdapter extends SimpleListAdapter<AnnexBean,NoticeF
 
         @BindView(R.id.img_fujian_img)
         ImageView imgFujianImg;
+        @BindView(R.id.img_delete_fujian)
+        ImageView imgdeletefujian;
         @BindView(R.id.te_filename)
         TextView teFilename;
 

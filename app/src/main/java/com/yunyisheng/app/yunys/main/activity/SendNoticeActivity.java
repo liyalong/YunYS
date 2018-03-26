@@ -2,12 +2,16 @@ package com.yunyisheng.app.yunys.main.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +20,9 @@ import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.base.PressionListener;
+import com.yunyisheng.app.yunys.main.adapter.NoticeFujianListAdapter;
+import com.yunyisheng.app.yunys.main.adapter.SelectPeopleListAdapter;
+import com.yunyisheng.app.yunys.main.model.AnnexBean;
 import com.yunyisheng.app.yunys.main.service.HomeService;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.schedule.model.PositionMessageEvent;
@@ -28,6 +35,9 @@ import com.yunyisheng.app.yunys.utils.TokenHeaderInterceptor;
 import com.yunyisheng.app.yunys.utils.Util;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -69,12 +79,21 @@ public class SendNoticeActivity extends BaseActivity {
     RelativeLayout rlSenfrange;
     @BindView(R.id.te_notice_deatil)
     EditText teNoticeDeatil;
+    @BindView(R.id.lv_fujian)
+    ListView lvFujian;
+    @BindView(R.id.gv_fanwei)
+    GridView gvFanwei;
     private String pathuri;
     private String selectjson;
     private String title;
     private String content;
     private RequestBody requestBody;
     private List<File> fileList = new ArrayList<>();
+    private List<AnnexBean> annexBeanList = new ArrayList<>();
+    private List<String> nameList = new ArrayList<>();
+    private NoticeFujianListAdapter adapter;
+    private boolean isfull;
+    private SelectPeopleListAdapter selectPeopleListAdapter;
 
     @Override
     public void initView() {
@@ -129,14 +148,18 @@ public class SendNoticeActivity extends BaseActivity {
                 }
                 break;
             case R.id.rl_fujian:
-                requestPermission();
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("*/*");
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                try {
-                    startActivityForResult(Intent.createChooser(intent, "选择文件上传"), 1);
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(SendNoticeActivity.this, "Please install a File Manager.", Toast.LENGTH_SHORT).show();
+                if (!isfull) {
+                    requestPermission();
+                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                    intent.setType("*/*");
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    try {
+                        startActivityForResult(Intent.createChooser(intent, "选择文件上传"), 1);
+                    } catch (ActivityNotFoundException ex) {
+                        Toast.makeText(SendNoticeActivity.this, "Please install a File Manager.", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    ToastUtils.showToast("最多上传四个附件");
                 }
                 break;
             case R.id.rl_senfrange:
@@ -245,9 +268,34 @@ public class SendNoticeActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 8) {
-            int size = data.getIntExtra("size", 0);
-            selectjson = data.getStringExtra("selectjson");
-            teFrangesize.setText(size + "人");
+            try {
+                int size = data.getIntExtra("size", 0);
+                selectjson = data.getStringExtra("selectjson");
+                String selectname = data.getStringExtra("selectname");
+                if (nameList.size() > 0) {
+                    nameList.clear();
+                    JSONObject jsonObject = new JSONObject(selectname);
+                    JSONArray jsonArray = jsonObject.getJSONArray("1");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        String name = (String) jsonArray.get(i);
+                        nameList.add(name);
+                    }
+                    selectPeopleListAdapter.setData(nameList);
+                } else {
+                    JSONObject jsonObject = new JSONObject(selectname);
+                    JSONArray jsonArray = jsonObject.getJSONArray("1");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        String name = (String) jsonArray.get(i);
+                        nameList.add(name);
+                    }
+                    selectPeopleListAdapter = new SelectPeopleListAdapter(SendNoticeActivity.this, nameList);
+                    gvFanwei.setAdapter(selectPeopleListAdapter);
+                }
+                gvFanwei.setVisibility(View.VISIBLE);
+                teFrangesize.setText(size + "人");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         switch (requestCode) {
@@ -280,12 +328,28 @@ public class SendNoticeActivity extends BaseActivity {
                                         } else {
                                             File file = new File(pathuri);
                                             fileList.add(file);
+                                            String name = file.getName();
+                                            AnnexBean annexBean = new AnnexBean();
+                                            annexBean.setAnnexName(name);
+                                            annexBeanList.add(annexBean);
+                                            adapter.setData(annexBeanList);
+                                            if (fileList.size() == 4) {
+                                                isfull = true;
+                                            }
                                             return;
                                         }
                                     }
+
                                 } else {
                                     File file = new File(pathuri);
                                     fileList.add(file);
+                                    String name = file.getName();
+                                    AnnexBean annexBean = new AnnexBean();
+                                    annexBean.setAnnexName(name);
+                                    annexBeanList.add(annexBean);
+                                    adapter = new NoticeFujianListAdapter(SendNoticeActivity.this, annexBeanList, 2);
+                                    lvFujian.setAdapter(adapter);
+                                    lvFujian.setVisibility(View.VISIBLE);
                                 }
                             }
                         }
@@ -297,4 +361,15 @@ public class SendNoticeActivity extends BaseActivity {
         }
     }
 
+    public void deleteFilepos(int position) {
+        fileList.remove(position);
+        annexBeanList.remove(position);
+        adapter.setData(annexBeanList);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
+    }
 }

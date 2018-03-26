@@ -17,6 +17,7 @@
             android:background="@drawable/btn_maillist_selectpeo"
             android:gravity="center"
             android:textColor="@color/color_666"
+            android:singleLine="true"
             android:textSize="@dimen/distance_12" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

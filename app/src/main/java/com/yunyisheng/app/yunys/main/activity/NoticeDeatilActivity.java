@@ -157,7 +157,7 @@ public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
             teFujinaType.setVisibility(View.GONE);
         }else {
             annexList.addAll(allannexList);
-            NoticeFujianListAdapter adapter = new NoticeFujianListAdapter(NoticeDeatilActivity.this, annexList);
+            NoticeFujianListAdapter adapter = new NoticeFujianListAdapter(NoticeDeatilActivity.this, annexList,1);
             lvFujianlist.setAdapter(adapter);
         }
     }

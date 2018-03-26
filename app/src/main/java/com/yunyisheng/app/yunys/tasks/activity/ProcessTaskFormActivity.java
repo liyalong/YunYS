@@ -31,7 +31,6 @@ import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.PressionListener;
 import com.yunyisheng.app.yunys.net.Api;
-import com.yunyisheng.app.yunys.project.activity.DynamicFormActivity;
 import com.yunyisheng.app.yunys.project.bean.UploadDynamicFormImageBean;
 import com.yunyisheng.app.yunys.project.model.ProcessTaskFormDetailBean;
 import com.yunyisheng.app.yunys.schedule.service.ScheduleService;
@@ -109,6 +108,7 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
     private ImageView imageView;
     private List<String> imageurllist = new ArrayList<>();
     private int imageurlsize;
+    private int createUser;
 
     @Override
     public void initView() {
@@ -163,6 +163,7 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
         name = processTaskFormDetailBean.getRespBody().getName();
         teTitle.setText(name);
         uuid = processTaskFormDetailBean.getRespBody().getUuid();
+        createUser = processTaskFormDetailBean.getRespBody().getCreateUser();
         List<ProcessTaskFormDetailBean.RespBodyBean.DataBean> data = processTaskFormDetailBean.getRespBody().getData();
         if (data != null && data.size() > 0) {
             dataBeanList.addAll(data);
@@ -349,7 +350,9 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                 zhuanbutton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivityForResult(new Intent(ProcessTaskFormActivity.this, RadioSelectUserActivity.class), 5);
+                        Intent intent=new Intent(ProcessTaskFormActivity.this, RadioSelectUserActivity.class);
+                        intent.putExtra("createUser",createUser);
+                        startActivityForResult(intent, 5);
                     }
                 });
                 lineAll.addView(zhuanbutton);

@@ -122,8 +122,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/te_fujina_type"
                 android:layout_marginLeft="@dimen/distance_10"
-                android:divider="@color/transparent"
-                android:dividerHeight="@dimen/distance_10"
+                android:dividerHeight="@dimen/distance_1"
+                android:divider="@color/color_f4f4f4"
                 android:layout_marginTop="@dimen/distance_10"
                 ></ListView>
         </RelativeLayout>

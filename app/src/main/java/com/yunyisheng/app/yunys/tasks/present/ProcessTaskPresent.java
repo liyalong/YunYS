@@ -6,7 +6,9 @@ import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.bean.UploadDynamicFormImageBean;
 import com.yunyisheng.app.yunys.project.model.ProcessTaskFormDetailBean;
+import com.yunyisheng.app.yunys.tasks.activity.CreateProcessTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.ProcessTaskFormActivity;
+import com.yunyisheng.app.yunys.utils.ActivityManager;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
@@ -80,6 +82,7 @@ public class ProcessTaskPresent extends XPresent<ProcessTaskFormActivity> {
                         }
                         ToastUtils.showToast("提交成功");
                         getV().finish();
+                        ActivityManager.getScreenManager().popActivity(CreateProcessTaskAcitvity.class);
                     }
                 });
     }

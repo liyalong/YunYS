@@ -98,6 +98,19 @@
                 android:background="@mipmap/fujian" />
         </RelativeLayout>
 
+        <ListView
+            android:id="@+id/lv_fujian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/distance_1"
+            android:paddingRight="@dimen/distance_7"
+            android:background="@color/white"
+            android:dividerHeight="@dimen/distance_1"
+            android:divider="@color/color_f4f4f4"
+            android:paddingLeft="@dimen/distance_13"
+            android:scrollbars="none"></ListView>
+
         <RelativeLayout
             android:id="@+id/rl_senfrange"
             android:layout_width="match_parent"
@@ -132,7 +145,17 @@
                 android:layout_centerVertical="true"
                 android:background="@mipmap/blackback_r" />
         </RelativeLayout>
-
+        <GridView
+            android:id="@+id/gv_fanwei"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/distance_1"
+            android:background="@color/white"
+            android:paddingLeft="@dimen/distance_13"
+            android:paddingRight="@dimen/distance_7"
+            android:numColumns="4"
+            android:scrollbars="none"></GridView>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/distance_170"

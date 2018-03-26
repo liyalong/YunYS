@@ -156,18 +156,24 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
             public void onClick(View v) {
                 if (selectlist.size() > 0) {
                     JSONObject object = new JSONObject();
+                    JSONObject nameobject = new JSONObject();
                     JSONArray array = new JSONArray();
+                    JSONArray namearray = new JSONArray();
                     for (int i = 0; i < selectlist.size(); i++) {
                         WorkerBean workerBean = selectlist.get(i);
                         String userid = workerBean.getUserId() + "";
                         array.put(userid);
+                        String name = workerBean.getName();
+                        namearray.put(name);
                     }
                     try {
                         object.put("1", array);
+                        nameobject.put("1", namearray);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     String str = object.toString();
+                    String namestring = nameobject.toString();
                     Log.i("stridnifn", str);
 
                     if (((SelectPeopleActivity) getActivity()).type == 1) {
@@ -176,9 +182,12 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
                         Intent intent = getActivity().getIntent();
                         intent.putExtra("size", selectlist.size());
                         intent.putExtra("selectjson", str);
+                        intent.putExtra("selectname", namestring);
                         getActivity().setResult(8, intent);
                         getActivity().finish();
                     }
+                } else {
+                    ToastUtils.showToast("请选择人员！");
                 }
             }
         });
@@ -684,7 +693,7 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
     public void getResult(ProjectFromWorkBean projectFromWorkBean) {
         projectFromWorkBeans.clear();
         List<ProjectFromWorkBean.ListBean> list = projectFromWorkBean.getList();
-        if (list.size()>0) {
+        if (list.size() > 0) {
             projectFromWorkBeans.addAll(list);
             fromWorkListExpenableAdapter = new FromWorkListExpenableAdapter(getContext(), projectFromWorkBeans);
             elv_framework.setAdapter(fromWorkListExpenableAdapter);
@@ -698,7 +707,7 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
             });
             elv_framework.setVisibility(View.VISIBLE);
             imgQuesheng.setVisibility(View.GONE);
-        }else {
+        } else {
             elv_framework.setVisibility(View.GONE);
             imgQuesheng.setVisibility(View.VISIBLE);
             imgQuesheng.setBackgroundResource(R.mipmap.no_data);
@@ -821,7 +830,7 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
                 }
 
             }
-            if (workerbeanlist.size()>0) {
+            if (workerbeanlist.size() > 0) {
                 elv_framework.setVisibility(View.VISIBLE);
                 imgQuesheng.setVisibility(View.GONE);
                 adapter = new SelectPeopleExpenableAdapter(getContext(), workerbeanlist);
@@ -834,7 +843,7 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
                         groupisCheckall(position);
                     }
                 });
-            }else {
+            } else {
                 elv_framework.setVisibility(View.GONE);
                 imgQuesheng.setVisibility(View.VISIBLE);
                 imgQuesheng.setBackgroundResource(R.mipmap.no_data);
@@ -844,7 +853,7 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
         }
     }
 
-    public void setImgQuesheng(){
+    public void setImgQuesheng() {
         elv_framework.setVisibility(View.GONE);
         imgQuesheng.setVisibility(View.VISIBLE);
         imgQuesheng.setBackgroundResource(R.mipmap.no_network);
@@ -911,20 +920,20 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
 
     @Override
     public void setListener() {
-       imgQuesheng.setOnClickListener(this);
+        imgQuesheng.setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
-       switch (v.getId()){
-           case R.id.img_quesheng:
-               if (tabindex == 0) {
-                   getP().getMaillist();
-               } else {
-                   getP().getFromworklist();
-               }
-               break;
-       }
+        switch (v.getId()) {
+            case R.id.img_quesheng:
+                if (tabindex == 0) {
+                    getP().getMaillist();
+                } else {
+                    getP().getFromworklist();
+                }
+                break;
+        }
     }
 
     @Override
