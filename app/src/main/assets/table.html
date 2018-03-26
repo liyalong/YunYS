@@ -214,17 +214,47 @@ function createPieChart(instanceId,content){
                         }
                     },
                     data:[]
+                },
+                {
+                    name:'访问来源',
+                    type:'pie',
+                    radius: [0, '25%'],
+
+                    label: {
+                        normal: {
+                            show:true,
+                            position: 'center',
+                            formatter: '{b}\n{c}',
+                            color:'#fff'
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                    data:[]
                 }
             ]
         };
         var num = count(content);
         var seriesData = [];
+        var seriesData2 = [];
+        var seriesTitle ;
         for(var i=0;i<num;i++){
             var item = content[i].datas;
             var name = content[i].dataTypeName;
-             seriesData.push({name:name,value:parseInt(item[0].value)});
+            if(name.indexOf('总数') > -1){
+                seriesTitle = name;
+                seriesData2.push({name:name,value:parseInt(item[0].value)});
+            }else{
+                seriesData.push({name:name,value:parseInt(item[0].value)});
+            }
+
         }
         option.series[0].data = seriesData;
+        option.series[1].data = seriesData2;
+        option.series[1].name = seriesTitle;
         eval("chart_"+instanceId).setOption(option);
         eval("chart_"+instanceId).hideLoading();
 }
