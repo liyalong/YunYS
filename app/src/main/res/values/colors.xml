@@ -56,6 +56,8 @@
     <color name="color_blue_0888ff">#0888ff</color>
     <color name="color_tab_selected">#44A7FD</color>
     <color name="device_status_success">#14D054</color>
+    <color name="device_plc_status">#3c8dbc</color>
+    <color name="device_plc_status2">#FF5722</color>
     <color name="device_status_error">#F82F49</color>
 
     <color name="im_list_select_hover">#dbdbdb</color>

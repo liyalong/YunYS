@@ -67,6 +67,8 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> impl
     LinearLayout jbxxList;
     @BindView(R.id.jbxx_title_bar)
     LinearLayout jbxxTitleBar;
+    @BindView(R.id.device_code)
+    TextView deviceCode;
 
     private String deviceId;
     private String projectId;
@@ -224,6 +226,7 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresent> impl
         } else {
             deviceBindPlcStatus.setText(R.string.yes);
         }
+        deviceCode.setText(deviceBean.getEquipmentCode());
     }
 
     public void setDeviceWarningList(DeviceWarningListModel deviceWarningListModel) {

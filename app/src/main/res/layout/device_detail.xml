@@ -150,6 +150,35 @@
                         android:layout_gravity="bottom"
                         android:background="@color/color_e7e7e7"
                         android:padding="@dimen/distance_10" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/distance_39"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center|left"
+                            android:text="@string/deviceinfo_code"
+                            android:textColor="@color/color_333"
+                            android:textSize="@dimen/distance_14" />
+
+                        <TextView
+                            android:id="@+id/device_code"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:textColor="@color/color_666"
+                            android:textSize="@dimen/distance_14" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/distance_1"
+                        android:layout_gravity="bottom"
+                        android:background="@color/color_e7e7e7"
+                        android:padding="@dimen/distance_10" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
