@@ -37,7 +37,7 @@
     if(nums > 0){
         for(var i=0;i<nums;i++){
         //$('#log').append('<br/>chartType:'+data[i].chartType+"<br/>");
-            divHtml += '<div id="chart_'+data[i].instanceId+'" instanceId="'+data[i].instanceId+'" chartType="'+data[i].chartType+'" tableName="'+data[i].instanceName+'" class="col-xs-12" style="height:300px;"></div>';
+            divHtml += '<div id="chart_'+data[i].instanceId+'" instanceId="'+data[i].instanceId+'" chartType="'+data[i].chartType+'" tableName="'+data[i].instanceName+'" reportId="'+data[i].reportId+'" class="col-xs-12" style="height:300px;"></div>';
         }
     }else{
         divHtml = '暂无自定义报表！';
@@ -56,8 +56,8 @@
             //$('#log').append(data[i].instanceId+"<br/>");
             if(data[i].refreshFrequency != "" && data[i].refreshFrequency != null){
                 setIntervalById(data[i].instanceId,intervalIds,data[i].refreshFrequency);
-                $('#log').append(data[i].refreshFrequency);
-                $('#log').append(JSON.stringify(intervalIds));
+                //$('#log').append(data[i].refreshFrequency);
+                //$('#log').append(JSON.stringify(intervalIds));
             }
         }
     }
@@ -71,12 +71,26 @@
 function createChart(instanceId,result){
 
     var data = JSON.parse(result);
-    //var myChart = echarts.init(document.getElementById("chart_"+instanceId));
-    //var myChart = eval("chart_"+instanceId);
+    var reportId = $('#chart_'+instanceId).attr('reportId');
+    var num = count(data);
+    //$('#log').append("reportId:"+reportId+"<br/>");
+    if(num > 0){
+        if(reportId == 0 || reportId == null || reportId == 'null'){
+            //$('#log').append("createPieChart:"+instanceId+"<br/>");
+            createPieChart(instanceId,data);
+        }else{
+            //$('#log').append("createLineChart:"+instanceId+"<br/>");
+            createLineChart(instanceId,data);
+        }
+    }else{
+        noData(eval("chart_"+instanceId));
+    }
 
+}
+function createLineChart(instanceId,data){
     var chartType= $('#chart_'+instanceId).attr('chartType');
     var tableName = $('#chart_'+instanceId).attr('tableName');
-        var option = {
+            var option = {
                 title: {
                     text: tableName,
                     left:'center'
@@ -104,11 +118,10 @@ function createChart(instanceId,result){
                 },
                 series: []
             };
-            var legendData = [];
+    var legendData = [];
             var xAxisData = [];
             var seriesData = [];
             var num = count(data);
-            if(num > 0){
                 for(var i=0;i<num;i++){
                     var lineName;
                     if(data[i].dateSources == 0){
@@ -153,12 +166,68 @@ function createChart(instanceId,result){
                // $('#log').append("<br/>"+JSON.stringify(option)+"<br/>");
                 eval("chart_"+instanceId).setOption(option);
                 eval("chart_"+instanceId).hideLoading();
-            }else{
-                noData(eval("chart_"+instanceId));
-            }
-
 }
-
+function createPieChart(instanceId,content){
+    var tableName = $('#chart_'+instanceId).attr('tableName');
+    var option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            title:{text:tableName,left:'center'},
+            series: [
+                {
+                    name:tableName,
+                    type:'pie',
+                    radius: ['40%', '55%'],
+                    label: {
+                        normal: {
+                            formatter: '  {b|{b}：}{c}   ',
+                            backgroundColor: '#eee',
+                            borderColor: '#aaa',
+                            borderWidth: 1,
+                            borderRadius: 4,
+                            shadowBlur:3,
+                            rich: {
+                                a: {
+                                    color: '#999',
+                                    lineHeight: 22,
+                                    align: 'center'
+                                },
+                                hr: {
+                                    borderColor: '#aaa',
+                                    width: '100%',
+                                    borderWidth: 0.5,
+                                    height: 0
+                                },
+                                b: {
+                                    fontSize: 14,
+                                    lineHeight: 20
+                                },
+                                per: {
+                                    color: '#eee',
+                                    backgroundColor: '#334455',
+                                    padding: [2, 4],
+                                    borderRadius: 2
+                                }
+                            }
+                        }
+                    },
+                    data:[]
+                }
+            ]
+        };
+        var num = count(content);
+        var seriesData = [];
+        for(var i=0;i<num;i++){
+            var item = content[i].datas;
+            var name = content[i].dataTypeName;
+             seriesData.push({name:name,value:parseInt(item[0].value)});
+        }
+        option.series[0].data = seriesData;
+        eval("chart_"+instanceId).setOption(option);
+        eval("chart_"+instanceId).hideLoading();
+}
 
 //获取对象或者数组对长度
 function count(o){

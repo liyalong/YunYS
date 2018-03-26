@@ -46,12 +46,14 @@ public class RadioSelectUserActivity extends BaseActivity<RadioSelectUserPresent
     private String selectUserId;
     private List<WorkerBean> workerlist;
     int thisUserid = SharedPref.getInstance(context).getInt("userid",0);
+    private Integer createUserId;
     @Override
     public void initView() {
         ButterKnife.bind(this);
         projectId = getIntent().getStringExtra("projectId");
         fromPageTitle = getIntent().getStringExtra("fromPageTitle");
         selectUserId = getIntent().getStringExtra("selectUserId");
+        createUserId = getIntent().getIntExtra("createUser",0);
         if (fromPageTitle != null){
             pageTitle.setText(fromPageTitle);
         }else {
@@ -64,7 +66,7 @@ public class RadioSelectUserActivity extends BaseActivity<RadioSelectUserPresent
         if (projectId != null){
             getP().getProjectUserList(projectId);
         }else {
-            getP().getAllUserLists();
+            getP().getAllUserLists(createUserId);
         }
 
     }

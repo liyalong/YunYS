@@ -22,10 +22,10 @@ import retrofit2.Callback;
  */
 
 public class RadioSelectUserPresent extends XPresent<RadioSelectUserActivity> {
-    public void getAllUserLists(){
+    public void getAllUserLists(Integer createUserId){
         LoadingDialog.show(getV());
         TaskService mMallRequest = RetrofitManager.getInstance().getRetrofit().create(TaskService.class);
-        Call<String> call = mMallRequest.getCheckUserList("activiti");
+        Call<String> call = mMallRequest.getCheckUserList("activiti",createUserId);
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, retrofit2.Response<String> response) {

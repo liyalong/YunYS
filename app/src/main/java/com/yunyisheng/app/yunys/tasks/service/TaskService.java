@@ -312,7 +312,8 @@ public interface TaskService {
      */
     @FormUrlEncoded
     @POST("android/enterprise/section/show")
-    Call<String> getCheckUserList(@Field("activiti") String activiti);
+    Call<String> getCheckUserList(@Field("activiti") String activiti,
+                                  @Field("userId") Integer createUserId);
     /**
      * 获取流程任务详情
      * @param taskId
