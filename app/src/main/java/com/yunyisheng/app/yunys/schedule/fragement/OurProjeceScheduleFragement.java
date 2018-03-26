@@ -70,7 +70,7 @@ import static com.yunyisheng.app.yunys.utils.CommonUtils.getOtherStarttime;
 /**
  * 作者：fuduo on 2018/1/13 15:56
  * 邮箱：duoendeavor@163.com
- * 用途：我的日程和项目日程fragement
+ * 用途：我的日程fragement
  */
 public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent> {
 
