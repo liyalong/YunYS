@@ -15,6 +15,8 @@ import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.project.bean.DeviceBean;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -51,6 +53,12 @@ public class DeviceListAdapter extends SimpleListAdapter<DeviceBean, DeviceListA
         final DeviceBean deviceBean = data.get(position);
         holder.deviceName.setText(deviceBean.getEquipmentName());
         holder.deviceCreateTime.setText(deviceBean.getEquipmentCreate().substring(0,16));
+        holder.deviceCode.setText(deviceBean.getEquipmentCode());
+        if (deviceBean.getBindPlcNum() > 0){
+            holder.devicePlcSttus.setBackgroundColor(context.getResources().getColor(R.color.device_plc_status));
+        }else {
+            holder.devicePlcSttus.setBackgroundColor(context.getResources().getColor(R.color.device_plc_status2));
+        }
         if (deviceBean.getEquipmentStat() == 1){
             holder.deviceStatus.setBackgroundColor(context.getResources().getColor(R.color.device_status_success));
             holder.deviceStatus.setText(context.getResources().getString(R.string.device_status_1));
@@ -88,6 +96,10 @@ public class DeviceListAdapter extends SimpleListAdapter<DeviceBean, DeviceListA
         TextView deviceCreateTime;
         @BindView(R.id.device_warning_status)
         LinearLayout deviceWarningStatus;
+        @BindView(R.id.device_code)
+        TextView deviceCode;
+        @BindView(R.id.device_plc_status)
+        TextView devicePlcSttus;
         public ViewHolder(View itemView) {
             KnifeKit.bind(this, itemView);
         }

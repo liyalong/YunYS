@@ -135,6 +135,7 @@
     <string name="device_status_success">正常</string>
     <string name="device_status_error">异常</string>
     <string name="addTime">添加时间：</string>
+    <string name="device_code">唯一编号：</string>
     <string name="device_use_state">使用状态：</string>
     <string name="button_cz">操作</string>
     <string name="alarm_rules">报警规则</string>
@@ -147,6 +148,7 @@
     <string name="deviceinfo_sszb">实时指标</string>
     <string name="deviceinfo_jbxx">基本信息</string>
     <string name="deviceinfo_status">设备状态</string>
+    <string name="deviceinfo_code">唯一编号</string>
     <string name="deviceinfo_isPLC">是否绑定plc</string>
     <string name="baojing_status">报错</string>
     <string name="device_info">设备运行详情</string>
@@ -278,6 +280,7 @@
     <!-- 设备使用状态 -->
     <string name="device_status_1">启用</string>
     <string name="device_status_2">禁用</string>
+    <string name="device_plc_status">P</string>
     <!-- 报警规则状态 -->
     <string name="alarm_rules_status_1">正常</string>
     <string name="alarm_rules_status_2"></string>

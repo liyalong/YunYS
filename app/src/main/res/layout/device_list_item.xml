@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="@dimen/distance_71"
+    android:layout_height="@dimen/distance_91"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/distance_10"
     android:background="@color/white">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/distance_71"
+        android:layout_height="@dimen/distance_91"
         android:orientation="horizontal"
         android:background="@drawable/linearlayout_bottom_line">
         <LinearLayout
@@ -25,6 +25,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/color_333"
+                    android:maxLength="11"
                     android:gravity="center"
                     android:textSize="@dimen/distance_14"
                     android:singleLine="true"
@@ -32,7 +33,7 @@
                 <TextView
                     android:id="@+id/device_status"
                     android:layout_width="@dimen/distance_30"
-                    android:layout_height="@dimen/distance_14"
+                    android:layout_height="@dimen/distance_15"
                     android:background="@color/device_status_success"
                     android:gravity="center"
                     android:layout_gravity="center"
@@ -42,8 +43,8 @@
                     android:layout_marginLeft="@dimen/distance_10"/>
                 <LinearLayout
                     android:id="@+id/device_warning_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/distance_20"
+                    android:layout_height="@dimen/distance_15"
                     android:orientation="horizontal"
                     android:background="#FF703A"
                     android:layout_gravity="center"
@@ -56,6 +57,17 @@
                         android:layout_gravity="center"/>
 
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/device_plc_status"
+                    android:layout_width="@dimen/distance_18"
+                    android:layout_height="@dimen/distance_15"
+                    android:background="@color/device_plc_status"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:text="绑"
+                    android:textSize="@dimen/distance_8"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="@dimen/distance_10"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,6 +81,23 @@
                     android:textSize="@dimen/distance_10"/>
                 <TextView
                     android:id="@+id/device_create_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_666"
+                    android:textSize="@dimen/distance_10"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance_10">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/device_code"
+                    android:textColor="@color/color_666"
+                    android:textSize="@dimen/distance_10"/>
+                <TextView
+                    android:id="@+id/device_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/color_666"
