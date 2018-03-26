@@ -84,7 +84,7 @@ public class DeviceOrPcmPLCValueListAdapter extends BaseExpandableListAdapter {
         TextView plc_name = view.findViewById(R.id.plc_name);
         TextView plc_value = view.findViewById(R.id.plc_value);
         if (childrenList.get(childPosition).getPropertyName() != null){
-            plc_name.setText(childrenList.get(childPosition).getPropertyName());
+            plc_name.setText(childrenList.get(childPosition).getDetail());
         }
         if (childrenList.get(childPosition).getPropertyVal() != null){
             plc_value.setText(childrenList.get(childPosition).getPropertyVal() + childrenList.get(childPosition).getUnits());
