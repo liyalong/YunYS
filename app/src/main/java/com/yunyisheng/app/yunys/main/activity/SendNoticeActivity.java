@@ -339,7 +339,6 @@ public class SendNoticeActivity extends BaseActivity {
                                             return;
                                         }
                                     }
-
                                 } else {
                                     File file = new File(pathuri);
                                     fileList.add(file);
