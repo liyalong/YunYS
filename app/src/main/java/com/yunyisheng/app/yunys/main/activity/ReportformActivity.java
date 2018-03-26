@@ -247,12 +247,12 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
         }
     }
 
-    public void setGoneQuesheng(){
+    public void setGoneQuesheng() {
         web.setVisibility(View.VISIBLE);
         imgQuesheng.setVisibility(View.GONE);
     }
 
-    public void setImgBac(){
+    public void setImgBac() {
         web.setVisibility(View.GONE);
         imgQuesheng.setVisibility(View.VISIBLE);
         imgQuesheng.setBackgroundResource(R.mipmap.no_network);
@@ -314,7 +314,7 @@ public class ReportformActivity extends BaseActivity<ReportFormPresent> {
     }
 
     public void getReportResultList(ReportListBean reportListBean, final int instanceId) {
-        List<ReportListBean.RespBodyBean> respBody = reportListBean.getRespBody();
+        final List<ReportListBean.RespBodyBean> respBody = reportListBean.getRespBody();
         if (respBody != null) {
             final String string = JSON.toJSONString(respBody);
             // 必须另开线程进行JS方法调用(否则无法调用)

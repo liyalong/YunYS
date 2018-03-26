@@ -40,7 +40,16 @@ public class ReportListBean extends BaseModel {
         private String fieldName;
         private String formName;
         private String unitName;
+        private int reportId;
         private List<DatasBean> datas;
+
+        public int getReportId() {
+            return reportId;
+        }
+
+        public void setReportId(int reportId) {
+            this.reportId = reportId;
+        }
 
         public String getDateSources() {
             return dateSources;
