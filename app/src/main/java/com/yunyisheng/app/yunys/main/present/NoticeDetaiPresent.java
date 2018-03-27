@@ -49,6 +49,7 @@ public class NoticeDetaiPresent extends XPresent<NoticeDeatilActivity> {
      * @describe 获取我发布的公告详情
      */
     public void getMineSendNotice(int announcementId) {
+        LoadingDialog.show(getV());
         Api.homeService().getSendNoticeDetail(announcementId)
                 .compose(XApi.<NoticeDetailBean>getApiTransformer()) //统一异常处理
                 .compose(XApi.<NoticeDetailBean>getScheduler()) //线程调度
@@ -56,6 +57,7 @@ public class NoticeDetaiPresent extends XPresent<NoticeDeatilActivity> {
                 .subscribe(new ApiSubscriber<NoticeDetailBean>() {
                     @Override
                     public void onNext(NoticeDetailBean noticeDetailBean) {
+                        LoadingDialog.dismiss(getV());
                         if (noticeDetailBean.getRespCode()==0){
                             getV().getResultDetail(noticeDetailBean);
                         }else {
@@ -66,7 +68,9 @@ public class NoticeDetaiPresent extends XPresent<NoticeDeatilActivity> {
 
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
                         ToastUtils.showToast("请求数据失败！");
+                        getV().setImgQuesheng();
                     }
                 });
     }
@@ -77,6 +81,7 @@ public class NoticeDetaiPresent extends XPresent<NoticeDeatilActivity> {
      * @describe 获取发给我的公告详情
      */
     public void getSendMineNotice(int announcementId) {
+        LoadingDialog.show(getV());
         Api.homeService().getReciveNoticeDetail(announcementId)
                 .compose(XApi.<NoticeDetailBean>getApiTransformer()) //统一异常处理
                 .compose(XApi.<NoticeDetailBean>getScheduler()) //线程调度
@@ -84,6 +89,7 @@ public class NoticeDetaiPresent extends XPresent<NoticeDeatilActivity> {
                 .subscribe(new ApiSubscriber<NoticeDetailBean>() {
                     @Override
                     public void onNext(NoticeDetailBean noticeDetailBean) {
+                        LoadingDialog.dismiss(getV());
                         if (noticeDetailBean.getRespCode()==0){
                             getV().getResultDetail(noticeDetailBean);
                         }else {
@@ -94,7 +100,9 @@ public class NoticeDetaiPresent extends XPresent<NoticeDeatilActivity> {
 
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
                         ToastUtils.showToast("请求数据失败！");
+                        getV().setImgQuesheng();
                     }
                 });
     }

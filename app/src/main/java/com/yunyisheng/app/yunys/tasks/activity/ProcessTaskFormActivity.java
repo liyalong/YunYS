@@ -133,6 +133,7 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
         state = intent.getStringExtra("state");
         processDetailBean = (ProcessDetailBean) intent.getSerializableExtra("processDetail");
         if (seetype == 1) {
+            createUser=processDetailBean.getRespBody().getSelectByIdAndUuid().getForm().getCreateUser();
             getP().getProcessTaskDetail(selectFormId);
         } else {
             initSeeFromUi();

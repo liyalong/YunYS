@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
@@ -58,6 +59,10 @@ public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
     TextView teFujinaType;
     @BindView(R.id.lv_fujianlist)
     ListView lvFujianlist;
+    @BindView(R.id.rl_all)
+    RelativeLayout rlAll;
+    @BindView(R.id.img_quesheng)
+    ImageView imgQuesheng;
     private int noticeid;
     private int type;
     List<AnnexBean> annexList = new ArrayList<>();
@@ -143,7 +148,8 @@ public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
 
 
     public void getResultDetail(NoticeDetailBean noticeDetailBean) {
-
+        imgQuesheng.setVisibility(View.GONE);
+        rlAll.setVisibility(View.VISIBLE);
         teNoticetitle.setText(noticeDetailBean.getRespBody().getTitle());
         teNoticedeatils.setText(noticeDetailBean.getRespBody().getContent());
         if (noticeDetailBean.getRespBody().getCreateUserName() != null &&
@@ -153,24 +159,30 @@ public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
         }
         teNoticetime.setText(noticeDetailBean.getRespBody().getCreateTime());
         List<AnnexBean> allannexList = noticeDetailBean.getRespBody().getAnnexList();
-        if (allannexList==null||allannexList.size()==0){
+        if (allannexList == null || allannexList.size() == 0) {
             teFujinaType.setVisibility(View.GONE);
-        }else {
+        } else {
+            annexList.clear();
             annexList.addAll(allannexList);
-            NoticeFujianListAdapter adapter = new NoticeFujianListAdapter(NoticeDeatilActivity.this, annexList,1);
+            NoticeFujianListAdapter adapter = new NoticeFujianListAdapter(NoticeDeatilActivity.this, annexList, 1);
             lvFujianlist.setAdapter(adapter);
         }
     }
 
-    public void getResult(){
-        if (mShareDialog!=null&&mShareDialog.isShowing()){
+    public void setImgQuesheng(){
+        rlAll.setVisibility(View.GONE);
+        imgQuesheng.setVisibility(View.VISIBLE);
+    }
+
+    public void getResult() {
+        if (mShareDialog != null && mShareDialog.isShowing()) {
             mShareDialog.dismiss();
-            if (type==0){
+            if (type == 0) {
                 Intent intent = new Intent();
                 intent.setAction("action");
                 intent.putExtra("data", "deletemysend");
                 sendBroadcast(intent);//发送普通广播
-            }else {
+            } else {
                 Intent intent = new Intent();
                 intent.setAction("action");
                 intent.putExtra("data", "deletesendme");
@@ -182,6 +194,7 @@ public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
 
     @Override
     public void setListener() {
+        imgQuesheng.setOnClickListener(this);
         imgBack.setOnClickListener(this);
         teMore.setOnClickListener(this);
     }
@@ -191,6 +204,15 @@ public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
         switch (v.getId()) {
             case R.id.img_back:
                 finish();
+                break;
+            case R.id.img_quesheng:
+                if (type == 0) {
+                    getP().getMineSendNotice(noticeid);
+                    teMore.setVisibility(View.VISIBLE);
+                } else {
+                    getP().getSendMineNotice(noticeid);
+                    teMore.setVisibility(View.GONE);
+                }
                 break;
             case R.id.te_more:
                 createDeleteNotice();

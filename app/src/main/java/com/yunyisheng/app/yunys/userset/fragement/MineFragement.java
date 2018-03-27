@@ -2,6 +2,7 @@ package com.yunyisheng.app.yunys.userset.fragement;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,9 +11,12 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -287,6 +291,32 @@ public class MineFragement extends BaseFragement<MinePresent> {
                 startActivity(new Intent(mContext, FanKuiActivity.class));
                 break;
             case R.id.logout:
+                createYijianDialog();
+                break;
+        }
+    }
+
+    /**
+     * @author fuduo
+     * @time 2018/2/6  21:26
+     * @describe 退出提示框
+     */
+    private void createYijianDialog() {
+        final Dialog mOutloginDialog = new Dialog(mContext, R.style.dialog_bottom_full);
+        mOutloginDialog.setCanceledOnTouchOutside(true);
+        mOutloginDialog.setCancelable(true);
+        Window window = mOutloginDialog.getWindow();
+        window.setGravity(Gravity.CENTER);
+        View view1 = View.inflate(mContext, R.layout.dialog_out_login, null);
+        RelativeLayout rl_ok = (RelativeLayout) view1
+                .findViewById(R.id.rl_ok);
+        RelativeLayout btn_cancel = (RelativeLayout) view1
+                .findViewById(R.id.rl_cancle);
+
+        rl_ok.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
                 SharedPref.getInstance(context).clear();
                 Router.newIntent(context)
                         .to(LoginActivity.class)
@@ -294,8 +324,21 @@ public class MineFragement extends BaseFragement<MinePresent> {
                 mContext.stopService(new Intent(mContext, MQTTService.class));
                 mContext.stopService(new Intent(mContext, MessageService.class));
                 context.finish();
-                break;
-        }
+                mOutloginDialog.dismiss();
+            }
+        });
+
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOutloginDialog.dismiss();
+            }
+        });
+
+        window.setContentView(view1);
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);//设置横向全屏
+        mOutloginDialog.show();
     }
 
     @Override
