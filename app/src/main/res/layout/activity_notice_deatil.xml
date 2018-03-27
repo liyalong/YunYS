@@ -47,7 +47,7 @@
             android:layout_marginTop="@dimen/distance_10"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:visibility="gone"
+            android:visibility="visible"
             android:paddingRight="@dimen/distance_10"
             >
             <RelativeLayout
@@ -71,6 +71,8 @@
                     android:layout_marginLeft="@dimen/distance_6"
                     android:layout_toRightOf="@+id/img"
                     android:textColor="@color/color_333"
+                    android:singleLine="true"
+                    android:maxLength="14"
                     android:textSize="@dimen/distance_14" />
                 <TextView
                     android:id="@+id/te_noticetime"

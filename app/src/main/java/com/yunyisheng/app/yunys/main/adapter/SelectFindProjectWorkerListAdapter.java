@@ -14,8 +14,12 @@ import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.yunyisheng.app.yunys.R;
+import com.yunyisheng.app.yunys.main.activity.SelectPeopleActivity;
 import com.yunyisheng.app.yunys.main.model.FindProjectWorkerBean;
+import com.yunyisheng.app.yunys.net.Api;
+import com.yunyisheng.app.yunys.project.bean.UploadDynamicFormImageBean;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +27,10 @@ import java.util.List;
 import butterknife.BindView;
 import cn.droidlover.xdroidmvp.base.SimpleListAdapter;
 import cn.droidlover.xdroidmvp.kit.KnifeKit;
+import cn.droidlover.xdroidmvp.log.XLog;
+import cn.droidlover.xdroidmvp.net.ApiSubscriber;
+import cn.droidlover.xdroidmvp.net.NetError;
+import cn.droidlover.xdroidmvp.net.XApi;
 
 /**
  * 作者：fuduo on 2018/1/27 14:28
@@ -84,8 +92,9 @@ public class SelectFindProjectWorkerListAdapter extends SimpleListAdapter<FindPr
         holder.teName.setText(respBodyBean.getUserName());
         holder.teZhiwei.setText(respBodyBean.getUserJobTitle());
         if (respBodyBean.getUserPicture() != null && !respBodyBean.getUserPicture().equals("") && !respBodyBean.getUserPicture().equals("null")) {
-            Bitmap bitmap = CommonUtils.stringtoBitmap(respBodyBean.getUserPicture());
-            holder.imgWokerHead.setImageBitmap(bitmap);
+//            Bitmap bitmap = CommonUtils.stringtoBitmap(respBodyBean.getUserPicture());
+//            holder.imgWokerHead.setImageBitmap(bitmap);
+            getFormImage(holder.imgWokerHead,respBodyBean.getUserPicture());
         } else {
             String sex = respBodyBean.getUserSex();
             if (sex != null && !sex.equals("") && !sex.equals("null")) {
@@ -125,6 +134,40 @@ public class SelectFindProjectWorkerListAdapter extends SimpleListAdapter<FindPr
                 context.startActivity(intent);
             }
         });
+    }
+
+    /**
+     * 获取图片
+     */
+    public void getFormImage(final ImageView imageView, String fileurl) {
+        Api.scheduleService().getFormImage(fileurl)
+                .compose(XApi.<UploadDynamicFormImageBean>getApiTransformer())
+                .compose(XApi.<UploadDynamicFormImageBean>getScheduler())
+                .compose(((SelectPeopleActivity) context).<UploadDynamicFormImageBean>bindToLifecycle())
+                .subscribe(new ApiSubscriber<UploadDynamicFormImageBean>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        XLog.d("NET ERROR :" + error.toString());
+                        ToastUtils.showToast("网络请求错误！");
+                        return;
+                    }
+
+                    @Override
+                    public void onNext(UploadDynamicFormImageBean uploadDynamicFormImageBean) {
+                        try {
+                            if (uploadDynamicFormImageBean.getRespCode() == 1) {
+                                ToastUtils.showToast(uploadDynamicFormImageBean.getRespMsg());
+                                return;
+                            }
+                            String respBody = uploadDynamicFormImageBean.getRespBody();
+                            Bitmap bitmap = CommonUtils.stringtoBitmap(respBody);
+                            imageView.setImageBitmap(bitmap);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
     }
 
 

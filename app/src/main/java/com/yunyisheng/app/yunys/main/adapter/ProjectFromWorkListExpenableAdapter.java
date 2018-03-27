@@ -16,10 +16,19 @@ import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.yunyisheng.app.yunys.R;
+import com.yunyisheng.app.yunys.main.activity.ProjectFromWorkActivity;
 import com.yunyisheng.app.yunys.main.model.ProjectFromWorkBean;
+import com.yunyisheng.app.yunys.net.Api;
+import com.yunyisheng.app.yunys.project.bean.UploadDynamicFormImageBean;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import java.util.List;
+
+import cn.droidlover.xdroidmvp.log.XLog;
+import cn.droidlover.xdroidmvp.net.ApiSubscriber;
+import cn.droidlover.xdroidmvp.net.NetError;
+import cn.droidlover.xdroidmvp.net.XApi;
 
 /**
  * 作者：fuduo on 2018/1/24 18:35
@@ -125,8 +134,9 @@ public class ProjectFromWorkListExpenableAdapter extends BaseExpandableListAdapt
         if (userListBean.getUserPicture() != null &&
                 !userListBean.getUserPicture().equals("")
                 && !userListBean.getUserPicture().equals("null")) {
-            Bitmap bitmap = CommonUtils.stringtoBitmap(userListBean.getUserPicture());
-            img_woker_head.setImageBitmap(bitmap);
+//            Bitmap bitmap = CommonUtils.stringtoBitmap(userListBean.getUserPicture());
+//            img_woker_head.setImageBitmap(bitmap);
+            getFormImage(img_woker_head,userListBean.getUserPicture());
         }else {
             String sex = userListBean.getUserSex();
             if (sex!= null && !sex.equals("")&& !sex.equals("null")){
@@ -165,6 +175,40 @@ public class ProjectFromWorkListExpenableAdapter extends BaseExpandableListAdapt
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
+    }
+
+    /**
+     * 获取图片
+     */
+    public void getFormImage(final ImageView imageView, String fileurl) {
+        Api.scheduleService().getFormImage(fileurl)
+                .compose(XApi.<UploadDynamicFormImageBean>getApiTransformer())
+                .compose(XApi.<UploadDynamicFormImageBean>getScheduler())
+                .compose(((ProjectFromWorkActivity) context).<UploadDynamicFormImageBean>bindToLifecycle())
+                .subscribe(new ApiSubscriber<UploadDynamicFormImageBean>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        XLog.d("NET ERROR :" + error.toString());
+                        ToastUtils.showToast("网络请求错误！");
+                        return;
+                    }
+
+                    @Override
+                    public void onNext(UploadDynamicFormImageBean uploadDynamicFormImageBean) {
+                        try {
+                            if (uploadDynamicFormImageBean.getRespCode() == 1) {
+                                ToastUtils.showToast(uploadDynamicFormImageBean.getRespMsg());
+                                return;
+                            }
+                            String respBody = uploadDynamicFormImageBean.getRespBody();
+                            Bitmap bitmap = CommonUtils.stringtoBitmap(respBody);
+                            imageView.setImageBitmap(bitmap);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
     }
 
     class GroupViewHolder {

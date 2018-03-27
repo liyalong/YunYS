@@ -376,7 +376,7 @@ public interface HomeService {
      * @describe 获取项目报警总数
      */
     @POST("alarmLogging/isWarningForProjectByUserId/{userId}")
-    Call<WarnningMessageBean> getWarningSize(@Path("userId") String userId);
+    Call<WarnningMessageBean> getWarningSize(@Header("token") String token,@Path("userId") String userId);
 
     /**
      * @author fuduo

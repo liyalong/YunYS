@@ -53,18 +53,6 @@ public class ProjectFromWorkActivity extends BaseActivity<ProjectFromworkPresent
     public void initView() {
         ButterKnife.bind(this);
         teTitle.setText("项目架构");
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        imgClear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edSearch.setText("");
-            }
-        });
         edSearch.addTextChangedListener(mTextWatcher);
         edSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -191,11 +179,23 @@ public class ProjectFromWorkActivity extends BaseActivity<ProjectFromworkPresent
 
     @Override
     public void setListener() {
-
+        imgQuesheng.setOnClickListener(this);
+        imgBack.setOnClickListener(this);
+        imgClear.setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
-
+        switch (v.getId()){
+            case R.id.img_quesheng:
+                getP().getFromworklist();
+                break;
+            case R.id.img_back:
+                finish();
+                break;
+            case R.id.img_clear:
+                edSearch.setText("");
+                break;
+        }
     }
 }

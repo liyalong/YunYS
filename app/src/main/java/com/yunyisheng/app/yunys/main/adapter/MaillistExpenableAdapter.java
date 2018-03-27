@@ -22,7 +22,6 @@ import com.yunyisheng.app.yunys.main.model.WorkerListBean;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.bean.UploadDynamicFormImageBean;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
-import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import java.util.List;
@@ -135,9 +134,12 @@ public class MaillistExpenableAdapter extends BaseExpandableListAdapter {
             view1.setVisibility(View.VISIBLE);
         }
         if (workerBean.getIcon() != null && !workerBean.getIcon().equals("") && !workerBean.getIcon().equals("null")) {
-            Bitmap bitmap = CommonUtils.stringtoBitmap(workerBean.getIcon());
-            img_woker_head.setImageBitmap(bitmap);
+//            Bitmap bitmap = CommonUtils.stringtoBitmap(workerBean.getIcon());
+//            img_woker_head.setImageBitmap(bitmap);
 //            GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(context, img_woker_head, bitmap);
+            if (img_woker_head.getDrawable() == null) {
+                getFormImage(img_woker_head, workerBean.getIcon());
+            }
         } else {
             img_woker_head.setBackground(null);
             String sex = workerBean.getSex();
@@ -182,33 +184,30 @@ public class MaillistExpenableAdapter extends BaseExpandableListAdapter {
     /**
      * 获取图片
      */
-    public void getFormImage(final ImageView imageView, String fileurl){
-        LoadingDialog.show(context);
+    public void getFormImage(final ImageView imageView, String fileurl) {
         Api.scheduleService().getFormImage(fileurl)
                 .compose(XApi.<UploadDynamicFormImageBean>getApiTransformer())
                 .compose(XApi.<UploadDynamicFormImageBean>getScheduler())
-                .compose(((MailListActivity)context).<UploadDynamicFormImageBean>bindToLifecycle())
+                .compose(((MailListActivity) context).<UploadDynamicFormImageBean>bindToLifecycle())
                 .subscribe(new ApiSubscriber<UploadDynamicFormImageBean>() {
                     @Override
                     protected void onFail(NetError error) {
-                        LoadingDialog.dismiss(context);
-                        XLog.d("NET ERROR :"+error.toString());
+                        XLog.d("NET ERROR :" + error.toString());
                         ToastUtils.showToast("网络请求错误！");
                         return;
                     }
 
                     @Override
                     public void onNext(UploadDynamicFormImageBean uploadDynamicFormImageBean) {
-                        LoadingDialog.dismiss(context);
                         try {
-                            if (uploadDynamicFormImageBean.getRespCode() == 1){
+                            if (uploadDynamicFormImageBean.getRespCode() == 1) {
                                 ToastUtils.showToast(uploadDynamicFormImageBean.getRespMsg());
                                 return;
                             }
                             String respBody = uploadDynamicFormImageBean.getRespBody();
                             Bitmap bitmap = CommonUtils.stringtoBitmap(respBody);
                             imageView.setImageBitmap(bitmap);
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }

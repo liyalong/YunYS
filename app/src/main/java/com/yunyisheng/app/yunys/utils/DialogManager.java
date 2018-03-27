@@ -83,8 +83,9 @@ public class DialogManager {
                 try {
                     if (tempFile.exists()) {
                         tempFile.delete();
+                    }else {
+                        tempFile.createNewFile();
                     }
-                    tempFile.createNewFile();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
