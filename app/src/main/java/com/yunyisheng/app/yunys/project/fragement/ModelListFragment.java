@@ -47,6 +47,7 @@ public class ModelListFragment extends BaseFragement<ModelListPresent> {
     LinearLayout noDataModel;
     Unbinder unbinder;
     private String projectId;
+    private String projectName;
 
     private List<ModelInfoBean> dataList = new ArrayList<>();
 
@@ -57,6 +58,7 @@ public class ModelListFragment extends BaseFragement<ModelListPresent> {
         ButterKnife.bind(this, context);
         ProjectDetailsActivity projectDetailsActivity = (ProjectDetailsActivity) getActivity();
         this.projectId = projectDetailsActivity.getProjectId();
+        this.projectName = projectDetailsActivity.getProjectName();
         ScrowUtil.listViewConfig(modelListView);
         getP().getModelList(projectId, PAGE_NUM, PAGE_SIZE);
         modelListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
@@ -79,6 +81,7 @@ public class ModelListFragment extends BaseFragement<ModelListPresent> {
                 Router.newIntent(context)
                         .to(ModelDetailActivity.class)
                         .putString("projectId", projectId)
+                        .putString("projectName",projectName)
                         .putString("modelId", modelInfoBean.getPcmId())
                         .putString("modelName", modelInfoBean.getPcmName())
                         .launch();

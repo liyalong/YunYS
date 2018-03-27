@@ -95,6 +95,7 @@
             android:layout_height="match_parent"
             android:background="@mipmap/button_cz"
             android:text="@string/edit"
+            android:textColor="@color/white"
             android:gravity="center"/>
 
     </LinearLayout>

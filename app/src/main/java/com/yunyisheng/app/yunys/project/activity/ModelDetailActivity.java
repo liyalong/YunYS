@@ -82,6 +82,7 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> implem
     private boolean MODELPICISSHOW = true;
 
     private String projectId;
+    private String projectName;
     private String modelId;
     private String modelName;
     private Timer timer;
@@ -98,7 +99,7 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> implem
         this.projectId = getIntent().getStringExtra("projectId");
         this.modelId = getIntent().getStringExtra("modelId");
         this.modelName = getIntent().getStringExtra("modelName");
-
+        this.projectName = getIntent().getStringExtra("projectName");
         PLCGroupList.add("实时指标");
         warningGrouptList.add("实时报警");
 
@@ -203,6 +204,7 @@ public class ModelDetailActivity extends BaseActivity<ModelDetailPresent> implem
                 Router.newIntent(context)
                         .to(ModelDeviceListActivity.class)
                         .putString("projectId",projectId)
+                        .putString("projectName",projectName)
                         .putString("modelId",modelId)
                         .putString("modelName",modelName)
                         .launch();
