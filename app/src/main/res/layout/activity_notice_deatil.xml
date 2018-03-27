@@ -42,10 +42,12 @@
                 android:background="@mipmap/more" />
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/rl_all"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/distance_10"
             android:layout_height="match_parent"
             android:background="@color/white"
+            android:visibility="gone"
             android:paddingRight="@dimen/distance_10"
             >
             <RelativeLayout
@@ -127,5 +129,13 @@
                 android:layout_marginTop="@dimen/distance_10"
                 ></ListView>
         </RelativeLayout>
+        <ImageView
+            android:id="@+id/img_quesheng"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/distance_125"
+            android:background="@mipmap/no_network"
+            android:visibility="gone" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
