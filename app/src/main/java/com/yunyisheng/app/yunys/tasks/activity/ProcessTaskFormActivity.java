@@ -133,9 +133,9 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
         state = intent.getStringExtra("state");
         processDetailBean = (ProcessDetailBean) intent.getSerializableExtra("processDetail");
         if (seetype == 1) {
-            createUser=processDetailBean.getRespBody().getSelectByIdAndUuid().getForm().getCreateUser();
             getP().getProcessTaskDetail(selectFormId);
         } else {
+            createUser = processDetailBean.getRespBody().getSelectByIdAndUuid().getForm().getCreateUser();
             initSeeFromUi();
         }
     }
@@ -351,8 +351,8 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                 zhuanbutton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent=new Intent(ProcessTaskFormActivity.this, RadioSelectUserActivity.class);
-                        intent.putExtra("createUser",createUser);
+                        Intent intent = new Intent(ProcessTaskFormActivity.this, RadioSelectUserActivity.class);
+                        intent.putExtra("createUser", createUser);
                         startActivityForResult(intent, 5);
                     }
                 });
