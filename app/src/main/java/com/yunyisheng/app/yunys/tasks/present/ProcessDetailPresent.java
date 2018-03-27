@@ -4,6 +4,7 @@ import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.tasks.activity.ProcessDetailActivity;
 import com.yunyisheng.app.yunys.tasks.bean.ProcessDetailBean;
 import com.yunyisheng.app.yunys.tasks.model.ProcessDetailModel;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import cn.droidlover.xdroidmvp.mvp.XPresent;
@@ -25,6 +26,7 @@ public class ProcessDetailPresent extends XPresent<ProcessDetailActivity> {
      *  @describe 获取流程任务详情
      */
     public void getProcessTaskDetailByUser(String taskId,String taskType,String userId){
+        LoadingDialog.show(getV());
         Api.taskService().getProcessTaskDetailByUser(userId,taskId,taskType)
                 .compose(XApi.<ProcessDetailBean>getApiTransformer())
                 .compose(XApi.<ProcessDetailBean>getScheduler())
@@ -32,11 +34,13 @@ public class ProcessDetailPresent extends XPresent<ProcessDetailActivity> {
                 .subscribe(new ApiSubscriber<ProcessDetailBean>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
                         ToastUtils.showToast("网络请求错误！");
                     }
 
                     @Override
                     public void onNext(ProcessDetailBean processDetailBean) {
+                        LoadingDialog.dismiss(getV());
                         if (processDetailBean.getRespCode() == 1){
                             ToastUtils.showToast(processDetailBean.getRespMsg());
                             getV().finish();
