@@ -54,7 +54,6 @@ public class RadioSelectUserActivity extends BaseActivity<RadioSelectUserPresent
         fromPageTitle = getIntent().getStringExtra("fromPageTitle");
         selectUserId = getIntent().getStringExtra("selectUserId");
         createUserId = getIntent().getIntExtra("createUser",0);
-        submit.setVisibility(View.GONE);
         if (fromPageTitle != null){
             pageTitle.setText(fromPageTitle);
         }else {
