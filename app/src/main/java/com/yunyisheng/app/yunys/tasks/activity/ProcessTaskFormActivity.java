@@ -135,7 +135,7 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
         if (seetype == 1) {
             getP().getProcessTaskDetail(selectFormId);
         } else {
-            createUser = processDetailBean.getRespBody().getSelectByIdAndUuid().getForm().getCreateUser();
+            createUser = processDetailBean.getRespBody().getStartUserId().getUserId();
             initSeeFromUi();
         }
     }
