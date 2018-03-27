@@ -180,9 +180,21 @@ public class RadioSelectUserActivity extends BaseActivity<RadioSelectUserPresent
                 for (int m = 0; m < workerlist.size(); m++) {
                     WorkerBean workerBean = workerlist.get(m);
                     ProjectUserBean projectUserBean = new ProjectUserBean();
-                    projectUserBean.setUserId(workerBean.getUserId());
-                    projectUserBean.setName(workerBean.getName());
-                    dataList.add(projectUserBean);
+
+                    int userId = workerBean.getUserId();
+                    int flag = 0;
+                    for(int j=0;j < dataList.size(); j++){
+                        int userId_ =  dataList.get(j).getUserId();
+                        if (userId == userId_){
+                            flag = 1;
+                            continue;
+                        }
+                    }
+                    if (flag == 0){
+                        projectUserBean.setUserId(workerBean.getUserId());
+                        projectUserBean.setName(workerBean.getName());
+                        dataList.add(projectUserBean);
+                    }
                 }
                 adapter = new RadioSelectUserAdapter(context, dataList, selectUserId);
                 selectCheckUserList.setAdapter(adapter);
