@@ -152,6 +152,25 @@ public class FromWorkListExpenableAdapter extends BaseExpandableListAdapter {
         return selectpeople;
     }
 
+    public void setOnceSelect(ProjectFromWorkBean.ListBean.UserListBean userListBean){
+        int userId = userListBean.getUserId();
+        boolean ischeckchild = userListBean.isIscheckchild();
+        for (int i = 0; i < list.size(); i++) {
+            ProjectFromWorkBean.ListBean listBean = list.get(i);
+            List<ProjectFromWorkBean.ListBean.UserListBean> workerBeanList = listBean.getUserList();
+            if (workerBeanList!=null&&workerBeanList.size()>0) {
+                for (int j = 0; j < workerBeanList.size(); j++) {
+                    ProjectFromWorkBean.ListBean.UserListBean worker = workerBeanList.get(j);
+                    if (worker.getUserId()==userId){
+                        worker.setIscheckchild(ischeckchild);
+                        notifyDataSetChanged();
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
 
     @Override
     public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {

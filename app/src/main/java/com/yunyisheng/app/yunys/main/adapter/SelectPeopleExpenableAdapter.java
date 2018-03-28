@@ -152,6 +152,25 @@ public class SelectPeopleExpenableAdapter extends BaseExpandableListAdapter {
         return selectpeople;
     }
 
+    public void setOnceSelect(WorkerBean workerBean){
+        int userId = workerBean.getUserId();
+        boolean ischeckchild = workerBean.isIscheckchild();
+        for (int i = 0; i < list.size(); i++) {
+            WorkerListBean workerListBean = list.get(i);
+            List<WorkerBean> workerBeanList = workerListBean.getWorkerBeanList();
+            if (workerBeanList!=null&&workerBeanList.size()>0) {
+                for (int j = 0; j < workerBeanList.size(); j++) {
+                    WorkerBean worker = workerBeanList.get(j);
+                    if (worker.getUserId()==userId){
+                        worker.setIscheckchild(ischeckchild);
+                        notifyDataSetChanged();
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
     @Override
     public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         GroupViewHolder groupViewHolder = null;

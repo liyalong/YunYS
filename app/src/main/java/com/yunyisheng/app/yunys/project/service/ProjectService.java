@@ -48,6 +48,7 @@ public interface ProjectService {
      * @return
      */
     @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     @POST("project/list/myJoin")
     Flowable<ProjectListModel> getMyProjectList(@Field("pageNum") int pageNum,
                                                 @Field("pageSize") int pageSize,
@@ -63,6 +64,7 @@ public interface ProjectService {
      * @return
      */
     @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     @POST("project/equip/list/{projectId}")
     Flowable<DeviceListModel> getProjectDeviceList(@Path("projectId") String projectId,
                                                    @Field("pageNum") int pageNum,

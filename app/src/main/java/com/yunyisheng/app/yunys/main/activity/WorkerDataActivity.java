@@ -131,8 +131,7 @@ public class WorkerDataActivity extends BaseActivity<WorkerDataPresent> {
 
         if (workerhead != null && !workerhead.equals("")
                 && !workerhead.equals("null")) {
-            Bitmap bitmap = CommonUtils.stringtoBitmap(workerhead);
-            GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(context, imgWorkerHead, bitmap);
+            getP().getFormImage(workerhead);
         } else {
             imgWorkerHead.setBackgroundResource(R.mipmap.maillist_man);
         }
@@ -273,5 +272,10 @@ public class WorkerDataActivity extends BaseActivity<WorkerDataPresent> {
                 }
                 break;
         }
+    }
+
+    public void setWorkerHead(String respBody) {
+        Bitmap bitmap = CommonUtils.stringtoBitmap(respBody);
+        GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(context, imgWorkerHead, bitmap);
     }
 }

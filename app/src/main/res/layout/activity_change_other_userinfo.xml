@@ -146,6 +146,7 @@
                 android:layout_toLeftOf="@+id/img3"
                 android:hint="@string/puteamil"
                 android:gravity="right"
+                android:background="@null"
                 android:textColor="@color/color_999"
                 android:textColorHint="@color/color_999"
                 android:textSize="@dimen/distance_14" />

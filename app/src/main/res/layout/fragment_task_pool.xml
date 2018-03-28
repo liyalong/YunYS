@@ -17,6 +17,7 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:spinnerMode="dropdown"
+            android:background="@null"
             android:dropDownVerticalOffset="@dimen/distance_50">
         </Spinner>
         <ImageView

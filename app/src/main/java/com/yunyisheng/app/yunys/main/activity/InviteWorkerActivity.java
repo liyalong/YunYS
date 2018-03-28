@@ -44,8 +44,6 @@ public class InviteWorkerActivity extends BaseActivity<InviteWorkerPresent> {
     RelativeLayout rlRole;
     @BindView(R.id.btn_queren)
     Button btnQueren;
-    @BindView(R.id.img_status)
-    ImageView imgStatus;
     @BindView(R.id.img_back)
     ImageView imgBack;
     @BindView(R.id.te_bumen)
@@ -63,7 +61,6 @@ public class InviteWorkerActivity extends BaseActivity<InviteWorkerPresent> {
         ButterKnife.bind(this);
         list.add(new SexBean(0, "男"));
         list.add(new SexBean(1, "女"));
-        imgStatus.setVisibility(View.GONE);
         //设置spinner展开项的宽
         //spSex.setDropDownWidth(ScreenUtils.getScreenHeight(InviteWorkerActivity.this));
         SelectSexSpinnerAdapter adapter = new SelectSexSpinnerAdapter(InviteWorkerActivity.this, list);

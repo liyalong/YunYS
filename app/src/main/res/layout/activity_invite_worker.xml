@@ -69,45 +69,51 @@
                         android:textSize="@dimen/distance_14" />
                 </LinearLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="@dimen/distance_290"
                     android:layout_height="@dimen/distance_40"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/distance_10"
                     android:background="@drawable/invite_bac"
-                    android:orientation="horizontal">
+                    >
 
                     <ImageView
                         android:id="@+id/img2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/distance_3"
                         android:background="@mipmap/seximg" />
 
                     <TextView
+                        android:id="@+id/text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/img2"
                         android:text="@string/sex"
                         android:textColor="@color/color_999"
                         android:textSize="@dimen/distance_14" />
 
                     <Spinner
                         android:id="@+id/sp_sex"
-                        android:layout_width="@dimen/distance_210"
+                        android:layout_toRightOf="@+id/text"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/distance_1"
                         android:spinnerMode="dropdown"
+                        android:background="@null"
                         android:dropDownVerticalOffset="@dimen/distance_40"
                          />
                     <ImageView
-                        android:id="@+id/img_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@mipmap/shouqi"
-                        android:layout_gravity="center_vertical"
+                        android:background="@mipmap/zhankai"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/distance_10"
                         />
-                </LinearLayout>
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="@dimen/distance_290"
@@ -269,7 +275,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/distance_3"
-                        android:background="@mipmap/bumen" />
+                        android:background="@mipmap/roleimg" />
 
                     <TextView
                         android:id="@+id/te_role"

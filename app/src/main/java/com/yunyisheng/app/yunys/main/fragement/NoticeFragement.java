@@ -71,6 +71,7 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
     private PublishNoticeListAdapter adapter;
     private ReceiveNoticeListAdapter adapter1;
     private MyReceiver receiver;
+    private boolean issearch;
 
     public static NoticeFragement getInstance(int index) {
         NoticeFragement fragement = new NoticeFragement();
@@ -131,6 +132,7 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
                     if (sousuo_neirong == null || sousuo_neirong.equals("")) {
                         ToastUtils.showToast("搜索内容不能为空");
                     } else {
+                        issearch = true;
                         if (tabindex == 0) {
                             sendlist.clear();
                             pageindex = 1;
@@ -233,8 +235,11 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
             imgQuesheng.setVisibility(View.GONE);
         } else {
             if (pageindex == 1) {
-                pullToRefreshListview.setVisibility(View.GONE);
-                imgQuesheng.setVisibility(View.VISIBLE);
+                if (!issearch) {
+                    issearch=false;
+                    pullToRefreshListview.setVisibility(View.GONE);
+                    imgQuesheng.setVisibility(View.VISIBLE);
+                }
                 ToastUtils.showToast("暂无数据");
             } else {
                 ToastUtils.showToast("暂无更多数据");
@@ -265,9 +270,12 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
             imgQuesheng.setVisibility(View.GONE);
         } else {
             if (pageindex == 1) {
-                pullToRefreshListview.setVisibility(View.GONE);
-                imgQuesheng.setVisibility(View.VISIBLE);
-                imgQuesheng.setBackgroundResource(R.mipmap.no_data);
+                if (!issearch) {
+                    issearch=false;
+                    pullToRefreshListview.setVisibility(View.GONE);
+                    imgQuesheng.setVisibility(View.VISIBLE);
+                    imgQuesheng.setBackgroundResource(R.mipmap.no_data);
+                }
                 ToastUtils.showToast("暂无数据");
             } else {
                 ToastUtils.showToast("暂无更多数据");

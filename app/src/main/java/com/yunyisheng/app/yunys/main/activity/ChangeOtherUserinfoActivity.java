@@ -86,7 +86,6 @@ public class ChangeOtherUserinfoActivity extends BaseActivity<ChangeOtherPresent
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 isshowphone = !isChecked;
                 if (isChecked){
-                    teUserphone.setText(num);
                 }else {
                     teUserphone.setText(userphone);
                 }

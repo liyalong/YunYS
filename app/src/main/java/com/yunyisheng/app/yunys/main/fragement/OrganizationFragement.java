@@ -272,21 +272,31 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (tabindex == 0) {
+                    WorkerBean workerBean=new WorkerBean();
                     FindWorkerBean.respBodyBean respBodyBean = findWorkerBeanList.get(position);
                     if (respBodyBean.isIscheck()) {
                         respBodyBean.setIscheck(false);
+                        workerBean.setIscheckchild(false);
                     } else {
                         respBodyBean.setIscheck(true);
+                        workerBean.setIscheckchild(true);
                     }
+                    workerBean.setUserId(respBodyBean.getUserId());
+                    adapter.setOnceSelect(workerBean);
                     selectFindWorkerListAdapter.notifyDataSetChanged();
                     setViewList(selectFindWorkerListAdapter.getSelectlist());
                 } else {
+                    ProjectFromWorkBean.ListBean.UserListBean userListBean=new ProjectFromWorkBean.ListBean.UserListBean();
                     FindProjectWorkerBean.RespBodyBean respBodyBean = findWorkerProjectBeanList.get(position);
                     if (respBodyBean.isIscheck()) {
                         respBodyBean.setIscheck(false);
+                        userListBean.setIscheckchild(false);
                     } else {
                         respBodyBean.setIscheck(true);
+                        userListBean.setIscheckchild(true);
                     }
+                    userListBean.setUserId(respBodyBean.getUserId());
+                    fromWorkListExpenableAdapter.setOnceSelect(userListBean);
                     selectFindProjectWorkerListAdapter.notifyDataSetChanged();
                     setProjectViewList(selectFindProjectWorkerListAdapter.getSelectlist());
                 }
@@ -552,13 +562,13 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
                 }
             }
             selectlist = adapter.getSelectPeopleList();
-            if (isfind) {
-                selectlist.addAll(findselectlist);
-            } else {
-                if (findselectlist.size() > 0) {
-                    selectlist.addAll(findselectlist);
-                }
-            }
+//            if (isfind) {
+//                selectlist.addAll(findselectlist);
+//            } else {
+//                if (findselectlist.size() > 0) {
+//                    selectlist.addAll(findselectlist);
+//                }
+//            }
 
             if (selectlist.size() > 0) {
                 rlBottom.setVisibility(View.VISIBLE);
@@ -577,13 +587,13 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
                 }
             }
             selectprojectlist = fromWorkListExpenableAdapter.getSelectPeopleList();
-            if (isfind) {
-                selectprojectlist.addAll(findprojectselectlist);
-            } else {
-                if (findprojectselectlist.size() > 0) {
-                    selectprojectlist.addAll(findprojectselectlist);
-                }
-            }
+//            if (isfind) {
+//                selectprojectlist.addAll(findprojectselectlist);
+//            } else {
+//                if (findprojectselectlist.size() > 0) {
+//                    selectprojectlist.addAll(findprojectselectlist);
+//                }
+//            }
             if (selectprojectlist.size() > 0) {
                 rlBottom.setVisibility(View.VISIBLE);
                 if (selectlist.size() > 0) {//清空要加入的list
