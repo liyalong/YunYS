@@ -30,6 +30,7 @@ function createCharts(result,units){
                       maskColor: 'rgba(255, 255, 255, 0.8)',
                       zlevel: 0
                     });
+                    return ;
     }
 var data = JSON.parse(result);
 var option = {
@@ -40,6 +41,15 @@ var option = {
                     animation: false
                 }
             },
+        dataZoom: [
+            {
+                type: 'slider',
+                show: true,
+            },
+            {
+                type: 'inside',
+            }
+        ],
         xAxis: [{
             type: 'category',
             data: [],
@@ -71,16 +81,6 @@ var option = {
     option.xAxis[0].data = xAxisData;
     option.series[0].data = seriesData;
     myChart.setOption(option);
-    if(!hasData){
-            myChart.showLoading({
-                  text: '暂无数据！',
-                  color: '#c23531',
-                  textColor: '#000',
-                  maskColor: 'rgba(255, 255, 255, 0.8)',
-                  zlevel: 0
-                });
-    }
-
 }
 //获取对象或者数组对长度
 function count(o){
