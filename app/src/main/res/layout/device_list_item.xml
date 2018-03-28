@@ -59,7 +59,7 @@
                 </LinearLayout>
                 <TextView
                     android:id="@+id/device_plc_status"
-                    android:layout_width="@dimen/distance_18"
+                    android:layout_width="@dimen/distance_25"
                     android:layout_height="@dimen/distance_15"
                     android:background="@color/device_plc_status"
                     android:gravity="center"
