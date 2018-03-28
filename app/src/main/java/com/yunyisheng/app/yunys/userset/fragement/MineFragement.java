@@ -323,8 +323,8 @@ public class MineFragement extends BaseFragement<MinePresent> {
                         .launch();
                 mContext.stopService(new Intent(mContext, MQTTService.class));
                 mContext.stopService(new Intent(mContext, MessageService.class));
-                context.finish();
                 mOutloginDialog.dismiss();
+                context.finish();
             }
         });
 
