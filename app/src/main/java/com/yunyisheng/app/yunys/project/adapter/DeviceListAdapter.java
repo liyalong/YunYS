@@ -56,8 +56,10 @@ public class DeviceListAdapter extends SimpleListAdapter<DeviceBean, DeviceListA
         holder.deviceCode.setText(deviceBean.getEquipmentCode());
         if (deviceBean.getBindPlcNum() > 0){
             holder.devicePlcSttus.setBackgroundColor(context.getResources().getColor(R.color.device_plc_status));
+            holder.devicePlcSttus.setText("绑");
         }else {
             holder.devicePlcSttus.setBackgroundColor(context.getResources().getColor(R.color.device_plc_status2));
+            holder.devicePlcSttus.setText("未绑");
         }
         if (deviceBean.getEquipmentStat() == 1){
             holder.deviceStatus.setBackgroundColor(context.getResources().getColor(R.color.device_status_success));
