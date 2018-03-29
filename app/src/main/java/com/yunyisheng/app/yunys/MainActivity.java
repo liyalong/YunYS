@@ -115,7 +115,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 
     @Override
     public void initView() {
-        setSwipeEnabled(false);
+//        setSwipeEnabled(false);
         systemModel = getSystemModel();
 
         notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
