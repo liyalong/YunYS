@@ -41,6 +41,7 @@ public class WelcomeActivity extends BaseActivity<WelcomePagePresent> {
 
     @Override
     public void initView() {
+        setSwipeEnabled(false);
         SharedPref.init(Constans.SHARD_NAME);
         SharedPref sharedPref = SharedPref.getInstance(this);
 

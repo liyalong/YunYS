@@ -313,7 +313,6 @@ public class FromWorkListExpenableAdapter extends BaseExpandableListAdapter {
                     @Override
                     protected void onFail(NetError error) {
                         XLog.d("NET ERROR :" + error.toString());
-                        ToastUtils.showToast("网络请求错误！");
                         return;
                     }
 

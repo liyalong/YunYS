@@ -39,7 +39,6 @@ import com.yunyisheng.app.yunys.main.model.WarningMessageEvent;
 import com.yunyisheng.app.yunys.main.roadcastReceiver.NotificationHighCodeReceiver;
 import com.yunyisheng.app.yunys.main.service.MessageService;
 import com.yunyisheng.app.yunys.mqtt.MQTTMessage;
-import com.yunyisheng.app.yunys.mqtt.MQTTService;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.fragement.ProjectFragement;
 import com.yunyisheng.app.yunys.schedule.fragement.ScheduleTaskFragement;
@@ -116,6 +115,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 
     @Override
     public void initView() {
+        setSwipeEnabled(false);
         systemModel = getSystemModel();
 
         notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);

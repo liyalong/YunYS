@@ -190,7 +190,6 @@ public class ProjectFromWorkListExpenableAdapter extends BaseExpandableListAdapt
                     @Override
                     protected void onFail(NetError error) {
                         XLog.d("NET ERROR :" + error.toString());
-                        ToastUtils.showToast("网络请求错误！");
                         return;
                     }
 

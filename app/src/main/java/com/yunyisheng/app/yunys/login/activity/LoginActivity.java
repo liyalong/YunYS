@@ -58,6 +58,7 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
 
     @Override
     public void initView() {
+        setSwipeEnabled(false);
         ButterKnife.bind(this);
     }
 

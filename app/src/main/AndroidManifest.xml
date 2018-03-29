@@ -117,193 +117,248 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".login.activity.RetrievePassword"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".login.activity.RegisterActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.ReportformActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.MessageActivity"
             android:launchMode="singleTop"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.NoticeActivity"
+            android:theme="@style/Transparent"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.SendNoticeActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.NoticeDeatilActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.MailListActivity"
+            android:theme="@style/Transparent"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.SelectPeopleActivity"
+            android:theme="@style/Transparent"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.WorkerDataActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.MemorandumActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.AddMemorandumActivity"
+            android:theme="@style/Transparent"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".userset.activity.MyInformationActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".userset.activity.AccountSetActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".userset.activity.MimaManagerActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".userset.activity.ClearCatchActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".userset.activity.AboutOurActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".userset.activity.EnterpriseinformationActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".schedule.activity.ScheduleDeatilActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.CreateProcessTaskAcitvity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.CreateDeviceTaskAcitvity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.CreateNoneDeviceTaskAcitvity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.ProjectTemplateActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.SelectProjectActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".schedule.activity.ScheduleSetActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.CronResultActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".userset.activity.ChangeInformationActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait"
             />
         <activity
             android:name=".project.activity.ProjectDetailsActivity"
+            android:theme="@style/Transparent"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.InviteWorkerActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait"
             />
         <activity
             android:name=".project.activity.DeviceDetailActivity"
+            android:theme="@style/Transparent"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".project.activity.DeviceAlarmRulesActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".project.activity.DevicePartsListActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".project.activity.PeriodicTaskListActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".project.activity.ModelDeviceListActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".project.activity.ModelDetailActivity"
+            android:theme="@style/Transparent"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".project.activity.ModelAlarmRulesActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.BumenActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.RoleActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".main.activity.ChangeOtherUserinfoActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".main.activity.ProjectFromWorkActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".project.activity.KnowledgeDetailActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".project.activity.KnowledgeListActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".project.activity.DynamicFormActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".userset.activity.FanKuiActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".project.activity.TaskDetailActivity"
+            android:theme="@style/Transparent"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".project.activity.RenwuFankuiFormActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.MyPushTaskChildListActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.SelectProjectUserListActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.SelectProjectDeviceActivity"
+            android:theme="@style/Transparent"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.SelectProjectForm"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.RadioSelectUserActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.SelectProcessFormActivity"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.ProcessTaskFormActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/Transparent"
             android:screenOrientation="portrait" />
         <activity
             android:name=".project.activity.PLCDetailActivity"
+            android:theme="@style/Transparent"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             />
         <activity
             android:name=".tasks.activity.ProcessDetailActivity"
+            android:theme="@style/Transparent"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             ></activity>

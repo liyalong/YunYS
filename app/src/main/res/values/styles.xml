@@ -39,6 +39,11 @@
         <item name="android:layout_marginBottom">@dimen/distance_12</item>
     </style>
 
+    <style name="Transparent" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
     <style name="login_icon_style">
         <item name="android:layout_width">@dimen/distance_35</item>
         <item name="android:layout_height">@dimen/distance_35</item>
