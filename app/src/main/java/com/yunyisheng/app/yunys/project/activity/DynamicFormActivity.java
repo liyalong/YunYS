@@ -33,6 +33,7 @@ import com.yunyisheng.app.yunys.schedule.model.ScheduleDetailBean;
 import com.yunyisheng.app.yunys.schedule.model.SeeScheduleDetailBean;
 import com.yunyisheng.app.yunys.schedule.present.ScheduleDetailPresent;
 import com.yunyisheng.app.yunys.schedule.service.ScheduleService;
+import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.DialogManager;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.LogUtils;
@@ -313,6 +314,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
         if (respBody != null && !respBody.equals("")) {
             Bitmap bitmap = stringtoBitmap(respBody);
             imageView.setImageBitmap(bitmap);
+            CommonUtils.releaseImageViewResouce(imageView);
         }
     }
 

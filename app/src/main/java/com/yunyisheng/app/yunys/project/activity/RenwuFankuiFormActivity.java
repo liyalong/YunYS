@@ -63,6 +63,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
+import static com.yunyisheng.app.yunys.utils.CommonUtils.releaseImageViewResouce;
 import static com.yunyisheng.app.yunys.utils.CommonUtils.stringtoBitmap;
 
 /**
@@ -309,6 +310,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                         if (feedbackVal != null && !feedbackVal.equals("")) {
                             Bitmap bitmap = stringtoBitmap(feedbackVal);
                             imageView.setImageBitmap(bitmap);
+                            releaseImageViewResouce(imageView);
                         }
                         lineAll.addView(imageView);
                     } else {

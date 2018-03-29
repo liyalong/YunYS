@@ -23,6 +23,7 @@ import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.bean.UploadDynamicFormImageBean;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+import com.yunyisheng.app.yunys.utils.glide.GlideDownLoadImage;
 
 import java.util.List;
 
@@ -206,7 +207,7 @@ public class MaillistExpenableAdapter extends BaseExpandableListAdapter {
                             }
                             String respBody = uploadDynamicFormImageBean.getRespBody();
                             Bitmap bitmap = CommonUtils.stringtoBitmap(respBody);
-                            imageView.setImageBitmap(bitmap);
+                            GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(context, imageView, bitmap);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

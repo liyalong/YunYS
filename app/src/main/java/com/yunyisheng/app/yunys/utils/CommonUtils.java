@@ -10,6 +10,8 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -24,6 +26,7 @@ import android.text.format.Formatter;
 import android.util.Base64;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.yunyisheng.app.yunys.App;
 import com.yunyisheng.app.yunys.utils.encrypt.MD5;
@@ -244,9 +247,9 @@ public class CommonUtils {
     }
 
     /* uri转化为bitmap */
-    public static Bitmap getBitmapFromUri(Context context,Uri uri) {
+    public static Bitmap getBitmapFromUri(Context context, Uri uri) {
         try {
-          // 读取uri所在的图片
+            // 读取uri所在的图片
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(
                     context.getContentResolver(), uri);
             return bitmap;
@@ -470,7 +473,7 @@ public class CommonUtils {
      * @time 2018/3/6  12:12
      * @describe 获取当前月份最后一天
      */
-    public static String getTodayLastMonth(){
+    public static String getTodayLastMonth() {
         Calendar ca = Calendar.getInstance();
         ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
         Date time = ca.getTime();
@@ -483,7 +486,7 @@ public class CommonUtils {
      * @time 2018/3/6  11:25
      * @describe 某年某月第一天
      */
-    public static String getFirstMonthDay(Date date){
+    public static String getFirstMonthDay(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -502,12 +505,12 @@ public class CommonUtils {
      * @time 2018/3/6  11:25
      * @describe 某年某月最后一天
      */
-    public static String getLastMonthDay(Date date){
+    public static String getLastMonthDay(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 //        //获取某月最大天数
         int lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        calendar.add(Calendar.DAY_OF_MONTH, lastDay-1);
+        calendar.add(Calendar.DAY_OF_MONTH, lastDay - 1);
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
@@ -674,7 +677,6 @@ public class CommonUtils {
      * @Params 将字符串转换成Bitmap类型
      */
     public static Bitmap stringtoBitmap(String string) {
-
         Bitmap bitmap = null;
         try {
             byte[] bitmapArray;
@@ -682,9 +684,21 @@ public class CommonUtils {
             bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-
         return bitmap;
+    }
+
+    public static void releaseImageViewResouce(ImageView imageView) {
+        if (imageView == null) return;
+        Drawable drawable = imageView.getDrawable();
+        if (drawable != null && drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            Bitmap bitmap = bitmapDrawable.getBitmap();
+            if (bitmap != null && !bitmap.isRecycled()) {
+                bitmap=null;
+            }
+        }
     }
 
     /**
