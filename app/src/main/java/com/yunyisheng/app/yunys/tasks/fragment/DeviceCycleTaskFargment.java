@@ -168,7 +168,11 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
             case R.id.cycle_task_templates:
                 Intent intent4 = new Intent(context, ProjectTemplateActivity.class);
                 if (cycleFeedbackJSON != null){
-                    intent4.putExtra("fankuijson",cycleFeedbackJSON);
+                    if (cycleReleaseTaskId == null){
+                        intent4.putExtra("fankuijson_create",cycleFeedbackJSON);
+                    }else {
+                        intent4.putExtra("fankuijson_edit",cycleFeedbackJSON);
+                    }
                 }
                 startActivityForResult(intent4,TEMPLATEREQUESTCODE);
                 break;
@@ -366,8 +370,12 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
         cycleTaskDesc.setText(cycleTask.getCycletaskRemark());
 
         feedbackBacknum = cycleTask.getFeedbackBacknum();
-
-        cycleFeedbackJSON = JSON.toJSONString(cycleTask.getFeedbackItemList());
+        if (cycleTask.getFeedbackItemList().size() > 0){
+            cycleTaskTemplates.setText("任务反馈项（已添加）");
+            cycleFeedbackJSON = JSON.toJSONString(cycleTask.getFeedbackItemList());
+        }else {
+            cycleTaskTemplates.setText("任务反馈项（未添加）");
+        }
 
     }
 }
