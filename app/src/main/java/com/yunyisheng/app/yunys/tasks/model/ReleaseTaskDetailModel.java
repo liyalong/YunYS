@@ -1,6 +1,9 @@
 package com.yunyisheng.app.yunys.tasks.model;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
+import com.yunyisheng.app.yunys.schedule.model.RenWuFanKuiDetailBean;
+
+import java.util.List;
 
 /**
  * Created by liyalong on 2018/2/7.
@@ -43,6 +46,15 @@ public class ReleaseTaskDetailModel extends BaseModel {
         private String equipmentName;
         private String projectName;
         private String terraceId;
+        private List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> itemList;
+
+        public List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> getItemList() {
+            return itemList;
+        }
+
+        public void setItemList(List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> itemList) {
+            this.itemList = itemList;
+        }
 
         public void setReleaseId(String releaseId) {
             this.releaseId = releaseId;
