@@ -17,6 +17,10 @@ import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.MyListView;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,10 +50,24 @@ public class ProjectTemplateActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        Intent intent=getIntent();
+        String fankuijsonedit = intent.getStringExtra("fankuijson_edit");
+        String fankuijsoncreate = intent.getStringExtra("fankuijson_create");
+        if (fankuijsoncreate!=null&&!fankuijsoncreate.equals("")){
+            getEditProjectTemplateDetail(fankuijsoncreate);
+        }else if (fankuijsonedit!=null&&!fankuijsonedit.equals("")){
+            getCreateProjectTemplateDetail(fankuijsonedit);
+        }else {
+            addOnce();
+        }
     }
 
     @Override
     public void initAfter() {
+
+    }
+
+    private void addOnce(){
         //首先生成一个反馈项展示
         List<ChildBean> childBeans = new ArrayList<>();
         ChildBean childBean = new ChildBean();
@@ -59,6 +77,71 @@ public class ProjectTemplateActivity extends BaseActivity {
         stringList.add(bean);
         adapter = new MyAdapter(ProjectTemplateActivity.this, stringList);
         lvAll.setAdapter(adapter);
+    }
+
+    private void getEditProjectTemplateDetail(String json){
+        try {
+           JSONArray feedbackItem=new JSONArray(json);
+            for (int i=0;i<feedbackItem.length();i++){
+                GroupBean bean = new GroupBean();
+                List<ChildBean> modellist=new ArrayList<>();
+                org.json.JSONObject object= new JSONObject(feedbackItem.get(i).toString());
+                String feedbackName = object.getString("feedbackName");
+                int feedbackType = object.getInt("feedbackType");
+                bean.setfeedbackType(feedbackType);
+                bean.setfeedbackName(feedbackName);
+                JSONArray model = object.getJSONArray("model");
+                for (int j=0;j<model.length();j++){
+                    ChildBean childBean=new ChildBean();
+                    org.json.JSONObject modelobject= new JSONObject(model.get(j).toString());
+                    String dynamicTypeName = modelobject.getString("dynamicTypeName");
+                    int index = modelobject.getInt("index");
+                    childBean.setDynamicTypeName(dynamicTypeName);
+                    childBean.setIndex(index);
+                    modellist.add(childBean);
+                }
+                bean.setModel(modellist);
+                stringList.add(bean);
+            }
+            adapter = new MyAdapter(ProjectTemplateActivity.this, stringList);
+            lvAll.setAdapter(adapter);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getCreateProjectTemplateDetail(String json){
+        try {
+            JSONArray feedbackItem=new JSONArray(json);
+            for (int i=0;i<feedbackItem.length();i++){
+                GroupBean bean = new GroupBean();
+                List<ChildBean> modellist=new ArrayList<>();
+                String string = feedbackItem.get(i).toString();
+//                String modelstr = string.replaceAll("\\\\", "");
+                org.json.JSONObject object= new JSONObject(string);
+                String feedbackName = object.getString("feedbackName");
+                int feedbackType = object.getInt("feedbackType");
+                bean.setfeedbackType(feedbackType);
+                bean.setfeedbackName(feedbackName);
+                JSONArray model = object.getJSONArray("modelArray");
+                for (int j=0;j<model.length();j++){
+                    ChildBean childBean=new ChildBean();
+                    String string1 = model.get(i).toString();
+                    org.json.JSONObject modelobject= new JSONObject(string1);
+                    String dynamicTypeName = modelobject.getString("dynamic_type_name");
+                    int index = modelobject.getInt("index");
+                    childBean.setDynamicTypeName(dynamicTypeName);
+                    childBean.setIndex(index);
+                    modellist.add(childBean);
+                }
+                bean.setModel(modellist);
+                stringList.add(bean);
+            }
+            adapter = new MyAdapter(ProjectTemplateActivity.this, stringList);
+            lvAll.setAdapter(adapter);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
