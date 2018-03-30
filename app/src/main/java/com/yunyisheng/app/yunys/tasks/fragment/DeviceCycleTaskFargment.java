@@ -167,6 +167,9 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
                 break;
             case R.id.cycle_task_templates:
                 Intent intent4 = new Intent(context, ProjectTemplateActivity.class);
+                if (cycleFeedbackJSON != null){
+                    intent4.putExtra("fankuijson",cycleFeedbackJSON);
+                }
                 startActivityForResult(intent4,TEMPLATEREQUESTCODE);
                 break;
             case R.id.select_cycle_assign_users:
@@ -361,8 +364,6 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
             selectCycleAssignUsers.setText(cycleSelectUserName);
         }
         cycleTaskDesc.setText(cycleTask.getCycletaskRemark());
-        cycleTaskTemplates.setText("任务反馈项(暂不支持编辑)");
-        cycleTaskTemplates.setClickable(false);
 
         feedbackBacknum = cycleTask.getFeedbackBacknum();
 

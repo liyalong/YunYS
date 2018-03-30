@@ -238,6 +238,23 @@ public class CycleTaskDetailModel extends BaseModel {
             private int taskId;
             private String feedbackBacknum;
             private String feedbackVal;
+            private String model;
+
+            public String getModel() {
+                return model;
+            }
+
+            public void setModel(String model) {
+                this.model = model;
+            }
+
+            public List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> getModelArray() {
+                return modelArray;
+            }
+
+            public void setModelArray(List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> modelArray) {
+                this.modelArray = modelArray;
+            }
 
             public int getFeedbackItemId() {
                 return feedbackItemId;
@@ -279,13 +296,6 @@ public class CycleTaskDetailModel extends BaseModel {
                 this.updatet = updatet;
             }
 
-            public List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> getModel() {
-                return modelArray;
-            }
-
-            public void setModel(List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> model) {
-                this.modelArray = model;
-            }
 
             public int getTaskType() {
                 return taskType;
