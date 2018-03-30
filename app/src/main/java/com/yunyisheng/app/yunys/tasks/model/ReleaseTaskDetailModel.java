@@ -46,13 +46,13 @@ public class ReleaseTaskDetailModel extends BaseModel {
         private String equipmentName;
         private String projectName;
         private String terraceId;
-        private List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> itemList;
+        private List<CycleTaskDetailModel.taskDetail.FeedbackItemBean> itemList;
 
-        public List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> getItemList() {
+        public List<CycleTaskDetailModel.taskDetail.FeedbackItemBean> getItemList() {
             return itemList;
         }
 
-        public void setItemList(List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> itemList) {
+        public void setItemList(List<CycleTaskDetailModel.taskDetail.FeedbackItemBean> itemList) {
             this.itemList = itemList;
         }
 

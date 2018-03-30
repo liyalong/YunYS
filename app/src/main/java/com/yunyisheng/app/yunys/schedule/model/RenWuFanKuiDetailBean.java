@@ -385,14 +385,6 @@ public class RenWuFanKuiDetailBean extends BaseModel {
             private String dynamicTypeName;
             private int index;
 
-            @Override
-            public String toString() {
-                return "{" +
-                        "dynamicTypeName:'" + dynamicTypeName + '\'' +
-                        ", index:" + index +
-                        '}';
-            }
-
             public String getDynamic_type_name() {
                 return dynamicTypeName;
             }

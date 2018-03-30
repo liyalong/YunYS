@@ -313,6 +313,7 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
         }else {
             taskForm.setFeedbackBacknum(feedbackBacknum);
             taskForm.setReleaseId(releaseTaskId);
+            taskForm.setFeedbackJSON(feedbackJSON);
         }
 
         taskForm.setReleaseTaskType(1);
@@ -344,9 +345,11 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
         if (task.getReleaseRemark() != null){
             taskDesc.setText(task.getReleaseRemark().toString());
         }
-        taskTemplates.setText("任务反馈项（不可编辑）");
-        taskTemplates.setClickable(false);
-
-
+        if (task.getItemList() != null && task.getItemList().size() > 0){
+            taskTemplates.setText("任务反馈项（已添加）");
+            feedbackJSON = JSON.toJSONString(task.getItemList());
+        }else {
+            taskTemplates.setText("任务反馈项（未添加）");
+        }
     }
 }

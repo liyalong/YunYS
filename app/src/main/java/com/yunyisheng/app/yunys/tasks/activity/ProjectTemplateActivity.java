@@ -126,7 +126,7 @@ public class ProjectTemplateActivity extends BaseActivity {
                 JSONArray model = object.getJSONArray("modelArray");
                 for (int j=0;j<model.length();j++){
                     ChildBean childBean=new ChildBean();
-                    String string1 = model.get(i).toString();
+                    String string1 = model.get(j).toString();
                     org.json.JSONObject modelobject= new JSONObject(string1);
                     String dynamicTypeName = modelobject.getString("dynamic_type_name");
                     int index = modelobject.getInt("index");

@@ -50,7 +50,7 @@ public class CreateDeviceTaskPresent extends XPresent<CreateDeviceTaskAcitvity> 
         LoadingDialog.show(getV());
         Api.taskService().updateReleaseTask(task.getProjectId(),task.getReleaseId(), String.valueOf(task.getReleaseTaskType()),
                 task.getReleaseName(),task.getReleaseRemark(),task.getReleaseBegint(),task.getReleaseEndt(),
-                task.getListStr(),task.getReleaseBaseformId(),task.getEquipmentId(),task.getFeedbackBacknum(),task.getUserlist())
+                task.getListStr(),task.getReleaseBaseformId(),task.getEquipmentId(),task.getFeedbackBacknum(),task.getUserlist(),task.getFeedbackJSON())
                 .compose(XApi.<BaseModel>getApiTransformer())
                 .compose(XApi.<BaseModel>getScheduler())
                 .compose(getV().<BaseModel>bindToLifecycle())

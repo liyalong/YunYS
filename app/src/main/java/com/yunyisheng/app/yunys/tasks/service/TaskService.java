@@ -248,7 +248,8 @@ public interface TaskService {
                                           @Field("releaseBaseformId") String releaseBaseformId,
                                           @Field("equipmentId") String equipmentId,
                                           @Field("feedbackBacknum") String feedbackBacknum,
-                                          @Field("userList") String userlist);
+                                          @Field("userList") String userlist,
+                                          @Field("feedbackItemStr") String feedbackJSON);
     /**
      * 保存周期任务
      * @param projectId
