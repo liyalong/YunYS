@@ -188,7 +188,12 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
             case R.id.task_templates:
                 Intent intent4 = new Intent(context, ProjectTemplateActivity.class);
                 if (feedbackJSON != null){
-                    intent4.putExtra("fankuijson",feedbackJSON);
+                    if (releaseTaskId == null){
+                        intent4.putExtra("fankuijson_create",feedbackJSON);
+                    }else {
+                        intent4.putExtra("fankuijson_edit",feedbackJSON);
+                    }
+
                 }
                 startActivityForResult(intent4,TEMPLATEREQUESTCODE);
                 break;
