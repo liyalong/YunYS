@@ -9,12 +9,16 @@ import com.alibaba.fastjson.JSON;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
 import com.yunyisheng.app.yunys.main.model.WorkerBean;
+import com.yunyisheng.app.yunys.project.bean.FeedbackJSONBean;
+import com.yunyisheng.app.yunys.schedule.model.RenWuFanKuiDetailBean;
 import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.ProjectTemplateActivity;
 import com.yunyisheng.app.yunys.tasks.activity.RadioSelectUserActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectActivity;
 import com.yunyisheng.app.yunys.tasks.activity.SelectProjectDeviceActivity;
+import com.yunyisheng.app.yunys.tasks.bean.FeedBackItemBean;
 import com.yunyisheng.app.yunys.tasks.bean.UpdateTemporaryTaskBean;
+import com.yunyisheng.app.yunys.tasks.model.CycleTaskDetailModel;
 import com.yunyisheng.app.yunys.tasks.model.ReleaseTaskDetailModel;
 import com.yunyisheng.app.yunys.tasks.present.DeviceTemporaryTaskPresent;
 import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
@@ -347,8 +351,27 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
         }
         if (task.getItemList() != null && task.getItemList().size() > 0){
             taskTemplates.setText("任务反馈项（已添加）");
-            feedbackJSON = JSON.toJSONString(task.getItemList()).replaceAll("modelArray","model");
-
+            try {
+                List<CycleTaskDetailModel.taskDetail.FeedbackItemBean> itemlist = task.getItemList();
+                List<FeedbackJSONBean> feedbackJSONBeans = new ArrayList<>();
+                for (int i=0;i<itemlist.size();i++){
+                    FeedbackJSONBean feedbackJSONBean = new FeedbackJSONBean();
+                    feedbackJSONBean.setFeedbackName(itemlist.get(i).getFeedbackName());
+                    feedbackJSONBean.setFeedbackType(itemlist.get(i).getFeedbackType());
+                    List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> modelArray = itemlist.get(i).getModelArray();
+                    List<FeedbackJSONBean.BackModel> modelList = new ArrayList<>();
+                    for(int j=0;j<modelArray.size();j++){
+                        FeedbackJSONBean.BackModel model = new FeedbackJSONBean.BackModel();
+                        model.setDynamicTypeName(modelArray.get(j).getDynamic_type_name());
+                        model.setIndex(modelArray.get(j).getIndex());
+                        modelList.add(model);
+                    }
+                    feedbackJSONBeans.add(feedbackJSONBean);
+                }
+                feedbackJSON = JSON.toJSONString(feedbackJSONBeans);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }else {
             taskTemplates.setText("任务反馈项（未添加）");
         }
