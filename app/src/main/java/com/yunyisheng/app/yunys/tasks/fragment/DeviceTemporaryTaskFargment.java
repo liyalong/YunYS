@@ -367,6 +367,7 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
                         modelList.add(model);
                     }
                     feedbackJSONBeans.add(feedbackJSONBean);
+                    feedbackJSONBean.setModel(modelList);
                 }
                 feedbackJSON = JSON.toJSONString(feedbackJSONBeans);
             }catch (Exception e){
