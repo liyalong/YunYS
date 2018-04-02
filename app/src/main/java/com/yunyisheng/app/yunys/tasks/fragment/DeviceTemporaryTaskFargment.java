@@ -188,11 +188,11 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
             case R.id.task_templates:
                 Intent intent4 = new Intent(context, ProjectTemplateActivity.class);
                 if (feedbackJSON != null){
-                    if (releaseTaskId == null){
+//                    if (releaseTaskId == null){
                         intent4.putExtra("fankuijson_create",feedbackJSON);
-                    }else {
-                        intent4.putExtra("fankuijson_edit",feedbackJSON);
-                    }
+//                    }else {
+//                        intent4.putExtra("fankuijson_edit",feedbackJSON);
+//                    }
 
                 }
                 startActivityForResult(intent4,TEMPLATEREQUESTCODE);
@@ -347,7 +347,8 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
         }
         if (task.getItemList() != null && task.getItemList().size() > 0){
             taskTemplates.setText("任务反馈项（已添加）");
-            feedbackJSON = JSON.toJSONString(task.getItemList());
+            feedbackJSON = JSON.toJSONString(task.getItemList()).replaceAll("modelArray","model");
+
         }else {
             taskTemplates.setText("任务反馈项（未添加）");
         }
