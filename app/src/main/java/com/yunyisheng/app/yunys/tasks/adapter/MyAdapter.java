@@ -72,9 +72,9 @@ public class MyAdapter extends BaseAdapter {
         if (viewHolder.ed_fankui.getTag() instanceof TextWatcher) {
             viewHolder.ed_fankui.removeTextChangedListener((TextWatcher) viewHolder.ed_fankui.getTag());
         }
-        if (viewHolder.ed_wenzi.getTag() instanceof TextWatcher) {
-            viewHolder.ed_wenzi.removeTextChangedListener((TextWatcher) viewHolder.ed_wenzi.getTag());
-        }
+//        if (viewHolder.ed_wenzi.getTag() instanceof TextWatcher) {
+//            viewHolder.ed_wenzi.removeTextChangedListener((TextWatcher) viewHolder.ed_wenzi.getTag());
+//        }
         //如果spinner数据为空给spinner填充数据
         if (viewHolder.sp_type.getCount() == 0) {
             SelectFankuiTypeSpinnerAdapter spadapter=new SelectFankuiTypeSpinnerAdapter(context);
@@ -143,48 +143,48 @@ public class MyAdapter extends BaseAdapter {
                 }
             }
         };
-        TextWatcher wenziwatcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-//                if (TextUtils.isEmpty(s)) {
-//                    strList.get(position).setWeniz("");
-//                } else {
-//                    strList.get(position).setWeniz(s.toString());
-//                }
-            }
-        };
+//        TextWatcher wenziwatcher = new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+////                if (TextUtils.isEmpty(s)) {
+////                    strList.get(position).setWeniz("");
+////                } else {
+////                    strList.get(position).setWeniz(s.toString());
+////                }
+//            }
+//        };
         viewHolder.ed_fankui.addTextChangedListener(fankuiwatcher);
         viewHolder.ed_fankui.setTag(fankuiwatcher);
-        viewHolder.ed_wenzi.addTextChangedListener(wenziwatcher);
-        viewHolder.ed_wenzi.setTag(wenziwatcher);
+//        viewHolder.ed_wenzi.addTextChangedListener(wenziwatcher);
+//        viewHolder.ed_wenzi.setTag(wenziwatcher);
         return convertView;
     }
 
     class ViewHolder {
-        EditText ed_fankui, ed_wenzi;
+        EditText ed_fankui;
         ImageView img_add,img_delete_fankui;
         Spinner sp_type;
         TextView te_fankuisize;
-        LinearLayout line_item, line_beixuan;
-        RelativeLayout line_select_type;
+        LinearLayout line_item;
+        RelativeLayout line_select_type,line_beixuan;
         MyListView myListView;
 
         public ViewHolder(View view) {
             sp_type = (Spinner) view.findViewById(R.id.sp_type);
             ed_fankui = (EditText) view.findViewById(R.id.ed_fankui);
-            ed_wenzi = (EditText) view.findViewById(R.id.ed_wenzi);
+//            ed_wenzi = (EditText) view.findViewById(R.id.ed_wenzi);
             img_add = (ImageView) view.findViewById(R.id.img_add);
             te_fankuisize=(TextView) view.findViewById(R.id.te_fankuisize);
             img_delete_fankui=(ImageView)view.findViewById(R.id.img_delete_fankui);
-            line_beixuan = (LinearLayout) view.findViewById(R.id.line_beixuan);
+            line_beixuan = (RelativeLayout) view.findViewById(R.id.line_beixuan);
             line_select_type = (RelativeLayout) view.findViewById(R.id.line_select_type);
             line_item = (LinearLayout) view.findViewById(R.id.line_item);
             myListView = (MyListView) view.findViewById(R.id.lv_small_item);

@@ -110,7 +110,7 @@
             android:src="@mipmap/icon_right" />
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/line_beixuan"
         android:layout_width="match_parent"
         android:layout_height="@dimen/distance_47"
@@ -125,25 +125,14 @@
             android:textColor="@color/color_666"
             android:textSize="@dimen/distance_14" />
 
-        <EditText
-            android:id="@+id/ed_wenzi"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center|right"
-            android:hint="@string/field_desc"
-            android:textColor="@color/color_333"
-            android:maxLength="50"
-            android:background="@null"
-            android:textColorHint="@color/color_666"
-            android:textSize="@dimen/distance_14" />
-
         <ImageView
             android:id="@+id/img_add"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
             android:src="@mipmap/icon_field_add" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <com.yunyisheng.app.yunys.utils.MyListView
         android:id="@+id/lv_small_item"
