@@ -213,47 +213,49 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
                 listBean.setWorkerBeanList(workerlist);
                 workerbeanlist.add(listBean);
             }
-            JSONArray subdivision = object1.getJSONArray("subdivision");
-            if (subdivision.length() > 0) {
+            if (!object1.isNull("subdivision")) {
+                JSONArray subdivision = object1.getJSONArray("subdivision");
+                if (subdivision.length() > 0) {
 
-                for (int j = 0; j < subdivision.length(); j++) {
-                    List<WorkerBean> workerlist2 = new ArrayList<>();
-                    WorkerListBean listBean2 = new WorkerListBean();
-                    JSONObject subdivisionobject = new JSONObject(subdivision.get(j).toString());
-                    String subdivisionname = subdivisionobject.getString("text");
-                    listBean2.setGroupname(subdivisionname);
-                    JSONArray users1 = subdivisionobject.getJSONArray("users");
-                    if (users1.length() > 0) {
-                        for (int i = 0; i < users1.length(); i++) {
-                            WorkerBean workerBean = new WorkerBean();
-                            JSONObject usersobject = new JSONObject(users1.get(i).toString());
-                            int userId = usersobject.getInt("userId");
-                            String name = usersobject.getString("name");
-                            String userMailbox = usersobject.getString("userMailbox");
-                            String userPhone = usersobject.getString("userPhone");
-                            String userSex = usersobject.getString("userSex");
-                            String icon = usersobject.getString("icon");
-                            String userJobTitle = usersobject.getString("userJobTitle");
-                            workerBean.setUserJobTitle(userJobTitle);
-                            workerBean.setIcon(icon);
-                            workerBean.setName(name);
-                            workerBean.setUserId(userId);
-                            workerBean.setEamil(userMailbox);
-                            workerBean.setSex(userSex);
-                            workerBean.setUserPhone(userPhone);
-                            workerlist2.add(workerBean);
+                    for (int j = 0; j < subdivision.length(); j++) {
+                        List<WorkerBean> workerlist2 = new ArrayList<>();
+                        WorkerListBean listBean2 = new WorkerListBean();
+                        JSONObject subdivisionobject = new JSONObject(subdivision.get(j).toString());
+                        String subdivisionname = subdivisionobject.getString("text");
+                        listBean2.setGroupname(subdivisionname);
+                        JSONArray users1 = subdivisionobject.getJSONArray("users");
+                        if (users1.length() > 0) {
+                            for (int i = 0; i < users1.length(); i++) {
+                                WorkerBean workerBean = new WorkerBean();
+                                JSONObject usersobject = new JSONObject(users1.get(i).toString());
+                                int userId = usersobject.getInt("userId");
+                                String name = usersobject.getString("name");
+                                String userMailbox = usersobject.getString("userMailbox");
+                                String userPhone = usersobject.getString("userPhone");
+                                String userSex = usersobject.getString("userSex");
+                                String icon = usersobject.getString("icon");
+                                String userJobTitle = usersobject.getString("userJobTitle");
+                                workerBean.setUserJobTitle(userJobTitle);
+                                workerBean.setIcon(icon);
+                                workerBean.setName(name);
+                                workerBean.setUserId(userId);
+                                workerBean.setEamil(userMailbox);
+                                workerBean.setSex(userSex);
+                                workerBean.setUserPhone(userPhone);
+                                workerlist2.add(workerBean);
+                            }
+                            listBean2.setWorkerBeanList(workerlist2);
                         }
-                        listBean2.setWorkerBeanList(workerlist2);
-                    }
-                    workerbeanlist.add(listBean2);
-                    if (!subdivisionobject.isNull("subdivision")) {
-                        JSONArray subdivisionarray = subdivisionobject.getJSONArray("subdivision");
-                        if (subdivisionarray.length() > 0) {
-                            getChildBumen(subdivisionarray);
+                        workerbeanlist.add(listBean2);
+                        if (!subdivisionobject.isNull("subdivision")) {
+                            JSONArray subdivisionarray = subdivisionobject.getJSONArray("subdivision");
+                            if (subdivisionarray.length() > 0) {
+                                getChildBumen(subdivisionarray);
+                            }
                         }
                     }
+
                 }
-
             }
             if (workerbeanlist.size()>0) {
                 MaillistExpenableAdapter adapter = new MaillistExpenableAdapter(MailListActivity.this, workerbeanlist);
