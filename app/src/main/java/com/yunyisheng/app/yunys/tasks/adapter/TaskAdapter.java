@@ -63,8 +63,7 @@ public class TaskAdapter extends SimpleListAdapter<TaskBean, TaskAdapter.ViewHol
             }
 
         }else if(SELECT_TYPE == 2 || SELECT_TYPE == 9){
-            //待认领任务设置待认领状态隐藏，认领人信息隐藏
-            //待完成任务状态，设置待认领状态隐藏,认领人信息隐藏
+            //待完成任务状态，设置待认领状态隐藏
             if (String.valueOf(thisUserId) == item.getTaskUserId()){
                 holder.taskDoUserInfo.setVisibility(View.GONE);
                 holder.takeDoUser.setVisibility(View.GONE);
@@ -111,6 +110,15 @@ public class TaskAdapter extends SimpleListAdapter<TaskBean, TaskAdapter.ViewHol
                 holder.taskBtn.setBackground(context.getResources().getDrawable(R.mipmap.button_cz));
                 holder.taskBtn.setTag(position);
                 holder.taskBtn.setOnClickListener(this);
+                if (item.getTaskStat() == 3){
+                    holder.taskStat.setVisibility(View.VISIBLE);
+                    holder.taskBtn.setEnabled(false);
+                    holder.taskBtn.setBackgroundColor(context.getResources().getColor(R.color.color_c8c8c8));
+                }else {
+                    holder.taskStat.setVisibility(View.GONE);
+                    holder.taskBtn.setEnabled(true);
+                    holder.taskBtn.setBackground(context.getResources().getDrawable(R.mipmap.button_cz));
+                }
             }else {
                 holder.taskBtn.setEnabled(false);
                 holder.taskBtn.setBackgroundColor(context.getResources().getColor(R.color.color_c8c8c8));
@@ -119,15 +127,7 @@ public class TaskAdapter extends SimpleListAdapter<TaskBean, TaskAdapter.ViewHol
             holder.taskBtn.setTag(position);
             holder.taskBtn.setOnClickListener(this);
         }
-        if (item.getTaskStat() == 3){
-            holder.taskStat.setVisibility(View.VISIBLE);
-            holder.taskBtn.setEnabled(false);
-            holder.taskBtn.setBackgroundColor(context.getResources().getColor(R.color.color_c8c8c8));
-        }else {
-            holder.taskStat.setVisibility(View.GONE);
-            holder.taskBtn.setEnabled(true);
-            holder.taskBtn.setBackground(context.getResources().getDrawable(R.mipmap.button_cz));
-        }
+
 
 
     }
