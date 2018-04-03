@@ -284,7 +284,7 @@
     <string name="device_plc_status">P</string>
     <!-- 报警规则状态 -->
     <string name="alarm_rules_status_1">正常</string>
-    <string name="alarm_rules_status_2"></string>
+    <string name="alarm_rules_status_2">禁用</string>
     <!-- 报警等级 -->
     <string name="alarm_rules_level_1">普通</string>
     <string name="alarm_rules_level_2">轻度</string>
