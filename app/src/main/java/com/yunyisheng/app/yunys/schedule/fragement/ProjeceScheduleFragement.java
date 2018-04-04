@@ -165,7 +165,7 @@ public class ProjeceScheduleFragement extends BaseFragement<ProjectSchedulePrese
     public void onEvent(TaskMessageEvent taskMessageEvent) {
         Log.d("cylog", "receive it");
         String position = taskMessageEvent.getPosition();
-        if (position.equals("updateOK")){
+        if (position.equals("updateOK")) {
             getNodateSchedule();
         }
     }
@@ -187,12 +187,12 @@ public class ProjeceScheduleFragement extends BaseFragement<ProjectSchedulePrese
             if (pageindex == 1) {
                 int total = myScheduleBean.getRespBody().getTotal();
                 projectadapter = new TaskAdapter(mContext, projectschedulelist);
-                HeaderAndFooterWrapper headerAndFooterWrapper=new HeaderAndFooterWrapper(projectadapter);
-                View view=LayoutInflater.from(mContext).inflate(R.layout.recycle_headview,null);
-                TextView te_columntitle=(TextView) view.findViewById(R.id.te_columntitle);
+                HeaderAndFooterWrapper headerAndFooterWrapper = new HeaderAndFooterWrapper(projectadapter);
+                View view = LayoutInflater.from(mContext).inflate(R.layout.recycle_headview, null);
+                TextView te_columntitle = (TextView) view.findViewById(R.id.te_columntitle);
                 te_columntitle.setText("项目日程");
-                TextView te_columnsize=(TextView) view.findViewById(R.id.te_columnsize);
-                te_columnsize.setText("("+total+"条)");
+                TextView te_columnsize = (TextView) view.findViewById(R.id.te_columnsize);
+                te_columnsize.setText("(" + total + "条)");
                 headerAndFooterWrapper.addHeaderView(view);
                 rvToDoList.setAdapter(headerAndFooterWrapper);
             } else {
@@ -243,6 +243,11 @@ public class ProjeceScheduleFragement extends BaseFragement<ProjectSchedulePrese
             isfirst = false;
             calendarAdapter.notifyDataChanged();
         }
+    }
+
+    public void setClearNodate() {
+        markData.clear();
+        calendarAdapter.setMarkData(markData);
     }
 
     private class WindowsReceiver extends BroadcastReceiver {

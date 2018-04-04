@@ -39,6 +39,7 @@ public class ProjectSchedulePresent extends XPresent<ProjeceScheduleFragement> {
                             getV().getProjectNoScheduleResultList(scheduleNoSizeBean);
                         } else {
                             ToastUtils.showToast(scheduleNoSizeBean.getRespMsg());
+                            getV().setClearNodate();
                         }
                     }
 
