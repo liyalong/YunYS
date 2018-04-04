@@ -45,8 +45,8 @@ public class PublishNoticeListAdapter extends SimpleListAdapter<SendNoticeBean.L
         holder.teNoticedetail.setText(listBean.getContent());
         String readStatistic=listBean.getReadStatistic();
         String[] strarray=readStatistic.split("[/]");
-        holder.teReadedsize.setText("已读"+strarray[0]);
-        holder.teNoreadsize.setText("未读"+strarray[1]);
+        holder.teReadedsize.setText("已读："+strarray[0]);
+        holder.teNoreadsize.setText("未读："+strarray[1]);
     }
 
 

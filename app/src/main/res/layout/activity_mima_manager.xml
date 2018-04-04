@@ -74,7 +74,10 @@
                 android:textColorHint="@color/color_999"
                 android:textSize="@dimen/distance_14" />
         </RelativeLayout>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_1"
+            android:background="@color/color_e7" />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/distance_50"
