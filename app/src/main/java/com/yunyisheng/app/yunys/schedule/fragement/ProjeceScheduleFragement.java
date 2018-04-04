@@ -44,6 +44,7 @@ import com.yunyisheng.app.yunys.tasks.activity.CreateProcessTaskAcitvity;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -184,8 +185,16 @@ public class ProjeceScheduleFragement extends BaseFragement<ProjectSchedulePrese
             imgQuesheng2.setVisibility(View.GONE);
             projectschedulelist.addAll(myScheduleBean.getRespBody().getDataList());
             if (pageindex == 1) {
+                int total = myScheduleBean.getRespBody().getTotal();
                 projectadapter = new TaskAdapter(mContext, projectschedulelist);
-                rvToDoList.setAdapter(projectadapter);
+                HeaderAndFooterWrapper headerAndFooterWrapper=new HeaderAndFooterWrapper(projectadapter);
+                View view=LayoutInflater.from(mContext).inflate(R.layout.recycle_headview,null);
+                TextView te_columntitle=(TextView) view.findViewById(R.id.te_columntitle);
+                te_columntitle.setText("项目日程");
+                TextView te_columnsize=(TextView) view.findViewById(R.id.te_columnsize);
+                te_columnsize.setText("("+total+"条)");
+                headerAndFooterWrapper.addHeaderView(view);
+                rvToDoList.setAdapter(headerAndFooterWrapper);
             } else {
                 projectadapter.setData(projectschedulelist);
             }

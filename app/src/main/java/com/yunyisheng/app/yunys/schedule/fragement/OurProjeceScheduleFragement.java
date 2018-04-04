@@ -43,6 +43,7 @@ import com.yunyisheng.app.yunys.tasks.activity.CreateProcessTaskAcitvity;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -165,8 +166,14 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
             imgQuesheng2.setVisibility(View.GONE);
             list.addAll(myScheduleBean.getRespBody().getDataList());
             if (pageindex == 1) {
+                int total = myScheduleBean.getRespBody().getTotal();
                 mineadapter = new TaskAdapter(mContext, list);
-                rvToDoList.setAdapter(mineadapter);
+                HeaderAndFooterWrapper headerAndFooterWrapper=new HeaderAndFooterWrapper(mineadapter);
+                View view=LayoutInflater.from(mContext).inflate(R.layout.recycle_headview,null);
+                TextView te_columnsize=(TextView) view.findViewById(R.id.te_columnsize);
+                te_columnsize.setText("("+total+"条)");
+                headerAndFooterWrapper.addHeaderView(view);
+                rvToDoList.setAdapter(headerAndFooterWrapper);
             } else {
                 mineadapter.setData(list);
             }
