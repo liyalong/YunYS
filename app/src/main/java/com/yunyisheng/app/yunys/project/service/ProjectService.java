@@ -49,7 +49,7 @@ public interface ProjectService {
      */
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
-    @POST("project/list/myJoin")
+    @POST("project/list/my")
     Flowable<ProjectListModel> getMyProjectList(@Field("pageNum") int pageNum,
                                                 @Field("pageSize") int pageSize,
                                                 @Field("projectName") String projectName,
