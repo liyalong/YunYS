@@ -14,6 +14,15 @@ public class DeviceBean implements Serializable{
     private String equipmentCode;
     private Integer isWarning;
     private int bindPlcNum;
+    private String equipmentUnicode;
+
+    public String getEquipmentUnicode() {
+        return equipmentUnicode;
+    }
+
+    public void setEquipmentUnicode(String equipmentUnicode) {
+        this.equipmentUnicode = equipmentUnicode;
+    }
 
     public void setBindPlcNum(int bindPlcNum) {
         this.bindPlcNum = bindPlcNum;
