@@ -144,7 +144,7 @@ public class SelectPeopleExpenableAdapter extends BaseExpandableListAdapter {
             if (workerBeanList!=null&&workerBeanList.size()>0) {
                 for (int j = 0; j < workerBeanList.size(); j++) {
                     WorkerBean workerBean = workerBeanList.get(j);
-                    if (workerBean.isIscheckchild()) {
+                    if (workerBean.isIscheckchild() && !checkIsSelected(selectpeople,workerBean)) {
                         selectpeople.add(workerBean);
                     }
                 }
@@ -152,7 +152,18 @@ public class SelectPeopleExpenableAdapter extends BaseExpandableListAdapter {
         }
         return selectpeople;
     }
-
+    public Boolean checkIsSelected(List<WorkerBean> lists,WorkerBean item){
+            Boolean in = false;
+           if (lists.size() > 0){
+               for (int i=0;i<lists.size();i++){
+                   if (lists.get(i).getUserId() == item.getUserId()){
+                     in = true;
+                     continue;
+                   }
+               }
+           }
+           return in;
+    }
     public void setOnceSelect(WorkerBean workerBean){
         int userId = workerBean.getUserId();
         boolean ischeckchild = workerBean.isIscheckchild();
@@ -266,6 +277,11 @@ public class SelectPeopleExpenableAdapter extends BaseExpandableListAdapter {
             ck_select.setBackgroundResource(R.mipmap.select_yes);
         } else {
             ck_select.setBackgroundResource(R.mipmap.select_no);
+        }
+        if (checkIsSelected(selectpeople,workerBean)){
+             ck_select.setBackgroundResource(R.mipmap.select_yes);
+        }else {
+              ck_select.setBackgroundResource(R.mipmap.select_no);
         }
         img_call_phone.setOnClickListener(new View.OnClickListener() {
             @Override

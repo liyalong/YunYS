@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys.project.activity;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.support.v4.widget.NestedScrollView;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -103,7 +104,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
     @BindView(R.id.back_info_list)
     ListView backInfoList;
     @BindView(R.id.task_detail_info)
-    ScrollView taskDetailInfo;
+    NestedScrollView taskDetailInfo;
     private String taskId;
     private int userId;
     private String taskType;
@@ -395,9 +396,12 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                     taskStatus.setText(R.string.task_status_1);
                     doUserLayout.setVisibility(View.GONE);
                     claimTask.setVisibility(View.VISIBLE);
+                    doTask.setVisibility(View.GONE);
+                    backTask.setVisibility(View.GONE);
                 }else if (task.getTaskStat() == 1){
                     taskStatus.setText(R.string.task_status_2);
                     doUser.setText(task.getTaskUserName());
+                    claimTask.setVisibility(View.GONE);
                     //当前登录人和任务认领人相同时显示执行和回退按钮
                     if (isMyTask(task.getTaskUserId())) {
                         caozuoBox.setVisibility(View.VISIBLE);
@@ -415,6 +419,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                     caozuoBox.setVisibility(View.VISIBLE);
                     lookTaskBackInfo.setVisibility(View.VISIBLE);
                     doTask.setVisibility(View.GONE);
+                    claimTask.setVisibility(View.GONE);
                     backTask.setVisibility(View.GONE);
                 }
                 break;

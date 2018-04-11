@@ -1,10 +1,19 @@
 package com.yunyisheng.app.yunys.login.activity;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -16,6 +25,7 @@ import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.present.RegisterPresent;
 import com.yunyisheng.app.yunys.utils.RegularUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+import com.yunyisheng.app.yunys.utils.addressPicker.AddressPickerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,6 +95,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
         switch (v.getId()) {
             case R.id.line_address:
                 selectAddress();
+//                showAddressDialog(RegisterActivity.this);
                 break;
             case R.id.toLogin:
                 toLoginView();
@@ -94,7 +105,28 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
                 break;
         }
     }
-
+    /**
+     * 显示地址选择的dialog
+     */
+    private void showAddressDialog(final Activity activity) {
+        final Dialog addressSelect = new Dialog(activity,R.style.dialog_bottom_full);
+        addressSelect.setCanceledOnTouchOutside(true);
+        addressSelect.setCancelable(true);
+        Window window = addressSelect.getWindow();
+        window.setGravity(Gravity.BOTTOM);
+        View rootView = View.inflate(activity, R.layout.pop_address_picker, null);
+        AddressPickerView addressView = rootView.findViewById(R.id.apvAddress);
+        addressView.setOnAddressPickerSure(new AddressPickerView.OnAddressPickerSureListener() {
+            @Override
+            public void onSureClick(String address, Integer id, String name, Integer pid) {
+                edCompanyAddress.setText(address);
+                addressSelect.hide();
+            }
+        });
+        window.setContentView(rootView);
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);//设置横向全屏
+        addressSelect.show();
+    }
     private void selectAddress() {
         CityPickerView mCityPickerView = new CityPickerView(this);
         // 设置点击外部是否消失
@@ -209,5 +241,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
             toLoginView();
         }
     }
+
 
 }

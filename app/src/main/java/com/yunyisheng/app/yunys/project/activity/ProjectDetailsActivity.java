@@ -62,7 +62,7 @@ public class ProjectDetailsActivity extends BaseActivity {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),fragments,mTitle);
         projectDetailViewpage.setAdapter(viewPagerAdapter);
         detailLayout.setupWithViewPager(projectDetailViewpage);
-        setIndicator(context, detailLayout, 10, 10);
+        setIndicator(context, detailLayout, 5, 5);
     }
 
     @Override

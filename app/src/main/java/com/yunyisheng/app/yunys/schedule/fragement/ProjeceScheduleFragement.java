@@ -108,8 +108,7 @@ public class ProjeceScheduleFragement extends BaseFragement<ProjectSchedulePrese
     private boolean isfirst = true;
     private String firstMonthDay;
     private String lastMonthDay;
-    private HashMap<String, String> markData;
-
+    private HashMap<String, String> markData = new HashMap<>();
 
     @Override
     public void initView() {
@@ -221,7 +220,6 @@ public class ProjeceScheduleFragement extends BaseFragement<ProjectSchedulePrese
 
     public void getProjectNoScheduleResultList(ScheduleNoSizeBean scheduleNoSizeBean) {
         List<ScheduleNoSizeBean.RespBodyBean> respBody = scheduleNoSizeBean.getRespBody();
-        markData = new HashMap<>();
         markData.clear();
         DateFormat df = new SimpleDateFormat("y-M-d");
         if (respBody.size() > 0) {
