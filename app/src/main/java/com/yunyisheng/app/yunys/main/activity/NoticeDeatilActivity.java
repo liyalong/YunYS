@@ -29,6 +29,8 @@ import com.yunyisheng.app.yunys.utils.CallOtherOpeanFile;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.FileCache;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +65,9 @@ public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
     RelativeLayout rlAll;
     @BindView(R.id.img_quesheng)
     ImageView imgQuesheng;
+    @BindView(R.id.te_noticerecevice)
+    TextView teNoticerecevice;
+
     private int noticeid;
     private int type;
     List<AnnexBean> annexList = new ArrayList<>();
@@ -156,6 +161,14 @@ public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
                 !noticeDetailBean.getRespBody().getCreateUserName().equals("") &&
                 !noticeDetailBean.getRespBody().getCreateUserName().equals("null")) {
             teNoticesender.setText("发布人：" + noticeDetailBean.getRespBody().getCreateUserName());
+        }
+        List<NoticeDetailBean.RespBodyBean.ReceiverListBean> receiverListBeanList = noticeDetailBean.getRespBody().getReceiverList();
+        if (receiverListBeanList.size() > 0){
+            String receviers = "接收人：";
+            for (int i=0;i<receiverListBeanList.size();i++){
+                receviers += receiverListBeanList.get(i).getReceiverName()+"  ";
+            }
+            teNoticerecevice.setText(receviers);
         }
         teNoticetime.setText(noticeDetailBean.getRespBody().getCreateTime());
         List<AnnexBean> allannexList = noticeDetailBean.getRespBody().getAnnexList();

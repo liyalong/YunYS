@@ -92,6 +92,18 @@
                 android:layout_below="@+id/rl"
                 />
             <TextView
+                android:id="@+id/te_noticerecevice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_666"
+                android:textSize="@dimen/distance_14"
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:layout_marginLeft="@dimen/distance_10"
+                android:layout_marginTop="@dimen/distance_5"
+                android:layout_below="@+id/te_noticesender"
+                />
+            <TextView
                 android:id="@+id/te_noticedeatils"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,7 +111,7 @@
                 android:textColor="@color/color_666"
                 android:textSize="@dimen/distance_14"
                 android:layout_marginLeft="@dimen/distance_10"
-                android:layout_below="@+id/te_noticesender"
+                android:layout_below="@+id/te_noticerecevice"
                 />
             <View
                 android:id="@+id/view"
