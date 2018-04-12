@@ -6,14 +6,17 @@ import android.content.Intent;
 import android.support.v4.widget.NestedScrollView;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -282,6 +285,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                 backInfoBox.setVisibility(View.VISIBLE);
                 TaskBackListAdapter backAdapter = new TaskBackListAdapter(context,taskback);
                 backInfoList.setAdapter(backAdapter);
+                setListViewHeightBasedOnChildren(backInfoList);
             }
             //项目设备 显示对应的项目和设备名称
             if (task.getReleaseTaskType() == 1) {
@@ -540,5 +544,31 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
         }else {
             return false;
         }
+    }
+
+    /**
+     * 重新计算listview的高度
+     * @param listView
+     */
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        //获取ListView对应的Adapter
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = 0;
+        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {   //listAdapter.getCount()返回数据项的数目
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);  //计算子项View 的宽高
+            totalHeight += listItem.getMeasuredHeight();  //统计所有子项的总高度
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        //listView.getDividerHeight()获取子项间分隔符占用的高度
+        //params.height最后得到整个ListView完整显示需要的高度
+        listView.setLayoutParams(params);
     }
 }
