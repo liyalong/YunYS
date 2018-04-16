@@ -93,6 +93,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/distance_13"
                 android:textColor="@color/color_999"
+                android:maxLength="18"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:textSize="@dimen/distance_14" />
         </RelativeLayout>
 
