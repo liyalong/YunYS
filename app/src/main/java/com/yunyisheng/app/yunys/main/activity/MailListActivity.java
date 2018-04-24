@@ -184,6 +184,12 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
             workerbeanlist.clear();
             List<WorkerBean> workerlist = new ArrayList<>();
             JSONObject object = new JSONObject(fromworkBean);
+            Integer code = object.getInt("respCode");
+            String respMsg = object.getString("respMsg");
+            if (code == 1){
+                ToastUtils.showToast(respMsg);
+                return;
+            }
             JSONArray jsonArray = object.getJSONArray("list");
             WorkerListBean listBean = new WorkerListBean();
             JSONObject object1 = new JSONObject(jsonArray.get(0).toString());

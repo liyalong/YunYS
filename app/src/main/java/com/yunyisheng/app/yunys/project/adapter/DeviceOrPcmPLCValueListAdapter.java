@@ -87,7 +87,7 @@ public class DeviceOrPcmPLCValueListAdapter extends BaseExpandableListAdapter {
             plc_name.setText(childrenList.get(childPosition).getDetail());
         }
         if (childrenList.get(childPosition).getPropertyVal() != null && childrenList.get(childPosition).getPropertyVal() != ""){
-            plc_value.setText(childrenList.get(childPosition).getPropertyVal() + childrenList.get(childPosition).getUnits());
+            plc_value.setText(String.format("%.2f",Double.valueOf(childrenList.get(childPosition).getPropertyVal())) + childrenList.get(childPosition).getUnits());
         }else {
             plc_value.setText("无数据");
         }

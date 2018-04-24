@@ -178,7 +178,7 @@
                 android:layout_marginRight="@dimen/distance_10"
                 android:text="@string/seeall"
                 android:textColor="@color/color_999"
-                android:textSize="@dimen/distance_16" />
+                android:textSize="@dimen/distance_14" />
         </RelativeLayout>
 
         <View
