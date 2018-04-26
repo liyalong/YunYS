@@ -5,6 +5,7 @@ import com.yunyisheng.app.yunys.schedule.fragement.ProjeceScheduleFragement;
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 import com.yunyisheng.app.yunys.schedule.model.ScheduleNoSizeBean;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
+import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import cn.droidlover.xdroidmvp.mvp.XPresent;
@@ -38,7 +39,9 @@ public class ProjectSchedulePresent extends XPresent<ProjeceScheduleFragement> {
                         if (scheduleNoSizeBean.getRespCode() == 0) {
                             getV().getProjectNoScheduleResultList(scheduleNoSizeBean);
                         } else {
-                            ToastUtils.showToast(scheduleNoSizeBean.getRespMsg());
+                            if (getV().getFragmentPosition() == 1) {
+                                ToastUtils.showToast(scheduleNoSizeBean.getRespMsg());
+                            }
                             getV().setClearNodate();
                         }
                     }
@@ -67,7 +70,10 @@ public class ProjectSchedulePresent extends XPresent<ProjeceScheduleFragement> {
                         if (myScheduleBean.getRespCode() == 0) {
                             getV().getProjectResultList(myScheduleBean);
                         } else {
-                            ToastUtils.showToast(myScheduleBean.getRespMsg());
+                            LogUtils.i("fragmentPosition", String.valueOf(getV().getFragmentPosition()));
+                            if (getV().getFragmentPosition() == 1) {
+                                ToastUtils.showToast(myScheduleBean.getRespMsg());
+                            }
                         }
                     }
 

@@ -2,6 +2,7 @@ package com.yunyisheng.app.yunys.schedule.fragement;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -142,8 +143,10 @@ public class OurProjeceScheduleFragement extends BaseFragement<MySchedulePresent
         firstMonthDay = CommonUtils.getFirstMonthDay(time);
         lastMonthDay = CommonUtils.getTodayLastMonth();
         LogUtils.i("MonthDay", firstMonthDay + "====" + lastMonthDay);
+        ScheduleTaskFragement fragment = (ScheduleTaskFragement) getParentFragment();
         getP().getNoScheduleList(firstMonthDay, lastMonthDay, 1);
         getP().getMySchedulrList(pageindex, dayStartTime, dayEndTime);
+
     }
 
     //订阅方法，当接收到事件的时候，会调用该方法

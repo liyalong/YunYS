@@ -134,7 +134,7 @@ function createLineChart(instanceId,data){
                 for(var i=0;i<num;i++){
                     var lineName;
                     if(data[i].dateSources == 0){
-                     lineName = data[i].plcName;
+                     lineName = data[i].plcDetail;
                     }else{
                      lineName = data[i].projectName+data[i].formName+data[i].fieldName;
                     }

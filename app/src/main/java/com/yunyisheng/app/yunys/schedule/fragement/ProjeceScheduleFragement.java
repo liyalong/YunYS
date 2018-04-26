@@ -109,7 +109,7 @@ public class ProjeceScheduleFragement extends BaseFragement<ProjectSchedulePrese
     private String firstMonthDay;
     private String lastMonthDay;
     private HashMap<String, String> markData = new HashMap<>();
-
+    ScheduleTaskFragement fragement;
     @Override
     public void initView() {
         monthPager.setViewHeight(Utils.dpi2px(mContext, 270));
@@ -140,6 +140,8 @@ public class ProjeceScheduleFragement extends BaseFragement<ProjectSchedulePrese
         Date time = calendar.getTime();
         firstMonthDay = CommonUtils.getFirstMonthDay(time);
         lastMonthDay = CommonUtils.getTodayLastMonth();
+        fragement = (ScheduleTaskFragement) getParentFragment();
+
         LogUtils.i("MonthDay", firstMonthDay + "====" + lastMonthDay);
     }
 
@@ -170,6 +172,7 @@ public class ProjeceScheduleFragement extends BaseFragement<ProjectSchedulePrese
     }
 
     public void getNodateSchedule() {
+
         if (projectid != null && !projectid.equals("")) {
             getP().getProjectscheduleDatelist(firstMonthDay, lastMonthDay, projectid);
         }
@@ -211,7 +214,9 @@ public class ProjeceScheduleFragement extends BaseFragement<ProjectSchedulePrese
             }
         }
     }
-
+    public int getFragmentPosition(){
+        return fragement.getFragmentPosition();
+    }
     public void setProjimgBac() {
         rvToDoList.setVisibility(View.GONE);
         imgQuesheng2.setVisibility(View.VISIBLE);

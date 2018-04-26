@@ -61,7 +61,7 @@ public class ScheduleTaskFragement extends BaseFragement<SchedulrTaskPresent> {
     private ListView mScreenListView;
     private ProjeceScheduleFragement projeceScheduleFragement;
     private OurProjeceScheduleFragement ourProjeceScheduleFragement;
-
+    private int fragmentPosition = 0;
     @Override
     public void initView() {
         if (mTitleList.size() > 0) {
@@ -83,7 +83,10 @@ public class ScheduleTaskFragement extends BaseFragement<SchedulrTaskPresent> {
         vpTask.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                fragmentPosition = position;
+                if (position == 1){
+                    projeceScheduleFragement.getNodateSchedule();
+                }
             }
 
             @Override
@@ -106,7 +109,9 @@ public class ScheduleTaskFragement extends BaseFragement<SchedulrTaskPresent> {
             }
         });
     }
-
+    public int getFragmentPosition(){
+        return this.fragmentPosition;
+    }
     @Override
     public void initAfter() {
         getP().getMyProjectList();

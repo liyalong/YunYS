@@ -40,9 +40,18 @@ public class ReportListBean extends BaseModel {
         private String fieldName;
         private String formName;
         private String unitName;
+        private String plcDetail;
         private String dataTypeName;
         private int reportId;
         private List<DatasBean> datas;
+
+        public String getPlcDetail() {
+            return plcDetail;
+        }
+
+        public void setPlcDetail(String plcDetail) {
+            this.plcDetail = plcDetail;
+        }
 
         public String getDataTypeName() {
             return dataTypeName;
