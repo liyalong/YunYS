@@ -322,18 +322,16 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
      * @param task
      */
     public void initTaskBtn(ScheduleDetailBean.RespBodyBean.TaskBean task ,int fromPage) {
-
         switch (fromPage){
             case 1:
-                taskStatus.setText(R.string.task_status_1);
-                doUserLayout.setVisibility(View.GONE);
-                claimTask.setVisibility(View.VISIBLE);
-                break;
             case 2:
             case 4:
+            case 5:
                 if (task.getTaskStat() == 0) {
                     taskStatus.setText(R.string.task_status_1);
                     doUserLayout.setVisibility(View.GONE);
+                    doTask.setVisibility(View.GONE);
+                    backTask.setVisibility(View.GONE);
                     claimTask.setVisibility(View.VISIBLE);
                 }else if (task.getTaskStat() == 1){
                     taskStatus.setText(R.string.task_status_2);
@@ -343,6 +341,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                         caozuoBox.setVisibility(View.VISIBLE);
                         doTask.setVisibility(View.VISIBLE);
                         backTask.setVisibility(View.VISIBLE);
+                        claimTask.setVisibility(View.GONE);
                     }else {
                         caozuoBox.setVisibility(View.GONE);
                     }
@@ -356,6 +355,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                     lookTaskBackInfo.setVisibility(View.VISIBLE);
                     doTask.setVisibility(View.GONE);
                     backTask.setVisibility(View.GONE);
+                    claimTask.setVisibility(View.GONE);
                 }
                 break;
             case 3:
@@ -371,6 +371,9 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                         caozuoBox.setVisibility(View.VISIBLE);
                         doUserLayout.setVisibility(View.VISIBLE);
                         doUser.setText(task.getTaskUserName());
+                        doTask.setVisibility(View.VISIBLE);
+                        backTask.setVisibility(View.VISIBLE);
+                        claimTask.setVisibility(View.GONE);
                     }else {
                         caozuoBox.setVisibility(View.GONE);
                     }
@@ -383,6 +386,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                     lookTaskBackInfo.setVisibility(View.VISIBLE);
                     doTask.setVisibility(View.GONE);
                     backTask.setVisibility(View.GONE);
+                    claimTask.setVisibility(View.GONE);
 
                 }else if (task.getTaskStat() == 3){
                     taskStatus.setText(R.string.task_status_6);
@@ -395,38 +399,6 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
 //                doTask.setVisibility(View.VISIBLE);
 //                backTask.setVisibility(View.VISIBLE);
 //                break;
-            case 5:
-                if (task.getTaskStat() == 0) {
-                    taskStatus.setText(R.string.task_status_1);
-                    doUserLayout.setVisibility(View.GONE);
-                    claimTask.setVisibility(View.VISIBLE);
-                    doTask.setVisibility(View.GONE);
-                    backTask.setVisibility(View.GONE);
-                }else if (task.getTaskStat() == 1){
-                    taskStatus.setText(R.string.task_status_2);
-                    doUser.setText(task.getTaskUserName());
-                    claimTask.setVisibility(View.GONE);
-                    //当前登录人和任务认领人相同时显示执行和回退按钮
-                    if (isMyTask(task.getTaskUserId())) {
-                        caozuoBox.setVisibility(View.VISIBLE);
-                        doTask.setVisibility(View.VISIBLE);
-                        backTask.setVisibility(View.VISIBLE);
-                    }else {
-                        caozuoBox.setVisibility(View.GONE);
-                    }
-                }else if (task.getTaskStat() == 3){
-                    caozuoBox.setVisibility(View.GONE);
-                }else if (task.getTaskStat() == 2){
-                    taskStatus.setText(R.string.task_status_3);
-                    doUserLayout.setVisibility(View.VISIBLE);
-                    doUser.setText(task.getTaskUserName());
-                    caozuoBox.setVisibility(View.VISIBLE);
-                    lookTaskBackInfo.setVisibility(View.VISIBLE);
-                    doTask.setVisibility(View.GONE);
-                    claimTask.setVisibility(View.GONE);
-                    backTask.setVisibility(View.GONE);
-                }
-                break;
             case 6:
                 caozuoBox.setVisibility(View.GONE);
                 break;
