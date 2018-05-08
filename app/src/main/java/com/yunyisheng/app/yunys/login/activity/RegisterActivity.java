@@ -2,30 +2,34 @@ package com.yunyisheng.app.yunys.login.activity;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airsaid.pickerviewlibrary.CityPickerView;
 import com.airsaid.pickerviewlibrary.listener.OnSimpleCitySelectListener;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseModel;
+import com.yunyisheng.app.yunys.login.model.CityModel;
 import com.yunyisheng.app.yunys.login.present.RegisterPresent;
 import com.yunyisheng.app.yunys.utils.RegularUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
-import com.yunyisheng.app.yunys.utils.addressPicker.AddressPickerView;
+import com.yunyisheng.app.yunys.utils.addressPicker.AddressSelector;
+import com.yunyisheng.app.yunys.utils.addressPicker.CityInterface;
+import com.yunyisheng.app.yunys.utils.addressPicker.OnItemClickListener;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,6 +67,11 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
     private String enterpriseAddressDistrict;
     private String enterpriseAddressCity;
 
+    private ArrayList<CityModel.City> cities1 = new ArrayList<>();
+    private ArrayList<CityModel.City> cities2 = new ArrayList<>();
+    private ArrayList<CityModel.City> cities3 = new ArrayList<>();
+    private AddressSelector addressSelector;
+    private ArrayList<String> address = new ArrayList<>();
     @Override
     public void initView() {
         ButterKnife.bind(this);
@@ -94,8 +103,8 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
     public void widgetClick(View v) {
         switch (v.getId()) {
             case R.id.line_address:
-                selectAddress();
-//                showAddressDialog(RegisterActivity.this);
+//                selectAddress();
+                showAddressDialog(RegisterActivity.this);
                 break;
             case R.id.toLogin:
                 toLoginView();
@@ -115,12 +124,67 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
         Window window = addressSelect.getWindow();
         window.setGravity(Gravity.BOTTOM);
         View rootView = View.inflate(activity, R.layout.pop_address_picker, null);
-        AddressPickerView addressView = rootView.findViewById(R.id.apvAddress);
-        addressView.setOnAddressPickerSure(new AddressPickerView.OnAddressPickerSureListener() {
+        addressSelector = rootView.findViewById(R.id.apvAddress);
+        addressSelector.setTabAmount(3);
+        getP().getAddressByPid(0,0);
+        addressSelector.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onSureClick(String address, Integer id, String name, Integer pid) {
-                edCompanyAddress.setText(address);
-                addressSelect.hide();
+            public void itemClick(AddressSelector addressSelector, CityInterface city, int tabPosition) {
+                switch (tabPosition){
+                    case 0:
+                        Integer pid = city.getCityPid();
+                        getP().getAddressByPid(1,pid);
+                        address.clear();
+                        address.add(city.getCityName());
+                        enterpriseAddressProvince = String.valueOf(city.getCityPid());
+                        break;
+                    case 1:
+                        Integer pid2 = city.getCityPid();
+                        getP().getAddressByPid(2,pid2);
+                        if (address.size() > 1){
+                            address.remove(1);
+                        }
+                        address.add(city.getCityName());
+                        enterpriseAddressCity = String.valueOf(city.getCityPid());
+                        break;
+                    case 2:
+                        if (address.size() > 2){
+                            address.remove(2);
+                        }
+                        address.add(city.getCityName());
+//                        ToastUtils.showToast(String.valueOf(address));
+                        String allAddress = "";
+                        if (address.get(0).equals(address.get(1))){
+                            allAddress = address.get(0) + address.get(2);
+                        }else{
+                            allAddress = address.get(0) + address.get(1) + address.get(2);
+                        }
+                        edCompanyAddress.setText(allAddress);
+                        enterpriseAddressDistrict = String.valueOf(city.getCityPid());
+                        addressSelect.hide();
+                        break;
+                }
+            }
+        });
+        addressSelector.setOnTabSelectedListener(new AddressSelector.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(AddressSelector addressSelector, AddressSelector.Tab tab) {
+                switch (tab.getIndex()){
+                    case 0:
+                        addressSelector.setCities(cities1);
+                        break;
+                    case 1:
+                        addressSelector.setCities(cities2);
+                        break;
+                    case 2:
+                        addressSelector.setCities(cities3);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabReselected(AddressSelector addressSelector, AddressSelector.Tab tab) {
+
             }
         });
         window.setContentView(rootView);
@@ -243,4 +307,20 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
     }
 
 
+    public void setCities(Integer level, CityModel cityModel) {
+        switch (level){
+            case 0:
+                cities1 = (ArrayList<CityModel.City>) cityModel.getRespBody();
+                addressSelector.setCities(cities1);
+                break;
+            case 1:
+                cities2 = (ArrayList<CityModel.City>) cityModel.getRespBody();
+                addressSelector.setCities(cities2);
+                break;
+            case 2:
+                cities3 = (ArrayList<CityModel.City>) cityModel.getRespBody();
+                addressSelector.setCities(cities3);
+                break;
+        }
+    }
 }

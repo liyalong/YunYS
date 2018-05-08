@@ -1,6 +1,7 @@
 package com.yunyisheng.app.yunys.login.service;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
+import com.yunyisheng.app.yunys.login.model.CityModel;
 
 import io.reactivex.Flowable;
 import retrofit2.http.Field;
@@ -30,4 +31,7 @@ public interface CompanyService {
                                         @Field("enterprisePhone") String enterprisePhone,
                                         @Field("enterpriseMailbox") String enterpriseMailbox,
                                         @Field("description") String description);
+    @FormUrlEncoded
+    @POST("area/getSubArea")
+    Flowable<CityModel> getSubArea(@Field("pId") Integer pid);
 }

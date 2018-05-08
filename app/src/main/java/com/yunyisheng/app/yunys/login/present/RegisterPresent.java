@@ -2,6 +2,7 @@ package com.yunyisheng.app.yunys.login.present;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.activity.RegisterActivity;
+import com.yunyisheng.app.yunys.login.model.CityModel;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
@@ -44,5 +45,26 @@ public class RegisterPresent extends XPresent<RegisterActivity> {
                 });
 
 
+    }
+    public void getAddressByPid(final Integer level, Integer pid){
+        Api.companyService().getSubArea(pid)
+                .compose(XApi.<CityModel>getApiTransformer())
+                .compose(XApi.<CityModel>getScheduler())
+                .compose(getV().<CityModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<CityModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        ToastUtils.showToast("请求数据失败！");
+                    }
+
+                    @Override
+                    public void onNext(CityModel cityModel) {
+                        if (cityModel.getRespCode() == 1){
+                            ToastUtils.showToast(cityModel.getErrorMsg());
+                            return;
+                        }
+                        getV().setCities(level,cityModel);
+                    }
+                });
     }
 }
