@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -18,9 +19,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
+import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -31,27 +34,38 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 
+import com.google.gson.Gson;
 import com.yalantis.ucrop.UCrop;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseModel;
+import com.yunyisheng.app.yunys.main.activity.MessageActivity;
+import com.yunyisheng.app.yunys.main.activity.NoticeDeatilActivity;
 import com.yunyisheng.app.yunys.main.fragement.HomeFragement;
+import com.yunyisheng.app.yunys.main.model.MessageBean;
+import com.yunyisheng.app.yunys.main.model.MsgBean;
+import com.yunyisheng.app.yunys.main.model.NoReadMessageEvent;
 import com.yunyisheng.app.yunys.main.model.WarningMessageEvent;
 import com.yunyisheng.app.yunys.main.roadcastReceiver.NotificationHighCodeReceiver;
 import com.yunyisheng.app.yunys.main.service.MessageService;
 import com.yunyisheng.app.yunys.mqtt.MQTTMessage;
+import com.yunyisheng.app.yunys.mqtt.MQTTService;
 import com.yunyisheng.app.yunys.net.Api;
+import com.yunyisheng.app.yunys.project.activity.TaskDetailActivity;
 import com.yunyisheng.app.yunys.project.fragement.ProjectFragement;
 import com.yunyisheng.app.yunys.schedule.fragement.ScheduleTaskFragement;
 import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.CreateNoneDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.CreateProcessTaskAcitvity;
+import com.yunyisheng.app.yunys.tasks.activity.ProcessDetailActivity;
 import com.yunyisheng.app.yunys.userset.fragement.MineFragement;
 import com.yunyisheng.app.yunys.userset.service.UserSetService;
+import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.DialogManager;
 import com.yunyisheng.app.yunys.utils.FileCache;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
+import com.yunyisheng.app.yunys.utils.TokenHeaderInterceptor;
 import com.yunyisheng.app.yunys.utils.XRadioGroup;
 
 import org.greenrobot.eventbus.EventBus;
@@ -59,14 +73,18 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidbase.cache.SharedPref;
 import cn.droidlover.xdroidmvp.mvp.XPresent;
 import cn.droidlover.xdroidmvp.router.Router;
+import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -74,6 +92,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.yunyisheng.app.yunys.App.context;
 import static com.yunyisheng.app.yunys.utils.DialogManager.tempFile;
 import static com.yunyisheng.app.yunys.utils.getapp.AppApplicationMgr.getSystemModel;
 
@@ -95,7 +114,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     RadioButton rbMine;
     @BindView(R.id.radioGroup1)
     XRadioGroup radioGroup1;
-    @BindView(R.id.img_oval)
+    @BindView(R.id.main_img_oval)
     ImageView imgOval;
     private boolean initiated = false;
     private long exitTime = 0;
@@ -103,6 +122,9 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     private int id;
     private NotificationHighCodeReceiver receiver;
     private String systemModel;
+    private Gson gs = new Gson();
+    private MessageBean.RespBodyBean mqttmsg;
+    private int msgId;
 
 
     private void initTab() {
@@ -115,6 +137,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 
     @Override
     public void initView() {
+        msgId = getIntent().getIntExtra("msgId",0);
 //        setSwipeEnabled(false);
         systemModel = getSystemModel();
 
@@ -122,6 +145,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         EventBus.getDefault().register(this);
         ButterKnife.bind(this);
         initTab();
+
         //广播接受者实例
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             receiver = new NotificationHighCodeReceiver();
@@ -170,7 +194,68 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 //                builder.show();
 //            }
 //        }
+        if (msgId != 0){
+            toMessageInfo(msgId);
+        }
+    }
 
+    private void toMessageInfo(int msgId) {
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addNetworkInterceptor(new TokenHeaderInterceptor())
+                .build();
+        FormBody.Builder formBody = new FormBody.Builder();
+        formBody.add("messageId", String.valueOf(msgId));
+        final Request request = new Request.Builder()
+                .url(Api.BASE_PATH+"message/updateMessage")
+                .post(formBody.build())
+                .build();
+        okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+                ToastUtils.showToast("获取消息失败！");
+            }
+            @Override
+            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                if (!response.isSuccessful()) throw new IOException("Unexpected code "+response);
+                if (!response.body().toString().equals("")){
+                    MsgBean msgBean = gs.fromJson(response.body().string(),MsgBean.class);
+                    if(msgBean.getRespCode() == 0){
+                        Intent intent1;
+                        switch (msgBean.getRespBody().getMessageType()){
+                            //任务
+                            case "1":
+                                if (msgBean.getRespBody().getProjectId() == null){
+                                    //流程任务
+                                    intent1 = new Intent(context, ProcessDetailActivity.class);
+                                    intent1.putExtra("taskId",msgBean.getRespBody().getMessageInfoId());
+                                    intent1.putExtra("taskType","3");
+                                }else {
+                                    //项目任务
+                                    intent1 = new Intent(context, TaskDetailActivity.class);
+                                    intent1.putExtra("taskId",msgBean.getRespBody().getMessageInfoId());
+                                    intent1.putExtra("projectId",msgBean.getRespBody().getProjectId());
+                                }
+                                break;
+                            //报警
+//                                case "2":
+//                                    intent1 = new Intent(context,MessageActivity.class);
+//                                    break;
+                            //公告，需要参数为公告id
+                            case "3":
+                                intent1 = new Intent(context,NoticeDeatilActivity.class);
+                                intent1.putExtra("noticeid",Integer.parseInt(msgBean.getRespBody().getMessageInfoId()));
+                                intent1.putExtra("type",1);
+                                break;
+                            default:
+                                intent1 = new Intent(context,MessageActivity.class);
+                                break;
+                        }
+                        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent1);
+                    }
+                }
+            }
+        });
     }
 
     //订阅方法，当接收到事件的时候，会调用该方法
@@ -189,15 +274,37 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMqttEvent(MQTTMessage mqttMessage) {
         LogUtils.i("mqttmessage", mqttMessage.getMessage());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            setHighNotification(mqttMessage.getMessage());
-        } else {
-            setNotification(mqttMessage.getMessage());
-        }
-    }
+        formatMqttMsg(mqttMessage.getMessage());
 
+    }
+    private void formatMqttMsg(String msg){
+        if (msg.length() > 0 && !msg.equals("") && msg != null){
+            mqttmsg = gs.fromJson(msg,MessageBean.RespBodyBean.class);
+            if (mqttmsg.getMessageType().equals("8")){
+                //如果状态为8，则清空sp缓存，停止当前mqttservice，并重启mqttservice
+                SharedPref.getInstance(context).putString("myTopics",null);
+                Intent intent = new Intent(this,MQTTService.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    context.stopService(intent);
+                } else {
+                    stopService(intent);
+                }
+                startService(intent);
+                return;
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                setHighNotification(mqttmsg);
+            } else {
+                setNotification(mqttmsg);
+            }
+            EventBus.getDefault().post(new NoReadMessageEvent(1));
+        }else {
+            ToastUtils.showToast("返回数据格式错误！");
+        }
+
+    }
     @TargetApi(Build.VERSION_CODES.O)
-    private void setHighNotification(String string) {
+    private void setHighNotification(MessageBean.RespBodyBean mqttmsg) {
 
         String name = "channelname";
         String CHANNEL_ID = "my_channel_01";
@@ -214,16 +321,33 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 
         //为了版本兼容  选择V7包下的NotificationCompat进行构造
         NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this);
-        builder.setContentTitle("横幅通知");
-        builder.setContentText("请在设置通知管理中开启消息横幅提醒权限");
+        String title = "";
+        switch (mqttmsg.getMessageType()){
+            case "1":
+                title = "任务通知";
+                break;
+            case "2":
+                title = "报警通知";
+                break;
+            case "3":
+                title = "公告通知";
+                break;
+            default:
+                title = "消息通知";
+                break;
+        }
+        builder.setContentTitle(title);
+        builder.setContentText(Html.fromHtml(mqttmsg.getMessageRemark()));
         builder.setDefaults(NotificationCompat.DEFAULT_ALL);
         builder.setSmallIcon(R.mipmap.tubiao);
         builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.tubiao));
         builder.setChannelId(CHANNEL_ID);
+
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("action");
         broadcastIntent.putExtra("data", "noticeMessage");
-        broadcastIntent.putExtra("str", string);
+        broadcastIntent.putExtra("str", gs.toJson(mqttmsg));
+
 //        Intent broadcastIntent = new Intent("com.yunyisheng.app.yunys.receiver");
 //        broadcastIntent.putExtra("str", string);
         PendingIntent pIntent = PendingIntent.getBroadcast(context, id++, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -235,16 +359,31 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         notificationManager.notify(id++, notification);//注意这里 1 为当前通知栏的 Id 号，和 Fragment 设置 Id 是一样的
     }
 
-    private void setNotification(String string) {
+    private void setNotification(MessageBean.RespBodyBean mqttmsg) {
+        String title = "";
+        switch (mqttmsg.getMessageType()){
+            case "1":
+                title = "任务通知";
+                break;
+            case "2":
+                title = "报警通知";
+                break;
+            case "3":
+                title = "公告通知";
+                break;
+            default:
+                title = "消息通知";
+                break;
+        }
         //此类通知在Android 5.0以上版本才会有横幅有效！
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {//小于5.0
             Intent broadcastIntent = new Intent("com.yunyisheng.app.yunys.receiver");
-            broadcastIntent.putExtra("str", string);
+            broadcastIntent.putExtra("str", gs.toJson(mqttmsg));
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id++, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             Notification.Builder builder = new Notification.Builder(MainActivity.this);
             builder.setSmallIcon(R.mipmap.tubiao);
-            builder.setContentTitle(string);
-            builder.setContentText("我是默认显示的消息，我进来了");
+            builder.setContentTitle(title);
+            builder.setContentText(Html.fromHtml(mqttmsg.getMessageRemark()));
             builder.setWhen(System.currentTimeMillis());
             builder.setTicker("接受到一条信息");
             builder.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
@@ -257,13 +396,13 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         } else {
             //为了版本兼容  选择V7包下的NotificationCompat进行构造
             NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this);
-            builder.setContentTitle("横幅通知");
-            builder.setContentText("请在设置通知管理中开启消息横幅提醒权限");
+            builder.setContentTitle(title);
+            builder.setContentText(Html.fromHtml(mqttmsg.getMessageRemark()));
             builder.setDefaults(NotificationCompat.DEFAULT_ALL);
             builder.setSmallIcon(R.mipmap.tubiao);
             builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.tubiao));
             Intent broadcastIntent = new Intent("com.yunyisheng.app.yunys.receiver");
-            broadcastIntent.putExtra("str", string);
+            broadcastIntent.putExtra("str", gs.toJson(mqttmsg));
             PendingIntent pIntent = PendingIntent.getBroadcast(context, id++, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             builder.setContentIntent(pIntent);
             builder.setFullScreenIntent(pIntent, true);
@@ -278,7 +417,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     public void initAfter() {
         Intent intent = new Intent(MainActivity.this, MessageService.class);
         startService(intent);
-       // startService(new Intent(this, MQTTService.class));
+        startService(new Intent(this, MQTTService.class));
     }
 
     public void changerTask() {

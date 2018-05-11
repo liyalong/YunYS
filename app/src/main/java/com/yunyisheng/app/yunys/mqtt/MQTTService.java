@@ -5,9 +5,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
+import com.yunyisheng.app.yunys.login.activity.LoginActivity;
+import com.yunyisheng.app.yunys.login.model.UserModel;
+import com.yunyisheng.app.yunys.main.service.MessageService;
+import com.yunyisheng.app.yunys.net.Api;
+import com.yunyisheng.app.yunys.utils.LogUtils;
+import com.yunyisheng.app.yunys.utils.ToastUtils;
+import com.yunyisheng.app.yunys.utils.TokenHeaderInterceptor;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -18,6 +29,23 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.greenrobot.eventbus.EventBus;
+
+import java.io.IOException;
+import java.util.List;
+
+import cn.droidlover.xdroidbase.cache.SharedPref;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okio.BufferedSink;
+
+import static com.yunyisheng.app.yunys.App.context;
+import static java.lang.Thread.sleep;
 
 /**
  * 作者：fuduo on 2018/2/27 14:06
@@ -37,26 +65,87 @@ public class MQTTService extends Service {
     private String userName = "sub_android";
     private String passWord = "yoyosys";
     private static String myTopic = "YunYS";
-    private String clientId = "test123";
-
+    private String clientId;
+    private MyTopicsModel myTopics;
+    private Integer reCliendNum = 0;
+    final Gson gs = new Gson();
+    private UserModel userModel;
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        clientId = String.valueOf(SharedPref.getInstance(context).getInt("userid",0));
+        if (clientId.equals("0")){
+            getUserInfo();
+        }
+        String topics = SharedPref.getInstance(context).getString("myTopics",null);
+        if (topics != null && !topics.equals("")){
+            myTopics = gs.fromJson(topics,MyTopicsModel.class);
+        }else {
+            getMyTopics();
+        }
         init();
         return super.onStartCommand(intent, flags, startId);
     }
+    //获取用户信息
+    private void getUserInfo(){
+        OkHttpClient userClient = new OkHttpClient.Builder()
+                .addNetworkInterceptor(new TokenHeaderInterceptor())
+                .build();
+        final Request requests = new Request.Builder()
+                .url(Api.BASE_PATH+"system/select/enterprise/user")
+                .post(new RequestBody() {
+                    @Override
+                    public MediaType contentType() {
+                        return null;
+                    }
 
-    public static void publish(String msg) {
-        String topic = myTopic;
-        Integer qos = 0;
-        Boolean retained = false;
-        try {
-            client.publish(topic, msg.getBytes(), qos.intValue(), retained.booleanValue());
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }
+                    @Override
+                    public void writeTo(BufferedSink sink) throws IOException {
+
+                    }
+                })
+                .build();
+        userClient.newCall(requests).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                ToastUtils.showToast("获取用户信息失败！");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful()) throw new IOException("Unexpected code "+response);
+                System.out.println(response.body());
+                if (!response.body().toString().equals("")){
+                    userModel = gs.fromJson(response.body().string(),UserModel.class);
+                    if (userModel.getRespCode() == 0){
+                        clientId = String.valueOf(userModel.getRespBody().getEnterpriseUser().getUserId());
+                        SharedPref.getInstance(context).putInt("userid", userModel.getRespBody().getEnterpriseUser().getUserId());
+                        SharedPref.getInstance(context).putString("username", userModel.getRespBody().getEnterpriseUser().getUserName());
+                        SharedPref.getInstance(context).putString("usersex", userModel.getRespBody().getEnterpriseUser().getUserSex());
+                        SharedPref.getInstance(context).putString("userphone", userModel.getRespBody().getEnterpriseUser().getUserPhone());
+                        SharedPref.getInstance(context).putString("userjob", userModel.getRespBody().getEnterpriseUser().getUserJobTitle());
+                        SharedPref.getInstance(context).putString("userhead", userModel.getRespBody().getEnterpriseUser().getUserPicture());
+                        SharedPref.getInstance(context).putString("useremail", userModel.getRespBody().getEnterpriseUser().getUserMailbox());
+                        List<UserModel.RespBodyBean.SectionBean> section = userModel.getRespBody().getSection();
+                        String str = "";
+                        for (int i = 0; i < section.size(); i++) {
+                            String sectionName = section.get(i).getSectionName();
+                            if (i != section.size() - 1) {
+                                str += sectionName + ",";
+                            } else {
+                                str += sectionName;
+                            }
+                        }
+                        SharedPref.getInstance(context).putString("userbumen", str);
+                        SharedPref.getInstance(context).putString("userrole", userModel.getRespBody().getReloName());
+                    }else {
+//                        ToastUtils.showToast(userModel.getErrorMsg());
+                    }
+                }
+            }
+        });
+
     }
-
-    private void init() {
+    private void init(){
         // 服务器地址（协议+地址+端口号）
         String uri = host;
         client = new MqttAndroidClient(this, uri, clientId);
@@ -97,10 +186,55 @@ public class MQTTService extends Service {
         }
 
     }
+    public void getMyTopics(){
+            OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .addNetworkInterceptor(new TokenHeaderInterceptor())
+                    .build();
+            final Request request = new Request.Builder()
+                    .url(Api.BASE_PATH+"topic")
+                    .build();
+            okHttpClient.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    ToastUtils.showToast("获取订阅消息列表失败！");
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code "+response);
+                    System.out.println(response.body());
+                    if (!response.body().toString().equals("")){
+                        myTopics = gs.fromJson(response.body().string(),MyTopicsModel.class);
+                        if (myTopics.getRespCode() == 3) {
+                            ToastUtils.showToast(myTopics.getRespMsg());
+                            Intent intent = new Intent(context, LoginActivity.class);
+                            intent.putExtra("errorlog", myTopics.getRespMsg());
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }else if (myTopics.getRespCode() == 0){
+                            SharedPref.getInstance(context).putString("myTopics",gs.toJson(myTopics));
+                        }else {
+                            ToastUtils.showToast(myTopics.getErrorMsg());
+                        }
+                    }
+                }
+            });
+
+    }
 
     @Override
     public void onDestroy() {
-        startService(new Intent(this, MQTTService.class));
+        Intent intent = new Intent(this,MQTTService.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            client.unregisterResources();
+            client.close();
+            context.stopService(intent);
+        } else {
+            client.unregisterResources();
+            client.close();
+            stopService(intent);
+        }
+
         super.onDestroy();
     }
 
@@ -129,7 +263,15 @@ public class MQTTService extends Service {
                 if (client == null) {
                     return;
                 }
-                client.subscribe(myTopic, 1);
+                if (myTopics.getRespCode() == 0){
+                    if (myTopics.getRespBody().size() > 0){
+                        for(int i=0;i<myTopics.getRespBody().size();i++){
+                            LogUtils.i("topic----->",myTopics.getRespBody().get(i));
+                            client.subscribe(myTopics.getRespBody().get(i), 1);
+                        }
+                    }
+                }
+
             } catch (MqttException e) {
                 e.printStackTrace();
             }
@@ -139,6 +281,16 @@ public class MQTTService extends Service {
         public void onFailure(IMqttToken arg0, Throwable arg1) {
             arg1.printStackTrace();
             // 连接失败，重连
+            if (reCliendNum < 5){
+                try {
+                    sleep(10000);
+                    init();
+                    reCliendNum++;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
         }
     };
 
@@ -165,6 +317,15 @@ public class MQTTService extends Service {
         @Override
         public void connectionLost(Throwable arg0) {
             // 失去连接，重连
+            if (reCliendNum < 5){
+                try {
+                    sleep(10000);
+                    init();
+                    reCliendNum++;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     };
 

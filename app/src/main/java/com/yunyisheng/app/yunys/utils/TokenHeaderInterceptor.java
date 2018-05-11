@@ -23,10 +23,16 @@ public class TokenHeaderInterceptor implements Interceptor {
                 && !originalRequest.url().toString().contains("feorget/password")
                 && !originalRequest.url().toString().contains("enterpriseConflict/add")){
             String token = SharedPref.getInstance(context).getString("TOKEN",null);
-            Request updateRequest = originalRequest.newBuilder()
-                    .header("token", token)
-                    .build();
-            return chain.proceed(updateRequest);
+            if (token != null){
+                Request updateRequest = originalRequest.newBuilder()
+                        .header("token", token)
+                        .build();
+                return chain.proceed(updateRequest);
+            }else {
+                return chain.proceed(originalRequest.newBuilder().build());
+            }
+
+
         }else{
             return chain.proceed(originalRequest);
         }

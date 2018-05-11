@@ -32,6 +32,7 @@ public interface CompanyService {
                                         @Field("enterpriseMailbox") String enterpriseMailbox,
                                         @Field("description") String description);
     @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     @POST("area/getSubArea")
     Flowable<CityModel> getSubArea(@Field("pId") Integer pid);
 }

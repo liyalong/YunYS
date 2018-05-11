@@ -51,6 +51,10 @@ public class NoneDeviceCycleTaskFargment extends BaseFragement {
     TextView cycleSelectCron;
     @BindView(R.id.cycle_task_used_time)
     EditText cycleTaskUsedTime;
+    @BindView(R.id.cycle_task_used_time_m)
+    EditText cycleTaskUsedTimeM;
+    @BindView(R.id.cycle_task_used_time_s)
+    EditText cycleTaskUsedTimeS;
     @BindView(R.id.cycle_tasks_type)
     Switch cycleTasksType;
     @BindView(R.id.cycle_task_desc)
@@ -248,13 +252,29 @@ public class NoneDeviceCycleTaskFargment extends BaseFragement {
             return checkStatus;
         }
         cycleTaskForm.setCorn(cron);
-        String timeLength = cycleTaskUsedTime.getText().toString().trim();
-        if (timeLength.length() == 0){
+
+        int timeLength = cycleTaskUsedTime.getText().toString().isEmpty() ? 0 : Integer.parseInt(cycleTaskUsedTime.getText().toString());
+        int timeLengthM = cycleTaskUsedTimeM.getText().toString().isEmpty() ? 0 : Integer.parseInt(cycleTaskUsedTimeM.getText().toString());
+        int timeLengthS = cycleTaskUsedTimeS.getText().toString().isEmpty() ? 0 : Integer.parseInt(cycleTaskUsedTimeS.getText().toString());
+        if (timeLength == 0 && timeLengthM == 0 && timeLengthS == 0){
             checkStatus.put("status","error");
             checkStatus.put("msg","请输入执行时长！");
             return checkStatus;
         }
-        cycleTaskForm.setTimeLength(timeLength);
+        if (timeLengthM > 60 || timeLengthS > 60){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","执行时长的分和秒不能超过60！");
+            return checkStatus;
+        }
+        if (timeLength == 0){
+            checkStatus.put("status","error");
+            checkStatus.put("msg","请输入执行时长！");
+            return checkStatus;
+        }
+        cycleTaskForm.setTimeLength(String.valueOf(timeLength));
+        cycleTaskForm.setTimeLengthMin(String.valueOf(timeLengthM));
+        cycleTaskForm.setTimeLengthSec(String.valueOf(timeLengthS));
+
         if (cycleTasksType.isChecked()){
             cycleTaskForm.setCycletaskStat("1");
         }else {

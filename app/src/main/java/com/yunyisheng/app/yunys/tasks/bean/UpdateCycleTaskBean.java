@@ -20,6 +20,8 @@ public class UpdateCycleTaskBean {
     private String cycletaskType;
     private String equipmentId;
     private String timeLength;
+    private String timeLengthMin;
+    private String timeLengthSec;
     private String templateId;
     private String userIds;
     private String feedbackJSON;
@@ -29,6 +31,23 @@ public class UpdateCycleTaskBean {
     private String feedbackBacknum;
     private String feedbackItemList;
     private List<SelectUser> cycleTaskUserList;
+
+    public String getTimeLengthSec() {
+        return timeLengthSec;
+    }
+
+    public void setTimeLengthSec(String timeLengthSec) {
+        this.timeLengthSec = timeLengthSec;
+    }
+
+    public String getTimeLengthMin() {
+
+        return timeLengthMin;
+    }
+
+    public void setTimeLengthMin(String timeLengthMin) {
+        this.timeLengthMin = timeLengthMin;
+    }
 
     public void setCycleTaskUserList(List<SelectUser> cycleTaskUserList) {
         this.cycleTaskUserList = cycleTaskUserList;

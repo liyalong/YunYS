@@ -4,6 +4,7 @@ import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.activity.RegisterActivity;
 import com.yunyisheng.app.yunys.login.model.CityModel;
 import com.yunyisheng.app.yunys.net.Api;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import cn.droidlover.xdroidmvp.mvp.XPresent;
@@ -46,7 +47,8 @@ public class RegisterPresent extends XPresent<RegisterActivity> {
 
 
     }
-    public void getAddressByPid(final Integer level, Integer pid){
+    public void getAddressByPid(final int levels, Integer pid){
+        LoadingDialog.show(getV());
         Api.companyService().getSubArea(pid)
                 .compose(XApi.<CityModel>getApiTransformer())
                 .compose(XApi.<CityModel>getScheduler())
@@ -54,16 +56,19 @@ public class RegisterPresent extends XPresent<RegisterActivity> {
                 .subscribe(new ApiSubscriber<CityModel>() {
                     @Override
                     protected void onFail(NetError error) {
+                        LoadingDialog.dismiss(getV());
                         ToastUtils.showToast("请求数据失败！");
+                        error.printStackTrace();
                     }
 
                     @Override
                     public void onNext(CityModel cityModel) {
+                        LoadingDialog.dismiss(getV());
                         if (cityModel.getRespCode() == 1){
                             ToastUtils.showToast(cityModel.getErrorMsg());
                             return;
                         }
-                        getV().setCities(level,cityModel);
+                        getV().setCities(levels,cityModel);
                     }
                 });
     }

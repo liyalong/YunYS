@@ -60,9 +60,12 @@ public class MessageAdapter extends SimpleListAdapter<MessageBean.RespBodyBean, 
             holder.imgMsgtype.setVisibility(View.VISIBLE);
             holder.imgMsgtype.setBackgroundResource(R.mipmap.waringimg);
             holder.teMsgtitle.setText("报警消息");
-        }else {
+        }else if (messageType.equals("4")){
+            holder.teMsgtitle.setVisibility(View.VISIBLE);
+//            holder.imgMsgtype.setVisibility(View.VISIBLE);
+            holder.teMsgtitle.setText("其他消息");
             holder.imgMsgtype.setVisibility(View.GONE);
-            holder.teMsgtitle.setVisibility(View.GONE);
+//            holder.teMsgtitle.setVisibility(View.GONE);
         }
         String messageStat = respBodyBean.getMessageStat();
         if (messageStat.equals("0")){

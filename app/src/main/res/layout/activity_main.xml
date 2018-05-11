@@ -64,7 +64,7 @@
                     android:textSize="12dp" />
 
                 <ImageView
-                    android:id="@+id/img_oval"
+                    android:id="@+id/main_img_oval"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/distance_7"

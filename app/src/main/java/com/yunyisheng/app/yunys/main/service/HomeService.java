@@ -10,6 +10,7 @@ import com.yunyisheng.app.yunys.main.model.GetOtherinfoBean;
 import com.yunyisheng.app.yunys.main.model.MemorandumBean;
 import com.yunyisheng.app.yunys.main.model.MessageBean;
 import com.yunyisheng.app.yunys.main.model.MessageTypeBean;
+import com.yunyisheng.app.yunys.main.model.MsgBean;
 import com.yunyisheng.app.yunys.main.model.NoReadMessage;
 import com.yunyisheng.app.yunys.main.model.NoticeBean;
 import com.yunyisheng.app.yunys.main.model.NoticeDetailBean;
@@ -368,7 +369,7 @@ public interface HomeService {
      */
     @FormUrlEncoded
     @POST("message/updateMessage")
-    Flowable<BaseModel> updateMessage(@Field("messageId") int messageId);
+    Flowable<MsgBean> updateMessage(@Field("messageId") int messageId);
 
     /**
      * @author fuduo

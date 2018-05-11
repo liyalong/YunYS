@@ -33,6 +33,7 @@ import com.yunyisheng.app.yunys.main.model.BannerBean;
 import com.yunyisheng.app.yunys.main.model.NoReadMessage;
 import com.yunyisheng.app.yunys.main.model.NoReadMessageEvent;
 import com.yunyisheng.app.yunys.main.present.HomePresent;
+import com.yunyisheng.app.yunys.mqtt.MQTTService;
 import com.yunyisheng.app.yunys.schedule.model.MyScheduleBean;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.RecyclerBanner;
@@ -243,6 +244,7 @@ public class HomeFragement extends BaseFragement<HomePresent> {
             }
             SharedPref.getInstance(mContext).putString("userbumen", str);
             SharedPref.getInstance(mContext).putString("userrole", userModel.getRespBody().getReloName());
+
         }
         LogUtils.i("userinfo", userModel.getRespBody().toString());
     }

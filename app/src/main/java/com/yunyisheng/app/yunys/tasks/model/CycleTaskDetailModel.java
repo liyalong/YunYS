@@ -34,6 +34,8 @@ public class CycleTaskDetailModel extends BaseModel {
         private String cycletaskType;
         private String equipmentId;
         private String timeLength;
+        private String timeLengthMin;
+        private String timeLengthSec;
         private String templateId;
         private String userIdStr;
         private String equipmentName;
@@ -41,6 +43,22 @@ public class CycleTaskDetailModel extends BaseModel {
         private String feedbackBacknum;
         private List<FeedbackItemBean> feedbackItemList;
         private List<SelectUser> cycleTaskUserList;
+
+        public String getTimeLengthMin() {
+            return timeLengthMin;
+        }
+
+        public void setTimeLengthMin(String timeLengthMin) {
+            this.timeLengthMin = timeLengthMin;
+        }
+
+        public String getTimeLengthSec() {
+            return timeLengthSec;
+        }
+
+        public void setTimeLengthSec(String timeLengthSec) {
+            this.timeLengthSec = timeLengthSec;
+        }
 
         public void setFeedbackItemList(List<FeedbackItemBean> feedbackItemList) {
             this.feedbackItemList = feedbackItemList;

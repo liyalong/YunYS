@@ -1,5 +1,6 @@
 package com.yunyisheng.app.yunys.main.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -16,7 +17,10 @@ import com.yunyisheng.app.yunys.main.adapter.MessageAdapter;
 import com.yunyisheng.app.yunys.main.adapter.MessageTypeAdapter;
 import com.yunyisheng.app.yunys.main.model.MessageBean;
 import com.yunyisheng.app.yunys.main.model.MessageTypeBean;
+import com.yunyisheng.app.yunys.main.model.MsgBean;
 import com.yunyisheng.app.yunys.main.present.MessagePresent;
+import com.yunyisheng.app.yunys.project.activity.TaskDetailActivity;
+import com.yunyisheng.app.yunys.tasks.activity.ProcessDetailActivity;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ScreenUtils;
 import com.yunyisheng.app.yunys.utils.ScrowUtil;
@@ -27,6 +31,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.droidlover.xdroidmvp.router.Router;
 
 /**
  * @author fuduo
@@ -109,16 +114,43 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
                 MessageBean.RespBodyBean respBodyBean = messagelist.get(position - 1);
                 String messageStat = respBodyBean.getMessageStat();
                 int messageId = respBodyBean.getMessageId();
-                if (messageStat.equals("1")) {
+//                if (messageStat.equals("1")) {
                     getP().updateMessage(messageId, position - 1);
-                }
+//                }else {
+//
+//                }
+
             }
         });
     }
 
-    public void setVoalGone(int position) {
+    public void setVoalGone(int position, MsgBean respBodyBean) {
         messagelist.get(position).setMessageStat("0");
         messageAdapter.notifyDataSetChanged();
+        if (respBodyBean.getRespBody().getMessageType().equals("1")){
+            if (respBodyBean.getRespBody().getProjectId() == null){
+                //流程任务
+                Router.newIntent(context)
+                        .to(ProcessDetailActivity.class)
+                        .putString("taskId",respBodyBean.getRespBody().getMessageInfoId())
+                        .putString("taskType","3")
+                        .launch();
+            }else {
+                //项目任务
+                Router.newIntent(context)
+                        .to(TaskDetailActivity.class)
+                        .putString("taskId",respBodyBean.getRespBody().getMessageInfoId())
+                        .putString("projectId",respBodyBean.getRespBody().getProjectId())
+                        .launch();
+
+            }
+        }else if (respBodyBean.getRespBody().getMessageType().equals("3")){
+            Router.newIntent(context)
+                    .to(NoticeDeatilActivity.class)
+                    .putInt("noticeid", Integer.parseInt(respBodyBean.getRespBody().getMessageInfoId()))
+                    .putInt("type",1)
+                    .launch();
+        }
     }
 
     @Override

@@ -79,8 +79,10 @@ public class EnterpriseinformationActivity extends BaseActivity<Enterpriseinform
         teCompanyName.setText(companyBean.getRespBody().getEnterpriseName());
         teCompanyAddress.setText(companyBean.getRespBody().getEnterpriseAddressProvince());
         teCompanyNum.setText(companyBean.getRespBody().getEnterpriseNumber());
-        Bitmap bitmap = CommonUtils.stringtoBitmap(companyBean.getRespBody().getEnterpriseLogo());
-        GlideDownLoadImage.getInstance().loadBitmapCircleImage(EnterpriseinformationActivity.this, imgCompanyLogo,bitmap,20);
+        if (companyBean.getRespBody().getEnterpriseLogo() != null){
+            Bitmap bitmap = CommonUtils.stringtoBitmap(companyBean.getRespBody().getEnterpriseLogo());
+            GlideDownLoadImage.getInstance().loadBitmapCircleImage(EnterpriseinformationActivity.this, imgCompanyLogo,bitmap,20);
+        }
         teTopCompanyname.setText(companyBean.getRespBody().getEnterpriseName());
     }
 

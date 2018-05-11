@@ -5,6 +5,7 @@ import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.main.activity.MessageActivity;
 import com.yunyisheng.app.yunys.main.model.MessageBean;
 import com.yunyisheng.app.yunys.main.model.MessageTypeBean;
+import com.yunyisheng.app.yunys.main.model.MsgBean;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
@@ -95,17 +96,17 @@ public class MessagePresent extends XPresent<MessageActivity> {
      */
     public void updateMessage(int messageid, final int position) {
         Api.homeService().updateMessage(messageid)
-                .compose(XApi.<BaseModel>getApiTransformer()) //统一异常处理
-                .compose(XApi.<BaseModel>getScheduler()) //线程调度
-                .compose(getV().<BaseModel>bindToLifecycle()) //内存泄漏处理
-                .subscribe(new ApiSubscriber<BaseModel>() {
+                .compose(XApi.<MsgBean>getApiTransformer()) //统一异常处理
+                .compose(XApi.<MsgBean>getScheduler()) //线程调度
+                .compose(getV().<MsgBean>bindToLifecycle()) //内存泄漏处理
+                .subscribe(new ApiSubscriber<MsgBean>() {
                     @Override
-                    public void onNext(BaseModel baseModel) {
+                    public void onNext(MsgBean respBodyBean) {
                         LoadingDialog.dismiss(getV());
-                        if (baseModel.getRespCode() == 0) {
-                           getV().setVoalGone(position);
+                        if (respBodyBean.getRespCode() == 0) {
+                           getV().setVoalGone(position,respBodyBean);
                         } else {
-                            ToastUtils.showToast(baseModel.getRespMsg());
+                            ToastUtils.showToast(respBodyBean.getRespMsg());
                         }
                     }
 

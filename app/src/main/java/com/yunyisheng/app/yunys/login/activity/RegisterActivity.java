@@ -79,7 +79,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
 
     @Override
     public void initAfter() {
-
     }
 
     @Override
@@ -307,7 +306,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresent> {
     }
 
 
-    public void setCities(Integer level, CityModel cityModel) {
+    public void setCities(int level, CityModel cityModel) {
         switch (level){
             case 0:
                 cities1 = (ArrayList<CityModel.City>) cityModel.getRespBody();

@@ -5,6 +5,7 @@ import android.util.Log;
 import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.login.model.LoginModel;
+import com.yunyisheng.app.yunys.login.model.UserModel;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
@@ -48,9 +49,6 @@ public class LoginPresent extends XPresent<LoginActivity> {
                         getV().checkLogin(loginModel);
                     }
                 });
-
-
-
     }
 
     /**

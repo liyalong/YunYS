@@ -23,7 +23,7 @@ public class MessageBean extends BaseModel {
         this.list = respBody;
     }
 
-    public static class RespBodyBean {
+    public class RespBodyBean{
         /**
          * messageReleaseUserName : 毛硕
          * messageCreateTime : null
@@ -51,6 +51,24 @@ public class MessageBean extends BaseModel {
         private String messageType;
         private int messageId;
         private String messageStat;
+        private String projectId;
+        private String sameType;
+
+        public String getSameType() {
+            return sameType;
+        }
+
+        public void setSameType(String sameType) {
+            this.sameType = sameType;
+        }
+
+        public String getProjectId() {
+            return projectId;
+        }
+
+        public void setProjectId(String projectId) {
+            this.projectId = projectId;
+        }
 
         public String getMessageReleaseUserName() {
             return messageReleaseUserName;

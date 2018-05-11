@@ -144,7 +144,7 @@ public class MessageService extends Service {
             return;
         }
         readWarning();
-        readNoRead();
+//        readNoRead();
     }
 
     private void readNoRead() {
