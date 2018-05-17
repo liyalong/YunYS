@@ -144,7 +144,7 @@ public class FromWorkListExpenableAdapter extends BaseExpandableListAdapter {
             if (userList!=null&&userList.size()>0) {
                 for (int j = 0; j < userList.size(); j++) {
                     ProjectFromWorkBean.ListBean.UserListBean userListBean = userList.get(j);
-                    if (userListBean.isIscheckchild()) {
+                    if (userListBean.isIscheckchild() && !checkIsSelected(selectpeople,userListBean)) {
                         selectpeople.add(userListBean);
                     }
                 }
@@ -152,7 +152,18 @@ public class FromWorkListExpenableAdapter extends BaseExpandableListAdapter {
         }
         return selectpeople;
     }
-
+    public Boolean checkIsSelected(List<ProjectFromWorkBean.ListBean.UserListBean> lists, ProjectFromWorkBean.ListBean.UserListBean item){
+        Boolean in = false;
+        if (lists.size() > 0){
+            for (int i=0;i<lists.size();i++){
+                if (lists.get(i).getUserId() == item.getUserId()){
+                    in = true;
+                    break;
+                }
+            }
+        }
+        return in;
+    }
     public void setOnceSelect(ProjectFromWorkBean.ListBean.UserListBean userListBean){
         int userId = userListBean.getUserId();
         boolean ischeckchild = userListBean.isIscheckchild();

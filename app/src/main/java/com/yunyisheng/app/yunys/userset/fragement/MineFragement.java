@@ -318,11 +318,11 @@ public class MineFragement extends BaseFragement<MinePresent> {
             @Override
             public void onClick(View arg0) {
                 SharedPref.getInstance(context).clear();
+                mContext.stopService(new Intent(mContext, MQTTService.class));
+                mContext.stopService(new Intent(mContext, MessageService.class));
                 Router.newIntent(context)
                         .to(LoginActivity.class)
                         .launch();
-                mContext.stopService(new Intent(mContext, MQTTService.class));
-                mContext.stopService(new Intent(mContext, MessageService.class));
                 mOutloginDialog.dismiss();
                 context.finish();
             }

@@ -92,7 +92,7 @@ public class ProcessTaskPresent extends XPresent<ProcessTaskFormActivity> {
      * @time 2018/2/5  17:15
      * @describe 转办流程任务表单
      */
-    public void zhuanProcessTaskForm(String taskId, int userId) {
+    public void zhuanProcessTaskForm(String taskId, Integer userId) {
         Api.projectService().zhaunBanTask(taskId, userId)
                 .compose(XApi.<BaseModel>getApiTransformer())
                 .compose(XApi.<BaseModel>getScheduler())

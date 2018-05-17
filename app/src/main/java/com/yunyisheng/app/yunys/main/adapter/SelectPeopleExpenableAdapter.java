@@ -158,7 +158,7 @@ public class SelectPeopleExpenableAdapter extends BaseExpandableListAdapter {
                for (int i=0;i<lists.size();i++){
                    if (lists.get(i).getUserId() == item.getUserId()){
                      in = true;
-                     continue;
+                     break;
                    }
                }
            }

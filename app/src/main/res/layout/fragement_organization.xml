@@ -52,6 +52,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/select_all"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/distance_41"
                 android:background="@color/white">

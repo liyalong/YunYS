@@ -43,7 +43,7 @@ public class SelectProjectDeviceAdapter extends SimpleListAdapter<DeviceBean, Se
 
     @Override
     protected void convert(ViewHoler holder, DeviceBean item, final int position) {
-        holder.projectTitle.setText(item.getEquipmentName().toString());
+        holder.projectTitle.setText(item.getEquipmentName() + "（"+item.getEquipmentUnicode()+"）");
         holder.mRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

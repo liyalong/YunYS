@@ -10,11 +10,9 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.login.model.UserModel;
-import com.yunyisheng.app.yunys.main.service.MessageService;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
@@ -41,11 +39,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 import okio.BufferedSink;
 
 import static com.yunyisheng.app.yunys.App.context;
-import static java.lang.Thread.sleep;
 
 /**
  * 作者：fuduo on 2018/2/27 14:06
@@ -61,17 +57,18 @@ public class MQTTService extends Service {
     private MqttConnectOptions conOpt;
 
     //    private String host = "tcp://10.0.2.2:61613";
-    private String host = "tcp://172.16.160.65:1883";
-    private String userName = "sub_android";
+    private String host = Api.MQTT_SERVICE_IP;
+    private String userName = "fairyland-server";
     private String passWord = "yoyosys";
-    private static String myTopic = "YunYS";
+    private static String myTopic = "YunYSss";
     private String clientId;
     private MyTopicsModel myTopics;
-    private Integer reCliendNum = 0;
     final Gson gs = new Gson();
     private UserModel userModel;
+    private boolean sub_status = false;
+
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public void onCreate() {
         clientId = String.valueOf(SharedPref.getInstance(context).getInt("userid",0));
         if (clientId.equals("0")){
             getUserInfo();
@@ -83,8 +80,9 @@ public class MQTTService extends Service {
             getMyTopics();
         }
         init();
-        return super.onStartCommand(intent, flags, startId);
+        super.onCreate();
     }
+
     //获取用户信息
     private void getUserInfo(){
         OkHttpClient userClient = new OkHttpClient.Builder()
@@ -113,7 +111,6 @@ public class MQTTService extends Service {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (!response.isSuccessful()) throw new IOException("Unexpected code "+response);
-                System.out.println(response.body());
                 if (!response.body().toString().equals("")){
                     userModel = gs.fromJson(response.body().string(),UserModel.class);
                     if (userModel.getRespCode() == 0){
@@ -168,16 +165,16 @@ public class MQTTService extends Service {
         boolean doConnect = true;
         String message = "{\"terminal_uid\":\"" + clientId + "\"}";
         String topic = myTopic;
-        Integer qos = 0;
+        Integer qos = 1;
         Boolean retained = false;
-        if ((!message.equals("")) || (!topic.equals(""))) {
+        if ((!clientId.equals("") && !clientId.equals("0")) || (myTopics != null)) {
             // 最后的遗嘱
             try {
                 conOpt.setWill(topic, message.getBytes(), qos.intValue(), retained.booleanValue());
             } catch (Exception e) {
                 Log.i(TAG, "Exception Occured", e);
                 doConnect = false;
-                iMqttActionListener.onFailure(null, e);
+//                iMqttActionListener.onFailure(null, e);
             }
         }
 
@@ -224,17 +221,13 @@ public class MQTTService extends Service {
 
     @Override
     public void onDestroy() {
-        Intent intent = new Intent(this,MQTTService.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        try{
+//            client.disconnect();
             client.unregisterResources();
             client.close();
-            context.stopService(intent);
-        } else {
-            client.unregisterResources();
-            client.close();
-            stopService(intent);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-
         super.onDestroy();
     }
 
@@ -242,7 +235,7 @@ public class MQTTService extends Service {
      * 连接MQTT服务器
      */
     private void doClientConnection() {
-        if (!client.isConnected() && isConnectIsNomarl()) {
+        if (!sub_status && !client.isConnected() && isConnectIsNomarl()) {
             try {
                 client.connect(conOpt, null, iMqttActionListener);
             } catch (MqttException e) {
@@ -263,12 +256,13 @@ public class MQTTService extends Service {
                 if (client == null) {
                     return;
                 }
-                if (myTopics.getRespCode() == 0){
+                if (myTopics != null && myTopics.getRespCode() != null && myTopics.getRespCode() == 0){
                     if (myTopics.getRespBody().size() > 0){
                         for(int i=0;i<myTopics.getRespBody().size();i++){
                             LogUtils.i("topic----->",myTopics.getRespBody().get(i));
                             client.subscribe(myTopics.getRespBody().get(i), 1);
                         }
+                        sub_status = true;
                     }
                 }
 
@@ -281,16 +275,8 @@ public class MQTTService extends Service {
         public void onFailure(IMqttToken arg0, Throwable arg1) {
             arg1.printStackTrace();
             // 连接失败，重连
-            if (reCliendNum < 5){
-                try {
-                    sleep(10000);
-                    init();
-                    reCliendNum++;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
-            }
+
         }
     };
 
@@ -317,15 +303,7 @@ public class MQTTService extends Service {
         @Override
         public void connectionLost(Throwable arg0) {
             // 失去连接，重连
-            if (reCliendNum < 5){
-                try {
-                    sleep(10000);
-                    init();
-                    reCliendNum++;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+
         }
     };
 
@@ -335,14 +313,31 @@ public class MQTTService extends Service {
     private boolean isConnectIsNomarl() {
         ConnectivityManager connectivityManager = (ConnectivityManager) this.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = connectivityManager.getActiveNetworkInfo();
-        if (info != null && info.isAvailable()) {
+        if (info != null && info.isAvailable() && pingIpAddress(Api.hostIp)) {
             String name = info.getTypeName();
             Log.i(TAG, "MQTT当前网络名称：" + name);
             return true;
         } else {
+            sub_status = false;
             Log.i(TAG, "MQTT 没有可用网络");
             return false;
         }
+    }
+    private boolean pingIpAddress(String ipAddress) {
+        try {
+            Process process = Runtime.getRuntime().exec("/system/bin/ping -c 1 -w 3 " + ipAddress);
+            int status = process.waitFor();
+            if (status == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Nullable

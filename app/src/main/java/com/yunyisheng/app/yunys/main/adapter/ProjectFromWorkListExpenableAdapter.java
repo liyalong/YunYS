@@ -105,7 +105,7 @@ public class ProjectFromWorkListExpenableAdapter extends BaseExpandableListAdapt
         }else {
             groupViewHolder.viewwhite.setVisibility(View.VISIBLE);
         }
-        groupViewHolder.te_groupname.setText(list.get(groupPosition).getProjectName());
+        groupViewHolder.te_groupname.setText(list.get(groupPosition).getProjectName()+"（"+list.get(groupPosition).getUserList().size()+"人）");
         if (isExpanded) {
             groupViewHolder.img_zhedie.setImageResource(R.mipmap.downsanjiao);
         } else {

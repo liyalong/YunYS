@@ -9,6 +9,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -56,6 +57,7 @@ import com.yunyisheng.app.yunys.schedule.fragement.ScheduleTaskFragement;
 import com.yunyisheng.app.yunys.tasks.activity.CreateDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.CreateNoneDeviceTaskAcitvity;
 import com.yunyisheng.app.yunys.tasks.activity.CreateProcessTaskAcitvity;
+import com.yunyisheng.app.yunys.tasks.activity.MyPushTaskChildListActivity;
 import com.yunyisheng.app.yunys.tasks.activity.ProcessDetailActivity;
 import com.yunyisheng.app.yunys.userset.fragement.MineFragement;
 import com.yunyisheng.app.yunys.userset.service.UserSetService;
@@ -212,7 +214,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
         okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(okhttp3.Call call, IOException e) {
-                ToastUtils.showToast("获取消息失败！");
+//                ToastUtils.showToast("获取消息失败！");
             }
             @Override
             public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
@@ -231,9 +233,17 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                                     intent1.putExtra("taskType","3");
                                 }else {
                                     //项目任务
-                                    intent1 = new Intent(context, TaskDetailActivity.class);
-                                    intent1.putExtra("taskId",msgBean.getRespBody().getMessageInfoId());
-                                    intent1.putExtra("projectId",msgBean.getRespBody().getProjectId());
+                                    if (msgBean.getRespBody().getSameType().equals("1")){
+                                        //我发布的任务列表
+                                        intent1 = new Intent(context, MyPushTaskChildListActivity.class);
+                                        intent1.putExtra("releaseId",msgBean.getRespBody().getMessageInfoId());
+                                        intent1.putExtra("projectId",msgBean.getRespBody().getProjectId());
+                                    }else {
+                                        //任务详情
+                                        intent1 = new Intent(context, TaskDetailActivity.class);
+                                        intent1.putExtra("taskId",msgBean.getRespBody().getMessageInfoId());
+                                        intent1.putExtra("projectId",msgBean.getRespBody().getProjectId());
+                                    }
                                 }
                                 break;
                             //报警
@@ -417,7 +427,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     public void initAfter() {
         Intent intent = new Intent(MainActivity.this, MessageService.class);
         startService(intent);
-        startService(new Intent(this, MQTTService.class));
+        ComponentName mqttService = startService(new Intent(this, MQTTService.class));
     }
 
     public void changerTask() {

@@ -529,7 +529,7 @@ public class ScheduleDetailBean extends BaseModel {
                 private String title;
                 private Object orgtitle;
                 private Object orgcoltype;
-                private Object orgunit;
+                private String orgunit;
                 private Object orgsum;
                 private Object orgcolvalue;
                 private String orgwidth;
@@ -545,6 +545,38 @@ public class ScheduleDetailBean extends BaseModel {
                 private String optionStr;
                 private String orgtype;
                 private List<VelueBean> options;
+
+                @Override
+                public String toString() {
+                    return "DataBean{" +
+                            "id=" + id +
+                            ", uuid='" + uuid + '\'' +
+                            ", name='" + name + '\'' +
+                            ", leipiplugins='" + leipiplugins + '\'' +
+                            ", type=" + type +
+                            ", value='" + value + '\'' +
+                            ", readonly=" + readonly +
+                            ", title='" + title + '\'' +
+                            ", orgtitle=" + orgtitle +
+                            ", orgcoltype=" + orgcoltype +
+                            ", orgunit=" + orgunit +
+                            ", orgsum=" + orgsum +
+                            ", orgcolvalue=" + orgcolvalue +
+                            ", orgwidth='" + orgwidth + '\'' +
+                            ", style='" + style + '\'' +
+                            ", content='" + content + '\'' +
+                            ", orgfontsize='" + orgfontsize + '\'' +
+                            ", orgrich=" + orgrich +
+                            ", orgheight='" + orgheight + '\'' +
+                            ", src=" + src +
+                            ", orgsigntype=" + orgsigntype +
+                            ", parseName=" + parseName +
+                            ", orgalign='" + orgalign + '\'' +
+                            ", optionStr='" + optionStr + '\'' +
+                            ", orgtype='" + orgtype + '\'' +
+                            ", options=" + options +
+                            '}';
+                }
 
                 public int getId() {
                     return id;
@@ -626,11 +658,11 @@ public class ScheduleDetailBean extends BaseModel {
                     this.orgcoltype = orgcoltype;
                 }
 
-                public Object getOrgunit() {
+                public String getOrgunit() {
                     return orgunit;
                 }
 
-                public void setOrgunit(Object orgunit) {
+                public void setOrgunit(String orgunit) {
                     this.orgunit = orgunit;
                 }
 

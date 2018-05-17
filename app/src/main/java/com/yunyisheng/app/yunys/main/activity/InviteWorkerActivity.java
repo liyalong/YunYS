@@ -148,7 +148,7 @@ public class InviteWorkerActivity extends BaseActivity<InviteWorkerPresent> {
                                             ToastUtils.showToast("请输入选择员工部门");
                                         } else {
                                             if (roleid == 0) {
-                                                ToastUtils.showToast("请输入选择员工通讯录角色");
+                                                ToastUtils.showToast("请输入选择员工通讯录级别");
                                             } else {
                                                 getP().inviteWorker(username, usersex, userphone, useremail,
                                                         userworkernum, userzhiwei, bumenid, roleid);

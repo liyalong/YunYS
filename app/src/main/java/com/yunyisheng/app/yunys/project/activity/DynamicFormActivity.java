@@ -6,11 +6,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.FileProvider;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -24,6 +26,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.PressionListener;
@@ -181,6 +184,11 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 2);
         LinearLayout.LayoutParams bigimgview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams editTextLP =  new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,1);
+        LinearLayout.LayoutParams unitLP =  new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+
         lpview.setMargins(0, 10, 0, 0);
         for (int i = 0; i < formalldataBeanList.size(); i++) {
             SeeScheduleDetailBean.RespBodyBean.ForminstanceBean.FormBean.DataBean dataBean = formalldataBeanList.get(i);
@@ -205,7 +213,20 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 namevalue.setTextColor(getResources().getColor(R.color.color_333));
                 namevalue.setTextSize(14);
                 namevalue.setText(value);
+                namevalue.setLayoutParams(editTextLP);
+                TextView unitTextView = new TextView(this);
+                if (dataBean.getOrgunit() != null && !dataBean.getOrgunit().equals("")){
+                    unitTextView.setText(dataBean.getOrgunit());
+                    unitTextView.setTextColor(getResources().getColor(R.color.color_333));
+                    unitTextView.setBackgroundColor(getResources().getColor(R.color.white));
+                    unitTextView.setLayoutParams(unitLP);
+                    unitTextView.setGravity(Gravity.CENTER);
+                    unitTextView.setTextSize(14);
+
+                }
+                linearLayout.setOrientation(LinearLayout.HORIZONTAL);
                 linearLayout.addView(namevalue);
+                linearLayout.addView(unitTextView);
                 lineAll.addView(linearLayout);
 
                 View view = new View(this);
@@ -323,6 +344,10 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams editTextLP =  new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,1);
+        LinearLayout.LayoutParams unitLP =  new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
         LinearLayout.LayoutParams lpview = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 2);
         lpview.setMargins(0, 20, 0, 0);
@@ -330,8 +355,10 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
         layoutParams.setMargins(0, 20, 0, 20);
         for (int i = 0; i < alldataBeanList.size(); i++) {
             final ScheduleDetailBean.RespBodyBean.FormBean.DataBean dataBean = alldataBeanList.get(i);
+            LogUtils.i("fieldinfo----》",dataBean.toString());
             String leipiplugins = dataBean.getLeipiplugins();
             int id = dataBean.getId();
+            String defaultValue = dataBean.getValue();
             TextView name = new TextView(this);
             name.setPadding(0, 10, 0, 10);
             name.setText(dataBean.getTitle());
@@ -346,13 +373,32 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 linearLayout.setBackgroundResource(R.drawable.form_bac);
                 EditText editText = new EditText(this);
                 editText.setId(id);
+                if (dataBean.getOrgtype().equals("float")){
+                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                }
                 editText.setTextColor(getResources().getColor(R.color.color_333));
                 editText.setTextSize(14);
+                if (defaultValue != null && !defaultValue.equals("")){
+                    editText.setText(defaultValue);
+                }
                 editText.setHint("请输入" + dataBean.getTitle());
                 editText.setHintTextColor((getResources().getColor(R.color.color_999)));
                 editText.setBackground(null);
-                editText.setLayoutParams(lp);
+                editText.setLayoutParams(editTextLP);
+                TextView unitTextView = new TextView(this);
+                if (dataBean.getOrgunit() != null && !dataBean.getOrgunit().equals("")){
+                    unitTextView.setText(dataBean.getOrgunit());
+                    unitTextView.setTextColor(getResources().getColor(R.color.color_333));
+                    unitTextView.setBackgroundColor(getResources().getColor(R.color.white));
+                    unitTextView.setLayoutParams(unitLP);
+                    unitTextView.setGravity(Gravity.CENTER);
+                    unitTextView.setTextSize(14);
+
+                }
+                linearLayout.setOrientation(LinearLayout.HORIZONTAL);
                 linearLayout.addView(editText);
+                linearLayout.addView(unitTextView);
+
                 lineAll.addView(linearLayout);
                 View view = new View(this);
                 view.setLayoutParams(lpview);

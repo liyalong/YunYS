@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys.main.roadcastReceiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Looper;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -11,16 +12,22 @@ import com.yunyisheng.app.yunys.main.activity.NoticeDeatilActivity;
 import com.yunyisheng.app.yunys.main.model.FindWorkerBean;
 import com.yunyisheng.app.yunys.main.model.MessageBean;
 import com.yunyisheng.app.yunys.main.model.MsgBean;
+import com.yunyisheng.app.yunys.main.model.NoReadMessageEvent;
 import com.yunyisheng.app.yunys.mqtt.MyTopicsModel;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.activity.TaskDetailActivity;
+import com.yunyisheng.app.yunys.tasks.activity.MyPushTaskChildListActivity;
 import com.yunyisheng.app.yunys.tasks.activity.ProcessDetailActivity;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.TokenHeaderInterceptor;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.IOException;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 import cn.droidlover.xdroidbase.cache.SharedPref;
 import cn.droidlover.xdroidmvp.router.Router;
@@ -49,6 +56,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         LogUtils.i("strtr", str);
         msg = gs.fromJson(str,MessageBean.RespBodyBean.class);
 
+
         //判断app进程是否存活
         if (CommonUtils.isAppRunning(context, "com.yunyisheng.app.yunys")) {
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -63,7 +71,12 @@ public class NotificationReceiver extends BroadcastReceiver {
             okHttpClient.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    ToastUtils.showToast("获取消息失败！");
+//                    new android.os.Handler().post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            ToastUtils.showToast("获取消息是失败！");
+//                        }
+//                    });
                 }
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
@@ -82,9 +95,17 @@ public class NotificationReceiver extends BroadcastReceiver {
                                         intent1.putExtra("taskType","3");
                                     }else {
                                         //项目任务
-                                        intent1 = new Intent(context, TaskDetailActivity.class);
-                                        intent1.putExtra("taskId",msgBean.getRespBody().getMessageInfoId());
-                                        intent1.putExtra("projectId",msgBean.getRespBody().getProjectId());
+                                        if (msgBean.getRespBody().getSameType().equals("1")){
+                                            //我发布的任务列表
+                                            intent1 = new Intent(context, MyPushTaskChildListActivity.class);
+                                            intent1.putExtra("releaseId",msgBean.getRespBody().getMessageInfoId());
+                                            intent1.putExtra("projectId",msgBean.getRespBody().getProjectId());
+                                        }else {
+                                           //任务详情
+                                            intent1 = new Intent(context, TaskDetailActivity.class);
+                                            intent1.putExtra("taskId",msgBean.getRespBody().getMessageInfoId());
+                                            intent1.putExtra("projectId",msgBean.getRespBody().getProjectId());
+                                        }
                                     }
                                     break;
                                 //报警
@@ -101,6 +122,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                                     intent1 = new Intent(context,MessageActivity.class);
                                     break;
                             }
+                            EventBus.getDefault().post(new NoReadMessageEvent(0));
                             intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(intent1);
                         }

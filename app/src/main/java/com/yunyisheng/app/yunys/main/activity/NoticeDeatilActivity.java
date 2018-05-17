@@ -163,12 +163,15 @@ public class NoticeDeatilActivity extends BaseActivity<NoticeDetaiPresent> {
             teNoticesender.setText("发布人：" + noticeDetailBean.getRespBody().getCreateUserName());
         }
         List<NoticeDetailBean.RespBodyBean.ReceiverListBean> receiverListBeanList = noticeDetailBean.getRespBody().getReceiverList();
-        if (receiverListBeanList.size() > 0){
+        if (receiverListBeanList != null && receiverListBeanList.size() > 0){
             String receviers = "接收人：";
             for (int i=0;i<receiverListBeanList.size();i++){
                 receviers += receiverListBeanList.get(i).getReceiverName()+"  ";
             }
             teNoticerecevice.setText(receviers);
+            teNoticerecevice.setVisibility(View.VISIBLE);
+        }else {
+            teNoticerecevice.setVisibility(View.GONE);
         }
         teNoticetime.setText(noticeDetailBean.getRespBody().getCreateTime());
         List<AnnexBean> allannexList = noticeDetailBean.getRespBody().getAnnexList();

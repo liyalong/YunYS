@@ -283,7 +283,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/img9"
-                        android:text="@string/jiaose"
+                        android:text="@string/jibie"
                         android:textColor="@color/color_999"
                         android:textSize="@dimen/distance_14" />
 

@@ -106,7 +106,7 @@ public class MaillistExpenableAdapter extends BaseExpandableListAdapter {
         } else {
             groupViewHolder.viewwhite.setVisibility(View.VISIBLE);
         }
-        groupViewHolder.te_groupname.setText(list.get(groupPosition).getGroupname());
+        groupViewHolder.te_groupname.setText(list.get(groupPosition).getGroupname()+"（"+list.get(groupPosition).getGroupSize()+"人）");
         if (isExpanded) {
             groupViewHolder.img_zhedie.setImageResource(R.mipmap.downsanjiao);
         } else {

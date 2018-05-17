@@ -175,7 +175,7 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
                     if (cycleReleaseTaskId == null){
                         intent4.putExtra("fankuijson_create",cycleFeedbackJSON);
                     }else {
-                        intent4.putExtra("fankuijson_edit",cycleFeedbackJSON);
+                        intent4.putExtra("fankuijson_create",cycleFeedbackJSON);
                     }
                 }
                 startActivityForResult(intent4,TEMPLATEREQUESTCODE);
@@ -374,6 +374,7 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
         cycleSelectCron.setText(cycleTask.getCorn());
         cycleTaskUsedTime.setText(cycleTask.getTimeLength().toString());
         cycleTaskUsedTimeM.setText(cycleTask.getTimeLengthMin().toString());
+        cycleTaskUsedTimeS.setText(cycleTask.getTimeLengthSec().toString());
 
         if (cycleTask.getCycletaskStat().equals("1")){
             cycleTasksType.setChecked(true);

@@ -25,7 +25,9 @@ public class WorkerListBean {
     public String getGroupname() {
         return groupname;
     }
-
+    public int getGroupSize(){
+        return workerBeanList.size();
+    }
     public void setGroupname(String groupname) {
         this.groupname = groupname;
     }

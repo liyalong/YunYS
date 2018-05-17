@@ -80,6 +80,7 @@ public class ScheduleFragement extends BaseFragement<WorkerSchedulePresent> {
         super.setUserVisibleHint(isVisibleToUser);
         if (getUserVisibleHint()) {
             pageindex = 1;
+            dataListBeans.clear();
             getP().getWorkerScheduleList(pageindex, userid, dayStartTime, dayEndTime);
         }
     }

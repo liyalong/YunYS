@@ -94,7 +94,7 @@ public interface HomeService {
      * @describe 7.3    获取接收的公告详情
      */
     @FormUrlEncoded
-    @POST("announcement/info/publish")
+    @POST("announcement/info/receive")
     Flowable<NoticeDetailBean> getReciveNoticeDetail(@Field("announcementId") int announcementId);
 
     /**

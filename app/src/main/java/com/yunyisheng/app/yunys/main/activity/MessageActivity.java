@@ -20,6 +20,7 @@ import com.yunyisheng.app.yunys.main.model.MessageTypeBean;
 import com.yunyisheng.app.yunys.main.model.MsgBean;
 import com.yunyisheng.app.yunys.main.present.MessagePresent;
 import com.yunyisheng.app.yunys.project.activity.TaskDetailActivity;
+import com.yunyisheng.app.yunys.tasks.activity.MyPushTaskChildListActivity;
 import com.yunyisheng.app.yunys.tasks.activity.ProcessDetailActivity;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ScreenUtils;
@@ -137,11 +138,23 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
                         .launch();
             }else {
                 //项目任务
-                Router.newIntent(context)
-                        .to(TaskDetailActivity.class)
-                        .putString("taskId",respBodyBean.getRespBody().getMessageInfoId())
-                        .putString("projectId",respBodyBean.getRespBody().getProjectId())
-                        .launch();
+                if (respBodyBean.getRespBody().getSameType().equals("1")){
+                    //我发布的任务列表
+                    Router.newIntent(context)
+                            .to(MyPushTaskChildListActivity.class)
+                            .putString("projectId",respBodyBean.getRespBody().getProjectId())
+                            .putString("releaseId",respBodyBean.getRespBody().getMessageInfoId())
+                            .launch();
+                }else{
+                    //消息详情页
+                    Router.newIntent(context)
+                            .to(TaskDetailActivity.class)
+                            .putString("taskId",respBodyBean.getRespBody().getMessageInfoId())
+                            .putString("projectId",respBodyBean.getRespBody().getProjectId())
+                            .launch();
+                }
+
+
 
             }
         }else if (respBodyBean.getRespBody().getMessageType().equals("3")){

@@ -265,7 +265,12 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
             }else {
                 createUser.setText("");
             }
-
+            //任务认领人
+            if (task.getTaskUserName() != null){
+                doUser.setText(task.getTaskUserName());
+            }else {
+                doUser.setText("");
+            }
             //任务描述
             if (task.getReleaseRemark() != null){
                 taskDesc.setText(task.getReleaseRemark());
@@ -305,7 +310,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                 }
             }else {
                 String now = DateTimeDialogUtils.getCurrentDate("yyyy-MM-dd HH:mm:ss");
-                if (DateTimeDialogUtils.DateCompare(task.getTaskSubmitTime(), now) == true) {
+                if (!DateTimeDialogUtils.DateCompare(task.getTaskSubmitTime(), now)) {
                     taskStatusIstimeout.setVisibility(View.VISIBLE);
                 }else {
                     taskStatusIstimeout.setVisibility(View.GONE);
@@ -327,6 +332,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
             case 2:
             case 4:
             case 5:
+            case 6:
                 if (task.getTaskStat() == 0) {
                     taskStatus.setText(R.string.task_status_1);
                     doUserLayout.setVisibility(View.GONE);
@@ -346,6 +352,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                         caozuoBox.setVisibility(View.GONE);
                     }
                 }else if (task.getTaskStat() == 3){
+                    taskStatus.setText(R.string.task_status_6);
                     caozuoBox.setVisibility(View.GONE);
                 }else if (task.getTaskStat() == 2){
                     taskStatus.setText(R.string.task_status_3);
@@ -399,9 +406,9 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
 //                doTask.setVisibility(View.VISIBLE);
 //                backTask.setVisibility(View.VISIBLE);
 //                break;
-            case 6:
-                caozuoBox.setVisibility(View.GONE);
-                break;
+//            case 6:
+//                caozuoBox.setVisibility(View.GONE);
+//                break;
         }
     }
     //回退意见表单

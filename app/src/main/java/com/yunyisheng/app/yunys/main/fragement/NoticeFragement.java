@@ -183,7 +183,7 @@ public class NoticeFragement extends BaseFragement<NoticePresent> {
             receivemelist.clear();
             pageindex = 1;
             getP().getSendNoticelist(pageindex, 10, null);
-            getP().getReceiveNoticelist(pageindex, 10, null);
+//            getP().getReceiveNoticelist(pageindex, 10, null);
         }
 
     }

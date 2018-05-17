@@ -13,11 +13,35 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@color/white"
+                android:paddingHorizontal="@dimen/distance_10">
+
+                <EditText
+                    android:id="@+id/cycle_task_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/distance_50"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:gravity="center|left"
+                    android:hint="@string/task_name"
+                    android:maxLength="50"
+                    android:singleLine="true"
+                    android:textColor="@color/color_333"
+                    android:textColorHint="@color/color_666"
+                    android:textSize="@dimen/distance_14" />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical"
+                android:layout_marginTop="@dimen/distance_10"
                 android:paddingHorizontal="@dimen/distance_10">
 
                 <LinearLayout
@@ -41,29 +65,6 @@
                         android:src="@mipmap/icon_right" />
                 </LinearLayout>
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distance_10"
-                android:background="@color/white"
-                android:paddingHorizontal="@dimen/distance_10">
-
-                <EditText
-                    android:id="@+id/cycle_task_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/distance_50"
-                    android:background="@null"
-                    android:ellipsize="end"
-                    android:gravity="center|left"
-                    android:hint="@string/task_name"
-                    android:maxLength="50"
-                    android:singleLine="true"
-                    android:textColor="@color/color_333"
-                    android:textColorHint="@color/color_666"
-                    android:textSize="@dimen/distance_14" />
-            </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

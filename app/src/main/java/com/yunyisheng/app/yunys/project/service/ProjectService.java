@@ -284,7 +284,7 @@ public interface ProjectService {
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     @POST("task/setNextTaskUser")
     Flowable<BaseModel> zhaunBanTask(@Field("taskId") String taskId,
-                                     @Field("userId") int userId);
+                                     @Field("assignee") Integer userId);
 
     /**
      * 1.3	流程任务批准

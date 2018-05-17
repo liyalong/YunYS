@@ -234,7 +234,7 @@ public class WorkerDataActivity extends BaseActivity<WorkerDataPresent> {
         canArrangeWork = respBody.isCanArrangeWork();
         boolean canEditInfo = respBody.isCanEditInfo();
         if (canEditInfo) {
-            teEdit.setVisibility(View.VISIBLE);
+//            teEdit.setVisibility(View.VISIBLE);
         }
         if (tabindex == 0) {
             if (canArrangeWork) {

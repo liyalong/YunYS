@@ -88,6 +88,8 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
     Button btnQueren;
     @BindView(R.id.img_quesheng)
     ImageView imgQuesheng;
+    @BindView(R.id.select_all)
+    LinearLayout selectAll;
 
     private int tabindex;
     private boolean ischeck = false;
@@ -370,6 +372,7 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
                 imgClear.setVisibility(View.VISIBLE);
             } else {
                 elv_framework.setVisibility(View.VISIBLE);
+                selectAll.setVisibility(View.VISIBLE);
                 lvSearch.setVisibility(View.GONE);
                 imgClear.setVisibility(View.GONE);
             }
@@ -733,6 +736,7 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
         if (findWorkerBean.getRespBodyBeanList().size() > 0) {
             findWorkerBeanList.clear();
             elv_framework.setVisibility(View.GONE);
+            selectAll.setVisibility(View.GONE);
             lvSearch.setVisibility(View.VISIBLE);
             List<FindWorkerBean.respBodyBean> respBodyBeanList = findWorkerBean.getRespBodyBeanList();
             findWorkerBeanList.addAll(respBodyBeanList);
@@ -750,6 +754,7 @@ public class OrganizationFragement extends BaseFragement<SelectPeoplePresent> {
         if (findProjectWorkerBean.getRespBody().size() > 0) {
             findWorkerProjectBeanList.clear();
             elv_framework.setVisibility(View.GONE);
+            selectAll.setVisibility(View.GONE);
             lvSearch.setVisibility(View.VISIBLE);
             List<FindProjectWorkerBean.RespBodyBean> respBodyBeanList = findProjectWorkerBean.getRespBody();
             findWorkerProjectBeanList.addAll(respBodyBeanList);

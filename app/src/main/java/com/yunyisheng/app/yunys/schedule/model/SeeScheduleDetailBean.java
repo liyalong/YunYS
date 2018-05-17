@@ -598,7 +598,7 @@ public class SeeScheduleDetailBean extends BaseModel {
                     private String title;
                     private Object orgtitle;
                     private Object orgcoltype;
-                    private Object orgunit;
+                    private String orgunit;
                     private Object orgsum;
                     private Object orgcolvalue;
                     private String orgwidth;
@@ -695,11 +695,11 @@ public class SeeScheduleDetailBean extends BaseModel {
                         this.orgcoltype = orgcoltype;
                     }
 
-                    public Object getOrgunit() {
+                    public String getOrgunit() {
                         return orgunit;
                     }
 
-                    public void setOrgunit(Object orgunit) {
+                    public void setOrgunit(String orgunit) {
                         this.orgunit = orgunit;
                     }
 

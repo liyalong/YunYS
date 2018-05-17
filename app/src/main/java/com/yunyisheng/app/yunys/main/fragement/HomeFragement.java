@@ -312,6 +312,8 @@ public class HomeFragement extends BaseFragement<HomePresent> {
             int size = respBody.getMids().size();
             if (size > 0) {
                 imgMessage.setBackgroundResource(R.mipmap.red_msg);
+            }else {
+                imgMessage.setBackgroundResource(R.mipmap.no_message);
             }
         }
     }
@@ -325,11 +327,19 @@ public class HomeFragement extends BaseFragement<HomePresent> {
                 mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
-                        mMediaPlayer.release();
-                        mMediaPlayer = null;
+                        if (mMediaPlayer != null){
+                            mMediaPlayer.release();
+                            mMediaPlayer = null;
+                        }
                     }
                 });
-                mMediaPlayer.start();
+                mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                        // 装载完毕回调
+                        mMediaPlayer.start();
+                    }
+                });
             }
         } catch (Exception e) {
             e.printStackTrace();

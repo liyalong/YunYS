@@ -16,6 +16,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.main.activity.SelectPeopleActivity;
 import com.yunyisheng.app.yunys.main.model.FindProjectWorkerBean;
+import com.yunyisheng.app.yunys.main.model.WorkerBean;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.project.bean.UploadDynamicFormImageBean;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
@@ -63,12 +64,26 @@ public class SelectFindProjectWorkerListAdapter extends SimpleListAdapter<FindPr
         for (int i = 0; i < data.size(); i++) {
             FindProjectWorkerBean.RespBodyBean respBodyBean = data.get(i);
             if (respBodyBean.isIscheck()) {
-                list.add(respBodyBean);
+                if (!checkIsSelected(list,data.get(i))){
+                    list.add(respBodyBean);
+                }
+
             }
         }
         return list;
     }
-
+    public Boolean checkIsSelected(List<FindProjectWorkerBean.RespBodyBean> lists, FindProjectWorkerBean.RespBodyBean item){
+        Boolean in = false;
+        if (lists.size() > 0){
+            for (int i=0;i<lists.size();i++){
+                if (lists.get(i).getUserId() == item.getUserId()){
+                    in = true;
+                    break;
+                }
+            }
+        }
+        return in;
+    }
     /**
      * @author fuduo
      * @time 2018/1/27  19:50

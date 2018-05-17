@@ -18,4 +18,11 @@ public class MyTopicsModel extends BaseModel {
     public void setRespBody(ArrayList<String> respBody) {
         this.respBody = respBody;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "respBody=" + respBody +
+                '}';
+    }
 }

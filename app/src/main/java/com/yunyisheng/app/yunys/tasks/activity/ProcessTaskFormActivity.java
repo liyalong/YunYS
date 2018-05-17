@@ -92,7 +92,7 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
     private String uuid;
     private int seetype;
     private MyHandler myHandler = new MyHandler(this);
-    private int selectUserId1;
+    private Integer selectUserId1;
     private String selectUserName;
     private int userid;
     private String taskid;
@@ -657,10 +657,12 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 1) {
-            selectUserId1 = data.getIntExtra("selectUserId", 0);
+            selectUserId1 = Integer.valueOf(data.getStringExtra("selectUserId"));
             selectUserName = data.getStringExtra("selectUserName");
-            if (taskid != null && !taskid.equals("")) {
+            if (taskid != null && !taskid.equals("") && !selectUserId1.equals(null)) {
                 getP().zhuanProcessTaskForm(taskid, selectUserId1);
+            }else {
+                ToastUtils.showToast("获取人员失败！");
             }
         }
 

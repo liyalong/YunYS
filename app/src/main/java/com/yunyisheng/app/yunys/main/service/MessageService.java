@@ -214,7 +214,6 @@ public class MessageService extends Service {
                 try {
                     WarnningMessageBean body = response.body();
                     int respBody = body.getRespBody();
-                    LogUtils.i("servicehflkdh", body.getRespBody() + "");
                     if (body.getRespCode() == 3) {
                         ToastUtils.showToast(body.getRespMsg());
                         Intent intent = new Intent(MessageService.this, LoginActivity.class);
@@ -224,6 +223,7 @@ public class MessageService extends Service {
                     } else {
                         if (respBody > 0) {
                             if (wanringsize == respBody) {
+
                             } else {
                                 wanringsize = respBody;
                                 doVibrator();

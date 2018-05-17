@@ -92,6 +92,7 @@
     <string name="dianhua">电话</string>
     <string name="bumen">部门</string>
     <string name="zhiwei">职位</string>
+    <string name="jibie">级别</string>
     <string name="jiaose">角色</string>
     <string name="isshownum">隐藏手机号</string>
     <string name="usezone">已用空间</string>
@@ -200,6 +201,7 @@
     <string name="task_create_user">创建人：</string>
     <string name="task_create_time">创建时间：</string>
     <string name="task_start_end_time">*起止时间</string>
+    <string name="task_start_end_time_1">起止时间</string>
     <string name="task_do_user">认领人：</string>
     <string name="task_status_1">未认领</string>
     <string name="task_status_2">已认领</string>
