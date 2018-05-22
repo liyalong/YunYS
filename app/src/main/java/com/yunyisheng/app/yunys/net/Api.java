@@ -21,7 +21,7 @@ public class Api {
     public static final String MQTT_SERVICE_IP = "tcp://123.127.2.206:1883";
 
     public static final String hostIp = "123.127.2.206";
-    public static final String BASE_PATH = "http://"+hostIp+":8666/fairyland-system/";
+    public static final String BASE_PATH = "http://"+hostIp+":8080/fairyland-system/";
     private static UserService userService;
     private static ShortMessageService shortMessageService;
     private static CompanyService companyService;

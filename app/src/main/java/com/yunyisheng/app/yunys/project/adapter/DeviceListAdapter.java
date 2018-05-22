@@ -26,6 +26,7 @@ import cn.droidlover.xdroidmvp.log.XLog;
 
 /**
  * Created by liyalong on 2018/1/22.
+ * 设备类别Adapter
  */
 
 public class DeviceListAdapter extends SimpleListAdapter<DeviceBean, DeviceListAdapter.ViewHolder> implements View.OnClickListener {

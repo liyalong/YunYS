@@ -4,6 +4,7 @@ import com.yunyisheng.app.yunys.base.BaseModel;
 
 /**
  * Created by liyalong on 2017/12/20.
+ * LoginModel
  */
 
 public class LoginModel extends BaseModel {

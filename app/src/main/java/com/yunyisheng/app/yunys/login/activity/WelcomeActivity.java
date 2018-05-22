@@ -22,6 +22,7 @@ import cn.droidlover.xdroidmvp.router.Router;
 
 /**
  * Created by liyalong on 2017/12/15.
+ * 欢迎页
  */
 
 public class WelcomeActivity extends BaseActivity<WelcomePagePresent> {

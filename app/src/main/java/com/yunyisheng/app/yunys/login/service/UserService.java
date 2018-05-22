@@ -11,6 +11,7 @@ import retrofit2.http.POST;
 
 /**
  * Created by liyalong on 2017/12/20.
+ * UserService
  */
 
 public interface UserService {

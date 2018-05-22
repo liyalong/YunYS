@@ -176,6 +176,8 @@
     <string name="model_status">使用状态：</string>
     <string name="alarm_history_type_1">设备报警</string>
     <string name="alarm_history_type_2">工艺模块报警</string>
+    <string name="alarm_detail">报警详情</string>
+
     <!-- 使用状态 -->
     <string name="enable">启用</string>
     <string name="disable">禁用</string>

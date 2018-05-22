@@ -18,6 +18,7 @@ import cn.droidlover.xdroidmvp.net.XApi;
 
 /**
  * Created by liyalong on 2017/12/16.
+ * 登录Present
  */
 
 public class LoginPresent extends XPresent<LoginActivity> {

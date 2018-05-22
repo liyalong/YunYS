@@ -11,6 +11,7 @@ import retrofit2.http.POST;
 
 /**
  * Created by liyalong on 2018/1/5.
+ * 企业注册Service
  */
 
 public interface CompanyService {

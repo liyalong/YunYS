@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * Created by liyalong on 2018/1/17.
+ * 项目bean
  */
 
 public class ProjectBean implements Serializable {

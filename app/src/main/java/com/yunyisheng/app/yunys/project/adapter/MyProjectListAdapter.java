@@ -16,6 +16,7 @@ import cn.droidlover.xdroidmvp.kit.KnifeKit;
 
 /**
  * Created by liyalong on 2018/1/12.
+ * 项目Adapter
  */
 
 public class MyProjectListAdapter extends SimpleListAdapter<ProjectBean, MyProjectListAdapter.ViewHolder> {

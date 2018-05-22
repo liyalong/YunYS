@@ -427,7 +427,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     public void initAfter() {
         Intent intent = new Intent(MainActivity.this, MessageService.class);
         startService(intent);
-        ComponentName mqttService = startService(new Intent(this, MQTTService.class));
+        startService(new Intent(this, MQTTService.class));
     }
 
     public void changerTask() {

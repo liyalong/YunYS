@@ -37,6 +37,7 @@ import cn.droidlover.xdroidmvp.router.Router;
 
 /**
  * Created by liyalong on 2018/1/5.
+ * 企业注册
  */
 
 public class RegisterActivity extends BaseActivity<RegisterPresent> {

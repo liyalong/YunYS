@@ -29,6 +29,8 @@ import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.RegularUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
+import org.eclipse.paho.android.service.MqttService;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.droidlover.xdroidbase.cache.SharedPref;
@@ -36,6 +38,7 @@ import cn.droidlover.xdroidmvp.router.Router;
 
 /**
  * Created by liyalong on 2017/12/16.
+ * 登录activity
  */
 
 public class LoginActivity extends BaseActivity<LoginPresent> {
@@ -63,14 +66,17 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
         ButterKnife.bind(this);
     }
 
+    /**
+     * 初始化
+     */
     @Override
     public void initAfter() {
         if (CommonUtils.isServiceRunning(this, "com.yunyisheng.app.yunys.main.service.MessageService")) {
             stopService(new Intent(mContext, MessageService.class));
         }
-//        if (CommonUtils.isServiceRunning(this, "org.eclipse.paho.android.service.MqttService")) {
-//            stopService(new Intent(mContext, MqttService.class));
-//        }
+        if (CommonUtils.isServiceRunning(this, "org.eclipse.paho.android.service.MqttService")) {
+            stopService(new Intent(mContext, MqttService.class));
+        }
 
         String errorlog = getIntent().getStringExtra("errorlog");
         if (errorlog!=null&&!errorlog.equals("")){

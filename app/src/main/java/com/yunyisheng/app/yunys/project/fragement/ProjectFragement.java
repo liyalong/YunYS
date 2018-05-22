@@ -21,7 +21,7 @@ import static com.yunyisheng.app.yunys.utils.ScreenUtils.setIndicator;
 /**
  * 作者：fuduo on 2018/1/10 09:25
  * 邮箱：duoendeavor@163.com
- * 用途：
+ * 用途：项目Fragment
  */
 
 public class ProjectFragement extends BaseFragement {

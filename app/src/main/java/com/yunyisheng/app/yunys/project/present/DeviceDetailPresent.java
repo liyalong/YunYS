@@ -17,6 +17,7 @@ import cn.droidlover.xdroidmvp.net.XApi;
 
 /**
  * Created by liyalong on 2018/1/23.
+ * 设备Present
  */
 
 public class DeviceDetailPresent extends XPresent<DeviceDetailActivity> {

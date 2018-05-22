@@ -14,6 +14,7 @@ import cn.droidlover.xdroidmvp.net.XApi;
 
 /**
  * Created by liyalong on 2018/1/5.
+ * 企业注册Present
  */
 
 public class RegisterPresent extends XPresent<RegisterActivity> {
