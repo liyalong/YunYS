@@ -1,6 +1,7 @@
 package com.yunyisheng.app.yunys.project.service;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
+import com.yunyisheng.app.yunys.project.model.AlarmDetailModel;
 import com.yunyisheng.app.yunys.project.model.DeviceAlarmRulesModel;
 import com.yunyisheng.app.yunys.project.model.DeviceInfoModel;
 import com.yunyisheng.app.yunys.project.model.DeviceListModel;
@@ -329,6 +330,10 @@ public interface ProjectService {
                                                      @Field("alarmEquPcmId") String alarmEquPcmId,
                                                      @Field("alarmType") Integer alarmType,
                                                      @Field("alarmHandleType") Integer alarmHandleType);
+    @FormUrlEncoded
+    @POST("alarmLogging/getAlarmLoggingById/{projectId}")
+    Flowable<AlarmDetailModel> getAlarmDetail(@Path("projectId") String projectId,
+                                              @Field("alarmId") String alarmId);
 
     /**
      * 获取设备的实时指标列表

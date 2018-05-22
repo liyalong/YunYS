@@ -84,6 +84,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
     private List<ScheduleDetailBean.RespBodyBean.FormBean.DataBean> alldataBeanList = new ArrayList<>();
     private List<SeeScheduleDetailBean.RespBodyBean.ForminstanceBean.FormBean.DataBean> formalldataBeanList = new ArrayList<>();
     private MyHandler handler = new MyHandler(this);
+    private Handler mHandler=new Handler();
     private int taskId;
     private String releaseFormId;
     private int seetype;
@@ -373,7 +374,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 linearLayout.setBackgroundResource(R.drawable.form_bac);
                 EditText editText = new EditText(this);
                 editText.setId(id);
-                if (dataBean.getOrgtype().equals("float")){
+                if (dataBean.getOrgtype() != null && dataBean.getOrgtype().equals("float")){
                     editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                 }
                 editText.setTextColor(getResources().getColor(R.color.color_333));
@@ -506,12 +507,85 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    handler.sendEmptyMessage(0);
+                    //handler.sendEmptyMessage(0);
+                    mHandler.post(runnable);
                 }
             });
             lineAll.addView(button);
         }
     }
+
+    private Runnable runnable=new Runnable() {
+        @Override
+        public void run() {
+            try {
+                    JSONObject object = new JSONObject();
+                    org.json.JSONArray jsonArray = new org.json.JSONArray();
+                    for (int i = 0; i < alldataBeanList.size(); i++) {
+                        ScheduleDetailBean.RespBodyBean.FormBean.DataBean dataBean = alldataBeanList.get(i);
+                        String leipiplugins = dataBean.getLeipiplugins();
+                        int id = dataBean.getId();
+                        if (leipiplugins.equals("text") || leipiplugins.equals("textarea")) {
+                            JSONObject jsonObject = new JSONObject();
+                            EditText editText = findViewById(id);
+                            jsonObject.put(kongjianid, id + "");
+                            jsonObject.put(valuestr, editText.getText().toString().trim());
+                            jsonArray.put(jsonObject);
+                        } else if (leipiplugins.equals("radios")) {
+                            JSONObject jsonObject = new JSONObject();
+                            RadioGroup radioGroup = findViewById(id);
+                            jsonObject.put(kongjianid, id + "");
+                            RadioButton r = findViewById(radioGroup.getCheckedRadioButtonId());
+                            if (r != null) {
+                                String val = r.getText().toString();
+                                jsonObject.put(valuestr, val);
+                                jsonArray.put(jsonObject);
+                            } else {
+                                ToastUtils.showToast("您还有未选择的选项");
+                                return;
+                            }
+                        } else if (leipiplugins.equals("checkboxs")) {
+                            List<ScheduleDetailBean.RespBodyBean.FormBean.VelueBean> options = dataBean.getOptions();
+                            JSONObject jsonObject = new JSONObject();
+                            jsonObject.put(kongjianid, id + "");
+                            String val = "";
+                            if (options.size() < 1) return;
+                            for (int m = 0; m < options.size(); m++) {
+                                CheckBox cb = findViewById(Integer.parseInt(id + "2" + m));
+                                if (cb.isChecked()) {
+                                    val += cb.getText().toString() + ",";
+                                }
+                            }
+                            if (!val.equals("")) {
+                                if (val.lastIndexOf(",") == val.length() - 1)
+                                    val = val.substring(0, val.length() - 1);
+                                jsonObject.put(valuestr, val);
+                                jsonArray.put(jsonObject);
+                            } else {
+                                ToastUtils.showToast("您还有未选择的选项");
+                                return;
+                            }
+                        } else if (leipiplugins.equals("formImage")) {
+                            JSONObject jsonObject = new JSONObject();
+                            jsonObject.put(kongjianid, id + "");
+                            if (imageurllist.size() > 0) {
+                                String imageurl = imageurllist.get(imageurlsize);
+                                jsonObject.put(valuestr, imageurl);
+                                jsonArray.put(jsonObject);
+                                imageurlsize++;
+                            }
+                        }
+                    }
+                    object.put("uuid", releaseFormId);
+                    object.put("dataList", jsonArray);
+                    String str = object.toString();
+                    LogUtils.i("gdsgfdsgfg", str);
+                    getP().getScheduleDetail(taskId, str);
+            } catch (Exception e) {
+
+            }
+        }
+    };
 
     class MyHandler extends Handler {
 
@@ -697,6 +771,12 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 LoadingDialog.dismiss(DynamicFormActivity.this);
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacks(runnable);
     }
 
     /**

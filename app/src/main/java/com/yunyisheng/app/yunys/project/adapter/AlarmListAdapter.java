@@ -87,8 +87,6 @@ public class AlarmListAdapter extends SimpleListAdapter<DeviceWarningBean, Alarm
                 holder.alarmUpdateTime.setText(item.getAlarmUpdateDate().substring(0,16));
                 break;
         }
-
-
     }
 
     public class ViewHolder {
