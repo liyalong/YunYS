@@ -11,8 +11,8 @@ import com.alibaba.fastjson.JSON;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.tasks.adapter.MyAdapter;
-import com.yunyisheng.app.yunys.tasks.model.ChildBean;
-import com.yunyisheng.app.yunys.tasks.model.GroupBean;
+import com.yunyisheng.app.yunys.tasks.bean.AlarmChartUpdataBean;
+import com.yunyisheng.app.yunys.tasks.bean.ChildBean;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.MyListView;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
@@ -44,7 +44,7 @@ public class ProjectTemplateActivity extends BaseActivity {
     ScrollView scroAll;
     @BindView(R.id.bottom)
     RelativeLayout bottom;
-    private List<GroupBean> stringList = new ArrayList<>();
+    private List<AlarmChartUpdataBean.GroupBean> stringList = new ArrayList<>();
     private MyAdapter adapter;
 
     @Override
@@ -69,7 +69,7 @@ public class ProjectTemplateActivity extends BaseActivity {
         List<ChildBean> childBeans = new ArrayList<>();
         ChildBean childBean = new ChildBean();
         childBeans.add(childBean);
-        GroupBean bean = new GroupBean();
+        AlarmChartUpdataBean.GroupBean bean = new AlarmChartUpdataBean.GroupBean();
         bean.setModel(childBeans);
         stringList.add(bean);
         adapter = new MyAdapter(ProjectTemplateActivity.this, stringList);
@@ -80,7 +80,7 @@ public class ProjectTemplateActivity extends BaseActivity {
         try {
            JSONArray feedbackItem=new JSONArray(json);
             for (int i=0;i<feedbackItem.length();i++){
-                GroupBean bean = new GroupBean();
+                AlarmChartUpdataBean.GroupBean bean = new AlarmChartUpdataBean.GroupBean();
                 List<ChildBean> modellist=new ArrayList<>();
                 org.json.JSONObject object= new JSONObject(feedbackItem.get(i).toString());
                 String feedbackName = object.getString("feedbackName");
@@ -111,7 +111,7 @@ public class ProjectTemplateActivity extends BaseActivity {
         try {
             JSONArray feedbackItem=new JSONArray(json);
             for (int i=0;i<feedbackItem.length();i++){
-                GroupBean bean = new GroupBean();
+                AlarmChartUpdataBean.GroupBean bean = new AlarmChartUpdataBean.GroupBean();
                 List<ChildBean> modellist=new ArrayList<>();
                 String string = feedbackItem.get(i).toString();
 //                String modelstr = string.replaceAll("\\\\", "");
@@ -165,10 +165,10 @@ public class ProjectTemplateActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.submit:
-                List<GroupBean> groupBeanList = adapter.getStrList();
+                List<AlarmChartUpdataBean.GroupBean> groupBeanList = adapter.getStrList();
                 if (groupBeanList.size()>0) {
                     for (int i = 0; i < groupBeanList.size(); i++) {
-                        GroupBean groupBean = groupBeanList.get(i);
+                        AlarmChartUpdataBean.GroupBean groupBean = groupBeanList.get(i);
                         int type = groupBean.getfeedbackType();
                         String s = groupBean.getfeedbackName();
                         //判断是否有未填写的外层内容
@@ -201,11 +201,11 @@ public class ProjectTemplateActivity extends BaseActivity {
                 break;
             case R.id.bottom:
                 //添加任务反馈项
-                List<GroupBean> list = adapter.getStrList();
+                List<AlarmChartUpdataBean.GroupBean> list = adapter.getStrList();
                 List<ChildBean> childBeans = new ArrayList<>();
                 ChildBean childBean = new ChildBean();
                 childBeans.add(childBean);
-                GroupBean bean = new GroupBean();
+                AlarmChartUpdataBean.GroupBean bean = new AlarmChartUpdataBean.GroupBean();
                 bean.setModel(childBeans);
                 list.add(bean);
                 stringList=list;

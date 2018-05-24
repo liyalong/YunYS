@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.yunyisheng.app.yunys.R;
-import com.yunyisheng.app.yunys.tasks.model.ChildBean;
+import com.yunyisheng.app.yunys.tasks.bean.ChildBean;
 
 import java.util.List;
 

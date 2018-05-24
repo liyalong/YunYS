@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -12,6 +13,8 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseFragement;
+import com.yunyisheng.app.yunys.project.activity.AlarmDetailActivity;
+import com.yunyisheng.app.yunys.project.activity.DeviceDetailActivity;
 import com.yunyisheng.app.yunys.project.activity.ProjectDetailsActivity;
 import com.yunyisheng.app.yunys.project.adapter.AlarmListAdapter;
 import com.yunyisheng.app.yunys.project.bean.DeviceWarningBean;
@@ -26,6 +29,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.droidlover.xdroidmvp.router.Router;
 
 /**
  * Created by liyalong on 2018/1/18.
@@ -66,6 +70,17 @@ public class AlarmListFragment extends BaseFragement<AlarmListPresent> {
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 PAGE_NUM += 1;
                 getP().getProjectAlarmLists(projectId, PAGE_NUM, PAGE_SIZE);
+            }
+        });
+        alarmHistoryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                DeviceWarningBean warningBean = dataList.get(i-1);
+                Router.newIntent(context)
+                        .to(AlarmDetailActivity.class)
+                        .putString("projectId", projectId)
+                        .putString("alarmId", warningBean.getAlarmId())
+                        .launch();
             }
         });
     }

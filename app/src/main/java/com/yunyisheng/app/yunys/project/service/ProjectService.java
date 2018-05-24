@@ -2,6 +2,7 @@ package com.yunyisheng.app.yunys.project.service;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.project.model.AlarmDetailModel;
+import com.yunyisheng.app.yunys.project.model.AlarmPLCDataModel;
 import com.yunyisheng.app.yunys.project.model.DeviceAlarmRulesModel;
 import com.yunyisheng.app.yunys.project.model.DeviceInfoModel;
 import com.yunyisheng.app.yunys.project.model.DeviceListModel;
@@ -22,6 +23,7 @@ import io.reactivex.Flowable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -272,6 +274,7 @@ public interface ProjectService {
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     @POST("startProInsWithObj")
     Flowable<BaseModel> putProcessTaskForm(@Field("instanceFormStr") String instanceFormStr,
+                                           @Field("userId") Integer userId,
                                            @Field("assignee") int assignee,
                                            @Field("processDefinitionId") String processDefinitionId,
                                            @Field("endTime") String endTime);
@@ -376,6 +379,10 @@ public interface ProjectService {
     @POST("equip/select/propertyPlc")
     Flowable<PLCListModel> getPLCList(@Field("propertyId") String propertyId,
                                       @Field("interval") int interval);
+    @FormUrlEncoded
+    @POST("myReport/select/plc/{projectId}")
+    Flowable<AlarmPLCDataModel> getAlarmPCLList(@Path("projectId") String projectId,
+                                                @Field("reportInstances") String reportInstances);
 
 
 }

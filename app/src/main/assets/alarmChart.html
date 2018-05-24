@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta content="always" name="referrer">
+    <link href="bootstrap/css/bootstrap.min.css" />
+    <script src="jquery.min.js"></script>
+    <script type="bootstrap/js/bootstrap.min.js"></script>
+    <script src="echarts.min.js"></script>
+
+</head>
+<body >
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12" id="pcldetail" style="height:300px;">加载中。。。</div>
+    </div>
+
+</div>
+<script type="text/javascript">
+
+var myChart = echarts.init(document.getElementById("pcldetail"));
+function createCharts(result){
+    if(result == "" && result.length == 0){
+            myChart.showLoading({
+                      text: '暂无数据！',
+                      color: '#c23531',
+                      textColor: '#000',
+                      maskColor: 'rgba(255, 255, 255, 0.8)',
+                      zlevel: 0
+                    });
+                    return ;
+    }
+var data = JSON.parse(result);
+var option = {
+        tooltip: {
+                trigger: 'axis',
+                formatter: function(params){
+                	console.log(params);
+                    var str = params[0].name + '<br/>';
+                    for(var i=0;i<params.length;i++){
+                        str += params[i].marker+params[i].seriesName+":"+params[i].value+params[i].data.units;
+                        str += '<br/>';
+                    }
+                    return str;
+                },
+                axisPointer: {
+                    animation: false
+                }
+            },
+        legend:{data:[]},
+        dataZoom: [
+            {
+                type: 'slider',
+                show: true,
+            },
+            {
+                type: 'inside',
+            }
+        ],
+        xAxis: [{
+            type: 'category',
+            data: [],
+            splitLine: {
+                        show: false
+                    }
+        }],
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: [],
+            type: 'line',
+            smooth: true
+        }]
+    };
+    var xAxisData = [];
+    var seriesData = [];
+    var legendData = [];
+    var nums = count(data);
+    var hasData = true;
+    if(nums > 0){
+        for(var i=0;i<nums;i++){
+            legendData.push(data[i].plcDetail);
+            var datas = data[i].datas;
+            var datasnum = count(datas);
+            var item = {name:data[i].plcDetail,type:'line',smooth:true,data:[],units:data[i].unitName};
+            var itemData = [];
+            if(datasnum> 0){
+                for(var j=0;j<datasnum;j++){
+                    if(i==0){
+                      xAxisData.push(datas[j].date);
+                    }
+                    itemData.push({value:datas[j].value,units:data[i].unitName});
+                }
+                item.data = itemData;
+            }
+            seriesData.push(item);
+        }
+    }else{
+        hasData = false;
+    }
+    option.legend.data = legendData;
+    option.xAxis[0].data = xAxisData;
+    option.series = seriesData;
+    console.log(option);
+    myChart.setOption(option);
+}
+//获取对象或者数组对长度
+function count(o){
+    var t = typeof o;
+    if(t == 'string'){
+            return o.length;
+    }else if(t == 'object'){
+            var n = 0;
+            for(var i in o){
+                    n++;
+            }
+            return n;
+    }
+    return false;
+}
+
+</script>
+</body>
+</html>

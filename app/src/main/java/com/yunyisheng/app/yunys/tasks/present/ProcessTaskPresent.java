@@ -62,9 +62,9 @@ public class ProcessTaskPresent extends XPresent<ProcessTaskFormActivity> {
      * @time 2018/2/5  17:15
      * @describe 提交流程任务表单
      */
-    public void putProcessTaskForm(String instanceFormStr, int assignee,
+    public void putProcessTaskForm(String instanceFormStr,Integer userId, int assignee,
                                    String processDefinitionId, String endTime) {
-        Api.projectService().putProcessTaskForm(instanceFormStr, assignee, processDefinitionId, endTime)
+        Api.projectService().putProcessTaskForm(instanceFormStr,userId, assignee, processDefinitionId, endTime)
                 .compose(XApi.<BaseModel>getApiTransformer())
                 .compose(XApi.<BaseModel>getScheduler())
                 .compose(getV().<BaseModel>bindToLifecycle())

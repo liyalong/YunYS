@@ -15,6 +15,7 @@ import com.yunyisheng.app.yunys.main.model.MsgBean;
 import com.yunyisheng.app.yunys.main.model.NoReadMessageEvent;
 import com.yunyisheng.app.yunys.mqtt.MyTopicsModel;
 import com.yunyisheng.app.yunys.net.Api;
+import com.yunyisheng.app.yunys.project.activity.AlarmDetailActivity;
 import com.yunyisheng.app.yunys.project.activity.TaskDetailActivity;
 import com.yunyisheng.app.yunys.tasks.activity.MyPushTaskChildListActivity;
 import com.yunyisheng.app.yunys.tasks.activity.ProcessDetailActivity;
@@ -51,7 +52,7 @@ public class NotificationReceiver extends BroadcastReceiver {
     private Gson gs = new Gson();
     private MessageBean.RespBodyBean msg;
     @Override
-    public void onReceive(final Context context, Intent intent) {
+    public void onReceive(final Context context, final Intent intent) {
         String str = intent.getStringExtra("str");
         LogUtils.i("strtr", str);
         msg = gs.fromJson(str,MessageBean.RespBodyBean.class);
@@ -109,9 +110,11 @@ public class NotificationReceiver extends BroadcastReceiver {
                                     }
                                     break;
                                 //报警
-//                                case "2":
-//                                    intent1 = new Intent(context,MessageActivity.class);
-//                                    break;
+                                case "2":
+                                    intent1 = new Intent(context,AlarmDetailActivity.class);
+                                    intent1.putExtra("projectId",msgBean.getRespBody().getProjectId());
+                                    intent1.putExtra("alarmId",msgBean.getRespBody().getMessageInfoId());
+                                    break;
                                 //公告，需要参数为公告id
                                 case "3":
                                     intent1 = new Intent(context,NoticeDeatilActivity.class);

@@ -1,4 +1,4 @@
-package com.yunyisheng.app.yunys.tasks.model;
+package com.yunyisheng.app.yunys.tasks.bean;
 
 /**
  * 作者：fuduo on 2018/1/18 10:40

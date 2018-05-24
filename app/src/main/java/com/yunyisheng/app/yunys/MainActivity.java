@@ -51,6 +51,7 @@ import com.yunyisheng.app.yunys.main.service.MessageService;
 import com.yunyisheng.app.yunys.mqtt.MQTTMessage;
 import com.yunyisheng.app.yunys.mqtt.MQTTService;
 import com.yunyisheng.app.yunys.net.Api;
+import com.yunyisheng.app.yunys.project.activity.AlarmDetailActivity;
 import com.yunyisheng.app.yunys.project.activity.TaskDetailActivity;
 import com.yunyisheng.app.yunys.project.fragement.ProjectFragement;
 import com.yunyisheng.app.yunys.schedule.fragement.ScheduleTaskFragement;
@@ -246,11 +247,13 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
                                     }
                                 }
                                 break;
-                            //报警
-//                                case "2":
-//                                    intent1 = new Intent(context,MessageActivity.class);
-//                                    break;
-                            //公告，需要参数为公告id
+//                            报警
+                                case "2":
+                                    intent1 = new Intent(context,AlarmDetailActivity.class);
+                                    intent1.putExtra("alarmId",msgBean.getRespBody().getMessageInfoId());
+                                    intent1.putExtra("projectId",msgBean.getRespBody().getProjectId());
+                                    break;
+//                            公告，需要参数为公告id
                             case "3":
                                 intent1 = new Intent(context,NoticeDeatilActivity.class);
                                 intent1.putExtra("noticeid",Integer.parseInt(msgBean.getRespBody().getMessageInfoId()));

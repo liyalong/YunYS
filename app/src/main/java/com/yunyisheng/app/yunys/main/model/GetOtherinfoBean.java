@@ -89,16 +89,16 @@ public class GetOtherinfoBean extends BaseModel implements Serializable {
              */
 
             private String userPhoneState;
-            private Object phone;
+            private String phone;
             private String userMailboxState;
-            private Object userPassword;
-            private Object parent;
+            private String userPassword;
+            private String parent;
             private String enterpriseId;
-            private Object consoleUsername;
-            private int enterpriseRolesId;
+            private String consoleUsername;
+            private String enterpriseRolesId;
             private boolean userIsShow;
             private String userPicture;
-            private int userNumber;
+            private String userNumber;
             private String userType;
             private String userState;
             private String userJobTitle;
@@ -107,8 +107,8 @@ public class GetOtherinfoBean extends BaseModel implements Serializable {
             private String userSex;
             private String userName;
             private String userPhone;
-            private Object rolesId;
-            private long userSetTime;
+            private String rolesId;
+            private String userSetTime;
 
             public String getUserPhoneState() {
                 return userPhoneState;
@@ -118,11 +118,11 @@ public class GetOtherinfoBean extends BaseModel implements Serializable {
                 this.userPhoneState = userPhoneState;
             }
 
-            public Object getPhone() {
+            public String getPhone() {
                 return phone;
             }
 
-            public void setPhone(Object phone) {
+            public void setPhone(String phone) {
                 this.phone = phone;
             }
 
@@ -134,19 +134,19 @@ public class GetOtherinfoBean extends BaseModel implements Serializable {
                 this.userMailboxState = userMailboxState;
             }
 
-            public Object getUserPassword() {
+            public String getUserPassword() {
                 return userPassword;
             }
 
-            public void setUserPassword(Object userPassword) {
+            public void setUserPassword(String userPassword) {
                 this.userPassword = userPassword;
             }
 
-            public Object getParent() {
+            public String getParent() {
                 return parent;
             }
 
-            public void setParent(Object parent) {
+            public void setParent(String parent) {
                 this.parent = parent;
             }
 
@@ -158,19 +158,19 @@ public class GetOtherinfoBean extends BaseModel implements Serializable {
                 this.enterpriseId = enterpriseId;
             }
 
-            public Object getConsoleUsername() {
+            public String getConsoleUsername() {
                 return consoleUsername;
             }
 
-            public void setConsoleUsername(Object consoleUsername) {
+            public void setConsoleUsername(String consoleUsername) {
                 this.consoleUsername = consoleUsername;
             }
 
-            public int getEnterpriseRolesId() {
+            public String getEnterpriseRolesId() {
                 return enterpriseRolesId;
             }
 
-            public void setEnterpriseRolesId(int enterpriseRolesId) {
+            public void setEnterpriseRolesId(String enterpriseRolesId) {
                 this.enterpriseRolesId = enterpriseRolesId;
             }
 
@@ -190,11 +190,11 @@ public class GetOtherinfoBean extends BaseModel implements Serializable {
                 this.userPicture = userPicture;
             }
 
-            public int getUserNumber() {
+            public String getUserNumber() {
                 return userNumber;
             }
 
-            public void setUserNumber(int userNumber) {
+            public void setUserNumber(String userNumber) {
                 this.userNumber = userNumber;
             }
 
@@ -262,19 +262,19 @@ public class GetOtherinfoBean extends BaseModel implements Serializable {
                 this.userPhone = userPhone;
             }
 
-            public Object getRolesId() {
+            public String getRolesId() {
                 return rolesId;
             }
 
-            public void setRolesId(Object rolesId) {
+            public void setRolesId(String rolesId) {
                 this.rolesId = rolesId;
             }
 
-            public long getUserSetTime() {
+            public String getUserSetTime() {
                 return userSetTime;
             }
 
-            public void setUserSetTime(long userSetTime) {
+            public void setUserSetTime(String userSetTime) {
                 this.userSetTime = userSetTime;
             }
         }
@@ -293,30 +293,30 @@ public class GetOtherinfoBean extends BaseModel implements Serializable {
              * sectionParentid : null
              */
 
-            private Object sectionUpdatedTime;
-            private Object sectionStatus;
+            private String sectionUpdatedTime;
+            private String sectionStatus;
             private int sectionId;
-            private Object principal;
-            private Object enterpriseId;
-            private Object isParent;
+            private String principal;
+            private String enterpriseId;
+            private String isParent;
             private String sectionName;
-            private Object sectionSort;
-            private Object sectionCreatedTime;
-            private Object sectionParentid;
+            private String sectionSort;
+            private String sectionCreatedTime;
+            private String sectionParentid;
 
-            public Object getSectionUpdatedTime() {
+            public String getSectionUpdatedTime() {
                 return sectionUpdatedTime;
             }
 
-            public void setSectionUpdatedTime(Object sectionUpdatedTime) {
+            public void setSectionUpdatedTime(String sectionUpdatedTime) {
                 this.sectionUpdatedTime = sectionUpdatedTime;
             }
 
-            public Object getSectionStatus() {
+            public String getSectionStatus() {
                 return sectionStatus;
             }
 
-            public void setSectionStatus(Object sectionStatus) {
+            public void setSectionStatus(String sectionStatus) {
                 this.sectionStatus = sectionStatus;
             }
 
@@ -328,27 +328,27 @@ public class GetOtherinfoBean extends BaseModel implements Serializable {
                 this.sectionId = sectionId;
             }
 
-            public Object getPrincipal() {
+            public String getPrincipal() {
                 return principal;
             }
 
-            public void setPrincipal(Object principal) {
+            public void setPrincipal(String principal) {
                 this.principal = principal;
             }
 
-            public Object getEnterpriseId() {
+            public String getEnterpriseId() {
                 return enterpriseId;
             }
 
-            public void setEnterpriseId(Object enterpriseId) {
+            public void setEnterpriseId(String enterpriseId) {
                 this.enterpriseId = enterpriseId;
             }
 
-            public Object getIsParent() {
+            public String getIsParent() {
                 return isParent;
             }
 
-            public void setIsParent(Object isParent) {
+            public void setIsParent(String isParent) {
                 this.isParent = isParent;
             }
 
@@ -360,27 +360,27 @@ public class GetOtherinfoBean extends BaseModel implements Serializable {
                 this.sectionName = sectionName;
             }
 
-            public Object getSectionSort() {
+            public String getSectionSort() {
                 return sectionSort;
             }
 
-            public void setSectionSort(Object sectionSort) {
+            public void setSectionSort(String sectionSort) {
                 this.sectionSort = sectionSort;
             }
 
-            public Object getSectionCreatedTime() {
+            public String getSectionCreatedTime() {
                 return sectionCreatedTime;
             }
 
-            public void setSectionCreatedTime(Object sectionCreatedTime) {
+            public void setSectionCreatedTime(String sectionCreatedTime) {
                 this.sectionCreatedTime = sectionCreatedTime;
             }
 
-            public Object getSectionParentid() {
+            public String getSectionParentid() {
                 return sectionParentid;
             }
 
-            public void setSectionParentid(Object sectionParentid) {
+            public void setSectionParentid(String sectionParentid) {
                 this.sectionParentid = sectionParentid;
             }
         }

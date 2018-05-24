@@ -172,11 +172,14 @@
     <string name="alarm_history">报警记录</string>
     <string name="alarm_history_time">报警时间：</string>
     <string name="alarm_history_type">报警类型：</string>
+    <string name="alarm_history_project">所属项目：</string>
     <string name="device_nums">设备数量：</string>
     <string name="model_status">使用状态：</string>
     <string name="alarm_history_type_1">设备报警</string>
     <string name="alarm_history_type_2">工艺模块报警</string>
     <string name="alarm_detail">报警详情</string>
+    <string name="alarm_detail_jbxx">基本信息</string>
+    <string name="alarm_detail_plc">报警前后10分钟PLC指标</string>
 
     <!-- 使用状态 -->
     <string name="enable">启用</string>
@@ -318,6 +321,7 @@
     <string name="process_approval_info">审批意见：</string>
     <string name="process_approval_turn_info">转办意见：</string>
     <string name="process_task_state">任务状态：</string>
+    <string name="process_assign_state">审批状态：</string>
     <string name="process_task_state_1">待审批</string>
     <string name="process_task_state_2">已结束</string>
     <string name="process_approval_user">审批人：</string>

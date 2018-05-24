@@ -14,6 +14,8 @@ import com.yunyisheng.app.yunys.tasks.bean.ProcessDetailBean;
 import com.yunyisheng.app.yunys.tasks.present.ProcessDetailPresent;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -42,6 +44,10 @@ public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
     TextView toProcessTaskDetail;
     @BindView(R.id.caozuo_box)
     LinearLayout caozuoBox;
+    @BindView(R.id.task_assign_lin)
+    LinearLayout taskAssignLin;
+    @BindView(R.id.task_assign_user)
+    TextView taskAssignUser;
     private int userId;
     private String taskId;
     private String taskType;
@@ -150,19 +156,32 @@ public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
     public void getProcessDetailResult(ProcessDetailBean processDetailBean) {
         this.processDetail = processDetailBean;
         try{
-            String taskName = processDetail.getRespBody().getSelectByIdAndUuid().getForm().getName().toString();
+            String taskName = processDetail.getRespBody().getTask().getTheme();
+            int taskAssignStateValue = processDetail.getRespBody().getTask().getStatusType();
             String startUser = processDetail.getRespBody().getStartUserId().getUserName().toString();
             String taskStartTimeValue = processDetail.getRespBody().getTask().getCreationTime();
             String taskState = processDetail.getRespBody().getTask().getState();
             String taskApprovalState = processDetail.getRespBody().getTask().getYesOrNoApproval();
+            ProcessDetailBean.RespBodyBean.ApproverBean approver = processDetailBean.getRespBody().getApprover();
             processTaskName.setText(taskName);
             taskStartUser.setText(startUser);
             if (taskStartTimeValue != null){
                 taskStartTime.setText(taskStartTimeValue.substring(0,16));
             }
-
-            if (taskApprovalState.equals("1")){
+            if (taskState.equals("101")){
                 taskStartState.setText("待审批");
+            }else if (taskState.equals("102")){
+                if (taskAssignStateValue == 1){
+                    taskStartState.setText("已结束（通过）");
+                }else if(taskAssignStateValue == 3){
+                    taskStartState.setText("已结束（拒绝）");
+                }
+            }
+            if (approver != null){
+                taskAssignLin.setVisibility(View.VISIBLE);
+                taskAssignUser.setText(approver.getUserName());
+            }
+            if (taskApprovalState.equals("1")){
                 if (taskState.equals("101")){
                     doProcessTask.setVisibility(View.VISIBLE);
                     toProcessTaskDetail.setVisibility(View.GONE);
@@ -170,8 +189,15 @@ public class ProcessDetailActivity extends BaseActivity<ProcessDetailPresent> {
                     doProcessTask.setVisibility(View.GONE);
                     toProcessTaskDetail.setVisibility(View.VISIBLE);
                 }
+            }else if (taskApprovalState.equals("2")){
+                if (taskState.equals("101")){
+                    doProcessTask.setVisibility(View.GONE);
+                    toProcessTaskDetail.setVisibility(View.GONE);
+                }else{
+                    doProcessTask.setVisibility(View.GONE);
+                    toProcessTaskDetail.setVisibility(View.VISIBLE);
+                }
             }else if (taskApprovalState.equals("0")){
-                taskStartState.setText("已结束");
                 doProcessTask.setVisibility(View.GONE);
                 toProcessTaskDetail.setVisibility(View.VISIBLE);
             }

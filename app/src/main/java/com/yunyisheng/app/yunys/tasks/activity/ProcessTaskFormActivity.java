@@ -558,12 +558,17 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                                 return;
                             }
                         } else if (leipiplugins.equals("checkboxs")) {
+                            String valuestring = dataBean.getValue();
                             JSONObject jsonObject = new JSONObject();
-                            List<ProcessTaskFormDetailBean.RespBodyBean.opationValue> options = dataBean.getOptions();
                             jsonObject.put(kongjianid, id + "");
                             String val = "";
-                            if (options.size() < 1) return;
-                            for (int j = 0; j < options.size(); j++) {
+                            String[] values = null;
+                            values = valuestring.split(",");
+                            if (values.length < 1){
+                                ToastUtils.showToast("数据格式不正确！");
+                                return;
+                            }
+                            for (int j = 0; j < values.length; j++) {
                                 CheckBox cb = findViewById(Integer.parseInt(id + "2" + j));
                                 if (cb.isChecked()) {
                                     val += cb.getText().toString() + ",";
@@ -597,7 +602,9 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
                     object.put("dataList", jsonArray);
                     String str = object.toString();
                     LogUtils.i("gdsgfdsgfg", str);
-                    getP().putProcessTaskForm(str, selectUserId, selectFormId, endTime);
+                    Integer userId = SharedPref.getInstance(context).getInt("userid",0);
+
+                    getP().putProcessTaskForm(str,userId, selectUserId, selectFormId, endTime);
                 }
             } catch (Exception e) {
 

@@ -420,7 +420,10 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                     if (valuestring != null && !valuestring.equals("")) {
                         String[] values = null;
                         values = valuestring.split(",");
-                        if (values.length < 1) return;
+                        if (values.length < 1){
+                            ToastUtils.showToast("数据格式错误！");
+                            return;
+                        }
                         for (int j = 0; j < values.length; j++) {
                             String valuetext = values[j];
                             RadioButton radioButton = new RadioButton(this);
@@ -545,12 +548,17 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                                 return;
                             }
                         } else if (leipiplugins.equals("checkboxs")) {
-                            List<ScheduleDetailBean.RespBodyBean.FormBean.VelueBean> options = dataBean.getOptions();
+                            String valuestring = dataBean.getValue();
                             JSONObject jsonObject = new JSONObject();
                             jsonObject.put(kongjianid, id + "");
                             String val = "";
-                            if (options.size() < 1) return;
-                            for (int m = 0; m < options.size(); m++) {
+                            String[] values = null;
+                            values = valuestring.split(",");
+                            if (values.length < 1){
+                                ToastUtils.showToast("数据格式不正确！");
+                                return;
+                            }
+                            for (int m = 0; m < values.length; m++) {
                                 CheckBox cb = findViewById(Integer.parseInt(id + "2" + m));
                                 if (cb.isChecked()) {
                                     val += cb.getText().toString() + ",";

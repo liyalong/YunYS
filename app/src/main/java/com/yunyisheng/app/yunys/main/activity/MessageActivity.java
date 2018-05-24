@@ -128,36 +128,44 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
     public void setVoalGone(int position, MsgBean respBodyBean) {
         messagelist.get(position).setMessageStat("0");
         messageAdapter.notifyDataSetChanged();
-        if (respBodyBean.getRespBody().getMessageType().equals("1")){
-            if (respBodyBean.getRespBody().getProjectId() == null){
+        if (respBodyBean.getRespBody().getMessageType().equals("1")) {
+            if (respBodyBean.getRespBody().getProjectId() == null) {
                 //流程任务
                 Router.newIntent(context)
                         .to(ProcessDetailActivity.class)
-                        .putString("taskId",respBodyBean.getRespBody().getMessageInfoId())
-                        .putString("taskType","3")
+                        .putString("taskId", respBodyBean.getRespBody().getMessageInfoId())
+                        .putString("taskType", "3")
                         .launch();
-            }else {
+            } else {
                 //项目任务
-                if (respBodyBean.getRespBody().getSameType().equals("1")){
+                if (respBodyBean.getRespBody().getSameType().equals("1")) {
                     //我发布的任务列表
                     Router.newIntent(context)
                             .to(MyPushTaskChildListActivity.class)
-                            .putString("projectId",respBodyBean.getRespBody().getProjectId())
-                            .putString("releaseId",respBodyBean.getRespBody().getMessageInfoId())
+                            .putString("projectId", respBodyBean.getRespBody().getProjectId())
+                            .putString("releaseId", respBodyBean.getRespBody().getMessageInfoId())
                             .launch();
-                }else{
+                } else {
                     //消息详情页
                     Router.newIntent(context)
                             .to(TaskDetailActivity.class)
-                            .putString("taskId",respBodyBean.getRespBody().getMessageInfoId())
-                            .putString("projectId",respBodyBean.getRespBody().getProjectId())
+                            .putString("taskId", respBodyBean.getRespBody().getMessageInfoId())
+                            .putString("projectId", respBodyBean.getRespBody().getProjectId())
                             .launch();
                 }
 
 
-
             }
+        }else if(respBodyBean.getRespBody().getMessageType().equals("2")){
+            //报警详情页
+            Router.newIntent(context)
+                    .to(NoticeDeatilActivity.class)
+                    .putString("projectId", respBodyBean.getRespBody().getProjectId())
+                    .putString("alarmId",respBodyBean.getRespBody().getMessageInfoId())
+                    .launch();
+
         }else if (respBodyBean.getRespBody().getMessageType().equals("3")){
+            //公告
             Router.newIntent(context)
                     .to(NoticeDeatilActivity.class)
                     .putInt("noticeid", Integer.parseInt(respBodyBean.getRespBody().getMessageInfoId()))

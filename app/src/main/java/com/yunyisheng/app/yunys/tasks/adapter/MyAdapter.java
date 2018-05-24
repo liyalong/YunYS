@@ -17,8 +17,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.yunyisheng.app.yunys.R;
-import com.yunyisheng.app.yunys.tasks.model.ChildBean;
-import com.yunyisheng.app.yunys.tasks.model.GroupBean;
+import com.yunyisheng.app.yunys.tasks.bean.AlarmChartUpdataBean;
+import com.yunyisheng.app.yunys.tasks.bean.ChildBean;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.MyListView;
 
@@ -34,11 +34,11 @@ import java.util.List;
 public class MyAdapter extends BaseAdapter {
 
     Context context;
-    List<GroupBean> strList = new ArrayList<>();//外层集合
+    List<AlarmChartUpdataBean.GroupBean> strList = new ArrayList<>();//外层集合
     List<ChildBean> stringList;//里层集合
     private MySmallitemAdapter adapter;//里层适配器
 
-    public MyAdapter(Context context, List<GroupBean> strList) {
+    public MyAdapter(Context context, List<AlarmChartUpdataBean.GroupBean> strList) {
         this.context = context;
         this.strList = strList;
     }
@@ -230,7 +230,7 @@ public class MyAdapter extends BaseAdapter {
         }
     }
 
-    public List<GroupBean> getStrList() {
+    public List<AlarmChartUpdataBean.GroupBean> getStrList() {
         return strList;
     }
 }
