@@ -297,13 +297,13 @@ public class MQTTService extends Service {
 
         @Override
         public void deliveryComplete(IMqttDeliveryToken arg0) {
-
+            return;
         }
 
         @Override
         public void connectionLost(Throwable arg0) {
             // 失去连接，重连
-
+            return;
         }
     };
 

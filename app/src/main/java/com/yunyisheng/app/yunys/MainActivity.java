@@ -428,9 +428,18 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 
     @Override
     public void initAfter() {
-        Intent intent = new Intent(MainActivity.this, MessageService.class);
-        startService(intent);
-        startService(new Intent(this, MQTTService.class));
+        try{
+            Intent intent = new Intent(MainActivity.this, MessageService.class);
+            startService(intent);
+            Intent mqttIntent = new Intent(this, MQTTService.class);
+            if (mqttIntent != null){
+                startService(mqttIntent);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
     }
 
     public void changerTask() {
