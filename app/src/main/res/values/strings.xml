@@ -177,6 +177,7 @@
     <string name="model_status">使用状态：</string>
     <string name="alarm_history_type_1">设备报警</string>
     <string name="alarm_history_type_2">工艺模块报警</string>
+    <string name="alarm_history_type_3">项目报警</string>
     <string name="alarm_detail">报警详情</string>
     <string name="alarm_detail_jbxx">基本信息</string>
     <string name="alarm_detail_plc">报警前后10分钟PLC指标</string>

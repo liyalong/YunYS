@@ -19,6 +19,7 @@ import com.yunyisheng.app.yunys.main.model.MessageBean;
 import com.yunyisheng.app.yunys.main.model.MessageTypeBean;
 import com.yunyisheng.app.yunys.main.model.MsgBean;
 import com.yunyisheng.app.yunys.main.present.MessagePresent;
+import com.yunyisheng.app.yunys.project.activity.AlarmDetailActivity;
 import com.yunyisheng.app.yunys.project.activity.TaskDetailActivity;
 import com.yunyisheng.app.yunys.tasks.activity.MyPushTaskChildListActivity;
 import com.yunyisheng.app.yunys.tasks.activity.ProcessDetailActivity;
@@ -159,7 +160,7 @@ public class MessageActivity extends BaseActivity<MessagePresent> {
         }else if(respBodyBean.getRespBody().getMessageType().equals("2")){
             //报警详情页
             Router.newIntent(context)
-                    .to(NoticeDeatilActivity.class)
+                    .to(AlarmDetailActivity.class)
                     .putString("projectId", respBodyBean.getRespBody().getProjectId())
                     .putString("alarmId",respBodyBean.getRespBody().getMessageInfoId())
                     .launch();

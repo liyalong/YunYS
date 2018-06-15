@@ -98,11 +98,11 @@ public class SelectFindWorkerListAdapter extends SimpleListAdapter<FindWorkerBea
         } else {
             String sex = respBodyBean.getUserSex();
             if (sex != null && !sex.equals("") && !sex.equals("null")) {
-                if (sex.equals("男")) {
+//                if (sex.equals("男")) {
                     holder.imgWokerHead.setBackgroundResource(R.mipmap.maillist_man);
-                } else {
-                    holder.imgWokerHead.setBackgroundResource(R.mipmap.maillist_woman);
-                }
+//                } else {
+//                    holder.imgWokerHead.setBackgroundResource(R.mipmap.maillist_woman);
+//                }
 
             } else {
                 holder.imgWokerHead.setBackgroundResource(R.mipmap.maillist_man);

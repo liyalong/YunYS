@@ -230,7 +230,7 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
                     selectDeviceId = null;
                     selectProjectDevice.setText("*选择设备");
                     selectUserId = null;
-                    selectAssignUsers.setText("请选择分配人员！");
+                    selectAssignUsers.setText("请选择分配人员");
                 }
                 break;
             case DEVICEEQUESTCODE:
@@ -251,7 +251,13 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
 
                     selectAssignUserId = data.getStringExtra("selectUserId");
                     selectUserName = data.getStringExtra("selectUserName");
-                    selectAssignUsers.setText(selectUserName);
+                    if (selectAssignUserId.equals("-1")){
+                        selectAssignUserId = null;
+                        selectAssignUsers.setText("选择分配人员列表");
+                    }else {
+                        selectAssignUsers.setText(selectUserName);
+                    }
+
                 }
                 break;
         }
@@ -262,13 +268,13 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
 
         if (selectProjectId == null){
             checkStatus.put("status","error");
-            checkStatus.put("msg","请选择项目！");
+            checkStatus.put("msg","请选择项目");
             return checkStatus;
         }
         taskForm.setProjectId(selectProjectId);
         if (selectDeviceId == null){
             checkStatus.put("status","error");
-            checkStatus.put("msg","请选择设备！");
+            checkStatus.put("msg","请选择设备");
             return checkStatus;
         }
         taskForm.setEquipmentId(selectDeviceId);
@@ -276,14 +282,14 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
         String releaseName = taskName.getText().toString().trim();
         if (releaseName.length() == 0){
             checkStatus.put("status","error");
-            checkStatus.put("msg","任务名称不能为空！");
+            checkStatus.put("msg","任务名称不能为空");
             return checkStatus;
         }
         taskForm.setReleaseName(releaseName);
         Boolean timeStatus = DateTimeDialogUtils.DateCompare(taskStartTime.getText().toString()+":00",taskEndTime.getText().toString()+":00");
         if (!timeStatus){
             checkStatus.put("status","error");
-            checkStatus.put("msg","任务结束时间不能小于开始时间！");
+            checkStatus.put("msg","任务结束时间不能小于开始时间");
             return checkStatus;
         }
         taskForm.setReleaseBegint(taskStartTime.getText().toString()+":00");
@@ -292,7 +298,7 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
         String releaseRemark = taskDesc.getText().toString().trim();
         if (releaseRemark.length() == 0){
             checkStatus.put("status","error");
-            checkStatus.put("msg","任务备注不能为空！");
+            checkStatus.put("msg","任务备注不能为空");
             return checkStatus;
         }
         taskForm.setReleaseRemark(releaseRemark);
@@ -310,7 +316,7 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
         if (releaseTaskId == null){
             if (feedbackJSON == null){
                 checkStatus.put("status","error");
-                checkStatus.put("msg","任务反馈项不能为空！");
+                checkStatus.put("msg","任务反馈项不能为空");
                 return checkStatus;
             }
             taskForm.setFeedbackJSON(feedbackJSON);
@@ -322,7 +328,7 @@ public class DeviceTemporaryTaskFargment extends BaseFragement<DeviceTemporaryTa
 
         taskForm.setReleaseTaskType(1);
         checkStatus.put("status","success");
-        checkStatus.put("msg","完成验证！");
+        checkStatus.put("msg","完成验证");
         return checkStatus;
     }
     public UpdateTemporaryTaskBean getFormData() {

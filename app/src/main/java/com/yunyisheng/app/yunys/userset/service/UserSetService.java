@@ -77,7 +77,8 @@ public interface UserSetService {
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
     @POST("idea/createidea")
-    Flowable<BaseModel> sendFankui(@Field("ideaVal") String ideaVal);
+    Flowable<BaseModel> sendFankui(@Field("ideaVal") String ideaVal,
+                                   @Field("ideaType") String ideaType);
 
     /**
      * @author fuduo

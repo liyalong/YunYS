@@ -37,20 +37,23 @@ public class ProjectUserListAdapter extends SimpleListAdapter<ProjectUserBean, P
     }
 
     @Override
-    protected void convert(final ViewHolder holder, final ProjectUserBean item, int position) {
-            holder.text.setText(item.getUserName());
-
+    protected void convert(final ViewHolder holder, final ProjectUserBean item, final int position) {
+        holder.text.setText(data.get(position).getUserName());
+        if (!data.get(position).isCheck()){
+            holder.checkedView.setBackgroundResource(R.mipmap.select_no);
+        }else {
+            holder.checkedView.setBackgroundResource(R.mipmap.select_yes);
+        }
         holder.checkedView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    final boolean check = item.isCheck();
+                    boolean check = data.get(position).isCheck();
                     if (check){
-                        holder.checkedView.setBackgroundResource(R.mipmap.select_no);
-                        item.setCheck(false);
+                        data.get(position).setCheck(false);
                     }else {
-                        holder.checkedView.setBackgroundResource(R.mipmap.select_yes);
-                        item.setCheck(true);
+                        data.get(position).setCheck(true);
                     }
+                    notifyDataSetChanged();
                 }
             });
 

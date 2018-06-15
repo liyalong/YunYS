@@ -119,6 +119,10 @@ public class RadioSelectUserActivity extends BaseActivity<RadioSelectUserPresent
     public void setAdapterData(ProjectUserListModel projectUserListModel) {
         if (projectUserListModel.getRespBody().size() > 0){
             dataList.clear();
+            ProjectUserBean userBean = new ProjectUserBean();
+            userBean.setUserName("暂不指定人员");
+            userBean.setUserId(-1);
+            dataList.add(userBean);
             List<ProjectUserBean> checkUserLists = new ArrayList<>();
             for (int i=0;i<projectUserListModel.getRespBody().size();i++){
                 if (thisUserid != projectUserListModel.getRespBody().get(i).getUserId()){
@@ -135,6 +139,12 @@ public class RadioSelectUserActivity extends BaseActivity<RadioSelectUserPresent
 
     public void getResultList(String body) {
         try {
+            dataList.clear();
+            ProjectUserBean userBean = new ProjectUserBean();
+            userBean.setUserName("暂不指定人员");
+            userBean.setUserId(-1);
+            dataList.add(userBean);
+
             LogUtils.i("bodystrsf",body);
             workerlist = new ArrayList<>();
             JSONObject object = new JSONObject(body);

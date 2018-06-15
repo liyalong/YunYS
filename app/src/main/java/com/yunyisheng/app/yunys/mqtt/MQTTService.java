@@ -313,7 +313,7 @@ public class MQTTService extends Service {
     private boolean isConnectIsNomarl() {
         ConnectivityManager connectivityManager = (ConnectivityManager) this.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = connectivityManager.getActiveNetworkInfo();
-        if (info != null && info.isAvailable() && pingIpAddress(Api.hostIp)) {
+        if (info != null && info.isAvailable()) {
             String name = info.getTypeName();
             Log.i(TAG, "MQTT当前网络名称：" + name);
             return true;

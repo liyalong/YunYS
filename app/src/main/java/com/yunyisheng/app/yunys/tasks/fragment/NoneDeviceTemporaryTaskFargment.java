@@ -26,6 +26,7 @@ import com.yunyisheng.app.yunys.utils.customDatePicker.CustomDatePicker;
 
 import org.w3c.dom.Text;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -166,6 +167,7 @@ public class NoneDeviceTemporaryTaskFargment extends BaseFragement {
                     return;
                 }
                 Intent intent5 = new Intent(context, SelectProjectUserListActivity.class);
+                intent5.putExtra("selectedUsers",(Serializable)selectUsers);
                 intent5.putExtra("projectId",selectProjectId);
                 startActivityForResult(intent5,PROJECTUSERREQUESTCODE);
                 break;
@@ -196,11 +198,16 @@ public class NoneDeviceTemporaryTaskFargment extends BaseFragement {
                 if (resultCode == 1){
                     selectUsers.clear();
                     selectUsers =(List<ProjectUserBean>) data.getSerializableExtra("selectlist");
-                    String selectUserNames = "";
-                    for (int i=0;i<selectUsers.size();i++){
-                        selectUserNames += selectUsers.get(i).getUserName() + " ";
+                    if (selectUsers.size() > 0){
+                        String selectUserNames = "";
+                        for (int i=0;i<selectUsers.size();i++){
+                            selectUserNames += selectUsers.get(i).getUserName() + " ";
+                        }
+                        selectAssignUsers.setText(selectUserNames);
+                    }else {
+                        selectAssignUsers.setText("选择分配人员列表");
                     }
-                    selectAssignUsers.setText(selectUserNames);
+
                 }
                 break;
         }

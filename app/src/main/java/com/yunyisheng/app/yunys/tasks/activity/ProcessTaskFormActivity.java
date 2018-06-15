@@ -167,8 +167,17 @@ public class ProcessTaskFormActivity extends BaseActivity<ProcessTaskPresent> {
         createUser = processTaskFormDetailBean.getRespBody().getCreateUser();
         List<ProcessTaskFormDetailBean.RespBodyBean.DataBean> data = processTaskFormDetailBean.getRespBody().getData();
         if (data != null && data.size() > 0) {
+            dataBeanList.clear();
             dataBeanList.addAll(data);
-            initUi();
+            try{
+                initUi();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }else {
+            ToastUtils.showToast("获取表单内容出错！");
+            this.finish();
         }
     }
 

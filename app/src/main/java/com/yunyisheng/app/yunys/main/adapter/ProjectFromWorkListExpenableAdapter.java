@@ -141,11 +141,11 @@ public class ProjectFromWorkListExpenableAdapter extends BaseExpandableListAdapt
         }else {
             String sex = userListBean.getUserSex();
             if (sex!= null && !sex.equals("")&& !sex.equals("null")){
-                if (sex.equals("男")){
+//                if (sex.equals("男")){
                     img_woker_head.setBackgroundResource(R.mipmap.maillist_man);
-                }else {
-                    img_woker_head.setBackgroundResource(R.mipmap.maillist_woman);
-                }
+//                }else {
+//                    img_woker_head.setBackgroundResource(R.mipmap.maillist_woman);
+//                }
 
             }else {
                 img_woker_head.setBackgroundResource(R.mipmap.maillist_man);

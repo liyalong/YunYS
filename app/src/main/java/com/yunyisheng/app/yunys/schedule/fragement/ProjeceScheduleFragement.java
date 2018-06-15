@@ -104,6 +104,7 @@ public class ProjeceScheduleFragement extends BaseFragement<ProjectSchedulePrese
     private String dayStartTime;
     private String dayEndTime;
     private String projectid;
+    private String projectName;
     private boolean nomore;
     private boolean isfirst = true;
     private String firstMonthDay;
@@ -149,8 +150,11 @@ public class ProjeceScheduleFragement extends BaseFragement<ProjectSchedulePrese
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(PositionMessageEvent messageEvent) {
         Log.d("cylog", "receive it");
-        projectid = messageEvent.getPosition();
-        if (projectid != null && !projectid.equals("")) {
+        String projectidName = messageEvent.getPosition();
+        if (projectidName != null && !projectidName.equals("")) {
+            String[] aa = projectidName.split(",");
+            projectid = aa[0];
+            projectName = aa[1];
             projectschedulelist.clear();
             pageindex = 1;
             getP().getMyProjectSchedulrList(pageindex, projectid, dayStartTime, dayEndTime);
@@ -192,7 +196,7 @@ public class ProjeceScheduleFragement extends BaseFragement<ProjectSchedulePrese
                 HeaderAndFooterWrapper headerAndFooterWrapper = new HeaderAndFooterWrapper(projectadapter);
                 View view = LayoutInflater.from(mContext).inflate(R.layout.recycle_headview, null);
                 TextView te_columntitle = (TextView) view.findViewById(R.id.te_columntitle);
-                te_columntitle.setText("项目日程");
+                te_columntitle.setText(projectName);
                 TextView te_columnsize = (TextView) view.findViewById(R.id.te_columnsize);
                 te_columnsize.setText("(" + total + "条)");
                 headerAndFooterWrapper.addHeaderView(view);

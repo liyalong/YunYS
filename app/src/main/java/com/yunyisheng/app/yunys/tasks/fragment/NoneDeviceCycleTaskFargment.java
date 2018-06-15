@@ -24,6 +24,7 @@ import com.yunyisheng.app.yunys.utils.DateTimeDialogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.customDatePicker.CustomDatePicker;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -157,6 +158,7 @@ public class NoneDeviceCycleTaskFargment extends BaseFragement {
                 }
                 Intent intent5 = new Intent(context, SelectProjectUserListActivity.class);
                 intent5.putExtra("projectId",cycleSelectProjectId);
+                intent5.putExtra("selectedUsers",(Serializable)cycleSelectUsers);
                 startActivityForResult(intent5,PROJECTUSERCODE);
                 break;
         }
@@ -211,11 +213,16 @@ public class NoneDeviceCycleTaskFargment extends BaseFragement {
                 if (resultCode == 1){
                    cycleSelectUsers.clear();
                     cycleSelectUsers =(List<ProjectUserBean>) data.getSerializableExtra("selectlist");
-                    String selectUserNames = "";
-                    for (int i=0;i<cycleSelectUsers.size();i++){
-                        selectUserNames += cycleSelectUsers.get(i).getUserName() + " ";
+                    if (cycleSelectUsers.size() > 0){
+                        String selectUserNames = "";
+                        for (int i=0;i<cycleSelectUsers.size();i++){
+                            selectUserNames += cycleSelectUsers.get(i).getUserName() + " ";
+                        }
+                        selectCycleAssignUsers.setText(selectUserNames);
+                    }else {
+                        selectCycleAssignUsers.setText("选择分配人员列表");
                     }
-                    selectCycleAssignUsers.setText(selectUserNames);
+
                 }
                 break;
         }

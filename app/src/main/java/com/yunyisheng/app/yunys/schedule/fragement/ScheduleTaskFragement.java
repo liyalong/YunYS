@@ -166,7 +166,8 @@ public class ScheduleTaskFragement extends BaseFragement<SchedulrTaskPresent> {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ProjectBean projectBean = projectBeanList.get(position);
                 String projectId = projectBean.getProjectId();
-                EventBus.getDefault().post(new PositionMessageEvent(projectId));
+                String projectName = projectBean.getProjectName();
+                EventBus.getDefault().post(new PositionMessageEvent(projectId+","+projectName));
                 mShareDialog.dismiss();
             }
         });

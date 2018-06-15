@@ -142,7 +142,12 @@ public class CreateProcessTaskAcitvity extends BaseActivity {
                 if (resultCode == 1){
                     selectUserId = Integer.valueOf(data.getStringExtra("selectUserId"));
                     selectUserName = data.getStringExtra("selectUserName");
-                    selectProcessTaskToUser.setText(selectUserName);
+                    if (selectUserId == -1){
+                        selectUserId = 0;
+                        selectProcessTaskToUser.setText("*审批人");
+                    }else {
+                        selectProcessTaskToUser.setText(selectUserName);
+                    }
                 }
                 break;
         }

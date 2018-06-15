@@ -2,6 +2,7 @@ package com.yunyisheng.app.yunys.project.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -16,6 +17,8 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -40,6 +43,7 @@ import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.DialogManager;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.LogUtils;
+import com.yunyisheng.app.yunys.utils.ScaleImageView;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.Util;
 
@@ -331,11 +335,35 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
             }
         }
     }
-
+    /**
+     * 图片放大框
+     *
+     * @return
+     */
+    public void createBigImageDialog(Bitmap bitmap) {
+        final Dialog mSelectTask = new Dialog(this, R.style.dialog_bottom_full);
+        mSelectTask.setCanceledOnTouchOutside(true);
+        mSelectTask.setCancelable(true);
+        Window window = mSelectTask.getWindow();
+//        window.setGravity(Gravity.BOTTOM);
+        View view1 = View.inflate(this, R.layout.dialog_show_image, null);
+        ScaleImageView matriximage = (ScaleImageView) view1
+                .findViewById(R.id.matriximage);
+        matriximage.setImageBitmap(bitmap);
+        window.setContentView(view1);
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);//设置横向全屏
+        mSelectTask.show();
+    }
     public void setFormImage(String respBody) {
         if (respBody != null && !respBody.equals("")) {
-            Bitmap bitmap = stringtoBitmap(respBody);
+            final Bitmap bitmap = stringtoBitmap(respBody);
             imageView.setImageBitmap(bitmap);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    createBigImageDialog(bitmap);
+                }
+            });
             CommonUtils.releaseImageViewResouce(imageView);
         }
     }
@@ -531,6 +559,10 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                         if (leipiplugins.equals("text") || leipiplugins.equals("textarea")) {
                             JSONObject jsonObject = new JSONObject();
                             EditText editText = findViewById(id);
+                            if(editText.getText().toString().trim().length() == 0){
+                                ToastUtils.showToast("您还有未填写的填写项");
+                                return;
+                            }
                             jsonObject.put(kongjianid, id + "");
                             jsonObject.put(valuestr, editText.getText().toString().trim());
                             jsonArray.put(jsonObject);

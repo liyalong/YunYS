@@ -310,7 +310,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailPresent> {
                 }
             }else {
                 String now = DateTimeDialogUtils.getCurrentDate("yyyy-MM-dd HH:mm:ss");
-                if (!DateTimeDialogUtils.DateCompare(task.getTaskSubmitTime(), now)) {
+                if (DateTimeDialogUtils.DateCompare(task.getReleaseEndt(),task.getTaskSubmitTime())) {
                     taskStatusIstimeout.setVisibility(View.VISIBLE);
                 }else {
                     taskStatusIstimeout.setVisibility(View.GONE);

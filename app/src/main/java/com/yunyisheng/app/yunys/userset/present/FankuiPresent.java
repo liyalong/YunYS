@@ -28,7 +28,7 @@ public class FankuiPresent extends XPresent<FanKuiActivity> {
      */
     public void sendFankui(String ideaVal) {
         LoadingDialog.show(getV());
-        Api.userSetService().sendFankui(ideaVal)
+        Api.userSetService().sendFankui(ideaVal,"1")
                 .compose(XApi.<BaseModel>getApiTransformer()) //统一异常处理
                 .compose(XApi.<BaseModel>getScheduler()) //线程调度
                 .compose(getV().<BaseModel>bindToLifecycle()) //内存泄漏处理

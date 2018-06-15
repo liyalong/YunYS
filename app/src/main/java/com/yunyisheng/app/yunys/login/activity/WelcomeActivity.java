@@ -124,9 +124,9 @@ public class WelcomeActivity extends BaseActivity<WelcomePagePresent> {
 
     @Override
     public int bindLayout() {
-        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
-            finish();
-        }
+//        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+//            finish();
+//        }
         return R.layout.active_welcome;
     }
 

@@ -231,7 +231,12 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
                 if (resultCode == 1){
                     cycleSelectUserId = data.getStringExtra("selectUserId");
                     cycleSelectUserName = data.getStringExtra("selectUserName");
-                    selectCycleAssignUsers.setText(cycleSelectUserName);
+                    if (cycleSelectUserId.equals("-1")){
+                        cycleSelectUserId = null;
+                        selectCycleAssignUsers.setText("选择分配人员列表");
+                    }else {
+                        selectCycleAssignUsers.setText(cycleSelectUserName);
+                    }
                 }
                 break;
         }

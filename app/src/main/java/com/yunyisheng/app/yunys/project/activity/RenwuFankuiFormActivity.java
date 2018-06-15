@@ -1,7 +1,9 @@
 package com.yunyisheng.app.yunys.project.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,6 +15,8 @@ import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -35,6 +39,7 @@ import com.yunyisheng.app.yunys.schedule.model.RenWuFanKuiDetailBean;
 import com.yunyisheng.app.yunys.utils.DialogManager;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.LogUtils;
+import com.yunyisheng.app.yunys.utils.ScaleImageView;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.Util;
 
@@ -308,10 +313,17 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                         imageView.setLayoutParams(bigimgview);
                         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                         if (feedbackVal != null && !feedbackVal.equals("")) {
-                            Bitmap bitmap = stringtoBitmap(feedbackVal);
+                            final Bitmap bitmap = stringtoBitmap(feedbackVal);
                             imageView.setImageBitmap(bitmap);
                             releaseImageViewResouce(imageView);
+                            imageView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    createBigImageDialog(bitmap);
+                                }
+                            });
                         }
+
                         lineAll.addView(imageView);
                     } else {
                         final JSONObject jsonObject = new JSONObject();
@@ -360,7 +372,25 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
 
 
     }
-
+    /**
+     * 图片放大框
+     *
+     * @return
+     */
+    public void createBigImageDialog(Bitmap bitmap) {
+        final Dialog mSelectTask = new Dialog(this, R.style.dialog_bottom_full);
+        mSelectTask.setCanceledOnTouchOutside(true);
+        mSelectTask.setCancelable(true);
+        Window window = mSelectTask.getWindow();
+//        window.setGravity(Gravity.BOTTOM);
+        View view1 = View.inflate(this, R.layout.dialog_show_image, null);
+        ScaleImageView matriximage = (ScaleImageView) view1
+                .findViewById(R.id.matriximage);
+        matriximage.setImageBitmap(bitmap);
+        window.setContentView(view1);
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);//设置横向全屏
+        mSelectTask.show();
+    }
     class MyHandler extends Handler {
 
         WeakReference<RenwuFankuiFormActivity> activityWeakReference;
@@ -381,6 +411,10 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                     int id = feedbackItemBean.getFeedbackItemId();
                     if (type == 1) {
                         EditText editText = findViewById(id);
+                        if (editText.getText().toString().trim().length() ==0){
+                            ToastUtils.showToast("您还有未填写的填写项");
+                            return;
+                        }
                         map.put(kongjianid, id + "");
                         map.put(valuestr, editText.getText().toString().trim());
                         l.add(map);

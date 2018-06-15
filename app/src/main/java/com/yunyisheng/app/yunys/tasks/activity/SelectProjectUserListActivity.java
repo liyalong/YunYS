@@ -34,6 +34,7 @@ public class SelectProjectUserListActivity extends BaseActivity<ProjectUserListP
     private List<ProjectUserBean> dataList = new ArrayList<>();
     private String projectId;
     private String releaseId;
+    private List<ProjectUserBean> selectedUsers;
     int thisUserid = SharedPref.getInstance(context).getInt("userid",0);
 
     @Override
@@ -41,6 +42,7 @@ public class SelectProjectUserListActivity extends BaseActivity<ProjectUserListP
         ButterKnife.bind(this);
         this.projectId = getIntent().getStringExtra("projectId");
         this.releaseId = getIntent().getStringExtra("releaseId");
+        this.selectedUsers = (List<ProjectUserBean>) getIntent().getSerializableExtra("selectedUsers");
         getP().getProjectUserList(projectId);
     }
 
@@ -74,13 +76,9 @@ public class SelectProjectUserListActivity extends BaseActivity<ProjectUserListP
                 break;
             case R.id.submit:
                 List<ProjectUserBean> lists = adapter == null ? new ArrayList<ProjectUserBean>() : adapter.getSelectList();
-                if (lists.size() == 0){
-                    setResult(2,intent);
-                }else {
-                    intent.putExtra("selectlist",(Serializable)lists);
-                    intent.putExtra("releaseId",releaseId);
-                    setResult(1,intent);
-                }
+                intent.putExtra("selectlist",(Serializable)lists);
+                intent.putExtra("releaseId",releaseId);
+                setResult(1,intent);
 //                Intent intent1 = getIntent();
 //                List<ProjectUserBean> list = (List<ProjectUserBean>) intent1.getSerializableExtra("selectlist");
                 break;
@@ -98,6 +96,11 @@ public class SelectProjectUserListActivity extends BaseActivity<ProjectUserListP
             List<ProjectUserBean> checkUserLists = new ArrayList<>();
             for (int i=0;i<projectUserListModel.getRespBody().size();i++){
                 if (thisUserid != projectUserListModel.getRespBody().get(i).getUserId()){
+                    for(int j=0;j<selectedUsers.size();j++){
+                        if (projectUserListModel.getRespBody().get(i).getUserId() == selectedUsers.get(j).getUserId()){
+                            projectUserListModel.getRespBody().get(i).setCheck(true);
+                        }
+                    }
                     checkUserLists.add(projectUserListModel.getRespBody().get(i));
                 }
             }

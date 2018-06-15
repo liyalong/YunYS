@@ -111,11 +111,11 @@ public class MineFragement extends BaseFragement<MinePresent> {
             GlideDownLoadImage.getInstance().loadBitmapCircleImageRole(mContext, imgWorkerHead, bitmap);
         } else {
             if (usersex != null && !usersex.equals("") && !usersex.equals("null")) {
-                if (usersex.equals("男")) {
+//                if (usersex.equals("男")) {
                     imgWorkerHead.setBackgroundResource(R.mipmap.man);
-                } else {
-                    imgWorkerHead.setBackgroundResource(R.mipmap.woman);
-                }
+//                } else {
+//                    imgWorkerHead.setBackgroundResource(R.mipmap.woman);
+//                }
             } else {
                 imgWorkerHead.setBackgroundResource(R.mipmap.man);
             }
