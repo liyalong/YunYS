@@ -288,34 +288,36 @@ public class MailListActivity extends BaseActivity<MaillistPresent> {
                     JSONObject subdivisionobject = new JSONObject(jsonArray.get(i).toString());
                     String subdivisionname = subdivisionobject.getString("text");
                     listBean.setGroupname(subdivisionname);
+                    JSONArray users = subdivisionobject.getJSONArray("users");
+                    if (users.length() > 0) {
+                        for(int j=0;j<users.length();j++){
+                            WorkerBean workerBean = new WorkerBean();
+                            JSONObject usersobject = new JSONObject(users.get(j).toString());
+                            int userId = usersobject.getInt("userId");
+                            String name = usersobject.getString("name");
+                            String userMailbox = usersobject.getString("userMailbox");
+                            String userPhone = usersobject.getString("userPhone");
+                            String userSex = usersobject.getString("userSex");
+                            String icon = usersobject.getString("icon");
+                            String userJobTitle = usersobject.getString("userJobTitle");
+                            workerBean.setUserJobTitle(userJobTitle);
+                            workerBean.setIcon(icon);
+                            workerBean.setName(name);
+                            workerBean.setUserId(userId);
+                            workerBean.setEamil(userMailbox);
+                            workerBean.setSex(userSex);
+                            workerBean.setUserPhone(userPhone);
+                            workerlist.add(workerBean);
+                        }
+                    }
+                    listBean.setWorkerBeanList(workerlist);
+                    workerbeanlist.add(listBean);
                     if (!subdivisionobject.isNull("subdivision")) {
                         JSONArray subdivisionarray = subdivisionobject.getJSONArray("subdivision");
                         if (subdivisionarray.length() > 0) {
                             getChildBumen(subdivisionarray);
                         }
                     }
-                    JSONArray users = subdivisionobject.getJSONArray("users");
-                    if (users.length() > 0) {
-                        WorkerBean workerBean = new WorkerBean();
-                        JSONObject usersobject = new JSONObject(users.get(i).toString());
-                        int userId = usersobject.getInt("userId");
-                        String name = usersobject.getString("name");
-                        String userMailbox = usersobject.getString("userMailbox");
-                        String userPhone = usersobject.getString("userPhone");
-                        String userSex = usersobject.getString("userSex");
-                        String icon = usersobject.getString("icon");
-                        String userJobTitle = usersobject.getString("userJobTitle");
-                        workerBean.setUserJobTitle(userJobTitle);
-                        workerBean.setIcon(icon);
-                        workerBean.setName(name);
-                        workerBean.setUserId(userId);
-                        workerBean.setEamil(userMailbox);
-                        workerBean.setSex(userSex);
-                        workerBean.setUserPhone(userPhone);
-                        workerlist.add(workerBean);
-                    }
-                    listBean.setWorkerBeanList(workerlist);
-                    workerbeanlist.add(listBean);
                 }
             }
         } catch (JSONException e) {

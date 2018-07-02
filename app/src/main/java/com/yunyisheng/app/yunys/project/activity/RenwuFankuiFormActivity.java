@@ -196,7 +196,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
             RenWuFanKuiDetailBean.RespBodyBean.FeedbackItemBean feedbackItemBean = feedbackItemlist.get(i);
             int id = feedbackItemBean.getFeedbackItemId();
             int type = feedbackItemBean.getFeedbackType();
-            String feedbackVal = feedbackItemBean.getFeedbackVal();
+            String feedbackVal = feedbackItemBean.getFeedbackVal() == null ? "" : feedbackItemBean.getFeedbackVal();
             TextView name = new TextView(this);
             name.setPadding(5, 10, 0, 10);
             name.setText(feedbackItemBean.getFeedbackName());
@@ -404,6 +404,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
             super.handleMessage(msg);
             if (msg.what == 0) {
                 List<Map> l = new ArrayList();
+                boolean checkForm = false;
                 for (int i = 0; i < feedbackItemlist.size(); i++) {
                     Map<String, String> map = new HashMap<>();
                     RenWuFanKuiDetailBean.RespBodyBean.FeedbackItemBean feedbackItemBean = feedbackItemlist.get(i);
@@ -411,9 +412,10 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                     int id = feedbackItemBean.getFeedbackItemId();
                     if (type == 1) {
                         EditText editText = findViewById(id);
-                        if (editText.getText().toString().trim().length() ==0){
-                            ToastUtils.showToast("您还有未填写的填写项");
-                            return;
+                        if (editText.getText().toString().trim().length() > 0){
+//                            ToastUtils.showToast("您还有未填写的填写项");
+//                            return;
+                            checkForm = true;
                         }
                         map.put(kongjianid, id + "");
                         map.put(valuestr, editText.getText().toString().trim());
@@ -426,9 +428,10 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                             String val = r.getText().toString();
                             map.put(valuestr, val);
                             l.add(map);
+                            checkForm = true;
                         } else {
-                            ToastUtils.showToast("您还有未选择的选项");
-                            return;
+//                            ToastUtils.showToast("您还有未选择的选项");
+//                            return;
                         }
                     } else if (type == 3) {
                         List<RenWuFanKuiDetailBean.RespBodyBean.Valueitem> model = feedbackItemBean.getModel();
@@ -446,15 +449,22 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                                 val = val.substring(0, val.length() - 1);
                             map.put(valuestr, val);
                             l.add(map);
+                            checkForm = true;
                         } else {
-                            ToastUtils.showToast("您还有未选择的选项");
-                            return;
+//                            ToastUtils.showToast("您还有未选择的选项");
+//                            return;
                         }
                     }
                 }
-                String str = JSONArray.toJSONString(l);
-                LogUtils.i("gdsgfdsgfg", str);
-                getP().getScheduleDetail(taskid, str);
+                if (checkForm){
+                    String str = JSONArray.toJSONString(l);
+                    LogUtils.i("gdsgfdsgfg", str);
+                    getP().getScheduleDetail(taskid, str);
+                }else {
+                    ToastUtils.showToast("表单需最少填写一项！");
+                    return;
+                }
+
             }
         }
     }

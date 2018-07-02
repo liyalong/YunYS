@@ -197,10 +197,16 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
         lpview.setMargins(0, 10, 0, 0);
         for (int i = 0; i < formalldataBeanList.size(); i++) {
             SeeScheduleDetailBean.RespBodyBean.ForminstanceBean.FormBean.DataBean dataBean = formalldataBeanList.get(i);
-            SeeScheduleDetailBean.RespBodyBean.ForminstanceBean.DataListBean dataListBean = dataList.get(i);
+            String value = "";
+            for (int j=0;j<dataList.size();j++){
+                if (formalldataBeanList.get(i).getId() == dataList.get(j).getFieldId()){
+                    value = dataList.get(j).getValue();
+                    break;
+                }
+            }
             String leipiplugins = dataBean.getLeipiplugins();
             int id = dataBean.getId();
-            String value = dataListBean.getValue();
+
 
             TextView name = new TextView(this);
             name.setPadding(0, 10, 0, 10);
@@ -552,6 +558,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
             try {
                     JSONObject object = new JSONObject();
                     org.json.JSONArray jsonArray = new org.json.JSONArray();
+                    boolean checkForm = false;
                     for (int i = 0; i < alldataBeanList.size(); i++) {
                         ScheduleDetailBean.RespBodyBean.FormBean.DataBean dataBean = alldataBeanList.get(i);
                         String leipiplugins = dataBean.getLeipiplugins();
@@ -559,9 +566,10 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                         if (leipiplugins.equals("text") || leipiplugins.equals("textarea")) {
                             JSONObject jsonObject = new JSONObject();
                             EditText editText = findViewById(id);
-                            if(editText.getText().toString().trim().length() == 0){
-                                ToastUtils.showToast("您还有未填写的填写项");
-                                return;
+                            if(editText.getText().toString().trim().length() > 0){
+//                                ToastUtils.showToast("您还有未填写的填写项");
+//                                return;
+                                checkForm = true;
                             }
                             jsonObject.put(kongjianid, id + "");
                             jsonObject.put(valuestr, editText.getText().toString().trim());
@@ -575,9 +583,10 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                                 String val = r.getText().toString();
                                 jsonObject.put(valuestr, val);
                                 jsonArray.put(jsonObject);
+                                checkForm = true;
                             } else {
-                                ToastUtils.showToast("您还有未选择的选项");
-                                return;
+//                                ToastUtils.showToast("您还有未选择的选项");
+//                                return;
                             }
                         } else if (leipiplugins.equals("checkboxs")) {
                             String valuestring = dataBean.getValue();
@@ -601,9 +610,10 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                                     val = val.substring(0, val.length() - 1);
                                 jsonObject.put(valuestr, val);
                                 jsonArray.put(jsonObject);
+                                checkForm = true;
                             } else {
-                                ToastUtils.showToast("您还有未选择的选项");
-                                return;
+//                                ToastUtils.showToast("您还有未选择的选项");
+//                                return;
                             }
                         } else if (leipiplugins.equals("formImage")) {
                             JSONObject jsonObject = new JSONObject();
@@ -616,11 +626,17 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                             }
                         }
                     }
-                    object.put("uuid", releaseFormId);
-                    object.put("dataList", jsonArray);
-                    String str = object.toString();
-                    LogUtils.i("gdsgfdsgfg", str);
-                    getP().getScheduleDetail(taskId, str);
+                    if (checkForm){
+                        object.put("uuid", releaseFormId);
+                        object.put("dataList", jsonArray);
+                        String str = object.toString();
+                        LogUtils.i("gdsgfdsgfg", str);
+                        getP().getScheduleDetail(taskId, str);
+                    }else {
+                        ToastUtils.showToast("表单需最少填写一项！");
+                        return;
+                    }
+
             } catch (Exception e) {
 
             }
