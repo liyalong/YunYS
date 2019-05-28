@@ -176,11 +176,15 @@ public class HomeFragement extends BaseFragement<HomePresent> {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(NoReadMessageEvent messageEvent) {
         int size = messageEvent.getSize();
-        if (size > 0) {
+        int spNoReadMsg = SharedPref.getInstance(context).getInt("spNoReadMsg",0);
+        if (size > spNoReadMsg) {
+            SharedPref.getInstance(context).putInt("spNoReadMsg",Integer.valueOf(size));
             imgMessage.setBackgroundResource(R.mipmap.red_msg);
             playAudio();
             doVibrator();
-        } else {
+        } else if (size > 0){
+            imgMessage.setBackgroundResource(R.mipmap.red_msg);
+        }else {
             imgMessage.setBackgroundResource(R.mipmap.message);
         }
 

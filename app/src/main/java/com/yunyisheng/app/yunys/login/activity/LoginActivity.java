@@ -24,6 +24,7 @@ import com.yunyisheng.app.yunys.login.model.LoginModel;
 import com.yunyisheng.app.yunys.login.model.UserModel;
 import com.yunyisheng.app.yunys.login.present.LoginPresent;
 import com.yunyisheng.app.yunys.main.service.MessageService;
+import com.yunyisheng.app.yunys.mqtt.MQTTService;
 import com.yunyisheng.app.yunys.utils.AndroidIDUtil;
 import com.yunyisheng.app.yunys.utils.CommonUtils;
 import com.yunyisheng.app.yunys.utils.RegularUtil;
@@ -205,7 +206,6 @@ public class LoginActivity extends BaseActivity<LoginPresent> {
     }
 
     public void toMain() {
-
         Router.newIntent(context)
                 .to(MainActivity.class)
                 .launch();

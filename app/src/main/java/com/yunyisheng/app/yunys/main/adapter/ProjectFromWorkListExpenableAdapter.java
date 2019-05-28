@@ -105,7 +105,13 @@ public class ProjectFromWorkListExpenableAdapter extends BaseExpandableListAdapt
         }else {
             groupViewHolder.viewwhite.setVisibility(View.VISIBLE);
         }
-        groupViewHolder.te_groupname.setText(list.get(groupPosition).getProjectName()+"（"+list.get(groupPosition).getUserList().size()+"人）");
+
+        if (list.get(groupPosition).getUserList() != null){
+            groupViewHolder.te_groupname.setText(list.get(groupPosition).getProjectName()+"（"+list.get(groupPosition).getUserList().size()+"人）");
+        }else {
+            groupViewHolder.te_groupname.setText(list.get(groupPosition).getProjectName()+"（暂无权限查看）");
+        }
+
         if (isExpanded) {
             groupViewHolder.img_zhedie.setImageResource(R.mipmap.downsanjiao);
         } else {

@@ -5,15 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
 import com.yunyisheng.app.yunys.login.model.UserModel;
+import com.yunyisheng.app.yunys.main.service.MessageService;
 import com.yunyisheng.app.yunys.net.Api;
+import com.yunyisheng.app.yunys.utils.AESBelle;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 import com.yunyisheng.app.yunys.utils.TokenHeaderInterceptor;
@@ -57,9 +59,10 @@ public class MQTTService extends Service {
     private MqttConnectOptions conOpt;
 
     //    private String host = "tcp://10.0.2.2:61613";
-    private String host = Api.MQTT_SERVICE_IP;
-    private String userName = "fairyland-server";
-    private String passWord = "yoyosys";
+
+    private String host;
+    private String userName;
+    private String passWord;
     private static String myTopic = "YunYSss";
     private String clientId;
     private MyTopicsModel myTopics;
@@ -69,9 +72,23 @@ public class MQTTService extends Service {
 
     @Override
     public void onCreate() {
+        String token = SharedPref.getInstance(context).getString("TOKEN","");
+        if (token.equals("")){
+            LogUtils.d("token", "token los");
+            return;
+        }
         clientId = String.valueOf(SharedPref.getInstance(context).getInt("userid",0));
+
+        host = AESBelle.decode(getResources().getString(R.string.mqtt_server));
+        userName = AESBelle.decode(getResources().getString(R.string.mqtt_user));
+        passWord = AESBelle.decode(getResources().getString(R.string.mqtt_pass));
+//        host = "tcp://123.127.2.206:1883";
+//        userName = "fairyland-server";
+//        passWord = "yoyosys";
         if (clientId.equals("0")){
             getUserInfo();
+        }else {
+            clientId += System.currentTimeMillis();
         }
         String topics = SharedPref.getInstance(context).getString("myTopics",null);
         if (topics != null && !topics.equals("")){
@@ -81,7 +98,10 @@ public class MQTTService extends Service {
         }
         init();
         super.onCreate();
+
+
     }
+
 
     //获取用户信息
     private void getUserInfo(){
@@ -114,7 +134,7 @@ public class MQTTService extends Service {
                 if (!response.body().toString().equals("")){
                     userModel = gs.fromJson(response.body().string(),UserModel.class);
                     if (userModel.getRespCode() == 0){
-                        clientId = String.valueOf(userModel.getRespBody().getEnterpriseUser().getUserId());
+                        clientId = String.valueOf(userModel.getRespBody().getEnterpriseUser().getUserId())+""+System.currentTimeMillis();
                         SharedPref.getInstance(context).putInt("userid", userModel.getRespBody().getEnterpriseUser().getUserId());
                         SharedPref.getInstance(context).putString("username", userModel.getRespBody().getEnterpriseUser().getUserName());
                         SharedPref.getInstance(context).putString("usersex", userModel.getRespBody().getEnterpriseUser().getUserSex());
@@ -150,37 +170,23 @@ public class MQTTService extends Service {
         client.setCallback(mqttCallback);
 
         conOpt = new MqttConnectOptions();
+        //断开后自动连接
+        conOpt.setAutomaticReconnect(true);
         // 清除缓存
         conOpt.setCleanSession(false);
         // 设置超时时间，单位：秒
         conOpt.setConnectionTimeout(10);
         // 心跳包发送间隔，单位：秒
         conOpt.setKeepAliveInterval(20);
+
+        conOpt.setMaxInflight(100);
         // 用户名
         conOpt.setUserName(userName);
         // 密码
         conOpt.setPassword(passWord.toCharArray());
 
-        // last will message
-        boolean doConnect = true;
-        String message = "{\"terminal_uid\":\"" + clientId + "\"}";
-        String topic = myTopic;
-        Integer qos = 1;
-        Boolean retained = false;
-        if ((!clientId.equals("") && !clientId.equals("0")) || (myTopics != null)) {
-            // 最后的遗嘱
-            try {
-                conOpt.setWill(topic, message.getBytes(), qos.intValue(), retained.booleanValue());
-            } catch (Exception e) {
-                Log.i(TAG, "Exception Occured", e);
-                doConnect = false;
-//                iMqttActionListener.onFailure(null, e);
-            }
-        }
 
-        if (doConnect) {
-            doClientConnection();
-        }
+        doClientConnection();
 
     }
     public void getMyTopics(){
@@ -204,6 +210,9 @@ public class MQTTService extends Service {
                         myTopics = gs.fromJson(response.body().string(),MyTopicsModel.class);
                         if (myTopics.getRespCode() == 3) {
                             ToastUtils.showToast(myTopics.getRespMsg());
+                            SharedPref.getInstance(context).clear();
+                            context.stopService(new Intent(context, MessageService.class));
+                            MQTTService.this.stopSelf();
                             Intent intent = new Intent(context, LoginActivity.class);
                             intent.putExtra("errorlog", myTopics.getRespMsg());
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -223,8 +232,9 @@ public class MQTTService extends Service {
     public void onDestroy() {
         try{
 //            client.disconnect();
-            client.unregisterResources();
             client.close();
+            client.unregisterResources();
+            LogUtils.d("mqttStop","mqtt has destroy");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -260,7 +270,7 @@ public class MQTTService extends Service {
                     if (myTopics.getRespBody().size() > 0){
                         for(int i=0;i<myTopics.getRespBody().size();i++){
                             LogUtils.i("topic----->",myTopics.getRespBody().get(i));
-                            client.subscribe(myTopics.getRespBody().get(i), 1);
+                            client.subscribe(myTopics.getRespBody().get(i), 2);
                         }
                         sub_status = true;
                     }
@@ -275,6 +285,7 @@ public class MQTTService extends Service {
         public void onFailure(IMqttToken arg0, Throwable arg1) {
             arg1.printStackTrace();
             // 连接失败，重连
+//            doClientConnection();
 
 
         }
@@ -285,11 +296,21 @@ public class MQTTService extends Service {
 
         @Override
         public void messageArrived(String topic, MqttMessage message) throws Exception {
-
+            boolean inTopic = false;
+            if (myTopics.getRespBody().size() > 0){
+                for (int i=0;i<myTopics.getRespBody().size();i++){
+                    if (topic.equals(myTopics.getRespBody().get(i))){
+                        inTopic  =  true;
+                        continue;
+                    }
+                }
+            }
             String str1 = new String(message.getPayload());
-            MQTTMessage msg = new MQTTMessage();
-            msg.setMessage(str1);
-            EventBus.getDefault().post(msg);
+            if (inTopic){
+                MQTTMessage msg = new MQTTMessage();
+                msg.setMessage(str1);
+                EventBus.getDefault().post(msg);
+            }
             String str2 = topic + ";qos:" + message.getQos() + ";retained:" + message.isRetained();
             Log.i(TAG, "messageArrived:" + str1);
             Log.i(TAG, str2);
@@ -303,6 +324,8 @@ public class MQTTService extends Service {
         @Override
         public void connectionLost(Throwable arg0) {
             // 失去连接，重连
+            LogUtils.d("lose","aaaaaaaaaa");
+
             return;
         }
     };

@@ -216,6 +216,7 @@ public class SendNoticeActivity extends BaseActivity {
                 if (code == 0) {
                     ToastUtils.showToast("发布成功!");
                     EventBus.getDefault().post(new PositionMessageEvent("updatenotice"));
+                    LoadingDialog.dismiss(SendNoticeActivity.this);
                     finish();
                 } else {
                     ToastUtils.showToast("发布失败!");

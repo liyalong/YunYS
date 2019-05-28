@@ -391,6 +391,8 @@ public class DeviceCycleTaskFargment extends BaseFragement<DeviceCycleTaskPresen
             cycleSelectUserName = selectUsers.get(0).getUserName();
             cycleSelectUserId = String.valueOf(selectUsers.get(0).getUserId());
             selectCycleAssignUsers.setText(cycleSelectUserName);
+        }else {
+            selectCycleAssignUsers.setText("选择分配人员列表");
         }
         cycleTaskDesc.setText(cycleTask.getCycletaskRemark());
 

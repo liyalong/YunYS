@@ -409,7 +409,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                 EditText editText = new EditText(this);
                 editText.setId(id);
                 if (dataBean.getOrgtype() != null && dataBean.getOrgtype().equals("float")){
-                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
                 }
                 editText.setTextColor(getResources().getColor(R.color.color_333));
                 editText.setTextSize(14);
@@ -623,6 +623,7 @@ public class DynamicFormActivity extends BaseActivity<ScheduleDetailPresent> {
                                 jsonObject.put(valuestr, imageurl);
                                 jsonArray.put(jsonObject);
                                 imageurlsize++;
+                                checkForm = true;
                             }
                         }
                     }

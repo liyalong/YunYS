@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.yunyisheng.app.yunys.utils.ActivityManager;
+import com.yunyisheng.app.yunys.utils.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.List;

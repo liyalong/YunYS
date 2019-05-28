@@ -1,10 +1,13 @@
 package com.yunyisheng.app.yunys.login.present;
 
 
+import android.util.Log;
+
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.activity.RetrievePassword;
 import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.net.Api;
+import com.yunyisheng.app.yunys.userset.model.MySourceModel;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
 import cn.droidlover.xdroidmvp.log.XLog;
@@ -41,8 +44,8 @@ public class RetrievePasswordPresent extends XPresent<RetrievePassword> {
 
     }
 
-    public void changePassword(final String phone, String code, final String password) {
-        Api.userService().changePassword(phone,code,password)
+    public void changePassword(final String phone, String code, final String password,String key) {
+        Api.userService().changePassword(phone,code,password,2,key)
                 .compose(XApi.<BaseStatusModel>getApiTransformer())
                 .compose(XApi.<BaseStatusModel>getScheduler())
                 .compose(getV().<BaseStatusModel>bindToLifecycle())
@@ -58,4 +61,22 @@ public class RetrievePasswordPresent extends XPresent<RetrievePassword> {
                     }
                 });
     }
+    public void getSource(){
+        Api.userSetService().getSource(2)
+                .compose(XApi.<MySourceModel>getApiTransformer())
+                .compose((XApi.<MySourceModel>getScheduler()))
+                .compose(getV().<MySourceModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<MySourceModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        Log.i("ERROR", error.toString());
+                    }
+
+                    @Override
+                    public void onNext(MySourceModel mySourceModel) {
+                        getV().getSource(mySourceModel);
+                    }
+                });
+    }
+
 }

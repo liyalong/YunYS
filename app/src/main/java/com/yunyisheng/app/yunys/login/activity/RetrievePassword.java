@@ -11,6 +11,8 @@ import com.yunyisheng.app.yunys.R;
 import com.yunyisheng.app.yunys.base.BaseActivity;
 import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.login.present.RetrievePasswordPresent;
+import com.yunyisheng.app.yunys.userset.model.MySourceModel;
+import com.yunyisheng.app.yunys.utils.AESPassword;
 import com.yunyisheng.app.yunys.utils.RegularUtil;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
@@ -39,6 +41,10 @@ public class RetrievePassword extends BaseActivity<RetrievePasswordPresent> {
     TextView register;
     @BindView(R.id.login)
     TextView login;
+
+    private String phone;
+    private String code;
+    private String passwordValue;
 
     @Override
     public void initView() {
@@ -127,7 +133,11 @@ public class RetrievePassword extends BaseActivity<RetrievePasswordPresent> {
             ToastUtils.showToast("两次密码输入不一致！请重新输入！");
             return;
         }
-        getP().changePassword(phone,code,passwordValue);
+        this.phone = phone;
+        this.code = code;
+        this.passwordValue = passwordValue;
+        getP().getSource();
+//        getP().changePassword(phone,code,passwordValue);
 
     }
 
@@ -182,5 +192,12 @@ public class RetrievePassword extends BaseActivity<RetrievePasswordPresent> {
             toLogin();
             return;
         }
+    }
+    public void getSource(MySourceModel mySourceModel){
+        String key = mySourceModel.getRespMsg();
+        String salt = mySourceModel.getRespBody();
+        passwordValue = AESPassword.passwordEncryption(passwordValue,salt);
+        getP().changePassword(phone,code,passwordValue,key);
+
     }
 }

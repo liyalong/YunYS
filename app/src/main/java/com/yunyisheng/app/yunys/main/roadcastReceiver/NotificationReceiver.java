@@ -125,7 +125,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                                     intent1 = new Intent(context,MessageActivity.class);
                                     break;
                             }
-                            EventBus.getDefault().post(new NoReadMessageEvent(0));
+//                            EventBus.getDefault().post(new NoReadMessageEvent(0));
                             intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(intent1);
                         }

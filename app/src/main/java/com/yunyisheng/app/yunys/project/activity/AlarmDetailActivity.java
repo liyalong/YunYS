@@ -57,6 +57,8 @@ public class AlarmDetailActivity extends BaseActivity<AlarmDetailPresent> {
     TextView alarmUpdateTime;
     @BindView(R.id.alarm_history_desc)
     TextView alarmHistoryDesc;
+    @BindView(R.id.chart_data)
+    LinearLayout chartData;
     @BindView(R.id.chart_web)
     WebView chartWeb;
     @BindView(R.id.no_chart_data)
@@ -118,7 +120,7 @@ public class AlarmDetailActivity extends BaseActivity<AlarmDetailPresent> {
 
             if (detail.getAlarmType() == 1){
                 alarmHistoryType.setText(R.string.alarm_history_type_1);
-            }else if (detail.getAlarmType() == 4){
+            }else if (detail.getAlarmType() == 2){
                 alarmHistoryType.setText(R.string.alarm_history_type_2);
             }else {
                 alarmHistoryType.setText(R.string.alarm_history_type_3);
@@ -172,9 +174,9 @@ public class AlarmDetailActivity extends BaseActivity<AlarmDetailPresent> {
                     return true;
                 }
             });
-            if (detail.getEquList() != null && detail.getEquList().size() > 0){
+            if (detail.getAlarmType() != 4 && detail.getEquList() != null && detail.getEquList().size() > 0){
                 noChartData.setVisibility(View.GONE);
-                chartWeb.setVisibility(View.VISIBLE);
+                chartData.setVisibility(View.VISIBLE);
 
                 AlarmChartUpdataBean updataBean = new AlarmChartUpdataBean();
                 updataBean.setOpenTime(detail.getAlarmCreateDate());
@@ -213,7 +215,7 @@ public class AlarmDetailActivity extends BaseActivity<AlarmDetailPresent> {
                     }
                 });
             }else {
-                chartWeb.setVisibility(View.GONE);
+                chartData.setVisibility(View.GONE);
                 noChartData.setVisibility(View.VISIBLE);
             }
         }catch (Exception e){

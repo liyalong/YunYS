@@ -94,7 +94,6 @@
         <activity
             android:name=".login.activity.WelcomeActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -111,6 +110,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
+            android:launchMode="singleInstance"
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -182,14 +182,18 @@
         <activity
             android:name=".tasks.activity.CreateDeviceTaskAcitvity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            />
         <activity
             android:name=".tasks.activity.CreateNoneDeviceTaskAcitvity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.ProjectTemplateActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.SelectProjectActivity"
@@ -201,6 +205,7 @@
         <activity
             android:name=".tasks.activity.CronResultActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".userset.activity.ChangeInformationActivity"
@@ -247,6 +252,7 @@
         <activity
             android:name=".main.activity.ProjectFromWorkActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".project.activity.KnowledgeDetailActivity"
@@ -257,10 +263,12 @@
         <activity
             android:name=".project.activity.DynamicFormActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".userset.activity.FanKuiActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".project.activity.TaskDetailActivity"
@@ -269,6 +277,7 @@
         <activity
             android:name=".project.activity.RenwuFankuiFormActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.MyPushTaskChildListActivity"
@@ -279,6 +288,7 @@
         <activity
             android:name=".tasks.activity.SelectProjectDeviceActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".tasks.activity.SelectProjectForm"
@@ -292,6 +302,7 @@
         <activity
             android:name=".tasks.activity.ProcessTaskFormActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".project.activity.PLCDetailActivity"

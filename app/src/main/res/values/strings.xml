@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">云依生</string>
+    <string name="app_name">云依生工业互联网App平台</string>
     <string name="bottom_bar_index">首页</string>
     <string name="bottom_bar_project">项目</string>
     <string name="bottom_bar_task">任务</string>
@@ -46,7 +46,7 @@
     <string name="search">搜索</string>
     <string name="next">下一步</string>
     <string name="noticetitle">*公告标题</string>
-    <string name="fujian">*附件</string>
+    <string name="fujian">附件</string>
     <string name="senfrange">*发布范围</string>
     <string name="noticedeatil">*公告内容</string>
     <string name="noticedeatils">公告详情</string>
@@ -231,7 +231,9 @@
     <string name="task_cycle_time">*执行周期</string>
     <string name="task_used_time">*执行时长</string>
     <string name="task_status">正常/禁用</string>
-    <string name="task_desc">备注</string>
+    <string name="task_desc">*备注</string>
+    <string name="task_back_detail_1">*任务反馈项</string>
+    <string name="task_back_detail_form_1">*任务反馈表单</string>
     <string name="task_back_detail">任务反馈项</string>
     <string name="task_back_detail_form">任务反馈表单</string>
     <string name="task_flow">审批任务</string>
@@ -335,4 +337,7 @@
     <string name="my_push_task_child_title">任务执行详情</string>
     <string name="my_push_task_child_list">任务详情列表</string>
     <string name="title_activity_plcdetail">PLCdetailActivity</string>
+    <string name="mqtt_server">890BF4EC0164B9A5E0BEF70581E4E6BB9E4C2F07049A4978D8EC6FA2813ADF81</string>
+    <string name="mqtt_user">88D8428A9665C0B436B1438FD1C36B8D200B2142ADD5F1525C6B6160F906B262</string>
+    <string name="mqtt_pass">58BECBFA4455495F5CFE2F90E03FC134</string>
 </resources>

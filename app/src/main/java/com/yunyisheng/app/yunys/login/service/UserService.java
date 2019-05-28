@@ -3,6 +3,7 @@ package com.yunyisheng.app.yunys.login.service;
 import com.yunyisheng.app.yunys.base.BaseStatusModel;
 import com.yunyisheng.app.yunys.login.model.LoginModel;
 import com.yunyisheng.app.yunys.login.model.WelcomePageBean;
+import com.yunyisheng.app.yunys.userset.model.MySourceModel;
 
 import io.reactivex.Flowable;
 import retrofit2.http.Field;
@@ -39,12 +40,20 @@ public interface UserService {
     @POST("system/update/enterprirUser/feorget/password")
     Flowable<BaseStatusModel> changePassword(@Field("userName") String phone,
                                                    @Field("authCode") String code,
-                                                   @Field("newPassword") String password);
+                                                   @Field("newPassword") String password,
+                                             @Field("type")  int type,
+                                             @Field("key") String key);
 
     /**
      * 获取欢迎页
      */
     @POST("enterprise/companysApp")
     Flowable<WelcomePageBean> getWelcomePage();
+    /**
+     * 获取随机数
+     * @return
+     */
+    @POST("system/source")
+    Flowable<MySourceModel> getSource(@Field("type") Integer type);
 
 }

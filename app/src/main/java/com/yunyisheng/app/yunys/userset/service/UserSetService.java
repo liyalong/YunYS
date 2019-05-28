@@ -2,6 +2,7 @@ package com.yunyisheng.app.yunys.userset.service;
 
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.userset.model.CompanyBean;
+import com.yunyisheng.app.yunys.userset.model.MySourceModel;
 
 import io.reactivex.Flowable;
 import okhttp3.RequestBody;
@@ -29,7 +30,9 @@ public interface UserSetService {
     @FormUrlEncoded
     @POST("system/update/enterprirUser/password")
     Flowable<BaseModel> upDatepassword(@Field("oldPassword") String oldPassword,
-                                       @Field("newPassword") String newPassword);
+                                       @Field("newPassword") String newPassword,
+                                       @Field("type") Integer type,
+                                       @Field("key") String key);
 
     /**
      * @author fuduo
@@ -98,4 +101,12 @@ public interface UserSetService {
     @POST("system/update/enterprirUser/userPhone")
     Flowable<BaseModel> chengPhone(@Field("authCode") String authCode,
                                    @Field("newPhone") String newPhone);
+
+    /**
+     * 获取随机数
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("system/source")
+    Flowable<MySourceModel> getSource(@Field("type") int type);
 }

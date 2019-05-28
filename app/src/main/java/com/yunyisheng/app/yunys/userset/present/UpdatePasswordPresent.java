@@ -5,6 +5,7 @@ import android.util.Log;
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.userset.activity.MimaManagerActivity;
+import com.yunyisheng.app.yunys.userset.model.MySourceModel;
 import com.yunyisheng.app.yunys.utils.LoadingDialog;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
 
@@ -26,9 +27,9 @@ public class UpdatePasswordPresent extends XPresent<MimaManagerActivity> {
      * @time 2018/2/2  16:07
      * @describe 修改密码
      */
-    public void updatePassword(String oldpassword, String newpassword) {
+    public void updatePassword(String oldpassword, String newpassword,String key) {
         LoadingDialog.show(getV());
-        Api.userSetService().upDatepassword(oldpassword, newpassword)
+        Api.userSetService().upDatepassword(oldpassword, newpassword,2,key)
                 .compose(XApi.<BaseModel>getApiTransformer()) //统一异常处理
                 .compose(XApi.<BaseModel>getScheduler()) //线程调度
                 .compose(getV().<BaseModel>bindToLifecycle()) //内存泄漏处理
@@ -44,6 +45,23 @@ public class UpdatePasswordPresent extends XPresent<MimaManagerActivity> {
                     public void onNext(BaseModel baseModel) {
                         LoadingDialog.dismiss(getV());
                         getV().checkIssuccess(baseModel);
+                    }
+                });
+    }
+    public void getSource(int type){
+        Api.userSetService().getSource(type)
+                .compose(XApi.<MySourceModel>getApiTransformer())
+                .compose((XApi.<MySourceModel>getScheduler()))
+                .compose(getV().<MySourceModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<MySourceModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        Log.i("ERROR", error.toString());
+                    }
+
+                    @Override
+                    public void onNext(MySourceModel mySourceModel) {
+                        getV().getSource(mySourceModel);
                     }
                 });
     }

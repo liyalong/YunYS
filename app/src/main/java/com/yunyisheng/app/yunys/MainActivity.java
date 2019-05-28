@@ -140,6 +140,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
 
     @Override
     public void initView() {
+
         msgId = getIntent().getIntExtra("msgId",0);
 //        setSwipeEnabled(false);
         systemModel = getSystemModel();
@@ -155,6 +156,10 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction("action");
             registerReceiver(receiver, intentFilter);
+        }
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+            finish();
+            return;
         }
         rbCenter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -295,7 +300,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
             mqttmsg = gs.fromJson(msg,MessageBean.RespBodyBean.class);
             if (mqttmsg.getMessageType().equals("8")){
                 //如果状态为8，则清空sp缓存，停止当前mqttservice，并重启mqttservice
-                SharedPref.getInstance(context).putString("myTopics",null);
+                SharedPref.getInstance(context).remove("myTopics");
                 Intent intent = new Intent(this,MQTTService.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     context.stopService(intent);
@@ -310,7 +315,7 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
             } else {
                 setNotification(mqttmsg);
             }
-            EventBus.getDefault().post(new NoReadMessageEvent(1));
+//            EventBus.getDefault().post(new NoReadMessageEvent(1));
         }else {
             ToastUtils.showToast("返回数据格式错误！");
         }
@@ -430,7 +435,9 @@ public class MainActivity extends BaseActivity implements XRadioGroup.OnCheckedC
     public void initAfter() {
         try{
             Intent intent = new Intent(MainActivity.this, MessageService.class);
-            startService(intent);
+            if (intent != null){
+                startService(intent);
+            }
             Intent mqttIntent = new Intent(this, MQTTService.class);
             if (mqttIntent != null){
                 startService(mqttIntent);

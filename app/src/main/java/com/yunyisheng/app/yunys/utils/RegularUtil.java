@@ -12,7 +12,7 @@ public class RegularUtil {
     //验证邮箱
     public static final String REGEX_EMAIL = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
     //手机号
-    public static final String REGEX_PHONE = "0?(13|14|15|17|18)[0-9]{9}";
+    public static final String REGEX_PHONE = "0?(13|14|15|16|17|18|19)[0-9]{9}";
     //汉字
     public static final String REGEX_TRUENAME = "^[\\u4e00-\\u9fa5]*$";
     //银行卡

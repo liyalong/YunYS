@@ -1,5 +1,7 @@
 package com.yunyisheng.app.yunys.net;
 
+import android.content.Context;
+
 import com.yunyisheng.app.yunys.login.service.CompanyService;
 import com.yunyisheng.app.yunys.login.service.ShortMessageService;
 import com.yunyisheng.app.yunys.login.service.UserService;
@@ -18,10 +20,12 @@ import cn.droidlover.xdroidmvp.net.XApi;
 public class Api {
     //192.168.2.208   172.16.160.67 172.16.26.86 192.168.2.205  123.127.2.206
 //    public static final String BASE_PATH = "http://123.127.2.206:8080/fairyland-system/";
-    public static final String MQTT_SERVICE_IP = "tcp://123.127.2.206:1883";
 
-    public static final String hostIp = "123.127.2.206";
-    public static final String BASE_PATH = "http://"+hostIp+":8080/fairyland-system/";
+//    public static final String hostIp = "172.16.150.151";
+    public static String BASE_PATH = "http://www.fairy-service.com.cn/fairyland-system/";
+//    public static String BASE_PATH = "http://172.16.160.133:8080/fairyland-system/";
+//    public static String BASE_PATH;
+    private Context context;
     private static UserService userService;
     private static ShortMessageService shortMessageService;
     private static CompanyService companyService;
@@ -30,6 +34,10 @@ public class Api {
     private static HomeService homeService;
     private static TaskService taskService;
     private static ScheduleService scheduleService;
+
+//    private void  Api(){
+//        BASE_PATH = context.getResources().getString(R.string.service_ip);
+//    }
 
     public static UserService userService(){
         if(userService == null){

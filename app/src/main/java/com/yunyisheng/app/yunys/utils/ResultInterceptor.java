@@ -2,13 +2,17 @@ package com.yunyisheng.app.yunys.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 
 import com.google.gson.Gson;
 import com.yunyisheng.app.yunys.base.BaseModel;
 import com.yunyisheng.app.yunys.login.activity.LoginActivity;
+import com.yunyisheng.app.yunys.main.service.MessageService;
+import com.yunyisheng.app.yunys.mqtt.MQTTService;
 
 import java.io.IOException;
 
+import cn.droidlover.xdroidbase.cache.SharedPref;
 import cn.droidlover.xdroidmvp.router.Router;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -55,6 +59,10 @@ public class ResultInterceptor implements Interceptor {
                                     .putString("errorlog",baseModel.getRespMsg())
                                     .to(LoginActivity.class)
                                     .launch();
+                            SharedPref.getInstance(context).clear();
+                            context.stopService(new Intent(context, MQTTService.class));
+                            context.stopService(new Intent(context, MessageService.class));
+                            ((Activity) context).finish();
 
                         }
                         body = ResponseBody.create(mediaType, json);

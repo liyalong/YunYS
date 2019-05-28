@@ -164,7 +164,7 @@
             <EditText
                 android:id="@+id/task_desc"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/distance_60"
+                android:layout_height="@dimen/distance_120"
                 android:layout_weight="1"
                 android:hint="@string/task_desc"
                 android:textColorHint="@color/color_666"
@@ -206,7 +206,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/distance_50"
                 android:layout_weight="1"
-                android:text="@string/task_back_detail"
+                android:text="@string/task_back_detail_1"
                 android:textColor="@color/color_333"
                 android:textSize="@dimen/distance_14"
                 android:gravity="center|left"/>

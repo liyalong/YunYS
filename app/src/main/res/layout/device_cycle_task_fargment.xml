@@ -274,7 +274,7 @@
             <EditText
                 android:id="@+id/cycle_task_desc"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/distance_80"
+                android:layout_height="@dimen/distance_120"
                 android:layout_weight="1"
                 android:gravity="top|left"
                 android:hint="@string/task_desc"
@@ -315,7 +315,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/task_back_detail"
+                android:text="@string/task_back_detail_1"
                 android:textColor="@color/color_333"
                 android:textSize="@dimen/distance_14"
                 android:paddingVertical="@dimen/distance_18"/>

@@ -125,9 +125,10 @@ public class RadioSelectUserActivity extends BaseActivity<RadioSelectUserPresent
             dataList.add(userBean);
             List<ProjectUserBean> checkUserLists = new ArrayList<>();
             for (int i=0;i<projectUserListModel.getRespBody().size();i++){
-                if (thisUserid != projectUserListModel.getRespBody().get(i).getUserId()){
+                //去掉过滤选择人员时过滤当前登陆者
+//                if (thisUserid != projectUserListModel.getRespBody().get(i).getUserId()){
                     checkUserLists.add(projectUserListModel.getRespBody().get(i));
-                }
+//                }
             }
             dataList.addAll(checkUserLists);
             adapter = new RadioSelectUserAdapter(context,dataList,selectUserId);

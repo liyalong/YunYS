@@ -42,8 +42,10 @@ public class AlarmListAdapter extends SimpleListAdapter<DeviceWarningBean, Alarm
 
         if (item.getAlarmType() == 1){
             holder.alarmHistoryType.setText(R.string.alarm_history_type_1);
-        }else {
+        }else if (item.getAlarmType() == 2){
             holder.alarmHistoryType.setText(R.string.alarm_history_type_2);
+        }else {
+            holder.alarmHistoryType.setText(R.string.alarm_history_type_3);
         }
         if (item.getAlarmRemark() != null){
             holder.alarmHistoryDesc.setText(item.getAlarmRemark());

@@ -93,6 +93,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
     private int seetype;
     private ImageView image;
     private LinearLayout.LayoutParams bigimgview;
+    private Boolean updateImgFlag = false;
 
     @Override
     public void initView() {
@@ -454,6 +455,10 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
 //                            ToastUtils.showToast("您还有未选择的选项");
 //                            return;
                         }
+                    }else if (type == 4){
+                        if (updateImgFlag){
+                            checkForm = true;
+                        }
                     }
                 }
                 if (checkForm){
@@ -461,7 +466,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                     LogUtils.i("gdsgfdsgfg", str);
                     getP().getScheduleDetail(taskid, str);
                 }else {
-                    ToastUtils.showToast("表单需最少填写一项！");
+                    ToastUtils.showToast("请按任务要求完成提交！");
                     return;
                 }
 
@@ -511,6 +516,7 @@ public class RenwuFankuiFormActivity extends BaseActivity<RenwuFankuiDetailPrese
                     @Override
                     public void onSuccess(File file) {
                         putPic(file);
+                        updateImgFlag = true;
                     }
 
                     @Override

@@ -18,6 +18,7 @@ import com.yunyisheng.app.yunys.main.model.NoReadMessage;
 import com.yunyisheng.app.yunys.main.model.NoReadMessageEvent;
 import com.yunyisheng.app.yunys.main.model.WarningMessageEvent;
 import com.yunyisheng.app.yunys.main.model.WarnningMessageBean;
+import com.yunyisheng.app.yunys.mqtt.MQTTService;
 import com.yunyisheng.app.yunys.net.Api;
 import com.yunyisheng.app.yunys.utils.LogUtils;
 import com.yunyisheng.app.yunys.utils.ToastUtils;
@@ -33,6 +34,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.yunyisheng.app.yunys.App.context;
 import static com.yunyisheng.app.yunys.utils.CommonUtils.NETWORKTYPE_INVALID;
 import static com.yunyisheng.app.yunys.utils.CommonUtils.getNetWorkType;
 
@@ -144,7 +146,7 @@ public class MessageService extends Service {
             return;
         }
         readWarning();
-//        readNoRead();
+        readNoRead();
     }
 
     private void readNoRead() {
@@ -167,20 +169,24 @@ public class MessageService extends Service {
                         LogUtils.i("servicehflkdh", body.getRespCode() + "");
                         if (body.getRespCode() == 3) {
                             ToastUtils.showToast(body.getRespMsg());
+                            SharedPref.getInstance(context).clear();
                             Intent intent = new Intent(MessageService.this, LoginActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtra("errorlog", body.getRespMsg());
                             startActivity(intent);
+
                         } else {
                             NoReadMessage.RespBodyBean respBody = body.getRespBody();
                             if (respBody != null) {
-                                if (respBody.getMids() != null && respBody.getMids().size() > 0) {
+                                if (respBody.getMids() != null) {
                                     int size = respBody.getMids().size();
                                     if (allsize >= size) {
+
                                     } else {
                                         allsize = size;
-                                        EventBus.getDefault().post(new NoReadMessageEvent(size));
+
                                     }
+                                    EventBus.getDefault().post(new NoReadMessageEvent(size));
                                 }
                             }
                         }
@@ -216,21 +222,19 @@ public class MessageService extends Service {
                     int respBody = body.getRespBody();
                     if (body.getRespCode() == 3) {
                         ToastUtils.showToast(body.getRespMsg());
+                        SharedPref.getInstance(context).clear();
                         Intent intent = new Intent(MessageService.this, LoginActivity.class);
                         intent.putExtra("errorlog", body.getRespMsg());
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
+
                     } else {
                         if (respBody > 0) {
-                            if (wanringsize == respBody) {
-
-                            } else {
                                 wanringsize = respBody;
                                 doVibrator();
                                 playAudio();
-                                EventBus.getDefault().post(new WarningMessageEvent(respBody));
-                            }
                         }
+                        EventBus.getDefault().post(new WarningMessageEvent(respBody));
 
                     }
                 } catch (Exception e) {

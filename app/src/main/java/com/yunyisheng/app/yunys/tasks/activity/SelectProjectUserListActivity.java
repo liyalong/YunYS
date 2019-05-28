@@ -95,14 +95,14 @@ public class SelectProjectUserListActivity extends BaseActivity<ProjectUserListP
             dataList.clear();
             List<ProjectUserBean> checkUserLists = new ArrayList<>();
             for (int i=0;i<projectUserListModel.getRespBody().size();i++){
-                if (thisUserid != projectUserListModel.getRespBody().get(i).getUserId()){
+//                if (thisUserid != projectUserListModel.getRespBody().get(i).getUserId()){
                     for(int j=0;j<selectedUsers.size();j++){
                         if (projectUserListModel.getRespBody().get(i).getUserId() == selectedUsers.get(j).getUserId()){
                             projectUserListModel.getRespBody().get(i).setCheck(true);
                         }
                     }
                     checkUserLists.add(projectUserListModel.getRespBody().get(i));
-                }
+//                }
             }
             dataList.addAll(checkUserLists);
             adapter = new ProjectUserListAdapter(context,dataList);

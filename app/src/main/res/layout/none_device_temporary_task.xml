@@ -153,7 +153,7 @@
             <EditText
                 android:id="@+id/tasks_desc"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/distance_80"
+                android:layout_height="@dimen/distance_120"
                 android:layout_weight="1"
                 android:hint="@string/task_desc"
                 android:textColor="@color/color_333"
@@ -195,7 +195,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/distance_45"
                 android:layout_weight="1"
-                android:text="@string/task_back_detail_form"
+                android:text="@string/task_back_detail_1"
                 android:textColor="@color/color_333"
                 android:textSize="@dimen/distance_14"
                 android:gravity="center|left"/>
