@@ -70,7 +70,7 @@ public class ModelListFragment extends BaseFragement<ModelListPresent> {
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                PAGE_SIZE += 1;
+                PAGE_NUM += 1;
                 getP().getModelList(projectId, PAGE_NUM, PAGE_SIZE);
             }
         });
